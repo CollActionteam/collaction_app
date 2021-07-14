@@ -6,8 +6,13 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Steps to take:
+- [Install Flutter](https://flutter.dev/docs/get-started/install)
+- [Set up an editor, e.g. Android Studio](https://flutter.dev/docs/get-started/editor?tab=androidstudio)
+- In opening screen Android Studio, select Get from Version Control to make repo clone
+- Run main.dart in lib folder
 
+A few resources to get you started if this is your first Flutter project:
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
