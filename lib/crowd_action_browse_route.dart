@@ -5,6 +5,7 @@ import 'utilities.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+/// Route for the user to browse available Collactions.
 class CrowdActionBrowseRoute extends StatefulWidget {
   const CrowdActionBrowseRoute({Key? key}) : super(key: key);
 
@@ -18,9 +19,7 @@ class _CrowdActionBrowseRouteState extends State<CrowdActionBrowseRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-      ),
+      appBar: AppBar(),
       body: FutureBuilder<Object>(
         future: API.fetchCrowdActions(),
         builder: (context, snapshot) {
@@ -37,7 +36,7 @@ class _CrowdActionBrowseRouteState extends State<CrowdActionBrowseRoute> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Utilities.launchScreen(
+                    Utilities.launchRoute(
                       context,
                       CrowdActionDetailsRoute(model: model),
                     );

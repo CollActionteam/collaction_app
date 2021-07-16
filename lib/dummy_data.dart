@@ -28,6 +28,14 @@ class DummyData {
       numParticipants: 11,
       participantsGoal: 100,
     ),
+    CrowdActionModel(
+      title: "Plasticdieet",
+      subtitle: 'Als 30 mensen toezeggen om een maand lang geen plastic wegwerpproducten en plastic verpakkingen te gebruiken, dan doen we allemaal een maandje (juli) zonder!',
+      tags: ['Environment'],
+      description: "Een maand zonder plastic wegwerpproducten en plastic verpakkingen: het klinkt onmogelijk of onaantrekkelijk, maar het Plasticdieet bewijst het tegendeel. Want wees nou eerlijk, heb je echt dat plastic flesje water of dat plastic roerstaafje voor je koffie nodig?",
+      numParticipants: 30,
+      participantsGoal: 30,
+    ),
   ];
 
   static final List<String> moreDummyTitles = [

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+/// This class contains general static utility methods used throughout the
+/// app.
 class Utilities {
-  static void launchScreen(BuildContext context, Widget screen) {
+  
+  /// Launches a [Route] on top of the navigation stack.
+  static void launchRoute(BuildContext context, Widget screen) {
     Navigator.push(
       context,
       MaterialPageRoute(

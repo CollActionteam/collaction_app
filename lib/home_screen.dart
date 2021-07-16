@@ -11,7 +11,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Welcome to CollAction'),
-        backgroundColor: Color(0xff23d884),
       ),
       body: Center(
         child: Column(
@@ -20,7 +19,7 @@ class HomeScreen extends StatelessWidget {
             Text('Hello user!'),
             ElevatedButton(
               onPressed: () {
-                Utilities.launchScreen(context, CrowdActionBrowseRoute());
+                Utilities.launchRoute(context, CrowdActionBrowseRoute());
               },
               child: Text('Browse actions'),
             ),

@@ -1,6 +1,7 @@
 import 'package:collaction_app/models/crowd_action_model.dart';
 import 'package:flutter/material.dart';
 
+/// Route displaying more information of a specific selected Collaction
 class CrowdActionDetailsRoute extends StatefulWidget {
   final CrowdActionModel model;
 
