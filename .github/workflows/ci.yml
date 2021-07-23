@@ -15,7 +15,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [development]
   pull_request:
     types: [opened, synchronize]
     
@@ -71,7 +71,7 @@ jobs:
       run: flutter test -r expanded .
 
   build:
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
     runs-on: ubuntu-latest
     timeout-minutes: 5
