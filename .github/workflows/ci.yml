@@ -1,0 +1,103 @@
+# ==================================================
+# This is the main worflow for testing and building
+# the app.
+#   The following is not yet implemented:
+#    - Builds for different environments (test/prod)
+#    - Building an iOS app
+#    - Building a release version on master
+#    - Distributing apps to testers
+#      (Firebase app distribution or TestFlight)
+#    - Building a release version on master
+#    - Signing and Deployment to the stores
+# ==================================================
+
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    types: [opened, synchronize]
+    
+env:
+  flutter_version: '2.2.x'
+  flutter_channel: 'stable'
+  java_version: '12.x'
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: Fetch code from repository
+      uses: actions/checkout@v2
+    - name: Cache Flutter install
+      uses: actions/cache@v2
+      with:
+        path: /opt/hostedtoolcache/flutter
+        key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
+    - name: Setup the Flutter environment
+      uses: subosito/flutter-action@v1
+      with:
+        channel: ${{ env.flutter_channel }}
+        flutter-version: ${{ env.flutter_version }}
+    - name: Get Flutter dependencies
+      run: flutter pub get .
+    - name: Check for any formatting issues
+      run: flutter format --dry-run --set-exit-if-changed .
+    - name: Statically analyze the Dart code
+      run: flutter analyze .
+
+  test:
+    needs: [analyze]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: Fetch code from repository
+      uses: actions/checkout@v2
+    - name: Cache Flutter install
+      uses: actions/cache@v2
+      with:
+        path: /opt/hostedtoolcache/flutter
+        key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
+    - name: Setup the Flutter environment
+      uses: subosito/flutter-action@v1
+      with:
+        channel: ${{ env.flutter_channel }}
+        flutter-version: ${{ env.flutter_version }}
+    - name: Get Flutter dependencies
+      run: flutter pub get .
+    - name: Run unit and widget tests.
+      run: flutter test -r expanded .
+
+  build:
+    if: ${{ github.ref == 'refs/heads/master' }}
+    needs: [test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: Fetch code from repository
+      uses: actions/checkout@v2
+    - name: Setup Java for Android
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ env.java_version }}
+    - name: Cache Flutter install
+      uses: actions/cache@v2
+      with:
+        path: /opt/hostedtoolcache/flutter
+        key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
+    - name: Setup the Flutter environment
+      uses: subosito/flutter-action@v1
+      with:
+        channel: ${{ env.flutter_channel }}
+        flutter-version: ${{ env.flutter_version }}
+    - name: Get Flutter dependencies
+      run: flutter pub get .
+    - name: Build debug apk
+      run: flutter build apk --debug --build-number $GITHUB_RUN_NUMBER 
+    - name: Upload generated apk to the artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-debug
+        path: build/app/outputs/flutter-apk/app-debug.apk
