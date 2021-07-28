@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'crowd_action_browse_route.dart';
+import 'contact_form.dart';
 import 'utilities.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text('Hello user!'),
             ElevatedButton(
@@ -23,6 +24,11 @@ class HomeScreen extends StatelessWidget {
               },
               child: Text('Browse actions'),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  Utilities.launchRoute(context, ContactForm());
+                },
+                child: Text('Give feedback or start crowd action'))
           ],
         ),
       ),
