@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 // Create a Form widget.
 class ContactForm extends StatefulWidget {
@@ -41,6 +42,9 @@ class ContactFormState extends State<ContactForm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email address';
+                    }
+                    if (!EmailValidator.validate(value)) {
+                      return 'Please enter a valid email address';
                     }
                     return null;
                   },
