@@ -25,14 +25,14 @@ class ContactFormState extends State<ContactForm> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: const Text("Contact form")),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFormField(
+                 TextFormField(
                   decoration: const InputDecoration(
                     icon: Icon(Icons.alternate_email),
                     hintText: 'example@mail.com',
