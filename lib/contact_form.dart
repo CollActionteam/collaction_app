@@ -65,7 +65,7 @@ request for starting a crowd action''',
                   // The validator receives the text that the user has entered.
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your feedback ';
+                      return 'Please enter your feedback';
                     }
                     return null;
                   },

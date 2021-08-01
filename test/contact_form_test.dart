@@ -44,5 +44,21 @@ void main() {
 
      expect(find.text('Processing data'), findsOneWidget);
 
-  });
+   });
+
+   testWidgets('Form requires email and feedback', (WidgetTester tester) async {
+     // Build app and contact form
+     await tester.pumpWidget(MyApp());
+     await tester.tap(find.text('Give feedback or start crowd action'));
+     await tester.pumpAndSettle();
+
+     final Finder submit = find.widgetWithText(ElevatedButton, 'Submit');
+
+     await tester.tap(submit);
+     await tester.pump();
+
+     expect(find.text('Please enter your email address'), findsOneWidget);
+     expect(find.text('Please enter your feedback'), findsOneWidget);
+
+   });
 }
