@@ -32,7 +32,7 @@ class ContactFormState extends State<ContactForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 TextFormField(
+                TextFormField(
                   decoration: const InputDecoration(
                     icon: Icon(Icons.alternate_email),
                     hintText: 'example@mail.com',
