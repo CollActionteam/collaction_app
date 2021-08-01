@@ -18,7 +18,6 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify that the page is rendered with all its elements.
-   // final finder = find.text("Contact form");
    expect(find.text("Contact form"), findsOneWidget);
    expect(find.byType(TextFormField), findsNWidgets(2));
    expect(find.text("Submit"), findsOneWidget);
@@ -38,7 +37,6 @@ void main() {
 
      await tester.enterText(emailAddress, 'example@mail.com');
      await tester.enterText(feedback, 'blablabla');
-
      await tester.tap(submit);
      await tester.pump();
 
@@ -61,4 +59,23 @@ void main() {
      expect(find.text('Please enter your feedback'), findsOneWidget);
 
    });
+
+   testWidgets('Check for valid email address', (WidgetTester tester) async {
+     // Build app and contact form
+     await tester.pumpWidget(MyApp());
+     await tester.tap(find.text('Give feedback or start crowd action'));
+     await tester.pumpAndSettle();
+
+     final Finder emailAddress = find.widgetWithText(TextFormField, 'Your email address');
+     final Finder submit = find.widgetWithText(ElevatedButton, 'Submit');
+
+     await tester.enterText(emailAddress, 'example@mailcom');
+     await tester.tap(submit);
+     await tester.pump();
+
+     expect(find.text('Please enter a valid email address'), findsOneWidget);
+
+   });
+
+
 }
