@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+
 
 // Create a Form widget.
 class ContactForm extends StatefulWidget {
@@ -20,6 +22,12 @@ class ContactFormState extends State<ContactForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  final Map<String, String?> formData = {'email': null, 'message': null};
+
+  Future<void> submitForm (Map<String, String?> formData)  {
+    // TODO implement connection to microservice and replace placeholder below
+    return Future.delayed(const Duration(seconds: 2), (){print(formData);});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +54,7 @@ class ContactFormState extends State<ContactForm> {
                     if (!EmailValidator.validate(value)) {
                       return 'Please enter a valid email address';
                     }
+                    formData['email'] = value;
                     return null;
                   },
                 ),
@@ -67,21 +76,24 @@ request for starting a crowd action''',
                     if (value == null || value.isEmpty) {
                       return 'Please enter your feedback';
                     }
+                    formData['message'] = value;
                     return null;
                   },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: ()  async {
                       // Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing data')),
+                          const SnackBar(content: Text('Processing data'), duration: Duration(days: 1),),
                         );
-                        // TODO implement connection to microservice
+                        await submitForm(formData);
+                        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Success')));
                       }
                     },
                     child: const Text('Submit'),
@@ -93,3 +105,4 @@ request for starting a crowd action''',
         ));
   }
 }
+
