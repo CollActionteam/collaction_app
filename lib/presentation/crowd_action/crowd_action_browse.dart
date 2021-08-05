@@ -1,18 +1,19 @@
-import 'package:collaction_app/api/api.dart';
-import 'package:collaction_app/models/crowd_action_model.dart';
-import 'package:collaction_app/crowd_actions_details_route.dart';
-import 'utilities.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../api/api.dart';
+import '../../models/crowd_action_model.dart';
+import '../routes/app_routes.gr.dart';
+
 /// Route for the user to browse available Collactions.
-class CrowdActionBrowseRoute extends StatefulWidget {
-  const CrowdActionBrowseRoute({Key? key}) : super(key: key);
+class CrowdActionBrowsePage extends StatefulWidget {
+  const CrowdActionBrowsePage({Key? key}) : super(key: key);
 
   @override
-  _CrowdActionBrowseRouteState createState() => _CrowdActionBrowseRouteState();
+  _CrowdActionBrowsePageState createState() => _CrowdActionBrowsePageState();
 }
 
-class _CrowdActionBrowseRouteState extends State<CrowdActionBrowseRoute> {
+class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +34,8 @@ class _CrowdActionBrowseRouteState extends State<CrowdActionBrowseRoute> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap: () {
-                      Utilities.launchRoute(
-                        context,
-                        CrowdActionDetailsRoute(model: model),
-                      );
-                    },
+                    onTap: () => context.router
+                        .push(CrowdActionDetailsRoute(model: model)),
                     child: Container(
                       color: Colors.grey,
                       width: double.infinity,

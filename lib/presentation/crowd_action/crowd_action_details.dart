@@ -2,17 +2,17 @@ import 'package:collaction_app/models/crowd_action_model.dart';
 import 'package:flutter/material.dart';
 
 /// Route displaying more information of a specific selected Collaction
-class CrowdActionDetailsRoute extends StatefulWidget {
+class CrowdActionDetailsPage extends StatefulWidget {
   final CrowdActionModel model;
 
-  const CrowdActionDetailsRoute({Key? key, required this.model})
+  const CrowdActionDetailsPage({Key? key, required this.model})
       : super(key: key);
 
   @override
   _ActionDetailScreenState createState() => _ActionDetailScreenState();
 }
 
-class _ActionDetailScreenState extends State<CrowdActionDetailsRoute> {
+class _ActionDetailScreenState extends State<CrowdActionDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
