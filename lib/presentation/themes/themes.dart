@@ -18,32 +18,29 @@ ThemeData lightTheme(BuildContext context) {
       buttonColor: kPrimaryColor,
     ),
     inputDecorationTheme: InputDecorationTheme(
-      hintStyle: TextStyle(
+      hintStyle: const TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w400,
         color: kInactiveColor,
       ),
       filled: true,
       fillColor: kAlmostTransparent,
-      enabledBorder: UnderlineInputBorder(
+      enabledBorder: const UnderlineInputBorder(
         borderSide: BorderSide.none,
       ),
       focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: kPrimaryColor,
-          width: 1.0,
         ),
       ),
-      focusedErrorBorder: UnderlineInputBorder(
+      focusedErrorBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
           color: kErrorColor,
-          width: 1.0,
         ),
       ),
-      errorBorder: UnderlineInputBorder(
+      errorBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
           color: kErrorColor,
-          width: 1.0,
         ),
       ),
       contentPadding: const EdgeInsets.symmetric(

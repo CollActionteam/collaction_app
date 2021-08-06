@@ -1,17 +1,23 @@
+import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 
 import 'presentation/routes/app_routes.gr.dart' as app_router;
 import 'presentation/themes/themes.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  configureInjection();
 
-class MyApp extends StatelessWidget {
+  runApp(AppWidget());
+}
+
+class AppWidget extends StatelessWidget {
   final _appRouter = app_router.AppRouter();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       theme: lightTheme(context),
+      debugShowCheckedModeBanner: false,
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
     );

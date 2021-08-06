@@ -12,22 +12,22 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 23.0, horizontal: 23.0),
+          padding: const EdgeInsets.symmetric(vertical: 23.0, horizontal: 23.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Upcoming crowdactions',
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 18.0),
                     ),
                     TextButton(
                       onPressed: () =>
-                          context.router.push(CrowdActionBrowseRoute()),
-                      child: Text(
+                          context.router.push(const CrowdActionBrowseRoute()),
+                      child: const Text(
                         'View all',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,

@@ -1,9 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../api/api.dart';
-import '../../models/crowd_action_model.dart';
-import '../routes/app_routes.gr.dart';
+import '../../application/crowdaction_getter/crowdaction_getter_bloc.dart';
+import '../../infrastructure/core/injection.dart';
+import '../shared_widgets/centered_loading_indicator.dart';
+import '../shared_widgets/custom_appbar.dart';
+import 'widgets/micro_crowdaction_card.dart';
 
 /// Route for the user to browse available Collactions.
 class CrowdActionBrowsePage extends StatefulWidget {
@@ -16,37 +18,39 @@ class CrowdActionBrowsePage extends StatefulWidget {
 class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: FutureBuilder<Object>(
-          future: API.fetchCrowdActions(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return Center(child: CircularProgressIndicator());
-            }
-
-            List<CrowdActionModel> models =
-                snapshot.data as List<CrowdActionModel>;
-            return ListView.builder(
-              itemCount: models.length,
-              itemBuilder: (BuildContext context, int index) {
-                CrowdActionModel model = models[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () => context.router
-                        .push(CrowdActionDetailsRoute(model: model)),
-                    child: Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      height: 50,
-                      child: Text(model.title ?? 'No title'),
+    return BlocProvider<CrowdActionGetterBloc>(
+      create: (context) => getIt<CrowdActionGetterBloc>()
+        ..add(const CrowdActionGetterEvent.getMore()),
+      child: Scaffold(
+        appBar: CustomAppBar(context, title: 'Browse Crowdactions'),
+        body: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
+          builder: (context, state) => state.when(
+            initial: () => const CenteredLoadingIndicator(),
+            fetchingCrowdActions: () => const CenteredLoadingIndicator(),
+            noCrowdActions: () {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Center(
+                    child: Text(
+                      'No CrowdActions at the moment...',
+                      style: TextStyle(fontSize: 16.0),
                     ),
                   ),
-                );
-              },
-            );
-          }),
+                ],
+              );
+            },
+            fetched: (crowdActions) {
+              // TODO: return CrowdActions Widget
+              return ListView.builder(
+                itemCount: crowdActions.length,
+                itemBuilder: (context, index) =>
+                    MicroCrowdActionCard(crowdActions[index]),
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }
