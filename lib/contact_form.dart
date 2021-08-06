@@ -95,11 +95,14 @@ request for starting a crowd action''',
                           ),
                         );
                         Future<void> future = submitForm(formData);
-                        // Handle whether submission of the form was successfull or not
+                        // Handle whether submission of the form was successful or not
                         future.then((value) {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text('Success')));
+                              .showSnackBar(SnackBar(content: Text('Success')))
+                              .closed
+                              .then((value) => Navigator.pop(context));
+                          // Navigator.pop(context);
                         }).catchError((error) {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                           ScaffoldMessenger.of(context)
