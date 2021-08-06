@@ -94,10 +94,17 @@ request for starting a crowd action''',
                             duration: Duration(days: 1),
                           ),
                         );
-                        await submitForm(formData);
-                        ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text('Success')));
+                        Future<void> future = submitForm(formData);
+                        // Handle whether submission of the form was successfull or not
+                        future.then((value) {
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text('Success')));
+                        }).catchError((error) {
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text('Error')));
+                        });
                       }
                     },
                     child: const Text('Submit'),
