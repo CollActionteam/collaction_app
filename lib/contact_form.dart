@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-
 
 // Create a Form widget.
 class ContactForm extends StatefulWidget {
@@ -24,9 +22,11 @@ class ContactFormState extends State<ContactForm> {
   final _formKey = GlobalKey<FormState>();
   final Map<String, String?> formData = {'email': null, 'message': null};
 
-  Future<void> submitForm (Map<String, String?> formData)  {
+  Future<void> submitForm(Map<String, String?> formData) {
     // TODO implement connection to microservice and replace placeholder below
-    return Future.delayed(const Duration(seconds: 2), (){print(formData);});
+    return Future.delayed(const Duration(seconds: 2), () {
+      print(formData);
+    });
   }
 
   @override
@@ -83,17 +83,21 @@ request for starting a crowd action''',
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
-                    onPressed: ()  async {
+                    onPressed: () async {
                       // Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing data'), duration: Duration(days: 1),),
+                          const SnackBar(
+                            content: Text('Processing data'),
+                            duration: Duration(days: 1),
+                          ),
                         );
                         await submitForm(formData);
                         ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Success')));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text('Success')));
                       }
                     },
                     child: const Text('Submit'),
@@ -105,4 +109,3 @@ request for starting a crowd action''',
         ));
   }
 }
-

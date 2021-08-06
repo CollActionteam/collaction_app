@@ -33,9 +33,9 @@ void main() {
     await tester.enterText(emailAddress, 'example@mail.com');
     await tester.enterText(feedback, 'blablabla');
     await tester.tap(submit);
-    await tester.pump();
+    await tester.pump(Duration(seconds: 2));
 
-    expect(find.text('Processing data'), findsOneWidget);
+    expect(find.text('Success'), findsOneWidget);
   });
 
   testWidgets('Form requires email and feedback', (WidgetTester tester) async {
