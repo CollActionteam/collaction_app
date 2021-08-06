@@ -20,7 +20,8 @@ class ContactFormState extends State<ContactForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
-  final Map<String, String?> formData = {'email': null, 'message': null};
+  final Map<String, String?> _formData = {'email': null, 'message': null};
+  bool _isEnabled = true;
 
   Future<void> submitForm(Map<String, String?> formData) {
     // TODO implement connection to microservice and replace placeholder below
@@ -41,6 +42,7 @@ class ContactFormState extends State<ContactForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  enabled: _isEnabled,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.alternate_email),
                     hintText: 'example@mail.com',
@@ -54,7 +56,7 @@ class ContactFormState extends State<ContactForm> {
                     if (!EmailValidator.validate(value)) {
                       return 'Please enter a valid email address';
                     }
-                    formData['email'] = value;
+                    _formData['email'] = value;
                     return null;
                   },
                 ),
@@ -62,6 +64,7 @@ class ContactFormState extends State<ContactForm> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 TextFormField(
+                  enabled: _isEnabled,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   decoration: const InputDecoration(
@@ -76,7 +79,7 @@ request for starting a crowd action''',
                     if (value == null || value.isEmpty) {
                       return 'Please enter your feedback';
                     }
-                    formData['message'] = value;
+                    _formData['message'] = value;
                     return null;
                   },
                 ),
@@ -86,6 +89,10 @@ request for starting a crowd action''',
                     onPressed: () async {
                       // Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
+                        // _formKey.currentState
+                        setState(() {
+                          _isEnabled = false;
+                        });
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -94,16 +101,18 @@ request for starting a crowd action''',
                             duration: Duration(days: 1),
                           ),
                         );
-                        Future<void> future = submitForm(formData);
-                        // Handle whether submission of the form was successful or not
+                        Future<void> future = submitForm(_formData);
+                        // Handle the success or failure of the form submission.
                         future.then((value) {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                           ScaffoldMessenger.of(context)
                               .showSnackBar(SnackBar(content: Text('Success')))
                               .closed
                               .then((value) => Navigator.pop(context));
-                          // Navigator.pop(context);
                         }).catchError((error) {
+                          setState(() {
+                            _isEnabled = true;
+                          });
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                           ScaffoldMessenger.of(context)
                               .showSnackBar(SnackBar(content: Text('Error')));
