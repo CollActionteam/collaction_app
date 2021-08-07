@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../infrastructure/core/injection.dart';
-import '../crowd_action/widgets/micro_crowdaction_card.dart';
+import '../crowd_action/widgets/custom_scrollphysics.dart';
+import '../crowd_action/widgets/full_crowdaction_card.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
 
@@ -42,7 +43,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                CrowdActionCarousel(),
+                const CrowdActionCarousel(),
               ],
             ),
           ),
@@ -53,20 +54,19 @@ class HomePage extends StatelessWidget {
 }
 
 class CrowdActionCarousel extends StatefulWidget {
-  CrowdActionCarousel({Key? key}) : super(key: key);
+  const CrowdActionCarousel({Key? key}) : super(key: key);
 
   @override
   _CrowdActionCarouselState createState() => _CrowdActionCarouselState();
 }
 
 class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
-  final _pageController = PageController();
+  final _pageController = PageController(viewportFraction: 0.85);
   double _currentPage = 0;
 
   @override
   void initState() {
     super.initState();
-
     _pageController.addListener(() {
       setState(() {
         _currentPage = _pageController.page!;
@@ -86,13 +86,25 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
           fetchingCrowdActions: () => const CircularProgressIndicator(),
           fetched: (crowdActions) => Column(
             children: [
-              SizedBox(
-                height: 330,
-                child: PageView.builder(
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                height: 350,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  physics: const CustomScrollPhysics(
+                    itemDimension: 362,
+                  ),
                   controller: _pageController,
                   itemCount: crowdActions.length,
-                  itemBuilder: (context, index) => MicroCrowdActionCard(
-                      crowdActions[index]), // TODO: Create Full Card
+                  itemBuilder: (context, index) => SizedBox(
+                    height: 350,
+                    width: 350,
+                    child: FullCrowdActionCard(
+                      crowdActions[index],
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -100,7 +112,7 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
                 dotsCount: crowdActions.length,
                 position: _currentPage,
                 decorator: const DotsDecorator(
-                  color: kInactiveColor,
+                  color: kDisabledButtonColor,
                   activeColor: kIrisColor,
                 ),
                 onTap: (position) {
