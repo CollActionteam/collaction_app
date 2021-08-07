@@ -16,8 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CrowdActionGetterEventTearOff {
   const _$CrowdActionGetterEventTearOff();
 
-  _GetMore getMore() {
-    return const _GetMore();
+  _GetMore getMore(int? amount) {
+    return _GetMore(
+      amount,
+    );
   }
 }
 
@@ -26,14 +28,16 @@ const $CrowdActionGetterEvent = _$CrowdActionGetterEventTearOff();
 
 /// @nodoc
 mixin _$CrowdActionGetterEvent {
+  int? get amount => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getMore,
+    required TResult Function(int? amount) getMore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getMore,
+    TResult Function(int? amount)? getMore,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +52,10 @@ mixin _$CrowdActionGetterEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CrowdActionGetterEventCopyWith<CrowdActionGetterEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +63,7 @@ abstract class $CrowdActionGetterEventCopyWith<$Res> {
   factory $CrowdActionGetterEventCopyWith(CrowdActionGetterEvent value,
           $Res Function(CrowdActionGetterEvent) then) =
       _$CrowdActionGetterEventCopyWithImpl<$Res>;
+  $Res call({int? amount});
 }
 
 /// @nodoc
@@ -65,12 +74,27 @@ class _$CrowdActionGetterEventCopyWithImpl<$Res>
   final CrowdActionGetterEvent _value;
   // ignore: unused_field
   final $Res Function(CrowdActionGetterEvent) _then;
+
+  @override
+  $Res call({
+    Object? amount = freezed,
+  }) {
+    return _then(_value.copyWith(
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$GetMoreCopyWith<$Res> {
+abstract class _$GetMoreCopyWith<$Res>
+    implements $CrowdActionGetterEventCopyWith<$Res> {
   factory _$GetMoreCopyWith(_GetMore value, $Res Function(_GetMore) then) =
       __$GetMoreCopyWithImpl<$Res>;
+  @override
+  $Res call({int? amount});
 }
 
 /// @nodoc
@@ -82,42 +106,66 @@ class __$GetMoreCopyWithImpl<$Res>
 
   @override
   _GetMore get _value => super._value as _GetMore;
+
+  @override
+  $Res call({
+    Object? amount = freezed,
+  }) {
+    return _then(_GetMore(
+      amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_GetMore implements _GetMore {
-  const _$_GetMore();
+  const _$_GetMore(this.amount);
+
+  @override
+  final int? amount;
 
   @override
   String toString() {
-    return 'CrowdActionGetterEvent.getMore()';
+    return 'CrowdActionGetterEvent.getMore(amount: $amount)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _GetMore);
+    return identical(this, other) ||
+        (other is _GetMore &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(amount);
+
+  @JsonKey(ignore: true)
+  @override
+  _$GetMoreCopyWith<_GetMore> get copyWith =>
+      __$GetMoreCopyWithImpl<_GetMore>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getMore,
+    required TResult Function(int? amount) getMore,
   }) {
-    return getMore();
+    return getMore(amount);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getMore,
+    TResult Function(int? amount)? getMore,
     required TResult orElse(),
   }) {
     if (getMore != null) {
-      return getMore();
+      return getMore(amount);
     }
     return orElse();
   }
@@ -144,7 +192,14 @@ class _$_GetMore implements _GetMore {
 }
 
 abstract class _GetMore implements CrowdActionGetterEvent {
-  const factory _GetMore() = _$_GetMore;
+  const factory _GetMore(int? amount) = _$_GetMore;
+
+  @override
+  int? get amount => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$GetMoreCopyWith<_GetMore> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

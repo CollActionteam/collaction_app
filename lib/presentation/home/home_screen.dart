@@ -1,8 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../application/crowdaction_getter/crowdaction_getter_bloc.dart';
+import '../../infrastructure/core/injection.dart';
+import '../crowd_action/widgets/micro_crowdaction_card.dart';
 import '../routes/app_routes.gr.dart';
+import '../themes/constants.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -36,9 +41,76 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ],
-                )
+                ),
+                CrowdActionCarousel(),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CrowdActionCarousel extends StatefulWidget {
+  CrowdActionCarousel({Key? key}) : super(key: key);
+
+  @override
+  _CrowdActionCarouselState createState() => _CrowdActionCarouselState();
+}
+
+class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
+  final _pageController = PageController();
+  double _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _pageController.addListener(() {
+      setState(() {
+        _currentPage = _pageController.page!;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<CrowdActionGetterBloc>(
+      create: (context) => getIt<CrowdActionGetterBloc>()
+        ..add(const CrowdActionGetterEvent.getMore(3)),
+      child: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
+        builder: (context, state) => state.when(
+          initial: () => const CircularProgressIndicator(),
+          noCrowdActions: () => const Text('No CrowdActions'),
+          fetchingCrowdActions: () => const CircularProgressIndicator(),
+          fetched: (crowdActions) => Column(
+            children: [
+              SizedBox(
+                height: 330,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: crowdActions.length,
+                  itemBuilder: (context, index) => MicroCrowdActionCard(
+                      crowdActions[index]), // TODO: Create Full Card
+                ),
+              ),
+              const SizedBox(height: 10),
+              DotsIndicator(
+                dotsCount: crowdActions.length,
+                position: _currentPage,
+                decorator: const DotsDecorator(
+                  color: kInactiveColor,
+                  activeColor: kIrisColor,
+                ),
+                onTap: (position) {
+                  _currentPage = position;
+                  _pageController.animateToPage(_currentPage.toInt(),
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeIn);
+                },
+              )
+            ],
           ),
         ),
       ),

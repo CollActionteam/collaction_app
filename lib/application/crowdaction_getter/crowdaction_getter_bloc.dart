@@ -23,10 +23,15 @@ class CrowdActionGetterBloc
   Stream<CrowdActionGetterState> mapEventToState(
     CrowdActionGetterEvent event,
   ) async* {
-    //yield const CrowdActionGetterState.fetchingCrowdActions();
     yield* event.map(getMore: (event) async* {
       try {
-        final response = await _crowdActionRepository.getCrowdActions();
+        List<CrowdAction> response;
+        if (event.amount != null && event.amount! > 0) {
+          response = await _crowdActionRepository.getCrowdActions(
+              amount: event.amount!);
+        } else {
+          response = await _crowdActionRepository.getCrowdActions();
+        }
         if (response.isNotEmpty) {
           yield CrowdActionGetterState.fetched(response);
         } else {

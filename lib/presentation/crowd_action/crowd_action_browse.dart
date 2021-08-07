@@ -20,26 +20,24 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
   Widget build(BuildContext context) {
     return BlocProvider<CrowdActionGetterBloc>(
       create: (context) => getIt<CrowdActionGetterBloc>()
-        ..add(const CrowdActionGetterEvent.getMore()),
+        ..add(const CrowdActionGetterEvent.getMore(null)),
       child: Scaffold(
         appBar: CustomAppBar(context, title: 'Browse Crowdactions'),
         body: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
           builder: (context, state) => state.when(
             initial: () => const CenteredLoadingIndicator(),
             fetchingCrowdActions: () => const CenteredLoadingIndicator(),
-            noCrowdActions: () {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: Text(
-                      'No CrowdActions at the moment...',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
+            noCrowdActions: () => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Center(
+                  child: Text(
+                    'No CrowdActions at the moment...',
+                    style: TextStyle(fontSize: 16.0),
                   ),
-                ],
-              );
-            },
+                ),
+              ],
+            ),
             fetched: (crowdActions) {
               // TODO: return CrowdActions Widget
               return ListView.builder(

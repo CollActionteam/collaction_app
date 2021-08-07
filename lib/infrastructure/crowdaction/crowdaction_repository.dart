@@ -14,11 +14,19 @@ class CrowdActionRepository implements ICrowdActionRepository {
   CrowdActionRepository(this._client);
 
   @override
-  Future<List<CrowdAction>> getCrowdActions() async {
+  Future<List<CrowdAction>> getCrowdActions({int amount = 0}) async {
     try {
+      String query;
+
+      if (amount > 0) {
+        query = getFixedCrowdActionsQuery.replaceAll(
+            placeHolder, amount.toString());
+      } else {
+        query = getCrowdActionsQuery;
+      }
+
       final response = await _client.get(
-          Uri.parse(
-              'https://api.collaction.org/graphql?query=$getCrowdActionsQuery'),
+          Uri.parse('https://api.collaction.org/graphql?query=$query'),
           headers: {'Content-Type': 'application/json'});
 
       final responseBody = CrowdActionList.fromJson(
