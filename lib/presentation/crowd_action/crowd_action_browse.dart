@@ -39,7 +39,6 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
               ],
             ),
             fetched: (crowdActions) {
-              // TODO: return CrowdActions Widget
               return ListView.builder(
                 itemCount: crowdActions.length,
                 itemBuilder: (context, index) =>

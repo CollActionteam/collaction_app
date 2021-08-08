@@ -20,8 +20,6 @@ abstract class CrowdActionDto implements _$CrowdActionDto {
     // required String description,
     // required int numParticipants,
     // required int participantsGoal,
-    // DateTime? startDate,
-    // DateTime? endDate,
     // List<String>? tags,
   }) = _CrowdActionDto;
 
@@ -37,8 +35,6 @@ abstract class CrowdActionDto implements _$CrowdActionDto {
       // description: description,
       // numParticipants: numParticipants,
       // participantsGoal: participantsGoal,
-      // startDate: startDate,
-      // endDate: endDate,
       // tags: tags!.toList(),
     );
   }
