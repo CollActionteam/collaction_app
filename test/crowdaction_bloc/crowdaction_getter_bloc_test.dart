@@ -1,4 +1,3 @@
-import 'package:collaction_app/application/crowdaction_getter/crowdaction_getter_bloc.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/infrastructure/crowdaction/crowdaction_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,7 +7,7 @@ import 'package:mocktail/mocktail.dart';
 class MockClient extends Mock implements http.Client {}
 
 void main() {
-  // MOCKED CROWDACTION REPOSITORY
+  // Mocked CrowdActionRepository
   final client = MockClient();
   final CrowdActionRepository crowdActionRepository =
       CrowdActionRepository(client);
@@ -18,15 +17,12 @@ void main() {
     when(() => crowdActionRepository.getCrowdActions())
         .thenAnswer((_) async => crowdactions);
 
-    final crowdActionGetterBloc = CrowdActionGetterBloc(crowdActionRepository);
-
-    // TODO: Implement tests for BLOC that uses generated code
-    test('State for our Bloc', () async {
-      crowdActionGetterBloc.add(const CrowdActionGetterEvent.getMore(null));
-    });
+    // TODO: Implement tests for CrowdAction Getter BLoC
+    // final crowdActionGetterBloc = CrowdActionGetterBloc(crowdActionRepository);
   });
 }
 
+// Mocked Data
 final List<CrowdAction> crowdactions = [
   CrowdAction(
       name: 'Dansen bij Pakhuis de Règâh op 9 feb',
