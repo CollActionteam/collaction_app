@@ -22,7 +22,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   final httpSingleton = _$HttpSingleton();
   gh.lazySingleton<_i3.Client>(() => httpSingleton.client);
   gh.lazySingleton<_i4.ICrowdActionRepository>(
-      () => _i5.CrowdActionRepository());
+      () => _i5.CrowdActionRepository(get<_i3.Client>()));
   gh.factory<_i6.CrowdActionGetterBloc>(
       () => _i6.CrowdActionGetterBloc(get<_i4.ICrowdActionRepository>()));
   return get;

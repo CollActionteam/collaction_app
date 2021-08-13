@@ -19,38 +19,45 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 23.0, horizontal: 23.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Upcoming crowdactions',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, fontSize: 18.0),
-                    ),
-                    TextButton(
-                      onPressed: () =>
-                          context.router.push(const CrowdActionBrowseRoute()),
-                      child: const Text(
-                        'View all',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14.0,
-                            color: kIrisColor),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Upcoming crowdactions',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 18.0),
+                          ),
+                          TextButton(
+                            onPressed: () => context.router
+                                .push(const CrowdActionBrowseRoute()),
+                            child: const Text(
+                              'View all',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.0,
+                                  color: kIrisColor),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      const CrowdActionCarousel(),
+                    ],
+                  ),
                 ),
-                const CrowdActionCarousel(),
-                ElevatedButton(
-                    onPressed: () {
-                      context.router.push(const ContactFormRoute());
-                    },
-                    child: const Text('Give feedback or start crowd action'))
-              ],
-            ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  context.router.push(const ContactFormRoute());
+                },
+                child: const Text('Give feedback or start crowd action'),
+              )
+            ],
           ),
         ),
       ),
