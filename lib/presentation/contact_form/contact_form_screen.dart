@@ -1,3 +1,4 @@
+import 'package:collaction_app/presentation/shared_widgets/custom_appbar.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class ContactFormState extends State<ContactFormPage> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
-        appBar: AppBar(title: const Text("Contact form")),
+        appBar: CustomAppBar(context, title: "Contact form"),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
