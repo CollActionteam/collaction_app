@@ -94,8 +94,6 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
             ? 0.75
             : 0.80
         : 0.82;
-    print(
-        "Scalefactor: $scaleFactor - Width: ${MediaQuery.of(context).size.width}");
 
     return BlocProvider<CrowdActionGetterBloc>(
       create: (context) => getIt<CrowdActionGetterBloc>()
