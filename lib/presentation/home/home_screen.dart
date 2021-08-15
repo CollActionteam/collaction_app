@@ -73,7 +73,7 @@ class CrowdActionCarousel extends StatefulWidget {
 }
 
 class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
-  final _pageController = PageController(viewportFraction: 0.85);
+  final _pageController = PageController(viewportFraction: 0.82);
   double _currentPage = 0;
 
   @override
@@ -88,6 +88,15 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final scaleFactor = width < 430
+        ? width < 380
+            ? 0.75
+            : 0.80
+        : 0.82;
+    print(
+        "Scalefactor: $scaleFactor - Width: ${MediaQuery.of(context).size.width}");
+
     return BlocProvider<CrowdActionGetterBloc>(
       create: (context) => getIt<CrowdActionGetterBloc>()
         ..add(const CrowdActionGetterEvent.getMore(3)),
@@ -102,19 +111,22 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                height: 350,
+                height: 400 * scaleFactor,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  physics: const CustomScrollPhysics(
-                    itemDimension: 362,
+                  physics: CustomScrollPhysics(
+                    itemDimension:
+                        MediaQuery.of(context).size.width * scaleFactor +
+                            14.0 * scaleFactor,
                   ),
                   controller: _pageController,
                   itemCount: crowdActions.length,
                   itemBuilder: (context, index) => SizedBox(
-                    height: 350,
-                    width: 350,
+                    height: MediaQuery.of(context).size.width * scaleFactor,
+                    width: MediaQuery.of(context).size.width * scaleFactor,
                     child: FullCrowdActionCard(
                       crowdActions[index],
+                      scaleFactor: scaleFactor,
                     ),
                   ),
                 ),
