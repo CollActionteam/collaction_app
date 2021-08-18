@@ -94,6 +94,8 @@ jobs:
         flutter-version: ${{ env.flutter_version }}
     - name: Get Flutter dependencies
       run: flutter pub get .
+    - name: Generate app icons
+      run: flutter pub run flutter_launcher_icons:main
     - name: Build debug apk
       run: flutter build apk --debug --build-number $GITHUB_RUN_NUMBER 
     - name: Upload generated apk to the artifacts
