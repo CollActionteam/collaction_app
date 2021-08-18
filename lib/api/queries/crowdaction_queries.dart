@@ -1,5 +1,5 @@
-const placeHolder = "#i#";
+const placeholder = "#i#";
 
-const getCrowdActionsQuery = "{ crowdactions {name description start end } }";
-const getFixedCrowdActionsQuery =
+const queryGetCrowdActions = "{ crowdactions {name description start end } }";
+const queryGetFixedCrowdActions =
     "{ crowdactions(take: #i#) {name description start end } }";

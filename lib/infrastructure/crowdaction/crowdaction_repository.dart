@@ -17,8 +17,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
   Future<List<CrowdAction>> getCrowdActions({int amount = 0}) async {
     try {
       final query = amount > 0
-          ? getFixedCrowdActionsQuery.replaceAll(placeHolder, amount.toString())
-          : getCrowdActionsQuery;
+          ? queryGetFixedCrowdActions.replaceAll(placeholder, amount.toString())
+          : queryGetCrowdActions;
 
       final response = await _client.get(
           Uri.parse('https://api.collaction.org/graphql?query=$query'),

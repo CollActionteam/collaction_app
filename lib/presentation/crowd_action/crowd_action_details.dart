@@ -1,3 +1,4 @@
+// TODO: Implement class once GraphQL and Models are configured properly
 // import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 // import 'package:flutter/material.dart';
 

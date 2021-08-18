@@ -13,7 +13,7 @@ void main() {
     final CrowdActionRepository crowdActionRepository =
         CrowdActionRepository(client);
 
-    const query = getCrowdActionsQuery;
+    const query = queryGetCrowdActions;
 
     when(
       () => client.get(

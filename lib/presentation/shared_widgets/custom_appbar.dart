@@ -17,11 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: GestureDetector(
         onTap: () => context.router.pop(),
-        child: const Icon(
-          Icons.arrow_back_ios_new,
-          color: kInactiveColor,
-          size: 28.0,
-        ),
+        child: Image.asset('assets/images/icons/back_icon.png'),
       ),
       title: Text(title, style: TextStyle(color: kPrimaryColor)),
     );

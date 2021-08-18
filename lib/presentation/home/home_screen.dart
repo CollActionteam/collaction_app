@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../infrastructure/core/injection.dart';
-import '../crowd_action/widgets/custom_scrollphysics.dart';
+import '../crowd_action/widgets/carousel_scrollphysics.dart';
 import '../crowd_action/widgets/full_crowdaction_card.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
@@ -105,14 +105,11 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
           fetchingCrowdActions: () => const CircularProgressIndicator(),
           fetched: (crowdActions) => Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
+              SizedBox(
                 height: 400 * scaleFactor,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  physics: CustomScrollPhysics(
+                  physics: CarouselScrollPhysics(
                     itemDimension:
                         MediaQuery.of(context).size.width * scaleFactor +
                             14.0 * scaleFactor,

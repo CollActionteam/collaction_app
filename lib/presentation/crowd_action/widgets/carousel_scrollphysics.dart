@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class CustomScrollPhysics extends ScrollPhysics {
+class CarouselScrollPhysics extends ScrollPhysics {
   final double itemDimension;
 
-  const CustomScrollPhysics(
+  const CarouselScrollPhysics(
       {required this.itemDimension, ScrollPhysics? parent})
       : super(parent: parent);
 
   @override
-  CustomScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return CustomScrollPhysics(
+  CarouselScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return CarouselScrollPhysics(
         itemDimension: itemDimension, parent: buildParent(ancestor));
   }
 
