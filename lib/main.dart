@@ -1,16 +1,25 @@
-import 'package:collaction_app/home_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'infrastructure/core/injection.dart';
+import 'presentation/routes/app_routes.gr.dart' as app_router;
+import 'presentation/themes/themes.dart';
 
-class MyApp extends StatelessWidget {
+void main() {
+  configureInjection();
+
+  runApp(AppWidget());
+}
+
+class AppWidget extends StatelessWidget {
+  final _appRouter = app_router.AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Welcome to CollAction',
-        theme: ThemeData(
-          primaryColor: Color(0xff23d884),
-        ),
-        home: HomeScreen());
+    return MaterialApp.router(
+      theme: lightTheme(context),
+      debugShowCheckedModeBanner: false,
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
+    );
   }
 }
