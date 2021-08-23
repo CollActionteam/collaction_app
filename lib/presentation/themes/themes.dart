@@ -14,8 +14,30 @@ ThemeData lightTheme(BuildContext context) {
           bodyColor: Colors.black,
           displayColor: Colors.black,
         ),
+    accentTextTheme: Theme.of(context)
+        .accentTextTheme
+        .copyWith(
+          button: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 15.0,
+          ),
+          caption: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 11.0,
+          ),
+        )
+        .apply(
+          fontFamily: 'Rubik',
+          displayColor: Colors.white,
+          bodyColor: Colors.white,
+        ),
     buttonTheme: ButtonThemeData(
       buttonColor: kPrimaryColor,
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        primary: kAccentColor,
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: const TextStyle(
