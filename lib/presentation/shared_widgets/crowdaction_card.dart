@@ -44,8 +44,8 @@ class CrowdActionCard extends StatelessWidget {
                   topRight: Radius.circular(20.0),
                 ),
                 image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage(imagePath),
+                  fit: BoxFit.cover,
+                  image: NetworkImage(imagePath),
                 ),
               ),
             ),

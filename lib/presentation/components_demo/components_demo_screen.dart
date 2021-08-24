@@ -28,7 +28,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
               const CrowdActionCard(
                 title:
                     "This is the headline for a crowdaction with three lines",
-                imagePath: "assets/images/fruits_and_veggies.jpeg",
+                imagePath:
+                    "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
                 chips: [
                   AccentChip(
                     text: "Sign up now",
@@ -47,7 +48,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                     "This is the headline for a crowdaction with three lines and some do ipsum incididunt deserunt quis commodo incididunt.",
                 description:
                     "This is the description for a crowdaction. It gives users an idea about the crowdaction. Dolore et consectetur culpa amet veniam non fugiat adipisicing.",
-                imagePath: "assets/images/fruits_and_veggies.jpeg",
+                imagePath:
+                    "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
                 chips: [
                   AccentChip(
                     text: "Sign up now",
