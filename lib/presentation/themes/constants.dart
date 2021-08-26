@@ -16,3 +16,6 @@ const Color kErrorColor = Color(0xFFE11900);
 const Color kSuccessColor = Color(0xFF2EB494);
 
 const Color kIrisColor = Color(0xFF5D5FEF);
+
+const Color kPrimaryColor400 = Color(0xFF333333);
+const Color kPrimaryColor300 = Color(0xFF666666);

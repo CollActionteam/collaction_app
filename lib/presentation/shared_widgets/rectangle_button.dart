@@ -4,46 +4,44 @@ import '../themes/constants.dart';
 
 class RectangleButton extends StatelessWidget {
   final String text;
-  final Widget? leading;
   final GestureTapCallback? onTap;
   final bool enabled;
-  final EdgeInsets? margin;
-  final double? width;
+  final Widget? leading;
   const RectangleButton({
     Key? key,
     required this.text,
-    this.leading,
     this.onTap,
     this.enabled = true,
-    this.margin,
-    this.width,
+    this.leading,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: margin ??
-          const EdgeInsets.symmetric(
-            vertical: 6.0,
-            horizontal: 12.0,
+    return TextButton(
+      onPressed: enabled ? onTap : null,
+      style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all<Color?>(
+              kSecondaryColor.withOpacity(0.1)),
+          padding: MaterialStateProperty.all<EdgeInsets?>(
+              const EdgeInsets.symmetric(vertical: 16.0)),
+          backgroundColor: enabled
+              ? MaterialStateProperty.all<Color?>(kEnabledButtonColor)
+              : MaterialStateProperty.all<Color?>(kDisabledButtonColor),
+          shape: MaterialStateProperty.all<OutlinedBorder?>(
+              const RoundedRectangleBorder())),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (leading != null) ...[
+            leading!,
+            const SizedBox(width: 6.0),
+          ],
+          Text(
+            text,
+            style:
+                TextStyle(color: kSecondaryColor, fontWeight: FontWeight.w700),
           ),
-      child: InkWell(
-        onTap: enabled ? onTap : null,
-        child: Ink(
-          height: 52,
-          width: width ?? double.infinity,
-          color: enabled ? kAccentColor : kDisabledButtonColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (leading != null) ...[
-                leading!,
-                const SizedBox(width: 6.0),
-              ],
-              Text(text, style: Theme.of(context).accentTextTheme.button),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }

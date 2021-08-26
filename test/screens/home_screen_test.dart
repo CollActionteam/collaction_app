@@ -18,7 +18,7 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    // Verify that welcome text is shown
+    // Verify that text widget is shown
     expect(find.text('Upcoming crowdactions'), findsOneWidget);
 
     // Tap the 'Browse actions' button and trigger a page transition (multiple frame).
