@@ -35,6 +35,8 @@ dependencies:
   http: ^0.13.3
   injectable: ^1.4.1
   json_annotation: ^4.0.1
+  firebase_core: "^1.5.0"
+  firebase_auth: "^3.0.2"
 
 dev_dependencies:
   auto_route_generator: ^2.1.0
