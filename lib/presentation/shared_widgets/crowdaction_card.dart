@@ -35,6 +35,7 @@ class CrowdActionCard extends StatelessWidget {
           color: kSecondaryColor,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 216,
@@ -49,41 +50,53 @@ class CrowdActionCard extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 30.0),
-              child: Column(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Wrap(
-                      spacing: 12.0,
-                      children: chips,
-                    ),
+            const SizedBox(height: 5.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 15.0),
+                      Wrap(
+                        spacing: 12.0,
+                        children: chips,
+                      ),
+                    ],
                   ),
+                ),
+                const SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        title,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                            color: kPrimaryColor400),
+                      ),
+                    ],
+                  ),
+                ),
+                if (description != null) ...[
                   const SizedBox(height: 18.0),
                   Text(
-                    title,
-                    maxLines: 3,
+                    description!,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme
-                        .headline5
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                        .bodyText2
+                        ?.copyWith(color: kInactiveColor),
                   ),
-                  if (description != null) ...[
-                    const SizedBox(height: 18.0),
-                    Text(
-                      description!,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2
-                          ?.copyWith(color: kInactiveColor),
-                    ),
-                  ],
                 ],
-              ),
+                // TODO: Add participants widget
+              ],
             ),
           ],
         ),

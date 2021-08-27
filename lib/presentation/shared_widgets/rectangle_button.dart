@@ -38,8 +38,8 @@ class RectangleButton extends StatelessWidget {
           ],
           Text(
             text,
-            style:
-                TextStyle(color: kSecondaryColor, fontWeight: FontWeight.w700),
+            style: const TextStyle(
+                color: kSecondaryColor, fontWeight: FontWeight.w700),
           ),
         ],
       ),
