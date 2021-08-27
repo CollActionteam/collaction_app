@@ -15,7 +15,6 @@ void main() {
 
     // Build our app and trigger a frame.
     await tester.pumpWidget(AppWidget());
-
     await tester.pumpAndSettle();
 
     // Verify that text widget is shown
