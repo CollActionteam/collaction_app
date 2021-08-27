@@ -5,15 +5,10 @@ import '../themes/constants.dart';
 class AccentActionChip extends StatelessWidget {
   final String text;
   final Widget? leading;
-  final VoidCallback? onDeleted;
   final GestureTapCallback? onTap;
   final bool enabled;
   const AccentActionChip(this.onTap,
-      {Key? key,
-      required this.text,
-      this.leading,
-      this.onDeleted,
-      this.enabled = true})
+      {Key? key, required this.text, this.leading, this.enabled = true})
       : super(key: key);
 
   @override
