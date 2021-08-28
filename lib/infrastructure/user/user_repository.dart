@@ -9,11 +9,12 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: IUserRepository)
 class UserRepository implements IUserRepository, Disposable {
   late final firebase_auth.FirebaseAuth _firebaseAuth;
+  late final StreamSubscription _subscription;
 
   UserRepository({firebase_auth.FirebaseAuth? firebaseAuth}) {
     _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
     _userStreamController.sink.add(User.anonymous);
-    _firebaseAuth
+    _subscription = _firebaseAuth
         .authStateChanges()
         .map(_firebaseUserToUser)
         .listen(_userStreamController.sink.add);
@@ -76,6 +77,7 @@ class UserRepository implements IUserRepository, Disposable {
 
   @override
   FutureOr onDispose() {
+    _subscription.cancel();
     _userStreamController.close();
   }
 }

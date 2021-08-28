@@ -1,4 +1,3 @@
-import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/infrastructure/user/user_repository.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
