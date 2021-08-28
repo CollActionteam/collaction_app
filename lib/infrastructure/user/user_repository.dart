@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:collaction_app/domain/user/i_user_repository.dart';
@@ -34,20 +33,19 @@ class UserRepository implements IUserRepository {
   Stream<Credential> registerPhoneNumber(String phoneNumber) {
     final result = StreamController<Credential>();
     _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: (credential) {
-        result.add(Credential(credential.verificationId, credential.smsCode));
-        result.close();
-      },
-      verificationFailed: (e) {
-        result.addError(e); // TODO map error to non-firebase exception (?)
-        result.close();
-      },
-      codeSent: (verificationId, resendToken) {
-        result.add(Credential(verificationId, null));
-      },
-      codeAutoRetrievalTimeout: (_) => result.close()
-    );
+        phoneNumber: phoneNumber,
+        verificationCompleted: (credential) {
+          result.add(Credential(credential.verificationId, credential.smsCode));
+          result.close();
+        },
+        verificationFailed: (e) {
+          result.addError(e); // TODO map error to non-firebase exception (?)
+          result.close();
+        },
+        codeSent: (verificationId, resendToken) {
+          result.add(Credential(verificationId, null));
+        },
+        codeAutoRetrievalTimeout: (_) => result.close());
     return result.stream;
   }
 
@@ -56,10 +54,10 @@ class UserRepository implements IUserRepository {
     assert(credential.verificationId != null);
     assert(credential.smsCode != null);
     final firebaseCredential = firebase_auth.PhoneAuthProvider.credential(
-      verificationId: credential.verificationId!,
-      smsCode: credential.smsCode!
-    );
-    final userCredential = await _firebaseAuth.signInWithCredential(firebaseCredential);  // TODO map error to non-firebase exception (?)
+        verificationId: credential.verificationId!,
+        smsCode: credential.smsCode!);
+    final userCredential = await _firebaseAuth.signInWithCredential(
+        firebaseCredential); // TODO map error to non-firebase exception (?)
     final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
     return SignInResult(isNewUser: isNewUser);
   }

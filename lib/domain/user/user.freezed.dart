@@ -203,7 +203,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_User implements _User {
+class _$_User extends _User {
   const _$_User(
       {required this.id,
       required this.getIdToken,
@@ -212,7 +212,8 @@ class _$_User implements _User {
       this.email,
       this.isEmailVerified = false,
       this.phoneNumber,
-      this.isPhoneNumberVerified = false});
+      this.isPhoneNumberVerified = false})
+      : super._();
 
   @override
   final String id;
@@ -284,7 +285,7 @@ class _$_User implements _User {
       __$UserCopyWithImpl<_User>(this, _$identity);
 }
 
-abstract class _User implements User {
+abstract class _User extends User {
   const factory _User(
       {required String id,
       required Future<String?> Function([bool]) getIdToken,
@@ -294,6 +295,7 @@ abstract class _User implements User {
       bool isEmailVerified,
       String? phoneNumber,
       bool isPhoneNumberVerified}) = _$_User;
+  const _User._() : super._();
 
   @override
   String get id => throw _privateConstructorUsedError;

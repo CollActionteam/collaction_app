@@ -13,9 +13,10 @@ class SignInResult {
 }
 
 abstract class IUserRepository {
-
   Stream<User> observeCurrentUser();
 
+  /// Returns a stream of [Credential] instances to be used with [signIn].
+  /// Incomplete credentials must be completed with information provided by the user.
   Stream<Credential> registerPhoneNumber(String phoneNumber);
 
   Future<SignInResult> signIn(Credential credential);
