@@ -1,3 +1,4 @@
+import 'package:collaction_app/presentation/shared_widgets/accent_action_chip.dart';
 import 'package:collaction_app/presentation/shared_widgets/crowdaction_card.dart';
 import 'package:collaction_app/presentation/shared_widgets/custom_fab.dart';
 import 'package:flutter/material.dart';
@@ -110,6 +111,21 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
               const TextButton(
                 onPressed: null,
                 child: Text("Skip for now"),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AccentActionChip(
+                    () {},
+                    text: 'Sign up now',
+                    leading: const Image(
+                        image: AssetImage('assets/images/icons/add_icon.png')),
+                  ),
+                  const SizedBox(width: 10.0),
+                  AccentActionChip(() {}, text: 'Click me!'),
+                  const SizedBox(width: 10.0),
+                  AccentActionChip(() {}, text: 'I have material'),
+                ],
               ),
               Wrap(
                 spacing: 12.0,

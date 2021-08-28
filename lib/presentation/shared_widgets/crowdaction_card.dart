@@ -7,12 +7,14 @@ class CrowdActionCard extends StatelessWidget {
   final String imagePath;
   final List<Widget> chips;
   final String? description;
+  final double scaleFactor;
   const CrowdActionCard({
     Key? key,
     required this.title,
     required this.imagePath,
     required this.chips,
     this.description,
+    this.scaleFactor = 1.0,
   }) : super(key: key);
 
   @override
@@ -35,9 +37,10 @@ class CrowdActionCard extends StatelessWidget {
           color: kSecondaryColor,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 216,
+              height: 216 * scaleFactor,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20.0),
@@ -49,30 +52,44 @@ class CrowdActionCard extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 30.0),
-              child: Column(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Wrap(
-                      spacing: 12.0,
-                      children: chips,
-                    ),
+            const SizedBox(height: 5.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 15.0),
+                      Wrap(
+                        spacing: 12.0,
+                        children: chips,
+                      ),
+                    ],
                   ),
+                ),
+                const SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        title,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 22.0 * scaleFactor,
+                            fontWeight: FontWeight.bold,
+                            color: kPrimaryColor400),
+                      ),
+                    ],
+                  ),
+                ),
+                if (description != null) ...[
                   const SizedBox(height: 18.0),
-                  Text(
-                    title,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  if (description != null) ...[
-                    const SizedBox(height: 18.0),
-                    Text(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Text(
                       description!,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -81,9 +98,10 @@ class CrowdActionCard extends StatelessWidget {
                           .bodyText2
                           ?.copyWith(color: kInactiveColor),
                     ),
-                  ],
+                  ),
                 ],
-              ),
+                // TODO: Add participants widget
+              ],
             ),
           ],
         ),
