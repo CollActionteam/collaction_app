@@ -13,7 +13,7 @@ class SignInResult {
 }
 
 abstract class IUserRepository {
-  Stream<User> observeCurrentUser();
+  Stream<User> observeUser();
 
   /// Returns a stream of [Credential] instances to be used with [signIn].
   /// Incomplete credentials must be completed with information provided by the user.

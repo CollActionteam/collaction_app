@@ -10,7 +10,7 @@ class UserRepository implements IUserRepository {
   final _firebaseAuth = firebase_auth.FirebaseAuth.instance;
 
   @override
-  Stream<User> observeCurrentUser() {
+  Stream<User> observeUser() {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       if (firebaseUser == null || firebaseUser.isAnonymous) {
         return User.anonymous;
