@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         onTap: () => context.router.pop(),
         child: Image.asset('assets/images/icons/back_icon.png'),
       ),
-      title: Text(title, style: TextStyle(color: kPrimaryColor)),
+      title: Text(title, style: const TextStyle(color: kPrimaryColor)),
     );
   }
 

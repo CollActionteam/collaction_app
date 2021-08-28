@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-final Color kPrimaryColor = Colors.black;
-final Color kSecondaryColor = Colors.white;
+const Color kPrimaryColor = Colors.black;
+const Color kSecondaryColor = Colors.white;
 const Color kAccentColor = Color(0xFF2EB494);
 
-const Color kShadowColor = Color(0x40000000);
+const Color kShadowColor = Color.fromRGBO(0, 0, 0, 0.1);
 
 const Color kInactiveColor = Color(0xFF666666);
 const Color kAlmostTransparent = Color(0xFFEFEFEF);
