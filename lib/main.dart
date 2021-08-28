@@ -17,6 +17,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       color: Colors.white,
+      title: 'CollAction',
       theme: lightTheme(context),
       debugShowCheckedModeBanner: false,
       routerDelegate: _appRouter.delegate(),
