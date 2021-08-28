@@ -31,7 +31,7 @@ ThemeData lightTheme(BuildContext context) {
           displayColor: Colors.white,
           bodyColor: Colors.white,
         ),
-    buttonTheme: ButtonThemeData(
+    buttonTheme: const ButtonThemeData(
       buttonColor: kPrimaryColor,
     ),
     textButtonTheme: TextButtonThemeData(
@@ -39,33 +39,29 @@ ThemeData lightTheme(BuildContext context) {
         primary: kAccentColor,
       ),
     ),
-    inputDecorationTheme: InputDecorationTheme(
-      hintStyle: const TextStyle(
+    inputDecorationTheme: const InputDecorationTheme(
+      hintStyle: TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w400,
         color: kInactiveColor,
       ),
       filled: true,
       fillColor: kAlmostTransparent,
-      enabledBorder: const UnderlineInputBorder(
+      enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide.none,
       ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: kPrimaryColor,
-        ),
-      ),
-      focusedErrorBorder: const UnderlineInputBorder(
+      focusedBorder: UnderlineInputBorder(),
+      focusedErrorBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: kErrorColor,
         ),
       ),
-      errorBorder: const UnderlineInputBorder(
+      errorBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: kErrorColor,
         ),
       ),
-      contentPadding: const EdgeInsets.symmetric(
+      contentPadding: EdgeInsets.symmetric(
         horizontal: 8.0,
       ),
     ),

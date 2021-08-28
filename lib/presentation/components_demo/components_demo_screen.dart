@@ -175,13 +175,16 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   ),
                   CustomFAB(
                     onPressed: () {},
+                    heroTag: 'fab2',
                     child: const Icon(Icons.add),
                   ),
                   const CustomFAB(
                     isMini: true,
+                    heroTag: 'fab3',
                     child: Icon(Icons.add),
                   ),
                   const CustomFAB(
+                    heroTag: 'fab4',
                     child: Icon(Icons.add),
                   ),
                 ],
