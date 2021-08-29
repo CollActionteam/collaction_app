@@ -11,10 +11,10 @@ import 'package:rxdart/rxdart.dart';
 class UserRepository implements IUserRepository, Disposable {
   late final firebase_auth.FirebaseAuth _firebaseAuth;
   final _userSubject = BehaviorSubject<User>.seeded(User.anonymous);
-  late final StreamSubscription _subscription;
+  late final StreamSubscription _userStreamSubscription;
 
   UserRepository({required firebase_auth.FirebaseAuth firebaseAuth}) : _firebaseAuth = firebaseAuth {
-    _subscription = _firebaseAuth
+    _userStreamSubscription = _firebaseAuth
         .authStateChanges()
         .map(_firebaseUserToUser)
         .listen(_userSubject.sink.add);
@@ -42,7 +42,7 @@ class UserRepository implements IUserRepository, Disposable {
 
   @override
   Stream<Credential> registerPhoneNumber(String phoneNumber) {
-    final result = StreamController<Credential>();
+    final result = BehaviorSubject<Credential>();
     _firebaseAuth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (credential) {
@@ -75,7 +75,7 @@ class UserRepository implements IUserRepository, Disposable {
 
   @override
   FutureOr onDispose() {
-    _subscription.cancel();
+    _userStreamSubscription.cancel();
     _userSubject.close();
   }
 }

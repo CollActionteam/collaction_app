@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/authentication/current_user_status_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +57,14 @@ class HomePage extends StatelessWidget {
                   context.router.push(const ContactFormRoute());
                 },
                 child: const Text('Give feedback or start crowd action'),
-              )
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  context.router.push(const RegisterPhoneNumberRoute());
+                },
+                child: const Text('Register'),
+              ),
+              CurrentUserStatusText()
             ],
           ),
         ),

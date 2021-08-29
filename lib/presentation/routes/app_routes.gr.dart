@@ -7,6 +7,8 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
+import '../authentication/register_phone_number_screen.dart' as _i6;
+import '../authentication/verify_code_screen.dart' as _i7;
 import '../contact_form/contact_form_screen.dart' as _i5;
 import '../crowd_action/crowd_action_browse.dart' as _i4;
 import '../home/home_screen.dart' as _i3;
@@ -31,6 +33,16 @@ class AppRouter extends _i1.RootStackRouter {
         routeData: routeData,
         builder: (_) {
           return const _i5.ContactFormPage();
+        }),
+    RegisterPhoneNumberRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i6.RegisterPhoneNumberPage();
+        }),
+    VerifyCodeRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i7.VerifyCodePage();
         })
   };
 
@@ -39,7 +51,10 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(HomeRoute.name, path: '/'),
         _i1.RouteConfig(CrowdActionBrowseRoute.name,
             path: '/crowd-action-browse-page'),
-        _i1.RouteConfig(ContactFormRoute.name, path: '/contact-form-page')
+        _i1.RouteConfig(ContactFormRoute.name, path: '/contact-form-page'),
+        _i1.RouteConfig(RegisterPhoneNumberRoute.name,
+            path: '/register-phone-number-page'),
+        _i1.RouteConfig(VerifyCodeRoute.name, path: '/verify-code-page')
       ];
 }
 
@@ -60,4 +75,17 @@ class ContactFormRoute extends _i1.PageRouteInfo {
   const ContactFormRoute() : super(name, path: '/contact-form-page');
 
   static const String name = 'ContactFormRoute';
+}
+
+class RegisterPhoneNumberRoute extends _i1.PageRouteInfo {
+  const RegisterPhoneNumberRoute()
+      : super(name, path: '/register-phone-number-page');
+
+  static const String name = 'RegisterPhoneNumberRoute';
+}
+
+class VerifyCodeRoute extends _i1.PageRouteInfo {
+  const VerifyCodeRoute() : super(name, path: '/verify-code-page');
+
+  static const String name = 'VerifyCodeRoute';
 }
