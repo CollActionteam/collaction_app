@@ -13,8 +13,7 @@ class UserRepository implements IUserRepository, Disposable {
   final _userSubject = BehaviorSubject<User>.seeded(User.anonymous);
   late final StreamSubscription _subscription;
 
-  UserRepository({firebase_auth.FirebaseAuth? firebaseAuth}) {
-    _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
+  UserRepository({required firebase_auth.FirebaseAuth firebaseAuth}) : _firebaseAuth = firebaseAuth {
     _subscription = _firebaseAuth
         .authStateChanges()
         .map(_firebaseUserToUser)
