@@ -15,8 +15,6 @@ class HomePage extends StatelessWidget {
 
     return AdvancedDrawer(
       backdropColor: Colors.white,
-      rtlOpening: false,
-      disabledGestures: false,
       controller: _advancedDrawerController,
       drawer: ListTileTheme(
         textColor: Colors.black,
