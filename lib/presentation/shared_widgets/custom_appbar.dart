@@ -5,9 +5,8 @@ import '../themes/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final BuildContext _context;
-  final String title;
-  const CustomAppBar(this._context, {Key? key, required this.title})
-      : super(key: key);
+  final String? title;
+  const CustomAppBar(this._context, {Key? key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +18,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         onTap: () => context.router.pop(),
         child: Image.asset('assets/images/icons/back_icon.png'),
       ),
-      title: Text(title, style: const TextStyle(color: kPrimaryColor)),
+      title: Text(
+        title ?? '',
+        style:
+            const TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w700),
+      ),
     );
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size(MediaQuery.of(_context).size.width, 55.0);
 }
