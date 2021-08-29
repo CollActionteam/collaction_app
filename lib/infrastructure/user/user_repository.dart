@@ -5,19 +5,20 @@ import 'package:collaction_app/domain/user/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
 @LazySingleton(as: IUserRepository)
 class UserRepository implements IUserRepository, Disposable {
   late final firebase_auth.FirebaseAuth _firebaseAuth;
+  final _userSubject = BehaviorSubject<User>.seeded(User.anonymous);
   late final StreamSubscription _subscription;
 
   UserRepository({firebase_auth.FirebaseAuth? firebaseAuth}) {
     _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
-    _userStreamController.sink.add(User.anonymous);
     _subscription = _firebaseAuth
         .authStateChanges()
         .map(_firebaseUserToUser)
-        .listen(_userStreamController.sink.add);
+        .listen(_userSubject.sink.add);
   }
 
   static User _firebaseUserToUser(firebase_auth.User? firebaseUser) {
@@ -37,10 +38,8 @@ class UserRepository implements IUserRepository, Disposable {
     }
   }
 
-  final _userStreamController = StreamController<User>();
-
   @override
-  Stream<User> observeUser() => _userStreamController.stream;
+  Stream<User> observeUser() => _userSubject.stream.distinct();
 
   @override
   Stream<Credential> registerPhoneNumber(String phoneNumber) {
@@ -78,6 +77,6 @@ class UserRepository implements IUserRepository, Disposable {
   @override
   FutureOr onDispose() {
     _subscription.cancel();
-    _userStreamController.close();
+    _userSubject.close();
   }
 }
