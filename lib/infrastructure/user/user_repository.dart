@@ -16,7 +16,7 @@ class UserRepository implements IUserRepository, Disposable {
   UserRepository({required firebase_auth.FirebaseAuth firebaseAuth})
       : _firebaseAuth = firebaseAuth {
     _userStreamSubscription = _firebaseAuth
-        .userChanges()
+        .authStateChanges()
         .map(_firebaseUserToUser)
         .listen(_userSubject.sink.add);
   }

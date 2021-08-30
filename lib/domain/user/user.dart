@@ -15,6 +15,8 @@ abstract class User with _$User {
 
   bool get isAnonymous => this == anonymous;
 
+  // TODO: should the user really have any fields beyond id token?
+  // ...since the profile will most likely be provided by an external microservice
   const factory User({
     required String id,
     required Future<String?> Function([bool forceRefresh]) getIdToken,
