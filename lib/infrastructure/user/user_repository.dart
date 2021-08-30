@@ -74,10 +74,8 @@ class UserRepository implements IUserRepository, Disposable {
         smsCode: credential.smsCode!);
     final userCredential = await _firebaseAuth
         .signInWithCredential(firebaseCredential)
-        .onError<firebase_auth.FirebaseAuthException>((error, stackTrace) =>
-            throw AuthException(
-                message: error
-                    .message));
+        .onError<firebase_auth.FirebaseAuthException>(
+            (error, stackTrace) => throw AuthException(message: error.message));
     final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
     return SignInResult(isNewUser: isNewUser);
   }

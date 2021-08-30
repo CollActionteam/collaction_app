@@ -17,7 +17,7 @@ class AuthException implements Exception {
   AuthException({this.message});
 
   @override
-  String toString() { 
+  String toString() {
     return message ?? 'AuthException';
   }
 }

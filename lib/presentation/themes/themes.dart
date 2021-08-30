@@ -14,36 +14,54 @@ ThemeData lightTheme(BuildContext context) {
           bodyColor: Colors.black,
           displayColor: Colors.black,
         ),
-    buttonTheme: ButtonThemeData(
+    accentTextTheme: Theme.of(context)
+        .accentTextTheme
+        .copyWith(
+          button: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 15.0,
+          ),
+          caption: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 11.0,
+          ),
+        )
+        .apply(
+          fontFamily: 'Rubik',
+          displayColor: Colors.white,
+          bodyColor: Colors.white,
+        ),
+    buttonTheme: const ButtonThemeData(
       buttonColor: kPrimaryColor,
     ),
-    inputDecorationTheme: InputDecorationTheme(
-      hintStyle: const TextStyle(
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        primary: kAccentColor,
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      hintStyle: TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w400,
         color: kInactiveColor,
       ),
       filled: true,
       fillColor: kAlmostTransparent,
-      enabledBorder: const UnderlineInputBorder(
+      enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide.none,
       ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: kPrimaryColor,
-        ),
-      ),
-      focusedErrorBorder: const UnderlineInputBorder(
+      focusedBorder: UnderlineInputBorder(),
+      focusedErrorBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: kErrorColor,
         ),
       ),
-      errorBorder: const UnderlineInputBorder(
+      errorBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: kErrorColor,
         ),
       ),
-      contentPadding: const EdgeInsets.symmetric(
+      contentPadding: EdgeInsets.symmetric(
         horizontal: 8.0,
       ),
     ),
