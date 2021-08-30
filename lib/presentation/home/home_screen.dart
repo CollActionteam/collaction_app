@@ -20,12 +20,13 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.format_align_left,
-              color: Colors.black54,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 14.0),
+            child: IconButton(
+              icon: const Image(
+                  image: AssetImage('assets/images/icons/menu_icon.png')),
+              onPressed: () => _advancedDrawerController.showDrawer(),
             ),
-            onPressed: () => _advancedDrawerController.showDrawer(),
           ),
         ),
         body: SafeArea(
