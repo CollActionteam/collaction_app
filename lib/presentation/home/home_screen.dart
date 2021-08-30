@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/presentation/authentication/current_user_status_text.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
 import '../routes/app_routes.gr.dart';

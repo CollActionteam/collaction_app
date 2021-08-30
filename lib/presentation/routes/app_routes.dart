@@ -1,10 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
+import 'package:collaction_app/presentation/crowd_action/crowd_action_details.dart';
 
 import '../authentication/register_phone_number_screen.dart';
 import '../authentication/verify_code_screen.dart';
-import 'package:collaction_app/presentation/crowd_action/crowd_action_details.dart';
-
 import '../components_demo/components_demo_screen.dart';
 import '../contact_form/contact_form_screen.dart';
 import '../crowd_action/crowd_action_browse.dart';
