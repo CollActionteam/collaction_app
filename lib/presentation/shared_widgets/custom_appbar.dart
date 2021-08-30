@@ -11,17 +11,27 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: kSecondaryColor,
+      backgroundColor: title != null ? kSecondaryColor : Colors.transparent,
       elevation: 0.0,
       centerTitle: true,
-      leading: GestureDetector(
-        onTap: () => context.router.pop(),
+      leading: ElevatedButton(
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.resolveWith(
+            (states) => kAlmostTransparent,
+          ),
+          elevation: MaterialStateProperty.all<double?>(0.0),
+          shape:
+              MaterialStateProperty.all<OutlinedBorder?>(const CircleBorder()),
+          backgroundColor: title != null
+              ? MaterialStateProperty.all<Color?>(Colors.transparent)
+              : MaterialStateProperty.all<Color?>(Colors.white),
+        ),
+        onPressed: () => context.router.pop(),
         child: Image.asset('assets/images/icons/back_icon.png'),
       ),
       title: Text(
         title ?? '',
-        style:
-            const TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w700),
+        style: const TextStyle(color: kPrimaryColor),
       ),
     );
   }

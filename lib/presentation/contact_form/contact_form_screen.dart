@@ -1,6 +1,8 @@
-import 'package:collaction_app/presentation/shared_widgets/custom_appbar.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+
+import '../shared_widgets/custom_appbar.dart';
+import '../shared_widgets/rectangle_button.dart';
 
 // Create a Form widget.
 class ContactFormPage extends StatefulWidget {
@@ -21,6 +23,7 @@ class ContactFormState extends State<ContactFormPage> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  final _emailKey = GlobalKey<FormFieldState>();
   final Map<String, String?> _formData = {'email': null, 'message': null};
   bool _isEnabled = true;
 
@@ -35,100 +38,127 @@ class ContactFormState extends State<ContactFormPage> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
-        appBar: CustomAppBar(context, title: "Contact form"),
-        body: SingleChildScrollView(
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppBar(context),
+      body: ScrollConfiguration(
+        behavior: const ScrollBehavior(), // TODO: use NoRippleBehavior(),
+        child: SingleChildScrollView(
           child: Form(
             key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  enabled: _isEnabled,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.alternate_email),
-                    hintText: 'example@mail.com',
-                    labelText: 'Your email address',
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 23.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 50.0),
+                  const Text(
+                    "We want to know what you think!",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 32.0),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
                   ),
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email address';
-                    }
-                    if (!EmailValidator.validate(value)) {
-                      return 'Please enter a valid email address';
-                    }
-                    _formData['email'] = value;
-                    return null;
-                  },
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                ),
-                TextFormField(
-                  enabled: _isEnabled,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.feedback_outlined),
-                    hintText:
-                        '''Give your feedback or request for starting a crowd action''',
-                    labelText: 'Your feedback or request',
+                  const SizedBox(height: 35.0),
+                  TextFormField(
+                    key: _emailKey,
+                    onChanged: (value) => _emailKey.currentState!.validate(),
+                    enabled: _isEnabled,
+                    validator: (value) => _validateEmail(value),
+                    style: const TextStyle(fontSize: 20.0),
+                    decoration: const InputDecoration(
+                        suffixIcon: Icon(Icons.alternate_email),
+                        labelText: 'Email',
+                        hintText: 'johndoe@gmail.com'),
                   ),
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your feedback';
-                    }
-                    _formData['message'] = value;
-                    return null;
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState!.validate()) {
-                        // _formKey.currentState
-                        setState(() {
-                          _isEnabled = false;
-                        });
-
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Processing data'),
-                            duration: Duration(days: 1),
-                          ),
-                        );
-
-                        final future = submitForm(_formData);
-
-                        // Handle the success or failure of the form submission.
-                        future.then((value) {
-                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(
-                                  const SnackBar(content: Text('Success')))
-                              .closed
-                              .then((value) => Navigator.pop(context));
-                        }).catchError((error) {
-                          setState(() {
-                            _isEnabled = true;
-                          });
-                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Error')));
-                        });
+                  const SizedBox(height: 25.0),
+                  TextFormField(
+                    enabled: _isEnabled,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    minLines: 5,
+                    decoration: const InputDecoration(
+                      suffixIcon: Icon(Icons.feedback_outlined),
+                      labelText: 'Give us your feedback or request',
+                      hintText:
+                          'Give your feedback or request for starting a \ncrowdaction',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your feedback';
                       }
+                      _formData['message'] = value;
+                      return null;
                     },
-                    child: const Text('Submit'),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 35.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: RectangleButton(
+                          text: 'Let us know',
+                          enabled: _isEnabled,
+                          onTap: _isEnabled ? () => _validateForm() : null,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email address';
+    }
+    if (!EmailValidator.validate(value)) {
+      return 'Please enter a valid email address';
+    }
+    _formData['email'] = value;
+    return null;
+  }
+
+  void _validateForm() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isEnabled = false;
+      });
+
+      // If the form is valid, display a snackbar. In the real world,
+      // you'd often call a server or save the information in a database.
+      ScaffoldMessenger.of(context).showSnackBar(
+        // TODO: implement a BLOC and use a loading dialog
+        const SnackBar(
+          content: Text('Processing data'),
+          duration: Duration(days: 1),
+        ),
+      );
+
+      final future = submitForm(_formData);
+
+      // Handle the success or failure of the form submission.
+      future.then((value) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Success')))
+            .closed
+            .then((value) => Navigator.pop(context));
+      }).catchError(
+        (error) {
+          setState(() {
+            _isEnabled = true;
+          });
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Error')));
+        },
+      );
+    }
   }
 }

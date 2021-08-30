@@ -1,4 +1,5 @@
 import 'package:collaction_app/presentation/contact_form/contact_form_screen.dart';
+import 'package:collaction_app/presentation/shared_widgets/rectangle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -8,20 +9,19 @@ void main() {
     await tester.pumpWidget(const MaterialApp(home: ContactFormPage()));
 
     // Verify that the page is rendered with all its elements.
-    expect(find.text("Contact form"), findsOneWidget);
+    expect(find.text("We want to know what you think!"), findsOneWidget);
     expect(find.byType(TextFormField), findsNWidgets(2));
-    expect(find.text("Submit"), findsOneWidget);
+    expect(find.text("Let us know"), findsOneWidget);
   });
 
   testWidgets('Form can be submitted', (WidgetTester tester) async {
     // Build app and contact form
     await tester.pumpWidget(const MaterialApp(home: ContactFormPage()));
 
-    final Finder emailAddress =
-        find.widgetWithText(TextFormField, 'Your email address');
+    final Finder emailAddress = find.widgetWithText(TextFormField, 'Email');
     final Finder feedback =
-        find.widgetWithText(TextFormField, 'Your feedback or request');
-    final Finder submit = find.widgetWithText(ElevatedButton, 'Submit');
+        find.widgetWithText(TextFormField, 'Give us your feedback or request');
+    final Finder submit = find.widgetWithText(RectangleButton, 'Let us know');
 
     expect(find.text('Processing data'), findsNothing);
 
@@ -37,7 +37,7 @@ void main() {
     // Build app and contact form
     await tester.pumpWidget(const MaterialApp(home: ContactFormPage()));
 
-    final Finder submit = find.widgetWithText(ElevatedButton, 'Submit');
+    final Finder submit = find.widgetWithText(RectangleButton, 'Let us know');
 
     await tester.tap(submit);
     await tester.pump();
@@ -50,11 +50,10 @@ void main() {
     // Build app and contact form
     await tester.pumpWidget(const MaterialApp(home: ContactFormPage()));
 
-    final Finder emailAddress =
-        find.widgetWithText(TextFormField, 'Your email address');
-    final Finder submit = find.widgetWithText(ElevatedButton, 'Submit');
+    final Finder emailAddress = find.widgetWithText(TextFormField, 'Email');
+    final Finder submit = find.widgetWithText(RectangleButton, 'Let us know');
 
-    await tester.enterText(emailAddress, 'example@mailcom');
+    await tester.enterText(emailAddress, 'example@gmailcom');
     await tester.tap(submit);
     await tester.pump();
 
