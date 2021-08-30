@@ -12,6 +12,16 @@ class SignInResult {
   SignInResult({required this.isNewUser});
 }
 
+class AuthException implements Exception {
+  final String? message;
+  AuthException({this.message});
+
+  @override
+  String toString() { 
+    return message ?? 'AuthException';
+  }
+}
+
 abstract class IUserRepository {
   Stream<User> observeUser();
 

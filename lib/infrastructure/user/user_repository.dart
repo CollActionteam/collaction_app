@@ -52,8 +52,8 @@ class UserRepository implements IUserRepository, Disposable {
               credential.smsCode));
           result.close();
         },
-        verificationFailed: (e) {
-          result.addError(e); // TODO map error to non-firebase exception (?)
+        verificationFailed: (firebase_auth.FirebaseAuthException error) {
+          result.addError(AuthException(message: error.message));
           result.close();
         },
         codeSent: (verificationId, resendToken) {
@@ -72,8 +72,12 @@ class UserRepository implements IUserRepository, Disposable {
     final firebaseCredential = firebase_auth.PhoneAuthProvider.credential(
         verificationId: credential.verificationId!,
         smsCode: credential.smsCode!);
-    final userCredential = await _firebaseAuth.signInWithCredential(
-        firebaseCredential); // TODO map error to non-firebase exception (?)
+    final userCredential = await _firebaseAuth
+        .signInWithCredential(firebaseCredential)
+        .onError<firebase_auth.FirebaseAuthException>((error, stackTrace) =>
+            throw AuthException(
+                message: error
+                    .message));
     final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
     return SignInResult(isNewUser: isNewUser);
   }
