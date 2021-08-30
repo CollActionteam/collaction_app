@@ -37,6 +37,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size(MediaQuery.of(_context).size.width, 55.0);
 }
