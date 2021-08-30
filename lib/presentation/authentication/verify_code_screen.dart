@@ -35,6 +35,7 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
       }
       if (_verificationId != null && credential.smsCode != null) {
         // TODO auto verify and remove the following debug print
+        // FIXME this gets printed twice
         debugPrint(
             'TODO Ready to verify: code: ${credential.smsCode}, id: ${credential.verificationId}');
       }

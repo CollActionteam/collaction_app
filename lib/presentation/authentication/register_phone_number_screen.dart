@@ -37,8 +37,7 @@ class _RegisterPhoneNumberPageState extends State<RegisterPhoneNumberPage> {
     _credentialStreamSubscription?.cancel();
     final credentialsStream = _userRepository.registerPhoneNumber(phoneNumber);
     _credentialStreamSubscription = credentialsStream.listen((credentials) {
-      final router = context.router;
-      router
+      context.router
           .push<SignInResult>(
               VerifyCodeRoute(credentialStream: credentialsStream))
           .then((signInResult) {
@@ -48,7 +47,7 @@ class _RegisterPhoneNumberPageState extends State<RegisterPhoneNumberPage> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('New user: ${signInResult.isNewUser}'),
           ));
-          router.pop();
+          context.router.popUntilRoot();
         }
       });
     }, onError: (error) {
