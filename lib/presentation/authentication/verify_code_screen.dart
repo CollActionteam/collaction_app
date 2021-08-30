@@ -33,6 +33,11 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
       if (credential.smsCode != null) {
         _textEditingController.text = credential.smsCode!;
       }
+      if (_verificationId != null && credential.smsCode != null) {
+        // TODO auto verify and remove the following debug print
+        debugPrint(
+            'TODO Ready to verify: code: ${credential.smsCode}, id: ${credential.verificationId}');
+      }
     });
   }
 

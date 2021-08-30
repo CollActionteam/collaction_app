@@ -56,13 +56,13 @@ class HomePage extends StatelessWidget {
                         },
                         child: const Text('UI Components Demo Page'),
                       ),
+                      CurrentUserStatusText(),
                       ElevatedButton(
                         onPressed: () {
                           context.router.push(const RegisterPhoneNumberRoute());
                         },
                         child: const Text('Register'),
-                      ),
-                      CurrentUserStatusText()
+                      )
                     ],
                   ),
                 ),

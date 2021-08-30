@@ -60,9 +60,7 @@ class UserRepository implements IUserRepository, Disposable {
           result.add(Credential(verificationId, null));
         },
         codeAutoRetrievalTimeout: (_) => result.close());
-    return result.stream.distinct((a, b) =>
-        a.verificationId == b.verificationId &&
-        a.smsCode == b.smsCode); // Avoid sending same credential twice
+    return result.stream.distinct();
   }
 
   @override
@@ -76,8 +74,8 @@ class UserRepository implements IUserRepository, Disposable {
         .signInWithCredential(firebaseCredential)
         .onError<firebase_auth.FirebaseAuthException>(
             (error, stackTrace) => throw AuthException(message: error.message));
-    final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
-    return SignInResult(isNewUser: isNewUser);
+    return SignInResult(
+        isNewUser: userCredential.additionalUserInfo?.isNewUser ?? false);
   }
 
   @override

@@ -1,9 +1,13 @@
 import 'package:collaction_app/domain/user/user.dart';
+import 'package:equatable/equatable.dart';
 
-class Credential {
+class Credential extends Equatable {
   final String? verificationId, smsCode;
 
-  Credential(this.verificationId, this.smsCode);
+  const Credential(this.verificationId, this.smsCode);
+
+  @override
+  List<Object?> get props => [verificationId, smsCode];
 }
 
 class SignInResult {
