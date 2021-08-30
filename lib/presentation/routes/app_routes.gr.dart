@@ -4,11 +4,14 @@
 // AutoRouteGenerator
 // **************************************************************************
 
+import 'dart:async' as _i9;
+
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
+import '../../domain/user/i_user_repository.dart' as _i7;
 import '../authentication/register_phone_number_screen.dart' as _i6;
-import '../authentication/verify_code_screen.dart' as _i7;
+import '../authentication/verify_code_screen.dart' as _i8;
 import '../contact_form/contact_form_screen.dart' as _i5;
 import '../crowd_action/crowd_action_browse.dart' as _i4;
 import '../home/home_screen.dart' as _i3;
@@ -39,10 +42,12 @@ class AppRouter extends _i1.RootStackRouter {
         builder: (_) {
           return const _i6.RegisterPhoneNumberPage();
         }),
-    VerifyCodeRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+    VerifyCodeRoute.name: (routeData) => _i1.MaterialPageX<_i7.SignInResult>(
         routeData: routeData,
-        builder: (_) {
-          return const _i7.VerifyCodePage();
+        builder: (data) {
+          final args = data.argsAs<VerifyCodeRouteArgs>();
+          return _i8.VerifyCodePage(
+              credentialStream: args.credentialStream, key: args.key);
         })
   };
 
@@ -84,8 +89,21 @@ class RegisterPhoneNumberRoute extends _i1.PageRouteInfo {
   static const String name = 'RegisterPhoneNumberRoute';
 }
 
-class VerifyCodeRoute extends _i1.PageRouteInfo {
-  const VerifyCodeRoute() : super(name, path: '/verify-code-page');
+class VerifyCodeRoute extends _i1.PageRouteInfo<VerifyCodeRouteArgs> {
+  VerifyCodeRoute(
+      {required _i9.Stream<_i7.Credential> credentialStream, _i2.Key? key})
+      : super(name,
+            path: '/verify-code-page',
+            args: VerifyCodeRouteArgs(
+                credentialStream: credentialStream, key: key));
 
   static const String name = 'VerifyCodeRoute';
+}
+
+class VerifyCodeRouteArgs {
+  const VerifyCodeRouteArgs({required this.credentialStream, this.key});
+
+  final _i9.Stream<_i7.Credential> credentialStream;
+
+  final _i2.Key? key;
 }

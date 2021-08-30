@@ -13,9 +13,10 @@ class UserRepository implements IUserRepository, Disposable {
   final _userSubject = BehaviorSubject<User>.seeded(User.anonymous);
   late final StreamSubscription _userStreamSubscription;
 
-  UserRepository({required firebase_auth.FirebaseAuth firebaseAuth}) : _firebaseAuth = firebaseAuth {
+  UserRepository({required firebase_auth.FirebaseAuth firebaseAuth})
+      : _firebaseAuth = firebaseAuth {
     _userStreamSubscription = _firebaseAuth
-        .authStateChanges()
+        .userChanges()
         .map(_firebaseUserToUser)
         .listen(_userSubject.sink.add);
   }
@@ -46,7 +47,9 @@ class UserRepository implements IUserRepository, Disposable {
     _firebaseAuth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (credential) {
-          result.add(Credential(credential.verificationId, credential.smsCode));
+          result.add(Credential(
+              credential.verificationId ?? result.valueOrNull?.verificationId,
+              credential.smsCode));
           result.close();
         },
         verificationFailed: (e) {
@@ -57,7 +60,9 @@ class UserRepository implements IUserRepository, Disposable {
           result.add(Credential(verificationId, null));
         },
         codeAutoRetrievalTimeout: (_) => result.close());
-    return result.stream;
+    return result.stream.distinct((a, b) =>
+        a.verificationId == b.verificationId &&
+        a.smsCode == b.smsCode); // Avoid sending same credential twice
   }
 
   @override

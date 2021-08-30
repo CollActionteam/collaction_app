@@ -1,17 +1,23 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 
 class VerifyCodePage extends StatefulWidget {
-  const VerifyCodePage({Key? key}) : super(key: key);
+  final Stream<Credential> credentialStream;
+
+  const VerifyCodePage({required this.credentialStream, Key? key})
+      : super(key: key);
 
   @override
   _VerifyCodePageState createState() => _VerifyCodePageState();
 }
 
 class _VerifyCodePageState extends State<VerifyCodePage> {
+  late final StreamSubscription _credentialStreamSubscription;
+
   final _userRepository = getIt<IUserRepository>();
   final _textEditingController = TextEditingController();
   String? _verificationId;
@@ -19,38 +25,39 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
   @override
   void initState() {
     super.initState();
+    _credentialStreamSubscription =
+        widget.credentialStream.listen((credential) {
+      if (credential.verificationId != null) {
+        _verificationId = credential.verificationId;
+      }
+      if (credential.smsCode != null) {
+        _textEditingController.text = credential.smsCode!;
+      }
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
     _textEditingController.dispose();
+    _credentialStreamSubscription.cancel();
   }
 
   void _verify(BuildContext context) {
     _userRepository
         .signIn(Credential(_verificationId, _textEditingController.text))
-        .then((value) => Navigator.pop(context, value))
+        .then((value) => context.router.pop<SignInResult>(value))
         .onError((error, stackTrace) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: ${error.toString()}'),
       ));
+      return true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // ignore: cast_nullable_to_non_nullable
-    (ModalRoute.of(context)!.settings.arguments as Stream<Credential>)
-        .listen((credential) {
-      _verificationId = credential.verificationId;
-      if (credential.smsCode != null) {
-        _textEditingController.text = credential.smsCode!;
-        _verify(context);
-      }
-    });
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0.0),
@@ -59,9 +66,7 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 23.0),
             child: StreamBuilder<Credential>(
-              // ignore: cast_nullable_to_non_nullable
-              stream: ModalRoute.of(context)!.settings.arguments
-                  as Stream<Credential>,
+              stream: widget.credentialStream,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());

@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
+import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:flutter/material.dart';
-
-import 'verify_code_screen.dart';
 
 class RegisterPhoneNumberPage extends StatefulWidget {
   const RegisterPhoneNumberPage({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class _RegisterPhoneNumberPageState extends State<RegisterPhoneNumberPage> {
   final _userRepository = getIt<IUserRepository>();
   final _textEditingController = TextEditingController();
   StreamSubscription? _credentialStreamSubscription;
+  bool _isButtonDisabled = false;
 
   @override
   void initState() {
@@ -36,15 +37,17 @@ class _RegisterPhoneNumberPageState extends State<RegisterPhoneNumberPage> {
     _credentialStreamSubscription?.cancel();
     final credentialsStream = _userRepository.registerPhoneNumber(phoneNumber);
     _credentialStreamSubscription = credentialsStream.listen((credentials) {
-      Navigator.push<SignInResult?>(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const VerifyCodePage(),
-                  settings: RouteSettings(arguments: credentialsStream)))
-          .then((value) {
-        if (value != null) {
+      context.router
+          .push<SignInResult>(
+              VerifyCodeRoute(credentialStream: credentialsStream))
+          .then((signInResult) {
+        if (signInResult != null) {
           // Did complete sign in
-          Navigator.pop(context);
+          context.router.pop();
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('New user: ${signInResult.isNewUser}'),
+          ));
         }
       });
     }, onError: (error) {
@@ -52,6 +55,10 @@ class _RegisterPhoneNumberPageState extends State<RegisterPhoneNumberPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error: ${error.toString()}'),
       ));
+    }, onDone: () {
+      setState(() {
+        _isButtonDisabled = false;
+      });
     });
   }
 
@@ -72,9 +79,14 @@ class _RegisterPhoneNumberPageState extends State<RegisterPhoneNumberPage> {
                   controller: _textEditingController,
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      _registerPhoneNumber(context);
-                    },
+                    onPressed: _isButtonDisabled
+                        ? null
+                        : () {
+                            _registerPhoneNumber(context);
+                            setState(() {
+                              _isButtonDisabled = true;
+                            });
+                          },
                     child: const Text('Register')),
               ],
             ),
