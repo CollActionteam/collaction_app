@@ -29,9 +29,9 @@ class MenuDrawer extends StatelessWidget {
       ),
       ListTile(
         onTap: () =>
-          // TODO Later this should be changed to something like collaction.org/app that will forward to the AppStore or PlayStore depending on the mobile device.
-          Share.share(
-              'Help me make the world a bit better on https://www.collaction.org/'),
+            // TODO Later this should be changed to something like collaction.org/app that will forward to the AppStore or PlayStore depending on the mobile device.
+            Share.share(
+                'Help me make the world a bit better on https://www.collaction.org/'),
         leading: const Icon(Icons.group_add, size: 27),
         title: const Text('Invite friends'),
       ),
