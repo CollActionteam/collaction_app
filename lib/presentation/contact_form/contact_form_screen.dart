@@ -17,6 +17,8 @@ class ContactFormPage extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class ContactFormState extends State<ContactFormPage> {
+  late ScrollController _pageScrollController;
+
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -35,23 +37,34 @@ class ContactFormState extends State<ContactFormPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _pageScrollController = ScrollController();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(context),
+      appBar: CustomAppBar(
+        context,
+        title: 'Contact form',
+        elevated: true,
+        pageScrollController: _pageScrollController,
+      ),
       body: ScrollConfiguration(
         behavior: const ScrollBehavior(), // TODO: use NoRippleBehavior(),
         child: SingleChildScrollView(
+          controller: _pageScrollController,
           child: Form(
             key: _formKey,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 23.0),
+                  const EdgeInsets.symmetric(vertical: 100.0, horizontal: 23.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 50.0),
                   const Text(
                     "We want to know what you think!",
                     style:
