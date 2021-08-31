@@ -9,8 +9,7 @@ class MockUserRepository extends Mock implements IUserRepository {}
 class TestUtilities {
   static void mockUser(Stream<User> userStream) {
     final mockUserRepository = MockUserRepository();
-    when(() => mockUserRepository.observeUser())
-        .thenAnswer((_) => userStream);
+    when(() => mockUserRepository.observeUser()).thenAnswer((_) => userStream);
     GetIt.I.allowReassignment = true;
     GetIt.I.registerSingleton<IUserRepository>(mockUserRepository);
   }

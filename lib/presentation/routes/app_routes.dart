@@ -1,5 +1,4 @@
 import 'package:auto_route/annotations.dart';
-import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/presentation/crowd_action/crowd_action_details.dart';
 
 import '../authentication/register_phone_number_screen.dart';
@@ -17,7 +16,7 @@ import '../onboarding/onboarding.dart';
     AutoRoute(page: CrowdActionBrowsePage),
     AutoRoute(page: ContactFormPage),
     AutoRoute(page: RegisterPhoneNumberPage),
-    AutoRoute<SignInResult>(page: VerifyCodePage),
+    AutoRoute(page: VerifyCodePage),
     AutoRoute(page: ComponentsDemoPage),
     AutoRoute(page: OnboardingPage),
     AutoRoute(page: CrowdActionDetailsPage),
