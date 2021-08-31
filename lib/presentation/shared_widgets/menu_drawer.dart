@@ -18,7 +18,7 @@ class MenuDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var drawerItems = <Widget>[
+    final drawerItems = <Widget>[
       const Padding(
         padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 15),
         child: Text(
