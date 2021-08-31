@@ -25,6 +25,13 @@ _If you want to build once you are done with your changes, to build generated fi
   flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
+## Firebase
+In order to use features provided by Firebase, download the corresponding `google-services.json` and `GoogleService-Info.plist` from the Firebase console project and add them to the project files.
+
+Make sure that the SHA fingerprint of your signing certificate (Android) and AppStoreID/TeamID (iOS) are registered in your Firebase console.
+
+Phone authentication has to be enabled in the Firebase console.
+
 ## Getting Started with Flutter
 
 A few resources to get you started if this is your first Flutter project:
