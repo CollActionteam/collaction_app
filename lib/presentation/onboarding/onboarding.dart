@@ -181,5 +181,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   void getStarted() {
     // TODO: Replace with authentication route ( context.router.replace(AuthenticationRoute); ) - => and arrow function
+    context.router.popUntilRoot();
   }
 }
