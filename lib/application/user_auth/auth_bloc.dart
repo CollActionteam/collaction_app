@@ -17,50 +17,68 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> implements DisposableBloc {
   final IUserRepository _userRepository;
   String? verificationId;
 
+  Stream<AuthState> _mapErrorToState(Exception error) async* {
+    yield AuthState.authError(error);
+  }
+
+  Stream<AuthState> _mapResetToState() async* {
+    _credentialStreamSubscription?.cancel();
+    yield const _Initial();
+  }
+
+  Stream<AuthState> _mapRegisterPhoneNumberToState(String phoneNumber) async* {
+    _credentialStreamSubscription?.cancel();
+    _credentialStreamSubscription =
+        _userRepository.registerPhoneNumber(phoneNumber).listen((credential) {
+      add(AuthEvent.updated(credential));
+    }, onError: (e) {
+      add(AuthEvent.error(e is Exception ? e : Exception(e)));
+      _credentialStreamSubscription?.cancel();
+    });
+    yield const AuthState.registeringPhoneNumber();
+  }
+
+  Stream<AuthState> _mapUpdatedToState(Credential credential) async* {
+    yield const AuthState.awaitingVerification();
+    if (credential.verificationId != null) {
+      verificationId = credential.verificationId;
+    }
+    if (credential.smsCode != null) {
+      add(AuthEvent.verify(credential.smsCode!));
+    }
+  }
+
+  Stream<AuthState> _mapVerifyToState(String smsCode) async* {
+    if (verificationId == null) {
+      yield AuthState.authError(
+          AuthException(message: 'Verification id is null'));
+    } else {
+      yield AuthState.verifying(smsCode);
+      _userRepository.signIn(Credential(verificationId, smsCode)).then(
+          (result) {
+        add(AuthEvent.logIn(isNewUser: result.isNewUser));
+      }, onError: (e) {
+        add(AuthEvent.error(e is Exception ? e : Exception(e)));
+      });
+    }
+  }
+
+  Stream<AuthState> _mapLogInToState(bool isNewUser) async* {
+    _credentialStreamSubscription?.cancel();
+    yield AuthState.loggedIn(isNewUser: isNewUser);
+  }
+
   @override
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {
-    yield* event.when(error: (e) async* {
-      yield AuthState.authError(e);
-    }, reset: () async* {
-      _credentialStreamSubscription?.cancel();
-      yield const _Initial();
-    }, registerPhoneNumber: (phoneNumber) async* {
-      _credentialStreamSubscription?.cancel();
-      _credentialStreamSubscription =
-          _userRepository.registerPhoneNumber(phoneNumber).listen((credential) {
-        add(AuthEvent.updated(credential));
-      }, onError: (e) {
-        add(AuthEvent.error(e is Exception ? e : Exception(e)));
-        _credentialStreamSubscription?.cancel();
-      });
-      yield const AuthState.registeringPhoneNumber();
-    }, updated: (credential) async* {
-      yield const AuthState.awaitingVerification();
-      if (credential.verificationId != null) {
-        verificationId = credential.verificationId;
-      }
-      if (credential.smsCode != null) {
-        add(AuthEvent.verify(credential.smsCode!));
-      }
-    }, verify: (smsCode) async* {
-      if (verificationId == null) {
-        yield AuthState.authError(
-            AuthException(message: 'Verification id is null'));
-      } else {
-        yield AuthState.verifying(smsCode);
-        _userRepository.signIn(Credential(verificationId, smsCode)).then(
-            (result) {
-          add(AuthEvent.logIn(isNewUser: result.isNewUser));
-        }, onError: (e) {
-          add(AuthEvent.error(e is Exception ? e : Exception(e)));
-        });
-      }
-    }, logIn: (isNewUser) async* {
-      _credentialStreamSubscription?.cancel();
-      yield AuthState.loggedIn(isNewUser: isNewUser);
-    });
+    yield* event.when(
+        error: _mapErrorToState,
+        reset: _mapResetToState,
+        registerPhoneNumber: _mapRegisterPhoneNumberToState,
+        updated: _mapUpdatedToState,
+        verify: _mapVerifyToState,
+        logIn: _mapLogInToState);
   }
 
   @override
