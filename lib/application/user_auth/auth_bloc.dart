@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> implements DisposableBloc {
   AuthBloc(this._userRepository) : super(const _Initial());
   StreamSubscription? _credentialStreamSubscription;
   final IUserRepository _userRepository;
-  String? verificationId;
+  String? _verificationId;
 
   Stream<AuthState> _mapErrorToState(Exception error) async* {
     yield AuthState.authError(error);
@@ -23,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> implements DisposableBloc {
 
   Stream<AuthState> _mapResetToState() async* {
     _credentialStreamSubscription?.cancel();
+    _verificationId = null;
     yield const _Initial();
   }
 
@@ -41,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> implements DisposableBloc {
   Stream<AuthState> _mapUpdatedToState(Credential credential) async* {
     yield const AuthState.awaitingVerification();
     if (credential.verificationId != null) {
-      verificationId = credential.verificationId;
+      _verificationId = credential.verificationId;
     }
     if (credential.smsCode != null) {
       add(AuthEvent.verify(credential.smsCode!));
@@ -49,12 +50,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> implements DisposableBloc {
   }
 
   Stream<AuthState> _mapVerifyToState(String smsCode) async* {
-    if (verificationId == null) {
+    if (_verificationId == null) {
       yield AuthState.authError(
           AuthException(message: 'Verification id is null'));
     } else {
       yield AuthState.verifying(smsCode);
-      _userRepository.signIn(Credential(verificationId, smsCode)).then(
+      _userRepository.signIn(Credential(_verificationId, smsCode)).then(
           (result) {
         add(AuthEvent.logIn(isNewUser: result.isNewUser));
       }, onError: (e) {
