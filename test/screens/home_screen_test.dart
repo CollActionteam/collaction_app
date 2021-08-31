@@ -4,25 +4,19 @@
 // utility that Flutter provides. For example, you can send tap and scroll
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
-import 'package:collaction_app/domain/user/i_user_repository.dart';
+import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/main.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
-import 'package:mocktail/mocktail.dart';
 
-class MockUserRepository extends Mock implements IUserRepository {}
+import '../test_utilities.dart';
 
 void main() {
   testWidgets('Home Page and Transitions', (WidgetTester tester) async {
     // configure get_it
     configureInjection();
 
-    final mockUserRepository = MockUserRepository();
-    when(() => mockUserRepository.observeUser())
-        .thenAnswer((_) => const Stream.empty());
-    GetIt.I.allowReassignment = true;
-    GetIt.I.registerSingleton<IUserRepository>(mockUserRepository);
+    TestUtilities.mockUser(Stream.value(User.anonymous));
 
     // Build our app and trigger a frame.
     await tester.pumpWidget(AppWidget());
