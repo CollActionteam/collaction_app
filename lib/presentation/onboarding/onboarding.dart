@@ -89,11 +89,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   borderRadius: BorderRadius.circular(25.0)),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: 15.0 * scaleFactor, horizontal: 20.0),
+                    vertical: 5.0 * scaleFactor, horizontal: 20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 25.0 * scaleFactor),
+                    SizedBox(height: 15.0 * scaleFactor),
                     SizedBox(
                       height: 100.0 * (scaleFactor + 0.1),
                       width: MediaQuery.of(context).size.width - 50,
@@ -111,7 +111,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                   fontSize: 34.0 * scaleFactor,
                                   color: kPrimaryColor400),
                             ),
-                            SizedBox(height: 20.0 * scaleFactor),
+                            SizedBox(height: 10.0 * scaleFactor),
                             Text(
                               textPages[index],
                               textAlign: TextAlign.center,
@@ -125,7 +125,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.0 * scaleFactor),
+                    SizedBox(height: 10.0 * scaleFactor),
                     DotsIndicator(
                       position: currentPage,
                       dotsCount: 3,

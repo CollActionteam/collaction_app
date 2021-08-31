@@ -4,7 +4,7 @@ import 'infrastructure/core/injection.dart';
 import 'presentation/routes/app_routes.gr.dart' as app_router;
 import 'presentation/themes/themes.dart';
 
-Future<void> main() async {
+void main() {
   configureInjection();
   runApp(AppWidget());
 }
