@@ -1,13 +1,13 @@
-import 'package:collaction_app/presentation/shared_widgets/accent_action_chip.dart';
-import 'package:collaction_app/presentation/shared_widgets/crowdaction_card.dart';
-import 'package:collaction_app/presentation/shared_widgets/custom_fab.dart';
 import 'package:flutter/material.dart';
 
-import '../shared_widgets/accent_chip.dart';
-import '../shared_widgets/custom_appbar.dart';
-import '../shared_widgets/pill_button.dart';
-import '../shared_widgets/rectangle_button.dart';
-import '../shared_widgets/secondary_chip.dart';
+import '../../shared_widgets/accent_action_chip.dart';
+import '../../shared_widgets/accent_chip.dart';
+import '../../shared_widgets/crowdaction_card.dart';
+import '../../shared_widgets/custom_appbar.dart';
+import '../../shared_widgets/custom_fab.dart';
+import '../../shared_widgets/pill_button.dart';
+import '../../shared_widgets/rectangle_button.dart';
+import '../../shared_widgets/secondary_chip.dart';
 
 class ComponentsDemoPage extends StatefulWidget {
   const ComponentsDemoPage({Key? key}) : super(key: key);

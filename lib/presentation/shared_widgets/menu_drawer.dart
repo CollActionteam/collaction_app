@@ -75,6 +75,11 @@ class MenuDrawer extends StatelessWidget {
               leading: const Icon(Icons.mail_outline_outlined, size: 27),
               title: const Text('Contact Us'),
             ),
+            ListTile(
+              onTap: () => pushRoute(context, const DemoRoute()),
+              leading: const Icon(Icons.list_alt, size: 27),
+              title: const Text('Demo Content'),
+            ),
           ],
         ),
       ),
