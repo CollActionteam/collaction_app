@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../routes/app_routes.gr.dart';
 
@@ -33,7 +34,11 @@ class MenuDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                // TODO Later this should be changed to something like collaction.org/app that will forward to the AppStore or PlayStore depending on the mobile device.
+                Share.share(
+                    'Help me make the world a bit better on https://www.collaction.org/');
+              },
               leading: const Icon(Icons.group_add, size: 27),
               title: const Text('Invite friends'),
             ),
