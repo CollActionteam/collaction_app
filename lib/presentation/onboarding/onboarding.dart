@@ -83,9 +83,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
               height: MediaQuery.of(context).size.height *
                   (scaleFactor == 1.0 ? 0.45 : 0.46),
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: kAlmostTransparent,
-                  borderRadius: BorderRadius.circular(25.0)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 5.0 * scaleFactor, horizontal: 20.0),
