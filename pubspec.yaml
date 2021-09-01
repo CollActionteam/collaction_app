@@ -36,6 +36,7 @@ dependencies:
   http: ^0.13.3
   injectable: ^1.4.1
   json_annotation: ^4.0.1
+  share_plus: ^2.1.4
   url_launcher: ^6.0.9
 
 dev_dependencies:
