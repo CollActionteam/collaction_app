@@ -85,7 +85,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
               width: double.infinity,
               decoration: const BoxDecoration(
                   color: kAlmostTransparent,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0))),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 5.0 * scaleFactor, horizontal: 20.0),
