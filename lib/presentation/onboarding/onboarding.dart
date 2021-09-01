@@ -32,8 +32,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final scaleFactor = MediaQuery.of(context).size.height > 600 ? 1.0 : 0.8;
-
+    final scaleFactor = MediaQuery.of(context).size.height > 700 ? 1.0 : 0.8;
     final imagePages = [
       Image.asset(
         'assets/images/onboarding_one.png',
@@ -82,7 +81,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
             Container(
               height: MediaQuery.of(context).size.height *
-                  (scaleFactor == 1.0 ? 0.45 : 0.50),
+                  (scaleFactor == 1.0 ? 0.45 : 0.46),
               width: double.infinity,
               decoration: BoxDecoration(
                   color: kAlmostTransparent,
@@ -91,9 +90,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 padding: EdgeInsets.symmetric(
                     vertical: 5.0 * scaleFactor, horizontal: 20.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SizedBox(height: 15.0 * scaleFactor),
                     SizedBox(
                       height: 100.0 * (scaleFactor + 0.1),
                       width: MediaQuery.of(context).size.width - 50,
@@ -111,7 +109,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                   fontSize: 34.0 * scaleFactor,
                                   color: kPrimaryColor400),
                             ),
-                            SizedBox(height: 10.0 * scaleFactor),
+                            SizedBox(height: 25.0 * scaleFactor),
                             Text(
                               textPages[index],
                               textAlign: TextAlign.center,
@@ -125,7 +123,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.0 * scaleFactor),
+                    SizedBox(height: 25.0 * scaleFactor),
                     DotsIndicator(
                       position: currentPage,
                       dotsCount: 3,
