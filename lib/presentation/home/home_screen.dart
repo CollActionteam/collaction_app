@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/authentication/current_user_status_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';

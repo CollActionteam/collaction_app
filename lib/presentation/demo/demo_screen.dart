@@ -58,15 +58,20 @@ class DemoPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 15.0,),
+              const SizedBox(
+                height: 15.0,
+              ),
               CurrentUserStatusText(),
-              const SizedBox(height: 15.0,),
+              const SizedBox(
+                height: 15.0,
+              ),
               Row(
                 children: [
                   Expanded(
                     child: RectangleButton(
                       text: "Register",
-                      onTap: () => context.router.push(const RegisterPhoneNumberRoute()),
+                      onTap: () =>
+                          context.router.push(const RegisterPhoneNumberRoute()),
                     ),
                   ),
                 ],
