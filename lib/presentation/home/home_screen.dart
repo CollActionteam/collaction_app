@@ -1,14 +1,26 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/menu_drawer.dart';
 import '../themes/constants.dart';
 import 'widgets/crowdaction_carousel.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    showOnboarding();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,5 +82,14 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> showOnboarding() async {
+    // Push onboarding screen if first time launching application
+    final sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getBool('wasUserOnboarded') != true) {
+      sharedPreferences.setBool('wasUserOnboarded', true);
+      context.router.push(const OnboardingRoute());
+    }
   }
 }

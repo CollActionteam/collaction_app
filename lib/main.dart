@@ -6,7 +6,6 @@ import 'presentation/themes/themes.dart';
 
 void main() {
   configureInjection();
-
   runApp(AppWidget());
 }
 

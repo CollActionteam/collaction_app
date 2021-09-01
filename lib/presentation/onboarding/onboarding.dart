@@ -32,8 +32,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final scaleFactor = MediaQuery.of(context).size.height > 600 ? 1.0 : 0.8;
-
+    final scaleFactor = MediaQuery.of(context).size.height > 700 ? 1.0 : 0.8;
     final imagePages = [
       Image.asset(
         'assets/images/onboarding_one.png',
@@ -82,18 +81,19 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
             Container(
               height: MediaQuery.of(context).size.height *
-                  (scaleFactor == 1.0 ? 0.45 : 0.50),
+                  (scaleFactor == 1.0 ? 0.45 : 0.46),
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: kAlmostTransparent,
-                  borderRadius: BorderRadius.circular(25.0)),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0))),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: 15.0 * scaleFactor, horizontal: 20.0),
+                    vertical: 5.0 * scaleFactor, horizontal: 20.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SizedBox(height: 25.0 * scaleFactor),
                     SizedBox(
                       height: 100.0 * (scaleFactor + 0.1),
                       width: MediaQuery.of(context).size.width - 50,
@@ -111,7 +111,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                   fontSize: 34.0 * scaleFactor,
                                   color: kPrimaryColor400),
                             ),
-                            SizedBox(height: 20.0 * scaleFactor),
+                            SizedBox(height: 25.0 * scaleFactor),
                             Text(
                               textPages[index],
                               textAlign: TextAlign.center,
@@ -125,7 +125,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.0 * scaleFactor),
+                    SizedBox(height: 25.0 * scaleFactor),
                     DotsIndicator(
                       position: currentPage,
                       dotsCount: 3,
@@ -181,5 +181,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   void getStarted() {
     // TODO: Replace with authentication route ( context.router.replace(AuthenticationRoute); ) - => and arrow function
+    context.router.popUntilRoot();
   }
 }
