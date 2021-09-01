@@ -72,17 +72,6 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         const CrowdActionCarousel(),
-                        ElevatedButton(
-                          onPressed: () =>
-                              context.router.push(const ContactFormRoute()),
-                          child:
-                              const Text('Give feedback or start crowd action'),
-                        ),
-                        ElevatedButton(
-                          onPressed: () =>
-                              context.router.push(const ComponentsDemoRoute()),
-                          child: const Text('UI Components Demo Page'),
-                        ),
                       ],
                     ),
                   ),

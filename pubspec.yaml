@@ -1,5 +1,5 @@
 name: collaction_app
-description: The CollAction app.
+description: The CollAction app
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -36,6 +36,7 @@ dependencies:
   http: ^0.13.3
   injectable: ^1.4.1
   json_annotation: ^4.0.1
+  share_plus: ^2.1.4
   shared_preferences: ^2.0.7
   url_launcher: ^6.0.9
 
