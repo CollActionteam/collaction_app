@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/authentication/current_user_status_text.dart';
-import 'package:collaction_app/presentation/shared_widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
+import '../authentication/current_user_status_text.dart';
 import '../routes/app_routes.gr.dart';
+import '../shared_widgets/custom_appbar.dart';
 import '../shared_widgets/rectangle_button.dart';
 
 class DemoPage extends StatelessWidget {

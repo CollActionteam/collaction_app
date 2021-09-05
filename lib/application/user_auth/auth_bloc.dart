@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/user/i_user_repository.dart';
+
+part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
-part 'auth_bloc.freezed.dart';
 
 @lazySingleton
 class AuthBloc extends Bloc<AuthEvent, AuthState> implements DisposableBloc {

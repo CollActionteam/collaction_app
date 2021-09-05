@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:collaction_app/domain/user/i_user_repository.dart';
-import 'package:collaction_app/domain/user/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
+
+import '../../domain/user/i_user_repository.dart';
+import '../../domain/user/user.dart';
 
 @LazySingleton(as: IUserRepository)
 class UserRepository implements IUserRepository, Disposable {
