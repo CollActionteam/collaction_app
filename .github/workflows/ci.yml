@@ -75,8 +75,7 @@ jobs:
       run: flutter test -r expanded .
 
   build:
-    # TODO disabled just for testing CI 
-    # if: ${{ github.ref == 'refs/heads/development' }}
+    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -116,12 +115,8 @@ jobs:
         alias: ${{ secrets.ANDROID_ALIAS }}
         keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
         keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-    # TODO debug only
-    - name: test
-      run: |
-        echo ${{steps.sign_app.outputs.signedReleaseFile}}
     - name: Upload generated apk to the artifacts
       uses: actions/upload-artifact@v2
       with:
         name: app-debug
-        path: ${{steps.sign_debug_apk.outputs.signedReleaseFile}} # build/app/outputs/apk/app-debug.apk
+        path: ${{steps.sign_debug_apk.outputs.signedReleaseFile}}
