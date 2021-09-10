@@ -30,7 +30,7 @@ class ScrollableAppBar extends StatefulWidget implements PreferredSizeWidget {
   ScrollableAppBarState createState() => ScrollableAppBarState();
 
   @override
-  Size get preferredSize => const Size(double.infinity, 56.0);
+  Size get preferredSize => const Size(double.infinity, kToolbarHeight);
 }
 
 @visibleForTesting
@@ -46,30 +46,25 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
 
     currentElevation = widget.elevation ?? widget.minElevation;
 
-    widget.pageScrollController.addListener(() {
-      if (widget.pageScrollController.position.pixels <=
-          scrollController.position.maxScrollExtent) {
-        scrollController.jumpTo(widget.pageScrollController.position.pixels);
-      }
+    widget.pageScrollController.addListener(
+      () {
+        if (widget.pageScrollController.position.pixels <=
+            scrollController.position.maxScrollExtent) {
+          scrollController.jumpTo(widget.pageScrollController.position.pixels);
+        }
 
-      if (widget.pageScrollController.position.pixels >
-          widget.pageScrollController.position.minScrollExtent) {
-        if (widget.elevation == null) {
-          if (currentElevation == widget.minElevation) {
-            setState(() {
-              currentElevation = widget.maxElevation;
-            });
-          }
+        if (widget.pageScrollController.position.pixels >
+                widget.pageScrollController.position.minScrollExtent &&
+            widget.elevation == null &&
+            currentElevation == widget.minElevation) {
+          setState(() => currentElevation = widget.maxElevation);
+        } else if (widget.pageScrollController.position.pixels ==
+                widget.pageScrollController.position.minScrollExtent &&
+            widget.elevation == null) {
+          setState(() => currentElevation = widget.minElevation);
         }
-      } else if (widget.pageScrollController.position.pixels ==
-          widget.pageScrollController.position.minScrollExtent) {
-        if (widget.elevation == null) {
-          setState(() {
-            currentElevation = widget.minElevation;
-          });
-        }
-      }
-    });
+      },
+    );
   }
 
   @override
@@ -82,15 +77,19 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-        overlayColor: MaterialStateProperty.resolveWith(
-          (states) => kAlmostTransparent,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith(
+              (states) => kAlmostTransparent,
+            ),
+            elevation: MaterialStateProperty.all<double>(0.0),
+            shape: MaterialStateProperty.all<OutlinedBorder>(
+              const CircleBorder(),
+            ),
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          ),
         ),
-        elevation: MaterialStateProperty.all<double>(0.0),
-        shape: MaterialStateProperty.all<OutlinedBorder>(const CircleBorder()),
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-      ))),
+      ),
       child: AppBar(
         backgroundColor: widget.backgroundColor,
         elevation: currentElevation,
@@ -108,12 +107,12 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
             ),
           ),
         ),
+        backwardsCompatibility: false,
         titleTextStyle: widget.titleTextStyle ??
             Theme.of(context)
                 .textTheme
                 .headline6
                 ?.copyWith(color: kPrimaryColor),
-        backwardsCompatibility: false,
       ),
     );
   }
