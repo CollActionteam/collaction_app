@@ -78,7 +78,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
     - name: Fetch code from repository
       uses: actions/checkout@v2
@@ -103,9 +103,20 @@ jobs:
     - name: Generate app icons
       run: flutter pub run flutter_launcher_icons:main
     - name: Build debug apk
-      run: flutter build apk --debug --build-number $GITHUB_RUN_NUMBER 
+      run: |
+        echo ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON }} | base64 -d > android/app/google-services.json
+        flutter build apk --debug --build-number $GITHUB_RUN_NUMBER 
+    - name: Sign debug apk
+      uses: r0adkll/sign-android-release@v1
+      id: sign_debug_apk
+      with:
+        releaseDirectory: build/app/outputs/flutter-apk
+        signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+        alias: ${{ secrets.ANDROID_ALIAS }}
+        keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
     - name: Upload generated apk to the artifacts
       uses: actions/upload-artifact@v2
       with:
         name: app-debug
-        path: build/app/outputs/flutter-apk/app-debug.apk
+        path: ${{steps.sign_debug_apk.outputs.signedReleaseFile}}
