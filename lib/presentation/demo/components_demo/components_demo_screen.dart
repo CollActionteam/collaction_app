@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../shared_widgets/accent_action_chip.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/crowdaction_card.dart';
-import '../../shared_widgets/custom_appbar.dart';
+import '../../shared_widgets/custom_app_bars/clean_app_bar.dart';
 import '../../shared_widgets/custom_fab.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../shared_widgets/rectangle_button.dart';
@@ -20,7 +20,7 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, title: "UI Components Demo"),
+      appBar: const CleanAppBar(title: "UI Components Demo"),
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,

@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
-import '../shared_widgets/custom_appbar.dart';
+import '../shared_widgets/custom_app_bars/scrollable_app_bar.dart';
 import '../shared_widgets/rectangle_button.dart';
 
 // Create a Form widget.
@@ -47,10 +47,8 @@ class ContactFormState extends State<ContactFormPage> {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(
-        context,
+      appBar: ScrollableAppBar(
         title: 'Contact form',
-        elevated: true,
         pageScrollController: _pageScrollController,
       ),
       body: ScrollConfiguration(

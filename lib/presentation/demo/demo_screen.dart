@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../authentication/current_user_status_text.dart';
 import '../routes/app_routes.gr.dart';
-import '../shared_widgets/custom_appbar.dart';
+
+import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
 import '../shared_widgets/rectangle_button.dart';
 
 class DemoPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class DemoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context),
+      appBar: const CleanAppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),

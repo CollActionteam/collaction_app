@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../shared_widgets/centered_loading_indicator.dart';
-import '../shared_widgets/custom_appbar.dart';
+import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
 import 'widgets/micro_crowdaction_card.dart';
 
 /// Route for the user to browse available Collactions.
@@ -22,7 +22,7 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
       create: (context) => getIt<CrowdActionGetterBloc>()
         ..add(const CrowdActionGetterEvent.getMore(null)),
       child: Scaffold(
-        appBar: CustomAppBar(context, title: 'Browse Crowdactions'),
+        appBar: const CleanAppBar(title: 'Browse Crowdactions'),
         body: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
           builder: (context, state) => state.when(
             initial: () => const CenteredLoadingIndicator(),

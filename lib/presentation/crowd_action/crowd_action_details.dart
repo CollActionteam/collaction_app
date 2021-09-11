@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
-import '../shared_widgets/custom_appbar.dart';
+import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
 
 class CrowdActionDetailsPage extends StatefulWidget {
   const CrowdActionDetailsPage({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(context, title: crowdAction.name),
+      appBar: CleanAppBar(title: crowdAction.name),
       body: Column(
         children: [
           Expanded(
