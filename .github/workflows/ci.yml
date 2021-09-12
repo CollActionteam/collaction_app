@@ -136,4 +136,4 @@ jobs:
           appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
-          file: app-debug.apk
+          file: app-signed.apk
