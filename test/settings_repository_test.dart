@@ -30,7 +30,8 @@ void main() {
 
     test('Is signup enabled', () {
       final mockRemoteConfig = createMockRemoteConfig();
-      final settingsRepository = SettingsRepository(remoteConfig: mockRemoteConfig);
+      final settingsRepository =
+          SettingsRepository(remoteConfig: mockRemoteConfig);
       const key = 'is_signup_enabled';
       when(() => mockRemoteConfig.getBool(key)).thenReturn(true);
       assert(settingsRepository.isSignupEnabled == true);

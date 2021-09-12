@@ -12,13 +12,12 @@ const _refreshInterval = Duration(minutes: 5);
 const _fetchTimeout = Duration(seconds: 60);
 final _minimumFetchInterval = _fetchTimeout + const Duration(seconds: 1);
 
-@LazySingleton(
-    as: ISettingsRepository)
+@LazySingleton(as: ISettingsRepository)
 class SettingsRepository implements ISettingsRepository, Disposable {
   final RemoteConfig remoteConfig;
   late final StreamSubscription _streamSubscription;
 
-  SettingsRepository({ required this.remoteConfig }) {
+  SettingsRepository({required this.remoteConfig}) {
     remoteConfig.setDefaults(_defaults);
     remoteConfig.setConfigSettings(RemoteConfigSettings(
         fetchTimeout: _fetchTimeout,

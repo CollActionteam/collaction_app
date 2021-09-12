@@ -12,7 +12,7 @@ Future<void> main() async {
 
   configureInjection();
   // Instantiate immediately in order to fetch configs before needed
-  getIt<ISettingsRepository>(); 
+  getIt<ISettingsRepository>();
 
   runApp(AppWidget());
 }
