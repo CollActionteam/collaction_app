@@ -78,7 +78,7 @@ class MenuDrawer extends StatelessWidget {
     if (!kReleaseMode) {
       // Demo content should not be visible in release builds
       drawerItems.add(ListTile(
-        onTap: () => pushRoute(context, const DemoRoute()),
+        onTap: () => pushRoute(context, DemoRoute()),
         leading: const Icon(Icons.list_alt, size: 27),
         title: const Text('Demo Content'),
       ));

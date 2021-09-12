@@ -1,14 +1,17 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/domain/i_settings_repository.dart';
+import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 
-import '../authentication/current_user_status_text.dart';
+import 'components_demo/current_user_status_text.dart';
 import '../routes/app_routes.gr.dart';
 
 import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
 import '../shared_widgets/rectangle_button.dart';
 
 class DemoPage extends StatelessWidget {
-  const DemoPage({Key? key}) : super(key: key);
+  DemoPage({Key? key}) : super(key: key);
+  final ISettingsRepository settingsRepository = getIt<ISettingsRepository>();
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +73,12 @@ class DemoPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: RectangleButton(
-                      text: "Register",
-                      onTap: () =>
-                          context.router.push(const RegisterPhoneNumberRoute()),
+                      text:
+                          "Register${settingsRepository.isSignupEnabled ? '' : ' (disabled)'}",
+                      onTap: settingsRepository.isSignupEnabled
+                          ? (() => context.router
+                              .push(const RegisterPhoneNumberRoute()))
+                          : null,
                     ),
                   ),
                 ],

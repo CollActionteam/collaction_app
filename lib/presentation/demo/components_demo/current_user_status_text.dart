@@ -3,9 +3,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../../domain/user/i_user_repository.dart';
-import '../../domain/user/user.dart';
-import '../../infrastructure/core/injection.dart';
+import '../../../domain/user/i_user_repository.dart';
+import '../../../domain/user/user.dart';
+import '../../../infrastructure/core/injection.dart';
 
 class CurrentUserStatusText extends StatefulWidget {
   @override
