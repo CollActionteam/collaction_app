@@ -23,14 +23,14 @@ void main() {
 
     test('Remote config defaults', () {
       final mockRemoteConfig = createMockRemoteConfig();
-      SettingsRepository(mockRemoteConfig);
+      SettingsRepository(remoteConfig: mockRemoteConfig);
       const defaults = {'is_signup_enabled': false};
       verify(() => mockRemoteConfig.setDefaults(defaults)).called(1);
     });
 
     test('Is signup enabled', () {
       final mockRemoteConfig = createMockRemoteConfig();
-      final settingsRepository = SettingsRepository(mockRemoteConfig);
+      final settingsRepository = SettingsRepository(remoteConfig: mockRemoteConfig);
       const key = 'is_signup_enabled';
       when(() => mockRemoteConfig.getBool(key)).thenReturn(true);
       assert(settingsRepository.isSignupEnabled == true);
