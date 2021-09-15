@@ -1,10 +1,12 @@
 # GitHub related documentation
+Documentation relating to various GitHub features used by this project.  
+(If you are developing locally you probably do not need to pay attention to this)
 
 ## Workflows
 _(TODO)_
 
 ## Repository secrets
-The following repository secrets are used by workflows:
+The following repository secrets are used by GitHub workflows:
 
 ### Android
 | Secret | Explanation

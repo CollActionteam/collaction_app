@@ -30,6 +30,10 @@ In order to use features provided by Firebase, download the corresponding `googl
 
 Make sure that the SHA fingerprint of your signing certificate (Android) and AppStoreID/TeamID (iOS) are registered in your Firebase console.
 
+More information:
+* [Signing an Android application](https://developer.android.com/studio/publish/app-signing#sign_release)
+* [Finding the SHA fingerprint](https://developers.google.com/android/guides/client-auth).
+
 Phone authentication has to be enabled in the Firebase console.
 
 ## Getting Started with Flutter
