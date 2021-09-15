@@ -120,3 +120,19 @@ jobs:
       with:
         name: app-debug
         path: ${{steps.sign_debug_apk.outputs.signedReleaseFile}}
+
+  distribute:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download generated apk from the artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: app-debug
+      - name: Upload generated apk to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: internal
+          file: app-signed.apk
