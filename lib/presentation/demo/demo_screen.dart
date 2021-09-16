@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/domain/i_settings_repository.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/i_settings_repository.dart';
+import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
 import '../shared_widgets/rectangle_button.dart';
