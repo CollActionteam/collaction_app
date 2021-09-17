@@ -10,7 +10,7 @@ import 'components_demo/current_user_status_text.dart';
 
 class DemoPage extends StatelessWidget {
   DemoPage({Key? key}) : super(key: key);
-  final ISettingsRepository settingsRepository = getIt<ISettingsRepository>();
+  final settingsRepository = getIt<ISettingsRepository>();
 
   @override
   Widget build(BuildContext context) {

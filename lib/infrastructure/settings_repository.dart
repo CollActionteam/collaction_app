@@ -29,12 +29,8 @@ class SettingsRepository implements ISettingsRepository, Disposable {
   }
 
   @override
-  FutureOr onDispose() {
-    _streamSubscription.cancel();
-  }
+  FutureOr onDispose() => _streamSubscription.cancel();
 
   @override
-  bool get isSignupEnabled {
-    return remoteConfig.getBool(_keyIsSignupEnabled);
-  }
+  bool get isSignupEnabled => remoteConfig.getBool(_keyIsSignupEnabled);
 }

@@ -11,8 +11,6 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   configureInjection();
-  // Instantiate immediately in order to fetch configs before needed
-  getIt<ISettingsRepository>();
 
   runApp(AppWidget());
 }
