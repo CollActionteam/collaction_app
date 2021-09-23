@@ -1,3 +1,4 @@
+import 'package:collaction_app/domain/auth/auth_event.dart';
 import 'package:collaction_app/domain/auth/auth_failures.dart';
 import 'package:collaction_app/domain/auth/i_auth_facade.dart';
 import 'package:collaction_app/domain/auth/value_objects.dart';
@@ -25,27 +26,33 @@ class FirebaseAuthFacade implements IAuthFacade {
   Future<void> signOut() => firebaseAuth.signOut();
 
   @override
-  Stream<Either<AuthFailure, Credential>> verifyPhone(
+  Stream<Either<AuthFailure, AuthEvent>> verifyPhone(
       {required PhoneNumber phoneNumber}) {
-    final result = BehaviorSubject<Either<AuthFailure, Credential>>();
+    final result = BehaviorSubject<Either<AuthFailure, AuthEvent>>();
     final phone = phoneNumber.getOrCrash();
     var credential = const Credential();
 
     firebaseAuth.verifyPhoneNumber(
-      phoneNumber: phone,
+      phoneNumber: "+$phone",
       codeSent: (String verificationId, int? forceResendingToken) {
         credential = credential.copyWith(
           verificationId: verificationId,
           forceResendToken: forceResendingToken,
         );
 
-        result.add(right(credential));
+        result.add(right(AuthEvent.codeSent(credential: credential)));
       },
       verificationFailed: (fb_auth.FirebaseAuthException error) {
-        result.add(left(const AuthFailure.verificationFailed()));
+        if (error.code == 'invalid-phone-number') {
+          result.add(left(const AuthFailure.invalidPhone()));
+        }else {
+          result.add(left(const AuthFailure.verificationFailed()));
+        }
         result.close();
       },
       codeAutoRetrievalTimeout: (String verificationId) {
+        result.add(
+            right(AuthEvent.codeRetrievalTimedOut(credential: credential)));
         result.close();
       },
       verificationCompleted: (fb_auth.PhoneAuthCredential phoneAuthCredential) {
@@ -54,11 +61,30 @@ class FirebaseAuthFacade implements IAuthFacade {
           smsCode: phoneAuthCredential.smsCode,
         );
 
-        result.add(right(credential));
+        result.add(
+            right(AuthEvent.verificationCompleted(credential: credential)));
         result.close();
       },
     );
 
     return result.stream.distinct();
   }
+
+  @override
+  Future<Either<AuthFailure, Unit>> signInWithPhone({required Credential authCredentials})async {
+
+    try {
+      final String verificationId = authCredentials.verificationId!;
+      final String smsCode = authCredentials.smsCode!;
+      // Create a PhoneAuthCredential with the code
+      final credential = fb_auth.PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
+
+      // Sign the user in (or link) with the credential
+      await firebaseAuth.signInWithCredential(credential);
+      return right(unit);
+    }on fb_auth.FirebaseAuthException catch(_){
+      return left(const AuthFailure.serverError());
+    }
+  }
+
 }

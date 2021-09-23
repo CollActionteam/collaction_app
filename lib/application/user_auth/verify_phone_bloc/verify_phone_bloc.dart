@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:collaction_app/domain/auth/auth_failures.dart';
 import 'package:collaction_app/domain/auth/i_auth_facade.dart';
 import 'package:collaction_app/domain/auth/value_objects.dart';
+import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -33,10 +34,10 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
       },
       smsCodeChanged: (e) async* {
         yield state.copyWith(
-            smsCode: e.smsCode, authFailureOrSuccessOption: none());
+            credential: state.credential.copyWith(smsCode: e.smsCode),
+            authFailureOrSuccessOption: none());
       },
       verifyPhone: (e) async* {
-
         final isPhoneValid = state.phoneNumber.isValid();
 
         if (isPhoneValid) {
@@ -51,10 +52,16 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
                     isVerifying: false,
                     authFailureOrSuccessOption: some(failure),
                   ),
-                  (r) => state.copyWith(
-                    isVerifying: false,
-                    verifyingDone: true,
-                  ),
+                  (r) {
+                    return r.map(
+                      codeSent: (_) => state.copyWith(smsCodeSent: true),
+                      codeRetrievalTimedOut: (_) => state,
+                      verificationCompleted: (e) => state.copyWith(
+                          credential: e.credential,
+                          autoCompleteSms: e.credential.smsCode != null,
+                          isVerifySuccessful: true),
+                    );
+                  },
                 ),
               );
         }
@@ -62,8 +69,24 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
         // Invalid
         yield state.copyWith(
           isVerifying: false,
-          authFailureOrSuccessOption: optionOf(const AuthFailure.invalidPhone()),
+          authFailureOrSuccessOption:
+              optionOf(const AuthFailure.invalidPhone()),
         );
+      },
+      signInWithPhone: (e) async* {
+        yield state.copyWith(isSigningIn: true);
+
+        final authSuccessOrFailure = await _authFacade.signInWithPhone(
+            authCredentials: state.credential);
+
+        yield authSuccessOrFailure.fold(
+            (failure) => state.copyWith(
+                isSigningIn: false,
+                authFailureOrSuccessOption: optionOf(failure)),
+            (_) => state.copyWith(
+                isSigningIn: false,
+                isSignInSuccessful: true,
+                authFailureOrSuccessOption: none()));
       },
     );
   }

@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../application/user_auth/auth_bloc.dart';
-import '../../infrastructure/core/injection.dart';
-import '../routes/app_routes.gr.dart';
+import '../../../application/user_auth/auth_bloc.dart';
+import '../../../infrastructure/core/injection.dart';
+import '../../routes/app_routes.gr.dart';
 
 class RegisterPhoneNumberPage extends StatefulWidget {
   const RegisterPhoneNumberPage({Key? key}) : super(key: key);

@@ -4,17 +4,25 @@ part of 'verify_phone_bloc.dart';
 class VerifyPhoneState with _$VerifyPhoneState {
   const factory VerifyPhoneState({
     required PhoneNumber phoneNumber,
-    required String smsCode,
+    required Credential credential,
+    required bool isSigningIn,
+    required bool isSignInSuccessful,
     required bool isVerifying,
-    required bool verifyingDone,
+    required bool isVerifySuccessful,
+    required bool smsCodeSent,
+    required bool autoCompleteSms,
     required Option<AuthFailure> authFailureOrSuccessOption,
   }) = _VerifyPhoneState;
 
   factory VerifyPhoneState.initial() => VerifyPhoneState(
         phoneNumber: PhoneNumber(''),
-        smsCode: '',
+        credential: const Credential(),
+        isSigningIn: false,
+        isSignInSuccessful: false,
         isVerifying: false,
-        verifyingDone: false,
+        isVerifySuccessful: false,
+        smsCodeSent: false,
+        autoCompleteSms: false,
         authFailureOrSuccessOption: none(),
       );
 }
