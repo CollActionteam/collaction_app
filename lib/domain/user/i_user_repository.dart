@@ -3,11 +3,20 @@ import 'package:equatable/equatable.dart';
 
 class Credential extends Equatable {
   final String? verificationId, smsCode;
+  final int? forceResendToken;
 
-  const Credential(this.verificationId, this.smsCode);
+  const Credential({this.verificationId, this.smsCode, this.forceResendToken});
 
   @override
-  List<Object?> get props => [verificationId, smsCode];
+  List<Object?> get props => [verificationId, smsCode, forceResendToken];
+
+  Credential copyWith(
+      {String? verificationId, String? smsCode, int? forceResendToken}) {
+    return Credential(
+        verificationId: verificationId ?? this.verificationId,
+        smsCode: smsCode ?? this.smsCode,
+        forceResendToken: forceResendToken ?? this.forceResendToken);
+  }
 }
 
 class SignInResult {
@@ -18,6 +27,7 @@ class SignInResult {
 
 class AuthException implements Exception {
   final String? message;
+
   AuthException({this.message});
 
   @override

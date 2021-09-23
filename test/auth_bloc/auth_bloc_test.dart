@@ -15,14 +15,14 @@ void main() {
 
     const verificationId = 'verificationId';
     const smsCode = '123456';
-    registerFallbackValue(const Credential(verificationId, smsCode));
+    registerFallbackValue(const Credential(verificationId:verificationId, smsCode:smsCode));
 
     {
       final userRepository = MockUserRepository();
       when(() => userRepository.registerPhoneNumber(any()))
           .thenAnswer((_) => Stream.fromIterable([
-                const Credential(verificationId, null),
-                const Credential(verificationId, smsCode),
+                const Credential(verificationId:verificationId),
+                const Credential(verificationId:verificationId, smsCode:smsCode),
               ]));
       when(() => userRepository.signIn(any()))
           .thenAnswer((_) => Future.value(SignInResult(isNewUser: true)));
