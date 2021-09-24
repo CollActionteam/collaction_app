@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:collaction_app/domain/auth/auth_event.dart';
 import 'package:collaction_app/domain/auth/auth_failures.dart';
 import 'package:collaction_app/domain/auth/i_auth_facade.dart';
@@ -26,8 +28,7 @@ class FirebaseAuthFacade implements IAuthFacade {
   Future<void> signOut() => firebaseAuth.signOut();
 
   @override
-  Stream<Either<AuthFailure, AuthEvent>> verifyPhone(
-      {required PhoneNumber phoneNumber}) {
+  Stream<Either<AuthFailure, AuthEvent>> verifyPhone({required PhoneNumber phoneNumber}) {
     final result = BehaviorSubject<Either<AuthFailure, AuthEvent>>();
     final phone = phoneNumber.getOrCrash();
     var credential = const Credential();
@@ -43,13 +44,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         result.add(right(AuthEvent.codeSent(credential: credential)));
       },
       verificationFailed: (fb_auth.FirebaseAuthException error) {
-        if (error.code == 'invalid-phone-number') {
-          result.add(left(const AuthFailure.invalidPhone()));
-        } else if (error.code == 'network-request-failed') {
-          result.add(left(const AuthFailure.networkRequestFailed()));
-        } else {
-          result.add(left(const AuthFailure.verificationFailed()));
-        }
+        result.add(left(error.toFailure()));
         result.close();
       },
       codeAutoRetrievalTimeout: (String verificationId) {
@@ -73,8 +68,7 @@ class FirebaseAuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> signInWithPhone(
-      {required Credential authCredentials}) async {
+  Future<Either<AuthFailure, Unit>> signInWithPhone({required Credential authCredentials}) async {
     try {
       final String verificationId = authCredentials.verificationId!;
       final String smsCode = authCredentials.smsCode!;
@@ -86,13 +80,39 @@ class FirebaseAuthFacade implements IAuthFacade {
       await firebaseAuth.signInWithCredential(credential);
       return right(unit);
     } on fb_auth.FirebaseAuthException catch (error) {
-      if (error.code == 'network-request-failed') {
-        return left(const AuthFailure.networkRequestFailed());
-      } else if (error.code == 'invalid-verification-code') {
-        return left(const AuthFailure.invalidSmsCode());
-      } else {
-        return left(const AuthFailure.serverError());
-      }
+      return left(error.toFailure());
+    } catch (_) {
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, Unit>> updateUsername(
+      {required String username}) async {
+    try {
+      final user = firebaseAuth.currentUser!;
+      await user.updateDisplayName(username);
+
+      return right(unit);
+    } on fb_auth.FirebaseAuthException catch (error) {
+      return left(error.toFailure());
+    } catch (_) {
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, Unit>> updatePhoto({required File photo}) async {
+    try {
+      // TODO Upload photo to storage
+      final String profileUrl =
+          throw UnimplementedError("Upload photo to storage");
+
+      final user = firebaseAuth.currentUser!;
+      await user.updatePhotoURL(profileUrl);
+      return right(unit);
+    } on fb_auth.FirebaseAuthException catch (error) {
+      return left(error.toFailure());
     } catch (_) {
       return left(const AuthFailure.serverError());
     }
