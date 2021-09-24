@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/user_auth/auth_bloc.dart';
+import '../../../application/auth/auth_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
 
 class VerifyCodePage extends StatefulWidget {

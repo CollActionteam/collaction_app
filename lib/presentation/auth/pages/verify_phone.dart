@@ -1,7 +1,7 @@
-import 'package:collaction_app/application/user_auth/verify_phone_bloc/verify_phone_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
 import '../../shared_widgets/phone_input.dart';
 import '../../shared_widgets/rectangular_button.dart';
 import '../../utils/context.ext.dart';
@@ -43,9 +43,11 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
               () {},
               (either) => context.showErrorSnack(
                     either.map(
-                        serverError: (_) => "Server Error",
-                        invalidPhone: (_) => "Invalid Phone",
-                        verificationFailed: (_) => "Verification Failed"),
+                      serverError: (_) => "Server Error",
+                      invalidPhone: (_) => "Invalid Phone",
+                      verificationFailed: (_) => "Verification Failed",
+                      networkRequestFailed: (_) => "No Internet connection",
+                    ),
                   ));
         }
       },

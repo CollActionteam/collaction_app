@@ -6,7 +6,6 @@
  * - Not whitelisted number flow --CAN BE DONE IN SEPARATE TASK
  * - Invite friends flow --CAN BE DONE IN SEPARATE TASK
  */
-import 'package:collaction_app/application/user_auth/verify_phone_bloc/verify_phone_bloc.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/shared_widgets/custom_app_bars/custom_appbar.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -16,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import './pages/enter_username.dart';
 import './pages/verification_code.dart';
 import './pages/verify_phone.dart';
+import '../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
 import '../themes/constants.dart';
 import 'pages/profile_photo.dart';
 

@@ -64,14 +64,15 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
                   },
                 ),
               );
+        }else{
+          // Invalid
+          yield state.copyWith(
+            isVerifying: false,
+            authFailureOrSuccessOption:
+            optionOf(const AuthFailure.invalidPhone()),
+          );
         }
 
-        // Invalid
-        yield state.copyWith(
-          isVerifying: false,
-          authFailureOrSuccessOption:
-              optionOf(const AuthFailure.invalidPhone()),
-        );
       },
       signInWithPhone: (e) async* {
         yield state.copyWith(isSigningIn: true);

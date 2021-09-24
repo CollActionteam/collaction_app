@@ -45,6 +45,8 @@ class FirebaseAuthFacade implements IAuthFacade {
       verificationFailed: (fb_auth.FirebaseAuthException error) {
         if (error.code == 'invalid-phone-number') {
           result.add(left(const AuthFailure.invalidPhone()));
+        }else if (error.code == 'network-request-failed') {
+          result.add(left(const AuthFailure.networkRequestFailed()));
         }else {
           result.add(left(const AuthFailure.verificationFailed()));
         }
