@@ -53,6 +53,7 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
             const SizedBox(height: 35.0),
             PhoneInput(
               _phoneInputController,
+              readOnly: state.isSendingSms,
               onChange: (response) {
                 context
                     .read<VerifyPhoneBloc>()
@@ -68,9 +69,9 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
                   child: RectangularButton(
                     text: 'Next',
                     isEnabled: _isPhoneValid,
-                    isLoading: state.isVerifying,
+                    isLoading: state.isSendingSms,
                     onPressed: () {
-                      if (_isPhoneValid) {
+                      if (_isPhoneValid && !state.isSendingSms) {
                         // Hide keyboard
                         FocusScope.of(context).unfocus();
 

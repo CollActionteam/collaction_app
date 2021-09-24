@@ -9,19 +9,21 @@ class VerifyPhoneState with _$VerifyPhoneState {
     required bool isSignInSuccessful,
     required bool isVerifying,
     required bool isVerifySuccessful,
-    required bool smsCodeSent,
+    required bool isSendingSms,
+    required bool isSendingSmsSuccessful,
     required bool autoCompleteSms,
     required Option<AuthFailure> authFailureOrSuccessOption,
   }) = _VerifyPhoneState;
 
   factory VerifyPhoneState.initial() => VerifyPhoneState(
-        phoneNumber: PhoneNumber(''),
+    phoneNumber: PhoneNumber(''),
         credential: const Credential(),
         isSigningIn: false,
         isSignInSuccessful: false,
         isVerifying: false,
         isVerifySuccessful: false,
-        smsCodeSent: false,
+        isSendingSms: false,
+        isSendingSmsSuccessful: false,
         autoCompleteSms: false,
         authFailureOrSuccessOption: none(),
       );

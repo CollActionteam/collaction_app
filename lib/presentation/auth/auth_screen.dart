@@ -74,9 +74,7 @@ class _AuthPageState extends State<AuthPage> {
       create: (context) => getIt<VerifyPhoneBloc>(),
       child: BlocListener<VerifyPhoneBloc, VerifyPhoneState>(
         listener: (context, state) {
-          if (state.isVerifySuccessful) {
-            _toPage(1);
-          } else if (state.authFailureOrSuccessOption.isSome()) {
+          if (state.authFailureOrSuccessOption.isSome()) {
             // Handle errors
             state.authFailureOrSuccessOption.fold(
                 () {},
@@ -86,8 +84,13 @@ class _AuthPageState extends State<AuthPage> {
                         invalidPhone: (_) => "Invalid Phone",
                         verificationFailed: (_) => "Verification Failed",
                         networkRequestFailed: (_) => "No Internet connection",
+                        invalidSmsCode: (_) => "Invalid SMS Code",
                       ),
                     ));
+          } else if (state.isSendingSmsSuccessful) {
+            _toPage(1);
+          } else if (state.isSignInSuccessful) {
+            _toPage(2);
           }
         },
         child: Scaffold(

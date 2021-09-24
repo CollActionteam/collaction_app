@@ -45,9 +45,9 @@ class FirebaseAuthFacade implements IAuthFacade {
       verificationFailed: (fb_auth.FirebaseAuthException error) {
         if (error.code == 'invalid-phone-number') {
           result.add(left(const AuthFailure.invalidPhone()));
-        }else if (error.code == 'network-request-failed') {
+        } else if (error.code == 'network-request-failed') {
           result.add(left(const AuthFailure.networkRequestFailed()));
-        }else {
+        } else {
           result.add(left(const AuthFailure.verificationFailed()));
         }
         result.close();
@@ -73,20 +73,28 @@ class FirebaseAuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> signInWithPhone({required Credential authCredentials})async {
-
+  Future<Either<AuthFailure, Unit>> signInWithPhone(
+      {required Credential authCredentials}) async {
     try {
       final String verificationId = authCredentials.verificationId!;
       final String smsCode = authCredentials.smsCode!;
       // Create a PhoneAuthCredential with the code
-      final credential = fb_auth.PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
+      final credential = fb_auth.PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: smsCode);
 
       // Sign the user in (or link) with the credential
       await firebaseAuth.signInWithCredential(credential);
       return right(unit);
-    }on fb_auth.FirebaseAuthException catch(_){
+    } on fb_auth.FirebaseAuthException catch (error) {
+      if (error.code == 'network-request-failed') {
+        return left(const AuthFailure.networkRequestFailed());
+      } else if (error.code == 'invalid-verification-code') {
+        return left(const AuthFailure.invalidSmsCode());
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    } catch (_) {
       return left(const AuthFailure.serverError());
     }
   }
-
 }

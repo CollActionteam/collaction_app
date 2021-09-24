@@ -11,9 +11,7 @@ import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'verify_phone_bloc.freezed.dart';
-
 part 'verify_phone_event.dart';
-
 part 'verify_phone_state.dart';
 
 @injectable
@@ -42,24 +40,30 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
 
         if (isPhoneValid) {
           yield state.copyWith(
-            isVerifying: true,
+            isSendingSms: true,
             authFailureOrSuccessOption: none(),
           );
 
           yield* _authFacade.verifyPhone(phoneNumber: state.phoneNumber).map(
                 (failureOrCredential) => failureOrCredential.fold(
                   (failure) => state.copyWith(
-                    isVerifying: false,
+                    isSendingSms: false,
                     authFailureOrSuccessOption: some(failure),
                   ),
                   (r) {
                     return r.map(
-                      codeSent: (_) => state.copyWith(smsCodeSent: true),
+                      codeSent: (e) => state.copyWith(
+                        credential: e.credential,
+                        isSendingSmsSuccessful: true,
+                        authFailureOrSuccessOption: none(),
+                      ),
                       codeRetrievalTimedOut: (_) => state,
                       verificationCompleted: (e) => state.copyWith(
-                          credential: e.credential,
-                          autoCompleteSms: e.credential.smsCode != null,
-                          isVerifySuccessful: true),
+                        credential: e.credential,
+                        autoCompleteSms: e.credential.smsCode != null,
+                        isVerifySuccessful: true,
+                        authFailureOrSuccessOption: none(),
+                      ),
                     );
                   },
                 ),
@@ -67,18 +71,18 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
         }else{
           // Invalid
           yield state.copyWith(
-            isVerifying: false,
+            isSendingSms: false,
             authFailureOrSuccessOption:
-            optionOf(const AuthFailure.invalidPhone()),
+                optionOf(const AuthFailure.invalidPhone()),
           );
         }
 
       },
       signInWithPhone: (e) async* {
-        yield state.copyWith(isSigningIn: true);
+        yield state.copyWith(isSendingSmsSuccessful: false, isSigningIn: true);
 
         final authSuccessOrFailure = await _authFacade.signInWithPhone(
-            authCredentials: state.credential);
+            authCredentials: state.credential.copyWith(smsCode: e.smsCode));
 
         yield authSuccessOrFailure.fold(
             (failure) => state.copyWith(
