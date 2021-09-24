@@ -17,6 +17,7 @@ import './pages/verification_code.dart';
 import './pages/verify_phone.dart';
 import '../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
 import '../themes/constants.dart';
+import '../utils/context.ext.dart';
 import 'pages/profile_photo.dart';
 
 class AuthPage extends StatefulWidget {
@@ -44,13 +45,8 @@ class _AuthPageState extends State<AuthPage> {
     super.initState();
     // All pages
     _pages = [
-      VerifyPhonePage(
-        key: _verifyPhoneKey,
-        onNext: _nextPage,
-      ),
-      EnterVerificationCode(
-        reset: _reset,
-      ),
+      VerifyPhonePage(key: _verifyPhoneKey),
+      EnterVerificationCode(reset: _reset),
       EnterUserName(onNext: () {
         setState(() => _displayDots = false);
         _nextPage();
@@ -76,42 +72,61 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<VerifyPhoneBloc>(),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: _currentPage == 0
-            ? CustomAppBar(
-                context,
-                closable: true,
-              )
-            : AppBar(backgroundColor: Colors.transparent, elevation: 0.0),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 23.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 470.0,
-                    child: PageView(
-                      controller: _pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: _pages,
-                    ),
-                  ),
-                  if (_displayDots)
-                    DotsIndicator(
-                      position: _currentPage % 3,
-                      dotsCount: 3,
-                      decorator: const DotsDecorator(
-                        activeColor: kAccentColor,
-                        color: Color(0xFFCCCCCC),
-                        size: Size(12.0, 12.0),
-                        activeSize: Size(12.0, 12.0),
+      child: BlocListener<VerifyPhoneBloc, VerifyPhoneState>(
+        listener: (context, state) {
+          if (state.isVerifySuccessful) {
+            _toPage(1);
+          } else if (state.authFailureOrSuccessOption.isSome()) {
+            // Handle errors
+            state.authFailureOrSuccessOption.fold(
+                () {},
+                (either) => context.showErrorSnack(
+                      either.map(
+                        serverError: (_) => "Server Error",
+                        invalidPhone: (_) => "Invalid Phone",
+                        verificationFailed: (_) => "Verification Failed",
+                        networkRequestFailed: (_) => "No Internet connection",
                       ),
-                    )
-                  else
-                    Container(),
-                ],
+                    ));
+          }
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: _currentPage == 0
+              ? CustomAppBar(
+                  context,
+                  closable: true,
+                )
+              : AppBar(backgroundColor: Colors.transparent, elevation: 0.0),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 23.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 470.0,
+                      child: PageView(
+                        controller: _pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: _pages,
+                      ),
+                    ),
+                    if (_displayDots)
+                      DotsIndicator(
+                        position: _currentPage % 3,
+                        dotsCount: 3,
+                        decorator: const DotsDecorator(
+                          activeColor: kAccentColor,
+                          color: Color(0xFFCCCCCC),
+                          size: Size(12.0, 12.0),
+                          activeSize: Size(12.0, 12.0),
+                        ),
+                      )
+                    else
+                      Container(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -129,6 +144,11 @@ class _AuthPageState extends State<AuthPage> {
 
   void _nextPage() {
     _pageController.nextPage(
+        duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
+  }
+
+  void _toPage(int page) {
+    _pageController.animateToPage(page,
         duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
   }
 }

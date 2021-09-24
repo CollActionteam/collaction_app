@@ -4,12 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
 import '../../shared_widgets/phone_input.dart';
 import '../../shared_widgets/rectangular_button.dart';
-import '../../utils/context.ext.dart';
 
 class VerifyPhonePage extends StatefulWidget {
-  final Function() onNext;
 
-  const VerifyPhonePage({Key? key, required this.onNext}) : super(key: key);
+  const VerifyPhonePage({Key? key}) : super(key: key);
 
   @override
   VerifyPhonePageState createState() => VerifyPhonePageState();
@@ -33,24 +31,7 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<VerifyPhoneBloc, VerifyPhoneState>(
-      listener: (context, state) {
-        if (state.isVerifySuccessful) {
-          widget.onNext();
-        } else if (state.authFailureOrSuccessOption.isSome()) {
-          // Handle errors
-          state.authFailureOrSuccessOption.fold(
-              () {},
-              (either) => context.showErrorSnack(
-                    either.map(
-                      serverError: (_) => "Server Error",
-                      invalidPhone: (_) => "Invalid Phone",
-                      verificationFailed: (_) => "Verification Failed",
-                      networkRequestFailed: (_) => "No Internet connection",
-                    ),
-                  ));
-        }
-      },
+    return BlocBuilder<VerifyPhoneBloc, VerifyPhoneState>(
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -90,6 +71,9 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
                     isLoading: state.isVerifying,
                     onPressed: () {
                       if (_isPhoneValid) {
+                        // Hide keyboard
+                        FocusScope.of(context).unfocus();
+
                         context
                             .read<VerifyPhoneBloc>()
                             .add(const VerifyPhoneEvent.verifyPhone());
