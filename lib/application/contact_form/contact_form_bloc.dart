@@ -1,25 +1,32 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../domain/contact_form/contact_form_contents.dart';
+import '../../domain/contact_form/i_contact_form_api.dart';
+import '../../infrastructure/core/injection.dart';
+
+part 'contact_form_bloc.freezed.dart';
 part 'contact_form_event.dart';
 part 'contact_form_state.dart';
-part 'contact_form_bloc.freezed.dart';
-
-class ContactFormContents {
-  final String? email;
-  final String? message;
-  ContactFormContents({this.email, this.message});
-}
 
 class ContactFormBloc extends Bloc<ContactFormEvent, ContactFormState> {
-  ContactFormBloc() : super(const _Initial());
+  late final IContactFormApi _contactFormApi;
+
+  ContactFormBloc() : super(const _Initial()) {
+    _contactFormApi = getIt<IContactFormApi>();
+  }
 
   @override
   Stream<ContactFormState> mapEventToState(ContactFormEvent event) async* {
     yield event.when(
         submitted: (contents) {
-          // TODO submit data to server
-          Future.delayed(const Duration(seconds: 2)).then((value) => add(const ContactFormEvent.success()));
+          _contactFormApi
+              .sendContactFormContents(contents)
+              .then((value) => add(value
+                  ? const ContactFormEvent.success()
+                  : const ContactFormEvent.error('Submission not successful!')))
+              .onError((error, stackTrace) =>
+                  add(const ContactFormEvent.error('Error submitting form!')));
           return const ContactFormState.submitting();
         },
         error: (e) => ContactFormState.failed(e),
