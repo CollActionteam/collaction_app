@@ -14,7 +14,7 @@ import '../test_utilities.dart';
 void main() {
   testWidgets('Home Page and Transitions', (WidgetTester tester) async {
     // configure get_it
-    configureInjection();
+    await configureInjection();
 
     TestUtilities.mockUser(Stream.value(User.anonymous));
 

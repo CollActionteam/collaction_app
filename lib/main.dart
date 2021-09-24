@@ -10,7 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  configureInjection();
+  await configureInjection();
   // Instantiate to trigger update of remote configs
   getIt<ISettingsRepository>();
 

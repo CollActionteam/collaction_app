@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../domain/i_settings_repository.dart';
+import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/menu_drawer.dart';
 import '../themes/constants.dart';
@@ -86,9 +87,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> showOnboarding() async {
     // Push onboarding screen if first time launching application
-    final sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getBool('wasUserOnboarded') != true) {
-      sharedPreferences.setBool('wasUserOnboarded', true);
+    final settingsRepository = getIt<ISettingsRepository>();
+    if(!settingsRepository.wasUserOnboarded) {
+      settingsRepository.wasUserOnboarded = true;
       context.router.push(const OnboardingRoute());
     }
   }
