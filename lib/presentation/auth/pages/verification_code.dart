@@ -1,29 +1,36 @@
+import 'package:collaction_app/presentation/shared_widgets/pin_input/pin_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
 import '../../themes/constants.dart';
 
 class EnterVerificationCode extends StatefulWidget {
   final Function() reset;
-  const EnterVerificationCode({Key? key, required this.reset}) : super(key: key);
+  final int pinLength;
+
+  const EnterVerificationCode(
+      {Key? key, required this.reset, this.pinLength = 6})
+      : super(key: key);
 
   @override
   _EnterVerificationCodeState createState() => _EnterVerificationCodeState();
 }
 
 class _EnterVerificationCodeState extends State<EnterVerificationCode> {
-  late FocusNode focusNode0,
+  /* late FocusNode focusNode0,
       focusNode1,
       focusNode2,
       focusNode3,
       focusNode4,
       focusNode5;
   late TextEditingController digit0, digit1, digit2, digit3, digit4, digit5;
-
+*/
   @override
   void initState() {
     super.initState();
 
-    focusNode0 = FocusNode();
+    /*   focusNode0 = FocusNode();
     focusNode1 = FocusNode();
     focusNode2 = FocusNode();
     focusNode3 = FocusNode();
@@ -35,98 +42,88 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
     digit3 = TextEditingController();
     digit4 = TextEditingController();
     digit5 = TextEditingController();
+  */
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          children: const [
-            Expanded(
-              child: Text(
-                'Enter your \r\nverification code',
-                style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 32.0),
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
-        ),
-        const SizedBox(height: 10.0),
-        Row(
-          children: const [
-            Expanded(
-              child: Text(
-                'We just sent you a text message with a 4-digit code to verify your account',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: kInactiveColor),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 45.0),
-        Row(
+    return BlocBuilder<VerifyPhoneBloc, VerifyPhoneState>(
+      builder: (context, state) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _digitField(
-                digit0,
-                focusNode0,
-                    (value) =>
-                    _changeFocus(value, focusNode1, null)),
-            _digitField(
-                digit1,
-                focusNode1,
-                    (value) => _changeFocus(
-                    value, focusNode2, focusNode0)),
-            _digitField(
-                digit2,
-                focusNode2,
-                    (value) => _changeFocus(
-                    value, focusNode3, focusNode1)),
-            _digitField(
-                digit3,
-                focusNode3,
-                    (value) => _changeFocus(
-                    value, focusNode4, focusNode2)),
-            _digitField(
-                digit4,
-                focusNode4,
-                    (value) => _changeFocus(
-                    value, focusNode5, focusNode3)),
-            _digitField(
-                digit5,
-                focusNode5,
-                    (value) =>
-                    _changeFocus(value, null, focusNode4)),
-          ],
-        ),
-        const SizedBox(height: 15.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: TextButton(
-                onPressed: widget.reset,
-                child: const Text(
-                    'No code? Click here and we will send a new one',
-                    style: TextStyle(
-                        color: kAccentColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14.0)),
-              ),
+            Row(
+              children: const [
+                Expanded(
+                  child: Text(
+                    'Enter your \r\nverification code',
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 32.0),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              ],
             ),
+            const SizedBox(height: 10.0),
+            Row(
+              children: const [
+                Expanded(
+                  child: Text(
+                    'We just sent you a text message with a 4-digit code to verify your account',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: kInactiveColor),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 45.0),
+            PinInput(
+              readOnly: state.isSigningIn,
+              submit: (smsCode) {
+                FocusScope.of(context).unfocus();
+                context
+                    .read<VerifyPhoneBloc>()
+                    .add(VerifyPhoneEvent.signInWithPhone(smsCode));
+              },
+            ),
+            const SizedBox(height: 15.0),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: state.isSigningIn
+                    ? [
+                        const SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: CircularProgressIndicator(
+                            color: kAccentColor,
+                            strokeWidth: 2,
+                          ),
+                        ),
+                      ]
+                    : [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: widget.reset,
+                            child: const Text(
+                                'No code? Click here and we will send a new one',
+                                style: TextStyle(
+                                    color: kAccentColor,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14.0)),
+                          ),
+                        )
+                      ]),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 
+/*
   Padding _digitField(TextEditingController controller, FocusNode focus,
-      ValueChanged<String> onChanged) {
+      ValueChanged<String> onChanged,
+      {bool readOnly = false}) {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 0.0125),
@@ -134,6 +131,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
         height: MediaQuery.of(context).size.width * 0.12,
         width: MediaQuery.of(context).size.width * 0.12,
         child: TextFormField(
+          readOnly: readOnly,
           controller: controller,
           textAlignVertical: TextAlignVertical.center,
           textAlign: TextAlign.center,
@@ -143,7 +141,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
           maxLength: 1,
           decoration: InputDecoration(
             contentPadding:
-            EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+                EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             counterText: "",
           ),
           focusNode: focus,
@@ -154,26 +152,58 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
   }
 
   void _changeFocus(String value, FocusNode? next, FocusNode? previous) {
-    if (value.isNotEmpty && next != null) {
-      next.requestFocus();
-      return;
-    }
+    // TODO - Check if all values are filled
+    // If yes ... make read only and start validation
+    // context.read<VerifyPhoneBloc>.add(
+    //     const VerifyPhoneEvent.smsCodeChanged(_smsCode));
+    // if (_smsCode.length == 6) {
+    //   // Do auth
+    //   context.read<VerifyPhoneBloc>.add(
+    //       const VerifyPhoneEvent.signInWithPhone());
+    // } else {
+      if (value.isNotEmpty && next != null) {
+        next.requestFocus();
+        return;
+      }
 
-    if (value.isEmpty && previous != null) {
-      previous.requestFocus();
-      return;
-    }
+      if (value.isEmpty && previous != null) {
+        previous.requestFocus();
+        return;
+      }
 
-    if (value.isNotEmpty && next == null) {
-      // TODO: Call validation method/BLOC
-      return;
-    }
+      // if (value.isNotEmpty && next == null) {
+      //   // TODO: Call validation method/BLOC
+      //
+      //   return;
+      // }
+    // }
   }
 
+  String get _smsCode {
+    return "${digit0.text}${digit1.text}${digit2.text}${digit3.text}${digit4.text}${digit5.text}";
+  }
+
+  void _autoCompleteSms() {
+    // try{
+    //   final sms = widget.smsCode!.split("");
+    //
+    //   if(sms.length == 6) {
+    //     digit0.text = sms[0];
+    //     digit1.text = sms[1];
+    //     digit2.text = sms[2];
+    //     digit3.text = sms[3];
+    //     digit4.text = sms[4];
+    //     digit5.text = sms[5];
+    //   }
+    // }catch(_){
+    //
+    // }
+  }
+*/
   @override
   void dispose() {
     // Page Two
-    focusNode0.dispose();
+    /*   focusNode0.dispose();
     focusNode1.dispose();
     focusNode2.dispose();
     focusNode3.dispose();
@@ -184,7 +214,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
     digit2.dispose();
     digit3.dispose();
     digit4.dispose();
-    digit5.dispose();
+    digit5.dispose();*/
     super.dispose();
   }
 }
