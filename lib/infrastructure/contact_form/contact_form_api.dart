@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collaction_app/domain/i_settings_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -26,13 +25,10 @@ class ContactFormApi extends IContactFormApi {
     final packageInfo = await PackageInfo.fromPlatform();
     // ignore: prefer_interpolation_to_compose_strings
     final bodyJson = '{"email":"${contents.email}",' +
-        // TODO add subject to ContactFormContents
+        // TODO add subject to ContactFormContents class
         '"subject":"Hello CollAction!",' +
         '"message":"${contents.message?.replaceAll('"', '\\"')}",' +
         '"app_version":"$platform ${packageInfo.version}+${packageInfo.buildNumber}"}';
-
-    debugPrint(bodyJson);
-
     return client
         .post(Uri.parse('${settingsRepository.baseApiEndpoint}/contact'),
             encoding: Encoding.getByName('application/json'), body: bodyJson)
