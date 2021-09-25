@@ -3,8 +3,11 @@ import 'package:collaction_app/presentation/shared_widgets/rectangle_button.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../test_utilities.dart';
+
 void main() {
   testWidgets('Contact form renders', (WidgetTester tester) async {
+    TestUtilities.mockContactFormApi(doesSubmissionSucceed: true);
     // Build our app and contact form.
     await tester.pumpWidget(const MaterialApp(home: ContactFormPage()));
 
@@ -15,6 +18,7 @@ void main() {
   });
 
   testWidgets('Form can be submitted', (WidgetTester tester) async {
+    TestUtilities.mockContactFormApi(doesSubmissionSucceed: true);
     // Build app and contact form
     await tester.pumpWidget(const MaterialApp(home: ContactFormPage()));
 
@@ -30,7 +34,7 @@ void main() {
     await tester.tap(submit);
     await tester.pump(const Duration(seconds: 2));
 
-    expect(find.text('Success'), findsOneWidget);
+    expect(find.text('Success!'), findsOneWidget);
   });
 
   testWidgets('Form requires email and feedback', (WidgetTester tester) async {

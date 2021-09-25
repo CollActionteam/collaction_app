@@ -26,17 +26,16 @@ class ContactFormApi extends IContactFormApi {
     final packageInfo = await PackageInfo.fromPlatform();
     // ignore: prefer_interpolation_to_compose_strings
     final bodyJson = '{"email":"${contents.email}",' +
-                    // TODO add subject to ContactFormContents
-                    '"subject":"Hello CollAction!",' +
-                    '"message":"${contents.message?.replaceAll('"', '\\"')}",' +
-                    '"app_version":"$platform ${packageInfo.version}+${packageInfo.buildNumber}"}';
+        // TODO add subject to ContactFormContents
+        '"subject":"Hello CollAction!",' +
+        '"message":"${contents.message?.replaceAll('"', '\\"')}",' +
+        '"app_version":"$platform ${packageInfo.version}+${packageInfo.buildNumber}"}';
 
     debugPrint(bodyJson);
 
     return client
         .post(Uri.parse('${settingsRepository.baseApiEndpoint}/contact'),
-            encoding: Encoding.getByName('application/json'),
-            body: bodyJson)
+            encoding: Encoding.getByName('application/json'), body: bodyJson)
         .then((value) => value.statusCode == 200)
         .onError((error, stackTrace) => false);
   }
