@@ -17,135 +17,87 @@ part 'verify_phone_state.dart';
 @injectable
 class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
   final IAuthFacade _authFacade;
+  Credential? _credential;
 
-  VerifyPhoneBloc(this._authFacade) : super(VerifyPhoneState.initial());
+  VerifyPhoneBloc(this._authFacade) : super(const VerifyPhoneState.initial());
 
   @override
   Stream<VerifyPhoneState> mapEventToState(
     VerifyPhoneEvent event,
   ) async* {
     yield* event.map(
-      phoneChanged: _phoneChanged,
-      smsCodeChanged: _smsCodeChanged,
-      verifyPhone: _verifyPhone,
-      signInWithPhone: _signInWithPhone,
-      updateUsername: _updateUsername,
-      usernameChanged: _usernameChanged,
+      verifyPhone: _mapVerifyPhoneToState,
+      signInWithPhone: _mapSignInWithPhoneToState,
+      updateUsername: _mapUpdateUsernameToState,
       updated: _mapUpdatedToState,
     );
   }
 
   Stream<VerifyPhoneState> _mapUpdatedToState(Updated value) async* {
     yield value.failureOrCredential.fold(
-      (failure) => state.copyWith(
-        isSendingSms: false,
-        authFailureOrSuccessOption: some(failure),
-      ),
+          (failure) => VerifyPhoneState.authError(failure),
       (r) {
         return r.map(
-          codeSent: (e) => state.copyWith(
-            credential: e.credential,
-            isSendingSmsSuccessful: true,
-            authFailureOrSuccessOption: none(),
-          ),
-          codeRetrievalTimedOut: (_) => state,
-          verificationCompleted: (e) => state.copyWith(
-            credential: e.credential,
-            autoCompleteSms: e.credential.smsCode != null,
-            isVerifySuccessful: true,
-            authFailureOrSuccessOption: none(),
-          ),
+          codeSent: (e) {
+            _credential = e.credential;
+            return const VerifyPhoneState.smsCodeSent();
+          },
+          codeRetrievalTimedOut: (e) {
+            _credential = e.credential;
+            return const VerifyPhoneState.codeRetrievalTimedOut();
+          },
+          verificationCompleted: (e) {
+            _credential = e.credential;
+            return const VerifyPhoneState.verificationCompleted();
+          },
         );
       },
     );
   }
 
   /// Update username in user profile [UpdateUsername]
-  Stream<VerifyPhoneState> _updateUsername(UpdateUsername e) async* {
-    yield VerifyPhoneState.initial().copyWith(
-      isUpdatingUsername: true,
-      username: state.username,
-    );
+  Stream<VerifyPhoneState> _mapUpdateUsernameToState(UpdateUsername e) async* {
+    yield const VerifyPhoneState.awaitingUsernameUpdate();
 
     final failureOrSuccess =
-        await _authFacade.updateUsername(username: state.username);
+        await _authFacade.updateUsername(username: e.username);
 
     yield failureOrSuccess.fold(
-      (failure) => state.copyWith(
-        isUpdatingUsername: false,
-        authFailureOrSuccessOption: optionOf(failure),
-      ),
-      (_) => state.copyWith(
-        isUpdatingUsername: false,
-        isUsernameUpdateSuccessful: true,
-        authFailureOrSuccessOption: none(),
-      ),
-    );
-  }
-
-  /// Handle username change [UsernameChanged]
-  Stream<VerifyPhoneState> _usernameChanged(UsernameChanged e) async* {
-    yield state.copyWith(
-      username: e.username,
-      authFailureOrSuccessOption: none(),
-    );
-  }
-
-  /// Handle verification phone number change [PhoneChanged]
-  Stream<VerifyPhoneState> _phoneChanged(PhoneChanged e) async* {
-    yield state.copyWith(
-      phoneNumber: e.phone,
-      authFailureOrSuccessOption: none(),
-    );
-  }
-
-  /// Handle SMS code change [CodeChanged]
-  Stream<VerifyPhoneState> _smsCodeChanged(CodeChanged e) async* {
-    yield state.copyWith(
-      credential: state.credential.copyWith(smsCode: e.smsCode),
-      authFailureOrSuccessOption: none(),
+      (failure) => VerifyPhoneState.authError(failure),
+      (_) => const VerifyPhoneState.usernameUpdateDone(),
     );
   }
 
   /// Submit phone for validation [SignInWithPhone]
-  Stream<VerifyPhoneState> _signInWithPhone(SignInWithPhone e) async* {
-    yield VerifyPhoneState.initial().copyWith(
-      isSendingSmsSuccessful: false,
-      isSigningIn: true,
-      credential: state.credential,
-      authFailureOrSuccessOption: none(),
-    );
+  Stream<VerifyPhoneState> _mapSignInWithPhoneToState(
+      SignInWithPhone e) async* {
+    yield const VerifyPhoneState.signingInUser();
 
-    final authSuccessOrFailure = await _authFacade.signInWithPhone(
-      authCredentials: state.credential.copyWith(smsCode: e.smsCode),
-    );
+    if (_credential == null) {
+      yield const VerifyPhoneState.authError(AuthFailure.verificationFailed());
+    } else {
+      final authSuccessOrFailure = await _authFacade.signInWithPhone(
+        authCredentials: _credential!.copyWith(smsCode: e.smsCode),
+      );
 
-    yield authSuccessOrFailure.fold(
-      (failure) => state.copyWith(
-        isSigningIn: false,
-        authFailureOrSuccessOption: optionOf(failure),
-      ),
-      (_) => state.copyWith(
-        isSigningIn: false,
-        isSignInSuccessful: true,
-        authFailureOrSuccessOption: none(),
-      ),
-    );
+      yield authSuccessOrFailure.fold(
+        (failure) => VerifyPhoneState.authError(failure),
+        (success) => VerifyPhoneState.loggedIn(isNewUser: success),
+      );
+    }
   }
 
   StreamSubscription<Either<AuthFailure, AuthEvent>>? _verifyStreamSubscription;
 
   /// Submit SMS code for validation completion [VerifyPhone]
-  Stream<VerifyPhoneState> _verifyPhone(VerifyPhone e) async* {
-    yield VerifyPhoneState.initial().copyWith(
-      isSendingSms: true,
-      authFailureOrSuccessOption: none(),
-    );
+  Stream<VerifyPhoneState> _mapVerifyPhoneToState(VerifyPhone e) async* {
+    yield const VerifyPhoneState.awaitingVerification();
 
-    _verifyStreamSubscription = _authFacade
-        .verifyPhone(phoneNumber: state.phoneNumber)
-        .listen((failureOrCredential) =>
-            add(VerifyPhoneEvent.updated(failureOrCredential)));
+    _verifyStreamSubscription =
+        _authFacade.verifyPhone(phoneNumber: e.phoneNumber).listen(
+              (failureOrCredential) =>
+                  add(VerifyPhoneEvent.updated(failureOrCredential)),
+            );
   }
 
   @override

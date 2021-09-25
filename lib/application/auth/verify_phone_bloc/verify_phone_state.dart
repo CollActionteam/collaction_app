@@ -2,35 +2,40 @@ part of 'verify_phone_bloc.dart';
 
 @freezed
 class VerifyPhoneState with _$VerifyPhoneState {
-  const factory VerifyPhoneState({
-    required String phoneNumber,
-    required String username,
-    required bool isUpdatingUsername,
-    required bool isUsernameUpdateSuccessful,
-    required Credential credential,
-    required bool isSigningIn,
-    required bool isSignInSuccessful,
-    required bool isVerifying,
-    required bool isVerifySuccessful,
-    required bool isSendingSms,
-    required bool isSendingSmsSuccessful,
-    required bool autoCompleteSms,
-    required Option<AuthFailure> authFailureOrSuccessOption,
-  }) = _VerifyPhoneState;
+  /// No authentication ongoing
+  const factory VerifyPhoneState.initial() = _Initial;
 
-  factory VerifyPhoneState.initial() => VerifyPhoneState(
-        phoneNumber: '',
-        username: '',
-        isUpdatingUsername: false,
-        isUsernameUpdateSuccessful: false,
-        credential: const Credential(),
-        isSigningIn: false,
-        isSignInSuccessful: false,
-        isVerifying: false,
-        isVerifySuccessful: false,
-        isSendingSms: false,
-        isSendingSmsSuccessful: false,
-        autoCompleteSms: false,
-        authFailureOrSuccessOption: none(),
-      );
+  /// Authentication has been started, waiting for backend to respond
+  const factory VerifyPhoneState.signingInUser() = SigningInUser;
+
+  /// SMS Code has been sent, wait for autocomplete or user to enter code
+  const factory VerifyPhoneState.smsCodeSent() = _SmsCodeSent;
+
+  /// SMS Code verification has been completed, sign in user with credentials
+  const factory VerifyPhoneState.verificationCompleted() =
+      _VerificationCompleted;
+
+  /// SMS Code autocomplete has timed out, allow user to resend code
+  const factory VerifyPhoneState.codeRetrievalTimedOut() =
+      _CodeRetrievalTimedOut;
+
+  /// An error has occurred during authentication
+  const factory VerifyPhoneState.authError(AuthFailure failure) = _AuthError;
+
+  /// Authentication may be completed with verification code
+  const factory VerifyPhoneState.awaitingVerification() = AwaitingVerification;
+
+  /// Authentication will be completed, waiting for backend to respond to verification
+  const factory VerifyPhoneState.verifying(String smsCode) = _Verifying;
+
+  /// Authentication has been completed
+  const factory VerifyPhoneState.loggedIn({required bool isNewUser}) =
+      _LoggedIn;
+
+  /// Username/Display name is being updated
+  const factory VerifyPhoneState.awaitingUsernameUpdate() =
+      AwaitingUsernameUpdate;
+
+  /// Username/Display update done
+  const factory VerifyPhoneState.usernameUpdateDone() = _UsernameUpdateDone;
 }

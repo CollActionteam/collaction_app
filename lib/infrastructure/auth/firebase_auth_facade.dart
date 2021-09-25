@@ -48,8 +48,8 @@ class FirebaseAuthFacade implements IAuthFacade {
         result.close();
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-        result.add(
-            right(AuthEvent.codeRetrievalTimedOut(credential: credential)));
+        result.add(right(AuthEvent.codeRetrievalTimedOut(
+            credential: credential.copyWith(verificationId: verificationId))));
         result.close();
       },
       verificationCompleted: (fb_auth.PhoneAuthCredential phoneAuthCredential) {
@@ -68,7 +68,8 @@ class FirebaseAuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> signInWithPhone({required Credential authCredentials}) async {
+  Future<Either<AuthFailure, bool>> signInWithPhone(
+      {required Credential authCredentials}) async {
     try {
       final String verificationId = authCredentials.verificationId!;
       final String smsCode = authCredentials.smsCode!;
@@ -78,7 +79,9 @@ class FirebaseAuthFacade implements IAuthFacade {
 
       // Sign the user in (or link) with the credential
       await firebaseAuth.signInWithCredential(credential);
-      return right(unit);
+      //TODO Check if is new user
+      bool isNewUser = true;
+      return right(isNewUser);
     } on fb_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch (_) {

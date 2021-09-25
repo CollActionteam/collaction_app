@@ -1,8 +1,8 @@
-import 'package:collaction_app/presentation/shared_widgets/pin_input/pin_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
+import '../../shared_widgets/pin_input/pin_input.dart';
 import '../../themes/constants.dart';
 
 class EnterVerificationCode extends StatefulWidget {
@@ -53,7 +53,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
             ),
             const SizedBox(height: 45.0),
             PinInput(
-              readOnly: state.isSigningIn,
+              readOnly: state is SigningInUser,
               submit: (smsCode) {
                 FocusScope.of(context).unfocus();
                 context
@@ -63,7 +63,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
             ),
             const SizedBox(height: 15.0),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (state.isSigningIn)
+              if (state is SigningInUser)
                 const SizedBox(
                   width: 25,
                   height: 25,

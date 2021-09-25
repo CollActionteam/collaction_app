@@ -14,7 +14,7 @@ abstract class IAuthFacade {
     required String phoneNumber,
   });
 
-  Future<Either<AuthFailure, Unit>> signInWithPhone(
+  Future<Either<AuthFailure, bool>> signInWithPhone(
       {required Credential authCredentials});
 
   Future<Either<AuthFailure, Unit>> updateUsername({required String username});

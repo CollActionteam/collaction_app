@@ -19,6 +19,7 @@ class _EnterUserNameState extends State<EnterUserName> {
   var _isNameValid = false;
   late TextEditingController _usernameController;
   final _formKey = GlobalKey<FormState>();
+  var _username = "";
 
   @override
   void initState() {
@@ -65,11 +66,7 @@ class _EnterUserNameState extends State<EnterUserName> {
                   _isNameValid = _formKey.currentState?.validate() == true),
               child: TextFormField(
                 controller: _usernameController,
-                onChanged: (username) {
-                  context
-                      .read<VerifyPhoneBloc>()
-                      .add(VerifyPhoneEvent.usernameChanged(username));
-                },
+                onChanged: (username) => _username = username,
                 style: const TextStyle(fontSize: 20.0),
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
@@ -89,14 +86,14 @@ class _EnterUserNameState extends State<EnterUserName> {
                 Expanded(
                   child: RectangularButton(
                     text: 'Next',
-                    isLoading: state.isUpdatingUsername,
+                    isLoading: state is AwaitingUsernameUpdate,
                     isEnabled: _isNameValid,
                     onPressed: () {
-                      if (_isNameValid && !state.isUpdatingUsername) {
+                      if (_isNameValid && state is! AwaitingUsernameUpdate) {
                         FocusScope.of(context).unfocus();
                         context
                             .read<VerifyPhoneBloc>()
-                            .add(const VerifyPhoneEvent.updateUsername());
+                            .add(VerifyPhoneEvent.updateUsername(_username));
                       }
                     },
                   ),
