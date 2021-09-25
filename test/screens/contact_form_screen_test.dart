@@ -1,3 +1,4 @@
+import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/contact_form/contact_form_screen.dart';
 import 'package:collaction_app/presentation/shared_widgets/rectangle_button.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,11 @@ import 'package:flutter_test/flutter_test.dart';
 import '../test_utilities.dart';
 
 void main() {
+  setUp(() async {
+    await configureInjection();
+    TestUtilities.mockSettings();
+  });
+
   testWidgets('Contact form renders', (WidgetTester tester) async {
     TestUtilities.mockContactFormApi(doesSubmissionSucceed: true);
     // Build our app and contact form.
