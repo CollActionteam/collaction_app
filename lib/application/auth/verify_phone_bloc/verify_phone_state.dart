@@ -3,7 +3,10 @@ part of 'verify_phone_bloc.dart';
 @freezed
 class VerifyPhoneState with _$VerifyPhoneState {
   const factory VerifyPhoneState({
-    required PhoneNumber phoneNumber,
+    required String phoneNumber,
+    required String username,
+    required bool isUpdatingUsername,
+    required bool isUsernameUpdateSuccessful,
     required Credential credential,
     required bool isSigningIn,
     required bool isSignInSuccessful,
@@ -16,7 +19,10 @@ class VerifyPhoneState with _$VerifyPhoneState {
   }) = _VerifyPhoneState;
 
   factory VerifyPhoneState.initial() => VerifyPhoneState(
-    phoneNumber: PhoneNumber(''),
+        phoneNumber: '',
+        username: '',
+        isUpdatingUsername: false,
+        isUsernameUpdateSuccessful: false,
         credential: const Credential(),
         isSigningIn: false,
         isSignInSuccessful: false,

@@ -1,16 +1,15 @@
+import 'dart:async';
 import 'dart:io';
 
-import 'package:collaction_app/domain/auth/auth_event.dart';
-import 'package:collaction_app/domain/auth/auth_failures.dart';
-import 'package:collaction_app/domain/auth/i_auth_facade.dart';
-import 'package:collaction_app/domain/auth/value_objects.dart';
-import 'package:collaction_app/domain/user/i_user_repository.dart';
-import 'package:collaction_app/domain/user/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/subjects.dart';
 
+import '../../domain/auth/auth_event.dart';
+import '../../domain/auth/auth_failures.dart';
+import '../../domain/auth/i_auth_facade.dart';
+import '../../domain/user/i_user_repository.dart';
+import '../../domain/user/user.dart';
 import 'firebase_auth_mapper.dart';
 
 @LazySingleton(as: IAuthFacade)
@@ -28,13 +27,14 @@ class FirebaseAuthFacade implements IAuthFacade {
   Future<void> signOut() => firebaseAuth.signOut();
 
   @override
-  Stream<Either<AuthFailure, AuthEvent>> verifyPhone({required PhoneNumber phoneNumber}) {
-    final result = BehaviorSubject<Either<AuthFailure, AuthEvent>>();
-    final phone = phoneNumber.getOrCrash();
+  Stream<Either<AuthFailure, AuthEvent>> verifyPhone(
+      {required String phoneNumber}) {
+    final result = StreamController<Either<AuthFailure, AuthEvent>>();
+
     var credential = const Credential();
 
     firebaseAuth.verifyPhoneNumber(
-      phoneNumber: "+$phone",
+      phoneNumber: "+$phoneNumber",
       codeSent: (String verificationId, int? forceResendingToken) {
         credential = credential.copyWith(
           verificationId: verificationId,
@@ -87,8 +87,7 @@ class FirebaseAuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> updateUsername(
-      {required String username}) async {
+  Future<Either<AuthFailure, Unit>> updateUsername({required String username}) async {
     try {
       final user = firebaseAuth.currentUser!;
       await user.updateDisplayName(username);
@@ -106,7 +105,7 @@ class FirebaseAuthFacade implements IAuthFacade {
     try {
       // TODO Upload photo to storage
       final String profileUrl =
-          throw UnimplementedError("Upload photo to storage");
+      throw UnimplementedError("Upload photo to storage");
 
       final user = firebaseAuth.currentUser!;
       await user.updatePhotoURL(profileUrl);

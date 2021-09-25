@@ -47,10 +47,7 @@ class _AuthPageState extends State<AuthPage> {
     _pages = [
       VerifyPhonePage(key: _verifyPhoneKey),
       EnterVerificationCode(reset: _reset),
-      EnterUserName(onNext: () {
-        setState(() => _displayDots = false);
-        _nextPage();
-      }),
+      const EnterUserName(),
       SelectProfilePhoto(
         onNext: _nextPage,
         onSkip: () => {},
@@ -91,6 +88,9 @@ class _AuthPageState extends State<AuthPage> {
             _toPage(1);
           } else if (state.isSignInSuccessful) {
             _toPage(2);
+          } else if (state.isUsernameUpdateSuccessful) {
+            _toPage(3);
+            setState(() => _displayDots = false);
           }
         },
         child: Scaffold(

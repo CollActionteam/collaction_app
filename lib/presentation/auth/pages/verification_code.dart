@@ -18,32 +18,6 @@ class EnterVerificationCode extends StatefulWidget {
 }
 
 class _EnterVerificationCodeState extends State<EnterVerificationCode> {
-  /* late FocusNode focusNode0,
-      focusNode1,
-      focusNode2,
-      focusNode3,
-      focusNode4,
-      focusNode5;
-  late TextEditingController digit0, digit1, digit2, digit3, digit4, digit5;
-*/
-  @override
-  void initState() {
-    super.initState();
-
-    /*   focusNode0 = FocusNode();
-    focusNode1 = FocusNode();
-    focusNode2 = FocusNode();
-    focusNode3 = FocusNode();
-    focusNode4 = FocusNode();
-    focusNode5 = FocusNode();
-    digit0 = TextEditingController();
-    digit1 = TextEditingController();
-    digit2 = TextEditingController();
-    digit3 = TextEditingController();
-    digit4 = TextEditingController();
-    digit5 = TextEditingController();
-  */
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,133 +62,32 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
               },
             ),
             const SizedBox(height: 15.0),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: state.isSigningIn
-                    ? [
-                        const SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: CircularProgressIndicator(
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              if (state.isSigningIn)
+                const SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: CircularProgressIndicator(
+                    color: kAccentColor,
+                    strokeWidth: 2,
+                  ),
+                )
+              else
+                Expanded(
+                  child: TextButton(
+                    onPressed: widget.reset,
+                    child: const Text(
+                        'No code? Click here and we will send a new one',
+                        style: TextStyle(
                             color: kAccentColor,
-                            strokeWidth: 2,
-                          ),
-                        ),
-                      ]
-                    : [
-                        Expanded(
-                          child: TextButton(
-                            onPressed: widget.reset,
-                            child: const Text(
-                                'No code? Click here and we will send a new one',
-                                style: TextStyle(
-                                    color: kAccentColor,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14.0)),
-                          ),
-                        )
-                      ]),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14.0)),
+                  ),
+                )
+            ]),
           ],
         );
       },
     );
-  }
-
-/*
-  Padding _digitField(TextEditingController controller, FocusNode focus,
-      ValueChanged<String> onChanged,
-      {bool readOnly = false}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.0125),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.width * 0.12,
-        width: MediaQuery.of(context).size.width * 0.12,
-        child: TextFormField(
-          readOnly: readOnly,
-          controller: controller,
-          textAlignVertical: TextAlignVertical.center,
-          textAlign: TextAlign.center,
-          showCursor: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(fontSize: 28),
-          maxLength: 1,
-          decoration: InputDecoration(
-            contentPadding:
-                EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-            counterText: "",
-          ),
-          focusNode: focus,
-          onChanged: onChanged,
-        ),
-      ),
-    );
-  }
-
-  void _changeFocus(String value, FocusNode? next, FocusNode? previous) {
-    // TODO - Check if all values are filled
-    // If yes ... make read only and start validation
-    // context.read<VerifyPhoneBloc>.add(
-    //     const VerifyPhoneEvent.smsCodeChanged(_smsCode));
-    // if (_smsCode.length == 6) {
-    //   // Do auth
-    //   context.read<VerifyPhoneBloc>.add(
-    //       const VerifyPhoneEvent.signInWithPhone());
-    // } else {
-      if (value.isNotEmpty && next != null) {
-        next.requestFocus();
-        return;
-      }
-
-      if (value.isEmpty && previous != null) {
-        previous.requestFocus();
-        return;
-      }
-
-      // if (value.isNotEmpty && next == null) {
-      //   // TODO: Call validation method/BLOC
-      //
-      //   return;
-      // }
-    // }
-  }
-
-  String get _smsCode {
-    return "${digit0.text}${digit1.text}${digit2.text}${digit3.text}${digit4.text}${digit5.text}";
-  }
-
-  void _autoCompleteSms() {
-    // try{
-    //   final sms = widget.smsCode!.split("");
-    //
-    //   if(sms.length == 6) {
-    //     digit0.text = sms[0];
-    //     digit1.text = sms[1];
-    //     digit2.text = sms[2];
-    //     digit3.text = sms[3];
-    //     digit4.text = sms[4];
-    //     digit5.text = sms[5];
-    //   }
-    // }catch(_){
-    //
-    // }
-  }
-*/
-  @override
-  void dispose() {
-    // Page Two
-    /*   focusNode0.dispose();
-    focusNode1.dispose();
-    focusNode2.dispose();
-    focusNode3.dispose();
-    focusNode4.dispose();
-    focusNode5.dispose();
-    digit0.dispose();
-    digit1.dispose();
-    digit2.dispose();
-    digit3.dispose();
-    digit4.dispose();
-    digit5.dispose();*/
-    super.dispose();
   }
 }
