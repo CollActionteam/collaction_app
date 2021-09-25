@@ -23,16 +23,26 @@ class ContactFormPage extends StatefulWidget {
 // This class holds data related to the form.
 class ContactFormPageState extends State<ContactFormPage> {
   late ScrollController _pageScrollController;
-  final _contactFormBloc = getIt<ContactFormBloc>();
+  late ContactFormBloc _contactFormBloc;
 
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
-  final _formKey = GlobalKey<FormState>();
-  final _emailKey = GlobalKey<FormFieldState>();
-  ContactFormContents _formContents = ContactFormContents();
+  late GlobalKey<FormState> _formKey;
+  late GlobalKey<FormFieldState> _emailKey;
+  late ContactFormContents _formContents;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageScrollController = ScrollController();
+    _contactFormBloc = getIt<ContactFormBloc>();
+    _formKey = GlobalKey<FormState>();
+    _emailKey = GlobalKey<FormFieldState>();
+    _formContents = ContactFormContents();
+  }
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -53,12 +63,6 @@ class ContactFormPageState extends State<ContactFormPage> {
     _formContents =
         ContactFormContents(email: _formContents.email, message: value);
     return null;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _pageScrollController = ScrollController();
   }
 
   void _contactFormBlocListener(BuildContext context, ContactFormState state) {
