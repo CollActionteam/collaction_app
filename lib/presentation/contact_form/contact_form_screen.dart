@@ -108,9 +108,10 @@ class ContactFormPageState extends State<ContactFormPage> {
                 bloc: _contactFormBloc,
                 builder: (context, state) {
                   final isEnabled = state.maybeMap(
-                      initial: (_) => true,
-                      failed: (_) => true,
-                      orElse: () => false);
+                    initial: (_) => true,
+                    failed: (_) => true,
+                    orElse: () => false,
+                  );
                   return Form(
                     key: _formKey,
                     child: Padding(
