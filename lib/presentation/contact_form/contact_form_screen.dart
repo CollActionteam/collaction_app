@@ -59,9 +59,7 @@ class ContactFormPageState extends State<ContactFormPage> {
     _pageScrollController = ScrollController();
   }
 
-  // ignore: prefer_function_declarations_over_variables
-  final _contactFormBlocListener =
-      (BuildContext context, ContactFormState state) {
+  void _contactFormBlocListener(BuildContext context, ContactFormState state) {
     // Remove any old snackbar
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     state.map(
@@ -84,7 +82,7 @@ class ContactFormPageState extends State<ContactFormPage> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Error! Failed to submit form.')));
         });
-  };
+  }
 
   @override
   Widget build(BuildContext context) {
