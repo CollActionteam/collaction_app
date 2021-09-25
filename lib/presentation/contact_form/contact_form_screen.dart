@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/contact_form/contact_form_bloc.dart';
-import '../../application/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../domain/contact_form/contact_form_contents.dart';
 import '../../infrastructure/core/injection.dart';
 import '../shared_widgets/custom_app_bars/scrollable_app_bar.dart';
