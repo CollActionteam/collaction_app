@@ -18,10 +18,20 @@ class EnterVerificationCode extends StatefulWidget {
 }
 
 class _EnterVerificationCodeState extends State<EnterVerificationCode> {
+  // String? _code;
+  final GlobalKey<PinInputState> _pinKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VerifyPhoneBloc, VerifyPhoneState>(
+    return BlocConsumer<VerifyPhoneBloc, VerifyPhoneState>(
+      listener: (context, state) {
+        state.maybeMap(
+          verificationCompleted: (verificationState) {
+            _pinKey.currentState?.autoComplete(verificationState.smsCode);
+          },
+          orElse: () {},
+        );
+      },
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,6 +63,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
             ),
             const SizedBox(height: 45.0),
             PinInput(
+              key: _pinKey,
               readOnly: state is SigningInUser,
               submit: (smsCode) {
                 FocusScope.of(context).unfocus();
@@ -62,29 +73,32 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
               },
             ),
             const SizedBox(height: 15.0),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (state is SigningInUser)
-                const SizedBox(
-                  width: 25,
-                  height: 25,
-                  child: CircularProgressIndicator(
-                    color: kAccentColor,
-                    strokeWidth: 2,
-                  ),
-                )
-              else
-                Expanded(
-                  child: TextButton(
-                    onPressed: widget.reset,
-                    child: const Text(
-                        'No code? Click here and we will send a new one',
-                        style: TextStyle(
-                            color: kAccentColor,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14.0)),
-                  ),
-                )
-            ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (state is SigningInUser)
+                  const SizedBox(
+                    width: 25,
+                    height: 25,
+                    child: CircularProgressIndicator(
+                      color: kAccentColor,
+                      strokeWidth: 2,
+                    ),
+                  )
+                else
+                  Expanded(
+                    child: TextButton(
+                      onPressed: widget.reset,
+                      child: const Text(
+                          'No code? Click here and we will send a new one',
+                          style: TextStyle(
+                              color: kAccentColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14.0)),
+                    ),
+                  )
+              ],
+            ),
           ],
         );
       },

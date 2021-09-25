@@ -59,10 +59,6 @@ class _AuthPageState extends State<AuthPage> {
         _currentPage = _pageController.page!;
       });
     });
-
-    // Page One
-
-    // Page Two
   }
 
   @override

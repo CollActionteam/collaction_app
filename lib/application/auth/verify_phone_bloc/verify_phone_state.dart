@@ -12,7 +12,7 @@ class VerifyPhoneState with _$VerifyPhoneState {
   const factory VerifyPhoneState.smsCodeSent() = _SmsCodeSent;
 
   /// SMS Code verification has been completed, sign in user with credentials
-  const factory VerifyPhoneState.verificationCompleted() =
+  const factory VerifyPhoneState.verificationCompleted(String smsCode) =
       _VerificationCompleted;
 
   /// SMS Code autocomplete has timed out, allow user to resend code

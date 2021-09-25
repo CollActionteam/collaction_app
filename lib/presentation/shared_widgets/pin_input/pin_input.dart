@@ -7,15 +7,18 @@ class PinInput extends StatefulWidget {
   final bool readOnly;
   final Function(String)? submit;
 
-  const PinInput(
-      {Key? key, this.pinLength = 6, this.readOnly = false, this.submit})
-      : super(key: key);
+  const PinInput({
+    Key? key,
+    this.pinLength = 6,
+    this.readOnly = false,
+    this.submit,
+  }) : super(key: key);
 
   @override
-  _PinInputState createState() => _PinInputState();
+  PinInputState createState() => PinInputState();
 }
 
-class _PinInputState extends State<PinInput> {
+class PinInputState extends State<PinInput> {
   late List<int> size;
   late List<FocusNode> focusNodes;
   late List<TextEditingController> controllers;
@@ -77,6 +80,17 @@ class _PinInputState extends State<PinInput> {
     if (value.isEmpty && previous != null) {
       previous.requestFocus();
       return;
+    }
+  }
+
+  void autoComplete(String code) {
+    if (code.length == widget.pinLength) {
+      final digits = code.split("");
+      digits.asMap().forEach((index, value) {
+        controllers[index].text = value;
+      });
+
+      if (widget.submit != null) widget.submit!(_pin);
     }
   }
 

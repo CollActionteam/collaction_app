@@ -35,7 +35,7 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
 
   Stream<VerifyPhoneState> _mapUpdatedToState(Updated value) async* {
     yield value.failureOrCredential.fold(
-          (failure) => VerifyPhoneState.authError(failure),
+      (failure) => VerifyPhoneState.authError(failure),
       (r) {
         return r.map(
           codeSent: (e) {
@@ -48,7 +48,8 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
           },
           verificationCompleted: (e) {
             _credential = e.credential;
-            return const VerifyPhoneState.verificationCompleted();
+            return VerifyPhoneState.verificationCompleted(
+                _credential?.smsCode ?? '');
           },
         );
       },
