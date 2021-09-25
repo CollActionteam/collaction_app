@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/contact_form/contact_form_bloc.dart';
 import '../../domain/contact_form/contact_form_contents.dart';
 import '../../infrastructure/core/injection.dart';
+import '../../presentation/shared_widgets/no_ripple_behavior.dart';
 import '../shared_widgets/custom_app_bars/scrollable_app_bar.dart';
 import '../shared_widgets/rectangle_button.dart';
 
@@ -100,7 +101,7 @@ class ContactFormPageState extends State<ContactFormPage> {
           pageScrollController: _pageScrollController,
         ),
         body: ScrollConfiguration(
-          behavior: const ScrollBehavior(), // TODO: use NoRippleBehavior(),
+          behavior: NoRippleBehavior(),
           child: SingleChildScrollView(
             controller: _pageScrollController,
             child: BlocConsumer<ContactFormBloc, ContactFormState>(
