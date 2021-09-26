@@ -6,17 +6,33 @@ class AuthState with _$AuthState {
   const factory AuthState.initial() = _Initial;
 
   /// Authentication has been started, waiting for backend to respond
-  const factory AuthState.registeringPhoneNumber() = _RegisteringPhoneNumber;
+  const factory AuthState.signingInUser() = SigningInUser;
 
-  /// An error has occured during authentication
-  const factory AuthState.authError(Exception error) = _AuthError;
+  /// SMS Code has been sent, wait for autocomplete or user to enter code
+  const factory AuthState.smsCodeSent() = _SmsCodeSent;
+
+  /// SMS Code verification has been completed, sign in user with credentials
+  const factory AuthState.verificationCompleted(String smsCode) =
+      _VerificationCompleted;
+
+  /// SMS Code autocomplete has timed out, allow user to resend code
+  const factory AuthState.codeRetrievalTimedOut() = _CodeRetrievalTimedOut;
+
+  /// An error has occurred during authentication
+  const factory AuthState.authError(AuthFailure failure) = _AuthError;
 
   /// Authentication may be completed with verification code
-  const factory AuthState.awaitingVerification() = _AwaitingVerification;
+  const factory AuthState.awaitingVerification() = AwaitingVerification;
 
   /// Authentication will be completed, waiting for backend to respond to verification
   const factory AuthState.verifying(String smsCode) = _Verifying;
 
   /// Authentication has been completed
   const factory AuthState.loggedIn({required bool isNewUser}) = _LoggedIn;
+
+  /// Username/Display name is being updated
+  const factory AuthState.awaitingUsernameUpdate() = AwaitingUsernameUpdate;
+
+  /// Username/Display update done
+  const factory AuthState.usernameUpdateDone() = _UsernameUpdateDone;
 }

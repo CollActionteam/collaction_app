@@ -14,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import './pages/enter_username.dart';
 import './pages/verification_code.dart';
 import './pages/verify_phone.dart';
-import '../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
+import '../../application/auth/auth_bloc.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 import '../utils/context.ext.dart';
@@ -64,8 +64,8 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<VerifyPhoneBloc>(),
-      child: BlocListener<VerifyPhoneBloc, VerifyPhoneState>(
+      create: (context) => getIt<AuthBloc>(),
+      child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           state.maybeMap(
               smsCodeSent: (_) => _toPage(1),

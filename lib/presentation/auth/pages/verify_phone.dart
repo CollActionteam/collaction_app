@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
+import '../../../application/auth/auth_bloc.dart';
 import '../../shared_widgets/phone_input.dart';
 import '../../shared_widgets/rectangular_button.dart';
 
@@ -31,7 +31,7 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VerifyPhoneBloc, VerifyPhoneState>(
+    return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -74,8 +74,8 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
                         FocusScope.of(context).unfocus();
 
                         context
-                            .read<VerifyPhoneBloc>()
-                            .add(VerifyPhoneEvent.verifyPhone(_phoneNumber));
+                            .read<AuthBloc>()
+                            .add(AuthEvent.verifyPhone(_phoneNumber));
                       }
                     },
                   ),
