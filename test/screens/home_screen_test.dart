@@ -15,7 +15,6 @@ void main() {
   testWidgets('Home Page and Transitions', (WidgetTester tester) async {
     // configure get_it
     await configureInjection();
-    TestUtilities.mockSettings(wasUserOnboarded: true);
     TestUtilities.mockUser(Stream.value(User.anonymous));
 
     // Build our app and trigger a frame.

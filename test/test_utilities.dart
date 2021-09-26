@@ -21,14 +21,6 @@ class TestUtilities {
     GetIt.I.registerSingleton<IUserRepository>(mockUserRepository);
   }
 
-  static void mockSettings({bool wasUserOnboarded = false}) {
-    final mockSettingsRepository = MockSettingsRepository();
-    when(() => mockSettingsRepository.wasUserOnboarded)
-        .thenReturn(wasUserOnboarded);
-    GetIt.I.allowReassignment = true;
-    GetIt.I.registerSingleton<ISettingsRepository>(mockSettingsRepository);
-  }
-
   static void mockContactFormApi({required bool doesSubmissionSucceed}) {
     registerFallbackValue(ContactFormContents());
     final mockContactFormApi = MockContactFormApi();
