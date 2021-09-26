@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
-import '../../routes/app_routes.gr.dart';
 
 class RegisterPhoneNumberPage extends StatefulWidget {
   const RegisterPhoneNumberPage({Key? key}) : super(key: key);
@@ -36,7 +35,7 @@ class _RegisterPhoneNumberPageState extends State<RegisterPhoneNumberPage> {
       listener: (context, state) {
         state.maybeMap(
             awaitingVerification: (_) {
-              context.router.push(const VerifyCodeRoute());
+              // context.router.push(const VerifyCodeRoute());
             },
             loggedIn: (result) {
               ScaffoldMessenger.of(context).removeCurrentSnackBar();
