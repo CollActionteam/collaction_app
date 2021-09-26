@@ -2,22 +2,18 @@ part of 'verify_phone_bloc.dart';
 
 @freezed
 class VerifyPhoneEvent with _$VerifyPhoneEvent {
-  // const factory VerifyPhoneEvent.phoneChanged(String phone) = PhoneChanged;
 
-  // const factory VerifyPhoneEvent.smsCodeChanged(String smsCode) = CodeChanged;
-
-  const factory VerifyPhoneEvent.verifyPhone(String phoneNumber) = VerifyPhone;
+  const factory VerifyPhoneEvent.verifyPhone(String phoneNumber) = _VerifyPhone;
 
   const factory VerifyPhoneEvent.updated(
-      Either<AuthFailure, AuthEvent> failureOrCredential) = Updated;
+      Either<AuthFailure, AuthSuccess> failureOrCredential) = _Updated;
 
   const factory VerifyPhoneEvent.signInWithPhone(String smsCode) =
-      SignInWithPhone;
-
-  // const factory VerifyPhoneEvent.usernameChanged(String username) =
-  //     UsernameChanged;
+      _SignInWithPhone;
 
   const factory VerifyPhoneEvent.updateUsername(String username) =
-      UpdateUsername;
+      _UpdateUsername;
+
+  const factory VerifyPhoneEvent.reset() = _Reset;
 }
 

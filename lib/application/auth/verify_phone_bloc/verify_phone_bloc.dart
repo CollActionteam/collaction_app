@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:collaction_app/domain/auth/auth_event.dart';
 import 'package:collaction_app/domain/auth/auth_failures.dart';
-import 'package:collaction_app/domain/auth/i_auth_facade.dart';
+import 'package:collaction_app/domain/auth/auth_success.dart';
+import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,15 +11,20 @@ import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'verify_phone_bloc.freezed.dart';
+
 part 'verify_phone_event.dart';
+
 part 'verify_phone_state.dart';
 
 @injectable
 class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
-  final IAuthFacade _authFacade;
+  final IAuthRepository _authRepository;
   Credential? _credential;
+  StreamSubscription<Either<AuthFailure, AuthSuccess>>?
+      _verifyStreamSubscription;
 
-  VerifyPhoneBloc(this._authFacade) : super(const VerifyPhoneState.initial());
+  VerifyPhoneBloc(this._authRepository)
+      : super(const VerifyPhoneState.initial());
 
   @override
   Stream<VerifyPhoneState> mapEventToState(
@@ -30,10 +35,19 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
       signInWithPhone: _mapSignInWithPhoneToState,
       updateUsername: _mapUpdateUsernameToState,
       updated: _mapUpdatedToState,
+      reset: _mapResetToState,
     );
   }
 
-  Stream<VerifyPhoneState> _mapUpdatedToState(Updated value) async* {
+  /// Reset auth state
+  Stream<VerifyPhoneState> _mapResetToState(value) async* {
+    _verifyStreamSubscription?.cancel();
+    _credential = null;
+    yield const _Initial();
+  }
+
+  /// Handle auth updating state [_Updated]
+  Stream<VerifyPhoneState> _mapUpdatedToState(_Updated value) async* {
     yield value.failureOrCredential.fold(
       (failure) => VerifyPhoneState.authError(failure),
       (r) {
@@ -56,12 +70,12 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
     );
   }
 
-  /// Update username in user profile [UpdateUsername]
-  Stream<VerifyPhoneState> _mapUpdateUsernameToState(UpdateUsername e) async* {
+  /// Update username in user profile [_UpdateUsername]
+  Stream<VerifyPhoneState> _mapUpdateUsernameToState(_UpdateUsername e) async* {
     yield const VerifyPhoneState.awaitingUsernameUpdate();
 
     final failureOrSuccess =
-        await _authFacade.updateUsername(username: e.username);
+        await _authRepository.updateUsername(username: e.username);
 
     yield failureOrSuccess.fold(
       (failure) => VerifyPhoneState.authError(failure),
@@ -69,15 +83,15 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
     );
   }
 
-  /// Submit phone for validation [SignInWithPhone]
+  /// Submit phone for validation [_SignInWithPhone]
   Stream<VerifyPhoneState> _mapSignInWithPhoneToState(
-      SignInWithPhone e) async* {
+      _SignInWithPhone e) async* {
     yield const VerifyPhoneState.signingInUser();
 
     if (_credential == null) {
       yield const VerifyPhoneState.authError(AuthFailure.verificationFailed());
     } else {
-      final authSuccessOrFailure = await _authFacade.signInWithPhone(
+      final authSuccessOrFailure = await _authRepository.signInWithPhone(
         authCredentials: _credential!.copyWith(smsCode: e.smsCode),
       );
 
@@ -88,14 +102,12 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
     }
   }
 
-  StreamSubscription<Either<AuthFailure, AuthEvent>>? _verifyStreamSubscription;
-
-  /// Submit SMS code for validation completion [VerifyPhone]
-  Stream<VerifyPhoneState> _mapVerifyPhoneToState(VerifyPhone e) async* {
+  /// Submit SMS code for validation completion [_VerifyPhone]
+  Stream<VerifyPhoneState> _mapVerifyPhoneToState(_VerifyPhone e) async* {
     yield const VerifyPhoneState.awaitingVerification();
 
     _verifyStreamSubscription =
-        _authFacade.verifyPhone(phoneNumber: e.phoneNumber).listen(
+        _authRepository.verifyPhone(phoneNumber: e.phoneNumber).listen(
               (failureOrCredential) =>
                   add(VerifyPhoneEvent.updated(failureOrCredential)),
             );
