@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:collaction_app/domain/auth/auth_failures.dart';
-import 'package:collaction_app/domain/auth/auth_success.dart';
-import 'package:collaction_app/domain/auth/i_auth_repository.dart';
-import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
+
+import '../../domain/auth/auth_failures.dart';
+import '../../domain/auth/auth_success.dart';
+import '../../domain/auth/i_auth_repository.dart';
+import '../../domain/user/i_user_repository.dart';
 
 part 'auth_bloc.freezed.dart';
 
@@ -35,6 +36,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       updateUsername: _mapUpdateUsernameToState,
       updated: _mapUpdatedToState,
       reset: _mapResetToState,
+      authCheckRequested: _mapAuthCheckRequestToState,
+      signedOut: _mapSignOutToState,
+    );
+  }
+
+  Stream<AuthState> _mapSignOutToState(_SignedOut value) async* {
+    await _authRepository.signOut();
+    yield const AuthState.unAuthenticated();
+  }
+
+  Stream<AuthState> _mapAuthCheckRequestToState(
+      _AuthCheckRequested value) async* {
+    final userOption = await _authRepository.getSignedInUser();
+
+    /// TODO - If Auth is unAuthenticated, check if last state was pin input & go to it
+    /// TODO - If Auth is authenticated, check if
+    /// TODO - 1. If entire auth process was completed traverse to home
+    /// TODO - 2. If 1. above is not true traverse to last auth page e.g enter username
+    yield userOption.fold(
+      () => const AuthState.unAuthenticated(),
+      (a) => const AuthState.authenticated(),
     );
   }
 

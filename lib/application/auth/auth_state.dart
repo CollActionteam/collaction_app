@@ -35,4 +35,9 @@ class AuthState with _$AuthState {
 
   /// Username/Display update done
   const factory AuthState.usernameUpdateDone() = _UsernameUpdateDone;
+
+  /// Splash Auth states
+  const factory AuthState.authenticated() = _Authenticated;
+
+  const factory AuthState.unAuthenticated() = _UnAuthenticated;
 }

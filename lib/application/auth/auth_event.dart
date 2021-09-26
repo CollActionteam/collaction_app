@@ -12,5 +12,11 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.updateUsername(String username) = _UpdateUsername;
 
   const factory AuthEvent.reset() = _Reset;
+
+  /// Request for current auth state
+  const factory AuthEvent.authCheckRequested() = _AuthCheckRequested;
+
+  /// Sign out
+  const factory AuthEvent.signedOut() = _SignedOut;
 }
 
