@@ -12,11 +12,11 @@ import 'package:flutter_test/flutter_test.dart';
 import '../test_utilities.dart';
 
 void main() {
-  testWidgets('Home Page and Transitions', (WidgetTester tester) async {
-    // configure get_it
+  setUp(() async {
     await configureInjection();
     TestUtilities.mockUser(Stream.value(User.anonymous));
-
+  });
+  testWidgets('Home Page and Transitions', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(AppWidget());
     await tester.pumpAndSettle();
