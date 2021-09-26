@@ -38,7 +38,7 @@ dependencies:
   flutter_bloc: ^7.1.0
   flutter_dotenv: ^5.0.2
   freezed_annotation: ^0.14.2
-  get_it: ^7.2.0
+  get_it: ^7.1.4
   http: ^0.13.3
   injectable: ^1.4.1
   json_annotation: ^4.0.1
@@ -77,6 +77,7 @@ flutter:
     - .env
     - assets/images/
     - assets/images/icons/
+    - assets/vectors/
   fonts:
     - family: Rubik
       fonts:
