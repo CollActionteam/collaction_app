@@ -1,94 +1,118 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
+import 'package:collaction_app/domain/auth/auth_failures.dart';
+import 'package:collaction_app/domain/auth/auth_success.dart';
+import 'package:collaction_app/domain/auth/i_auth_repository.dart';
+import 'package:collaction_app/domain/user/i_user_repository.dart';
+import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../domain/user/i_user_repository.dart';
+import 'package:meta/meta.dart';
 
 part 'auth_bloc.freezed.dart';
+
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
-@lazySingleton
-class AuthBloc extends Bloc<AuthEvent, AuthState> implements DisposableBloc {
-  AuthBloc(this._userRepository) : super(const _Initial());
-  StreamSubscription? _credentialStreamSubscription;
-  final IUserRepository _userRepository;
-  String? _verificationId;
+@injectable
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final IAuthRepository _authRepository;
+  Credential? _credential;
+  StreamSubscription<Either<AuthFailure, AuthSuccess>>?
+      _verifyStreamSubscription;
 
-  Stream<AuthState> _mapErrorToState(Exception error) async* {
-    yield AuthState.authError(error);
-  }
-
-  Stream<AuthState> _mapResetToState() async* {
-    _credentialStreamSubscription?.cancel();
-    _verificationId = null;
-    yield const _Initial();
-  }
-
-  Stream<AuthState> _mapRegisterPhoneNumberToState(String phoneNumber) async* {
-    _credentialStreamSubscription?.cancel();
-    _credentialStreamSubscription =
-        _userRepository.registerPhoneNumber(phoneNumber).listen((credential) {
-      add(AuthEvent.updated(credential));
-    }, onError: (e) {
-      add(AuthEvent.error(e is Exception ? e : Exception(e)));
-      _credentialStreamSubscription?.cancel();
-    });
-    yield const AuthState.registeringPhoneNumber();
-  }
-
-  Stream<AuthState> _mapUpdatedToState(Credential credential) async* {
-    yield const AuthState.awaitingVerification();
-    if (credential.verificationId != null) {
-      _verificationId = credential.verificationId;
-    }
-    if (credential.smsCode != null) {
-      add(AuthEvent.verify(credential.smsCode!));
-    }
-  }
-
-  Stream<AuthState> _mapVerifyToState(String smsCode) async* {
-    if (_verificationId == null) {
-      yield AuthState.authError(
-          AuthException(message: 'Verification id is null'));
-    } else {
-      yield AuthState.verifying(smsCode);
-      _userRepository.signIn(Credential(verificationId:_verificationId, smsCode:smsCode)).then(
-          (result) {
-        add(AuthEvent.logIn(isNewUser: result.isNewUser));
-      }, onError: (e) {
-        add(AuthEvent.error(e is Exception ? e : Exception(e)));
-      });
-    }
-  }
-
-  Stream<AuthState> _mapLogInToState(bool isNewUser) async* {
-    _credentialStreamSubscription?.cancel();
-    yield AuthState.loggedIn(isNewUser: isNewUser);
-  }
+  AuthBloc(this._authRepository) : super(const AuthState.initial());
 
   @override
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {
-    yield* event.when(
-        error: _mapErrorToState,
-        reset: _mapResetToState,
-        registerPhoneNumber: _mapRegisterPhoneNumberToState,
-        updated: _mapUpdatedToState,
-        verify: _mapVerifyToState,
-        logIn: _mapLogInToState);
+    yield* event.map(
+      verifyPhone: _mapVerifyPhoneToState,
+      signInWithPhone: _mapSignInWithPhoneToState,
+      updateUsername: _mapUpdateUsernameToState,
+      updated: _mapUpdatedToState,
+      reset: _mapResetToState,
+    );
+  }
+
+  /// Reset auth state
+  Stream<AuthState> _mapResetToState(value) async* {
+    _verifyStreamSubscription?.cancel();
+    _credential = null;
+    yield const _Initial();
+  }
+
+  /// Handle auth updating state [_Updated]
+  Stream<AuthState> _mapUpdatedToState(_Updated value) async* {
+    yield value.failureOrCredential.fold(
+      (failure) => AuthState.authError(failure),
+      (r) {
+        return r.map(
+          codeSent: (e) {
+            _credential = e.credential;
+            return const AuthState.smsCodeSent();
+          },
+          codeRetrievalTimedOut: (e) {
+            _credential = e.credential;
+            return const AuthState.codeRetrievalTimedOut();
+          },
+          verificationCompleted: (e) {
+            _credential = e.credential;
+            return AuthState.verificationCompleted(_credential?.smsCode ?? '');
+          },
+        );
+      },
+    );
+  }
+
+  /// Update username in user profile [_UpdateUsername]
+  Stream<AuthState> _mapUpdateUsernameToState(_UpdateUsername e) async* {
+    yield const AuthState.awaitingUsernameUpdate();
+
+    final failureOrSuccess =
+        await _authRepository.updateUsername(username: e.username);
+
+    yield failureOrSuccess.fold(
+      (failure) => AuthState.authError(failure),
+      (_) => const AuthState.usernameUpdateDone(),
+    );
+  }
+
+  /// Submit phone for validation [_SignInWithPhone]
+  Stream<AuthState> _mapSignInWithPhoneToState(_SignInWithPhone e) async* {
+    yield const AuthState.signingInUser();
+
+    if (_credential == null) {
+      yield const AuthState.authError(AuthFailure.verificationFailed());
+    } else {
+      final authSuccessOrFailure = await _authRepository.signInWithPhone(
+        authCredentials: _credential!.copyWith(smsCode: e.smsCode),
+      );
+
+      yield authSuccessOrFailure.fold(
+        (failure) => AuthState.authError(failure),
+        (success) => AuthState.loggedIn(isNewUser: success),
+      );
+    }
+  }
+
+  /// Submit SMS code for validation completion [_VerifyPhone]
+  Stream<AuthState> _mapVerifyPhoneToState(_VerifyPhone e) async* {
+    yield const AuthState.awaitingVerification();
+
+    _verifyStreamSubscription =
+        _authRepository.verifyPhone(phoneNumber: e.phoneNumber).listen(
+              (failureOrCredential) =>
+                  add(AuthEvent.updated(failureOrCredential)),
+            );
   }
 
   @override
-  void dispose() {
-    _credentialStreamSubscription?.cancel();
+  Future<void> close() async {
+    _verifyStreamSubscription?.cancel();
+    super.close();
   }
-}
-
-abstract class DisposableBloc {
-  void dispose();
 }

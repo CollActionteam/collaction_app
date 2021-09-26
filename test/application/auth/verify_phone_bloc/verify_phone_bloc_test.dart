@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:collaction_app/application/auth/verify_phone_bloc/verify_phone_bloc.dart';
+import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/domain/auth/auth_failures.dart';
 import 'package:collaction_app/domain/auth/auth_success.dart';
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
@@ -13,8 +13,8 @@ class MockAuthRepository extends Mock implements IAuthRepository {}
 void main() {
   group('Authentication BLoC', () {
     test('Initial auth state', () {
-      final bloc = VerifyPhoneBloc(MockAuthRepository());
-      expect(bloc.state, const VerifyPhoneState.initial());
+      final bloc = AuthBloc(MockAuthRepository());
+      expect(bloc.state, const AuthState.initial());
     });
 
     const verificationId = 'verificationId';
@@ -41,29 +41,29 @@ void main() {
 
       blocTest(
         '"Happy path" transition coverage',
-        build: () => VerifyPhoneBloc(userRepository),
-        act: (VerifyPhoneBloc bloc) {
-          bloc.add(const VerifyPhoneEvent.verifyPhone('+1234567890'));
+        build: () => AuthBloc(userRepository),
+        act: (AuthBloc bloc) {
+          bloc.add(const AuthEvent.verifyPhone('+1234567890'));
         },
         expect: () => [
-          const VerifyPhoneState.awaitingVerification(),
-          const VerifyPhoneState.smsCodeSent(),
+          const AuthState.awaitingVerification(),
+          const AuthState.smsCodeSent(),
         ],
       );
 
       blocTest(
         'SMS Submission',
-        build: () => VerifyPhoneBloc(userRepository),
-        act: (VerifyPhoneBloc bloc) async {
-          bloc.add(const VerifyPhoneEvent.verifyPhone('+1234567890'));
+        build: () => AuthBloc(userRepository),
+        act: (AuthBloc bloc) async {
+          bloc.add(const AuthEvent.verifyPhone('+1234567890'));
           await Future.delayed(const Duration(seconds: 2));
-          bloc.add(const VerifyPhoneEvent.signInWithPhone(smsCode));
+          bloc.add(const AuthEvent.signInWithPhone(smsCode));
         },
         expect: () => [
-          const VerifyPhoneState.awaitingVerification(),
-          const VerifyPhoneState.smsCodeSent(),
-          const VerifyPhoneState.signingInUser(),
-          const VerifyPhoneState.loggedIn(isNewUser: true),
+          const AuthState.awaitingVerification(),
+          const AuthState.smsCodeSent(),
+          const AuthState.signingInUser(),
+          const AuthState.loggedIn(isNewUser: true),
         ],
       );
     }
@@ -76,21 +76,21 @@ void main() {
           .thenAnswer((_) => Stream.fromIterable([left(error)]));
 
       blocTest('Error auth states',
-          build: () => VerifyPhoneBloc(userRepository),
-          act: (VerifyPhoneBloc bloc) {
-            bloc.add(const VerifyPhoneEvent.verifyPhone('+1234567890'));
+          build: () => AuthBloc(userRepository),
+          act: (AuthBloc bloc) {
+            bloc.add(const AuthEvent.verifyPhone('+1234567890'));
           },
           expect: () => [
-                const VerifyPhoneState.awaitingVerification(),
-                const VerifyPhoneState.authError(error)
+                const AuthState.awaitingVerification(),
+                const AuthState.authError(error)
               ]);
     }
 
     blocTest('Reset to initial auth state',
-        build: () => VerifyPhoneBloc(MockAuthRepository()),
-        act: (VerifyPhoneBloc bloc) {
-          bloc.add(const VerifyPhoneEvent.reset());
+        build: () => AuthBloc(MockAuthRepository()),
+        act: (AuthBloc bloc) {
+          bloc.add(const AuthEvent.reset());
         },
-        expect: () => [const VerifyPhoneState.initial()]);
+        expect: () => [const AuthState.initial()]);
   });
 }

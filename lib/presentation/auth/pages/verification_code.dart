@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
+import '../../../application/auth/auth_bloc.dart';
 import '../../shared_widgets/pin_input/pin_input.dart';
 import '../../themes/constants.dart';
 
@@ -23,7 +23,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<VerifyPhoneBloc, VerifyPhoneState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         state.maybeMap(
           verificationCompleted: (verificationState) {
@@ -68,8 +68,8 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
               submit: (smsCode) {
                 FocusScope.of(context).unfocus();
                 context
-                    .read<VerifyPhoneBloc>()
-                    .add(VerifyPhoneEvent.signInWithPhone(smsCode));
+                    .read<AuthBloc>()
+                    .add(AuthEvent.signInWithPhone(smsCode));
               },
             ),
             const SizedBox(height: 15.0),
