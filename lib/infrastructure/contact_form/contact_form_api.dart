@@ -19,8 +19,6 @@ class ContactFormApi extends IContactFormApi {
   Future<bool> sendContactFormContents(ContactFormContents contents) async {
     assert(contents.email != null);
     assert(contents.message != null);
-    final platform =
-        Platform.isAndroid ? 'android' : (Platform.isIOS ? 'ios' : 'unknown');
 
     final packageInfo = await PackageInfo.fromPlatform();
     // ignore: prefer_interpolation_to_compose_strings
@@ -28,7 +26,7 @@ class ContactFormApi extends IContactFormApi {
         // TODO add subject to ContactFormContents class
         '"subject":"Hello CollAction!",' +
         '"message":"${contents.message?.replaceAll('"', '\\"')}",' +
-        '"app_version":"$platform ${packageInfo.version}+${packageInfo.buildNumber}"}';
+        '"app_version":"${Platform.operatingSystem} ${packageInfo.version}+${packageInfo.buildNumber}"}';
     return client
         .post(
             Uri.parse('${await settingsRepository.baseApiEndpointUrl}/contact'),
