@@ -25,6 +25,12 @@ _If you want to build once you are done with your changes, to build generated fi
   flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
+## Imutable app settings
+
+Some settings are defined in an environment file `.env`.  
+They are bundled with the app at build time.
+Use `.env.template` to create this file.
+
 ## Firebase
 In order to use features provided by Firebase, download the corresponding `google-services.json` and `GoogleService-Info.plist` from the Firebase console project and add them to the project files.
 

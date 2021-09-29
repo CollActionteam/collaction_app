@@ -11,6 +11,7 @@ import 'components_demo/current_user_status_text.dart';
 class DemoPage extends StatelessWidget {
   DemoPage({Key? key}) : super(key: key);
   final settingsRepository = getIt<ISettingsRepository>();
+  final _pageScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,70 +20,71 @@ class DemoPage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
-          child: Column(
-            children: [
-              const Text(
-                'Welcome to Demo Screen!',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 34.0),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 30.0),
-              Row(
-                children: [
-                  Expanded(
-                    child: RectangleButton(
-                      text: "Reusable Components",
-                      onTap: () =>
-                          context.router.push(const ComponentsDemoRoute()),
+          child: SingleChildScrollView(
+            controller: _pageScrollController,
+            child: Column(
+              children: [
+                const Text(
+                  'Welcome to Demo Screen!',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 34.0),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 30.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RectangleButton(
+                        text: "Reusable Components",
+                        onTap: () =>
+                            context.router.push(const ComponentsDemoRoute()),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                children: [
-                  Expanded(
-                    child: RectangleButton(
-                      text: "Contact Form",
-                      onTap: () =>
-                          context.router.push(const ContactFormRoute()),
+                  ],
+                ),
+                const SizedBox(height: 10.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RectangleButton(
+                        text: "Contact Form",
+                        onTap: () =>
+                            context.router.push(const ContactFormRoute()),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                children: [
-                  Expanded(
-                    child: RectangleButton(
-                      text: "Onboarding",
-                      onTap: () => context.router.push(const OnboardingRoute()),
+                  ],
+                ),
+                const SizedBox(height: 10.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RectangleButton(
+                        text: "Onboarding",
+                        onTap: () =>
+                            context.router.push(const OnboardingRoute()),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              CurrentUserStatusText(),
-              const SizedBox(
-                height: 15.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: RectangleButton(
-                      text:
-                          "Register${settingsRepository.isSignupEnabled ? '' : ' (disabled)'}",
-                      onTap: settingsRepository.isSignupEnabled
-                          ? (() => context.router
-                              .push(const RegisterPhoneNumberRoute()))
-                          : null,
+                  ],
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                CurrentUserStatusText(),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RectangleButton(
+                        text: "Register",
+                        onTap: () => context.router
+                            .push(const RegisterPhoneNumberRoute()),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
