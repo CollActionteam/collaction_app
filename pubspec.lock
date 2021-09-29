@@ -377,6 +377,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.1.0"
+  flutter_dotenv:
+    dependency: "direct main"
+    description:
+      name: flutter_dotenv
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.2"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

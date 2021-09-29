@@ -1,6 +1,6 @@
 abstract class ISettingsRepository {
-  String get baseApiEndpoint;
-  set baseApiEndpoint(String value);
-  bool get wasUserOnboarded;
-  set wasUserOnboarded(bool value);
+  Future<String> get baseApiEndpointUrl;
+  Future<bool> getWasUserOnboarded();
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> setWasUserOnboarded(bool value);
 }

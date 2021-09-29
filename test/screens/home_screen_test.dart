@@ -13,7 +13,7 @@ import '../test_utilities.dart';
 
 void main() {
   setUp(() async {
-    await configureInjection();
+    configureInjection();
     TestUtilities.mockUser(Stream.value(User.anonymous));
   });
   testWidgets('Home Page and Transitions', (WidgetTester tester) async {

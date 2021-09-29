@@ -12,11 +12,9 @@ class DemoPage extends StatelessWidget {
   DemoPage({Key? key}) : super(key: key);
   final settingsRepository = getIt<ISettingsRepository>();
   final _pageScrollController = ScrollController();
-  final _baseApiEndpointController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _baseApiEndpointController.text = settingsRepository.baseApiEndpoint;
     return Scaffold(
       appBar: const CleanAppBar(),
       body: SafeArea(
@@ -84,23 +82,6 @@ class DemoPage extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-                const SizedBox(height: 10.0),
-                TextFormField(
-                  controller: _baseApiEndpointController,
-                  decoration:
-                      const InputDecoration(labelText: 'Base API endpoint URL'),
-                  onChanged: (value) {
-                    try {
-                      settingsRepository.baseApiEndpoint = value;
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text(e.toString())));
-                      _baseApiEndpointController.text =
-                          settingsRepository.baseApiEndpoint;
-                    }
-                  },
                 ),
               ],
             ),

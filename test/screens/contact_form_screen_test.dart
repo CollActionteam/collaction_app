@@ -8,7 +8,7 @@ import '../test_utilities.dart';
 
 void main() {
   setUp(() async {
-    await configureInjection();
+    configureInjection();
   });
 
   testWidgets('Contact form renders', (WidgetTester tester) async {

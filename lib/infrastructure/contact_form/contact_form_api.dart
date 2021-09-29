@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collaction_app/domain/i_settings_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -30,8 +31,10 @@ class ContactFormApi extends IContactFormApi {
         '"message":"${contents.message?.replaceAll('"', '\\"')}",' +
         '"app_version":"$platform ${packageInfo.version}+${packageInfo.buildNumber}"}';
     return client
-        .post(Uri.parse('${settingsRepository.baseApiEndpoint}/contact'),
-            encoding: Encoding.getByName('application/json'), body: bodyJson)
+        .post(
+            Uri.parse('${await settingsRepository.baseApiEndpointUrl}/contact'),
+            encoding: Encoding.getByName('application/json'),
+            body: bodyJson)
         .then((value) => value.statusCode == 200)
         .onError((error, stackTrace) => false);
   }

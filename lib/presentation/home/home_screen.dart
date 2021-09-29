@@ -88,8 +88,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> showOnboarding() async {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
-    if (!settingsRepository.wasUserOnboarded) {
-      settingsRepository.wasUserOnboarded = true;
+    if (!(await settingsRepository.getWasUserOnboarded())) {
+      await settingsRepository.setWasUserOnboarded(true);
       context.router.push(const OnboardingRoute());
     }
   }
