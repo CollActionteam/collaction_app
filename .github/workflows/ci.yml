@@ -104,6 +104,7 @@ jobs:
       run: flutter pub run flutter_launcher_icons:main
     - name: Build debug apk
       run: |
+        echo ${{ secrets.ENV }} | base64 -d > .env
         echo ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON }} | base64 -d > android/app/google-services.json
         flutter build apk --debug --build-number $GITHUB_RUN_NUMBER 
     - name: Sign debug apk
