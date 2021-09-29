@@ -48,7 +48,9 @@ jobs:
     - name: Check for any formatting issues
       run: flutter format --dry-run --set-exit-if-changed .
     - name: Statically analyze the Dart code
-      run: flutter analyze .
+      run:  |
+        echo ${{ secrets.ENV }} | base64 -d > .env
+        flutter analyze .
 
   test:
     needs: [analyze]
