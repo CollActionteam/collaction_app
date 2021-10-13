@@ -7,7 +7,6 @@
  * - Invite friends flow --CAN BE DONE IN SEPARATE TASK
  */
 import 'package:collaction_app/infrastructure/core/injection.dart';
-import 'package:collaction_app/presentation/shared_widgets/custom_app_bars/custom_appbar.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import './pages/enter_username.dart';
 import './pages/verification_code.dart';
 import './pages/verify_phone.dart';
-import '../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
+import '../../application/auth/auth_bloc.dart';
+import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 import '../utils/context.ext.dart';
 import 'pages/profile_photo.dart';
@@ -47,10 +47,7 @@ class _AuthPageState extends State<AuthPage> {
     _pages = [
       VerifyPhonePage(key: _verifyPhoneKey),
       EnterVerificationCode(reset: _reset),
-      EnterUserName(onNext: () {
-        setState(() => _displayDots = false);
-        _nextPage();
-      }),
+      const EnterUserName(),
       SelectProfilePhoto(
         onNext: _nextPage,
         onSkip: () => {},
@@ -62,33 +59,40 @@ class _AuthPageState extends State<AuthPage> {
         _currentPage = _pageController.page!;
       });
     });
-
-    // Page One
-
-    // Page Two
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<VerifyPhoneBloc>(),
-      child: BlocListener<VerifyPhoneBloc, VerifyPhoneState>(
+      create: (context) => getIt<AuthBloc>(),
+      child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state.isVerifySuccessful) {
-            _toPage(1);
-          } else if (state.authFailureOrSuccessOption.isSome()) {
-            // Handle errors
-            state.authFailureOrSuccessOption.fold(
-                () {},
-                (either) => context.showErrorSnack(
-                      either.map(
-                        serverError: (_) => "Server Error",
-                        invalidPhone: (_) => "Invalid Phone",
-                        verificationFailed: (_) => "Verification Failed",
-                        networkRequestFailed: (_) => "No Internet connection",
-                      ),
-                    ));
-          }
+          state.maybeMap(
+              smsCodeSent: (_) => _toPage(1),
+              loggedIn: (loggedInState) {
+                if (loggedInState.isNewUser) {
+                  _toPage(2);
+                } else {
+                  // TODO - Handle if is existing user
+                }
+              },
+              verificationCompleted: (_) {},
+              authError: (authError) {
+                context.showErrorSnack(
+                  authError.failure.map(
+                    serverError: (_) => "Server Error",
+                    invalidPhone: (_) => "Invalid Phone",
+                    verificationFailed: (_) => "Verification Failed",
+                    networkRequestFailed: (_) => "No Internet connection",
+                    invalidSmsCode: (_) => "Invalid SMS Code",
+                  ),
+                );
+              },
+              usernameUpdateDone: (_) {
+                _toPage(3);
+                setState(() => _displayDots = false);
+              },
+              orElse: () {});
         },
         child: Scaffold(
           resizeToAvoidBottomInset: true,

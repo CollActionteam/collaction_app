@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
+import '../../../application/auth/auth_bloc.dart';
 import '../../shared_widgets/phone_input.dart';
 import '../../shared_widgets/rectangular_button.dart';
 
 class VerifyPhonePage extends StatefulWidget {
-
   const VerifyPhonePage({Key? key}) : super(key: key);
 
   @override
@@ -18,6 +17,7 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
 
   // late PhoneInput _phoneInput;
   late TextEditingController _phoneInputController;
+  var _phoneNumber = "";
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VerifyPhoneBloc, VerifyPhoneState>(
+    return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,10 +53,9 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
             const SizedBox(height: 35.0),
             PhoneInput(
               _phoneInputController,
+              readOnly: state is AwaitingVerification,
               onChange: (response) {
-                context
-                    .read<VerifyPhoneBloc>()
-                    .add(VerifyPhoneEvent.phoneChanged(response.contact));
+                _phoneNumber = response.contact;
               },
               isValid: (valid) => setState(() => _isPhoneValid = valid),
             ),
@@ -68,15 +67,15 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
                   child: RectangularButton(
                     text: 'Next',
                     isEnabled: _isPhoneValid,
-                    isLoading: state.isVerifying,
+                    isLoading: state is AwaitingVerification,
                     onPressed: () {
-                      if (_isPhoneValid) {
+                      if (_isPhoneValid && state is! AwaitingVerification) {
                         // Hide keyboard
                         FocusScope.of(context).unfocus();
 
                         context
-                            .read<VerifyPhoneBloc>()
-                            .add(const VerifyPhoneEvent.verifyPhone());
+                            .read<AuthBloc>()
+                            .add(AuthEvent.verifyPhone(_phoneNumber));
                       }
                     },
                   ),
@@ -92,5 +91,11 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
   void reset() {
     _phoneInputController.text = '';
     _isPhoneValid = false;
+  }
+
+  @override
+  void dispose() {
+    _phoneInputController.dispose();
+    super.dispose();
   }
 }
