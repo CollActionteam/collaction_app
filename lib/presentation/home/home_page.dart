@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+
 import '../home/widgets/crowdaction_carousel.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
