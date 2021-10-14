@@ -1,5 +1,6 @@
-import 'package:collaction_app/domain/user/user.dart';
 import 'package:equatable/equatable.dart';
+
+import 'user.dart';
 
 class Credential extends Equatable {
   final String? verificationId, smsCode;

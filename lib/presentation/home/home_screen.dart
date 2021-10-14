@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/demo/demo_screen.dart';
-import 'package:collaction_app/presentation/home/demo_tab_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,9 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
+import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
+import 'demo_tab_page.dart';
 import 'home_page.dart';
-// import '../themes/constants.dart';
-// import 'widgets/crowdaction_carousel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -38,48 +37,18 @@ class _HomePageState extends State<HomePage> {
       pageToShow = const DemoTabPage();
     }
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
+      floatingActionButton: !kReleaseMode
+          ? FloatingActionButton(
+              onPressed: () => context.router.push(const DemoRoute()),
+              backgroundColor: Colors.black,
+              elevation: 10.0,
+              child: const Icon(Icons.assignment),
+            )
+          : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 23.0),
           child: pageToShow,
-          // Column(
-          //   children: [
-          //     Expanded(
-          //       child: SingleChildScrollView(
-          //         child: Column(
-          //           children: [
-          //             Row(
-          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //               children: [
-          //                 const Text(
-          //                   'Upcoming crowdactions',
-          //                   style: TextStyle(
-          //                       fontWeight: FontWeight.w500, fontSize: 18.0),
-          //                 ),
-          //                 TextButton(
-          //                   onPressed: () => context.router
-          //                       .push(const CrowdActionBrowseRoute()),
-          //                   child: const Text(
-          //                     'View all',
-          //                     style: TextStyle(
-          //                         fontWeight: FontWeight.w500,
-          //                         fontSize: 14.0,
-          //                         color: kIrisColor),
-          //                   ),
-          //                 ),
-          //               ],
-          //             ),
-          //             const CrowdActionCarousel(),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ),
       ),
       bottomNavigationBar: SizedBox(
