@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
 import '../../api/queries/crowdaction_queries.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 import '../../domain/crowdaction/i_crowdaction_repository.dart';
+import 'crowdaction_dto.dart';
 
 @LazySingleton(as: ICrowdActionRepository)
 class CrowdActionRepository implements ICrowdActionRepository {
