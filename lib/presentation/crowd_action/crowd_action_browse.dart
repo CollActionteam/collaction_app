@@ -24,8 +24,9 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
         ..add(const CrowdActionGetterEvent.getMore(null)),
       child: Scaffold(
         appBar: CleanAppBar(
-            title: 'Browse Crowdactions',
-            leading: returnElevatedButton(context)),
+          title: 'Browse Crowdactions',
+          leading: returnElevatedButton(context),
+        ),
         body: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
           builder: (context, state) => state.when(
             initial: () => const CenteredLoadingIndicator(),

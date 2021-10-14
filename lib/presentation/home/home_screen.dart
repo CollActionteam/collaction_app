@@ -1,13 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
-import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
 import 'demo_tab_page.dart';
 import 'home_page.dart';
 
@@ -39,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButton: !kReleaseMode
           ? FloatingActionButton(
-              onPressed: () => context.router.push(const DemoRoute()),
+              onPressed: () => context.router.push(DemoRoute()),
               backgroundColor: Colors.black,
               elevation: 10.0,
               child: const Icon(Icons.assignment),
