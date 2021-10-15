@@ -34,8 +34,10 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 150,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [

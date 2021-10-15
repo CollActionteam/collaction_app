@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:collaction_app/presentation/auth/pages/verified.dart';
 
 import '../auth/auth_screen.dart';
 import '../contact_form/contact_form_screen.dart';
@@ -22,6 +23,7 @@ import '../onboarding/onboarding.dart';
     AutoRoute(page: OnboardingPage),
     AutoRoute(page: CrowdActionDetailsPage),
     AutoRoute(page: DemoPage),
+    AutoRoute(page: VerifiedPage),
   ],
 )
 class $AppRouter {}
