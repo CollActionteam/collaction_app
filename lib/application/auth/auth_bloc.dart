@@ -22,12 +22,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Credential? _credential;
   String? _phone;
   StreamSubscription<Either<AuthFailure, AuthSuccess>>?
-  _verifyStreamSubscription;
+      _verifyStreamSubscription;
 
   AuthBloc(this._authRepository) : super(const AuthState.initial());
 
   @override
-  Stream<AuthState> mapEventToState(AuthEvent event,) async* {
+  Stream<AuthState> mapEventToState(
+    AuthEvent event,
+  ) async* {
     yield* event.map(
       verifyPhone: _mapVerifyPhoneToState,
       signInWithPhone: _mapSignInWithPhoneToState,
@@ -48,19 +50,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         .resendOTP(phoneNumber: _phone!, authCredentials: _credential!)
         .listen(
           (failureOrCredential) => add(AuthEvent.updated(failureOrCredential)),
-    );
+        );
   }
 
   Stream<AuthState> _mapUpdateProfilePhotoToState(
       _UpdateProfilePhoto value) async* {
     yield const AuthState.awaitingPhotoUpdate();
 
-    final failureOrSuccess = await _authRepository.updatePhoto(
-        photo: value.photo);
+    final failureOrSuccess =
+        await _authRepository.updatePhoto(photo: value.photo);
 
     yield failureOrSuccess.fold(
-          (failure) => AuthState.authError(failure),
-          (_) => const AuthState.photoUpdateDone(),
+      (failure) => AuthState.authError(failure),
+      (_) => const AuthState.photoUpdateDone(),
     );
   }
 

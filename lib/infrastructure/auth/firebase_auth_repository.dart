@@ -99,7 +99,8 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> updateUsername({required String username}) async {
+  Future<Either<AuthFailure, Unit>> updateUsername(
+      {required String username}) async {
     try {
       final user = firebaseAuth.currentUser!;
       await user.updateDisplayName(username);

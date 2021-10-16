@@ -23,4 +23,3 @@ class AuthEvent with _$AuthEvent {
   /// Sign out
   const factory AuthEvent.signedOut() = _SignedOut;
 }
-

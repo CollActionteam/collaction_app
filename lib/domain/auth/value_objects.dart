@@ -6,7 +6,7 @@ import '../core/value_objects.dart';
 
 class PhoneNumber extends ValueObject<String> {
   @override
-  final Either<ValueFailure<String>,String> value;
+  final Either<ValueFailure<String>, String> value;
 
   factory PhoneNumber(String input) {
     return PhoneNumber._(
@@ -15,12 +15,11 @@ class PhoneNumber extends ValueObject<String> {
   }
 
   const PhoneNumber._(this.value);
-
 }
 
 class EmailAddress extends ValueObject<String> {
   @override
-  final Either<ValueFailure<String>,String> value;
+  final Either<ValueFailure<String>, String> value;
 
   factory EmailAddress(String input) {
     return EmailAddress._(
@@ -29,12 +28,11 @@ class EmailAddress extends ValueObject<String> {
   }
 
   const EmailAddress._(this.value);
-
 }
 
 class Username extends ValueObject<String> {
   @override
-  final Either<ValueFailure<String>,String> value;
+  final Either<ValueFailure<String>, String> value;
 
   factory Username(String input) {
     return Username._(
@@ -43,6 +41,4 @@ class Username extends ValueObject<String> {
   }
 
   const Username._(this.value);
-
 }
-

@@ -27,5 +27,4 @@ class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.notStartWithLetter({
     required T failedValue,
   }) = NotStartWithLetter<T>;
-
 }

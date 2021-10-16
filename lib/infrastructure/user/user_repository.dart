@@ -49,9 +49,9 @@ class UserRepository implements IUserRepository, Disposable {
         phoneNumber: phoneNumber,
         verificationCompleted: (credential) {
           result.add(Credential(
-            verificationId:   credential.verificationId ?? result.valueOrNull?.verificationId,
-            smsCode: credential.smsCode
-          ));
+              verificationId: credential.verificationId ??
+                  result.valueOrNull?.verificationId,
+              smsCode: credential.smsCode));
           result.close();
         },
         verificationFailed: (firebase_auth.FirebaseAuthException error) {
@@ -59,7 +59,7 @@ class UserRepository implements IUserRepository, Disposable {
           result.close();
         },
         codeSent: (verificationId, resendToken) {
-          result.add(Credential(verificationId:verificationId));
+          result.add(Credential(verificationId: verificationId));
         },
         codeAutoRetrievalTimeout: (_) => result.close());
     return result.stream.distinct();

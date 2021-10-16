@@ -9,5 +9,3 @@ Either<ValueFailure<String>, String> validateStringNotEmpty(String input) {
     return left(ValueFailure.empty(failedValue: input));
   }
 }
-
-
