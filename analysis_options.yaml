@@ -6,6 +6,7 @@ analyzer:
     missing_required_param: error
     must_be_immutable: error
     sort_unnamed_constructors_first: ignore
+    use_late_for_private_fields_and_variables: ignore
   exclude:
     # ignore warnings in files from json_serializable, built_value and most generators
     - "**/*.g.dart"
