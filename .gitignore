@@ -52,7 +52,10 @@ app.*.map.json
 **/google-services.json
 
 # Generated files
-*.freezed.dart
-*.config.dart
-*.g.dart
-*.gr.dart
+**/*.freezed.dart
+**/*.config.dart
+**/*.g.dart
+**/*.gr.dart
+
+# Secret config files
+**/*.env

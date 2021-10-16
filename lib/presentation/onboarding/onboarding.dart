@@ -59,35 +59,35 @@ class _OnboardingPageState extends State<OnboardingPage> {
     ];
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 250.0,
-                    width: MediaQuery.of(context).size.width,
-                    child: PageView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3,
-                      controller: _imageController,
-                      itemBuilder: (context, index) => imagePages[index],
-                    ),
-                  )
-                ],
-              ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 250.0,
+                  width: MediaQuery.of(context).size.width,
+                  child: PageView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 3,
+                    controller: _imageController,
+                    itemBuilder: (context, index) => imagePages[index],
+                  ),
+                )
+              ],
             ),
-            Container(
-              height: MediaQuery.of(context).size.height *
-                  (scaleFactor == 1.0 ? 0.45 : 0.46),
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  color: kAlmostTransparent,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0))),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height *
+                (scaleFactor == 1.0 ? 0.45 : 0.46),
+            width: double.infinity,
+            decoration: const BoxDecoration(
+                color: kAlmostTransparent,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0))),
+            child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 5.0 * scaleFactor, horizontal: 20.0),
@@ -165,9 +165,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ],
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

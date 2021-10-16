@@ -8,6 +8,11 @@ _(TODO)_
 ## Repository secrets
 The following repository secrets are used by GitHub workflows:
 
+### Flutter
+| Secret | Explanation
+|---|---|
+|`ENV`|Base64 encoded contents of the _.env_ file|
+
 ### Android
 | Secret | Explanation
 |---|---|

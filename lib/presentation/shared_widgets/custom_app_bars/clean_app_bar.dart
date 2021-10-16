@@ -1,5 +1,6 @@
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/constants.dart';
 
 class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -38,6 +39,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       child: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: backgroundColor,
         elevation: elevation,
         centerTitle: centerTitle,

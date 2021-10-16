@@ -1,36 +1,46 @@
 import 'dart:async';
 
-import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/i_settings_repository.dart';
 
-const _keyIsSignupEnabled = 'is_signup_enabled';
-const _defaults = {_keyIsSignupEnabled: false};
-const _refreshInterval = Duration(minutes: 5);
-const _fetchTimeout = Duration(seconds: 60);
-final _minimumFetchInterval = _fetchTimeout + const Duration(seconds: 1);
+const _envKeyBaseApiEndpointUrl = 'BASE_API_ENDPOINT_URL';
+const _prefsKeyWasUserOnboarded = 'was_user_onboarded';
 
 @LazySingleton(as: ISettingsRepository)
 class SettingsRepository implements ISettingsRepository, Disposable {
-  final RemoteConfig remoteConfig;
+  late final SharedPreferences _prefs;
   late final StreamSubscription _streamSubscription;
+  final _initCompleter = Completer<void>();
 
-  SettingsRepository({required this.remoteConfig}) {
-    remoteConfig.setDefaults(_defaults);
-    remoteConfig.setConfigSettings(RemoteConfigSettings(
-        fetchTimeout: _fetchTimeout,
-        minimumFetchInterval: _minimumFetchInterval));
-    remoteConfig.fetchAndActivate();
-    _streamSubscription = Stream.periodic(_refreshInterval).listen((_) {
-      remoteConfig.fetchAndActivate();
-    });
+  SettingsRepository() {
+    Future.wait([
+      dotenv.load(),
+      SharedPreferences.getInstance().then((value) => _prefs = value),
+    ]).then(_initCompleter.complete);
   }
 
   @override
   FutureOr onDispose() => _streamSubscription.cancel();
 
   @override
-  bool get isSignupEnabled => remoteConfig.getBool(_keyIsSignupEnabled);
+  Future<String> get baseApiEndpointUrl async {
+    await _initCompleter.future;
+    return dotenv.env[_envKeyBaseApiEndpointUrl]!;
+  }
+
+  @override
+  Future<bool> getWasUserOnboarded() async {
+    await _initCompleter.future;
+    return _prefs.getBool(_prefsKeyWasUserOnboarded) ?? false;
+  }
+
+  @override
+  Future<void> setWasUserOnboarded(bool value) async {
+    await _initCompleter.future;
+    _prefs.setBool(_prefsKeyWasUserOnboarded, value);
+  }
 }

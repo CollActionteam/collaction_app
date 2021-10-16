@@ -35,8 +35,8 @@ dependencies:
   firebase_remote_config: "^0.11.0"
   flutter:
     sdk: flutter
-  flutter_advanced_drawer: ^1.2.3
   flutter_bloc: ^7.1.0
+  flutter_dotenv: ^5.0.2
   freezed_annotation: ^0.14.3
   get_it: ^7.2.0
   http: ^0.13.3
@@ -44,6 +44,7 @@ dependencies:
   image_picker: ^0.8.4
   injectable: ^1.4.1
   json_annotation: ^4.1.0
+  package_info_plus: ^1.0.6
   phone_number: ^0.11.0+2
   rive: ^0.7.31
   rxdart: ^0.27.1
@@ -77,8 +78,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - .env
     - assets/images/
     - assets/images/icons/
+    - assets/vectors/
     - assets/animations/
   fonts:
     - family: Rubik

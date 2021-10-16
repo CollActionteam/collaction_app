@@ -48,7 +48,9 @@ jobs:
     - name: Check for any formatting issues
       run: flutter format --dry-run --set-exit-if-changed .
     - name: Statically analyze the Dart code
-      run: flutter analyze .
+      run:  |
+        echo ${{ secrets.ENV }} | base64 -d > .env
+        flutter analyze .
 
   test:
     needs: [analyze]
@@ -72,7 +74,9 @@ jobs:
     - name: Build generated code
       run: flutter pub run build_runner build --delete-conflicting-outputs
     - name: Run unit and widget tests.
-      run: flutter test -r expanded .
+      run:  |
+        echo ${{ secrets.ENV }} | base64 -d > .env
+        flutter test -r expanded .
 
   build:
     if: ${{ github.ref == 'refs/heads/development' }}
@@ -104,6 +108,7 @@ jobs:
       run: flutter pub run flutter_launcher_icons:main
     - name: Build debug apk
       run: |
+        echo ${{ secrets.ENV }} | base64 -d > .env
         echo ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON }} | base64 -d > android/app/google-services.json
         flutter build apk --debug --build-number $GITHUB_RUN_NUMBER 
     - name: Sign debug apk
