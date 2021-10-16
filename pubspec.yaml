@@ -46,7 +46,7 @@ dependencies:
   json_annotation: ^4.0.1
   package_info_plus: ^1.0.6
   phone_number: ^0.11.0+2
-  rive: ^0.7.28
+  rive: 0.7.28
   rxdart: ^0.27.1
   share_plus: ^2.1.4
   shared_preferences: ^2.0.7
