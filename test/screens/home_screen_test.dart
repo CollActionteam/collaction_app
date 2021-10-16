@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
-import 'package:collaction_app/main.dart';
+import 'package:collaction_app/presentation/core/app_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_utilities.dart';

@@ -13,8 +13,8 @@ import '../onboarding/onboarding.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(page: AuthPage, initial: true),
-    AutoRoute(page: HomePage),
+    AutoRoute(page: AuthPage),
+    AutoRoute(page: HomePage, initial: true),
     AutoRoute(page: CrowdActionBrowsePage),
     AutoRoute(page: ContactFormPage),
     // AutoRoute(page: RegisterPhoneNumberPage),

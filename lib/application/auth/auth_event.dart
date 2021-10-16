@@ -9,7 +9,11 @@ class AuthEvent with _$AuthEvent {
 
   const factory AuthEvent.signInWithPhone(String smsCode) = _SignInWithPhone;
 
+  const factory AuthEvent.resendCode() = _ResendCode;
+
   const factory AuthEvent.updateUsername(String username) = _UpdateUsername;
+
+  const factory AuthEvent.updateProfilePhoto(File photo) = _UpdateProfilePhoto;
 
   const factory AuthEvent.reset() = _Reset;
 

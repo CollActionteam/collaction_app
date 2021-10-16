@@ -74,9 +74,7 @@ class DemoPage extends StatelessWidget {
                     child: RectangleButton(
                       text:
                           "Register${settingsRepository.isSignupEnabled ? '' : ' (disabled)'}",
-                      onTap: settingsRepository.isSignupEnabled
-                          ? (() => context.router.push(const AuthRoute()))
-                          : null,
+                      onTap: () => context.router.push(const AuthRoute()),
                     ),
                   ),
                 ],
