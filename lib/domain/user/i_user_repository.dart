@@ -3,7 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'user.dart';
 
 class Credential extends Equatable {
-  final String? verificationId, smsCode;
+  final String? verificationId;
+  final String? smsCode;
   final int? forceResendToken;
 
   const Credential({this.verificationId, this.smsCode, this.forceResendToken});

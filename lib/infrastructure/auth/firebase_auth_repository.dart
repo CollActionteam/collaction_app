@@ -89,8 +89,8 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       // Sign the user in (or link) with the credential
       await firebaseAuth.signInWithCredential(credential);
       //TODO Check if is new user
-      bool isNewUser = true;
-      return right(isNewUser);
+      // bool isNewUser = true;
+      return right(false);
     } on fb_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch (_) {
@@ -119,7 +119,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       // TODO Upload photo to storage
       // final String profileUrl = throw UnimplementedError("Upload photo to storage");
 
-      final user = firebaseAuth.currentUser!;
+      // final user = firebaseAuth.currentUser!;
       // await user.updatePhotoURL(profileUrl);
       return right(unit);
     } on fb_auth.FirebaseAuthException catch (error) {

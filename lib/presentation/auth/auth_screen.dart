@@ -12,15 +12,15 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './pages/enter_username.dart';
-import './pages/verification_code.dart';
-import './pages/verify_phone.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 import '../utils/context.ext.dart';
+import 'pages/enter_username.dart';
 import 'pages/profile_photo.dart';
+import 'pages/verification_code.dart';
+import 'pages/verify_phone.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -148,18 +148,6 @@ class _AuthPageState extends State<AuthPage> {
       const VerifiedRoute(),
     ]);
   }
-
-// Page Two
-//   void _reset() {
-//     _verifyPhoneKey.currentState?.reset();
-//     _pageController.animateTo(0.0,
-//         duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
-//   }
-//
-//   void _nextPage() {
-//     _pageController.nextPage(
-//         duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
-//   }
 
   void _toPage(int page) {
     _pageController.animateToPage(page,
