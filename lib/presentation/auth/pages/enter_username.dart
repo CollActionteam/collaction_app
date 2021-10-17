@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/auth/verify_phone_bloc/verify_phone_bloc.dart';
+import '../../../application/auth/auth_bloc.dart';
 import '../../shared_widgets/rectangular_button.dart';
 import '../../themes/constants.dart';
 
@@ -29,7 +29,7 @@ class _EnterUserNameState extends State<EnterUserName> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VerifyPhoneBloc, VerifyPhoneState>(
+    return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -92,8 +92,8 @@ class _EnterUserNameState extends State<EnterUserName> {
                       if (_isNameValid && state is! AwaitingUsernameUpdate) {
                         FocusScope.of(context).unfocus();
                         context
-                            .read<VerifyPhoneBloc>()
-                            .add(VerifyPhoneEvent.updateUsername(_username));
+                            .read<AuthBloc>()
+                            .add(AuthEvent.updateUsername(_username));
                       }
                     },
                   ),

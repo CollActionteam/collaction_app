@@ -5,18 +5,18 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:injectable/injectable.dart';
 
-import '../../domain/auth/auth_event.dart';
 import '../../domain/auth/auth_failures.dart';
-import '../../domain/auth/i_auth_facade.dart';
+import '../../domain/auth/auth_success.dart';
+import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/user/i_user_repository.dart';
 import '../../domain/user/user.dart';
 import 'firebase_auth_mapper.dart';
 
-@LazySingleton(as: IAuthFacade)
-class FirebaseAuthFacade implements IAuthFacade {
+@LazySingleton(as: IAuthRepository)
+class FirebaseAuthRepository implements IAuthRepository {
   final fb_auth.FirebaseAuth firebaseAuth;
 
-  const FirebaseAuthFacade({required this.firebaseAuth});
+  const FirebaseAuthRepository({required this.firebaseAuth});
 
   @override
   Future<Option<User>> getSignedInUser() async {
@@ -27,9 +27,9 @@ class FirebaseAuthFacade implements IAuthFacade {
   Future<void> signOut() => firebaseAuth.signOut();
 
   @override
-  Stream<Either<AuthFailure, AuthEvent>> verifyPhone(
+  Stream<Either<AuthFailure, AuthSuccess>> verifyPhone(
       {required String phoneNumber}) {
-    final result = StreamController<Either<AuthFailure, AuthEvent>>();
+    final result = StreamController<Either<AuthFailure, AuthSuccess>>();
 
     var credential = const Credential();
 
@@ -41,14 +41,14 @@ class FirebaseAuthFacade implements IAuthFacade {
           forceResendToken: forceResendingToken,
         );
 
-        result.add(right(AuthEvent.codeSent(credential: credential)));
+        result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
       verificationFailed: (fb_auth.FirebaseAuthException error) {
         result.add(left(error.toFailure()));
         result.close();
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-        result.add(right(AuthEvent.codeRetrievalTimedOut(
+        result.add(right(AuthSuccess.codeRetrievalTimedOut(
             credential: credential.copyWith(verificationId: verificationId))));
         result.close();
       },
@@ -59,7 +59,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         );
 
         result.add(
-            right(AuthEvent.verificationCompleted(credential: credential)));
+            right(AuthSuccess.verificationCompleted(credential: credential)));
         result.close();
       },
     );

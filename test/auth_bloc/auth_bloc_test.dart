@@ -1,4 +1,4 @@
-import 'package:bloc_test/bloc_test.dart';
+/*import 'package:bloc_test/bloc_test.dart';
 import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -63,4 +63,4 @@ void main() {
         },
         expect: () => [const AuthState.initial()]);
   });
-}
+}*/
