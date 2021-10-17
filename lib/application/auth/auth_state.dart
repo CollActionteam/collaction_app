@@ -30,11 +30,20 @@ class AuthState with _$AuthState {
   /// Authentication has been completed
   const factory AuthState.loggedIn({required bool isNewUser}) = _LoggedIn;
 
+  /// Code is being resent
+  const factory AuthState.awaitingCodeResend() = AwaitingCodeResend;
+
   /// Username/Display name is being updated
   const factory AuthState.awaitingUsernameUpdate() = AwaitingUsernameUpdate;
 
   /// Username/Display update done
   const factory AuthState.usernameUpdateDone() = _UsernameUpdateDone;
+
+  /// Profile Photo is being updated
+  const factory AuthState.awaitingPhotoUpdate() = AwaitingProfilePhotoUpdate;
+
+  /// Profile photo update done
+  const factory AuthState.photoUpdateDone() = _ProfilePhotoUpdateDone;
 
   /// Splash Auth states
   const factory AuthState.authenticated() = _Authenticated;

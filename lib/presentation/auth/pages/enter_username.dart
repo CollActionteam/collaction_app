@@ -8,7 +8,6 @@ import '../../themes/constants.dart';
 
 /// Username entry
 class EnterUserName extends StatefulWidget {
-
   const EnterUserName({Key? key}) : super(key: key);
 
   @override

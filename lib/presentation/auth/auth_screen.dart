@@ -6,19 +6,21 @@
  * - Not whitelisted number flow --CAN BE DONE IN SEPARATE TASK
  * - Invite friends flow --CAN BE DONE IN SEPARATE TASK
  */
+import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './pages/enter_username.dart';
-import './pages/verification_code.dart';
-import './pages/verify_phone.dart';
 import '../../application/auth/auth_bloc.dart';
+import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 import '../utils/context.ext.dart';
+import 'pages/enter_username.dart';
 import 'pages/profile_photo.dart';
+import 'pages/verification_code.dart';
+import 'pages/verify_phone.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -36,7 +38,7 @@ class _AuthPageState extends State<AuthPage> {
   bool _displayDots = true;
 
   // Page One
-  final GlobalKey<VerifyPhonePageState> _verifyPhoneKey = GlobalKey();
+  // final GlobalKey<VerifyPhonePageState> _verifyPhoneKey = GlobalKey();
 
   // Page Two
 
@@ -45,12 +47,11 @@ class _AuthPageState extends State<AuthPage> {
     super.initState();
     // All pages
     _pages = [
-      VerifyPhonePage(key: _verifyPhoneKey),
-      EnterVerificationCode(reset: _reset),
+      const VerifyPhonePage(/*key: _verifyPhoneKey*/),
+      const EnterVerificationCode(),
       const EnterUserName(),
       SelectProfilePhoto(
-        onNext: _nextPage,
-        onSkip: () => {},
+        onSkip: () => _authDone(context),
       )
     ];
 
@@ -71,9 +72,9 @@ class _AuthPageState extends State<AuthPage> {
               smsCodeSent: (_) => _toPage(1),
               loggedIn: (loggedInState) {
                 if (loggedInState.isNewUser) {
-                  _toPage(2);
-                } else {
                   // TODO - Handle if is existing user
+                } else {
+                  _toPage(2);
                 }
               },
               verificationCompleted: (_) {},
@@ -91,6 +92,9 @@ class _AuthPageState extends State<AuthPage> {
               usernameUpdateDone: (_) {
                 _toPage(3);
                 setState(() => _displayDots = false);
+              },
+              photoUpdateDone: (_) {
+                _authDone(context);
               },
               orElse: () {});
         },
@@ -139,16 +143,10 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-// Page Two
-  void _reset() {
-    _verifyPhoneKey.currentState?.reset();
-    _pageController.animateTo(0.0,
-        duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
-  }
-
-  void _nextPage() {
-    _pageController.nextPage(
-        duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
+  void _authDone(BuildContext context) {
+    AutoRouter.of(context).replaceAll([
+      const VerifiedRoute(),
+    ]);
   }
 
   void _toPage(int page) {

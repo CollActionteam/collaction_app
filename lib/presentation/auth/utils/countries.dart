@@ -13,7 +13,8 @@ class Country with _$Country {
     required String name,
   }) = _Country;
 
-  factory Country.fromJson(Map<String, dynamic> json) => _$CountryFromJson(json);
+  factory Country.fromJson(Map<String, dynamic> json) =>
+      _$CountryFromJson(json);
 }
 
 List<Map<String, dynamic>> countryListJson = [

@@ -6,12 +6,9 @@ import '../../shared_widgets/pin_input/pin_input.dart';
 import '../../themes/constants.dart';
 
 class EnterVerificationCode extends StatefulWidget {
-  final Function() reset;
   final int pinLength;
 
-  const EnterVerificationCode(
-      {Key? key, required this.reset, this.pinLength = 6})
-      : super(key: key);
+  const EnterVerificationCode({Key? key, this.pinLength = 6}) : super(key: key);
 
   @override
   _EnterVerificationCodeState createState() => _EnterVerificationCodeState();
@@ -76,7 +73,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (state is SigningInUser)
+                if (state is SigningInUser || state is AwaitingCodeResend)
                   const SizedBox(
                     width: 25,
                     height: 25,
@@ -88,7 +85,11 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
                 else
                   Expanded(
                     child: TextButton(
-                      onPressed: widget.reset,
+                      onPressed: () {
+                        context
+                            .read<AuthBloc>()
+                            .add(const AuthEvent.resendCode());
+                      },
                       child: const Text(
                           'No code? Click here and we will send a new one',
                           style: TextStyle(

@@ -60,7 +60,8 @@ class PinInputState extends State<PinInput> {
       widget.submit!(_pin);
     }
 
-    FocusNode? next, previous;
+    FocusNode? next;
+    FocusNode? previous;
 
     // Not first
     if (index != 0) {
@@ -100,8 +101,14 @@ class PinInputState extends State<PinInput> {
 
   @override
   void dispose() {
-    focusNodes.forEach((node) => node.dispose());
-    controllers.forEach((controller) => controller.dispose());
+    for (final node in focusNodes) {
+      node.dispose();
+    }
+
+    for (final controller in controllers) {
+      controller.dispose();
+    }
+
     super.dispose();
   }
 }

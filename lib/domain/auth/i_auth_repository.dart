@@ -8,6 +8,9 @@ import 'package:dartz/dartz.dart';
 import 'auth_failures.dart';
 
 abstract class IAuthRepository {
+  Stream<User> observeUser();
+
+  /// TODO - Choose to either observe or getSignedInUser
   /// Returns [User] if already authenticated
   ///  or [none] if not authenticated
   Future<Option<User>> getSignedInUser();
@@ -20,6 +23,14 @@ abstract class IAuthRepository {
   Stream<Either<AuthFailure, AuthSuccess>> verifyPhone({
     required String phoneNumber,
   });
+
+  /// Listens for phone validation [Stream]
+  ///
+  /// It can either be an [AuthFailure] when an error occurs
+  /// or an [AuthEvent] if successful, the event contains
+  /// a [Credential]
+  Stream<Either<AuthFailure, AuthSuccess>> resendOTP(
+      {required String phoneNumber, required Credential authCredentials});
 
   /// When an SMS code is provided, this completes the authentication
   ///

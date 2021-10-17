@@ -77,8 +77,7 @@ class DemoPage extends StatelessWidget {
                     Expanded(
                       child: RectangleButton(
                         text: "Register",
-                        onTap: () => context.router
-                            .push(const RegisterPhoneNumberRoute()),
+                        onTap: () => context.router.push(const AuthRoute()),
                       ),
                     ),
                   ],

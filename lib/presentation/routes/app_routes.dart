@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
-import 'package:collaction_app/presentation/auth/pages/verified.dart';
 
 import '../auth/auth_screen.dart';
+import '../auth/pages/verified.dart';
 import '../contact_form/contact_form_screen.dart';
 import '../crowd_action/crowd_action_browse.dart';
 import '../crowd_action/crowd_action_details.dart';
@@ -13,8 +13,8 @@ import '../onboarding/onboarding.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(page: AuthPage, initial: true),
-    AutoRoute(page: HomePage),
+    AutoRoute(page: AuthPage),
+    AutoRoute(page: HomePage, initial: true),
     AutoRoute(page: CrowdActionBrowsePage),
     AutoRoute(page: ContactFormPage),
     // AutoRoute(page: RegisterPhoneNumberPage),

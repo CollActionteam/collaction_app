@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -12,15 +13,14 @@ import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/user/i_user_repository.dart';
 
 part 'auth_bloc.freezed.dart';
-
 part 'auth_event.dart';
-
 part 'auth_state.dart';
 
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository _authRepository;
   Credential? _credential;
+  String? _phone;
   StreamSubscription<Either<AuthFailure, AuthSuccess>>?
       _verifyStreamSubscription;
 
@@ -38,6 +38,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       reset: _mapResetToState,
       authCheckRequested: _mapAuthCheckRequestToState,
       signedOut: _mapSignOutToState,
+      updateProfilePhoto: _mapUpdateProfilePhotoToState,
+      resendCode: _mapResendCodeToState,
+    );
+  }
+
+  Stream<AuthState> _mapResendCodeToState(_ResendCode value) async* {
+    yield const AuthState.awaitingCodeResend();
+
+    _verifyStreamSubscription = _authRepository
+        .resendOTP(phoneNumber: _phone!, authCredentials: _credential!)
+        .listen(
+          (failureOrCredential) => add(AuthEvent.updated(failureOrCredential)),
+        );
+  }
+
+  Stream<AuthState> _mapUpdateProfilePhotoToState(
+      _UpdateProfilePhoto value) async* {
+    yield const AuthState.awaitingPhotoUpdate();
+
+    final failureOrSuccess =
+        await _authRepository.updatePhoto(photo: value.photo);
+
+    yield failureOrSuccess.fold(
+      (failure) => AuthState.authError(failure),
+      (_) => const AuthState.photoUpdateDone(),
     );
   }
 
@@ -50,10 +75,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _AuthCheckRequested value) async* {
     final userOption = await _authRepository.getSignedInUser();
 
-    /// TODO - If Auth is unAuthenticated, check if last state was pin input & go to it
-    /// TODO - If Auth is authenticated, check if
-    /// TODO - 1. If entire auth process was completed traverse to home
-    /// TODO - 2. If 1. above is not true traverse to last auth page e.g enter username
     yield userOption.fold(
       () => const AuthState.unAuthenticated(),
       (a) => const AuthState.authenticated(),

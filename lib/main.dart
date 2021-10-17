@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'domain/i_settings_repository.dart';
 import 'infrastructure/core/injection.dart';
-import 'presentation/routes/app_routes.gr.dart' as app_router;
-import 'presentation/themes/themes.dart';
+import 'presentation/core/app_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +16,7 @@ Future<void> main() async {
   runApp(AppWidget());
 }
 
-class AppWidget extends StatelessWidget {
+/*class AppWidget extends StatelessWidget {
   final _appRouter = app_router.AppRouter();
 
   @override
@@ -31,4 +30,4 @@ class AppWidget extends StatelessWidget {
       routeInformationParser: _appRouter.defaultRouteParser(),
     );
   }
-}
+}*/

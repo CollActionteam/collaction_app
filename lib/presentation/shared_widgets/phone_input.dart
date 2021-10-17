@@ -114,9 +114,9 @@ class _PhoneInputState extends State<PhoneInput> {
 
                     widget.phoneNumberController.selection =
                         TextSelection.fromPosition(
-                          TextPosition(
-                              offset: widget.phoneNumberController.text.length),
-                        );
+                      TextPosition(
+                          offset: widget.phoneNumberController.text.length),
+                    );
                   },
                   style: const TextStyle(fontSize: 20.0),
                   keyboardType: TextInputType.number,

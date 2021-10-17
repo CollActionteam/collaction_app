@@ -14,8 +14,8 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (_) =>
-                getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested())),
+            create: (_) => getIt<
+                AuthBloc>()) /*..add(const AuthEvent.authCheckRequested()))*/,
       ],
       child: MaterialApp.router(
         color: Colors.white,
