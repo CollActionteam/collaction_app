@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../domain/i_settings_repository.dart';
+import '../domain/core/i_settings_repository.dart';
 
 const _envKeyBaseApiEndpointUrl = 'BASE_API_ENDPOINT_URL';
 const _prefsKeyWasUserOnboarded = 'was_user_onboarded';
@@ -39,8 +39,8 @@ class SettingsRepository implements ISettingsRepository, Disposable {
   }
 
   @override
-  Future<void> setWasUserOnboarded(bool value) async {
+  Future<void> setWasUserOnboarded({required bool wasOnboarded}) async {
     await _initCompleter.future;
-    _prefs.setBool(_prefsKeyWasUserOnboarded, value);
+    _prefs.setBool(_prefsKeyWasUserOnboarded, wasOnboarded);
   }
 }

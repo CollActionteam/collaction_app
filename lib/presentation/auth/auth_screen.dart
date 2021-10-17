@@ -1,11 +1,3 @@
-/*
- * TODO:
- * - Abstract into widgets --MOST IMPORTANT FOR MERGE
- * - New account flow --MOST IMPORTANT FOR MERGE
- * - Found account flow --CAN BE DONE IN SEPARATE TASK
- * - Not whitelisted number flow --CAN BE DONE IN SEPARATE TASK
- * - Invite friends flow --CAN BE DONE IN SEPARATE TASK
- */
 import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -39,21 +31,16 @@ class _AuthPageState extends State<AuthPage> {
   @override
   void initState() {
     super.initState();
-    // All pages
     _pages = [
       const VerifyPhonePage(),
       const EnterVerificationCode(),
       const EnterUserName(),
-      SelectProfilePhoto(
-        onSkip: () => _authDone(context),
-      )
+      SelectProfilePhoto(onSkip: () => _authDone(context))
     ];
 
-    _pageController.addListener(() {
-      setState(() {
-        _currentPage = _pageController.page!;
-      });
-    });
+    _pageController.addListener(
+      () => setState(() => _currentPage = _pageController.page!),
+    );
   }
 
   @override
@@ -71,24 +58,20 @@ class _AuthPageState extends State<AuthPage> {
                 _toPage(2);
               }
             },
-            authError: (authError) {
-              context.showErrorSnack(
-                authError.failure.map(
-                  serverError: (_) => "Server Error",
-                  invalidPhone: (_) => "Invalid Phone",
-                  verificationFailed: (_) => "Verification Failed",
-                  networkRequestFailed: (_) => "No Internet connection",
-                  invalidSmsCode: (_) => "Invalid SMS Code",
-                ),
-              );
-            },
+            authError: (authError) => context.showErrorSnack(
+              authError.failure.map(
+                serverError: (_) => "Server Error",
+                invalidPhone: (_) => "Invalid Phone",
+                verificationFailed: (_) => "Verification Failed",
+                networkRequestFailed: (_) => "No Internet connection",
+                invalidSmsCode: (_) => "Invalid SMS Code",
+              ),
+            ),
             usernameUpdateDone: (_) {
               _toPage(3);
               setState(() => _displayDots = false);
             },
-            photoUpdateDone: (_) {
-              _authDone(context);
-            },
+            photoUpdateDone: (_) => _authDone(context),
             orElse: () {},
           );
         },
@@ -125,8 +108,6 @@ class _AuthPageState extends State<AuthPage> {
                           activeSize: Size(12.0, 12.0),
                         ),
                       )
-                    else
-                      Container(),
                   ],
                 ),
               ),
@@ -137,14 +118,9 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  void _authDone(BuildContext context) {
-    AutoRouter.of(context).replaceAll([
-      const VerifiedRoute(),
-    ]);
-  }
+  void _authDone(BuildContext context) =>
+      context.router.replaceAll([const VerifiedRoute()]);
 
-  void _toPage(int page) {
-    _pageController.animateToPage(page,
-        duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
-  }
+  void _toPage(int page) => _pageController.animateToPage(page,
+      duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
 }

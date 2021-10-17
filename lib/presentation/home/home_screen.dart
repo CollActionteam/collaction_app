@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/i_settings_repository.dart';
+import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import 'demo_tab_page.dart';
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
     if (!(await settingsRepository.getWasUserOnboarded())) {
-      await settingsRepository.setWasUserOnboarded(true);
+      await settingsRepository.setWasUserOnboarded(wasOnboarded: true);
       context.router.push(const OnboardingRoute());
     }
   }

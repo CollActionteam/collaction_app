@@ -1,5 +1,6 @@
-import 'package:collaction_app/presentation/auth/utils/countries.dart';
 import 'package:flutter/material.dart';
+
+import '../auth/utils/countries.dart';
 
 class CountrySearch extends StatefulWidget {
   final Function(Country)? onCountrySelected;
@@ -60,7 +61,7 @@ class _CountrySearchState extends State<CountrySearch> {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          country.dial_code,
+                          country.dialCode,
                           style: const TextStyle(fontSize: 16.0),
                         ),
                         const SizedBox(width: 10),
@@ -93,7 +94,7 @@ class _CountrySearchState extends State<CountrySearch> {
         _countries.addAll(countries.where((country) =>
             country.name.toLowerCase().contains(text.toLowerCase()) ||
             country.code.toLowerCase().contains(text) ||
-            country.dial_code.contains(text)));
+            country.dialCode.contains(text)));
       }
     });
   }

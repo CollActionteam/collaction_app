@@ -6,13 +6,13 @@ class PinTextField extends StatelessWidget {
   final FocusNode focusNode;
   final ValueChanged<String> onChanged;
 
-  const PinTextField(
-      {Key? key,
-      this.readOnly = false,
-      required this.controller,
-      required this.focusNode,
-      required this.onChanged})
-      : super(key: key);
+  const PinTextField({
+    Key? key,
+    this.readOnly = false,
+    required this.controller,
+    required this.focusNode,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

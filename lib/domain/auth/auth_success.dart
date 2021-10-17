@@ -1,5 +1,6 @@
-import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../user/i_user_repository.dart';
 
 part 'auth_success.freezed.dart';
 

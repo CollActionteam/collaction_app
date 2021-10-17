@@ -46,24 +46,24 @@ class _VerifiedPageState extends State<VerifiedPage> {
                   ),
                 ),
                 StreamBuilder(
-                    builder: (context, AsyncSnapshot<User> snapshot) {
-                      if (snapshot.hasData) {
-                        final name = snapshot.data?.displayName ?? "";
-                        return Text(
-                          name,
-                          style: const TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        );
-                      } else {
-                        return const Text('...');
-                      }
-                    },
-                    stream: _userRepository.observeUser()),
-                const SizedBox(
-                  height: 10,
+                  stream: _userRepository.observeUser(),
+                  builder: (context, AsyncSnapshot<User> snapshot) {
+                    if (snapshot.hasData) {
+                      final name = snapshot.data?.displayName ?? "";
+
+                      return Text(
+                        name,
+                        style: const TextStyle(
+                          fontSize: 34,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    }
+
+                    return const CircularProgressIndicator();
+                  },
                 ),
+                const SizedBox(height: 10),
                 const Text(
                   'Now go ahead and change the world one crowdaction at a time',
                   style: TextStyle(
@@ -71,23 +71,20 @@ class _VerifiedPageState extends State<VerifiedPage> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 40),
                 Container(
                   constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width * 0.9),
-                  child: const RectangleButton(
-                    /// TODO: onTap callback to be clarified and set up
-                    text: 'Go to crowdaction',
+                  child: RectangleButton(
+                    onTap: () => context.router.popUntilRoot(),
+
+                    /// TODO: Verify if this is correct! (should return to homescreen)
+                    text: 'Go to crowdactions',
                   ),
                 ),
                 TextButton(
-                  onPressed: () {
-                    AutoRouter.of(context).replaceAll([
-                      const HomeRoute(),
-                    ]);
-                  },
+                  onPressed: () =>
+                      context.router.replaceAll([const HomeRoute()]),
                   child: const Text(
                     'Show me all crowdactions',
                     style: TextStyle(

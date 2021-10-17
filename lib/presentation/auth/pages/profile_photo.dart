@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +9,6 @@ import '../../shared_widgets/photo_selector.dart';
 import '../../shared_widgets/rectangular_button.dart';
 import '../../themes/constants.dart';
 
-/// Profile Photo selection
 class SelectProfilePhoto extends StatefulWidget {
   final Function() onSkip;
 
@@ -19,7 +19,7 @@ class SelectProfilePhoto extends StatefulWidget {
 }
 
 class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
-  var _isPhotoValid = false;
+  bool _isPhotoValid = false;
   File? _photo;
 
   @override
@@ -30,22 +30,19 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext buildContext) {
-                    return PhotoSelector(
-                      onSelected: (File photo) {
-                        setState(() {
-                          _photo = photo;
-                          _isPhotoValid = true;
-                        });
-                        Navigator.of(buildContext).pop();
-                      },
-                    );
+              onTap: () => showModalBottomSheet(
+                context: context,
+                builder: (BuildContext buildContext) => PhotoSelector(
+                  onSelected: (File photo) {
+                    setState(() {
+                      _photo = photo;
+                      _isPhotoValid = true;
+                    });
+
+                    context.router.pop();
                   },
-                );
-              },
+                ),
+              ),
               child: Stack(
                 children: [
                   Padding(
@@ -58,14 +55,15 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                     ),
                   ),
                   Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: FloatingActionButton(
-                        onPressed: () {},
-                        backgroundColor: kAccentColor,
-                        mini: true,
-                        child: const Icon(Icons.add),
-                      ))
+                    bottom: 0,
+                    right: 0,
+                    child: FloatingActionButton(
+                      onPressed: () {},
+                      backgroundColor: kAccentColor,
+                      mini: true,
+                      child: const Icon(Icons.add),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -123,11 +121,13 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                 Expanded(
                   child: TextButton(
                     onPressed: widget.onSkip,
-                    child: const Text('Skip for now',
-                        style: TextStyle(
-                            color: kAccentColor,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14.0)),
+                    child: const Text(
+                      'Skip for now',
+                      style: TextStyle(
+                          color: kAccentColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.0),
+                    ),
                   ),
                 ),
               ],

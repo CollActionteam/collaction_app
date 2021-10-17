@@ -1,8 +1,9 @@
-import 'package:collaction_app/presentation/auth/utils/countries.dart';
-import 'package:collaction_app/presentation/shared_widgets/country_search_dialog.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_number/phone_number.dart';
+
+import '../auth/utils/countries.dart';
+import '../themes/constants.dart';
+import 'country_search_dialog.dart';
 
 /// Phone input with country search and selection
 class PhoneInput extends StatefulWidget {
@@ -89,9 +90,9 @@ class _PhoneInputState extends State<PhoneInput> {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        _selected?.dial_code ?? "",
+                        _selected?.dialCode ?? "",
                         style: const TextStyle(fontSize: 16.0),
-                        key: const Key("dial_code"),
+                        key: const Key("dialCode"),
                       ),
                       const Icon(Icons.expand_more_outlined),
                     ],
@@ -190,7 +191,7 @@ class _PhoneInputState extends State<PhoneInput> {
   /// Validate the combination of the country dial code
   /// and phone body
   Future<bool> _validatePhone(Country country, String number) async {
-    final dialCode = int.tryParse(country.dial_code);
+    final dialCode = int.tryParse(country.dialCode);
     final phoneNumber = "$dialCode ${number.trim()}";
     validatedNumber = await plugin.validate(phoneNumber, country.code);
 

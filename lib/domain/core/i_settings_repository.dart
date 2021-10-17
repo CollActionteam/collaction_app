@@ -4,5 +4,5 @@ abstract class ISettingsRepository {
   Future<bool> getWasUserOnboarded();
 
   // ignore: avoid_positional_boolean_parameters
-  Future<void> setWasUserOnboarded(bool value);
+  Future<void> setWasUserOnboarded({required bool wasOnboarded});
 }

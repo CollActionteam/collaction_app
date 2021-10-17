@@ -15,17 +15,15 @@ class EnterVerificationCode extends StatefulWidget {
 }
 
 class _EnterVerificationCodeState extends State<EnterVerificationCode> {
-  // String? _code;
-  final GlobalKey<PinInputState> _pinKey = GlobalKey();
+  final _pinKey = GlobalKey<PinInputState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         state.maybeMap(
-          verificationCompleted: (verificationState) {
-            _pinKey.currentState?.autoComplete(verificationState.smsCode);
-          },
+          verificationCompleted: (verificationState) =>
+              _pinKey.currentState?.autoComplete(verificationState.smsCode),
           orElse: () {},
         );
       },
@@ -43,7 +41,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 10.0),
@@ -73,7 +71,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (state is SigningInUser || state is AwaitingCodeResend)
+                if (state is SigningInUser || state is AwaitingCodeResend) ...[
                   const SizedBox(
                     width: 25,
                     height: 25,
@@ -81,23 +79,24 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
                       color: kAccentColor,
                       strokeWidth: 2,
                     ),
-                  )
-                else
+                  ),
+                ] else ...[
                   Expanded(
                     child: TextButton(
-                      onPressed: () {
-                        context
-                            .read<AuthBloc>()
-                            .add(const AuthEvent.resendCode());
-                      },
+                      onPressed: () => context
+                          .read<AuthBloc>()
+                          .add(const AuthEvent.resendCode()),
                       child: const Text(
-                          'No code? Click here and we will send a new one',
-                          style: TextStyle(
-                              color: kAccentColor,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.0)),
+                        'No code? Click here and we will send a new one',
+                        style: TextStyle(
+                          color: kAccentColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.0,
+                        ),
+                      ),
                     ),
-                  )
+                  ),
+                ],
               ],
             ),
           ],

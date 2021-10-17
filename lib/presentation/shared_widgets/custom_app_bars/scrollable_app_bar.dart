@@ -36,14 +36,13 @@ class ScrollableAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 @visibleForTesting
 class ScrollableAppBarState extends State<ScrollableAppBar> {
-  late final ScrollController scrollController;
+  final scrollController = ScrollController();
 
   late double currentElevation;
 
   @override
   void initState() {
     super.initState();
-    scrollController = ScrollController();
 
     currentElevation = widget.elevation ?? widget.minElevation;
 
@@ -66,12 +65,6 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
         }
       },
     );
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
   }
 
   @override
@@ -116,5 +109,11 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
                 ?.copyWith(color: kPrimaryColor),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 }

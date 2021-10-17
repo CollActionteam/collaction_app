@@ -10,16 +10,16 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<ElevatedButton>? actions;
   final double elevation;
   final TextStyle? titleTextStyle;
-  const CleanAppBar(
-      {Key? key,
-      this.title = '',
-      this.centerTitle = true,
-      this.leading,
-      this.actions,
-      this.backgroundColor = kSecondaryColor,
-      this.titleTextStyle,
-      this.elevation = 0.0})
-      : super(key: key);
+  const CleanAppBar({
+    Key? key,
+    this.title = '',
+    this.centerTitle = true,
+    this.leading,
+    this.actions,
+    this.backgroundColor = kSecondaryColor,
+    this.titleTextStyle,
+    this.elevation = 0.0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

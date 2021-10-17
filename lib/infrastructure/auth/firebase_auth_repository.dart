@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
@@ -16,7 +16,7 @@ import 'firebase_auth_mapper.dart';
 
 @LazySingleton(as: IAuthRepository)
 class FirebaseAuthRepository implements IAuthRepository, Disposable {
-  final fb_auth.FirebaseAuth firebaseAuth;
+  final firebase_auth.FirebaseAuth firebaseAuth;
   final _userSubject = BehaviorSubject<User>.seeded(User.anonymous);
   late final StreamSubscription _userStreamSubscription;
 
@@ -40,7 +40,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       {required String phoneNumber}) {
     final result = StreamController<Either<AuthFailure, AuthSuccess>>();
 
-    var credential = const Credential();
+    Credential credential = const Credential();
 
     firebaseAuth.verifyPhoneNumber(
       phoneNumber: "+$phoneNumber",
@@ -52,7 +52,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
-      verificationFailed: (fb_auth.FirebaseAuthException error) {
+      verificationFailed: (firebase_auth.FirebaseAuthException error) {
         result.add(left(error.toFailure()));
         result.close();
       },
@@ -61,7 +61,8 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
             credential: credential.copyWith(verificationId: verificationId))));
         result.close();
       },
-      verificationCompleted: (fb_auth.PhoneAuthCredential phoneAuthCredential) {
+      verificationCompleted:
+          (firebase_auth.PhoneAuthCredential phoneAuthCredential) {
         credential = credential.copyWith(
           verificationId: phoneAuthCredential.verificationId,
           smsCode: phoneAuthCredential.smsCode,
@@ -83,7 +84,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       final String verificationId = authCredentials.verificationId!;
       final String smsCode = authCredentials.smsCode!;
       // Create a PhoneAuthCredential with the code
-      final credential = fb_auth.PhoneAuthProvider.credential(
+      final credential = firebase_auth.PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: smsCode);
 
       // Sign the user in (or link) with the credential
@@ -91,7 +92,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
       // Check if is new user
       return right(authResult.additionalUserInfo?.isNewUser == true);
-    } on fb_auth.FirebaseAuthException catch (error) {
+    } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch (_) {
       return left(const AuthFailure.serverError());
@@ -106,7 +107,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       await user.updateDisplayName(username);
 
       return right(unit);
-    } on fb_auth.FirebaseAuthException catch (error) {
+    } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch (_) {
       return left(const AuthFailure.serverError());
@@ -122,7 +123,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       // final user = firebaseAuth.currentUser!;
       // await user.updatePhotoURL(profileUrl);
       return right(unit);
-    } on fb_auth.FirebaseAuthException catch (error) {
+    } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch (_) {
       return left(const AuthFailure.serverError());
@@ -134,7 +135,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       {required String phoneNumber, required Credential authCredentials}) {
     final result = StreamController<Either<AuthFailure, AuthSuccess>>();
 
-    var credential = const Credential();
+    Credential credential = const Credential();
 
     firebaseAuth.verifyPhoneNumber(
       phoneNumber: "+$phoneNumber",
@@ -147,7 +148,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
-      verificationFailed: (fb_auth.FirebaseAuthException error) {
+      verificationFailed: (firebase_auth.FirebaseAuthException error) {
         result.add(left(error.toFailure()));
         result.close();
       },
@@ -159,7 +160,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         result.close();
       },
       verificationCompleted:
-          (fb_auth.PhoneAuthCredential phoneAuthCredential) async {
+          (firebase_auth.PhoneAuthCredential phoneAuthCredential) async {
         credential = credential.copyWith(
           verificationId: phoneAuthCredential.verificationId,
           smsCode: phoneAuthCredential.smsCode,
@@ -174,7 +175,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
     return result.stream.distinct();
   }
 
-  static User _firebaseUserToUser(fb_auth.User? firebaseUser) {
+  static User _firebaseUserToUser(firebase_auth.User? firebaseUser) {
     if (firebaseUser == null || firebaseUser.isAnonymous) {
       return User.anonymous;
     } else {

@@ -1,6 +1,7 @@
-import 'package:collaction_app/domain/auth/auth_failures.dart';
-import 'package:collaction_app/domain/user/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+
+import '../../domain/auth/auth_failures.dart';
+import '../../domain/user/user.dart';
 
 extension FirebaseUserX on firebase_auth.User? {
   User toDomain() {

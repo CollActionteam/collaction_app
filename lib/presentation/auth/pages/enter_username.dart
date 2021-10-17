@@ -6,7 +6,6 @@ import '../../../application/auth/auth_bloc.dart';
 import '../../shared_widgets/rectangular_button.dart';
 import '../../themes/constants.dart';
 
-/// Username entry
 class EnterUserName extends StatefulWidget {
   const EnterUserName({Key? key}) : super(key: key);
 
@@ -15,16 +14,10 @@ class EnterUserName extends StatefulWidget {
 }
 
 class _EnterUserNameState extends State<EnterUserName> {
-  var _isNameValid = false;
-  late TextEditingController _usernameController;
+  final _usernameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  var _username = "";
-
-  @override
-  void initState() {
-    super.initState();
-    _usernameController = TextEditingController();
-  }
+  bool _isNameValid = false;
+  String? _username;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +85,7 @@ class _EnterUserNameState extends State<EnterUserName> {
                         FocusScope.of(context).unfocus();
                         context
                             .read<AuthBloc>()
-                            .add(AuthEvent.updateUsername(_username));
+                            .add(AuthEvent.updateUsername(_username!));
                       }
                     },
                   ),
@@ -123,9 +116,7 @@ class _EnterUserNameState extends State<EnterUserName> {
 
   @override
   void dispose() {
-    // Page Two
     _usernameController.dispose();
-
     super.dispose();
   }
 }

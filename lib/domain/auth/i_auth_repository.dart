@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:collaction_app/domain/auth/auth_success.dart';
-import 'package:collaction_app/domain/user/i_user_repository.dart';
-import 'package:collaction_app/domain/user/user.dart';
 import 'package:dartz/dartz.dart';
 
+import '../user/i_user_repository.dart';
+import '../user/user.dart';
 import 'auth_failures.dart';
+import 'auth_success.dart';
 
 abstract class IAuthRepository {
   Stream<User> observeUser();

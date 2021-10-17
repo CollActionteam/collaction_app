@@ -7,9 +7,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final BuildContext _context;
   final String title;
   final bool closable;
-  const CustomAppBar(this._context,
-      {Key? key, this.title = "", this.closable = false})
-      : super(key: key);
+  const CustomAppBar(
+    this._context, {
+    Key? key,
+    this.title = "",
+    this.closable = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size(MediaQuery.of(_context).size.width, 55.0);
 }
