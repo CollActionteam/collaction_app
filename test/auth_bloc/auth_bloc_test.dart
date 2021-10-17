@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:collaction_app/application/user_auth/auth_bloc.dart';
+import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,14 +15,14 @@ void main() {
 
     const verificationId = 'verificationId';
     const smsCode = '123456';
-    registerFallbackValue(const Credential(verificationId, smsCode));
+    registerFallbackValue(const Credential(verificationId:verificationId, smsCode:smsCode));
 
     {
       final userRepository = MockUserRepository();
       when(() => userRepository.registerPhoneNumber(any()))
           .thenAnswer((_) => Stream.fromIterable([
-                const Credential(verificationId, null),
-                const Credential(verificationId, smsCode),
+                const Credential(verificationId:verificationId),
+                const Credential(verificationId:verificationId, smsCode:smsCode),
               ]));
       when(() => userRepository.signIn(any()))
           .thenAnswer((_) => Future.value(SignInResult(isNewUser: true)));

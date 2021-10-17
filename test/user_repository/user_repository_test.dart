@@ -49,7 +49,7 @@ void main() {
       final _userRepository = UserRepository(firebaseAuth: mockFirebaseAuth);
       // First part of registration cannot be meaningfully tested using mock
       final signInResult = await _userRepository
-          .signIn(const Credential('someVerificationId', 'someSmsCode'));
+          .signIn(const Credential(verificationId: 'someVerificationId', smsCode:'someSmsCode'));
       expect(signInResult.isNewUser, isNewUser);
     }
 

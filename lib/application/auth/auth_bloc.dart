@@ -56,7 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> implements DisposableBloc {
           AuthException(message: 'Verification id is null'));
     } else {
       yield AuthState.verifying(smsCode);
-      _userRepository.signIn(Credential(_verificationId, smsCode)).then(
+      _userRepository.signIn(Credential(verificationId:_verificationId, smsCode:smsCode)).then(
           (result) {
         add(AuthEvent.logIn(isNewUser: result.isNewUser));
       }, onError: (e) {
