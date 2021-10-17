@@ -46,6 +46,7 @@ dependencies:
   json_annotation: ^4.0.1
   package_info_plus: ^1.0.6
   phone_number: ^0.11.0+2
+  rive: ^0.7.31
   rxdart: ^0.27.1
   share_plus: ^2.1.4
   shared_preferences: ^2.0.7
@@ -61,7 +62,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^0.14.5
   injectable_generator: ^1.4.1
-  json_serializable: ^5.0.2
+  json_serializable: ^5.0.0
   lint: ^1.5.3
 
 flutter_icons:
@@ -80,6 +81,7 @@ flutter:
     - .env
     - assets/images/
     - assets/images/icons/
+    - assets/animations/
     - assets/vectors/
   fonts:
     - family: Rubik
