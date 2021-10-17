@@ -15,19 +15,3 @@ Future<void> main() async {
 
   runApp(AppWidget());
 }
-
-/*class AppWidget extends StatelessWidget {
-  final _appRouter = app_router.AppRouter();
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      color: Colors.white,
-      title: 'CollAction',
-      theme: lightTheme(context),
-      debugShowCheckedModeBanner: false,
-      routerDelegate: _appRouter.delegate(),
-      routeInformationParser: _appRouter.defaultRouteParser(),
-    );
-  }
-}*/

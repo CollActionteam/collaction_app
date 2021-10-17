@@ -30,24 +30,18 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  // All Pages
   final _pageController = PageController();
   double _currentPage = 0.0;
   late List<Widget> _pages;
 
   bool _displayDots = true;
 
-  // Page One
-  // final GlobalKey<VerifyPhonePageState> _verifyPhoneKey = GlobalKey();
-
-  // Page Two
-
   @override
   void initState() {
     super.initState();
     // All pages
     _pages = [
-      const VerifyPhonePage(/*key: _verifyPhoneKey*/),
+      const VerifyPhonePage(),
       const EnterVerificationCode(),
       const EnterUserName(),
       SelectProfilePhoto(
@@ -69,34 +63,34 @@ class _AuthPageState extends State<AuthPage> {
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           state.maybeMap(
-              smsCodeSent: (_) => _toPage(1),
-              loggedIn: (loggedInState) {
-                if (loggedInState.isNewUser) {
-                  // TODO - Handle if is existing user
-                } else {
-                  _toPage(2);
-                }
-              },
-              verificationCompleted: (_) {},
-              authError: (authError) {
-                context.showErrorSnack(
-                  authError.failure.map(
-                    serverError: (_) => "Server Error",
-                    invalidPhone: (_) => "Invalid Phone",
-                    verificationFailed: (_) => "Verification Failed",
-                    networkRequestFailed: (_) => "No Internet connection",
-                    invalidSmsCode: (_) => "Invalid SMS Code",
-                  ),
-                );
-              },
-              usernameUpdateDone: (_) {
-                _toPage(3);
-                setState(() => _displayDots = false);
-              },
-              photoUpdateDone: (_) {
-                _authDone(context);
-              },
-              orElse: () {});
+            smsCodeSent: (_) => _toPage(1),
+            loggedIn: (loggedInState) {
+              if (loggedInState.isNewUser) {
+                // TODO - Handle if is existing user
+              } else {
+                _toPage(2);
+              }
+            },
+            authError: (authError) {
+              context.showErrorSnack(
+                authError.failure.map(
+                  serverError: (_) => "Server Error",
+                  invalidPhone: (_) => "Invalid Phone",
+                  verificationFailed: (_) => "Verification Failed",
+                  networkRequestFailed: (_) => "No Internet connection",
+                  invalidSmsCode: (_) => "Invalid SMS Code",
+                ),
+              );
+            },
+            usernameUpdateDone: (_) {
+              _toPage(3);
+              setState(() => _displayDots = false);
+            },
+            photoUpdateDone: (_) {
+              _authDone(context);
+            },
+            orElse: () {},
+          );
         },
         child: Scaffold(
           resizeToAvoidBottomInset: true,

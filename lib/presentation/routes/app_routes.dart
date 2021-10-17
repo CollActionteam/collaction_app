@@ -17,8 +17,6 @@ import '../onboarding/onboarding.dart';
     AutoRoute(page: HomePage, initial: true),
     AutoRoute(page: CrowdActionBrowsePage),
     AutoRoute(page: ContactFormPage),
-    // AutoRoute(page: RegisterPhoneNumberPage),
-    // AutoRoute(page: VerifyCodePage),
     AutoRoute(page: ComponentsDemoPage),
     AutoRoute(page: OnboardingPage),
     AutoRoute(page: CrowdActionDetailsPage),

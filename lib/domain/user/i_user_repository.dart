@@ -7,7 +7,11 @@ class Credential extends Equatable {
   final String? smsCode;
   final int? forceResendToken;
 
-  const Credential({this.verificationId, this.smsCode, this.forceResendToken});
+  const Credential({
+    this.verificationId,
+    this.smsCode,
+    this.forceResendToken,
+  });
 
   @override
   List<Object?> get props => [verificationId, smsCode, forceResendToken];

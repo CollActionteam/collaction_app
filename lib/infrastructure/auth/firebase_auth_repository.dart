@@ -87,10 +87,10 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
           verificationId: verificationId, smsCode: smsCode);
 
       // Sign the user in (or link) with the credential
-      await firebaseAuth.signInWithCredential(credential);
-      //TODO Check if is new user
-      // bool isNewUser = true;
-      return right(false);
+      final authResult = await firebaseAuth.signInWithCredential(credential);
+
+      // Check if is new user
+      return right(authResult.additionalUserInfo?.isNewUser == true);
     } on fb_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
     } catch (_) {

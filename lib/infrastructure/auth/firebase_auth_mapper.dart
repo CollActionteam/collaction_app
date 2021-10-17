@@ -1,8 +1,8 @@
 import 'package:collaction_app/domain/auth/auth_failures.dart';
 import 'package:collaction_app/domain/user/user.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-extension FirebaseUserX on fb_auth.User? {
+extension FirebaseUserX on firebase_auth.User? {
   User toDomain() {
     if (this == null) {
       return User.anonymous;
@@ -21,7 +21,7 @@ extension FirebaseUserX on fb_auth.User? {
   }
 }
 
-extension FirebaseErrorX on fb_auth.FirebaseAuthException {
+extension FirebaseErrorX on firebase_auth.FirebaseAuthException {
   AuthFailure toFailure() {
     if (code == 'network-request-failed') {
       return const AuthFailure.networkRequestFailed();
