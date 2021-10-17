@@ -12,10 +12,17 @@ class PhoneInput extends StatefulWidget {
   /// Callback with generated phone number
   final Function(PhoneResponse)? onChange;
 
+  final bool readOnly;
+
   final PhoneResponse? phone;
   final TextEditingController phoneNumberController;
+
   const PhoneInput(this.phoneNumberController,
-      {Key? key, this.isValid, this.onChange, this.phone})
+      {Key? key,
+      this.isValid,
+      this.onChange,
+      this.phone,
+      this.readOnly = false})
       : super(key: key);
 
   @override
@@ -94,6 +101,7 @@ class _PhoneInputState extends State<PhoneInput> {
               const SizedBox(width: 10),
               Expanded(
                 child: TextFormField(
+                  readOnly: widget.readOnly,
                   controller: widget.phoneNumberController,
                   focusNode: _phoneNumberFocusNode,
                   onEditingComplete: () async {
@@ -106,9 +114,9 @@ class _PhoneInputState extends State<PhoneInput> {
 
                     widget.phoneNumberController.selection =
                         TextSelection.fromPosition(
-                      TextPosition(
-                          offset: widget.phoneNumberController.text.length),
-                    );
+                          TextPosition(
+                              offset: widget.phoneNumberController.text.length),
+                        );
                   },
                   style: const TextStyle(fontSize: 20.0),
                   keyboardType: TextInputType.number,
@@ -149,15 +157,17 @@ class _PhoneInputState extends State<PhoneInput> {
   }
 
   void _showCountrySelectDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) => AlertDialog(
-        content: CountrySearch(
-          onCountrySelected: _regionOnChange,
+    if (!widget.readOnly) {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) => AlertDialog(
+          content: CountrySearch(
+            onCountrySelected: _regionOnChange,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   void _regionOnChange(Country? value) {
