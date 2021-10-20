@@ -27,20 +27,19 @@ _If you want to build once you are done with your changes, to build generated fi
 
 ## Imutable app settings
 
-Some settings are defined in an environment file `.env`.  
-They are bundled with the app at build time.
-Use `.env.template` to create this file.
+We use an environment file called `.env` to define secrets used in the application. `
+These secrets are bundled with the application at build-time.
+
+Make a copy of the `.env.example` file, name it `.env` and fill out the missing secrets.
 
 ## Firebase
+
 In order to use features provided by Firebase, download the corresponding `google-services.json` and `GoogleService-Info.plist` from the Firebase console project and add them to the project files.
 
-Make sure that the SHA fingerprint of your signing certificate (Android) and AppStoreID/TeamID (iOS) are registered in your Firebase console.
-
-More information:
-* [Signing an Android application](https://developer.android.com/studio/publish/app-signing#sign_release)
-* [Finding the SHA fingerprint](https://developers.google.com/android/guides/client-auth).
-
 Phone authentication has to be enabled in the Firebase console.
+
+You can find phone numbers to use for testing in the Firebase Console by navigating to
+Authentication > Sign-in method > Sign in providers > Phone > Phone numbers for testing
 
 ## Getting Started with Flutter
 
