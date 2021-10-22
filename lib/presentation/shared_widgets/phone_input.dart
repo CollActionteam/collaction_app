@@ -1,7 +1,7 @@
+import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_number/phone_number.dart';
 
-import '../auth/utils/countries.dart';
 import '../themes/constants.dart';
 import 'country_search_dialog.dart';
 
@@ -31,7 +31,9 @@ class PhoneInput extends StatefulWidget {
 }
 
 class _PhoneInputState extends State<PhoneInput> {
-  Country? _selected;
+  CountryDetails? _selected;
+  final _countryCodes =
+      CountryCodes.countryCodes().whereType<CountryDetails>().toList();
 
   final plugin = PhoneNumberUtil();
   final _phoneNumberFocusNode = FocusNode();
@@ -42,13 +44,13 @@ class _PhoneInputState extends State<PhoneInput> {
     super.initState();
 
     if (widget.phone != null) {
-      final country =
-          countries.where((country) => country.code == widget.phone?.country);
+      final country = _countryCodes
+          .where((country) => country.alpha2Code == widget.phone?.country);
 
       /// Strip country
       _selected = country.isNotEmpty
           ? country.first
-          : countries.where((country) => country.code == "NL").first;
+          : _countryCodes.where((country) => country.alpha2Code == "NL").first;
 
       /// Strip phone
       final contact = widget.phone?.contact.split(" ");
@@ -57,7 +59,8 @@ class _PhoneInputState extends State<PhoneInput> {
         widget.phoneNumberController.text = contact?.last ?? "";
       }
     } else {
-      _selected = countries.where((country) => country.code == "NL").first;
+      _selected =
+          _countryCodes.where((country) => country.alpha2Code == "NL").first;
     }
 
     widget.phoneNumberController.addListener(() {
@@ -84,7 +87,7 @@ class _PhoneInputState extends State<PhoneInput> {
                   child: Row(
                     children: [
                       Image.asset(
-                        'icons/flags/png/${_selected?.code.toLowerCase()}.png',
+                        'icons/flags/png/${_selected?.alpha2Code!.toLowerCase()}.png',
                         package: 'country_icons',
                         width: 24.0,
                       ),
@@ -110,7 +113,7 @@ class _PhoneInputState extends State<PhoneInput> {
 
                     widget.phoneNumberController.text = await plugin.format(
                       widget.phoneNumberController.text.replaceAll(' ', ''),
-                      _selected!.code,
+                      _selected!.alpha2Code!,
                     );
 
                     widget.phoneNumberController.selection =
@@ -171,7 +174,7 @@ class _PhoneInputState extends State<PhoneInput> {
     }
   }
 
-  void _regionOnChange(Country? value) {
+  void _regionOnChange(CountryDetails? value) {
     setState(() {
       _selected = value;
       _validatePhone(value!, widget.phoneNumberController.value.text);
@@ -190,12 +193,12 @@ class _PhoneInputState extends State<PhoneInput> {
 
   /// Validate the combination of the country dial code
   /// and phone body
-  Future<bool> _validatePhone(Country country, String number) async {
-    final dialCode = int.tryParse(country.dialCode);
+  Future<bool> _validatePhone(CountryDetails country, String number) async {
+    final dialCode = country.dialCode?.toCode();
     final phoneNumber = "$dialCode ${number.trim()}";
-    validatedNumber = await plugin.validate(phoneNumber, country.code);
+    validatedNumber = await plugin.validate(phoneNumber, country.alpha2Code!);
 
-    _triggerPhoneReturn(PhoneResponse(country.code, phoneNumber));
+    _triggerPhoneReturn(PhoneResponse(country.alpha2Code!, phoneNumber));
     _triggerValidReturn(validatedNumber);
 
     return validatedNumber;
@@ -207,4 +210,8 @@ class PhoneResponse {
   final String contact;
 
   PhoneResponse(this.country, this.contact);
+}
+
+extension DialCodeX on String {
+  int toCode() => int.tryParse(replaceAll("+", "")) ?? 0;
 }

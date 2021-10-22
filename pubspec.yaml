@@ -23,6 +23,7 @@ environment:
 dependencies:
   auto_route: 2.2.0
   bloc: ^7.1.0
+  country_codes: ^2.1.1
   country_icons: ^2.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0-nullsafety.2

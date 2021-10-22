@@ -1,9 +1,9 @@
+import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 
-import '../auth/utils/countries.dart';
-
+/// Dialog to search and select country for phone input
 class CountrySearch extends StatefulWidget {
-  final Function(Country)? onCountrySelected;
+  final Function(CountryDetails)? onCountrySelected;
 
   const CountrySearch({Key? key, this.onCountrySelected}) : super(key: key);
 
@@ -12,7 +12,17 @@ class CountrySearch extends StatefulWidget {
 }
 
 class _CountrySearchState extends State<CountrySearch> {
-  final _countries = List<Country>.from(countries);
+  final _countryCodes =
+      CountryCodes.countryCodes().whereType<CountryDetails>().toList();
+  late List<CountryDetails> _countries;
+
+  @override
+  void initState() {
+    super.initState();
+    _countries = List<CountryDetails>.from(_countryCodes
+      ..sort(
+          (a, b) => a.alpha2Code?.compareTo(b.alpha2Code ?? "") == 1 ? 1 : -1));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +40,7 @@ class _CountrySearchState extends State<CountrySearch> {
                   ),
                   onChanged: _searchCountry,
                 ),
-              ) /*,
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Icon(Icons.close),
-              )*/
+              )
             ],
           ),
           Expanded(
@@ -55,19 +61,19 @@ class _CountrySearchState extends State<CountrySearch> {
                     child: Row(
                       children: [
                         Image.asset(
-                          'icons/flags/png/${country.code.toLowerCase()}.png',
+                          'icons/flags/png/${country.alpha2Code!.toLowerCase()}.png',
                           package: 'country_icons',
                           width: 28.0,
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          country.dialCode,
+                          country.dialCode!,
                           style: const TextStyle(fontSize: 16.0),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
                             child: Text(
-                          country.name,
+                          country.name!,
                           overflow: TextOverflow.ellipsis,
                         ))
                       ],
@@ -89,12 +95,12 @@ class _CountrySearchState extends State<CountrySearch> {
 
     setState(() {
       if (text.isEmpty) {
-        _countries.addAll(countries);
+        _countries.addAll(_countryCodes);
       } else {
-        _countries.addAll(countries.where((country) =>
-            country.name.toLowerCase().contains(text.toLowerCase()) ||
-            country.code.toLowerCase().contains(text) ||
-            country.dialCode.contains(text)));
+        _countries.addAll(_countryCodes.where((country) =>
+            country.name?.toLowerCase().contains(text.toLowerCase()) == true ||
+            country.alpha2Code?.toLowerCase().contains(text) == true ||
+            country.dialCode?.contains(text) == true));
       }
     });
   }
