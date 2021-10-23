@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/i_settings_repository.dart';
+import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
@@ -77,8 +77,7 @@ class DemoPage extends StatelessWidget {
                     Expanded(
                       child: RectangleButton(
                         text: "Register",
-                        onTap: () => context.router
-                            .push(const RegisterPhoneNumberRoute()),
+                        onTap: () => context.router.push(const AuthRoute()),
                       ),
                     ),
                   ],

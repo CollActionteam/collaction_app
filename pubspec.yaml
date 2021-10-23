@@ -21,17 +21,19 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  auto_route: ^2.2.0
+  auto_route: 2.2.0
   bloc: ^7.1.0
+  country_codes: ^2.1.1
+  country_icons: ^2.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0-nullsafety.2
   dots_indicator: ^2.0.0
   email_validator: ^2.0.1
   equatable: ^2.0.3
   firebase_analytics: ^8.3.2
-  firebase_auth: "^3.0.2"
-  firebase_core: "^1.5.0"
-  firebase_remote_config: "^0.11.0"
+  firebase_auth: ^3.0.2
+  firebase_core: ^1.5.0
+  firebase_remote_config: ^0.11.0
   flutter:
     sdk: flutter
   flutter_bloc: ^7.1.0
@@ -39,9 +41,13 @@ dependencies:
   freezed_annotation: ^0.14.2
   get_it: ^7.1.4
   http: ^0.13.3
+  image_cropper: ^1.4.1
+  image_picker: ^0.8.4
   injectable: ^1.4.1
   json_annotation: ^4.0.1
   package_info_plus: ^1.0.6
+  phone_number: ^0.11.0+2
+  rive: 0.7.28
   rxdart: ^0.27.1
   share_plus: ^2.1.4
   shared_preferences: ^2.0.7
@@ -52,7 +58,7 @@ dev_dependencies:
   bloc_test: ^8.1.0
   build_runner: ^2.1.0
   firebase_auth_mocks: ^0.8.0
-  flutter_launcher_icons: "^0.9.1"
+  flutter_launcher_icons: ^0.9.1
   flutter_test:
     sdk: flutter
   freezed: ^0.14.2
@@ -76,6 +82,7 @@ flutter:
     - .env
     - assets/images/
     - assets/images/icons/
+    - assets/animations/
     - assets/vectors/
   fonts:
     - family: Rubik
