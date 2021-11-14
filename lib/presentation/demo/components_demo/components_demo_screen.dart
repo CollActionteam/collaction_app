@@ -93,13 +93,13 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                 onTap: () {},
                 isEnabled: false,
               ),
-              PillButton(
-                leading: const Icon(Icons.upload_rounded, color: Colors.white),
+              PillButton.icon(
+                leading: const Icon(Icons.upload_rounded),
                 text: "Upload Profile Picture",
                 onTap: () {},
               ),
-              PillButton(
-                leading: const Icon(Icons.upload_rounded, color: Colors.white),
+              PillButton.icon(
+                leading: const Icon(Icons.upload_rounded),
                 text: "Upload Profile Picture",
                 onTap: () {},
                 isEnabled: false,

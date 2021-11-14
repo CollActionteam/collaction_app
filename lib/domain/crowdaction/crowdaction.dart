@@ -13,10 +13,11 @@ abstract class CrowdAction implements _$CrowdAction {
     // required String title,
     // required String subtitle,
     // required String description,
-    // required int numParticipants,
+    String? image, // TODO - Request backend to add this
+    required int numParticipants,
     // required int participantsGoal,
     // DateTime? startDate,
     // DateTime? endDate,
-    // List<String>? tags,
+    List<String>? tags, // TODO - Request backend to add this
   }) = _CrowdAction;
 }
