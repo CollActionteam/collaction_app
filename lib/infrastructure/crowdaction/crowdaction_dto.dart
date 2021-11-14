@@ -18,9 +18,9 @@ abstract class CrowdActionDto implements _$CrowdActionDto {
     // required String title,
     // required String subtitle,
     // required String description,
-    // required int numParticipants,
+    required int numParticipants,
     // required int participantsGoal,
-    // List<String>? tags,
+    List<String>? tags,
   }) = _CrowdActionDto;
 
   CrowdAction toDomain() {
@@ -33,9 +33,9 @@ abstract class CrowdActionDto implements _$CrowdActionDto {
       // title: title,
       // subtitle: subtitle,
       // description: description,
-      // numParticipants: numParticipants,
+      numParticipants: numParticipants,
       // participantsGoal: participantsGoal,
-      // tags: tags!.toList(),
+      tags: tags?.toList(),
     );
   }
 

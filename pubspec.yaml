@@ -30,6 +30,7 @@ dependencies:
   dots_indicator: ^2.0.0
   email_validator: ^2.0.1
   equatable: ^2.0.3
+  expandable_page_view: ^1.0.9
   firebase_analytics: ^8.3.2
   firebase_auth: ^3.0.2
   firebase_core: ^1.5.0
@@ -65,6 +66,7 @@ dev_dependencies:
   injectable_generator: ^1.4.1
   json_serializable: ^4.1.3
   lint: ^1.5.3
+  network_image_mock: ^2.0.1
 
 flutter_icons:
   android: "ic_launcher"
@@ -81,6 +83,7 @@ flutter:
   assets:
     - .env
     - assets/images/
+    - assets/images/avatars/
     - assets/images/icons/
     - assets/animations/
     - assets/vectors/

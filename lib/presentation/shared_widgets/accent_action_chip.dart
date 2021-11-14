@@ -33,7 +33,7 @@ class AccentActionChip extends StatelessWidget {
           ],
           Text(
             text,
-            style: Theme.of(context).accentTextTheme.caption,
+            style: Theme.of(context).textTheme.caption,
           )
         ],
       ),
