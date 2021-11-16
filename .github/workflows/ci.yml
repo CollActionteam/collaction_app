@@ -20,7 +20,7 @@ on:
     types: [opened, synchronize]
     
 env:
-  flutter_version: '2.2.x'
+  flutter_version: '2.5.x'
   flutter_channel: 'stable'
   java_version: '12.x'
 

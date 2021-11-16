@@ -10,6 +10,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<ElevatedButton>? actions;
   final double elevation;
   final TextStyle? titleTextStyle;
+
   const CleanAppBar({
     Key? key,
     this.title = '',
@@ -51,7 +52,6 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
                 .textTheme
                 .headline6
                 ?.copyWith(color: kPrimaryColor),
-        backwardsCompatibility: false,
       ),
     );
   }
