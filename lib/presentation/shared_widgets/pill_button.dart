@@ -22,6 +22,10 @@ class PillButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: isEnabled ? kAccentColor : kDisabledButtonColor,
+        borderRadius: BorderRadius.circular(52.0),
+      ),
       margin: margin ??
           const EdgeInsets.symmetric(
             vertical: 6.0,
@@ -33,10 +37,6 @@ class PillButton extends StatelessWidget {
         child: Ink(
           height: 52,
           width: width ?? double.infinity,
-          decoration: BoxDecoration(
-            color: isEnabled ? kAccentColor : kDisabledButtonColor,
-            borderRadius: BorderRadius.circular(52.0),
-          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
