@@ -23,17 +23,12 @@ void main() {
       await tester.pumpWidget(AppWidget());
       await tester.pumpAndSettle();
 
-      // Verify that text widget is shown
+      // Verify that header widget is shown
       expect(find.text('In the spotlight'), findsOneWidget);
+
+      // Verify that share widget is shown
       expect(
           find.text('Share CollAction with\n your friends!'), findsOneWidget);
     });
-
-    // Tap the 'Browse actions' button and trigger a page transition (multiple frame).
-    // await tester.pumpAndSettle();
-    // await tester.tap(find.text('View all'));
-
-    // Verify that the page has changed.
-    // expect(find.text('Browse Crowdactions'), findsNothing);
   });
 }

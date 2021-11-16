@@ -3,10 +3,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 
 part 'crowdaction_dto.freezed.dart';
+
 part 'crowdaction_dto.g.dart';
 
 @freezed
-abstract class CrowdActionDto implements _$CrowdActionDto {
+class CrowdActionDto with _$CrowdActionDto {
   const CrowdActionDto._();
 
   factory CrowdActionDto({
@@ -20,7 +21,8 @@ abstract class CrowdActionDto implements _$CrowdActionDto {
     // required String description,
     required int numParticipants,
     // required int participantsGoal,
-    List<String>? tags,
+    String? category,
+    String? subCategory,
   }) = _CrowdActionDto;
 
   CrowdAction toDomain() {
@@ -35,7 +37,8 @@ abstract class CrowdActionDto implements _$CrowdActionDto {
       // description: description,
       numParticipants: numParticipants,
       // participantsGoal: participantsGoal,
-      tags: tags?.toList(),
+      category: category,
+      subCategory: subCategory,
     );
   }
 
@@ -44,7 +47,7 @@ abstract class CrowdActionDto implements _$CrowdActionDto {
 }
 
 @freezed
-abstract class CrowdActionList implements _$CrowdActionList {
+class CrowdActionList with _$CrowdActionList {
   const CrowdActionList._();
 
   factory CrowdActionList({

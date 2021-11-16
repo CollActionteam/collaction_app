@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
-import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
-import 'package:collaction_app/presentation/shared_widgets/sign_up_chip.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
+import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/participant_avatars.dart';
-import '../../shared_widgets/secondary_chip.dart';
+import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
+import '../utils/crowd_action.ext.dart';
 
 class CrowdActionDetailsPage extends StatelessWidget {
   final CrowdAction crowdAction;
@@ -89,14 +88,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                     ),
                     Wrap(
                       spacing: 12.0,
-                      children: [
-                        SignUpChip(),
-                        if (crowdAction.tags?.isNotEmpty == true)
-                          ...crowdAction.tags?.map(
-                                (tag) => SecondaryChip(text: tag),
-                              ) ??
-                              [],
-                      ],
+                      children: crowdAction.toChips(),
                     ),
                     const SizedBox(
                       height: 20,

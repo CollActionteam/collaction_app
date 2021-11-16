@@ -1,15 +1,14 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
-import 'package:collaction_app/presentation/shared_widgets/sign_up_chip.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../domain/crowdaction/participant.dart';
+import '../../../routes/app_routes.gr.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
-import '../../../shared_widgets/secondary_chip.dart';
 import '../../../themes/constants.dart';
+import '../../utils/crowd_action.ext.dart';
 
 class InSpotLightHeader extends StatefulWidget {
   const InSpotLightHeader({
@@ -38,10 +37,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
             "Een maand zonder plastic wegwerpproducten en plastic verpakkingen: het klinkt onmogelijk of onaantrekkelijk, maar het Plasticdieet bewijst het tegendeel. Want wees nou eerlijk, heb je echt dat plastic flesje water of dat plastic roerstaafje voor je koffie nodig?",
         start: DateTime.now(),
         end: DateTime.now(),
-        tags: [
-          "Sustainability",
-          "Community",
-        ],
+        category: "Sustainability",
+        subCategory: "Community",
         numParticipants: 32,
       ),
       CrowdAction(
@@ -51,10 +48,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
             "Een maand zonder plastic wegwerpproducten en plastic verpakkingen: het klinkt onmogelijk of onaantrekkelijk, maar het Plasticdieet bewijst het tegendeel. Want wees nou eerlijk, heb je echt dat plastic flesje water of dat plastic roerstaafje voor je koffie nodig?",
         start: DateTime.now(),
         end: DateTime.now(),
-        tags: [
-          "Sustainability",
-          "Community",
-        ],
+        category: "Sustainability",
+        subCategory: "Community",
         numParticipants: 30,
       ),
       CrowdAction(
@@ -64,10 +59,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
             "Een maand zonder plastic wegwerpproducten en plastic verpakkingen: het klinkt onmogelijk of onaantrekkelijk, maar het Plasticdieet bewijst het tegendeel. Want wees nou eerlijk, heb je echt dat plastic flesje water of dat plastic roerstaafje voor je koffie nodig?",
         start: DateTime.now(),
         end: DateTime.now(),
-        tags: [
-          "Sustainability",
-          "Community",
-        ],
+        category: "Sustainability",
+        subCategory: "Community",
         numParticipants: 20,
       )
     ];
@@ -107,18 +100,13 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
               return CrowdActionCard(
                 title: crowdAction.name,
                 imagePath: crowdAction.image ?? "",
-                chips: [
-                  SignUpChip(),
-                  if (crowdAction.tags?.isNotEmpty == true)
-                    ...crowdAction.tags?.map(
-                          (tag) => SecondaryChip(text: tag),
-                        ) ??
-                        [],
-                ],
+                chips: crowdAction.toChips(),
                 participants: sampleParticipants,
                 totalParticipants: crowdAction.numParticipants,
                 onTap: () => context.router.push(
-                  CrowdActionDetailsRoute(crowdAction: crowdAction),
+                  CrowdActionDetailsRoute(
+                    crowdAction: crowdAction,
+                  ),
                 ),
               );
             },

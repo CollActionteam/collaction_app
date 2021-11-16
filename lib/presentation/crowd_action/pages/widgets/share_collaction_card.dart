@@ -68,6 +68,7 @@ class ShareCollActionCard extends StatelessWidget {
               leading: const Icon(
                 Icons.person_outline,
               ),
+              // TODO - Get proper share message & title
               onTap: () => Share.share(
                 'Share app title',
                 subject: 'Share app details',
