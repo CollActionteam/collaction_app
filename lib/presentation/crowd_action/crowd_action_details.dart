@@ -1,3 +1,4 @@
+import 'package:collaction_app/presentation/shared_widgets/crowdaction_card.dart';
 import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:collaction_app/presentation/shared_widgets/return_elevated_button.dart';
 import 'package:flutter/gestures.dart';
@@ -6,6 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../themes/constants.dart';
+
+const _heroTag = 'showAllBadges';
 
 class CrowdActionDetailsPage extends StatefulWidget {
   const CrowdActionDetailsPage({Key? key}) : super(key: key);
@@ -253,25 +256,32 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
+                              children: const [
+                                Text(
                                   'My badge',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 28,
                                   ),
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    // Navigator.of(context).push(
-
-                                    // );
-                                  },
-                                  icon: Image.asset(
-                                    'assets/images/icons/tip.png',
-                                    color: kAccentColor,
-                                  ),
-                                ),
+                                // Hero(
+                                //   tag: _heroTag,
+                                //   child: IconButton(
+                                //     onPressed: () {
+                                //       // Navigator.of(context).push(
+                                //       //   HeroDialogRoute(
+                                //       //     builder: (context) {
+                                //       //       return const _AddTodoPopupCard();
+                                //       //     },
+                                //       //   ),
+                                //       // );
+                                //     },
+                                //     icon: Image.asset(
+                                //       'assets/images/icons/tip.png',
+                                //       color: kAccentColor,
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                             const SizedBox(height: 4),
@@ -316,7 +326,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                   ),
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -370,12 +380,23 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
 }
 
 // class _BadgesModal extends StatelessWidget {
-//   const _BadgesModal({ Key? key }) : super(key: key);
+//   const _BadgesModal({Key? key}) : super(key: key);
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Container(
-      
+//       margin: const EdgeInsets.all(8.0),
+//       child: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Hero(
+//           tag: _heroTag,
+//           child: Row(
+//             children: const [
+//               Text('Hello!'),
+//             ],
+//           ),
+//         ),
+//       ),
 //     );
 //   }
 // }
