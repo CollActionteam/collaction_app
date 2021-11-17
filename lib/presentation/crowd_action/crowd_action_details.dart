@@ -22,7 +22,8 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   Widget build(BuildContext context) {
     // TODO: Move CrowdAction to parameter field
     final crowdAction = CrowdAction(
-      name: 'This is the title of a crowdaction',
+      name: 'Plasticdieet',
+      numParticipants: 23,
       description:
           'Een maand zonder plastic wegwerpproducten en plastic verpakkingen: het klinkt onmogelijk of onaantrekkelijk, maar het Plasticdieet bewijst het tegendeel. Want wees nou eerlijk, heb je echt dat plastic flesje water of dat plastic roerstaafje voor je koffie nodig?',
       start: DateTime.now(),
