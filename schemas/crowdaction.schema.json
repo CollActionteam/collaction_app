@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The crowd action schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "id": "a19ee75c-4747-452b-922c-0ab4c6a0c603",
+      "title": "Cycling To Work",
+      "description": "To reduce personal fuel & carbondioxide emission, we are going to cycle to work for the next one month.",
+      "image": "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+      "start": "2021-11-17 13:33:22.466",
+      "end": "2022-11-17 13:33:22.466",
+      "total_participants": 20,
+      "category": "Sustainability",
+      "sub_category": "Community",
+      "top_participants": [
+        "51cd09c1-360f-4b41-b728-5f4e7d54b3d1"
+      ]
+    }
+  ],
+  "required": [
+    "id",
+    "title",
+    "description",
+    "start",
+    "end",
+    "total_participants",
+    "top_participants"
+  ],
+  "properties": {
+    "id": {
+      "$id": "#/properties/id",
+      "type": "string",
+      "title": "The Crowd Action Id",
+      "description": "This ID will be unique for every crowd action and will be used for subscribing to the crowd action.",
+      "default": "",
+      "examples": [
+        "a19ee75c-4747-452b-922c-0ab4c6a0c603"
+      ]
+    },
+    "title": {
+      "$id": "#/properties/title",
+      "type": "string",
+      "title": "The Crowd Action title",
+      "description": "A brief description of what the crowd action is about.",
+      "default": "",
+      "examples": [
+        "Cycling To Work"
+      ]
+    },
+    "description": {
+      "$id": "#/properties/description",
+      "type": "string",
+      "title": "The crowd action description",
+      "description": "A detailed description of what the crowd action is about.",
+      "default": "",
+      "examples": [
+        "To reduce personal fuel & carbondioxide emission, we are going to cycle to work for the next one month."
+      ]
+    },
+    "image": {
+      "$id": "#/properties/image",
+      "type": "string",
+      "title": "The crowd action image",
+      "description": "This image will be used for the crowd action details head or list item.",
+      "default": "",
+      "examples": [
+        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg"
+      ]
+    },
+    "start": {
+      "$id": "#/properties/start",
+      "type": "string",
+      "title": "The crowd action start date",
+      "description": "A timestamp of the date a time crowd action started.",
+      "default": "",
+      "examples": [
+        "2021-11-17 13:33:22.466"
+      ]
+    },
+    "end": {
+      "$id": "#/properties/end",
+      "type": "string",
+      "title": "The crowd action end date",
+      "description": "A timestamp of the date a crowd action will end.",
+      "default": "",
+      "examples": [
+        "2022-11-17 13:33:22.466"
+      ]
+    },
+    "total_participants": {
+      "$id": "#/properties/total_participants",
+      "type": "integer",
+      "title": "The current number of participants in a crowd action",
+      "description": "The total number of participants who are currently taking part in a crowd action.",
+      "default": 0,
+      "examples": [
+        20
+      ]
+    },
+    "category": {
+      "$id": "#/properties/category",
+      "type": "string",
+      "title": "The Crowd Action category",
+      "description": "The category to which this crowd action belongs.",
+      "default": "",
+      "examples": [
+        "Sustainability"
+      ]
+    },
+    "sub_category": {
+      "$id": "#/properties/sub_category",
+      "type": "string",
+      "title": "The crowd action sub category",
+      "description": "The sub category to which this crowd action belongs.",
+      "default": "",
+      "examples": [
+        "Community"
+      ]
+    },
+    "top_participants": {
+      "$id": "#/properties/top_participants",
+      "type": "array",
+      "title": "The top participants in a crowd action",
+      "description": "The user ids of the three top participants in a crowd action.",
+      "default": [],
+      "minItems": 0,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "examples": [
+        [
+          "51cd09c1-360f-4b41-b728-5f4e7d54b3d1"
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/top_participants/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/top_participants/items/anyOf/0",
+            "type": "string",
+            "title": "The user id",
+            "description": "The user id of one of the top participants.",
+            "default": "",
+            "examples": [
+              "51cd09c1-360f-4b41-b728-5f4e7d54b3d1"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}
