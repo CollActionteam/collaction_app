@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
+import './widgets/bottom_navbar.dart';
 import '../themes/constants.dart';
-
-const _heroTag = 'showAllBadges';
 
 class CrowdActionDetailsPage extends StatefulWidget {
   const CrowdActionDetailsPage({Key? key}) : super(key: key);
@@ -36,39 +35,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
         text: 'Participate',
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      bottomNavigationBar: SizedBox(
-        height: 75,
-        child: BottomNavigationBar(
-          // currentIndex: index,
-          backgroundColor: Colors.white,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          selectedItemColor: const Color(0xFF2EB494),
-          unselectedItemColor: const Color(0xFF333333),
-          type: BottomNavigationBarType.fixed,
-          // onTap: (value) {
-          //   if (value != index) {
-          //     setState(() {
-          //       index = value;
-          //     });
-          //   }
-          // },
-          items: const [
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/images/black_logo.png')),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_sharp),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add_sharp),
-              label: '',
-            )
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomNavbar(),
       body: SafeArea(
         child: Column(
           children: [

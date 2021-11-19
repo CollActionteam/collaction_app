@@ -1,4 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/shared_widgets/crowdaction_card.dart';
+import 'package:collaction_app/presentation/shared_widgets/custom_fab.dart';
+import 'package:collaction_app/presentation/shared_widgets/secondary_chip.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
@@ -11,6 +14,7 @@ import '../utils/crowd_action.ext.dart';
 
 class CrowdActionDetailsPage extends StatelessWidget {
   final CrowdAction crowdAction;
+  static const String _heroBadgesTag = 'display-badges';
 
   const CrowdActionDetailsPage({
     Key? key,
@@ -20,13 +24,19 @@ class CrowdActionDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: PillButton(
+        text: "Participate",
+        onTap: () => _participate(context),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
               expandedHeight: 310.0,
               pinned: true,
-              backgroundColor: kAccentColor,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               automaticallyImplyLeading: false,
               title: Row(
                 children: <Widget>[
@@ -52,7 +62,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       primary: kAccentColor,
                       onPrimary: kAccentColor,
                     ),
-                    child: const Icon(Icons.upload, color: Colors.white),
+                    child: Image.asset('assets/images/icons/share.png'),
                   )
                   // Your widgets here
                 ],
@@ -71,8 +81,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
             children: [
               Container(
                 color: kAlmostTransparent,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -87,7 +96,8 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       height: 20,
                     ),
                     Wrap(
-                      spacing: 12.0,
+                      alignment: WrapAlignment.spaceBetween,
+                      spacing: 10.0,
                       children: crowdAction.toChips(),
                     ),
                     const SizedBox(
@@ -98,9 +108,8 @@ class CrowdActionDetailsPage extends StatelessWidget {
                         context.router
                             .push(const CrowdActionParticipantsRoute());
                       },
-                      child: Container(
+                      child: SizedBox(
                         height: 40,
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           children: [
                             // TODO - Add participants to crowdaction
@@ -114,13 +123,15 @@ class CrowdActionDetailsPage extends StatelessWidget {
                               width: 20,
                             ),
                             Expanded(
-                                child: Text(
-                              "Join ${sampleParticipants.title(crowdAction.numParticipants)}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption
-                                  ?.copyWith(fontSize: 12),
-                            ))
+                              child: Text(
+                                "Join ${sampleParticipants.title(crowdAction.numParticipants)}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    ?.copyWith(
+                                        fontSize: 12, color: kPrimaryColor300),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -130,11 +141,148 @@ class CrowdActionDetailsPage extends StatelessWidget {
                     ),
                     Text(
                       crowdAction.description,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2
-                          ?.copyWith(fontSize: 17, fontWeight: FontWeight.w300),
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w300,
+                          height: 1.5),
                     )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  color: kSecondaryColor,
+                  child: Column(
+                    children: [
+                      Text(
+                        'My commitments',
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 28,
+                            ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Text(
+                          'Short description about what the commitments are and how you can select/deselect them',
+                          style: Theme.of(context).textTheme.caption!.copyWith(
+                                color: kPrimaryColor300,
+                                fontWeight: FontWeight.w400,
+                              ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2),
+                        child: CommitmentCard(
+                          selected: true,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2),
+                        child: CommitmentCard(),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2),
+                        child: CommitmentCard(),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                color: kAlmostTransparent,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 50),
+                      child: Hero(
+                        tag: _heroBadgesTag,
+                        child: Center(
+                          child: Material(
+                            color: kAlmostTransparent,
+                            borderRadius: BorderRadius.circular(20),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  HeroBadgesDialogRoute(
+                                    builder: (context) {
+                                      return _BadgesPopupCard(key: key);
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'My badge',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 28,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Image.asset(
+                                      'assets/images/icons/tip.png',
+                                      color: kAccentColor,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Short description about what the badges are and how to achieve different levels',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: kPrimaryColor300,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/gold_badge.png',
+                          height: 100,
+                        ),
+                        const SizedBox(height: 5),
+                        const Text(
+                          'Jan, 2021',
+                          style: TextStyle(
+                            color: kPrimaryColor300,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        const Text(
+                          'Title of the crowdaction',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        const Text(
+                          'Gold',
+                          style: TextStyle(
+                            color: kPrimaryColor300,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -157,27 +305,23 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       children: const [
                         CircleAvatar(
                           radius: 26,
-                          backgroundImage: NetworkImage(
-                              "https://source.unsplash.com/mEZ3PoFGs_k/500x500"),
+                          foregroundImage: AssetImage('assets/images/user.png'),
+                          // backgroundImage: ,
                         ),
                         SizedBox(
-                          width: 20,
+                          width: 16,
                         ),
                         Text(
-                          "Barbra",
+                          "Barbara",
                           style: TextStyle(
                             fontSize: 17,
                             color: kPrimaryColor400,
+                            fontWeight: FontWeight.w300,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 30),
-                    PillButton(
-                      text: "Participate",
-                      margin: EdgeInsets.zero,
-                      onTap: () => _participate(context),
-                    )
+                    const SizedBox(height: 100),
                   ],
                 ),
               )
@@ -190,70 +334,390 @@ class CrowdActionDetailsPage extends StatelessWidget {
 
   void _participate(BuildContext context) {
     showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                width: 60.0,
+                height: 3.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: kSecondaryTransparent,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Modal title",
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Text(
+                "Modal description. Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis.",
+                style: Theme.of(context).textTheme.caption?.copyWith(
+                      color: kPrimaryColor400,
+                    ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              PillButton(
+                text: "Confirm Participation",
+                onTap: () {},
+                margin: EdgeInsets.zero,
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Cancel"),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class CommitmentCard extends StatelessWidget {
+  final bool selected;
+  const CommitmentCard({Key? key, this.selected = false}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      color: selected ? kAlmostTransparent : kSecondaryColor,
+      elevation: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const CommitmentAvatar(),
+            const SizedBox(width: 10),
+            Container(
+              constraints: const BoxConstraints(
+                maxWidth: 200,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Vegan Diet',
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                        ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    'This is a description of what this commitment is about.',
+                    style: Theme.of(context).textTheme.caption!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: kPrimaryColor300,
+                        ),
+                  )
+                ],
+              ),
+            ),
+            CommitmentCheckbox(
+              selected: selected,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CommitmentCheckbox extends StatelessWidget {
+  final bool selected;
+  const CommitmentCheckbox({Key? key, this.selected = false}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+        color: selected ? kPrimaryColor400 : kSecondaryColor,
+        shape: BoxShape.circle,
+        border: Border.all(
+          width: 2,
+          color: selected ? kSecondaryColor : kPrimaryColor200,
+        ),
+      ),
+      child: IconButton(
+        onPressed: () {
+          //! TODO: Select this commitment
+        },
+        icon: Image.asset(
+          'assets/images/icons/check.png',
+          color: kSecondaryColor,
+          height: 30,
+        ),
+      ),
+    );
+  }
+}
+
+class _BadgesPopupCard extends StatelessWidget {
+  static const _heroTag = 'display-badges';
+  const _BadgesPopupCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 250, 10, 10),
+      child: Hero(
+        tag: _heroTag,
+        child: Material(
+          color: kAlmostTransparent,
+          borderRadius: BorderRadius.circular(10),
+          elevation: 4.0,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(height: 15),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Badges',
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 28,
+                                  ),
+                        ),
+                      ),
+                      Container(
+                        constraints: const BoxConstraints(
+                          maxWidth: 300,
+                        ),
+                        child: Text(
+                          'Short description about how you can earn different achievements/badges',
+                          style: Theme.of(context).textTheme.caption!.copyWith(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: kPrimaryColor300,
+                              ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/gold_badge.png',
+                                  height: 82,
+                                ),
+                                const SizedBox(height: 14),
+                                Text(
+                                  'Gold',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                        color: kPrimaryColor300,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 40),
+                            const CommitmentAvatar(elevation: 5.0),
+                            const SizedBox(width: 10),
+                            const CommitmentAvatar(elevation: 5.0),
+                          ],
+                        ),
+                      ),
+                      // Expanded(child: Divider()),
+                      const Divider(
+                        thickness: 1,
+                        indent: 25,
+                        endIndent: 25,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/silver_badge.png',
+                                  height: 82,
+                                ),
+                                const SizedBox(height: 14),
+                                Text(
+                                  'Silver',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                        color: kPrimaryColor300,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 40),
+                            const CommitmentAvatar(elevation: 5.0),
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        indent: 25,
+                        endIndent: 25,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/bronze_badge.png',
+                                  height: 82,
+                                ),
+                                const SizedBox(height: 14),
+                                Text(
+                                  'Bronze',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                        color: kPrimaryColor300,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 40),
+                            const CommitmentAvatar(elevation: 5.0),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: CircleAvatar(
+                      // color: kSecondaryColor,
+                      backgroundColor: kSecondaryColor,
+                      child: IconButton(
+                        onPressed: () => context.router.pop(),
+                        icon: Image.asset('assets/images/icons/close_icon.png'),
+                        color: Colors.pink,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
-        builder: (context) {
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  width: 60.0,
-                  height: 3.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: kSecondaryTransparent,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Modal title",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Modal description. Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis.",
-                  style: Theme.of(context).textTheme.caption?.copyWith(
-                        color: kPrimaryColor400,
-                      ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                PillButton(
-                  text: "Confirm Participation",
-                  onTap: () {},
-                  margin: EdgeInsets.zero,
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  height: 52,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Cancel"),
-                  ),
-                )
-              ],
-            ),
-          );
-        });
+      ),
+    );
   }
+}
+
+class CommitmentAvatar extends StatelessWidget {
+  final double elevation;
+  const CommitmentAvatar({Key? key, this.elevation = 0.0}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: elevation,
+      borderRadius: BorderRadius.circular(40),
+      child: CircleAvatar(
+        radius: 30,
+        backgroundColor: kSecondaryColor,
+        child: Image.asset('assets/images/diet.png'),
+      ),
+    );
+  }
+}
+
+class HeroBadgesDialogRoute<T> extends PageRoute<T> {
+  /// {@macro hero_dialog_route}
+  HeroBadgesDialogRoute({
+    required WidgetBuilder builder,
+    RouteSettings? settings,
+    bool fullscreenDialog = true,
+  })  : _builder = builder,
+        super(settings: settings, fullscreenDialog: fullscreenDialog);
+
+  final WidgetBuilder _builder;
+
+  @override
+  bool get opaque => false;
+
+  @override
+  bool get barrierDismissible => true;
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 200);
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Color get barrierColor => kPrimaryColor.withOpacity(0.25);
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return child;
+  }
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    return _builder(context);
+  }
+
+  @override
+  String get barrierLabel => 'Popup dialog open';
 }
