@@ -6,8 +6,9 @@
 // tree, read text, and verify that the values of widget properties are correct.
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
-import 'package:collaction_app/main.dart';
+import 'package:collaction_app/presentation/core/app_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 import '../test_utilities.dart';
 
@@ -17,18 +18,17 @@ void main() {
     TestUtilities.mockUser(Stream.value(User.anonymous));
   });
   testWidgets('Home Page and Transitions', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(AppWidget());
-    await tester.pumpAndSettle();
+    mockNetworkImagesFor(() async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(AppWidget());
+      await tester.pumpAndSettle();
 
-    // Verify that text widget is shown
-    expect(find.text('Upcoming crowdactions'), findsOneWidget);
+      // Verify that header widget is shown
+      expect(find.text('In the spotlight'), findsOneWidget);
 
-    // Tap the 'Browse actions' button and trigger a page transition (multiple frame).
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('View all'));
-
-    // Verify that the page has changed.
-    expect(find.text('Browse Crowdactions'), findsNothing);
+      // Verify that share widget is shown
+      expect(
+          find.text('Share CollAction with\n your friends!'), findsOneWidget);
+    });
   });
 }

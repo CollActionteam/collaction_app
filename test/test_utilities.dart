@@ -1,6 +1,6 @@
 import 'package:collaction_app/domain/contact_form/contact_form_contents.dart';
 import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
-import 'package:collaction_app/domain/i_settings_repository.dart';
+import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:get_it/get_it.dart';

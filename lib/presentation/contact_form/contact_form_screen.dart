@@ -8,8 +8,8 @@ import '../../infrastructure/core/injection.dart';
 import '../../presentation/shared_widgets/no_ripple_behavior.dart';
 import '../shared_widgets/custom_app_bars/scrollable_app_bar.dart';
 import '../shared_widgets/rectangle_button.dart';
+import '../shared_widgets/return_elevated_button.dart';
 
-// Create a Form widget.
 class ContactFormPage extends StatefulWidget {
   const ContactFormPage({Key? key}) : super(key: key);
 
@@ -19,17 +19,9 @@ class ContactFormPage extends StatefulWidget {
   }
 }
 
-// Create a corresponding State class.
-// This class holds data related to the form.
 class ContactFormPageState extends State<ContactFormPage> {
   late ScrollController _pageScrollController;
   late ContactFormBloc _contactFormBloc;
-
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   late GlobalKey<FormState> _formKey;
   late GlobalKey<FormFieldState> _emailKey;
   late ContactFormContents _formContents;
@@ -44,55 +36,8 @@ class ContactFormPageState extends State<ContactFormPage> {
     _formContents = ContactFormContents();
   }
 
-  String? _validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your email address';
-    }
-    if (!EmailValidator.validate(value)) {
-      return 'Please enter a valid email address';
-    }
-    _formContents =
-        ContactFormContents(email: value, message: _formContents.message);
-    return null;
-  }
-
-  String? _validateMessage(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your feedback';
-    }
-    _formContents =
-        ContactFormContents(email: _formContents.email, message: value);
-    return null;
-  }
-
-  void _contactFormBlocListener(BuildContext context, ContactFormState state) {
-    // Remove any old snackbar
-    ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    state.map(
-        initial: (_) {},
-        submitting: (_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Submitting form...'),
-              duration: Duration(days: 1 /* display until removed */),
-            ),
-          );
-        },
-        submissionSuccessful: (_) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Success!')))
-              .closed
-              .then((value) => Navigator.pop(context));
-        },
-        failed: (_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Error! Failed to submit form.')));
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
     return WillPopScope(
       onWillPop: () async {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -102,6 +47,7 @@ class ContactFormPageState extends State<ContactFormPage> {
         extendBodyBehindAppBar: true,
         appBar: ScrollableAppBar(
           title: 'Contact form',
+          leading: returnElevatedButton(context),
           pageScrollController: _pageScrollController,
         ),
         body: ScrollConfiguration(
@@ -181,6 +127,52 @@ class ContactFormPageState extends State<ContactFormPage> {
         ),
       ),
     );
+  }
+
+  void _contactFormBlocListener(BuildContext context, ContactFormState state) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    state.map(
+        initial: (_) {},
+        submitting: (_) {
+          /// TODO: Implement Loading Dialog
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Submitting form...'),
+              duration: Duration(days: 1),
+            ),
+          );
+        },
+        submissionSuccessful: (_) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Success!')))
+              .closed
+              .then((value) => Navigator.pop(context));
+        },
+        failed: (_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Error! Failed to submit form.')));
+        });
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email address';
+    }
+    if (!EmailValidator.validate(value)) {
+      return 'Please enter a valid email address';
+    }
+    _formContents =
+        ContactFormContents(email: value, message: _formContents.message);
+    return null;
+  }
+
+  String? _validateMessage(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your feedback';
+    }
+    _formContents =
+        ContactFormContents(email: _formContents.email, message: value);
+    return null;
   }
 
   void _submitForm() {

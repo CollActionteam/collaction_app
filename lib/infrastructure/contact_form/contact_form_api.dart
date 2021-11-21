@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:collaction_app/domain/i_settings_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../domain/contact_form/contact_form_contents.dart';
 import '../../domain/contact_form/i_contact_form_api.dart';
+import '../../domain/core/i_settings_repository.dart';
 
 @LazySingleton(as: IContactFormApi)
 class ContactFormApi extends IContactFormApi {
@@ -27,6 +27,7 @@ class ContactFormApi extends IContactFormApi {
         '"subject":"Hello CollAction!",' +
         '"message":"${contents.message?.replaceAll('"', '\\"')}",' +
         '"app_version":"${Platform.operatingSystem} ${packageInfo.version}+${packageInfo.buildNumber}"}';
+
     return client
         .post(
             Uri.parse('${await settingsRepository.baseApiEndpointUrl}/contact'),

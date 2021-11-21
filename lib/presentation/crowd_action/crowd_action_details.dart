@@ -1,10 +1,10 @@
-import 'package:collaction_app/presentation/shared_widgets/rectangle_button.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
+import '../shared_widgets/rectangle_button.dart';
+import '../themes/constants.dart';
 
 class CrowdActionDetailsPage extends StatefulWidget {
   const CrowdActionDetailsPage({Key? key}) : super(key: key);
@@ -19,6 +19,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
     // TODO: Move CrowdAction to parameter field
     final crowdAction = CrowdAction(
       name: 'Plasticdieet',
+      numParticipants: 23,
       description:
           'Een maand zonder plastic wegwerpproducten en plastic verpakkingen: het klinkt onmogelijk of onaantrekkelijk, maar het Plasticdieet bewijst het tegendeel. Want wees nou eerlijk, heb je echt dat plastic flesje water of dat plastic roerstaafje voor je koffie nodig?',
       start: DateTime.now(),

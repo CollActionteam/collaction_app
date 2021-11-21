@@ -21,7 +21,7 @@ class AccentChip extends StatelessWidget {
       shape: const StadiumBorder(side: BorderSide(color: kAccentColor)),
       label: Text(
         text,
-        style: Theme.of(context).accentTextTheme.caption,
+        style: Theme.of(context).textTheme.caption,
       ),
       deleteIcon: onDeleted != null
           ? const Icon(
