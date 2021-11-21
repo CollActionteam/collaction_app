@@ -79,8 +79,7 @@ jobs:
         flutter test -r expanded .
 
   build:
-    # TODO disabled just for testing
-    #if: ${{ github.ref == 'refs/heads/development' }}
+    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
     runs-on: macos-latest
     timeout-minutes: 20
@@ -94,7 +93,10 @@ jobs:
     - name: Cache Flutter install
       uses: actions/cache@v2
       with:
-        path: /opt/hostedtoolcache/flutter
+        # Linux:
+        # path: /opt/hostedtoolcache/flutter
+        # MacOS:
+        path: /Users/runner/hostedtoolcache/flutter
         key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
     - name: Setup the Flutter environment
       uses: subosito/flutter-action@v1
@@ -150,8 +152,6 @@ jobs:
         path: build/ios/iphoneos/app.ipa
 
   distribute:
-    # TODO enabled just for testing
-    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [build]
     runs-on: ubuntu-latest
     steps:
