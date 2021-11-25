@@ -17,13 +17,13 @@ class BottomNavbar extends StatelessWidget {
         selectedItemColor: const Color(0xFF2EB494),
         unselectedItemColor: const Color(0xFF333333),
         type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             icon: ImageIcon(AssetImage('assets/images/black_logo.png')),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_sharp),
+            icon: Image.asset('assets/images/icons/person.png'),
             label: '',
           ),
           BottomNavigationBarItem(

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/presentation/crowd_action/pages/in_spot_light.dart';
+import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -49,34 +50,31 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: SizedBox(
         height: 75,
         child: BottomNavigationBar(
-            currentIndex: index,
-            backgroundColor: Colors.white,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedItemColor: const Color(0xFF2EB494),
-            unselectedItemColor: const Color(0xFF333333),
-            type: BottomNavigationBarType.fixed,
-            onTap: (value) {
-              if (value != index) {
-                setState(() {
-                  index = value;
-                });
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/images/black_logo.png')),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_sharp),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add_sharp),
-                label: '',
-              )
-            ]),
+          currentIndex: index,
+          backgroundColor: Colors.white,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedItemColor: kEnabledButtonColor,
+          unselectedItemColor: kDisabledButtonColor,
+          type: BottomNavigationBarType.fixed,
+          onTap: (value) {
+            if (value != index) {
+              setState(() {
+                index = value;
+              });
+            }
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: ImageIcon(AssetImage('assets/images/black_logo.png')),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(AssetImage('assets/images/icons/person.png')),
+              label: '',
+            ),
+          ],
+        ),
       ),
     );
   }

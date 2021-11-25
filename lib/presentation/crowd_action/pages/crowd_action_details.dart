@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/shared_widgets/crowdaction_card.dart';
-import 'package:collaction_app/presentation/shared_widgets/custom_fab.dart';
-import 'package:collaction_app/presentation/shared_widgets/secondary_chip.dart';
+import 'package:collaction_app/presentation/crowd_action/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
@@ -14,8 +12,6 @@ import '../utils/crowd_action.ext.dart';
 
 class CrowdActionDetailsPage extends StatelessWidget {
   final CrowdAction crowdAction;
-  static const String _heroBadgesTag = 'display-badges';
-
   const CrowdActionDetailsPage({
     Key? key,
     required this.crowdAction,
@@ -24,6 +20,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavbar(),
       floatingActionButton: PillButton(
         text: "Participate",
         onTap: () => _participate(context),
@@ -87,10 +84,10 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   children: [
                     Text(
                       crowdAction.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                          ),
                     ),
                     const SizedBox(
                       height: 20,
@@ -149,182 +146,9 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  color: kSecondaryColor,
-                  child: Column(
-                    children: [
-                      Text(
-                        'My commitments',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 28,
-                            ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: Text(
-                          'Short description about what the commitments are and how you can select/deselect them',
-                          style: Theme.of(context).textTheme.caption!.copyWith(
-                                color: kPrimaryColor300,
-                                fontWeight: FontWeight.w400,
-                              ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 2),
-                        child: CommitmentCard(
-                          selected: true,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 2),
-                        child: CommitmentCard(),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 2),
-                        child: CommitmentCard(),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(20),
-                color: kAlmostTransparent,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 50),
-                      child: Hero(
-                        tag: _heroBadgesTag,
-                        child: Center(
-                          child: Material(
-                            color: kAlmostTransparent,
-                            borderRadius: BorderRadius.circular(20),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  HeroBadgesDialogRoute(
-                                    builder: (context) {
-                                      return _BadgesPopupCard(key: key);
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.all(8),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'My badge',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 28,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Image.asset(
-                                      'assets/images/icons/tip.png',
-                                      color: kAccentColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      'Short description about what the badges are and how to achieve different levels',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: kPrimaryColor300,
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    Column(
-                      children: [
-                        Image.asset(
-                          'assets/images/gold_badge.png',
-                          height: 100,
-                        ),
-                        const SizedBox(height: 5),
-                        const Text(
-                          'Jan, 2021',
-                          style: TextStyle(
-                            color: kPrimaryColor300,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        const Text(
-                          'Title of the crowdaction',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        const Text(
-                          'Gold',
-                          style: TextStyle(
-                            color: kPrimaryColor300,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "This CrowdAction was created by",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: const [
-                        CircleAvatar(
-                          radius: 26,
-                          foregroundImage: AssetImage('assets/images/user.png'),
-                          // backgroundImage: ,
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Text(
-                          "Barbara",
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: kPrimaryColor400,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 100),
-                  ],
-                ),
-              )
+              const CommitmentsWidget(),
+              const BadgesWidget(),
+              const CrowdActionCreatedByWidget(),
             ],
           ),
         ),
@@ -399,6 +223,215 @@ class CrowdActionDetailsPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class CommitmentsWidget extends StatelessWidget {
+  const CommitmentsWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        color: kSecondaryColor,
+        child: Column(
+          children: [
+            Text(
+              'My commitments',
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 28,
+                  ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Text(
+                'Short description about what the commitments are and how you can select/deselect them',
+                style: Theme.of(context).textTheme.caption!.copyWith(
+                      color: kPrimaryColor300,
+                      fontWeight: FontWeight.w400,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 2),
+              child: CommitmentCard(
+                selected: true,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 2),
+              child: CommitmentCard(),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 2),
+              child: CommitmentCard(),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BadgesWidget extends StatelessWidget {
+  static const String _heroBadgesTag = 'display-badges';
+
+  const BadgesWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      color: kAlmostTransparent,
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 50),
+            child: Hero(
+              tag: _heroBadgesTag,
+              child: Center(
+                child: Material(
+                  color: kAlmostTransparent,
+                  borderRadius: BorderRadius.circular(20),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        HeroBadgesDialogRoute(
+                          builder: (context) {
+                            return _BadgesPopupCard(key: key);
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'My badge',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 28,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Image.asset(
+                            'assets/images/icons/tip.png',
+                            color: kAccentColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            'Short description about what the badges are and how to achieve different levels',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: kPrimaryColor300,
+            ),
+          ),
+          const SizedBox(height: 30),
+          Column(
+            children: [
+              Image.asset(
+                'assets/images/gold_badge.png',
+                height: 100,
+              ),
+              const SizedBox(height: 5),
+              const Text(
+                'Jan, 2021',
+                style: TextStyle(
+                  color: kPrimaryColor300,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 5),
+              const Text(
+                'Title of the crowdaction',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 5),
+              const Text(
+                'Gold',
+                style: TextStyle(
+                  color: kPrimaryColor300,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CrowdActionCreatedByWidget extends StatelessWidget {
+  const CrowdActionCreatedByWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "This CrowdAction was created by",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          GestureDetector(
+            onTap: () {
+              //! TODO: Redirect to creator's profile
+            },
+            child: Row(
+              children: const [
+                CircleAvatar(
+                  radius: 26,
+                  foregroundImage: AssetImage('assets/images/user.png'),
+                ),
+                SizedBox(
+                  width: 16,
+                ),
+                Text(
+                  "Barbara",
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: kPrimaryColor400,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 70),
+        ],
+      ),
     );
   }
 }
@@ -681,7 +714,6 @@ class CommitmentAvatar extends StatelessWidget {
 }
 
 class HeroBadgesDialogRoute<T> extends PageRoute<T> {
-  /// {@macro hero_dialog_route}
   HeroBadgesDialogRoute({
     required WidgetBuilder builder,
     RouteSettings? settings,
