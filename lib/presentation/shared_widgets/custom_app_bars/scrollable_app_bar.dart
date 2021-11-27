@@ -13,6 +13,7 @@ class ScrollableAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double? elevation;
   final double minElevation;
   final double maxElevation;
+
   const ScrollableAppBar(
       {Key? key,
       this.title = '',
@@ -101,7 +102,6 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
             ),
           ),
         ),
-        backwardsCompatibility: false,
         titleTextStyle: widget.titleTextStyle ??
             Theme.of(context)
                 .textTheme

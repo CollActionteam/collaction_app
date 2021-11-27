@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'crowdaction.freezed.dart';
 
 @freezed
-abstract class CrowdAction implements _$CrowdAction {
+class CrowdAction with _$CrowdAction {
   const factory CrowdAction({
     required String name,
     required String description,
@@ -13,10 +13,12 @@ abstract class CrowdAction implements _$CrowdAction {
     // required String title,
     // required String subtitle,
     // required String description,
-    // required int numParticipants,
+    String? image, // TODO - Request backend to add this
+    required int numParticipants,
     // required int participantsGoal,
     // DateTime? startDate,
     // DateTime? endDate,
-    // List<String>? tags,
+    String? category,
+    String? subCategory,
   }) = _CrowdAction;
 }

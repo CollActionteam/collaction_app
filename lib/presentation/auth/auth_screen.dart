@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
+import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/crowd_action/pages/in_spot_light.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,6 @@ import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import 'demo_tab_page.dart';
-import 'home_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,10 +24,11 @@ class _HomePageState extends State<HomePage> {
 
   int index = 0;
   Widget? pageToShow;
+
   @override
   Widget build(BuildContext context) {
     if (index == 0) {
-      pageToShow = const HomePageScreen();
+      pageToShow = const InSpotLightPage();
     } else if (index == 1) {
       pageToShow = const DemoTabPage();
     } else if (index == 2) {
@@ -43,10 +44,7 @@ class _HomePageState extends State<HomePage> {
             )
           : null,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 23.0),
-          child: pageToShow,
-        ),
+        child: pageToShow ?? Container(),
       ),
       bottomNavigationBar: SizedBox(
         height: 75,
