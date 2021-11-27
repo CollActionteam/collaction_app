@@ -1,4 +1,5 @@
 import 'package:collaction_app/presentation/crowd_action/pages/widgets/share_collaction_card.dart';
+import 'package:collaction_app/presentation/home/widgets/current_upcoming_ca_layout.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/in_spotlight_header.dart';
@@ -15,7 +16,9 @@ class InSpotLightPage extends StatelessWidget {
           child: Column(
             children: const [
               InSpotLightHeader(),
+              CurrentAndUpcomingLayout(),
               ShareCollActionCard(),
+              CurrentAndUpcomingLayout(isCurrent: false)
             ],
           ),
         ),

@@ -38,117 +38,148 @@ class CurrentAndUpcomingLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Container(
-          margin: const EdgeInsets.only(left: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                isCurrent ? 'Currently running' : 'Upcoming',
-                style: const TextStyle(
-                    fontWeight: FontWeight.w700, fontSize: 28.0),
-              ),
-              TextButton(
-                onPressed: () => context.router.push(isCurrent
-                    ? const CrowdActionBrowseRoute()
-                    : const CrowdActionBrowseRoute()),
-                child: const Text(
-                  'View all',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15.0,
-                      color: kAccentColor),
-                ),
-              ),
-              const SizedBox(height: 3),
-            ],
-          ),
-        ),
-        ...crowdActionsList.map(
-          (e) => Container(
-            height: 148,
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.symmetric(vertical: 20),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              elevation: 4,
+      child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 10),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                            image: AssetImage(e['crowdaction_img'].toString()),
-                            fit: BoxFit.cover)),
-                    margin: const EdgeInsets.only(left: 10),
-                    height: 128,
-                    width: 100,
+                  Text(
+                    isCurrent ? 'Currently running' : 'Upcoming',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 28.0),
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 10, right: 10),
-                          child: TextButton.icon(
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20))),
-                                backgroundColor:
-                                    MaterialStateProperty.all(kAccentColor)),
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                            ),
-                            label: const Text(
-                              'Sign up now',
-                              style: TextStyle(color: kSecondaryColor),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, top: 10),
-                          child: Text(
-                            e['headline'].toString(),
-                            softWrap: false,
-                            maxLines: 2,
-                            style: const TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.w700),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              left: 10, right: 10, top: 6),
-                          child: Text(
-                            e['description'].toString(),
-                            softWrap: false,
-                            maxLines: 1,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: kInactiveColor),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
+                  TextButton(
+                    onPressed: () => context.router.push(isCurrent
+                        ? const CrowdActionBrowseRoute()
+                        : const CrowdActionBrowseRoute()),
+                    child: const Text(
+                      'View all',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15.0,
+                          color: kAccentColor),
                     ),
                   ),
+                  // const SizedBox(height: 3),
                 ],
               ),
             ),
-          ),
-        ),
-        const SizedBox(height: 40)
-      ]),
+            ...crowdActionsList.map(
+              (e) => Container(
+                height: 148,
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 4,
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                                image:
+                                    AssetImage(e['crowdaction_img'].toString()),
+                                fit: BoxFit.cover)),
+                        margin: const EdgeInsets.only(left: 10),
+                        height: 128,
+                        width: 100,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomLabelForCrowdAction().customLabelBox(
+                                const Icon(
+                                  Icons.check,
+                                  size: 20,
+                                  color: kSecondaryColor,
+                                ),
+                                const Text(
+                                  'Sign up now',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: kSecondaryColor,
+                                  ),
+                                ),
+                                kAccentColor)!,
+                            // Container(
+                            //     padding: const EdgeInsets.only(
+                            //         top: 10, left: 10, right: 10),
+                            //     decoration: BoxDecoration(
+                            //         borderRadius: BorderRadius.circular(16)),
+                            //     child: const Text('Sign up now')),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 10, right: 10),
+                              child: Text(
+                                e['headline'].toString(),
+                                softWrap: false,
+                                maxLines: 2,
+                                style: const TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 10, right: 10, top: 6, bottom: 10),
+                              child: Text(
+                                e['description'].toString(),
+                                softWrap: false,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: kInactiveColor),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20)
+          ]),
+    );
+  }
+}
+
+class CustomLabelForCrowdAction {
+  Widget? customLabelBox(Icon icon, Text txt, Color bg) {
+    return Container(
+      decoration:
+          BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16)),
+      height: 35,
+      width: 120,
+      margin: const EdgeInsets.only(top: 10, left: 10, bottom: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              margin:
+                  const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 2),
+              child: icon),
+          Container(
+              margin: const EdgeInsets.only(top: 4, right: 4, bottom: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5.5),
+              child: txt),
+        ],
+      ),
     );
   }
 }
