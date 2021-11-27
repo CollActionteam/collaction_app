@@ -21,8 +21,14 @@ class SubscribeBloc extends Bloc<SubscribeEvent, SubscribeState> {
 
   @override
   Stream<SubscribeState> mapEventToState(SubscribeEvent event) async* {
-    yield* event.map(participate: _mapParticipateToState);
+    yield* event.map(
+      participate: _mapParticipateToState,
+      withDrawParticipation: _mapWithDrawParticipationToState,
+    );
   }
+
+  Stream<SubscribeState> _mapWithDrawParticipationToState(
+      _WithDrawParticipation value) async* {}
 
   Stream<SubscribeState> _mapParticipateToState(_Participate value) async* {
     yield const SubscribeState.subscribingToCrowdAction();
