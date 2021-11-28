@@ -25,11 +25,12 @@ The following repository secrets are used by GitHub workflows:
 ### iOS
 | Secret | Explanation
 |---|---|
+|`IOS_GOOGLE_SERVICES_INFO_PLIST`| _GoogleService-Info.plist_ downloaded from Firebase console as a base64 string|
 |`IOS_APPSTORE_ISSUER_ID`|Issuer ID of the key in AppStore Connect|
 |`IOS_APPSTORE_API_KEY_ID`|Key ID of the key in AppStore Connect|
 |`IOS_APPSTORE_API_PRIVATE_KEY`|The PKCS8 format Private Key for AppStore Connect API|
-|`IOS_MOBILEPROVISION`|Base64 representation of mobile provisioning file|
-|`IOS_CERT_P12`|Base64 representation p12 distribution cert|
+|`IOS_MOBILEPROVISION`|Mobile provisioning file as a base64 string|
+|`IOS_CERT_P12`|P12 distribution cert as a base64 string|
 |`IOS_P12_PASS`|Password used when exporting p12 distribution cert from keychain|
 |`IOS_SIGNING_IDENTITY`|Code signing identity to use. (see "Issued to" in certificate)`|
 
