@@ -135,10 +135,10 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: android-release
-        path: 
-         - ${{steps.sign_apk.outputs.signedReleaseFile}}
-         - ${{steps.sign_appbundle.outputs.signedReleaseFile}}
-         - build/app/outputs/logs
+        path: |
+          ${{steps.sign_apk.outputs.signedReleaseFile}}
+          ${{steps.sign_appbundle.outputs.signedReleaseFile}}
+          build/app/outputs/logs
 
   # TODO Update to distribute appbundle once released
   distribute:
