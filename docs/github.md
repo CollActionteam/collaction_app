@@ -22,6 +22,17 @@ The following repository secrets are used by GitHub workflows:
 |`ANDROID_KEY_STORE_PASSWORD`|Password of the Android singing key keystore|
 |`ANDROID_SIGNING_KEY`| Android keystore (_.jks_) file as base64 string|
 
+### iOS
+| Secret | Explanation
+|---|---|
+|`IOS_APPSTORE_ISSUER_ID`|Issuer ID of the key in AppStore Connect|
+|`IOS_APPSTORE_API_KEY_ID`|Key ID of the key in AppStore Connect|
+|`IOS_APPSTORE_API_PRIVATE_KEY`|The PKCS8 format Private Key for AppStore Connect API|
+|`IOS_MOBILEPROVISION`|Base64 representation of mobile provisioning file|
+|`IOS_CERT_P12`|Base64 representation p12 distribution cert|
+|`IOS_P12_PASS`|Password used when exporting p12 distribution cert from keychain|
+|`IOS_SIGNING_IDENTITY`|Code signing identity to use. (see "Issued to" in certificate)`|
+
 ### Firebase
 | Secret | Explanation
 |---|---|

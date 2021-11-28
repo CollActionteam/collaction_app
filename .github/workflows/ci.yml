@@ -79,7 +79,7 @@ jobs:
         flutter test -r expanded .
 
   build:
-    if: ${{ github.ref == 'refs/heads/development' }}
+    #TODO testing only if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
     runs-on: macos-latest
     timeout-minutes: 20
@@ -137,21 +137,23 @@ jobs:
         ln -s ../Runner.app
         cd ..
         zip -r app.ipa Payload
-    #- name: Resign ipa
-    #  uses: bradyjoslin/ios-resign-action@v1
-    #  with:
-    #    ipa_path: build/ios/iphoneos/app.ipa
-    #    mobileprovision: ${{ secrets.IOS_MOBILEPROVISION }}
-    #    cert_p12: ${{ secrets.IOS_CERT_P12 }}
-    #    p12_pass: ${{ secrets.IOS_P12_PASS }}
-    #    signing_identity: ${{ secrets.IOS_SIGNING_IDENTITY }}
+    - name: Resign ipa
+      uses: bradyjoslin/ios-resign-action@v1
+      with:
+        ipa_path: build/ios/iphoneos/app.ipa
+        mobileprovision: ${{ secrets.IOS_MOBILEPROVISION }}
+        cert_p12: ${{ secrets.IOS_CERT_P12 }}
+        p12_pass: ${{ secrets.IOS_P12_PASS }}
+        signing_identity: ${{ secrets.IOS_SIGNING_IDENTITY }}
     - name: Upload generated ipa to the artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: app-debug
+        name: ios-release
         path: build/ios/iphoneos/app.ipa
 
   distribute:
+     #TODO testing only
+    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -166,3 +168,14 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
           file: app-signed.apk
+      - name: Download generated ipa from the artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ios-release
+      - name: 'Upload app to TestFlight'
+        uses: apple-actions/upload-testflight-build@v1
+        with: 
+          app-path: 'path/to/application.ipa' #TODO update!
+          issuer-id: ${{ secrets.IOS_APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.IOS_APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.IOS_APPSTORE_API_PRIVATE_KEY }}
