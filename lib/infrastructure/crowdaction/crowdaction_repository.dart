@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
+import 'package:collaction_app/presentation/crowd_action/utils/dummies.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
@@ -45,6 +46,17 @@ class CrowdActionRepository implements ICrowdActionRepository {
       // TODO - Subscribe to crowd action
       await Future.delayed(const Duration(seconds: 3));
       return right(unit);
+    } catch (e) {
+      return left(const CrowdActionFailure.networkRequestFailed());
+    }
+  }
+
+  @override
+  Future<Either<CrowdActionFailure,List<CrowdAction>>> getSpotLightCrowdActions() async{
+    try {
+      // TODO - pick spotlight crowd actions from API
+      await Future.delayed(const Duration(seconds: 3));
+      return right(crowdActionSpotlightDummies);
     } catch (e) {
       return left(const CrowdActionFailure.networkRequestFailed());
     }

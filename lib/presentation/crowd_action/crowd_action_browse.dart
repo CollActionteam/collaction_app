@@ -28,10 +28,10 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
           leading: returnElevatedButton(context),
         ),
         body: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
-          builder: (context, state) => state.when(
-            initial: () => const CenteredLoadingIndicator(),
-            fetchingCrowdActions: () => const CenteredLoadingIndicator(),
-            noCrowdActions: () => Column(
+          builder: (context, state) => state.maybeMap(
+            initial: (_) => const CenteredLoadingIndicator(),
+            fetchingCrowdActions: (_) => const CenteredLoadingIndicator(),
+            noCrowdActions: (_) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Center(
@@ -44,11 +44,12 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
             ),
             fetched: (crowdActions) {
               return ListView.builder(
-                itemCount: crowdActions.length,
+                itemCount: crowdActions.crowdActions.length,
                 itemBuilder: (context, index) =>
-                    MicroCrowdActionCard(crowdActions[index]),
+                    MicroCrowdActionCard(crowdActions.crowdActions[index]),
               );
             },
+            orElse: () => Container()
           ),
         ),
       ),
