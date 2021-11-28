@@ -155,4 +155,4 @@ jobs:
           appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
-          file: app-signed.apk
+          file: flutter-apk/app-signed.apk
