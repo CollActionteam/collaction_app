@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/shared_widgets/accent_chip.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,21 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
               return CrowdActionCard(
                 title: crowdAction.name,
                 imagePath: crowdAction.image ?? "",
-                chips: crowdAction.toChips(),
+                chips: [
+                  GestureDetector(
+                    onTap: () {
+                      // TODO - Sign up, to crowd action
+                    },
+                    child: const AccentChip(
+                      text: "Sign up now",
+                      leading: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  ...crowdAction.toChips()
+                ],
                 participants: sampleParticipants,
                 totalParticipants: crowdAction.numParticipants,
                 onTap: () => context.router.push(
