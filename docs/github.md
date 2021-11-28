@@ -20,7 +20,7 @@ The following repository secrets are used by GitHub workflows:
 |`ANDROID_GOOGLE_SERVICES_JSON`| _google-services.json_ downloaded from Firebase console as a base64 string|
 |`ANDROID_KEY_PASSWORD`|Password of the Android signing key|
 |`ANDROID_KEY_STORE_PASSWORD`|Password of the Android singing key keystore|
-|`ANDROID_SIGNING_KEY`| Android keystore (_.jks_) file as base64 string|
+|`ANDROID_SIGNING_KEY`| Android keystore (_.jks_) file as base64 string (can be obtained using `openssl base64 < myKey.jks | tr -d '\n' | tee myKey.jks.base64.txt`) |
 
 ### Firebase
 | Secret | Explanation
