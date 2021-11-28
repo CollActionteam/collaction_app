@@ -1,3 +1,4 @@
+import 'package:collaction_app/presentation/crowd_action/pages/widgets/bottom_navbar.dart';
 import 'package:collaction_app/presentation/crowd_action/pages/widgets/share_collaction_card.dart';
 import 'package:flutter/material.dart';
 
@@ -8,16 +9,14 @@ class InSpotLightPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: const [
-              InSpotLightHeader(),
-              ShareCollActionCard(),
-            ],
-          ),
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          children: const [
+            InSpotLightHeader(),
+            ShareCollActionCard(),
+          ],
         ),
       ),
     );

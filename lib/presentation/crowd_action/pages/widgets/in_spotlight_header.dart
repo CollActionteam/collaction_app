@@ -82,7 +82,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
             height: 35,
           ),
           Container(
-            padding: const EdgeInsets.only(left: 12),
+            padding: const EdgeInsets.only(left: 12, right: 12, top: 50, bottom: 20),
             child: Text(
               "In the spotlight",
               style: Theme.of(context)

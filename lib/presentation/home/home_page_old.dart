@@ -25,8 +25,8 @@ class HomePageScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500, fontSize: 18.0),
                     ),
                     TextButton(
-                      onPressed: () =>
-                          context.router.push(const CrowdActionBrowseRoute()),
+                      onPressed: () {},
+                      // context.router.push(const CrowdActionBrowseRoute()),
                       child: const Text(
                         'View all',
                         style: TextStyle(

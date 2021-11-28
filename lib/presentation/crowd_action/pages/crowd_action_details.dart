@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/crowd_action/pages/widgets/bottom_navbar.dart';
 import 'package:collaction_app/presentation/crowd_action/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,6 @@ class CrowdActionDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavbar(),
       floatingActionButton: PillButton(
         text: "Participate",
         onTap: () => _participate(context),
@@ -227,10 +227,32 @@ class CrowdActionDetailsPage extends StatelessWidget {
   }
 }
 
-class CommitmentsWidget extends StatelessWidget {
+class CommitmentsWidget extends StatefulWidget {
   const CommitmentsWidget({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<CommitmentsWidget> createState() => _CommitmentsWidgetState();
+}
+
+class _CommitmentsWidgetState extends State<CommitmentsWidget> {
+  late int _selectedCommitment;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _selectedCommitment = 0;
+  }
+
+  void handleClick(int inputCommitmentNumber) {
+    setState(() {
+      _selectedCommitment = _selectedCommitment == inputCommitmentNumber
+          ? 0
+          : inputCommitmentNumber;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -258,19 +280,29 @@ class CommitmentsWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
               child: CommitmentCard(
-                selected: true,
+                onClickHandler: handleClick,
+                selected: _selectedCommitment == 1,
+                order: 1,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: CommitmentCard(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: CommitmentCard(
+                onClickHandler: handleClick,
+                selected: _selectedCommitment == 2,
+                order: 2,
+              ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: CommitmentCard(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: CommitmentCard(
+                onClickHandler: handleClick,
+                selected: _selectedCommitment == 3,
+                order: 3,
+              ),
             )
           ],
         ),
@@ -438,7 +470,11 @@ class CrowdActionCreatedByWidget extends StatelessWidget {
 
 class CommitmentCard extends StatelessWidget {
   final bool selected;
-  const CommitmentCard({Key? key, this.selected = false}) : super(key: key);
+  final Function? onClickHandler;
+  final int order;
+  const CommitmentCard(
+      {Key? key, this.selected = false, this.onClickHandler, this.order = 0})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -483,6 +519,8 @@ class CommitmentCard extends StatelessWidget {
             ),
             CommitmentCheckbox(
               selected: selected,
+              onClickHandler: onClickHandler,
+              order: order,
             ),
           ],
         ),
@@ -493,7 +531,11 @@ class CommitmentCard extends StatelessWidget {
 
 class CommitmentCheckbox extends StatelessWidget {
   final bool selected;
-  const CommitmentCheckbox({Key? key, this.selected = false}) : super(key: key);
+  final Function? onClickHandler;
+  final int order;
+  const CommitmentCheckbox(
+      {Key? key, this.selected = false, this.onClickHandler, this.order = 0})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -510,6 +552,7 @@ class CommitmentCheckbox extends StatelessWidget {
       child: IconButton(
         onPressed: () {
           //! TODO: Select this commitment
+          onClickHandler!(order);
         },
         icon: Image.asset(
           'assets/images/icons/check.png',
