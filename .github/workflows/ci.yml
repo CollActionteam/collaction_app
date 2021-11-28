@@ -112,7 +112,7 @@ jobs:
         echo ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON }} | base64 -d > android/app/google-services.json
         flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER 
     - name: Build apk (deprecate)
-        flutter build apk --release --build-number $GITHUB_RUN_NUMBER 
+      run: flutter build apk --release --build-number $GITHUB_RUN_NUMBER 
     - name: Sign appbundle
       uses: r0adkll/sign-android-release@v1
       id: sign_appbundle
