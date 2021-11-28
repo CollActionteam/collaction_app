@@ -79,7 +79,7 @@ jobs:
         flutter test -r expanded .
 
   build:
-    #TODO test only if: ${{ github.ref == 'refs/heads/development' }}
+    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -142,7 +142,6 @@ jobs:
 
   # TODO Update to distribute appbundle once released
   distribute:
-    if: ${{ github.ref == 'refs/heads/development' }} #TODO test only
     needs: [build]
     runs-on: ubuntu-latest
     steps:
