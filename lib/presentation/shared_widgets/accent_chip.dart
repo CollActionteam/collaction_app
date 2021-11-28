@@ -6,6 +6,7 @@ class AccentChip extends StatelessWidget {
   final String text;
   final Widget? leading;
   final VoidCallback? onDeleted;
+
   const AccentChip({
     Key? key,
     required this.text,
@@ -21,7 +22,9 @@ class AccentChip extends StatelessWidget {
       shape: const StadiumBorder(side: BorderSide(color: kAccentColor)),
       label: Text(
         text,
-        style: Theme.of(context).textTheme.caption,
+        style: Theme.of(context).textTheme.caption?.copyWith(
+              color: Colors.white,
+            ),
       ),
       deleteIcon: onDeleted != null
           ? const Icon(
