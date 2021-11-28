@@ -25,7 +25,7 @@ The following repository secrets are used by GitHub workflows:
 ### iOS
 | Secret | Explanation
 |---|---|
-|`IOS_GOOGLE_SERVICES_INFO_PLIST`| _GoogleService-Info.plist_ downloaded from Firebase console as a base64 string|
+|`IOS_GOOGLESERVICE_INFO_PLIST`| _GoogleService-Info.plist_ downloaded from Firebase console as a base64 string|
 |`IOS_APPSTORE_ISSUER_ID`|Issuer ID of the key in AppStore Connect|
 |`IOS_APPSTORE_API_KEY_ID`|Key ID of the key in AppStore Connect|
 |`IOS_APPSTORE_API_PRIVATE_KEY`|The PKCS8 format Private Key for AppStore Connect API|

@@ -130,7 +130,7 @@ jobs:
         path: ${{steps.sign_debug_apk.outputs.signedReleaseFile}}
     - name: Build iOS app
       run: |
-        echo ${{ secrets.IOS_GOOGLE_SERVICES_INFO_PLIST }} | base64 -d > ios/Runner/GoogleService-Info.plist
+        echo ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }} | base64 -d > ios/Runner/GoogleService-Info.plist
         flutter build ios --release --no-codesign --build-number $GITHUB_RUN_NUMBER
         cd build/ios/iphoneos
         mkdir Payload
