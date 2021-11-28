@@ -17,8 +17,6 @@ Future<void> main() async {
       configureInjection();
       getIt<ISettingsRepository>();
 
-      FirebaseCrashlytics.instance.crash();
-
       runApp(AppWidget());
     },
     (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack),
