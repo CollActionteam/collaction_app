@@ -2,7 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/crowdaction_getter/crowdaction_getter_bloc.dart';
+import '../../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/accent_action_chip.dart';
 import '../../shared_widgets/crowdaction_card.dart';

@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/crowdaction/crowdaction.dart';
-import '../../domain/crowdaction/i_crowdaction_repository.dart';
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../../domain/crowdaction/i_crowdaction_repository.dart';
 
 part 'crowdaction_getter_bloc.freezed.dart';
 part 'crowdaction_getter_event.dart';
