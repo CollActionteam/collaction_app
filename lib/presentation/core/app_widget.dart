@@ -1,3 +1,4 @@
+import 'package:collaction_app/application/crowdaction/subscribe/subscribe_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +15,7 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => getIt<AuthBloc>()),
+        BlocProvider(create: (_) => getIt<SubscribeBloc>()),
       ],
       child: MaterialApp.router(
         color: Colors.white,

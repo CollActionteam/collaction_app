@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../application/crowdaction_getter/crowdaction_getter_bloc.dart';
+import '../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../shared_widgets/centered_loading_indicator.dart';
 import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
@@ -28,10 +28,10 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
           leading: returnElevatedButton(context),
         ),
         body: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
-          builder: (context, state) => state.when(
-            initial: () => const CenteredLoadingIndicator(),
-            fetchingCrowdActions: () => const CenteredLoadingIndicator(),
-            noCrowdActions: () => Column(
+          builder: (context, state) => state.maybeMap(
+            initial: (_) => const CenteredLoadingIndicator(),
+            fetchingCrowdActions: (_) => const CenteredLoadingIndicator(),
+            noCrowdActions: (_) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Center(
@@ -44,11 +44,12 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
             ),
             fetched: (crowdActions) {
               return ListView.builder(
-                itemCount: crowdActions.length,
+                itemCount: crowdActions.crowdActions.length,
                 itemBuilder: (context, index) =>
-                    MicroCrowdActionCard(crowdActions[index]),
+                    MicroCrowdActionCard(crowdActions.crowdActions[index]),
               );
             },
+            orElse: () => Container()
           ),
         ),
       ),

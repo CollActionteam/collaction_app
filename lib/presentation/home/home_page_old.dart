@@ -1,48 +1,53 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 
+import './widgets/current_upcoming_ca_layout.dart';
 import '../home/widgets/crowdaction_carousel.dart';
-import '../routes/app_routes.gr.dart';
-import '../themes/constants.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Upcoming crowdactions',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, fontSize: 18.0),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      // context.router.push(const CrowdActionBrowseRoute()),
-                      child: const Text(
-                        'View all',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14.0,
-                            color: kIrisColor),
-                      ),
-                    ),
-                  ],
-                ),
-                const CrowdActionCarousel(),
-              ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 'IN THE SPOTLIGHT carousel code BEGINS'
+          Container(
+            margin: const EdgeInsets.only(top: 5, bottom: 3),
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: kPrimaryColor, borderRadius: BorderRadius.circular(20)),
+            child: const Text(
+              'In the Spotlight',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: kSecondaryColor, fontSize: 20),
             ),
           ),
-        ),
-      ],
+          const CrowdActionCarousel(),
+          // 'SHARE COLLACTION WITH YOUR FRIENDS carousel code ENDS'
+
+          const CurrentAndUpcomingLayout(),
+
+          // 'SHARE COLLACTION WITH YOUR FRIENDS carousel code BEGINS'
+          Container(
+            margin: const EdgeInsets.only(top: 5, bottom: 10),
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: kPrimaryColor, borderRadius: BorderRadius.circular(20)),
+            child: const Text(
+              'Share CollAction with your friends carousel',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: kSecondaryColor, fontSize: 20),
+            ),
+          ),
+          // 'IN THE SPOTLIGHT code ENDS'
+          const CurrentAndUpcomingLayout(isCurrent: false),
+        ],
+      ),
     );
   }
 }

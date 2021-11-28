@@ -29,6 +29,7 @@ import '../onboarding/onboarding.dart';
             AutoRoute(path: '', page: InSpotLightPage),
             AutoRoute(path: 'details', page: CrowdActionDetailsPage),
             AutoRoute(path: 'participants', page: CrowdActionParticipantsPage),
+            AutoRoute(path: 'view-all',page: CrowdActionBrowsePage),
           ],
         ),
         AutoRoute(
@@ -53,7 +54,6 @@ import '../onboarding/onboarding.dart';
     ),
     AutoRoute(path: 'auth', page: AuthPage),
     AutoRoute(path: 'verified', page: VerifiedPage),
-    // AutoRoute(page: CrowdActionBrowsePage), //? HomePage does the same
   ],
 )
 class $AppRouter {}
