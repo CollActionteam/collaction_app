@@ -60,6 +60,3 @@ app.*.map.json
 
 # Secret config files
 **/*.env
-
-# Example config file
-.env.example
