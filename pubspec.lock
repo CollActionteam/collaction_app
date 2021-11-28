@@ -14,7 +14,7 @@ packages:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.1"
+    version: "1.7.2"
   archive:
     dependency: transitive
     description:
@@ -35,7 +35,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.6.1"
+    version: "2.8.1"
   auto_route:
     dependency: "direct main"
     description:
@@ -140,7 +140,7 @@ packages:
       name: charcode
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.3.1"
   checked_yaml:
     dependency: transitive
     description:
@@ -183,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  country_codes:
+    dependency: "direct main"
+    description:
+      name: country_codes
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
   country_icons:
     dependency: "direct main"
     description:
@@ -253,6 +260,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
+  expandable_page_view:
+    dependency: "direct main"
+    description:
+      name: expandable_page_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.9"
   fake_async:
     dependency: transitive
     description:
@@ -336,21 +350,35 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.10.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.1.0"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
+  firebase_crashlytics:
+    dependency: "direct main"
+    description:
+      name: firebase_crashlytics
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
+  firebase_crashlytics_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_crashlytics_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.6"
   firebase_remote_config:
     dependency: "direct main"
     description:
@@ -589,7 +617,7 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.0"
+    version: "1.7.0"
   mime:
     dependency: transitive
     description:
@@ -597,6 +625,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  mockito:
+    dependency: transitive
+    description:
+      name: mockito
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.15"
   mocktail:
     dependency: transitive
     description:
@@ -611,6 +646,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  network_image_mock:
+    dependency: "direct dev"
+    description:
+      name: network_image_mock
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   node_preamble:
     dependency: transitive
     description:
@@ -965,21 +1007,21 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.16.8"
+    version: "1.17.10"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.2"
   test_core:
     dependency: transitive
     description:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.19"
+    version: "0.4.0"
   timing:
     dependency: transitive
     description:
