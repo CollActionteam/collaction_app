@@ -153,7 +153,7 @@ jobs:
         path: build/ios/iphoneos/app.ipa
 
   distribute:
-     #TODO testing only
+    #TODO testing only
     if: ${{ github.ref == 'refs/heads/development' }}
     needs: [build]
     runs-on: ubuntu-latest
