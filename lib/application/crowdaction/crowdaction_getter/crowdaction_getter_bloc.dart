@@ -23,24 +23,25 @@ class CrowdActionGetterBloc
   Stream<CrowdActionGetterState> mapEventToState(
     CrowdActionGetterEvent event,
   ) async* {
-    yield* event.map(getMore: (event) async* {
-      try {
-        List<CrowdAction> response;
-        if (event.amount != null && event.amount! > 0) {
-          response = await _crowdActionRepository.getCrowdActions(
-              amount: event.amount!);
-        } else {
-          response = await _crowdActionRepository.getCrowdActions();
-        }
-        if (response.isNotEmpty) {
-          yield CrowdActionGetterState.fetched(response);
-        } else {
-          yield const CrowdActionGetterState.noCrowdActions();
-        }
-      } catch (e) {
-        yield const CrowdActionGetterState
-            .noCrowdActions(); // TODO: Consider implementing error state
-      }
-    });
+    yield* event.map(
+        getMore: (event) async* {
+          try {
+            List<CrowdAction> response;
+            if (event.amount != null && event.amount! > 0) {
+              response = await _crowdActionRepository.getCrowdActions(
+                  amount: event.amount!);
+            } else {
+              response = await _crowdActionRepository.getCrowdActions();
+            }
+            if (response.isNotEmpty) {
+              yield CrowdActionGetterState.fetched(response);
+            } else {
+              yield const CrowdActionGetterState.noCrowdActions();
+            }
+          } catch (e) {
+            yield const CrowdActionGetterState
+                .noCrowdActions(); // TODO: Consider implementing error state
+          }
+        },);
   }
 }
