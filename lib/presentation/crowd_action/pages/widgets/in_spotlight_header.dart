@@ -74,6 +74,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
   Widget build(BuildContext context) {
     return Container(
       color: kPrimaryColor400,
+      margin: const EdgeInsets.only(bottom: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
