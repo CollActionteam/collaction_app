@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
@@ -11,6 +13,7 @@ import 'crowdaction_dto.dart';
 @LazySingleton(as: ICrowdActionRepository)
 class CrowdActionRepository implements ICrowdActionRepository {
   final http.Client _client;
+
   CrowdActionRepository(this._client);
 
   @override
@@ -32,6 +35,18 @@ class CrowdActionRepository implements ICrowdActionRepository {
           .toList();
     } catch (error) {
       return <CrowdAction>[];
+    }
+  }
+
+  @override
+  Future<Either<CrowdActionFailure, Unit>> subscribeToCrowdAction(
+      CrowdAction crowdAction) async {
+    try {
+      // TODO - Subscribe to crowd action
+      await Future.delayed(const Duration(seconds: 3));
+      return right(unit);
+    } catch (e) {
+      return left(const CrowdActionFailure.networkRequestFailed());
     }
   }
 }
