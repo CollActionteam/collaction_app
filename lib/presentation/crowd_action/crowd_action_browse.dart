@@ -29,28 +29,27 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
         ),
         body: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
           builder: (context, state) => state.maybeMap(
-            initial: (_) => const CenteredLoadingIndicator(),
-            fetchingCrowdActions: (_) => const CenteredLoadingIndicator(),
-            noCrowdActions: (_) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Center(
-                  child: Text(
-                    'No CrowdActions at the moment...',
-                    style: TextStyle(fontSize: 16.0),
+              initial: (_) => const CenteredLoadingIndicator(),
+              fetchingCrowdActions: (_) => const CenteredLoadingIndicator(),
+              noCrowdActions: (_) => Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Center(
+                        child: Text(
+                          'No CrowdActions at the moment...',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            fetched: (crowdActions) {
-              return ListView.builder(
-                itemCount: crowdActions.crowdActions.length,
-                itemBuilder: (context, index) =>
-                    MicroCrowdActionCard(crowdActions.crowdActions[index]),
-              );
-            },
-            orElse: () => Container()
-          ),
+              fetched: (crowdActions) {
+                return ListView.builder(
+                  itemCount: crowdActions.crowdActions.length,
+                  itemBuilder: (context, index) =>
+                      MicroCrowdActionCard(crowdActions.crowdActions[index]),
+                );
+              },
+              orElse: () => Container()),
         ),
       ),
     );

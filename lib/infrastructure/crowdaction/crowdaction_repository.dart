@@ -24,16 +24,66 @@ class CrowdActionRepository implements ICrowdActionRepository {
           ? queryGetFixedCrowdActions.replaceAll(placeholder, amount.toString())
           : queryGetCrowdActions;
 
-      final response = await _client.get(
-          Uri.parse('https://api.collaction.org/graphql?query=$query'),
-          headers: {'Content-Type': 'application/json'});
+      final response = Future.delayed(const Duration(seconds: 5)).then((_) => [
+            CrowdAction(
+              image: 'assets/images/ocean.png',
+              name: 'This is the headline for the crowdaction by Guru Saksham',
+              description:
+                  'Here comes the description of the shown crowdaction',
+              start: DateTime.now(),
+              end: DateTime.now(),
+              numParticipants: 3,
+            ),
+            CrowdAction(
+              image: 'assets/images/ocean.png',
+              name: 'This is the headline for the crowdaction by Guru Isaac',
+              description:
+                  'Here comes the description of the shown crowdaction',
+              start: DateTime.now(),
+              end: DateTime.now(),
+              numParticipants: 3,
+            ),
+            CrowdAction(
+              image: 'assets/images/ocean.png',
+              name: 'This is the headline for the crowdaction by Guru Yash',
+              description:
+                  'Here comes the description of the shown crowdaction',
+              start: DateTime.now(),
+              end: DateTime.now(),
+              numParticipants: 3,
+            ),
+            CrowdAction(
+              image: 'assets/images/ocean.png',
+              name: 'This is the headline for the crowdaction by Guru Lorenzo',
+              description:
+                  'Here comes the description of the shown crowdaction',
+              start: DateTime.now(),
+              end: DateTime.now(),
+              numParticipants: 3,
+            ),
+            CrowdAction(
+              image: 'assets/images/ocean.png',
+              name: 'This is the headline for the crowdaction by Guru Tom',
+              description:
+                  'Here comes the description of the shown crowdaction',
+              start: DateTime.now(),
+              end: DateTime.now(),
+              numParticipants: 3,
+            ),
+          ]);
 
-      final responseBody = CrowdActionList.fromJson(
-          json.decode(response.body)['data'] as Map<String, dynamic>);
+      return response;
 
-      return responseBody.crowdactions
-          .map((crowdActionDto) => crowdActionDto.toDomain())
-          .toList();
+      // final response = await _client.get(
+      //     Uri.parse('https://api.collaction.org/graphql?query=$query'),
+      //     headers: {'Content-Type': 'application/json'});
+
+      // final responseBody = CrowdActionList.fromJson(
+      //     json.decode(response.body)['data'] as Map<String, dynamic>);
+
+      // return responseBody.crowdactions
+      //     .map((crowdActionDto) => crowdActionDto.toDomain())
+      //     .toList();
     } catch (error) {
       return <CrowdAction>[];
     }
@@ -52,7 +102,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
   }
 
   @override
-  Future<Either<CrowdActionFailure,List<CrowdAction>>> getSpotLightCrowdActions() async{
+  Future<Either<CrowdActionFailure, List<CrowdAction>>>
+      getSpotLightCrowdActions() async {
     try {
       // TODO - pick spotlight crowd actions from API
       await Future.delayed(const Duration(seconds: 3));
