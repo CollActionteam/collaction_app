@@ -169,7 +169,7 @@ jobs:
   # TODO Update to distribute appbundle once released
   distribute:
     needs: [build]
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Download generated apk from the artifacts
         uses: actions/download-artifact@v2
