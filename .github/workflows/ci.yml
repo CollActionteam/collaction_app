@@ -181,7 +181,7 @@ jobs:
           appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
-          file: app-signed.apk
+          file: flutter-apk/app-signed.apk
       - name: Download generated ipa from the artifacts
         uses: actions/download-artifact@v2
         with:
