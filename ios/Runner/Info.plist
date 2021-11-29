@@ -45,6 +45,6 @@
 	<false/>
 	<!-- TODO verify this API usage and explanation -->
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Upload profile picture from Photo Library</string>
+	<string>The app required access to the photo library for the selection of a profile picture which will be used and shown on your public CollAction profile</string>
 </dict>
 </plist>
