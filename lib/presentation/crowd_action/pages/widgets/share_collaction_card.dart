@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ShareCollActionCard extends StatelessWidget {
-
   // TODO Review (and update) text being shared.
-  static const shareText = "Check out https://collaction.org and let's solve all collective action problems in the world.";
+  static const shareText =
+      "Check out https://collaction.org and let's solve all collective action problems in the world.";
   static const shareEmailSubject = "Join me on CollAction";
 
   const ShareCollActionCard({
