@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../themes/constants.dart';
 
@@ -8,70 +11,17 @@ class CurrentAndUpcomingLayout extends StatelessWidget {
 
   // the below crowdAction list is the first 3 that will be shown onthe homescreen
   // and hence need to be passed from home_page
-  final List<Map<String, dynamic>> crowdActionsList;
   const CurrentAndUpcomingLayout({
     Key? key,
     this.isCurrent = true,
-    this.crowdActionsList = const [
-      {
-        'id': 'CA_ID', // CrowdAction Id in Database for signing up the user
-        'headline': 'This is the headline for the crowdaction',
-        'description': 'Here comes the description of the shown crowdaction',
-        'crowdaction_img': 'assets/images/ocean.png',
-      },
-      {
-        'id': 'CA_ID', // CrowdAction Id in Database for signing up the user
-        'headline': 'This is the headline for the crowdaction',
-        'description': 'Here comes the description of the shown crowdaction',
-        'crowdaction_img': 'assets/images/ocean.png',
-      },
-      {
-        'id': 'CA_ID', // CrowdAction Id in Database for signing up the user
-        'headline': 'This is the headline for the crowdaction',
-        'description': 'Here comes the description of the shown crowdaction',
-        'crowdaction_img': 'assets/images/ocean.png',
-      }
-    ],
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(left: 10, right: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    isCurrent ? 'Currently running' : 'Upcoming',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 28.0),
-                  ),
-                  TextButton(
-                    onPressed: () => context.router.push(isCurrent
-                        ? const CrowdActionBrowseRoute()
-                        : const CrowdActionBrowseRoute()),
-                    child: const Text(
-                      'View all',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15.0,
-                          color: kAccentColor),
-                    ),
-                  ),
-                  // const SizedBox(height: 3),
-                ],
-              ),
-            ),
-            ...crowdActionsList.map(
+    Widget fetched(List<CrowdAction> fetchedData) {
+      return Column(
+        children: fetchedData
+            .map(
               (e) => Container(
                 height: 148,
                 width: MediaQuery.of(context).size.width,
@@ -87,8 +37,7 @@ class CurrentAndUpcomingLayout extends StatelessWidget {
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                                image:
-                                    AssetImage(e['crowdaction_img'].toString()),
+                                image: AssetImage(e.image.toString()),
                                 fit: BoxFit.cover)),
                         margin: const EdgeInsets.only(left: 10),
                         height: 128,
@@ -123,7 +72,7 @@ class CurrentAndUpcomingLayout extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                   top: 10, left: 10, right: 10),
                               child: Text(
-                                e['headline'].toString(),
+                                e.name.toString(),
                                 softWrap: false,
                                 maxLines: 2,
                                 style: const TextStyle(
@@ -135,7 +84,7 @@ class CurrentAndUpcomingLayout extends StatelessWidget {
                               margin: const EdgeInsets.only(
                                   left: 10, right: 10, top: 6, bottom: 10),
                               child: Text(
-                                e['description'].toString(),
+                                e.description.toString(),
                                 softWrap: false,
                                 maxLines: 1,
                                 style: const TextStyle(
@@ -152,9 +101,64 @@ class CurrentAndUpcomingLayout extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20)
-          ]),
+            )
+            .toList(),
+      );
+    }
+
+    Widget noCrowdAction() {
+      return const Text('No crowdactions to show');
+    }
+
+    return BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
+      builder: (ctx, state) => SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      isCurrent ? 'Currently running' : 'Upcoming',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 28.0),
+                    ),
+                    TextButton(
+                      onPressed: () => context.router.push(isCurrent
+                          ? const CrowdActionBrowseRoute()
+                          : const CrowdActionBrowseRoute()),
+                      child: const Text(
+                        'View all',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15.0,
+                            color: kAccentColor),
+                      ),
+                    ),
+                    // const SizedBox(height: 3),
+                  ],
+                ),
+              ),
+              state.maybeMap(
+                  fetchingCrowdActions: (_) => const Center(
+                          child: CircularProgressIndicator(
+                        color: kAccentColor,
+                      )),
+                  noCrowdActions: (_) => noCrowdAction(),
+                  fetched: (fetchedData) => fetched(fetchedData.crowdActions),
+                  orElse: () {
+                    return const Text('Blahblahblah');
+                  }),
+              const SizedBox(height: 20)
+            ]),
+      ),
     );
   }
 }
