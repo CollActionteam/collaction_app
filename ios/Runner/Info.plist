@@ -43,5 +43,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- TODO verify this API usage and explanation -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Upload profile picture from Photo Library</string>
 </dict>
 </plist>
