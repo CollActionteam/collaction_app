@@ -81,8 +81,8 @@ jobs:
   build:
     if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    runs-on: macos-latest
+    timeout-minutes: 30
     steps:
     - name: Fetch code from repository
       uses: actions/checkout@v2
@@ -93,7 +93,10 @@ jobs:
     - name: Cache Flutter install
       uses: actions/cache@v2
       with:
-        path: /opt/hostedtoolcache/flutter
+        # Linux (deprecate):
+        # path: /opt/hostedtoolcache/flutter
+        # MacOS:
+        path: /Users/runner/hostedtoolcache/flutter
         key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
     - name: Setup the Flutter environment
       uses: subosito/flutter-action@v1
@@ -111,8 +114,6 @@ jobs:
         echo ${{ secrets.ENV }} | base64 -d > .env
         echo ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON }} | base64 -d > android/app/google-services.json
         flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER 
-    - name: Build apk (deprecate)
-      run: flutter build apk --release --build-number $GITHUB_RUN_NUMBER 
     - name: Sign appbundle
       uses: r0adkll/sign-android-release@v1
       id: sign_appbundle
@@ -121,7 +122,9 @@ jobs:
         signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
         alias: ${{ secrets.ANDROID_ALIAS }}
         keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }} 
+        keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}  
+    - name: Build apk (deprecate)
+      run: flutter build apk --release --build-number $GITHUB_RUN_NUMBER
     - name: Sign apk (deprecate)
       uses: r0adkll/sign-android-release@v1
       id: sign_apk
@@ -131,7 +134,7 @@ jobs:
         alias: ${{ secrets.ANDROID_ALIAS }}
         keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
         keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-    - name: Upload build files to the artifacts
+    - name: Upload generated apk and appbundle to the artifacts
       uses: actions/upload-artifact@v2
       with:
         name: android-release
@@ -139,6 +142,29 @@ jobs:
           ${{steps.sign_apk.outputs.signedReleaseFile}}
           ${{steps.sign_appbundle.outputs.signedReleaseFile}}
           build/app/outputs/logs
+    - name: Build iOS app
+      run: |
+        echo ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }} | base64 -d > ios/Runner/GoogleService-Info.plist
+        flutter build ios --release --no-codesign --build-number $GITHUB_RUN_NUMBER
+        cd build/ios/iphoneos
+        mkdir Payload
+        cd Payload
+        ln -s ../Runner.app
+        cd ..
+        zip -r app.ipa Payload
+    - name: (Re-)sign ipa
+      uses: bradyjoslin/ios-resign-action@v1
+      with:
+        ipa_path: build/ios/iphoneos/app.ipa
+        mobileprovision: ${{ secrets.IOS_MOBILEPROVISION }}
+        cert_p12: ${{ secrets.IOS_CERT_P12 }}
+        p12_pass: ${{ secrets.IOS_P12_PASS }}
+        signing_identity: ${{ secrets.IOS_SIGNING_IDENTITY }}
+    - name: Upload generated ipa to the artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ios-release
+        path: build/ios/iphoneos/app.ipa
 
   # TODO Update to distribute appbundle once released
   distribute:
@@ -156,3 +182,14 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
           file: flutter-apk/app-signed.apk
+      - name: Download generated ipa from the artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ios-release
+      - name: 'Upload app to TestFlight'
+        uses: apple-actions/upload-testflight-build@v1
+        with: 
+          app-path: 'app.ipa'
+          issuer-id: ${{ secrets.IOS_APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.IOS_APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.IOS_APPSTORE_API_PRIVATE_KEY }}
