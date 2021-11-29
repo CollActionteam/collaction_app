@@ -45,6 +45,6 @@
 	<false/>
 	<!-- TODO verify this API usage and explanation -->
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Upload profile picture from Photo Library</string>
+	<string>Select and upload a picture from from the Photo Library to use as a profile picture in the app.</string>
 </dict>
 </plist>
