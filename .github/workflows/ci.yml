@@ -167,9 +167,9 @@ jobs:
         path: build/ios/iphoneos/app.ipa
 
   # TODO Update to distribute appbundle once released
-  distribute:
+  distribute_android:
     needs: [build]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Download generated apk from the artifacts
         uses: actions/download-artifact@v2
@@ -182,6 +182,11 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
           file: flutter-apk/app-signed.apk
+
+  distribute_ios:
+    needs: [build]
+    runs-on: macos-latest
+    steps:
       - name: Download generated ipa from the artifacts
         uses: actions/download-artifact@v2
         with:
