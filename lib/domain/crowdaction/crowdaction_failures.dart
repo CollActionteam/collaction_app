@@ -7,5 +7,6 @@ part 'crowdaction_failures.freezed.dart';
 class CrowdActionFailure with _$CrowdActionFailure {
   const factory CrowdActionFailure.serverError() = ServerError;
 
-  const factory CrowdActionFailure.networkRequestFailed() = NetworkRequestFailed;
+  const factory CrowdActionFailure.networkRequestFailed() =
+      NetworkRequestFailed;
 }
