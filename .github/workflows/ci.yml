@@ -79,7 +79,7 @@ jobs:
         flutter test -r expanded .
 
   build:
-    if: ${{ github.ref == 'refs/heads/development' }}
+    #TODO testing only if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
     runs-on: macos-latest
     timeout-minutes: 30
@@ -142,16 +142,40 @@ jobs:
           ${{steps.sign_apk.outputs.signedReleaseFile}}
           ${{steps.sign_appbundle.outputs.signedReleaseFile}}
           build/app/outputs/logs
+    # Prerequisites for building iOS
+    # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+    - name: Install the Apple certificate and provisioning profile
+      env:
+        BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_CERT_P12 }}
+        P12_PASSWORD: ${{ secrets.IOS_P12_PASS }}
+        BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_MOBILEPROVISION }}
+        KEYCHAIN_PASSWORD: ${{ secrets.IOS_P12_PASS }}
+      run: |
+        # create variables
+        CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+        PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+        KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+        # import certificate and provisioning profile from secrets
+        echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode --output $CERTIFICATE_PATH
+        echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+
+        # create temporary keychain
+        security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+        security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+        # import certificate to keychain
+        security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+        security list-keychain -d user -s $KEYCHAIN_PATH
+
+        # apply provisioning profile
+        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+        cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
     - name: Build iOS app
       run: |
         echo ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }} | base64 -d > ios/Runner/GoogleService-Info.plist
-        flutter build ios --release --no-codesign --build-number $GITHUB_RUN_NUMBER
-        cd build/ios/iphoneos
-        mkdir Payload
-        cd Payload
-        ln -s ../Runner.app
-        cd ..
-        zip -r app.ipa Payload
+        flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER
     - name: (Re-)sign ipa
       uses: bradyjoslin/ios-resign-action@v1
       with:
@@ -164,10 +188,16 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ios-release
-        path: build/ios/iphoneos/app.ipa
+        path: build/ios/ipa/*.ipa
+    - name: Clean up keychain and provisioning profile
+      run: |
+        security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+        rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
 
   # TODO Update to distribute appbundle once released
   distribute_android:
+    #TODO testing only
+    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [build]
     runs-on: ubuntu-latest
     steps:
