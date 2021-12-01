@@ -3,12 +3,9 @@
 # the app.
 #   The following is not yet implemented:
 #    - Builds for different environments (test/prod)
-#    - Building an iOS app
-#    - Building a release version on master
-#    - Distributing apps to testers
-#      (Firebase app distribution or TestFlight)
-#    - Building a release version on master
-#    - Signing and Deployment to the stores
+#    - Use fastlane
+#    - Obfuscate the build and remove debug symbols 
+#      (https://docs.flutter.dev/deployment/obfuscate)
 # ==================================================
 
 name: CI
@@ -206,8 +203,6 @@ jobs:
           file: flutter-apk/app-signed.apk
 
   distribute_ios:
-    #TODO testing only
-    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [build]
     runs-on: macos-latest
     steps:
@@ -218,7 +213,7 @@ jobs:
       - name: 'Upload app to TestFlight'
         uses: apple-actions/upload-testflight-build@v1
         with: 
-          app-path: 'app.ipa'
+          app-path: 'CollAction.ipa'
           issuer-id: ${{ secrets.IOS_APPSTORE_ISSUER_ID }}
           api-key-id: ${{ secrets.IOS_APPSTORE_API_KEY_ID }}
           api-private-key: ${{ secrets.IOS_APPSTORE_API_PRIVATE_KEY }}
