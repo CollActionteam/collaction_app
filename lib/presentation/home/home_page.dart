@@ -1,8 +1,8 @@
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 
-import './widgets/current_upcoming_ca_layout.dart';
 import '../home/widgets/crowdaction_carousel.dart';
+import '../themes/constants.dart';
+import 'widgets/current_upcoming_layout.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({Key? key}) : super(key: key);

@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
-import 'package:collaction_app/presentation/crowd_action/pages/in_spot_light.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
+import '../crowd_action/pages/in_spot_light.dart';
 import '../routes/app_routes.gr.dart';
 import 'demo_tab_page.dart';
 

@@ -5,6 +5,7 @@ analyzer:
     missing_return: error
     missing_required_param: error
     must_be_immutable: error
+    prefer_relative_imports: error
     sort_unnamed_constructors_first: ignore
     use_late_for_private_fields_and_variables: ignore
   exclude:

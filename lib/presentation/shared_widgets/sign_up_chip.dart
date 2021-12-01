@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/user/i_user_repository.dart';
 import '../../../domain/user/user.dart';
 import '../../../infrastructure/core/injection.dart';
+import '../routes/app_routes.gr.dart';
 import 'accent_chip.dart';
 
 class SignUpChip extends StatefulWidget {
