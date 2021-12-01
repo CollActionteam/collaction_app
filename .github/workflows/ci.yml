@@ -3,7 +3,7 @@
 # the app.
 #   The following is not yet implemented:
 #    - Builds for different environments (test/prod)
-#    - Use fastlane
+#    - Use fastlane (?)
 #    - Obfuscate the build and remove debug symbols 
 #      (https://docs.flutter.dev/deployment/obfuscate)
 # ==================================================
@@ -76,7 +76,7 @@ jobs:
         flutter test -r expanded .
 
   build:
-    #TODO testing only if: ${{ github.ref == 'refs/heads/development' }}
+    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [test]
     runs-on: macos-latest
     timeout-minutes: 30
@@ -185,8 +185,6 @@ jobs:
 
   # TODO Update to distribute appbundle once released
   distribute_android:
-    #TODO testing only
-    if: ${{ github.ref == 'refs/heads/development' }}
     needs: [build]
     runs-on: ubuntu-latest
     steps:
