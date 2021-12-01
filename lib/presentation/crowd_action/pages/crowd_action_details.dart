@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/shared_widgets/accent_chip.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,6 +52,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   const Expanded(
                     child: SizedBox(),
                   ),
+                  /* TODO implement crowdaction sharing
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -57,9 +60,9 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       primary: kAccentColor,
                       onPrimary: kAccentColor,
                     ),
-                    child: const Icon(Icons.upload, color: Colors.white),
+                    child: const Icon(CupertinoIcons.share, color: Colors.white),
                   )
-                  // Your widgets here
+                  */
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
