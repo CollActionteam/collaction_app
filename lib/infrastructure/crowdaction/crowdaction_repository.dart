@@ -52,7 +52,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
   }
 
   @override
-  Future<Either<CrowdActionFailure,List<CrowdAction>>> getSpotLightCrowdActions() async{
+  Future<Either<CrowdActionFailure, List<CrowdAction>>>
+      getSpotLightCrowdActions() async {
     try {
       // TODO - pick spotlight crowd actions from API
       await Future.delayed(const Duration(seconds: 3));

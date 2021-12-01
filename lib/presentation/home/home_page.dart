@@ -1,8 +1,8 @@
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 
-import './widgets/current_upcoming_ca_layout.dart';
 import '../home/widgets/crowdaction_carousel.dart';
+import '../themes/constants.dart';
+import 'widgets/current_upcoming_layout.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class HomePageScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // 'IN THE SPOTLIGHT carousel code BEGINS'
+          // 'IN THE SPOTLIGHT' carousel code BEGINS
           Container(
             margin: const EdgeInsets.only(top: 5, bottom: 3),
             padding: const EdgeInsets.symmetric(vertical: 5),
@@ -27,11 +27,8 @@ class HomePageScreen extends StatelessWidget {
             ),
           ),
           const CrowdActionCarousel(),
-          // 'SHARE COLLACTION WITH YOUR FRIENDS carousel code ENDS'
-
+          // 'IN THE SPOTLIGHT' carousel code ENDS
           const CurrentAndUpcomingLayout(),
-
-          // 'SHARE COLLACTION WITH YOUR FRIENDS carousel code BEGINS'
           Container(
             margin: const EdgeInsets.only(top: 5, bottom: 10),
             padding: const EdgeInsets.symmetric(vertical: 5),
@@ -44,7 +41,6 @@ class HomePageScreen extends StatelessWidget {
               style: TextStyle(color: kSecondaryColor, fontSize: 20),
             ),
           ),
-          // 'IN THE SPOTLIGHT code ENDS'
           const CurrentAndUpcomingLayout(isCurrent: false),
         ],
       ),

@@ -29,7 +29,7 @@ import '../onboarding/onboarding.dart';
             AutoRoute(path: '', page: InSpotLightPage),
             AutoRoute(path: 'details', page: CrowdActionDetailsPage),
             AutoRoute(path: 'participants', page: CrowdActionParticipantsPage),
-            AutoRoute(path: 'view-all',page: CrowdActionBrowsePage),
+            AutoRoute(path: 'view-all', page: CrowdActionBrowsePage),
           ],
         ),
         AutoRoute(
