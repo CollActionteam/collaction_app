@@ -1,6 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/crowd_action/pages/widgets/bottom_navbar.dart';
-import 'package:collaction_app/presentation/crowd_action/widgets/bottom_navbar.dart';
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/shared_widgets/accent_chip.dart';
@@ -709,6 +707,7 @@ class CommitmentCard extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
+        side: const BorderSide(color: kAlmostTransparent),
       ),
       color: selected ? kAlmostTransparent : kSecondaryColor,
       elevation: 0,

@@ -67,9 +67,6 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   ExpandablePageView.builder(
                     itemBuilder: (ctx, index) {
                       final crowdAction = _pages[index];
@@ -103,28 +100,25 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                     itemCount: _pages.length,
                     controller: _pageController,
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(child: Container()),
-                      DotsIndicator(
-                        position: _currentPage,
-                        dotsCount: _pages.length,
-                        decorator: const DotsDecorator(
-                          activeColor: kAccentColor,
-                          color: Color(0xFFCCCCCC),
-                          size: Size(12.0, 12.0),
-                          activeSize: Size(12.0, 12.0),
-                          spacing: EdgeInsets.all(8.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(child: Container()),
+                        DotsIndicator(
+                          position: _currentPage,
+                          dotsCount: _pages.length,
+                          decorator: const DotsDecorator(
+                            activeColor: kAccentColor,
+                            color: Color(0xFFCCCCCC),
+                            size: Size(12.0, 12.0),
+                            activeSize: Size(12.0, 12.0),
+                            spacing: EdgeInsets.all(8.0),
+                          ),
                         ),
-                      ),
-                      Expanded(child: Container()),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
+                        Expanded(child: Container()),
+                      ],
+                    ),
                   ),
                 ],
               );

@@ -55,7 +55,8 @@ class CurrentAndUpcomingLayout extends StatelessWidget {
                         fontWeight: FontWeight.w700, fontSize: 28.0),
                   ),
                   TextButton(
-                    onPressed: () => context.router.push(const CrowdActionBrowseRoute()),
+                    onPressed: () =>
+                        context.router.push(const CrowdActionBrowseRoute()),
                     child: const Text(
                       'View all',
                       textAlign: TextAlign.center,

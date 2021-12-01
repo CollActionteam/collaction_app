@@ -1,4 +1,3 @@
-import 'package:collaction_app/presentation/crowd_action/pages/widgets/bottom_navbar.dart';
 import 'package:collaction_app/application/crowdaction/spotlight/spot_light_bloc.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/crowd_action/pages/widgets/share_collaction_card.dart';
