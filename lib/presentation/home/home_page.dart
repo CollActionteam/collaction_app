@@ -13,7 +13,7 @@ class HomePageScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // 'IN THE SPOTLIGHT carousel code BEGINS'
+          // 'IN THE SPOTLIGHT' carousel code BEGINS
           Container(
             margin: const EdgeInsets.only(top: 5, bottom: 3),
             padding: const EdgeInsets.symmetric(vertical: 5),
@@ -27,11 +27,8 @@ class HomePageScreen extends StatelessWidget {
             ),
           ),
           const CrowdActionCarousel(),
-          // 'SHARE COLLACTION WITH YOUR FRIENDS carousel code ENDS'
-
+          // 'IN THE SPOTLIGHT' carousel code ENDS
           const CurrentAndUpcomingLayout(),
-
-          // 'SHARE COLLACTION WITH YOUR FRIENDS carousel code BEGINS'
           Container(
             margin: const EdgeInsets.only(top: 5, bottom: 10),
             padding: const EdgeInsets.symmetric(vertical: 5),
@@ -44,7 +41,6 @@ class HomePageScreen extends StatelessWidget {
               style: TextStyle(color: kSecondaryColor, fontSize: 20),
             ),
           ),
-          // 'IN THE SPOTLIGHT code ENDS'
           const CurrentAndUpcomingLayout(isCurrent: false),
         ],
       ),
