@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,14 +8,14 @@ import '../../../domain/auth/i_auth_repository.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
 import '../../../infrastructure/core/injection.dart';
-import '../../../presentation/shared_widgets/accent_chip.dart';
 import '../../routes/app_routes.gr.dart';
+import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/participant_avatars.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 import '../utils/crowd_action.ext.dart';
 
-class CrowdActionDetailsPage extends StatelessWidget {
+class CrowdActionDetailsPage extends StatefulWidget {
   final CrowdAction crowdAction;
 
   const CrowdActionDetailsPage({
@@ -24,6 +23,11 @@ class CrowdActionDetailsPage extends StatelessWidget {
     required this.crowdAction,
   }) : super(key: key);
 
+  @override
+  State<CrowdActionDetailsPage> createState() => _CrowdActionDetailsPageState();
+}
+
+class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +71,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
-                  crowdAction.image ?? "",
+                  widget.crowdAction.image ?? "",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -87,7 +91,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      crowdAction.name,
+                      widget.crowdAction.name,
                       style: Theme.of(context)
                           .textTheme
                           .headline4
@@ -111,7 +115,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        ...crowdAction.toChips()
+                        ...widget.crowdAction.toChips()
                       ],
                     ),
                     const SizedBox(
@@ -139,7 +143,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                             ),
                             Expanded(
                                 child: Text(
-                              "Join ${sampleParticipants.title(crowdAction.numParticipants)}",
+                              "Join ${sampleParticipants.title(widget.crowdAction.numParticipants)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .caption
@@ -153,7 +157,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       height: 20,
                     ),
                     Text(
-                      crowdAction.description,
+                      widget.crowdAction.description,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2
@@ -212,13 +216,15 @@ class CrowdActionDetailsPage extends StatelessWidget {
     );
   }
 
-  void _participate(BuildContext context) async {
+  Future<void> _participate(BuildContext context) async {
     final _user = await getIt<IAuthRepository>().getSignedInUser();
 
-    if (_user.isNone()) {
-      _signUpModal(context);
-    } else {
-      _participateModal(context);
+    if (mounted) {
+      if (_user.isNone()) {
+        _signUpModal(context);
+      } else {
+        _participateModal(context);
+      }
     }
   }
 
@@ -250,9 +256,8 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       ),
                       action: SnackBarAction(
                         onPressed: () {
-                          context
-                              .read<SubscribeBloc>()
-                              .add(SubscribeEvent.participate(crowdAction));
+                          context.read<SubscribeBloc>().add(
+                              SubscribeEvent.participate(widget.crowdAction));
                         },
                         label: "Retry",
                       ),
@@ -281,7 +286,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       height: 20,
                     ),
                     Text(
-                      crowdAction.name,
+                      widget.crowdAction.name,
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -292,7 +297,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       height: 30,
                     ),
                     Text(
-                      crowdAction.description,
+                      widget.crowdAction.description,
                       style: Theme.of(context).textTheme.caption?.copyWith(
                             color: kPrimaryColor400,
                           ),
@@ -305,9 +310,8 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       isLoading: state is SubscribingToCrowdAction,
                       onTap: () {
                         // TODO - Confirm Participation
-                        context
-                            .read<SubscribeBloc>()
-                            .add(SubscribeEvent.participate(crowdAction));
+                        context.read<SubscribeBloc>().add(
+                            SubscribeEvent.participate(widget.crowdAction));
                       },
                       margin: EdgeInsets.zero,
                     ),
@@ -434,7 +438,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  crowdAction.name,
+                  widget.crowdAction.name,
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
