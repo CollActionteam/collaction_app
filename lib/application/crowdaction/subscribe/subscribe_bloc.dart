@@ -27,7 +27,17 @@ class SubscribeBloc extends Bloc<SubscribeEvent, SubscribeState> {
   }
 
   Stream<SubscribeState> _mapWithDrawParticipationToState(
-      _WithDrawParticipation value) async* {}
+      _WithDrawParticipation value) async* {
+    yield const SubscribeState.unSubscribingToCrowdAction();
+
+    final failureOrSuccess =
+        await _crowdActionRepository.unsubscribeToCrowdAction(value.action);
+
+    yield failureOrSuccess.fold(
+      (failure) => const SubscribeState.unSubscriptionFailed(),
+      (_) => const SubscribeState.unSubscriptionDone(),
+    );
+  }
 
   Stream<SubscribeState> _mapParticipateToState(_Participate value) async* {
     yield const SubscribeState.subscribingToCrowdAction();
