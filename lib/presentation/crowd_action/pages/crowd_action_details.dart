@@ -100,24 +100,21 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Wrap(
-                      spacing: 12.0,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // TODO - Sign up, to crowd action
-                          },
-                          child: const AccentChip(
-                            text: "Sign up now",
-                            leading: Icon(
-                              Icons.check,
-                              color: Colors.white,
-                            ),
+                    Wrap(spacing: 12.0, children: [
+                      GestureDetector(
+                        onTap: () {
+                          // TODO - Sign up, to crowd action
+                        },
+                        child: const AccentChip(
+                          text: "Sign up now",
+                          leading: Icon(
+                            Icons.check,
+                            color: Colors.white,
                           ),
                         ),
-                        ...widget.crowdAction.toChips()
-                      ],
-                    ),
+                      ),
+                      ...widget.crowdAction.toChips()
+                    ]),
                     const SizedBox(
                       height: 20,
                     ),
@@ -201,18 +198,230 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       ],
                     ),
                     const SizedBox(height: 30),
-                    PillButton(
-                      text: "Participate",
-                      margin: EdgeInsets.zero,
-                      onTap: () => _participate(context),
+                    Center(
+                      child: BlocBuilder<SubscribeBloc, SubscribeState>(
+                        builder: (context, state) {
+                          return state.maybeMap(
+                            subscriptionDone: (state) {
+                              return GestureDetector(
+                                onTap: () =>
+                                    _withdrawParticipationModal(context),
+                                child: Text(
+                                  'Withdraw my participation',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3!
+                                      .copyWith(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                        // height: 20,
+                                        color: kSuccessColor,
+                                      ),
+                                ),
+                              );
+                            },
+                            orElse: () {
+                              return PillButton(
+                                text: 'Participate',
+                                margin: EdgeInsets.zero,
+                                onTap: () => _participate(context),
+                              );
+                            },
+                          );
+                        },
+                      ),
                     )
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _withdrawParticipationModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return BlocConsumer<SubscribeBloc, SubscribeState>(
+          listener: (context, state) {
+            state.maybeMap(
+              unSubscriptionDone: (state) {
+                Navigator.pop(context);
+                _withdrawSuccess(context);
+              },
+              unSubscriptionFailed: (state) {
+                // TODO- Red snack bar
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.redAccent,
+                    content: const Text(
+                      "Error encountered while unsubscribing to crowdaction",
+                    ),
+                    action: SnackBarAction(
+                      onPressed: () {
+                        context.read<SubscribeBloc>().add(
+                            SubscribeEvent.withDrawParticipation(
+                                widget.crowdAction));
+                      },
+                      label: "Retry",
+                    ),
+                  ),
+                );
+              },
+              orElse: () {},
+            );
+          },
+          builder: (context, state) {
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    width: 60.0,
+                    height: 3.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: kSecondaryTransparent,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    widget.crowdAction.name,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    widget.crowdAction.description,
+                    style: Theme.of(context).textTheme.caption?.copyWith(
+                          color: kPrimaryColor400,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  PillButton(
+                    text: "Withdraw Participation",
+                    isLoading: state is UnSubscribingToCrowdAction,
+                    onTap: () {
+                      // TODO - Withdraw Participation
+                      context.read<SubscribeBloc>().add(
+                          SubscribeEvent.withDrawParticipation(
+                              widget.crowdAction));
+                    },
+                    margin: EdgeInsets.zero,
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Cancel"),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _withdrawSuccess(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                width: 60.0,
+                height: 3.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: kSecondaryTransparent,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                widget.crowdAction.name,
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 28,
+              ),
+              Text(
+                "We are sad to see you withdraw!",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                    ),
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+              PillButton(
+                text: "Got It",
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                margin: EdgeInsets.zero,
+              ),
+              const SizedBox(height: 20),
+              //TODO - Add message to change commitments const Divider(),
+              // const SizedBox(
+              //   height: 15,
+              // ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -471,7 +680,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 PillButton(
                   text: "Got It",
                   onTap: () {
-                    // TODO - Pop
+                    Navigator.pop(context);
                   },
                   margin: EdgeInsets.zero,
                 ),

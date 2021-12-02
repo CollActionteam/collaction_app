@@ -12,6 +12,7 @@ class SubscribeState with _$SubscribeState {
 
   /// Un subscription
   const factory SubscribeState.unSubscribingToCrowdAction() =
-      _UnSubscribingToCrowdAction;
+      UnSubscribingToCrowdAction;
   const factory SubscribeState.unSubscriptionDone() = _UnSubscriptionDone;
+  const factory SubscribeState.unSubscriptionFailed() = _UnSubscriptionFailed;
 }
