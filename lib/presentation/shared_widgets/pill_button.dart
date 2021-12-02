@@ -36,6 +36,10 @@ class PillButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: isEnabled ? kAccentColor : kDisabledButtonColor,
+        borderRadius: BorderRadius.circular(52.0),
+      ),
       margin: margin ??
           const EdgeInsets.symmetric(
             vertical: 6.0,
@@ -52,14 +56,16 @@ class PillButton extends StatelessWidget {
   Widget _getChild() {
     if (isLoading) {
       return ElevatedButton(
-        onPressed: (){},
+        onPressed: () {},
         style: ElevatedButton.styleFrom(
           primary: kAccentColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(52),
           ),
         ),
-        child: const CircularProgressIndicator(color: Colors.white,),
+        child: const CircularProgressIndicator(
+          color: Colors.white,
+        ),
       );
     } else if (leading != null) {
       return ElevatedButton.icon(

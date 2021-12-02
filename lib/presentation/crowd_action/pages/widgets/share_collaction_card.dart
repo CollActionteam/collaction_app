@@ -1,7 +1,8 @@
-import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../../../presentation/shared_widgets/pill_button.dart';
+import '../../../../presentation/themes/constants.dart';
 
 class ShareCollActionCard extends StatelessWidget {
   const ShareCollActionCard({
