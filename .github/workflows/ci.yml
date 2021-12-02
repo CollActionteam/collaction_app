@@ -3,12 +3,9 @@
 # the app.
 #   The following is not yet implemented:
 #    - Builds for different environments (test/prod)
-#    - Building an iOS app
-#    - Building a release version on master
-#    - Distributing apps to testers
-#      (Firebase app distribution or TestFlight)
-#    - Building a release version on master
-#    - Signing and Deployment to the stores
+#    - Use fastlane (?)
+#    - Obfuscate the build and remove debug symbols 
+#      (https://docs.flutter.dev/deployment/obfuscate)
 # ==================================================
 
 name: CI
@@ -74,7 +71,7 @@ jobs:
     - name: Build generated code
       run: flutter pub run build_runner build --delete-conflicting-outputs
     - name: Run unit and widget tests.
-      run:  |
+      run: |
         echo ${{ secrets.ENV }} | base64 -d > .env
         flutter test -r expanded .
 
@@ -86,6 +83,13 @@ jobs:
     steps:
     - name: Fetch code from repository
       uses: actions/checkout@v2
+    - name: Create release notes file
+      run: |
+        cat > release_notes.txt <<EOF
+        Commit: $(git rev-parse --short HEAD)
+        Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        Message: $(git log -1 --pretty=%B)
+        EOF
     - name: Setup Java for Android
       uses: actions/setup-java@v1
       with:
@@ -142,29 +146,52 @@ jobs:
           ${{steps.sign_apk.outputs.signedReleaseFile}}
           ${{steps.sign_appbundle.outputs.signedReleaseFile}}
           build/app/outputs/logs
+          release_notes.txt
+    # Prerequisites for building iOS
+    # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+    - name: Install the Apple certificate and provisioning profile
+      env:
+        BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_CERT_P12 }}
+        P12_PASSWORD: ${{ secrets.IOS_P12_PASS }}
+        BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_MOBILEPROVISION }}
+        KEYCHAIN_PASSWORD: ${{ secrets.IOS_P12_PASS }}
+      run: |
+        # create variables
+        CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+        PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+        KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+        # import certificate and provisioning profile from secrets
+        echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode --output $CERTIFICATE_PATH
+        echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+
+        # create temporary keychain
+        security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+        security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+        # import certificate to keychain
+        security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+        security list-keychain -d user -s $KEYCHAIN_PATH
+
+        # apply provisioning profile
+        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+        cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
     - name: Build iOS app
       run: |
         echo ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }} | base64 -d > ios/Runner/GoogleService-Info.plist
-        flutter build ios --release --no-codesign --build-number $GITHUB_RUN_NUMBER
-        cd build/ios/iphoneos
-        mkdir Payload
-        cd Payload
-        ln -s ../Runner.app
-        cd ..
-        zip -r app.ipa Payload
-    - name: (Re-)sign ipa
-      uses: bradyjoslin/ios-resign-action@v1
-      with:
-        ipa_path: build/ios/iphoneos/app.ipa
-        mobileprovision: ${{ secrets.IOS_MOBILEPROVISION }}
-        cert_p12: ${{ secrets.IOS_CERT_P12 }}
-        p12_pass: ${{ secrets.IOS_P12_PASS }}
-        signing_identity: ${{ secrets.IOS_SIGNING_IDENTITY }}
+        flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER
     - name: Upload generated ipa to the artifacts
       uses: actions/upload-artifact@v2
       with:
         name: ios-release
-        path: build/ios/iphoneos/app.ipa
+        path: |
+          build/ios/ipa/*.ipa
+          release_notes.txt
+    - name: Clean up keychain and provisioning profile
+      run: |
+        security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+        rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
 
   # TODO Update to distribute appbundle once released
   distribute_android:
@@ -182,6 +209,7 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
           file: flutter-apk/app-signed.apk
+          releaseNotesFile: release_notes.txt
 
   distribute_ios:
     needs: [build]
@@ -194,7 +222,7 @@ jobs:
       - name: 'Upload app to TestFlight'
         uses: apple-actions/upload-testflight-build@v1
         with: 
-          app-path: 'app.ipa'
+          app-path: 'CollAction.ipa'
           issuer-id: ${{ secrets.IOS_APPSTORE_ISSUER_ID }}
           api-key-id: ${{ secrets.IOS_APPSTORE_API_KEY_ID }}
           api-private-key: ${{ secrets.IOS_APPSTORE_API_PRIVATE_KEY }}
