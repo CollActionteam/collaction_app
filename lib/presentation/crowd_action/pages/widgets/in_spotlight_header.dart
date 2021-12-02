@@ -4,7 +4,7 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../application/crowdaction/spotlight/spot_light_bloc.dart';
+import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../../domain/crowdaction/participant.dart';
 import '../../../routes/app_routes.gr.dart';
 import '../../../shared_widgets/accent_chip.dart';
@@ -39,7 +39,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
     return Container(
       color: kPrimaryColor400,
       margin: const EdgeInsets.only(bottom: 20),
-      child: BlocBuilder<SpotLightBloc, SpotLightState>(
+      child: BlocBuilder<SpotlightBloc, SpotlightState>(
         builder: (context, state) {
           return state.maybeWhen(
               fetchingCrowdSpotLightActions: () {

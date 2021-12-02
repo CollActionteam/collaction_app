@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/crowdaction/subscribe/subscribe_bloc.dart';
+import '../../../application/crowdaction/subscription/subscription_bloc.dart';
 import '../../../domain/auth/i_auth_repository.dart';
 import '../../../domain/crowdaction/commitment.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
@@ -21,6 +21,7 @@ import '../utils/crowd_action.ext.dart';
 
 class CrowdActionDetailsPage extends StatefulWidget {
   final CrowdAction crowdAction;
+
   const CrowdActionDetailsPage({
     Key? key,
     required this.crowdAction,
@@ -43,9 +44,9 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
       ));
     }
     return Scaffold(
-      floatingActionButton: BlocBuilder<SubscribeBloc, SubscribeState>(
+      floatingActionButton: BlocBuilder<SubscriptionBloc, SubscriptionState>(
         builder: (context, state) {
-          if (state is! SubscriptionDone) {
+          if (state is! Subscribed) {
             return PillButton(
               text: "Participate",
               onTap: () => _participate(context),
@@ -226,10 +227,10 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               ),
               const BadgesWidget(),
               const CrowdActionCreatedByWidget(),
-              BlocBuilder<SubscribeBloc, SubscribeState>(
+              BlocBuilder<SubscriptionBloc, SubscriptionState>(
                 builder: (context, state) {
                   return state.maybeMap(
-                    subscriptionDone: (state) {
+                    subscribed: (state) {
                       return GestureDetector(
                         onTap: () => _withdrawParticipationModal(context),
                         child: Text(
@@ -267,14 +268,14 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
         ),
       ),
       builder: (context) {
-        return BlocConsumer<SubscribeBloc, SubscribeState>(
+        return BlocConsumer<SubscriptionBloc, SubscriptionState>(
           listener: (context, state) {
             state.maybeMap(
-              unSubscriptionDone: (state) {
+              unsubscribed: (state) {
                 Navigator.pop(context);
                 _withdrawSuccess(context);
               },
-              unSubscriptionFailed: (state) {
+              unsubscribingFailed: (state) {
                 // TODO- Red snack bar
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -284,8 +285,8 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     ),
                     action: SnackBarAction(
                       onPressed: () {
-                        context.read<SubscribeBloc>().add(
-                            SubscribeEvent.withDrawParticipation(
+                        context.read<SubscriptionBloc>().add(
+                            SubscriptionEvent.withdrawParticipation(
                                 widget.crowdAction));
                       },
                       label: "Retry",
@@ -338,11 +339,11 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   ),
                   PillButton(
                     text: "Withdraw Participation",
-                    isLoading: state is UnSubscribingToCrowdAction,
+                    isLoading: state is UnsubscribingFromCrowdAction,
                     onTap: () {
                       // TODO - Withdraw Participation
-                      context.read<SubscribeBloc>().add(
-                          SubscribeEvent.withDrawParticipation(
+                      context.read<SubscriptionBloc>().add(
+                          SubscriptionEvent.withdrawParticipation(
                               widget.crowdAction));
                     },
                     margin: EdgeInsets.zero,
@@ -463,10 +464,10 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
           ),
         ),
         builder: (context) {
-          return BlocConsumer<SubscribeBloc, SubscribeState>(
+          return BlocConsumer<SubscriptionBloc, SubscriptionState>(
             listener: (context, state) {
               state.maybeMap(
-                  subscriptionDone: (state) {
+                  subscribed: (state) {
                     // Close the modal
                     Navigator.of(context).pop();
 
@@ -481,8 +482,9 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       ),
                       action: SnackBarAction(
                         onPressed: () {
-                          context.read<SubscribeBloc>().add(
-                              SubscribeEvent.participate(widget.crowdAction));
+                          context.read<SubscriptionBloc>().add(
+                              SubscriptionEvent.participate(
+                                  widget.crowdAction));
                         },
                         label: "Retry",
                       ),
@@ -535,8 +537,8 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       isLoading: state is SubscribingToCrowdAction,
                       onTap: () {
                         // TODO - Confirm Participation
-                        context.read<SubscribeBloc>().add(
-                            SubscribeEvent.participate(widget.crowdAction));
+                        context.read<SubscriptionBloc>().add(
+                            SubscriptionEvent.participate(widget.crowdAction));
                       },
                       margin: EdgeInsets.zero,
                     ),
@@ -964,6 +966,7 @@ class CommitmentCard extends StatelessWidget {
   final bool selected;
   final Function? onClickHandler;
   final int order;
+
   const CommitmentCard(
       {Key? key, this.selected = false, this.onClickHandler, this.order = 0})
       : super(key: key);
@@ -1026,6 +1029,7 @@ class CommitmentCheckbox extends StatelessWidget {
   final bool selected;
   final Function? onClickHandler;
   final int order;
+
   const CommitmentCheckbox(
       {Key? key, this.selected = false, this.onClickHandler, this.order = 0})
       : super(key: key);
@@ -1059,6 +1063,7 @@ class CommitmentCheckbox extends StatelessWidget {
 
 class _BadgesPopupCard extends StatelessWidget {
   static const _heroTag = 'display-badges';
+
   const _BadgesPopupCard({Key? key}) : super(key: key);
 
   @override
@@ -1233,6 +1238,7 @@ class _BadgesPopupCard extends StatelessWidget {
 
 class CommitmentAvatar extends StatelessWidget {
   final double elevation;
+
   const CommitmentAvatar({Key? key, this.elevation = 0.0}) : super(key: key);
 
   @override

@@ -44,48 +44,42 @@ class PillButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         height: 52,
-        child: _getChild(),
+        child: isLoading
+            ? ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  primary: kAccentColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(52),
+                  ),
+                ),
+                child: const CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              )
+            : leading != null
+                ? ElevatedButton.icon(
+                    icon: leading ?? Container(),
+                    label: Text(text),
+                    onPressed: isEnabled ? onTap : null,
+                    style: ElevatedButton.styleFrom(
+                      primary: kAccentColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(52),
+                      ),
+                    ),
+                  )
+                : ElevatedButton(
+                    onPressed: isEnabled ? onTap : null,
+                    style: ElevatedButton.styleFrom(
+                      primary: kAccentColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(52),
+                      ),
+                    ),
+                    child: Text(text),
+                  ),
       ),
     );
-  }
-
-  Widget _getChild() {
-    if (isLoading) {
-      return ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          primary: kAccentColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(52),
-          ),
-        ),
-        child: const CircularProgressIndicator(
-          color: Colors.white,
-        ),
-      );
-    } else if (leading != null) {
-      return ElevatedButton.icon(
-        icon: leading ?? Container(),
-        label: Text(text),
-        onPressed: isEnabled ? onTap : null,
-        style: ElevatedButton.styleFrom(
-          primary: kAccentColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(52),
-          ),
-        ),
-      );
-    } else {
-      return ElevatedButton(
-        onPressed: isEnabled ? onTap : null,
-        style: ElevatedButton.styleFrom(
-          primary: kAccentColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(52),
-          ),
-        ),
-        child: Text(text),
-      );
-    }
   }
 }

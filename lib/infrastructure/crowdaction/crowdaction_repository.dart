@@ -102,7 +102,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
   }
 
   @override
-  Future<Either<CrowdActionFailure, Unit>> unsubscribeToCrowdAction(
+  Future<Either<CrowdActionFailure, Unit>> unsubscribeFromCrowdAction(
       CrowdAction crowdAction) async {
     try {
       // TODO - Subscribe to crowd action
@@ -115,7 +115,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
 
   @override
   Future<Either<CrowdActionFailure, List<CrowdAction>>>
-      getSpotLightCrowdActions() async {
+      getSpotlightCrowdActions() async {
     try {
       // TODO - pick spotlight crowd actions from API
       await Future.delayed(const Duration(seconds: 3));
