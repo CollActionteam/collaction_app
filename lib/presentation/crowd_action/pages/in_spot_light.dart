@@ -14,18 +14,16 @@ class InSpotLightPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<SpotLightBloc>()
         ..add(const SpotLightEvent.getSpotLightCrowdActions()),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: const [
-                InSpotLightHeader(),
-                CurrentAndUpcomingLayout(),
-                ShareCollActionCard(),
-                CurrentAndUpcomingLayout(isCurrent: false)
-              ],
-            ),
+      child: SingleChildScrollView(
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            children: const [
+              InSpotLightHeader(),
+              CurrentAndUpcomingLayout(),
+              ShareCollActionCard(),
+              CurrentAndUpcomingLayout(isCurrent: false)
+            ],
           ),
         ),
       ),

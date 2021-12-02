@@ -8,9 +8,10 @@ ElevatedButton returnElevatedButton(BuildContext context) => ElevatedButton(
         overlayColor: MaterialStateProperty.resolveWith(
           (states) => kAlmostTransparent,
         ),
-        elevation: MaterialStateProperty.all<double>(0.0),
+        elevation: MaterialStateProperty.all<double>(4.0),
         shape: MaterialStateProperty.all<OutlinedBorder>(const CircleBorder()),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        minimumSize: MaterialStateProperty.all<Size>(const Size(40, 40)),
       ),
       onPressed: () => context.router.pop(),
       child: Image.asset('assets/images/icons/back_icon.png'),

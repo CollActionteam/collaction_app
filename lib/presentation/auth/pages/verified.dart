@@ -83,8 +83,7 @@ class _VerifiedPageState extends State<VerifiedPage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () =>
-                      context.router.replaceAll([const HomeRoute()]),
+                  onPressed: () => context.router.push(const HomeRoute()),
                   child: const Text(
                     'Show me all crowdactions',
                     style: TextStyle(
