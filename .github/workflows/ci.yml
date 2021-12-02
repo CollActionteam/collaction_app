@@ -117,7 +117,8 @@ jobs:
       run: |
         echo ${{ secrets.ENV }} | base64 -d > .env
         echo ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON }} | base64 -d > android/app/google-services.json
-        flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER 
+        flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER
+        cp release_notes.txt build/app/outputs/
     - name: Sign appbundle
       uses: r0adkll/sign-android-release@v1
       id: sign_appbundle
@@ -138,7 +139,7 @@ jobs:
         alias: ${{ secrets.ANDROID_ALIAS }}
         keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
         keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-    - name: Upload generated apk and appbundle to the artifacts
+    - name: Upload android build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: android-release
@@ -146,7 +147,7 @@ jobs:
           ${{steps.sign_apk.outputs.signedReleaseFile}}
           ${{steps.sign_appbundle.outputs.signedReleaseFile}}
           build/app/outputs/logs
-          release_notes.txt
+          build/app/outputs/release_notes.txt
     # Prerequisites for building iOS
     # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
     - name: Install the Apple certificate and provisioning profile
@@ -181,13 +182,14 @@ jobs:
       run: |
         echo ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }} | base64 -d > ios/Runner/GoogleService-Info.plist
         flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER
-    - name: Upload generated ipa to the artifacts
+        cp release_notes.txt build/ios/ipa/
+    - name: Upload iOS build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: ios-release
         path: |
           build/ios/ipa/*.ipa
-          release_notes.txt
+          build/ios/ipa/release_notes.txt
     - name: Clean up keychain and provisioning profile
       run: |
         security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
@@ -219,7 +221,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ios-release
-      - name: 'Upload app to TestFlight'
+      - name: 'Upload iOS app to TestFlight'
         uses: apple-actions/upload-testflight-build@v1
         with: 
           app-path: 'CollAction.ipa'
