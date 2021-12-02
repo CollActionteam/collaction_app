@@ -10,4 +10,7 @@ abstract class ICrowdActionRepository {
 
   Future<Either<CrowdActionFailure, Unit>> subscribeToCrowdAction(
       CrowdAction crowdAction);
+
+  Future<Either<CrowdActionFailure, Unit>> unsubscribeToCrowdAction(
+      CrowdAction crowdAction);
 }

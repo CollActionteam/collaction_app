@@ -1,4 +1,3 @@
-import 'package:collaction_app/application/crowdaction/subscribe/subscribe_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './widgets/in_spotlight_header.dart';
@@ -12,15 +11,9 @@ class InSpotLightPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) => getIt<SpotLightBloc>()
-              ..add(const SpotLightEvent.getSpotLightCrowdActions())),
-        BlocProvider(
-          create: (_) => getIt<SubscribeBloc>(),
-        )
-      ],
+    return BlocProvider(
+      create: (context) => getIt<SpotLightBloc>()
+        ..add(const SpotLightEvent.getSpotLightCrowdActions()),
       child: Scaffold(
         body: SingleChildScrollView(
           child: SizedBox(
