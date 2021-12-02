@@ -122,6 +122,8 @@ class _CommitmentCardState extends State<CommitmentCard> {
                   Text(
                     widget.commitment.title,
                     style: textTheme.headline6!.copyWith(fontSize: 16),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     widget.commitment.description,
