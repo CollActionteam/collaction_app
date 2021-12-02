@@ -33,8 +33,6 @@ class _HomePageState extends State<HomePage> {
       pageToShow = const InSpotLightPage();
     } else if (index == 1) {
       pageToShow = const DemoTabPage();
-    } else if (index == 2) {
-      pageToShow = const DemoTabPage();
     }
     return BlocProvider(
       create: (_) => getIt<CrowdActionGetterBloc>()
@@ -75,10 +73,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.person_sharp),
-                  label: '',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.add_sharp),
                   label: '',
                 )
               ]),

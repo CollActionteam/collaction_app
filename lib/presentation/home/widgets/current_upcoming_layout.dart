@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/application/crowdaction/spotlight/spot_light_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
@@ -24,7 +24,7 @@ class CurrentAndUpcomingLayout extends StatefulWidget {
 class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
+    return BlocBuilder<SpotLightBloc, SpotLightState>(
       builder: (ctx, state) => SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -60,13 +60,16 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                 ),
               ),
               state.maybeMap(
-                    fetchingCrowdActions: (_) => const Center(
+                    fetchingCrowdSpotLightActions: (_) => const Center(
                         child: CircularProgressIndicator(
                       color: kAccentColor,
                     )),
-                    noCrowdActions: (_) => _noCrowdAction(),
-                    fetched: (fetchedData) =>
+                    spotLightCrowdActions: (fetchedData) =>
                         _fetched(fetchedData.crowdActions),
+                    spotLightCrowdActionsError: (failure) => Center(
+                      child: Text(
+                          'Error: ${failure.error.toString()} occured!! Please try again.'),
+                    ),
                     orElse: () {},
                   ) ??
                   const SizedBox(),
@@ -76,78 +79,83 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
     );
   }
 
-  Widget _noCrowdAction() {
-    return const Text('No crowdactions to show');
-  }
+  // Widget _noCrowdAction() {
+  //   return const Text('No crowdactions to show');
+  // }
 
   Widget _fetched(List<CrowdAction> fetchedData) {
     return Column(
       children: fetchedData
           .map(
-            (e) => Container(
-              height: 148,
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                elevation: 4,
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                              image: AssetImage(e.image.toString()),
-                              fit: BoxFit.cover)),
-                      margin: const EdgeInsets.only(left: 10),
-                      height: 128,
-                      width: 100,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const AccentChip(
-                              text: "Sign up now",
-                              leading: Icon(
-                                Icons.check,
-                                color: Colors.white,
+            (e) => GestureDetector(
+              onTap: () =>
+                  context.router.push(CrowdActionDetailsRoute(crowdAction: e)),
+              child: Container(
+                height: 148,
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 4,
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                                image: NetworkImage(e.image.toString()),
+                                fit: BoxFit.cover)),
+                        margin: const EdgeInsets.only(left: 10),
+                        height: 128,
+                        width: 100,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const AccentChip(
+                                text: "Sign up now",
+                                leading: Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                e.name.toString(),
-                                softWrap: false,
-                                maxLines: 2,
-                                style: const TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.w700),
-                                overflow: TextOverflow.ellipsis,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  e.name.toString(),
+                                  softWrap: false,
+                                  maxLines: 2,
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 6, bottom: 10),
-                              child: Text(
-                                e.description.toString(),
-                                softWrap: false,
-                                maxLines: 1,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: kInactiveColor),
-                                overflow: TextOverflow.ellipsis,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 6, bottom: 10),
+                                child: Text(
+                                  e.description.toString(),
+                                  softWrap: false,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: kInactiveColor),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -20,55 +20,59 @@ class CrowdActionRepository implements ICrowdActionRepository {
       //     ? queryGetFixedCrowdActions.replaceAll(placeholder, amount.toString())
       //     : queryGetCrowdActions;
 
-      final response = Future.delayed(const Duration(seconds: 5)).then((_) => [
-            CrowdAction(
-              image: 'assets/images/ocean.png',
-              name: 'This is the headline for the crowdaction by Guru Saksham',
-              description:
-                  'Here comes the description of the shown crowdaction',
-              start: DateTime.now(),
-              end: DateTime.now(),
-              numParticipants: 3,
-            ),
-            CrowdAction(
-              image: 'assets/images/ocean.png',
-              name: 'This is the headline for the crowdaction by Guru Isaac',
-              description:
-                  'Here comes the description of the shown crowdaction',
-              start: DateTime.now(),
-              end: DateTime.now(),
-              numParticipants: 3,
-            ),
-            CrowdAction(
-              image: 'assets/images/ocean.png',
-              name: 'This is the headline for the crowdaction by Guru Yash',
-              description:
-                  'Here comes the description of the shown crowdaction',
-              start: DateTime.now(),
-              end: DateTime.now(),
-              numParticipants: 3,
-            ),
-            CrowdAction(
-              image: 'assets/images/ocean.png',
-              name: 'This is the headline for the crowdaction by Guru Lorenzo',
-              description:
-                  'Here comes the description of the shown crowdaction',
-              start: DateTime.now(),
-              end: DateTime.now(),
-              numParticipants: 3,
-            ),
-            CrowdAction(
-              image: 'assets/images/ocean.png',
-              name: 'This is the headline for the crowdaction by Guru Tom',
-              description:
-                  'Here comes the description of the shown crowdaction',
-              start: DateTime.now(),
-              end: DateTime.now(),
-              numParticipants: 3,
-            ),
-          ]);
+      final response =
+          await Future.delayed(const Duration(seconds: 5)).then((_) => [
+                CrowdAction(
+                  image: 'https://i.imgur.com/kwV7YF6.png',
+                  name:
+                      'This is the headline for the crowdaction by Guru Saksham',
+                  description:
+                      'Here comes the description of the shown crowdaction',
+                  start: DateTime.now(),
+                  end: DateTime.now(),
+                  numParticipants: 3,
+                ),
+                CrowdAction(
+                  image: 'https://i.imgur.com/kwV7YF6.png',
+                  name:
+                      'This is the headline for the crowdaction by Guru Isaac',
+                  description:
+                      'Here comes the description of the shown crowdaction',
+                  start: DateTime.now(),
+                  end: DateTime.now(),
+                  numParticipants: 3,
+                ),
+                CrowdAction(
+                  image: 'https://i.imgur.com/kwV7YF6.png',
+                  name: 'This is the headline for the crowdaction by Guru Yash',
+                  description:
+                      'Here comes the description of the shown crowdaction',
+                  start: DateTime.now(),
+                  end: DateTime.now(),
+                  numParticipants: 3,
+                ),
+                CrowdAction(
+                  image: 'https://i.imgur.com/kwV7YF6.png',
+                  name:
+                      'This is the headline for the crowdaction by Guru Lorenzo',
+                  description:
+                      'Here comes the description of the shown crowdaction',
+                  start: DateTime.now(),
+                  end: DateTime.now(),
+                  numParticipants: 3,
+                ),
+                CrowdAction(
+                  image: 'https://i.imgur.com/kwV7YF6.png',
+                  name: 'This is the headline for the crowdaction by Guru Tom',
+                  description:
+                      'Here comes the description of the shown crowdaction',
+                  start: DateTime.now(),
+                  end: DateTime.now(),
+                  numParticipants: 3,
+                ),
+              ]);
 
-      return response;
+      return response.take(amount).toList();
 
       // final response = await _client.get(
       //     Uri.parse('https://api.collaction.org/graphql?query=$query'),
