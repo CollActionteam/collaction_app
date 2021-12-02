@@ -16,12 +16,12 @@ class CommitmentCardList extends StatelessWidget {
   /// returns the id of the selected commitment
   ///
   /// [axis] The direction of the list, defaults to [Axis.vertical]
-  const CommitmentCardList(
-      {required this.commitments,
-      required this.onSelected,
-      this.axis = Axis.vertical,
-      Key? key})
-      : super(key: key);
+  const CommitmentCardList({
+    required this.commitments,
+    required this.onSelected,
+    this.axis = Axis.vertical,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
