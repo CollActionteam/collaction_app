@@ -31,9 +31,17 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: PillButton(
-        text: "Participate",
-        onTap: () => _participate(context),
+      floatingActionButton: BlocBuilder<SubscribeBloc, SubscribeState>(
+        builder: (context, state) {
+          if (state is! SubscriptionDone) {
+            return PillButton(
+              text: "Participate",
+              onTap: () => _participate(context),
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: NestedScrollView(
@@ -173,6 +181,30 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               const CommitmentsWidget(),
               const BadgesWidget(),
               const CrowdActionCreatedByWidget(),
+              BlocBuilder<SubscribeBloc, SubscribeState>(
+                builder: (context, state) {
+                  return state.maybeMap(
+                    subscriptionDone: (state) {
+                      return GestureDetector(
+                        onTap: () => _withdrawParticipationModal(context),
+                        child: Text(
+                          'Withdraw my participation',
+                          style:
+                              Theme.of(context).textTheme.headline3!.copyWith(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: kSuccessColor,
+                                  ),
+                        ),
+                      );
+                    },
+                    orElse: () {
+                      return const Text('');
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: 70),
             ],
           ),
         ),
@@ -621,6 +653,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 text: "Got It",
                 onTap: () {
                   // TODO - Pop
+                  context.router.pop();
                 },
                 margin: EdgeInsets.zero,
               ),
@@ -876,7 +909,6 @@ class CrowdActionCreatedByWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 70),
         ],
       ),
     );
