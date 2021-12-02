@@ -71,7 +71,7 @@ jobs:
     - name: Build generated code
       run: flutter pub run build_runner build --delete-conflicting-outputs
     - name: Run unit and widget tests.
-      run:  |
+      run: |
         echo ${{ secrets.ENV }} | base64 -d > .env
         flutter test -r expanded .
 
@@ -83,6 +83,13 @@ jobs:
     steps:
     - name: Fetch code from repository
       uses: actions/checkout@v2
+    - name: Create release notes file
+      run: |
+        cat > release_notes.txt <<EOF
+        Commit: $(git rev-parse --short HEAD)
+        Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        Message: $(git log -1 --pretty=%B)
+        EOF
     - name: Setup Java for Android
       uses: actions/setup-java@v1
       with:
@@ -139,6 +146,7 @@ jobs:
           ${{steps.sign_apk.outputs.signedReleaseFile}}
           ${{steps.sign_appbundle.outputs.signedReleaseFile}}
           build/app/outputs/logs
+          release_notes.txt
     # Prerequisites for building iOS
     # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
     - name: Install the Apple certificate and provisioning profile
@@ -177,7 +185,9 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ios-release
-        path: build/ios/ipa/*.ipa
+        path: |
+          build/ios/ipa/*.ipa
+          release_notes.txt
     - name: Clean up keychain and provisioning profile
       run: |
         security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
@@ -199,6 +209,7 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
           file: flutter-apk/app-signed.apk
+          releaseNotesFile: release_notes.txt
 
   distribute_ios:
     needs: [build]
