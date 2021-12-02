@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
+import '../../../domain/crowdaction/commitment.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
 import '../../routes/app_routes.gr.dart';
+import '../../shared_widgets/commitment_card.dart';
 import '../../shared_widgets/participant_avatars.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
@@ -20,6 +23,15 @@ class CrowdActionDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Todo remove this dummy data once pull request is approved
+    final List<Commitment> commitments = [];
+    for (int i = 0; i < 10; i++) {
+      commitments.add(Commitment(
+        id: i,
+        title: 'Commitment $i',
+        description: 'Some description here hi',
+      ));
+    }
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -140,6 +152,13 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
+              CommitmentCardList.builder(
+                commitments: commitments,
+                onSelected: (int selectedId) {
+                  /* TODO do something with the selected commitment id
+                  you'll probably want to add it to an array in a bloc */
+                },
+              ),
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -259,3 +278,5 @@ class CrowdActionDetailsPage extends StatelessWidget {
         });
   }
 }
+
+
