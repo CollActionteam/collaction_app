@@ -3,24 +3,28 @@ import 'package:flutter/material.dart';
 import '../../domain/crowdaction/commitment.dart';
 import '../../presentation/themes/constants.dart';
 
-/// Widget for easily creating a list of CommitmentCard(s)
-///
-/// Currently only implements the builder method because there
-/// is really no other use for it
-abstract class CommitmentCardList extends Widget {
-  /// Creates a Row or Column of CommitmentCards
+class CommitmentCardList extends StatelessWidget {
+  final List<Commitment> commitments;
+  final Function(int) onSelected;
+  final Axis axis;
+
+  /// Widget for easily creating a list of CommitmentCard(s)
   ///
-  /// [commitments] The commitments the list is made up of
+  ///[commitments] The commitments the list is made up of
   ///
   /// [onSelected] Callback function for when a card is selected,
   /// returns the id of the selected commitment
   ///
   /// [axis] The direction of the list, defaults to [Axis.vertical]
-  static Widget builder({
-    required List<Commitment> commitments,
-    required Function(int) onSelected,
-    Axis axis = Axis.vertical,
-  }) {
+  const CommitmentCardList(
+      {required this.commitments,
+      required this.onSelected,
+      this.axis = Axis.vertical,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     // Build Commitment cards from the provided list of commitments
     final List<CommitmentCard> cards = commitments
         .map((commitment) => CommitmentCard(

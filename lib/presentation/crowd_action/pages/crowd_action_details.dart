@@ -152,7 +152,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              CommitmentCardList.builder(
+              CommitmentCardList(
                 commitments: commitments,
                 onSelected: (int selectedId) {
                   /* TODO do something with the selected commitment id
