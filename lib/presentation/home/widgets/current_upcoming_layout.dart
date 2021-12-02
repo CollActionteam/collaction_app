@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/application/crowdaction/spotlight/spot_light_bloc.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/presentation/shared_widgets/accent_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../application/crowdaction/spotlight/spot_light_bloc.dart';
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../../presentation/shared_widgets/accent_chip.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../themes/constants.dart';
 

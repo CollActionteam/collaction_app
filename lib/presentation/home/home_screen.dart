@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../presentation/themes/constants.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';

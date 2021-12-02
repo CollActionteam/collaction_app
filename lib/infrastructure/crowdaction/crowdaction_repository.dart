@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
-import 'package:collaction_app/presentation/crowd_action/utils/dummies.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
+import '../../../domain/crowdaction/crowdaction_failures.dart';
+import '../../../presentation/crowd_action/utils/dummies.dart';
 import '../../api/queries/crowdaction_queries.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 import '../../domain/crowdaction/i_crowdaction_repository.dart';

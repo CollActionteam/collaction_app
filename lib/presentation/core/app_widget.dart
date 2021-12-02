@@ -1,7 +1,7 @@
-import 'package:collaction_app/application/crowdaction/subscribe/subscribe_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/crowdaction/subscribe/subscribe_bloc.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
