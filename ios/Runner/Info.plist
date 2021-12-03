@@ -49,5 +49,11 @@
 	<array>
 		<!-- TODO add "Open with CollAction" in the future -->
 	</array>
+	<!-- 
+		Compliance with export rules (does not use non-exempt encryption)
+		https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations
+	-->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

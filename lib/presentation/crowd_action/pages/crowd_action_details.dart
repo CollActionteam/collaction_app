@@ -1,16 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/subscribe/subscribe_bloc.dart';
 import '../../../domain/auth/i_auth_repository.dart';
+import '../../../domain/crowdaction/commitment.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/shared_widgets/accent_chip.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
+import '../../shared_widgets/commitment_card.dart';
 import '../../shared_widgets/participant_avatars.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
@@ -30,6 +33,15 @@ class CrowdActionDetailsPage extends StatefulWidget {
 class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    // Todo remove this dummy data once pull request is approved
+    final List<Commitment> commitments = [];
+    for (int i = 0; i < 10; i++) {
+      commitments.add(Commitment(
+        id: i,
+        title: 'Commitment $i',
+        description: 'Some description here hi',
+      ));
+    }
     return Scaffold(
       floatingActionButton: BlocBuilder<SubscribeBloc, SubscribeState>(
         builder: (context, state) {
@@ -70,17 +82,15 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   const Expanded(
                     child: SizedBox(),
                   ),
-                  /* TODO implement crowdaction sharing
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      primary: kAccentColor,
-                      onPrimary: kAccentColor,
-                    ),
-                    child: Image.asset('assets/images/icons/share.png'),
-                  )
-                  */
+                  // ElevatedButton(
+                  //   onPressed: () {},
+                  //   style: ElevatedButton.styleFrom(
+                  //     shape: const CircleBorder(),
+                  //     primary: kAccentColor,
+                  //     onPrimary: kAccentColor,
+                  //   ),
+                  //   child: Image.asset('assets/images/icons/share.png'),
+                  // )
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
@@ -178,7 +188,42 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   ],
                 ),
               ),
-              const CommitmentsWidget(),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'My commitments',
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 28,
+                          ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Text(
+                        'Short description about what the commitments are and how you can select/deselect them',
+                        style: Theme.of(context).textTheme.caption!.copyWith(
+                              color: kPrimaryColor300,
+                              fontWeight: FontWeight.w400,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 20),
+                child: CommitmentCardList(
+                  commitments: commitments,
+                  onSelected: (int selectedId) {
+                    /* TODO do something with the selected commitment id
+                    you'll probably want to add it to an array in a bloc */
+                  },
+                ),
+              ),
               const BadgesWidget(),
               const CrowdActionCreatedByWidget(),
               BlocBuilder<SubscribeBloc, SubscribeState>(
