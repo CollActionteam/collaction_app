@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>CollAction</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -40,6 +42,18 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Select and upload a picture from the Photo Library to use as a profile picture in the app.</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<!-- TODO add "Open with CollAction" in the future -->
+	</array>
+	<!-- 
+		Compliance with export rules (does not use non-exempt encryption)
+		https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations
+	-->
+	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>
 </plist>

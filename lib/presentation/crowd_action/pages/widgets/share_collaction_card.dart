@@ -5,6 +5,11 @@ import '../../../../presentation/shared_widgets/pill_button.dart';
 import '../../../../presentation/themes/constants.dart';
 
 class ShareCollActionCard extends StatelessWidget {
+  // TODO Review (and update) text being shared.
+  static const shareText =
+      "Check out https://collaction.org and let's solve all collective action problems in the world.";
+  static const shareEmailSubject = "Join me on CollAction";
+
   const ShareCollActionCard({
     Key? key,
   }) : super(key: key);
@@ -69,10 +74,9 @@ class ShareCollActionCard extends StatelessWidget {
               leading: const Icon(
                 Icons.person_outline,
               ),
-              // TODO - Get proper share message & title
               onTap: () => Share.share(
-                'Share app title',
-                subject: 'Share app details',
+                shareText,
+                subject: shareEmailSubject,
               ),
               margin: const EdgeInsets.symmetric(horizontal: 30),
             ),

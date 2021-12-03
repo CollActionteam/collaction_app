@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../domain/crowdaction/commitment.dart';
 import '../../../application/crowdaction/subscribe/subscribe_bloc.dart';
 import '../../../domain/auth/i_auth_repository.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
@@ -9,6 +12,7 @@ import '../../../domain/crowdaction/participant.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/shared_widgets/accent_chip.dart';
 import '../../routes/app_routes.gr.dart';
+import '../../shared_widgets/commitment_card.dart';
 import '../../shared_widgets/participant_avatars.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
@@ -28,6 +32,15 @@ class CrowdActionDetailsPage extends StatefulWidget {
 class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    // Todo remove this dummy data once pull request is approved
+    final List<Commitment> commitments = [];
+    for (int i = 0; i < 10; i++) {
+      commitments.add(Commitment(
+        id: i,
+        title: 'Commitment $i',
+        description: 'Some description here hi',
+      ));
+    }
     return Scaffold(
       floatingActionButton: PillButton(
         text: "Participate",
@@ -69,7 +82,6 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     ),
                     child: Image.asset('assets/images/icons/share.png'),
                   )
-                  // Your widgets here
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
@@ -170,7 +182,16 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   ],
                 ),
               ),
-              const CommitmentsWidget(),
+              CommitmentCardList(
+                commitments: commitments,
+                onSelected: (int selectedId) {
+                  /* TODO do something with the selected commitment id
+                  you'll probably want to add it to an array in a bloc */
+                },
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               const BadgesWidget(),
               const CrowdActionCreatedByWidget(),
             ],
