@@ -63,17 +63,8 @@ class ShareCollActionCard extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Image.asset("assets/images/share.png")),
-            const SizedBox(
-              height: 10,
-            ),
-            PillButton.icon(
+            PillButton(
               text: "Share CollAction",
-              leading: const Icon(
-                Icons.person_outline,
-              ),
               onTap: () => Share.share(
                 shareText,
                 subject: shareEmailSubject,

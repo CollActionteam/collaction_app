@@ -21,9 +21,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0.0,
       centerTitle: true,
       leading: !closable
-          ? GestureDetector(
-              onTap: () => context.router.pop(),
-              child: Image.asset('assets/images/icons/back_icon.png'),
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () => context.router.pop(),
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  primary: Colors.white,
+                  onPrimary: kAccentColor,
+                  elevation: 4,
+                ),
+                child: Image.asset('assets/images/icons/back_icon.png'),
+              ),
             )
           : null,
       actions: [
