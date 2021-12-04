@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import 'package:collaction_app/presentation/crowd_action/pages/in_spot_light.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
@@ -34,49 +36,53 @@ class _HomePageState extends State<HomePage> {
     } else if (index == 2) {
       pageToShow = const DemoTabPage();
     }
-    return Scaffold(
-      floatingActionButton: !kReleaseMode
-          ? FloatingActionButton(
-              onPressed: () => context.router.push(DemoRoute()),
-              backgroundColor: Colors.black,
-              elevation: 10.0,
-              child: const Icon(Icons.assignment),
-            )
-          : null,
-      body: SafeArea(
-        child: pageToShow ?? Container(),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 75,
-        child: BottomNavigationBar(
-            currentIndex: index,
-            backgroundColor: Colors.white,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedItemColor: const Color(0xFF2EB494),
-            unselectedItemColor: const Color(0xFF333333),
-            type: BottomNavigationBarType.fixed,
-            onTap: (value) {
-              if (value != index) {
-                setState(() {
-                  index = value;
-                });
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/images/black_logo.png')),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_sharp),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add_sharp),
-                label: '',
+    return BlocProvider(
+      create: (_) => getIt<CrowdActionGetterBloc>()
+        ..add(const CrowdActionGetterEvent.getMore(3)),
+      child: Scaffold(
+        floatingActionButton: !kReleaseMode
+            ? FloatingActionButton(
+                onPressed: () => context.router.push(DemoRoute()),
+                backgroundColor: Colors.black,
+                elevation: 10.0,
+                child: const Icon(Icons.assignment),
               )
-            ]),
+            : null,
+        body: SafeArea(
+          child: pageToShow ?? Container(),
+        ),
+        bottomNavigationBar: SizedBox(
+          height: 75,
+          child: BottomNavigationBar(
+              currentIndex: index,
+              backgroundColor: Colors.white,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              selectedItemColor: const Color(0xFF2EB494),
+              unselectedItemColor: const Color(0xFF333333),
+              type: BottomNavigationBarType.fixed,
+              onTap: (value) {
+                if (value != index) {
+                  setState(() {
+                    index = value;
+                  });
+                }
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: ImageIcon(AssetImage('assets/images/black_logo.png')),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_sharp),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.add_sharp),
+                  label: '',
+                )
+              ]),
+        ),
       ),
     );
   }

@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:collaction_app/domain/auth/i_auth_repository.dart';
+import 'package:collaction_app/infrastructure/core/injection.dart';
+import 'package:collaction_app/presentation/shared_widgets/accent_chip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/crowdaction/subscribe/subscribe_bloc.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
 import '../../routes/app_routes.gr.dart';
@@ -46,7 +50,6 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   const Expanded(
                     child: SizedBox(),
                   ),
-                  /* TODO implement crowdaction sharing
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -54,9 +57,9 @@ class CrowdActionDetailsPage extends StatelessWidget {
                       primary: kAccentColor,
                       onPrimary: kAccentColor,
                     ),
-                    child: const Icon(CupertinoIcons.share, color: Colors.white),
+                    child: const Icon(Icons.upload, color: Colors.white),
                   )
-                  */
+                  // Your widgets here
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
@@ -73,8 +76,10 @@ class CrowdActionDetailsPage extends StatelessWidget {
             children: [
               Container(
                 color: kAlmostTransparent,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 30,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,7 +95,21 @@ class CrowdActionDetailsPage extends StatelessWidget {
                     ),
                     Wrap(
                       spacing: 12.0,
-                      children: crowdAction.toChips(),
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // TODO - Sign up, to crowd action
+                          },
+                          child: const AccentChip(
+                            text: "Sign up now",
+                            leading: Icon(
+                              Icons.check,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        ...crowdAction.toChips()
+                      ],
                     ),
                     const SizedBox(
                       height: 20,
@@ -190,7 +209,128 @@ class CrowdActionDetailsPage extends StatelessWidget {
     );
   }
 
-  void _participate(BuildContext context) {
+  void _participate(BuildContext context) async {
+    final _user = await getIt<IAuthRepository>().getSignedInUser();
+
+    if (_user.isNone()) {
+      _signUpModal(context);
+    } else {
+      _participateModal(context);
+    }
+  }
+
+  void _participateModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        builder: (context) {
+          return BlocConsumer<SubscribeBloc, SubscribeState>(
+            listener: (context, state) {
+              state.maybeMap(
+                  subscriptionDone: (state) {
+                    // Close the modal
+                    Navigator.of(context).pop();
+
+                    _participationSuccess(context);
+                  },
+                  subscriptionFailed: (state) {
+                    // TODO- Red snack bar
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.redAccent,
+                      content: const Text(
+                        "Could not participate in crowd action",
+                      ),
+                      action: SnackBarAction(
+                        onPressed: () {
+                          context
+                              .read<SubscribeBloc>()
+                              .add(SubscribeEvent.participate(crowdAction));
+                        },
+                        label: "Retry",
+                      ),
+                    ));
+                  },
+                  orElse: () {});
+            },
+            builder: (context, state) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      width: 60.0,
+                      height: 3.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: kSecondaryTransparent,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      crowdAction.name,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      crowdAction.description,
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                            color: kPrimaryColor400,
+                          ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    PillButton(
+                      text: "Confirm Participation",
+                      isLoading: state is SubscribingToCrowdAction,
+                      onTap: () {
+                        // TODO - Confirm Participation
+                        context
+                            .read<SubscribeBloc>()
+                            .add(SubscribeEvent.participate(crowdAction));
+                      },
+                      margin: EdgeInsets.zero,
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  void _signUpModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
@@ -203,6 +343,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(
                   height: 15,
@@ -219,7 +360,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  "Modal title",
+                  "Participate",
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1
@@ -229,7 +370,7 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   height: 30,
                 ),
                 Text(
-                  "Modal description. Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis.",
+                  "You need to create an account in order to participate in a crowdaction. If you have an account already, please log in.",
                   style: Theme.of(context).textTheme.caption?.copyWith(
                         color: kPrimaryColor400,
                       ),
@@ -238,8 +379,8 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   height: 20,
                 ),
                 PillButton(
-                  text: "Confirm Participation",
-                  onTap: () {},
+                  text: "Create account",
+                  onTap: () => _createAccount(context),
                   margin: EdgeInsets.zero,
                 ),
                 const SizedBox(height: 20),
@@ -247,15 +388,99 @@ class CrowdActionDetailsPage extends StatelessWidget {
                   width: double.infinity,
                   height: 52,
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Cancel"),
+                    onPressed: () => _createAccount(context),
+                    child: const Text("Log in"),
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
               ],
             ),
           );
         });
+  }
+
+  void _participationSuccess(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        builder: (context) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  width: 60.0,
+                  height: 3.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: kSecondaryTransparent,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  crowdAction.name,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 28,
+                ),
+                Text(
+                  "Success!",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                      ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "You have successfully registered for this CrowdAction",
+                  style: Theme.of(context).textTheme.caption?.copyWith(
+                        color: kPrimaryColor400,
+                      ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                PillButton(
+                  text: "Got It",
+                  onTap: () {
+                    // TODO - Pop
+                  },
+                  margin: EdgeInsets.zero,
+                ),
+                const SizedBox(height: 20),
+                //TODO - Add message to change commitments const Divider(),
+                // const SizedBox(
+                //   height: 15,
+                // ),
+              ],
+            ),
+          );
+        });
+  }
+
+  void _createAccount(BuildContext context) {
+    Navigator.of(context).pop();
+    context.router.push(const AuthRoute());
   }
 }
