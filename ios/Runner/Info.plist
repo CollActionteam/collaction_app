@@ -45,5 +45,9 @@
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Select and upload a picture from the Photo Library to use as a profile picture in the app.</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<!-- TODO add "Open with CollAction" in the future -->
+	</array>
 </dict>
 </plist>

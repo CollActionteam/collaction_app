@@ -5,6 +5,4 @@ import 'package:injectable/injectable.dart';
 abstract class FirebaseAuthSingleton {
   @lazySingleton
   FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
-
-
 }

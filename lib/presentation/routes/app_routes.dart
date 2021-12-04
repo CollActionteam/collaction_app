@@ -1,5 +1,4 @@
 import 'package:auto_route/annotations.dart';
-import 'package:collaction_app/presentation/crowd_action/pages/participants.dart';
 
 import '../auth/auth_screen.dart';
 import '../auth/pages/verified.dart';
@@ -7,6 +6,7 @@ import '../contact_form/contact_form_screen.dart';
 import '../crowd_action/crowd_action_browse.dart';
 import '../crowd_action/pages/crowd_action_details.dart';
 import '../crowd_action/pages/in_spot_light.dart';
+import '../crowd_action/pages/participants.dart';
 import '../demo/components_demo/components_demo_screen.dart';
 import '../demo/demo_screen.dart';
 import '../home/home_screen.dart';

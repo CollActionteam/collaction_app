@@ -52,14 +52,16 @@ class PillButton extends StatelessWidget {
   Widget _getChild() {
     if (isLoading) {
       return ElevatedButton(
-        onPressed: (){},
+        onPressed: () {},
         style: ElevatedButton.styleFrom(
           primary: kAccentColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(52),
           ),
         ),
-        child: const CircularProgressIndicator(color: Colors.white,),
+        child: const CircularProgressIndicator(
+          color: Colors.white,
+        ),
       );
     } else if (leading != null) {
       return ElevatedButton.icon(
