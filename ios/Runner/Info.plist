@@ -45,15 +45,5 @@
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Select and upload a picture from the Photo Library to use as a profile picture in the app.</string>
-	<key>com.apple.developer.associated-domains</key>
-	<array>
-		<!-- TODO add "Open with CollAction" in the future -->
-	</array>
-	<!-- 
-		Compliance with export rules (does not use non-exempt encryption)
-		https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations
-	-->
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 </dict>
 </plist>
