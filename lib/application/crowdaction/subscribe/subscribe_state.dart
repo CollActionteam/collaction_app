@@ -7,7 +7,7 @@ class SubscribeState with _$SubscribeState {
   /// Subscription
   const factory SubscribeState.subscribingToCrowdAction() =
       SubscribingToCrowdAction;
-  const factory SubscribeState.subscriptionDone() = _SubscriptionDone;
+  const factory SubscribeState.subscriptionDone() = SubscriptionDone;
   const factory SubscribeState.subscriptionFailed() = _SubscriptionFailed;
 
   /// Un subscription

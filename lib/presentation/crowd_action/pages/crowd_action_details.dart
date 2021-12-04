@@ -1,15 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/rendering.dart';
 
-import '../../../application/crowdaction/subscribe/subscribe_bloc.dart';
-import '../../../domain/auth/i_auth_repository.dart';
+import '../../../domain/crowdaction/commitment.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../routes/app_routes.gr.dart';
-import '../../shared_widgets/accent_chip.dart';
+import '../../shared_widgets/commitment_card.dart';
 import '../../shared_widgets/participant_avatars.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
@@ -30,7 +29,29 @@ class CrowdActionDetailsPage extends StatefulWidget {
 class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    // Todo remove this dummy data once pull request is approved
+    final List<Commitment> commitments = [];
+    for (int i = 0; i < 10; i++) {
+      commitments.add(Commitment(
+        id: i,
+        title: 'Commitment $i',
+        description: 'Some description here hi',
+      ));
+    }
     return Scaffold(
+      floatingActionButton: BlocBuilder<SubscribeBloc, SubscribeState>(
+        builder: (context, state) {
+          if (state is! SubscriptionDone) {
+            return PillButton(
+              text: "Participate",
+              onTap: () => _participate(context),
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -163,77 +184,33 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   ],
                 ),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "This CrowdAction was created by",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: const [
-                        CircleAvatar(
-                          radius: 26,
-                          backgroundImage: NetworkImage(
-                              "https://source.unsplash.com/mEZ3PoFGs_k/500x500"),
+              const CommitmentsWidget(),
+              const BadgesWidget(),
+              const CrowdActionCreatedByWidget(),
+              BlocBuilder<SubscribeBloc, SubscribeState>(
+                builder: (context, state) {
+                  return state.maybeMap(
+                    subscriptionDone: (state) {
+                      return GestureDetector(
+                        onTap: () => _withdrawParticipationModal(context),
+                        child: Text(
+                          'Withdraw my participation',
+                          style:
+                              Theme.of(context).textTheme.headline3!.copyWith(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: kSuccessColor,
+                                  ),
                         ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Barbra",
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: kPrimaryColor400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Center(
-                      child: BlocBuilder<SubscribeBloc, SubscribeState>(
-                        builder: (context, state) {
-                          return state.maybeMap(
-                            subscriptionDone: (state) {
-                              return GestureDetector(
-                                onTap: () =>
-                                    _withdrawParticipationModal(context),
-                                child: Text(
-                                  'Withdraw my participation',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline3!
-                                      .copyWith(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w700,
-                                        // height: 20,
-                                        color: kSuccessColor,
-                                      ),
-                                ),
-                              );
-                            },
-                            orElse: () {
-                              return PillButton(
-                                text: 'Participate',
-                                margin: EdgeInsets.zero,
-                                onTap: () => _participate(context),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                ),
+                      );
+                    },
+                    orElse: () {
+                      return const Text('');
+                    },
+                  );
+                },
               ),
+              const SizedBox(height: 70),
             ],
           ),
         ),
@@ -635,12 +612,107 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 const SizedBox(
                   height: 15,
                 ),
-                Container(
-                  width: 60.0,
-                  height: 3.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: kSecondaryTransparent,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                widget.crowdAction.name,
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 28,
+              ),
+              Text(
+                "Success!",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                    ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "You have successfully registered for this CrowdAction",
+                style: Theme.of(context).textTheme.caption?.copyWith(
+                      color: kPrimaryColor400,
+                    ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              PillButton(
+                text: "Got It",
+                onTap: () {
+                  // TODO - Pop
+                  context.router.pop();
+                },
+                margin: EdgeInsets.zero,
+              ),
+              const SizedBox(height: 20),
+              //TODO - Add message to change commitments const Divider(),
+              // const SizedBox(
+              //   height: 15,
+              // ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _createAccount(BuildContext context) {
+    Navigator.of(context).pop();
+    context.router.push(const AuthRoute());
+  }
+}
+
+class CommitmentsWidget extends StatefulWidget {
+  const CommitmentsWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<CommitmentsWidget> createState() => _CommitmentsWidgetState();
+}
+
+class _CommitmentsWidgetState extends State<CommitmentsWidget> {
+  late int _selectedCommitment;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _selectedCommitment = 0;
+  }
+
+  void handleClick(int inputCommitmentNumber) {
+    setState(() {
+      _selectedCommitment = _selectedCommitment == inputCommitmentNumber
+          ? 0
+          : inputCommitmentNumber;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        color: kSecondaryColor,
+        child: Column(
+          children: [
+            Text(
+              'My commitments',
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 28,
                   ),
                 ),
                 const SizedBox(
@@ -691,8 +763,10 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 // ),
               ],
             ),
-          );
-        });
+          ),
+        ],
+      ),
+    );
   }
 
   void _createAccount(BuildContext context) {
