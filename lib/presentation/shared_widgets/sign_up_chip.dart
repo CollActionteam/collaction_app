@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../domain/user/i_user_repository.dart';
 import '../../../domain/user/user.dart';
 import '../../../infrastructure/core/injection.dart';
-import '../../../presentation/routes/app_routes.gr.dart';
+import '../routes/app_routes.gr.dart';
 import 'accent_chip.dart';
 
 class SignUpChip extends StatefulWidget {

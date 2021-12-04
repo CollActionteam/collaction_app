@@ -7,9 +7,7 @@ import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/i_crowdaction_repository.dart';
 
 part 'subscribe_bloc.freezed.dart';
-
 part 'subscribe_event.dart';
-
 part 'subscribe_state.dart';
 
 @injectable
@@ -28,7 +26,17 @@ class SubscribeBloc extends Bloc<SubscribeEvent, SubscribeState> {
   }
 
   Stream<SubscribeState> _mapWithDrawParticipationToState(
-      _WithDrawParticipation value) async* {}
+      _WithDrawParticipation value) async* {
+    yield const SubscribeState.unSubscribingToCrowdAction();
+
+    final failureOrSuccess =
+        await _crowdActionRepository.unsubscribeToCrowdAction(value.action);
+
+    yield failureOrSuccess.fold(
+      (failure) => const SubscribeState.unSubscriptionFailed(),
+      (_) => const SubscribeState.unSubscriptionDone(),
+    );
+  }
 
   Stream<SubscribeState> _mapParticipateToState(_Participate value) async* {
     yield const SubscribeState.subscribingToCrowdAction();

@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 
 part 'crowdaction_dto.freezed.dart';
-
 part 'crowdaction_dto.g.dart';
 
 @freezed

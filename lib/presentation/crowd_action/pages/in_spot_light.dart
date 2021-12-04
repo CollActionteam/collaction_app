@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../application/crowdaction/spotlight/spot_light_bloc.dart';
+import './widgets/in_spotlight_header.dart';
+import './widgets/share_collaction_card.dart';
+import '../../../application/crowdaction/spotlight/spot_light_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
-import '../../../presentation/crowd_action/pages/widgets/share_collaction_card.dart';
-import '../../../presentation/home/widgets/current_upcoming_layout.dart';
-
-import 'widgets/in_spotlight_header.dart';
+import '../../home/widgets/current_upcoming_layout.dart';
 
 class InSpotLightPage extends StatelessWidget {
   const InSpotLightPage({Key? key}) : super(key: key);

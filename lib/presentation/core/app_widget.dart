@@ -14,8 +14,12 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<AuthBloc>()),
-        BlocProvider(create: (_) => getIt<SubscribeBloc>()),
+        BlocProvider(
+          create: (_) => getIt<AuthBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<SubscribeBloc>(),
+        ),
       ],
       child: MaterialApp.router(
         color: Colors.white,

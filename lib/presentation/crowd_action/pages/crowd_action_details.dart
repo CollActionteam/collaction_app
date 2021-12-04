@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/crowdaction/commitment.dart';
 import '../../../application/crowdaction/subscribe/subscribe_bloc.dart';
 import '../../../domain/auth/i_auth_repository.dart';
+import '../../../domain/crowdaction/commitment.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/shared_widgets/accent_chip.dart';
 import '../../routes/app_routes.gr.dart';
+import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/commitment_card.dart';
 import '../../shared_widgets/participant_avatars.dart';
 import '../../shared_widgets/pill_button.dart';
@@ -42,9 +43,17 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
       ));
     }
     return Scaffold(
-      floatingActionButton: PillButton(
-        text: "Participate",
-        onTap: () => _participate(context),
+      floatingActionButton: BlocBuilder<SubscribeBloc, SubscribeState>(
+        builder: (context, state) {
+          if (state is! SubscriptionDone) {
+            return PillButton(
+              text: "Participate",
+              onTap: () => _participate(context),
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: NestedScrollView(
@@ -73,15 +82,15 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   const Expanded(
                     child: SizedBox(),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      primary: kAccentColor,
-                      onPrimary: kAccentColor,
-                    ),
-                    child: Image.asset('assets/images/icons/share.png'),
-                  )
+                  // ElevatedButton(
+                  //   onPressed: () {},
+                  //   style: ElevatedButton.styleFrom(
+                  //     shape: const CircleBorder(),
+                  //     primary: kAccentColor,
+                  //     onPrimary: kAccentColor,
+                  //   ),
+                  //   child: Image.asset('assets/images/icons/share.png'),
+                  // )
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
@@ -115,24 +124,21 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Wrap(
-                      spacing: 12.0,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // TODO - Sign up, to crowd action
-                          },
-                          child: const AccentChip(
-                            text: "Sign up now",
-                            leading: Icon(
-                              Icons.check,
-                              color: Colors.white,
-                            ),
+                    Wrap(spacing: 12.0, children: [
+                      GestureDetector(
+                        onTap: () {
+                          // TODO - Sign up, to crowd action
+                        },
+                        child: const AccentChip(
+                          text: "Sign up now",
+                          leading: Icon(
+                            Icons.check,
+                            color: Colors.white,
                           ),
                         ),
-                        ...widget.crowdAction.toChips()
-                      ],
-                    ),
+                      ),
+                      ...widget.crowdAction.toChips()
+                    ]),
                     const SizedBox(
                       height: 20,
                     ),
@@ -182,22 +188,256 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   ],
                 ),
               ),
-              CommitmentCardList(
-                commitments: commitments,
-                onSelected: (int selectedId) {
-                  /* TODO do something with the selected commitment id
-                  you'll probably want to add it to an array in a bloc */
-                },
-              ),
-              Container(
+              Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'My commitments',
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 28,
+                          ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Text(
+                        'Short description about what the commitments are and how you can select/deselect them',
+                        style: Theme.of(context).textTheme.caption!.copyWith(
+                              color: kPrimaryColor300,
+                              fontWeight: FontWeight.w400,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 20),
+                child: CommitmentCardList(
+                  commitments: commitments,
+                  onSelected: (int selectedId) {
+                    /* TODO do something with the selected commitment id
+                    you'll probably want to add it to an array in a bloc */
+                  },
+                ),
+              ),
               const BadgesWidget(),
               const CrowdActionCreatedByWidget(),
+              BlocBuilder<SubscribeBloc, SubscribeState>(
+                builder: (context, state) {
+                  return state.maybeMap(
+                    subscriptionDone: (state) {
+                      return GestureDetector(
+                        onTap: () => _withdrawParticipationModal(context),
+                        child: Text(
+                          'Withdraw my participation',
+                          style:
+                              Theme.of(context).textTheme.headline3!.copyWith(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: kSuccessColor,
+                                  ),
+                        ),
+                      );
+                    },
+                    orElse: () {
+                      return const Text('');
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: 70),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _withdrawParticipationModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return BlocConsumer<SubscribeBloc, SubscribeState>(
+          listener: (context, state) {
+            state.maybeMap(
+              unSubscriptionDone: (state) {
+                Navigator.pop(context);
+                _withdrawSuccess(context);
+              },
+              unSubscriptionFailed: (state) {
+                // TODO- Red snack bar
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.redAccent,
+                    content: const Text(
+                      "Error encountered while unsubscribing to crowdaction",
+                    ),
+                    action: SnackBarAction(
+                      onPressed: () {
+                        context.read<SubscribeBloc>().add(
+                            SubscribeEvent.withDrawParticipation(
+                                widget.crowdAction));
+                      },
+                      label: "Retry",
+                    ),
+                  ),
+                );
+              },
+              orElse: () {},
+            );
+          },
+          builder: (context, state) {
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    width: 60.0,
+                    height: 3.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: kSecondaryTransparent,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    widget.crowdAction.name,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    widget.crowdAction.description,
+                    style: Theme.of(context).textTheme.caption?.copyWith(
+                          color: kPrimaryColor400,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  PillButton(
+                    text: "Withdraw Participation",
+                    isLoading: state is UnSubscribingToCrowdAction,
+                    onTap: () {
+                      // TODO - Withdraw Participation
+                      context.read<SubscribeBloc>().add(
+                          SubscribeEvent.withDrawParticipation(
+                              widget.crowdAction));
+                    },
+                    margin: EdgeInsets.zero,
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Cancel"),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _withdrawSuccess(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                width: 60.0,
+                height: 3.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: kSecondaryTransparent,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                widget.crowdAction.name,
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 28,
+              ),
+              Text(
+                "We are sad to see you withdraw!",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                    ),
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+              PillButton(
+                text: "Got It",
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                margin: EdgeInsets.zero,
+              ),
+              const SizedBox(height: 20),
+              //TODO - Add message to change commitments const Divider(),
+              // const SizedBox(
+              //   height: 15,
+              // ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -458,6 +698,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 text: "Got It",
                 onTap: () {
                   // TODO - Pop
+                  context.router.pop();
                 },
                 margin: EdgeInsets.zero,
               ),
@@ -713,7 +954,6 @@ class CrowdActionCreatedByWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 70),
         ],
       ),
     );

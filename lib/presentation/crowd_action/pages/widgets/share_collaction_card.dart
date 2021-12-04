@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../presentation/shared_widgets/pill_button.dart';
-import '../../../../presentation/themes/constants.dart';
+import '../../../shared_widgets/pill_button.dart';
+import '../../../themes/constants.dart';
 
 class ShareCollActionCard extends StatelessWidget {
   // TODO Review (and update) text being shared.

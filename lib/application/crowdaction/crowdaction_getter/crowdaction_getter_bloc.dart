@@ -25,6 +25,7 @@ class CrowdActionGetterBloc
   ) async* {
     yield* event.map(
       getMore: (event) async* {
+        yield const CrowdActionGetterState.fetchingCrowdActions();
         try {
           List<CrowdAction> response;
           if (event.amount != null && event.amount! > 0) {
