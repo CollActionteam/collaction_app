@@ -162,24 +162,21 @@ class ContactFormPageState extends State<ContactFormPage> {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     state.map(
         initial: (_) {},
-        submitting: (_) {
-          //! TODO: Implement Loading Dialog
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   const SnackBar(
-          //     content: Text('Submitting form...'),
-          //     duration: Duration(days: 1),
-          //   ),
-          // );
-        },
+        submitting: (_) {},
         submissionSuccessful: (_) {
           ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Success!')))
+              .showSnackBar(const SnackBar(
+                content: Text('Success!'),
+                behavior: SnackBarBehavior.floating,
+              ))
               .closed
               .then((value) => Navigator.pop(context));
         },
         failed: (_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Error! Failed to submit form.')));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Error! Failed to submit form.'),
+            behavior: SnackBarBehavior.floating,
+          ));
         });
   }
 
