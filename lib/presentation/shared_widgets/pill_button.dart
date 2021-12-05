@@ -9,6 +9,7 @@ class PillButton extends StatelessWidget {
   final bool isEnabled;
   final EdgeInsets? margin;
   final double? width;
+  final bool isLoading;
 
   const PillButton({
     Key? key,
@@ -18,6 +19,7 @@ class PillButton extends StatelessWidget {
     this.isEnabled = true,
     this.margin,
     this.width,
+    this.isLoading = false,
   }) : super(key: key);
 
   const PillButton.icon({
@@ -28,6 +30,7 @@ class PillButton extends StatelessWidget {
     this.isEnabled = true,
     this.margin,
     this.width,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -41,28 +44,41 @@ class PillButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         height: 52,
-        child: leading != null
-            ? ElevatedButton.icon(
-                icon: leading ?? Container(),
-                label: Text(text),
-                onPressed: isEnabled ? onTap : null,
+        child: isLoading
+            ? ElevatedButton(
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   primary: kAccentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),
+                ),
+                child: const CircularProgressIndicator(
+                  color: Colors.white,
                 ),
               )
-            : ElevatedButton(
-                onPressed: isEnabled ? onTap : null,
-                style: ElevatedButton.styleFrom(
-                  primary: kAccentColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(52),
+            : leading != null
+                ? ElevatedButton.icon(
+                    icon: leading ?? Container(),
+                    label: Text(text),
+                    onPressed: isEnabled ? onTap : null,
+                    style: ElevatedButton.styleFrom(
+                      primary: kAccentColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(52),
+                      ),
+                    ),
+                  )
+                : ElevatedButton(
+                    onPressed: isEnabled ? onTap : null,
+                    style: ElevatedButton.styleFrom(
+                      primary: kAccentColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(52),
+                      ),
+                    ),
+                    child: Text(text),
                   ),
-                ),
-                child: Text(text),
-              ),
       ),
     );
   }
