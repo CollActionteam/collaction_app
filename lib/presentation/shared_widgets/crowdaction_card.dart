@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/crowdaction/participant.dart';
+import '../../infrastructure/crowdaction/crowdaction_dto.dart';
 import '../themes/constants.dart';
 import 'participant_avatars.dart';
 
@@ -10,7 +11,7 @@ class CrowdActionCard extends StatelessWidget {
   final List<Widget> chips;
   final String? description;
   final double scaleFactor;
-  final List<Participant>? participants;
+  final List<TopParticipant>? participants;
   final int? totalParticipants;
   final Function()? onTap;
 

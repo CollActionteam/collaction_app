@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/subscription/subscription_bloc.dart';
 import '../../../domain/auth/i_auth_repository.dart';
-import '../../../domain/crowdaction/commitment.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
 import '../../../infrastructure/core/injection.dart';
@@ -34,15 +33,6 @@ class CrowdActionDetailsPage extends StatefulWidget {
 class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    // Todo remove this dummy data once pull request is approved
-    final List<Commitment> commitments = [];
-    for (int i = 0; i < 3; i++) {
-      commitments.add(Commitment(
-        id: i,
-        title: 'Commitment $i',
-        description: 'Some description here hi',
-      ));
-    }
     return Scaffold(
       floatingActionButton: BlocBuilder<SubscriptionBloc, SubscriptionState>(
         builder: (context, state) {
@@ -96,7 +86,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
-                  widget.crowdAction.image ?? "",
+                  widget.crowdAction.images.url ?? "",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -116,7 +106,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.crowdAction.name,
+                      widget.crowdAction.title,
                       style: Theme.of(context).textTheme.headline4?.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 28,
@@ -156,7 +146,8 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                             SizedBox(
                               width: 100,
                               child: ParticipantAvatars(
-                                participants: sampleParticipants,
+                                participants:
+                                    widget.crowdAction.topParticipants,
                               ),
                             ),
                             const SizedBox(
@@ -164,7 +155,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                             ),
                             Expanded(
                               child: Text(
-                                "Join ${sampleParticipants.title(widget.crowdAction.numParticipants)}",
+                                "Join ${widget.crowdAction.topParticipants.title(widget.crowdAction.totalParticipants)}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption
@@ -218,8 +209,8 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 20),
                 child: CommitmentCardList(
-                  commitments: commitments,
-                  onSelected: (int selectedId) {
+                  commitments: widget.crowdAction.commitmentOptions,
+                  onSelected: (String selectedId) {
                     /* TODO do something with the selected commitment id
                     you'll probably want to add it to an array in a bloc */
                   },
@@ -318,7 +309,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     height: 20,
                   ),
                   Text(
-                    widget.crowdAction.name,
+                    widget.crowdAction.title,
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -401,7 +392,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               Text(
-                widget.crowdAction.name,
+                widget.crowdAction.title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -513,7 +504,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       height: 20,
                     ),
                     Text(
-                      widget.crowdAction.name,
+                      widget.crowdAction.title,
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -666,7 +657,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               Text(
-                widget.crowdAction.name,
+                widget.crowdAction.title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme

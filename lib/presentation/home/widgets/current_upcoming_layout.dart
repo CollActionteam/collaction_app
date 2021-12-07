@@ -105,7 +105,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                                image: NetworkImage(e.image.toString()),
+                                image: NetworkImage(e.images.url ?? ""),
                                 fit: BoxFit.cover)),
                         margin: const EdgeInsets.only(left: 10),
                         height: 128,
@@ -127,7 +127,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  e.name.toString(),
+                                  e.title,
                                   softWrap: false,
                                   maxLines: 2,
                                   style: const TextStyle(

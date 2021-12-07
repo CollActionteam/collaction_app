@@ -1,3 +1,5 @@
+import '../../infrastructure/crowdaction/crowdaction_dto.dart';
+
 class Participant {
   final String? photo;
   final String name;
@@ -20,7 +22,7 @@ final participantsPageParticipants = List.generate(10, (index) => index)
         ])
     .toList();
 
-extension ParticipantsX on List<Participant> {
+extension ParticipantsX on List<TopParticipant> {
   String title(int totalParticipants) {
     if (totalParticipants >= 3 && length >= 3) {
       return "${take(2).map((e) => e.name).join(", ")} and ${totalParticipants - 2} others!";

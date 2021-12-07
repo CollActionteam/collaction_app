@@ -42,7 +42,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   freezed_annotation: ^0.14.2
   get_it: ^7.1.4
-  http: ^0.13.3
+  http: ^0.13.4
   image_cropper: ^1.4.1
   image_picker: ^0.8.4
   injectable: ^1.4.1

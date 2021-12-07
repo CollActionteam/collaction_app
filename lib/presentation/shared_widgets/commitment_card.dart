@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/crowdaction/commitment.dart';
+import '../../infrastructure/crowdaction/crowdaction_dto.dart';
 import '../../presentation/themes/constants.dart';
 
 class CommitmentCardList extends StatelessWidget {
-  final List<Commitment> commitments;
-  final Function(int) onSelected;
+  final List<CommitmentOption> commitments;
+  final Function(String) onSelected;
   final Axis axis;
 
   /// Widget for easily creating a list of CommitmentCard(s)
@@ -57,10 +57,12 @@ class CommitmentCard extends StatefulWidget {
     required this.commitment,
     required this.onSelected,
     Key? key,
+    this.active = false,
   }) : super(key: key);
 
-  final Commitment commitment;
-  final Function(int) onSelected;
+  final CommitmentOption commitment;
+  final Function(String) onSelected;
+  final bool active;
 
   @override
   _CommitmentCardState createState() => _CommitmentCardState();
@@ -72,7 +74,7 @@ class _CommitmentCardState extends State<CommitmentCard> {
   @override
   void initState() {
     super.initState();
-    active = widget.commitment.checked;
+    active = widget.active;
   }
 
   @override
@@ -124,7 +126,7 @@ class _CommitmentCardState extends State<CommitmentCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.commitment.title,
+                    widget.commitment.label,
                     style: textTheme.headline6!.copyWith(fontSize: 16),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

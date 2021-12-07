@@ -1,6 +1,6 @@
 import '../../../domain/crowdaction/crowdaction.dart';
 
-final crowdActionSpotlightDummies = [
+/*final crowdActionSpotlightDummies = [
   CrowdAction(
     name: "This is the headline for the first crowd action",
     image: "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
@@ -34,4 +34,4 @@ final crowdActionSpotlightDummies = [
     subCategory: "Community",
     numParticipants: 20,
   )
-];
+];*/

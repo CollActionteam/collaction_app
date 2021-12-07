@@ -60,7 +60,7 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
                     itemCount: 3,
                     itemBuilder: (context, index) => CrowdActionCard(
                       scaleFactor: scaleFactor,
-                      title: crowdActions[index].name,
+                      title: crowdActions[index].title,
                       imagePath:
                           'https://collaction-production.s3.eu-central-1.amazonaws.com/7d50f62a-a73d-401e-a1d8-33a9e8817870.jpg', // TODO: Use crowdaction image
                       chips: [

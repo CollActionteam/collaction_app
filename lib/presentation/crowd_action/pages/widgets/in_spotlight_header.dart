@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
-import '../../../../domain/crowdaction/participant.dart';
 import '../../../routes/app_routes.gr.dart';
 import '../../../shared_widgets/accent_chip.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
@@ -74,8 +73,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                       itemBuilder: (ctx, index) {
                         final crowdAction = _pages[index];
                         return CrowdActionCard(
-                          title: crowdAction.name,
-                          imagePath: crowdAction.image ?? "",
+                          title: crowdAction.title,
+                          imagePath: crowdAction.images.url ?? "",
                           chips: [
                             GestureDetector(
                               onTap: () {
@@ -91,8 +90,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                             ),
                             ...crowdAction.toChips()
                           ],
-                          participants: sampleParticipants,
-                          totalParticipants: crowdAction.numParticipants,
+                          participants: crowdAction.topParticipants,
+                          totalParticipants: crowdAction.totalParticipants,
                           onTap: () => context.router.push(
                             CrowdActionDetailsRoute(
                               crowdAction: crowdAction,
