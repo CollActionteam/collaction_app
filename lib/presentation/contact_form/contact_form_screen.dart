@@ -1,14 +1,14 @@
-import 'package:collaction_app/presentation/shared_widgets/custom_app_bars/custom_appbar.dart';
-import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/contact_form/contact_form_bloc.dart';
-import '../../domain/contact_form/contact_form_contents.dart';
+import '../../domain/contact_form/contact_form_dto.dart';
 import '../../infrastructure/core/injection.dart';
 import '../../presentation/shared_widgets/no_ripple_behavior.dart';
 import '../../presentation/themes/constants.dart';
+import '../shared_widgets/custom_app_bars/custom_appbar.dart';
+import '../shared_widgets/pill_button.dart';
 
 class ContactFormPage extends StatefulWidget {
   const ContactFormPage({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class ContactFormPageState extends State<ContactFormPage> {
   late ContactFormBloc _contactFormBloc;
   late GlobalKey<FormState> _formKey;
   late GlobalKey<FormFieldState> _emailKey;
-  late ContactFormContents _formContents;
+  ContactFormDto? _formContents;
 
   @override
   void initState() {
@@ -33,7 +33,6 @@ class ContactFormPageState extends State<ContactFormPage> {
     _contactFormBloc = getIt<ContactFormBloc>();
     _formKey = GlobalKey<FormState>();
     _emailKey = GlobalKey<FormFieldState>();
-    _formContents = ContactFormContents();
   }
 
   @override
@@ -81,7 +80,7 @@ class ContactFormPageState extends State<ContactFormPage> {
                             onChanged: (value) =>
                                 _emailKey.currentState!.validate(),
                             enabled: isEnabled,
-                            validator: (value) => _validateEmail(value),
+                            keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(fontSize: 20.0),
                             decoration: InputDecoration(
                               hintText: 'Your email address',
@@ -101,11 +100,12 @@ class ContactFormPageState extends State<ContactFormPage> {
                                     width: 0, color: Colors.transparent),
                               ),
                             ),
+                            validator: (value) => _validateEmail(value),
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
                             child: Text(
-                              "We will send out response to your email address",
+                              "We will send our response to your email address",
                               style: Theme.of(context)
                                   .textTheme
                                   .caption!
@@ -139,6 +139,7 @@ class ContactFormPageState extends State<ContactFormPage> {
                               ),
                             ),
                             validator: _validateMessage,
+                            onChanged: _validateMessage,
                           ),
                           const SizedBox(height: 35.0),
                           PillButton(
@@ -188,7 +189,7 @@ class ContactFormPageState extends State<ContactFormPage> {
       return 'Please enter a valid email address';
     }
     _formContents =
-        ContactFormContents(email: value, message: _formContents.message);
+        ContactFormDto(email: value, message: _formContents?.message ?? '');
     return null;
   }
 
@@ -197,13 +198,13 @@ class ContactFormPageState extends State<ContactFormPage> {
       return 'Please enter your feedback';
     }
     _formContents =
-        ContactFormContents(email: _formContents.email, message: value);
+        ContactFormDto(email: _formContents?.email ?? '', message: value);
     return null;
   }
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      _contactFormBloc.add(ContactFormEvent.submitted(_formContents));
+      _contactFormBloc.add(ContactFormEvent.submitted(_formContents!));
     }
   }
 }
