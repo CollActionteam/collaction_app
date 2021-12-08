@@ -7,13 +7,13 @@ import 'package:injectable/injectable.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 import '../../domain/crowdaction/crowdaction_failures.dart';
 import '../../domain/crowdaction/i_crowdaction_repository.dart';
-import '../../presentation/crowd_action/utils/dummies.dart';
 import 'crowdaction_dto.dart';
 
 @LazySingleton(as: ICrowdActionRepository)
 class CrowdActionRepository implements ICrowdActionRepository {
   /// TODO: Reevaluate usage on API implementation
   final http.Client _client;
+
   const CrowdActionRepository(this._client);
 
   @override
@@ -25,7 +25,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
       //     : queryGetCrowdActions;
 
       final response = await _client.get(
-          Uri.parse('https://api-dev.collaction.org/crowdactions?status=joinable'),
+          Uri.parse(
+              'https://api-dev.collaction.org/crowdactions?status=joinable'),
           headers: {'Content-Type': 'application/json'});
 
       final responseBody = CrowdActionList.fromJson(
@@ -35,7 +36,6 @@ class CrowdActionRepository implements ICrowdActionRepository {
           .map((crowdActionDto) => crowdActionDto.toDomain())
           .toList();
     } catch (error) {
-      print(error);
       return <CrowdAction>[];
     }
   }
@@ -68,15 +68,17 @@ class CrowdActionRepository implements ICrowdActionRepository {
   Future<Either<CrowdActionFailure, List<CrowdAction>>>
       getSpotlightCrowdActions() async {
     try {
-      final uri = Uri.parse('https://api-dev.collaction.org/crowdactions?status=joinable');
-      final response = await _client.get(uri, headers: {'Content-Type': 'application/json'});
+      final uri = Uri.parse(
+          'https://me0cevyjlf.execute-api.eu-central-1.amazonaws.com/dev/crowdactions?status=joinable');
+      final response =
+          await _client.get(uri, headers: {'Content-Type': 'application/json'});
 
-      final responseBody = CrowdActionList.fromJson(
-          json.decode(response.body)['data'] as Map<String, dynamic>);
+      final actions = (jsonDecode(response.body) as List<dynamic>)
+          .map((e) =>
+              CrowdActionDto.fromJson(e as Map<String, dynamic>).toDomain())
+          .toList();
 
-      return right(responseBody.crowdactions
-          .map((crowdActionDto) => crowdActionDto.toDomain())
-          .toList());
+      return right(actions);
     } catch (e) {
       return left(const CrowdActionFailure.networkRequestFailed());
     }

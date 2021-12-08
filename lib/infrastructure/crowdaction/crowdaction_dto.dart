@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
+import '../crowdaction/crowdaction.ext.dart';
 
 part 'crowdaction_dto.freezed.dart';
 
@@ -41,7 +42,7 @@ class CrowdActionDto with _$CrowdActionDto {
         end: DateTime.parse(dateEnd),
         dateLimitJoin: DateTime.parse(dateLimitJoin),
         passwordJoin: passwordJoin,
-        commitmentOptions: commitmentOptions,
+        commitmentOptions: commitmentOptions.flatten(),
         topParticipants: topParticipants,
         totalParticipants: totalParticipants ?? 0,
         images: images);
@@ -65,7 +66,7 @@ class CrowdActionList with _$CrowdActionList {
 
 @freezed
 class CrowdActionImages with _$CrowdActionImages {
-  factory CrowdActionImages({String? url}) = _CrowdActionImages;
+  factory CrowdActionImages({required String card,required String banner}) = _CrowdActionImages;
 
   factory CrowdActionImages.fromJson(Map<String, dynamic> json) =>
       _$CrowdActionImagesFromJson(json);
@@ -88,20 +89,10 @@ class CommitmentOption with _$CommitmentOption {
       {required String id,
       required String label,
       String? icon,
+      String? ref,
       required String description,
-      required List<Requires> requires}) = _CommitmentOption;
+      List<CommitmentOption>? requires}) = _CommitmentOption;
 
   factory CommitmentOption.fromJson(Map<String, dynamic> json) =>
       _$CommitmentOptionFromJson(json);
-}
-
-@freezed
-class Requires with _$Requires {
-  factory Requires(
-      {required String id,
-      required String label,
-      required String description}) = _Requires;
-
-  factory Requires.fromJson(Map<String, dynamic> json) =>
-      _$RequiresFromJson(json);
 }

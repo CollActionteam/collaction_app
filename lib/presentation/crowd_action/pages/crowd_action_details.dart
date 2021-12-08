@@ -73,20 +73,11 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   const Expanded(
                     child: SizedBox(),
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   style: ElevatedButton.styleFrom(
-                  //     shape: const CircleBorder(),
-                  //     primary: kAccentColor,
-                  //     onPrimary: kAccentColor,
-                  //   ),
-                  //   child: Image.asset('assets/images/icons/share.png'),
-                  // )
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
-                  widget.crowdAction.images.url ?? "",
+                  widget.crowdAction.images.banner,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -144,7 +135,8 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                           children: [
                             // TODO - Add participants to crowdaction
                             SizedBox(
-                              width: 100,
+                              width: widget.crowdAction.topParticipants
+                                  .avatarWidth(),
                               child: ParticipantAvatars(
                                 participants:
                                     widget.crowdAction.topParticipants,

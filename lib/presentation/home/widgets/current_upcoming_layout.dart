@@ -105,7 +105,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                                image: NetworkImage(e.images.url ?? ""),
+                                image: NetworkImage(e.images.card),
                                 fit: BoxFit.cover)),
                         margin: const EdgeInsets.only(left: 10),
                         height: 128,

@@ -74,7 +74,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                         final crowdAction = _pages[index];
                         return CrowdActionCard(
                           title: crowdAction.title,
-                          imagePath: crowdAction.images.url ?? "",
+                          imagePath: crowdAction.images.card,
                           chips: [
                             GestureDetector(
                               onTap: () {

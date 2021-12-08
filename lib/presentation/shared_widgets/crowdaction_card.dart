@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../domain/crowdaction/participant.dart';
 import '../../infrastructure/crowdaction/crowdaction_dto.dart';
+import '../crowd_action/utils/crowd_action.ext.dart';
 import '../themes/constants.dart';
 import 'participant_avatars.dart';
 
@@ -124,7 +125,7 @@ class CrowdActionCard extends StatelessWidget {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 100,
+                            width: participants?.avatarWidth(),
                             child: ParticipantAvatars(
                               participants: participants ?? [],
                             ),
