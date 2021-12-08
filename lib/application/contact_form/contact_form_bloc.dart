@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/contact_form/contact_form_contents.dart';
+import '../../domain/contact_form/contact_form_dto.dart';
 import '../../domain/contact_form/i_contact_form_api.dart';
 
 part 'contact_form_bloc.freezed.dart';

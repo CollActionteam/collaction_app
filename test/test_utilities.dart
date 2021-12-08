@@ -1,4 +1,4 @@
-import 'package:collaction_app/domain/contact_form/contact_form_contents.dart';
+import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
 import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
@@ -22,7 +22,7 @@ class TestUtilities {
   }
 
   static void mockContactFormApi({required bool doesSubmissionSucceed}) {
-    registerFallbackValue(ContactFormContents());
+    registerFallbackValue(ContactFormDto(email: '', message: ''));
     final mockContactFormApi = MockContactFormApi();
     when(() => mockContactFormApi.sendContactFormContents(any()))
         .thenAnswer((_) async => doesSubmissionSucceed);

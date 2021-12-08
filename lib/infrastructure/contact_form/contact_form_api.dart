@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../domain/contact_form/contact_form_contents.dart';
+import '../../domain/contact_form/contact_form_dto.dart';
 import '../../domain/contact_form/i_contact_form_api.dart';
 import '../../domain/core/i_settings_repository.dart';
 
@@ -16,26 +16,25 @@ class ContactFormApi extends IContactFormApi {
   ContactFormApi(this.client, this.settingsRepository);
 
   @override
-  Future<bool> sendContactFormContents(ContactFormContents contents) async {
-    assert(contents.email != null);
-    assert(contents.message != null);
-
+  Future<bool> sendContactFormContents(ContactFormDto contents) async {
     final packageInfo = await PackageInfo.fromPlatform();
-    final bodyJson =
-        '{"email":"${contents.email}","subject":"Hello CollAction!","message":"${contents.message?.replaceAll('"', '\\"')}","app_version":"${Platform.operatingSystem} ${packageInfo.version}+${packageInfo.buildNumber}"}';
-    final headerData = {
-      'accept': '*/*',
-      'Content-Type': 'application/json',
-    };
 
     return client
         .post(
           Uri.parse('${await settingsRepository.baseApiEndpointUrl}/contact'),
-          encoding: Encoding.getByName('application/json'),
-          body: bodyJson,
-          headers: headerData,
+          body: json.encode({
+            ...contents.toJson(),
+            "app_version":
+                "${Platform.operatingSystem} ${packageInfo.version}+${packageInfo.buildNumber}"
+          }),
+          headers: {
+            'accept': '*/*',
+            'Content-Type': 'application/json',
+          },
         )
         .then((value) => value.statusCode == 200)
         .onError((error, stackTrace) => false);
+
+    /// TODO: Use Either<ContactFormFailure, Unit> in the future with try-catch block
   }
 }
