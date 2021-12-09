@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../infrastructure/crowdaction/crowdaction_dto.dart';
 import '../../presentation/themes/constants.dart';
 
-class CommitmentCardList extends StatelessWidget {
+class CommitmentCardList extends StatefulWidget {
   final List<CommitmentOption> commitments;
-  final Function(String) onSelected;
+  final Function(List<String>) onSelected;
   final Axis axis;
 
   /// Widget for easily creating a list of CommitmentCard(s)
@@ -24,24 +24,86 @@ class CommitmentCardList extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // Build Commitment cards from the provided list of commitments
-    final List<CommitmentCard> cards = commitments
-        .map((commitment) => CommitmentCard(
-              commitment: commitment,
-              onSelected: onSelected,
-            ))
-        .toList();
+  State<CommitmentCardList> createState() => _CommitmentCardListState();
+}
 
-    // Show horizontally or vertically
-    if (axis == Axis.horizontal) {
-      return Row(
-        children: cards,
-      );
-    } else {
-      return Column(
-        children: cards,
-      );
+class _CommitmentCardListState extends State<CommitmentCardList> {
+  late List<CommitmentOption> _commitments;
+  List<String> _activeCommitments = [];
+
+  @override
+  void initState() {
+    _commitments = List<CommitmentOption>.from(widget.commitments);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: _commitments
+          .map((option) => CommitmentCard(
+                commitment: option,
+                onSelected: (String selectedId) {
+                  final actualCommitments = List<String>.from(_activeCommitments);
+
+                  actualCommitments.add(option.id);
+                    // Check if has required
+                    final children = option.requires;
+                    // If yes - Loop and check
+                    if (children != null) {
+                      actualCommitments.addAll(_selectAll(_commitments,children));
+                    }
+
+                    setState(() {
+                      _activeCommitments = actualCommitments;
+                    });
+
+                },
+                onDeSelected: (String deselectedId) {
+                  setState(() {
+                    // Remove from active commitments
+                    _activeCommitments.remove(deselectedId);
+                    // Check if has required
+                    final children = option.requires;
+                    // If yes - loop & deselect all children
+                    if (children != null) {
+                      _deselectAll(children);
+                    }
+                    // If is required child deselect & parent
+                  });
+                },
+                active: _activeCommitments.contains(option.id),
+              ))
+          .toList(),
+    );
+  }
+
+  List<String> _selectAll(List<CommitmentOption> allCommitments,List<CommitmentOption> childCommitments) {
+    final _selectedCommitments = <String>[];
+    for (final commitment in allCommitments) {
+      if (childCommitments.contains(commitment)) {
+        _selectedCommitments.add(commitment.id);
+
+        final children = commitment.requires;
+        if (children != null) {
+          _selectedCommitments.addAll(_selectAll(allCommitments,children)) ;
+        }
+      }
+    }
+
+    return _selectedCommitments;
+  }
+
+  void _deselectAll(List<CommitmentOption> commitments) {
+    for (final commitment in _commitments) {
+      if (commitments.contains(commitment)) {
+        _activeCommitments.remove(commitment.id);
+
+        final children = commitment.requires;
+        if (children != null) {
+          _deselectAll(children);
+        }
+      }
     }
   }
 }
@@ -52,40 +114,30 @@ class CommitmentCardList extends StatelessWidget {
 ///
 /// [onSelected] Callback function for when the card is selected,
 /// returns the id of the selected commitment
-class CommitmentCard extends StatefulWidget {
+class CommitmentCard extends StatelessWidget {
   const CommitmentCard({
     required this.commitment,
     required this.onSelected,
+    required this.onDeSelected,
     Key? key,
     this.active = false,
   }) : super(key: key);
 
   final CommitmentOption commitment;
   final Function(String) onSelected;
+  final Function(String) onDeSelected;
   final bool active;
-
-  @override
-  _CommitmentCardState createState() => _CommitmentCardState();
-}
-
-class _CommitmentCardState extends State<CommitmentCard> {
-  late bool active;
-
-  @override
-  void initState() {
-    super.initState();
-    active = widget.active;
-  }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
-        widget.onSelected(widget.commitment.id);
-        setState(() {
-          active = !active;
-        });
+        if (!active) {
+          onSelected(commitment.id);
+        } else {
+          onDeSelected(commitment.id);
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -106,9 +158,9 @@ class _CommitmentCardState extends State<CommitmentCard> {
                   color: kAlmostTransparent,
                 ),
                 alignment: Alignment.center,
-                child: widget.commitment.icon != null
+                child: commitment.icon != null
                     ? Image.network(
-                        widget.commitment.icon!,
+                        commitment.icon!,
                         height: 30,
                       )
                     : Image.asset(
@@ -126,13 +178,13 @@ class _CommitmentCardState extends State<CommitmentCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.commitment.label,
+                    commitment.label,
                     style: textTheme.headline6!.copyWith(fontSize: 16),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    widget.commitment.description,
+                    commitment.description,
                     style: textTheme.bodyText2!.copyWith(fontSize: 13),
                     softWrap: true,
                     maxLines: 3,

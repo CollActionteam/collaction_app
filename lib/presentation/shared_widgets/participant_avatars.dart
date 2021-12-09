@@ -29,12 +29,19 @@ class ParticipantAvatars extends StatelessWidget {
       alignment: _getIndexAlignment(index),
       child: CircleAvatar(
         backgroundColor: Colors.white,
-        child: CircleAvatar(
-          radius: 18,
-          backgroundColor: Colors.grey[300],
-          backgroundImage: NetworkImage(
-              participant.imageUrl ?? ""), // Provide your custom image
-        ),
+        child: participant.imageUrl != null
+            ? CircleAvatar(
+                radius: 18,
+                backgroundColor: Colors.grey[300],
+                backgroundImage: NetworkImage(
+                    participant.imageUrl!), // Provide your custom image
+              )
+            : Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
       ),
     );
   }

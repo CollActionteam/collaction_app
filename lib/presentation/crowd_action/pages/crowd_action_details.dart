@@ -31,6 +31,7 @@ class CrowdActionDetailsPage extends StatefulWidget {
 }
 
 class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,7 +203,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 20),
                 child: CommitmentCardList(
                   commitments: widget.crowdAction.commitmentOptions,
-                  onSelected: (String selectedId) {
+                  onSelected: (List<String> selectedIds) {
                     /* TODO do something with the selected commitment id
                     you'll probably want to add it to an array in a bloc */
                   },
