@@ -12,7 +12,7 @@ import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/shared_widgets/accent_chip.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
-import '../../shared_widgets/commitment_card.dart';
+import '../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../shared_widgets/participant_avatars.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
@@ -31,6 +31,7 @@ class CrowdActionDetailsPage extends StatefulWidget {
 }
 
 class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
+  List<String> _commitments = [];
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
           if (state is! Subscribed) {
             return PillButton(
               text: "Participate",
+              isEnabled: _commitments.isNotEmpty,
               onTap: () => _participate(context),
             );
           } else {
@@ -186,7 +188,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                           ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                       child: Text(
                         'Short description about what the commitments are and how you can select/deselect them',
                         style: Theme.of(context).textTheme.caption!.copyWith(
@@ -204,6 +206,9 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 child: CommitmentCardList(
                   commitments: widget.crowdAction.commitmentOptions,
                   onSelected: (List<String> selectedIds) {
+                    setState(() {
+                      _commitments = selectedIds;
+                    });
                     /* TODO do something with the selected commitment id
                     you'll probably want to add it to an array in a bloc */
                   },
