@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
@@ -9,6 +8,7 @@ import '../../../domain/auth/i_auth_repository.dart';
 import '../../../domain/user/user.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../routes/app_routes.gr.dart';
+import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
 class VerifiedPage extends StatefulWidget {
