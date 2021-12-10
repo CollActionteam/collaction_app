@@ -17,7 +17,7 @@ void main() {
     await tester.pumpWidget(const MaterialApp(home: ContactFormPage()));
 
     // Verify that the page is rendered with all its elements.
-    expect(find.text("Contact us"), findsOneWidget);
+    expect(find.text("Get in touch"), findsOneWidget);
     expect(find.byType(TextFormField), findsNWidgets(2));
     expect(find.text("Send"), findsOneWidget);
   });

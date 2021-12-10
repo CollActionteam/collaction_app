@@ -9,7 +9,6 @@ import '../../../domain/auth/i_auth_repository.dart';
 import '../../../domain/user/user.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../routes/app_routes.gr.dart';
-import '../../shared_widgets/rectangle_button.dart';
 import '../../themes/constants.dart';
 
 class VerifiedPage extends StatefulWidget {

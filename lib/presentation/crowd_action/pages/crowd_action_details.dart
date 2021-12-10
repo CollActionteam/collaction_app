@@ -281,7 +281,6 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     ),
                     behavior: SnackBarBehavior.floating,
                   ),
-                  
                 );
               },
               unsubscribingFailed: (state) {

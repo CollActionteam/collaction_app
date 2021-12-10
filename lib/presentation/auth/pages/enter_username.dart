@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_bloc.dart';
-import '../../themes/constants.dart';
 import '../../shared_widgets/pill_button.dart';
+import '../../themes/constants.dart';
 
 class EnterUserName extends StatefulWidget {
   const EnterUserName({Key? key}) : super(key: key);

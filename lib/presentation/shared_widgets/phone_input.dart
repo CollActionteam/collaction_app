@@ -134,7 +134,6 @@ class _PhoneInputState extends State<PhoneInput> {
                       borderSide:
                           const BorderSide(width: 0, color: Colors.transparent),
                     ),
-                    
                   ),
                 ),
               ),

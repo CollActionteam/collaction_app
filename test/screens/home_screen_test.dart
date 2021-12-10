@@ -8,6 +8,7 @@ import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/core/app_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 import '../test_utilities.dart';
@@ -23,8 +24,12 @@ void main() {
       await tester.pumpWidget(AppWidget());
       await tester.pumpAndSettle();
 
+      // Get the current month
+      final date = DateTime.parse(DateTime.now().toString());
+      final month = DateFormat.MMMM().format(date);
+
       // Verify that header widget is shown
-      expect(find.text('In the spotlight'), findsOneWidget);
+      expect(find.text("$month's CrowdActions"), findsOneWidget);
 
       // Verify that share widget is shown
       expect(
