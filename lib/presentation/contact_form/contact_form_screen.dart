@@ -68,7 +68,7 @@ class ContactFormPageState extends State<ContactFormPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Contact us",
+                            "Get in touch",
                             style: TextStyle(
                                 fontWeight: FontWeight.w700, fontSize: 32.0),
                             maxLines: 2,
@@ -105,7 +105,7 @@ class ContactFormPageState extends State<ContactFormPage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
                             child: Text(
-                              "We will send our response to your email address",
+                              "We’ll get back to you by email",
                               style: Theme.of(context)
                                   .textTheme
                                   .caption!

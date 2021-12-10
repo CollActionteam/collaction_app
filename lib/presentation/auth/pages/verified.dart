@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
@@ -65,7 +66,7 @@ class _VerifiedPageState extends State<VerifiedPage> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Now go ahead and change the world one crowdaction at a time',
+                  'Now go ahead and change the world one CrowdAction at a time',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -75,18 +76,18 @@ class _VerifiedPageState extends State<VerifiedPage> {
                 Container(
                   constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width * 0.9),
-                  child: RectangleButton(
+                  child: PillButton(
                     onTap: () => context.router.popUntilRoot(),
 
                     /// TODO: Verify if this is correct! (should return to homescreen)
-                    text: 'Go to crowdactions',
+                    text: 'Go to CrowdActions',
                   ),
                 ),
                 TextButton(
                   onPressed: () =>
                       context.router.replaceAll([const HomeRoute()]),
                   child: const Text(
-                    'Show me all crowdactions',
+                    'Show me all CrowdActions',
                     style: TextStyle(
                       color: kAccentColor,
                       fontWeight: FontWeight.w700,

@@ -46,6 +46,7 @@ dependencies:
   image_cropper: ^1.4.1
   image_picker: ^0.8.4
   injectable: ^1.4.1
+  intl: ^0.17.0
   json_annotation: ^4.0.1
   package_info_plus: ^1.0.6
   phone_number: ^0.11.0+2

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_bloc.dart';
-import '../../shared_widgets/rectangular_button.dart';
 import '../../themes/constants.dart';
+import '../../shared_widgets/pill_button.dart';
 
 class EnterUserName extends StatefulWidget {
   const EnterUserName({Key? key}) : super(key: key);
@@ -61,10 +61,26 @@ class _EnterUserNameState extends State<EnterUserName> {
                 onChanged: (username) => _username = username,
                 style: const TextStyle(fontSize: 20.0),
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                    labelText: 'Your name',
-                    helperText: "Use your real name or choose a user name",
-                    focusColor: kAccentColor),
+                decoration: InputDecoration(
+                  hintText: 'Preferred name',
+                  helperText: "Use your real name or choose a user name",
+                  focusColor: kAccentColor,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide:
+                        const BorderSide(width: 0, color: Colors.transparent),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide:
+                        const BorderSide(width: 0, color: Colors.transparent),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide:
+                        const BorderSide(width: 0, color: Colors.transparent),
+                  ),
+                ),
                 validator: _validate,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9_.-]")),
@@ -76,11 +92,11 @@ class _EnterUserNameState extends State<EnterUserName> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: RectangularButton(
+                  child: PillButton(
                     text: 'Next',
                     isLoading: state is AwaitingUsernameUpdate,
                     isEnabled: _isNameValid,
-                    onPressed: () {
+                    onTap: () {
                       if (_isNameValid && state is! AwaitingUsernameUpdate) {
                         FocusScope.of(context).unfocus();
                         context

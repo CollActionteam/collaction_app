@@ -52,7 +52,7 @@ class ShareCollActionCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                "CollAction is an application powered by the crowd the more the better",
+                "Join a CrowdAction together with your friends and amplify your impact",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme

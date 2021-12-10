@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_bloc.dart';
 import '../../shared_widgets/photo_selector.dart';
-import '../../shared_widgets/rectangular_button.dart';
+import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
 class SelectProfilePhoto extends StatefulWidget {
@@ -86,7 +86,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
               children: const [
                 Expanded(
                   child: Text(
-                    'It’s always nice to put a face to your name!',
+                    'We love to see happy faces',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: kInactiveColor),
                   ),
@@ -98,11 +98,11 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: RectangularButton(
+                  child: PillButton(
                     text: 'Next',
                     isEnabled: _isPhotoValid,
                     isLoading: state is AwaitingProfilePhotoUpdate,
-                    onPressed: () {
+                    onTap: () {
                       if (_isPhotoValid &&
                           state is! AwaitingProfilePhotoUpdate) {
                         context
@@ -122,7 +122,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                   child: TextButton(
                     onPressed: widget.onSkip,
                     child: const Text(
-                      'Skip for now',
+                      'Maybe later',
                       style: TextStyle(
                           color: kAccentColor,
                           fontWeight: FontWeight.w700,

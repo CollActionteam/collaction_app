@@ -35,6 +35,10 @@ class PinTextField extends StatelessWidget {
             contentPadding:
                 EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             counterText: "",
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: const BorderSide(width: 0, color: Colors.transparent),
+            ),
           ),
           focusNode: focusNode,
           onChanged: onChanged,

@@ -204,7 +204,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Text(
-                        'Short description about what the commitments are and how you can select/deselect them',
+                        'Your challenge, your rules.\n Choose which commitment you want to make this month.',
                         style: Theme.of(context).textTheme.caption!.copyWith(
                               color: kPrimaryColor300,
                               fontWeight: FontWeight.w400,
@@ -234,7 +234,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       return GestureDetector(
                         onTap: () => _withdrawParticipationModal(context),
                         child: Text(
-                          'Withdraw my participation',
+                          'Cancel my participation',
                           style:
                               Theme.of(context).textTheme.headline3!.copyWith(
                                     fontSize: 15,
@@ -273,7 +273,16 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
             state.maybeMap(
               unsubscribed: (state) {
                 Navigator.pop(context);
-                _withdrawSuccess(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: kPrimaryColor,
+                    content: Text(
+                      "Successfully canceled your participation",
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                  
+                );
               },
               unsubscribingFailed: (state) {
                 // TODO- Red snack bar
@@ -318,7 +327,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     height: 20,
                   ),
                   Text(
-                    widget.crowdAction.name,
+                    "We’d love to keep you",
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -329,16 +338,17 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     height: 30,
                   ),
                   Text(
-                    widget.crowdAction.description,
+                    "You are about to cancel your participation. You are free to sign up for this CrowdAction again any time before it starts.",
                     style: Theme.of(context).textTheme.caption?.copyWith(
                           color: kPrimaryColor400,
                         ),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   PillButton(
-                    text: "Withdraw Participation",
+                    text: "Cancel my participation",
                     isLoading: state is UnsubscribingFromCrowdAction,
                     onTap: () {
                       // TODO - Withdraw Participation
@@ -366,77 +376,6 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               ),
             );
           },
-        );
-      },
-    );
-  }
-
-  void _withdrawSuccess(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      builder: (context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 15,
-              ),
-              Container(
-                width: 60.0,
-                height: 3.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: kSecondaryTransparent,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                widget.crowdAction.name,
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 28,
-              ),
-              Text(
-                "We are sad to see you withdraw!",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28,
-                    ),
-              ),
-
-              const SizedBox(
-                height: 20,
-              ),
-              PillButton(
-                text: "Got It",
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                margin: EdgeInsets.zero,
-              ),
-              const SizedBox(height: 20),
-              //TODO - Add message to change commitments const Divider(),
-              // const SizedBox(
-              //   height: 15,
-              // ),
-            ],
-          ),
         );
       },
     );
@@ -513,7 +452,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       height: 20,
                     ),
                     Text(
-                      widget.crowdAction.name,
+                      "Ready? Set?",
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -524,16 +463,17 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       height: 30,
                     ),
                     Text(
-                      widget.crowdAction.description,
+                      "You’re almost there! You’ve selected the displayed commitment to stick to through this CrowdAction. By clicking “Go!” you will officially commit to this goal.",
                       style: Theme.of(context).textTheme.caption?.copyWith(
                             color: kPrimaryColor400,
                           ),
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     PillButton(
-                      text: "Confirm Participation",
+                      text: "Go!",
                       isLoading: state is SubscribingToCrowdAction,
                       onTap: () {
                         // TODO - Confirm Participation
@@ -594,7 +534,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               Text(
-                "Participate",
+                "Register",
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1
@@ -666,7 +606,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               Text(
-                widget.crowdAction.name,
+                "Goal confirmed",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -677,7 +617,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 28,
               ),
               Text(
-                "Success!",
+                "All set!",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.subtitle1?.copyWith(
                       fontWeight: FontWeight.bold,
@@ -704,8 +644,19 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 },
                 margin: EdgeInsets.zero,
               ),
-              const SizedBox(height: 20),
-              //TODO - Add message to change commitments const Divider(),
+              // TODO - Add message to change commitments const Divider(),
+              // TODO - Change button: "Change" -> "Change commitment"
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                constraints: const BoxConstraints(maxWidth: 250),
+                child: Text(
+                  "You can change your commitment until the CrowdAction starts",
+                  style: Theme.of(context).textTheme.caption?.copyWith(
+                        color: kPrimaryColor200,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+              )
               // const SizedBox(
               //   height: 15,
               // ),
@@ -767,7 +718,7 @@ class _CommitmentsWidgetState extends State<CommitmentsWidget> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Text(
-                'Short description about what the commitments are and how you can select/deselect them',
+                'Your challenge, your rules. Choose which commitment you want to make this month.',
                 style: Theme.of(context).textTheme.caption!.copyWith(
                       color: kPrimaryColor300,
                       fontWeight: FontWeight.w400,
@@ -863,7 +814,7 @@ class BadgesWidget extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           const Text(
-            'Short description about what the badges are and how to achieve different levels',
+            'The commitments you’ve chosen will give you the following badge',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: kPrimaryColor300,
@@ -1078,10 +1029,10 @@ class _BadgesPopupCard extends StatelessWidget {
           elevation: 4.0,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Column(
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
                     children: [
                       const SizedBox(height: 15),
                       Padding(
@@ -1100,7 +1051,7 @@ class _BadgesPopupCard extends StatelessWidget {
                           maxWidth: 300,
                         ),
                         child: Text(
-                          'Short description about how you can earn different achievements/badges',
+                          'Different commitments give you a different set of points. These points correspond with badges.\n Which one will you attain this month?',
                           style: Theme.of(context).textTheme.caption!.copyWith(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
@@ -1214,20 +1165,20 @@ class _BadgesPopupCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: CircleAvatar(
-                      // color: kSecondaryColor,
-                      backgroundColor: kSecondaryColor,
-                      child: IconButton(
-                        onPressed: () => context.router.pop(),
-                        icon: Image.asset('assets/images/icons/close_icon.png'),
-                        color: Colors.pink,
-                      ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                    // color: kSecondaryColor,
+                    backgroundColor: kSecondaryColor,
+                    child: IconButton(
+                      onPressed: () => context.router.pop(),
+                      icon: Image.asset('assets/images/icons/close_icon.png'),
+                      color: Colors.pink,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

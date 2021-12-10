@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_bloc.dart';
 import '../../shared_widgets/phone_input.dart';
-import '../../shared_widgets/rectangular_button.dart';
+import '../../shared_widgets/pill_button.dart';
 
 class VerifyPhonePage extends StatefulWidget {
   const VerifyPhonePage({Key? key}) : super(key: key);
@@ -52,11 +52,11 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: RectangularButton(
+                  child: PillButton(
                     text: 'Next',
                     isEnabled: _isPhoneValid,
                     isLoading: state is AwaitingVerification,
-                    onPressed: () {
+                    onTap: () {
                       if (_isPhoneValid && state is! AwaitingVerification) {
                         FocusScope.of(context).unfocus();
 
