@@ -49,7 +49,7 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
               children: const [
                 Expanded(
                   child: Text(
-                    'We just sent you a text message with a 4-digit code to verify your account',
+                    'We just sent you a text message with a 6-digit code to verify your account',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: kInactiveColor),
                   ),
