@@ -278,5 +278,3 @@ class CrowdActionDetailsPage extends StatelessWidget {
         });
   }
 }
-
-
