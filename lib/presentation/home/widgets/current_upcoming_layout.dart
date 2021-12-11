@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';

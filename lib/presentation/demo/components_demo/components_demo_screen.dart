@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/collaction_icons.dart';
 import '../../shared_widgets/accent_action_chip.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/crowdaction_card.dart';
@@ -118,8 +119,10 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   AccentActionChip(
                     () {},
                     text: 'Sign up now',
-                    leading: const Image(
-                        image: AssetImage('assets/images/icons/add_icon.png')),
+                    leading: const Icon(
+                      CollactionIcons.plus,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(width: 10.0),
                   AccentActionChip(() {}, text: 'Click me!'),
