@@ -39,98 +39,107 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
     return Container(
       color: kPrimaryColor400,
       margin: const EdgeInsets.only(bottom: 20),
-      child: BlocBuilder<SpotlightBloc, SpotlightState>(
-        builder: (context, state) {
-          return state.maybeWhen(
-              fetchingCrowdSpotLightActions: () {
-                return const CircularProgressIndicator(
-                  color: kAccentColor,
-                );
-              },
-              spotLightCrowdActionsError: (_) {
-                // TODO - Implement screen with missing spot lights
-                return const Text("Error");
-              },
-              spotLightCrowdActions: (_pages) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 35,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 35,
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 12),
+            child: Text(
+              "In the spotlight",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          BlocBuilder<SpotlightBloc, SpotlightState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                fetchingCrowdSpotLightActions: () {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: kAccentColor,
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Text(
-                        "In the spotlight",
-                        style: Theme.of(context).textTheme.headline5?.copyWith(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ExpandablePageView.builder(
-                      itemBuilder: (ctx, index) {
-                        final crowdAction = _pages[index];
-                        return CrowdActionCard(
-                          title: crowdAction.title,
-                          imagePath: crowdAction.images.card,
-                          chips: [
-                            GestureDetector(
-                              onTap: () {
-                                // TODO - Sign up, to crowd action
-                              },
-                              child: const AccentChip(
-                                text: "Sign up now",
-                                leading: Icon(
-                                  Icons.check,
-                                  color: Colors.white,
+                  );
+                },
+                spotLightCrowdActionsError: (_) {
+                  // TODO - Implement screen with missing spot lights
+                  return const Text("Error");
+                },
+                spotLightCrowdActions: (_pages) {
+                  return ExpandablePageView.builder(
+                    itemBuilder: (ctx, index) {
+                      final crowdAction = _pages[index];
+                      return Column(
+                        children: [
+                          CrowdActionCard(
+                            title: crowdAction.title,
+                            imagePath: crowdAction.images.card,
+                            chips: [
+                              GestureDetector(
+                                onTap: () {
+                                  // TODO - Sign up, to crowd action
+                                },
+                                child: const AccentChip(
+                                  text: "Sign up now",
+                                  leading: Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                            ...crowdAction.toChips()
-                          ],
-                          participants: sampleParticipants,
-                          totalParticipants: crowdAction.participantCount,
-                          onTap: () => context.router.push(
-                            CrowdActionDetailsRoute(
-                              crowdAction: crowdAction,
+                              ...crowdAction.toChips()
+                            ],
+                            participants: sampleParticipants,
+                            totalParticipants: crowdAction.participantCount,
+                            onTap: () => context.router.push(
+                              CrowdActionDetailsRoute(
+                                crowdAction: crowdAction,
+                              ),
                             ),
                           ),
-                        );
-                      },
-                      itemCount: _pages.length,
-                      controller: _pageController,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(child: Container()),
-                        DotsIndicator(
-                          position: _currentPage,
-                          dotsCount: _pages.length,
-                          decorator: const DotsDecorator(
-                            activeColor: kAccentColor,
-                            color: Color(0xFFCCCCCC),
-                            size: Size(12.0, 12.0),
-                            activeSize: Size(12.0, 12.0),
-                            spacing: EdgeInsets.all(8.0),
+                          const SizedBox(
+                            height: 5,
                           ),
-                        ),
-                        Expanded(child: Container()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                );
-              },
-              orElse: () => const SizedBox());
-        },
+                          Row(
+                            children: [
+                              Expanded(child: Container()),
+                              DotsIndicator(
+                                position: _currentPage,
+                                dotsCount: _pages.length,
+                                decorator: const DotsDecorator(
+                                  activeColor: kAccentColor,
+                                  color: Color(0xFFCCCCCC),
+                                  size: Size(12.0, 12.0),
+                                  activeSize: Size(12.0, 12.0),
+                                  spacing: EdgeInsets.all(8.0),
+                                ),
+                              ),
+                              Expanded(child: Container()),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                    itemCount: _pages.length,
+                    controller: _pageController,
+                  );
+                },
+                orElse: () => const SizedBox(),
+              );
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+        ],
       ),
     );
   }
