@@ -24,57 +24,62 @@ class CurrentAndUpcomingLayout extends StatefulWidget {
 class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
   @override
   Widget build(BuildContext context) {
+    // TODO: Refactor to not use SpotlightBloc, we should generalize to only have ONE crowdaction bloc!!!!!
     return BlocBuilder<SpotlightBloc, SpotlightState>(
       builder: (ctx, state) => SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 10, right: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      widget.isCurrent ? 'Currently running' : 'Upcoming',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 28.0),
-                    ),
-                    TextButton(
-                      onPressed: () => context.router.push(widget.isCurrent
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.isCurrent ? 'Currently running' : 'Upcoming',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 28.0),
+                  ),
+                  TextButton(
+                    onPressed: () => context.router.push(
+                      widget.isCurrent
                           ? const CrowdActionBrowseRoute()
-                          : const CrowdActionBrowseRoute()),
-                      child: const Text(
-                        'View all',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15.0,
-                            color: kAccentColor),
+                          : const CrowdActionBrowseRoute(),
+                    ),
+                    child: const Text(
+                      'View all',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15.0,
+                        color: kAccentColor,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              state.maybeMap(
-                    fetchingCrowdSpotLightActions: (_) => const Center(
-                        child: CircularProgressIndicator(
-                      color: kAccentColor,
-                    )),
-                    spotLightCrowdActions: (fetchedData) =>
-                        _fetched(fetchedData.crowdActions),
-                    spotLightCrowdActionsError: (failure) => Center(
-                      child: Text(
-                          'Error: ${failure.error.toString()} occured!! Please try again.'),
-                    ),
-                    orElse: () {},
-                  ) ??
-                  const SizedBox(),
-              const SizedBox(height: 20)
-            ]),
+            ),
+            state.maybeMap(
+                  fetchingCrowdSpotLightActions: (_) => const Center(
+                      child: CircularProgressIndicator(
+                    color: kAccentColor,
+                  )),
+                  spotLightCrowdActions: (fetchedData) =>
+                      _fetched(fetchedData.crowdActions),
+                  spotLightCrowdActionsError: (failure) => Center(
+                    child: Text(
+                        'Error: ${failure.error.toString()} occured!! Please try again.'),
+                  ),
+                  orElse: () {},
+                ) ??
+                const SizedBox(),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
@@ -105,7 +110,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                                image: NetworkImage(e.image.toString()),
+                                image: NetworkImage(e.images.card.toString()),
                                 fit: BoxFit.cover)),
                         margin: const EdgeInsets.only(left: 10),
                         height: 128,
@@ -127,7 +132,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  e.name.toString(),
+                                  e.title.toString(),
                                   softWrap: false,
                                   maxLines: 2,
                                   style: const TextStyle(

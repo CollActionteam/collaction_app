@@ -18,22 +18,23 @@ class _SignUpChipState extends State<SignUpChip> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        builder: (context, AsyncSnapshot<User> snapshot) {
-          if (snapshot.hasData) {
-            return const SizedBox();
-          } else {
-            return GestureDetector(
-              onTap: () => context.router.push(const AuthRoute()),
-              child: const AccentChip(
-                text: "Sign up now",
-                leading: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
+      builder: (context, AsyncSnapshot<User> snapshot) {
+        if (snapshot.hasData) {
+          return const SizedBox();
+        } else {
+          return GestureDetector(
+            onTap: () => context.router.push(const AuthRoute()),
+            child: const AccentChip(
+              text: "Sign up now",
+              leading: Icon(
+                Icons.check,
+                color: Colors.white,
               ),
-            );
-          }
-        },
-        stream: _userRepository.observeUser());
+            ),
+          );
+        }
+      },
+      stream: _userRepository.observeUser(),
+    );
   }
 }
