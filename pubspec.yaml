@@ -84,10 +84,12 @@ flutter:
   assets:
     - .env
     - assets/images/
-    - assets/images/icons/
     - assets/animations/
     - assets/vectors/
   fonts:
+    - family:  CollactionIcons
+      fonts:
+        - asset: assets/fonts/icons/collaction.ttf
     - family: Rubik
       fonts:
         - asset: assets/fonts/Rubik/Rubik-Bold.ttf

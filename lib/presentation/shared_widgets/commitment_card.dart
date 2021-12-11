@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../domain/crowdaction/commitment.dart';
 import '../../presentation/themes/constants.dart';
+import '../core/collaction_icons.dart';
 
 class CommitmentCardList extends StatelessWidget {
   final List<Commitment> commitments;
@@ -109,9 +110,10 @@ class _CommitmentCardState extends State<CommitmentCard> {
                         widget.commitment.icon!,
                         height: 30,
                       )
-                    : Image.asset(
-                        'assets/images/green_logo.png',
-                        height: 30,
+                    : const Icon(
+                        CollactionIcons.collaction,
+                        color: kAccentColor,
+                        size: 30,
                       )),
             const Spacer(),
             Container(

@@ -11,6 +11,7 @@ import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/participant.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/shared_widgets/accent_chip.dart';
+import '../../core/collaction_icons.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/commitment_card.dart';
@@ -840,17 +841,17 @@ class BadgesWidget extends StatelessWidget {
                       margin: const EdgeInsets.all(8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
+                        children: const [
+                          Text(
                             'My badge',
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 28,
                             ),
                           ),
-                          const SizedBox(width: 10),
-                          Image.asset(
-                            'assets/images/icons/tip.png',
+                          SizedBox(width: 10),
+                          Icon(
+                            CollactionIcons.question,
                             color: kAccentColor,
                           ),
                         ],
@@ -1051,10 +1052,10 @@ class CommitmentCheckbox extends StatelessWidget {
           //! TODO: Select this commitment
           onClickHandler!(order);
         },
-        icon: Image.asset(
-          'assets/images/icons/check.png',
+        icon: const Icon(
+          CollactionIcons.check,
           color: kSecondaryColor,
-          height: 30,
+          size: 30,
         ),
       ),
     );
@@ -1221,7 +1222,7 @@ class _BadgesPopupCard extends StatelessWidget {
                       backgroundColor: kSecondaryColor,
                       child: IconButton(
                         onPressed: () => context.router.pop(),
-                        icon: Image.asset('assets/images/icons/close_icon.png'),
+                        icon: const Icon(CollactionIcons.cross),
                         color: Colors.pink,
                       ),
                     ),

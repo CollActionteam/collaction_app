@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../core/collaction_icons.dart';
 import '../themes/constants.dart';
 
 ElevatedButton returnElevatedButton(BuildContext context) => ElevatedButton(
@@ -13,5 +14,7 @@ ElevatedButton returnElevatedButton(BuildContext context) => ElevatedButton(
         backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
       ),
       onPressed: () => context.router.pop(),
-      child: Image.asset('assets/images/icons/back_icon.png'),
+      child: const Icon(
+        CollactionIcons.left,
+      ),
     );
