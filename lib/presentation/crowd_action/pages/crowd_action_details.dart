@@ -96,7 +96,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
-                  widget.crowdAction.image ?? "",
+                  widget.crowdAction.images.card,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -116,7 +116,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.crowdAction.name,
+                      widget.crowdAction.title,
                       style: Theme.of(context).textTheme.headline4?.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 28,
@@ -164,7 +164,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                             ),
                             Expanded(
                               child: Text(
-                                "Join ${sampleParticipants.title(widget.crowdAction.numParticipants)}",
+                                "Join ${sampleParticipants.title(widget.crowdAction.participantCount)}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption
@@ -318,7 +318,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     height: 20,
                   ),
                   Text(
-                    widget.crowdAction.name,
+                    widget.crowdAction.title,
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -401,7 +401,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               Text(
-                widget.crowdAction.name,
+                widget.crowdAction.title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -513,7 +513,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       height: 20,
                     ),
                     Text(
-                      widget.crowdAction.name,
+                      widget.crowdAction.title,
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -666,7 +666,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               Text(
-                widget.crowdAction.name,
+                widget.crowdAction.title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme

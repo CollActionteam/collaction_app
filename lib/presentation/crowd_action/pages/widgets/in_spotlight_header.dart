@@ -74,8 +74,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                       itemBuilder: (ctx, index) {
                         final crowdAction = _pages[index];
                         return CrowdActionCard(
-                          title: crowdAction.name,
-                          imagePath: crowdAction.image ?? "",
+                          title: crowdAction.title,
+                          imagePath: crowdAction.images.card,
                           chips: [
                             GestureDetector(
                               onTap: () {
@@ -92,7 +92,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                             ...crowdAction.toChips()
                           ],
                           participants: sampleParticipants,
-                          totalParticipants: crowdAction.numParticipants,
+                          totalParticipants: crowdAction.participantCount,
                           onTap: () => context.router.push(
                             CrowdActionDetailsRoute(
                               crowdAction: crowdAction,
