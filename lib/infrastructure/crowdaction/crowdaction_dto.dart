@@ -66,7 +66,8 @@ class CrowdActionList with _$CrowdActionList {
 
 @freezed
 class CrowdActionImages with _$CrowdActionImages {
-  factory CrowdActionImages({required String card,required String banner}) = _CrowdActionImages;
+  factory CrowdActionImages({required String card, required String banner}) =
+      _CrowdActionImages;
 
   factory CrowdActionImages.fromJson(Map<String, dynamic> json) =>
       _$CrowdActionImagesFromJson(json);

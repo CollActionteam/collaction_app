@@ -12,15 +12,15 @@ import '../../themes/constants.dart';
 class CommitmentCard extends StatelessWidget {
   const CommitmentCard({
     required this.commitment,
-    required this.onSelected,
-    required this.onDeSelected,
+    this.onSelected,
+    this.onDeSelected,
     Key? key,
     this.active = false,
   }) : super(key: key);
 
   final CommitmentOption commitment;
-  final Function(CommitmentOption) onSelected;
-  final Function(CommitmentOption) onDeSelected;
+  final Function(CommitmentOption)? onSelected;
+  final Function(CommitmentOption)? onDeSelected;
   final bool active;
 
   @override
@@ -29,15 +29,15 @@ class CommitmentCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (!active) {
-          onSelected(commitment);
+          onSelected?.call(commitment);
         } else {
-          onDeSelected(commitment);
+          onDeSelected?.call(commitment);
         }
       },
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
-          color: active ? kSecondaryTransparent : kAlmostTransparent,
+          borderRadius: BorderRadius.circular(20.0),
+          color: active ? kAlmostTransparent : kSecondaryColor,
         ),
         margin: const EdgeInsets.symmetric(
           vertical: 5.0,
@@ -50,17 +50,17 @@ class CommitmentCard extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: kAlmostTransparent,
+                  color: kSecondaryColor,
                 ),
                 alignment: Alignment.center,
                 child: commitment.icon != null
                     ? Image.network(
                         commitment.icon!,
-                        height: 30,
+                        height: 32.5,
                       )
                     : Image.asset(
                         'assets/images/green_logo.png',
-                        height: 30,
+                        height: 32.5,
                       )),
             const Spacer(),
             Container(
@@ -74,13 +74,20 @@ class CommitmentCard extends StatelessWidget {
                 children: [
                   Text(
                     commitment.label,
-                    style: textTheme.headline6!.copyWith(fontSize: 16),
+                    style: textTheme.caption!.copyWith(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: kPrimaryColor400),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Text(
                     commitment.description,
-                    style: textTheme.bodyText2!.copyWith(fontSize: 13),
+                    style: textTheme.caption!
+                        .copyWith(fontSize: 13, color: kPrimaryColor300),
                     softWrap: true,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -91,8 +98,8 @@ class CommitmentCard extends StatelessWidget {
             const Spacer(),
             Container(
               constraints: const BoxConstraints(
-                minHeight: 40,
-                minWidth: 40,
+                minHeight: 32,
+                minWidth: 32,
               ),
               decoration: BoxDecoration(
                 color: active ? kPrimaryColor400 : Colors.transparent,

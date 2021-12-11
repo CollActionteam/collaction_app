@@ -6,7 +6,9 @@ import 'commitment_card.dart';
 class CommitmentCardList extends StatefulWidget {
   final List<CommitmentOption> commitments;
   final Function(List<String>) onSelected;
+  final List<String> active;
   final Axis axis;
+  final bool readOnly;
 
   /// Widget for easily creating a list of CommitmentCard(s)
   ///
@@ -21,19 +23,22 @@ class CommitmentCardList extends StatefulWidget {
     required this.onSelected,
     this.axis = Axis.vertical,
     Key? key,
+    this.active = const <String>[],
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
-  State<CommitmentCardList> createState() => _CommitmentCardListState();
+  State<CommitmentCardList> createState() => CommitmentCardListState();
 }
 
-class _CommitmentCardListState extends State<CommitmentCardList> {
+class CommitmentCardListState extends State<CommitmentCardList> {
   late List<CommitmentOption> _commitments;
-  final List<String> _activeCommitments = [];
+  late List<String> _activeCommitments;
 
   @override
   void initState() {
     _commitments = List<CommitmentOption>.from(widget.commitments);
+    _activeCommitments = List<String>.from(widget.active);
     super.initState();
   }
 
@@ -46,8 +51,8 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
 
         return CommitmentCard(
           commitment: option,
-          onSelected: _selectCommitment,
-          onDeSelected: _deselectCommitment,
+          onSelected: widget.readOnly ? null : _selectCommitment,
+          onDeSelected: widget.readOnly ? null : _deselectCommitment,
           active: _activeCommitments.contains(option.id),
         );
       },
@@ -89,6 +94,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
     for (final commitment in _commitments) {
       if (commitments.contains(commitment)) {
         _activeCommitments.add(commitment.id);
+        _activeCommitments = _activeCommitments.toSet().toList();
 
         final children = commitment.requires;
         if (children != null) {
@@ -101,7 +107,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
   void _deselectAll(List<CommitmentOption> commitments) {
     for (final commitment in _commitments) {
       if (commitments.contains(commitment)) {
-        _activeCommitments.remove(commitment.id);
+        _activeCommitments.removeWhere((id) => commitment.id == id);
 
         final children = commitment.requires;
         if (children != null) {
@@ -109,5 +115,13 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
         }
       }
     }
+  }
+
+  void selectCommitments(List<String> commitments) {
+    _activeCommitments.addAll(commitments);
+
+    setState(() {
+      _activeCommitments = _activeCommitments.toSet().toList();
+    });
   }
 }
