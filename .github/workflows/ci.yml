@@ -86,7 +86,7 @@ jobs:
     - name: Create release notes file
       run: |
         cat > release_notes.txt <<EOF
-        Rub: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+        Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
         Commit: $(git rev-parse --short HEAD)
         Author: $(git log -1 --pretty=format:'%an')
         Message: $(git log -1 --pretty=%B)
