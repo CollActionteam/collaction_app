@@ -1,8 +1,8 @@
 import 'crowdaction_dto.dart';
 
-extension ListCrowdAction on List<CommitmentOption> {
-  List<CommitmentOption> flatten({String? ref}) {
-    final List<CommitmentOption> commitments = [];
+extension ListCrowdAction on List<CommitmentOptionDto> {
+  List<CommitmentOptionDto> flatten({String? ref}) {
+    final List<CommitmentOptionDto> commitments = [];
 
     for (final commitment in this) {
       commitments.add(commitment.copyWith(ref: ref));

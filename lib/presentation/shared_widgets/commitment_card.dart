@@ -1,44 +1,95 @@
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/crowdaction/crowdaction.dart';
-import '../../themes/constants.dart';
+import '../../domain/crowdaction/commitment.dart';
+import '../../presentation/themes/constants.dart';
+import '../core/collaction_icons.dart';
+
+class CommitmentCardList extends StatelessWidget {
+  final List<Commitment> commitments;
+  final Function(int) onSelected;
+  final Axis axis;
+
+  /// Widget for easily creating a list of CommitmentCard(s)
+  ///
+  ///[commitments] The commitments the list is made up of
+  ///
+  /// [onSelected] Callback function for when a card is selected,
+  /// returns the id of the selected commitment
+  ///
+  /// [axis] The direction of the list, defaults to [Axis.vertical]
+  const CommitmentCardList({
+    required this.commitments,
+    required this.onSelected,
+    this.axis = Axis.vertical,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Build Commitment cards from the provided list of commitments
+    final List<CommitmentCard> cards = commitments
+        .map((commitment) => CommitmentCard(
+              commitment: commitment,
+              onSelected: onSelected,
+            ))
+        .toList();
+
+    // Show horizontally or vertically
+    if (axis == Axis.horizontal) {
+      return Row(
+        children: cards,
+      );
+    } else {
+      return Column(
+        children: cards,
+      );
+    }
+  }
+}
 
 /// Creates a new CommitmentCard
 ///
-/// [commitment] The commitment to be represented
+/// [commitment] The commitment to be respresented
 ///
 /// [onSelected] Callback function for when the card is selected,
 /// returns the id of the selected commitment
-class CommitmentCard extends StatelessWidget {
+class CommitmentCard extends StatefulWidget {
   const CommitmentCard({
     required this.commitment,
-    this.onSelected,
-    this.onDeSelected,
+    required this.onSelected,
     Key? key,
-    this.active = false,
   }) : super(key: key);
 
-  final CommitmentOption commitment;
-  final Function(CommitmentOption)? onSelected;
-  final Function(CommitmentOption)? onDeSelected;
-  final bool active;
+  final Commitment commitment;
+  final Function(int) onSelected;
+
+  @override
+  _CommitmentCardState createState() => _CommitmentCardState();
+}
+
+class _CommitmentCardState extends State<CommitmentCard> {
+  late bool active;
+
+  @override
+  void initState() {
+    super.initState();
+    active = widget.commitment.checked;
+  }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
-        if (!active) {
-          onSelected?.call(commitment);
-        } else {
-          onDeSelected?.call(commitment);
-        }
+        widget.onSelected(widget.commitment.id);
+        setState(() {
+          active = !active;
+        });
       },
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          color: active ? kAlmostTransparent : kSecondaryColor,
+          borderRadius: BorderRadius.circular(15.0),
+          color: active ? kSecondaryTransparent : kAlmostTransparent,
         ),
         margin: const EdgeInsets.symmetric(
           vertical: 5.0,
@@ -51,18 +102,18 @@ class CommitmentCard extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: kSecondaryColor,
+                  color: kAlmostTransparent,
                 ),
                 alignment: Alignment.center,
-                child: commitment.icon != null
+                child: widget.commitment.icon != null
                     ? Image.network(
-                        commitment.icon!,
-                        height: 32.5,
+                        widget.commitment.icon!,
+                        height: 30,
                       )
                     : const Icon(
                         CollactionIcons.collaction,
                         color: kAccentColor,
-                        size: 32.5,
+                        size: 30,
                       )),
             const Spacer(),
             Container(
@@ -75,21 +126,14 @@ class CommitmentCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    commitment.label,
-                    style: textTheme.caption!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: kPrimaryColor400),
+                    widget.commitment.title,
+                    style: textTheme.headline6!.copyWith(fontSize: 16),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
                   Text(
-                    commitment.description,
-                    style: textTheme.caption!
-                        .copyWith(fontSize: 13, color: kPrimaryColor300),
+                    widget.commitment.description,
+                    style: textTheme.bodyText2!.copyWith(fontSize: 13),
                     softWrap: true,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -100,8 +144,8 @@ class CommitmentCard extends StatelessWidget {
             const Spacer(),
             Container(
               constraints: const BoxConstraints(
-                minHeight: 32,
-                minWidth: 32,
+                minHeight: 40,
+                minWidth: 40,
               ),
               decoration: BoxDecoration(
                 color: active ? kPrimaryColor400 : Colors.transparent,

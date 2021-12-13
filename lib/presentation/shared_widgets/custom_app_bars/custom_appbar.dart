@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final BuildContext _context;
   final String title;
   final bool closable;
+
   const CustomAppBar(
     this._context, {
     Key? key,
@@ -21,16 +23,27 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0.0,
       centerTitle: true,
       leading: !closable
-          ? GestureDetector(
-              onTap: () => context.router.pop(),
-              child: Image.asset('assets/images/icons/back_icon.png'),
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () => context.router.pop(),
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  primary: Colors.white,
+                  onPrimary: kAccentColor,
+                  elevation: 4,
+                ),
+                child: const Icon(
+                  CollactionIcons.left,
+                ),
+              ),
             )
           : null,
       actions: [
         if (closable)
           GestureDetector(
             onTap: () => context.router.pop(),
-            child: Image.asset('assets/images/icons/close_icon.png'),
+            child: const Icon(CollactionIcons.cross),
           ),
       ],
       title: Text(title, style: const TextStyle(color: kPrimaryColor)),

@@ -1,5 +1,5 @@
-import 'contact_form_contents.dart';
+import 'contact_form_dto.dart';
 
 abstract class IContactFormApi {
-  Future<bool> sendContactFormContents(ContactFormContents contents);
+  Future<bool> sendContactFormContents(ContactFormDto contents);
 }

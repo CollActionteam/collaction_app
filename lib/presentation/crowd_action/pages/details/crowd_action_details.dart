@@ -175,7 +175,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                             ),
                             Expanded(
                               child: Text(
-                                "Join ${widget.crowdAction.topParticipants.title(widget.crowdAction.totalParticipants)}",
+                                "Join ${widget.crowdAction.topParticipants.title(widget.crowdAction.participantCount)}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption

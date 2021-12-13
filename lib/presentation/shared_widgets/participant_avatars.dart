@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../infrastructure/crowdaction/crowdaction_dto.dart';
+import '../../domain/crowdaction/crowdaction.dart';
 
 class ParticipantAvatars extends StatelessWidget {
   final List<TopParticipant> participants;

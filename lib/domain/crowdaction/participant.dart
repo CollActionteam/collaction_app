@@ -1,4 +1,4 @@
-import '../../infrastructure/crowdaction/crowdaction_dto.dart';
+import 'crowdaction.dart';
 
 class Participant {
   final String? photo;

@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
+import '../../../domain/crowdaction/crowdaction_failures.dart';
 import '../../../domain/crowdaction/i_crowdaction_repository.dart';
 
 part 'crowdaction_getter_bloc.freezed.dart';
@@ -27,18 +29,17 @@ class CrowdActionGetterBloc
       getMore: (event) async* {
         yield const CrowdActionGetterState.fetchingCrowdActions();
         try {
-          List<CrowdAction> response;
+          Either<CrowdActionFailure, List<CrowdAction>> response;
           if (event.amount != null && event.amount! > 0) {
             response = await _crowdActionRepository.getCrowdActions(
                 amount: event.amount!);
           } else {
             response = await _crowdActionRepository.getCrowdActions();
           }
-          if (response.isNotEmpty) {
-            yield CrowdActionGetterState.fetched(response);
-          } else {
-            yield const CrowdActionGetterState.noCrowdActions();
-          }
+
+          yield response.fold(
+              (failure) => const CrowdActionGetterState.noCrowdActions(),
+              (crowdActions) => CrowdActionGetterState.fetched(crowdActions));
         } catch (e) {
           yield const CrowdActionGetterState
               .noCrowdActions(); // TODO: Consider implementing error state

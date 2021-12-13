@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../presentation/themes/constants.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
+import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,11 +41,11 @@ class _HomePageState extends State<HomePage> {
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('assets/images/black_logo.png')),
+          icon: Icon(CollactionIcons.collaction),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('assets/images/icons/person.png')),
+          icon: Icon(CollactionIcons.user),
           label: '',
         ),
         BottomNavigationBarItem(

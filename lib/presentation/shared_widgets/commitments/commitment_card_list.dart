@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../infrastructure/crowdaction/crowdaction_dto.dart';
+import '../../../domain/crowdaction/crowdaction.dart';
 import 'commitment_card.dart';
 
 class CommitmentCardList extends StatefulWidget {

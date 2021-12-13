@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../themes/constants.dart';
@@ -38,17 +39,17 @@ class BadgesWidget extends StatelessWidget {
                       margin: const EdgeInsets.all(8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
+                        children: const [
+                          Text(
                             'My badge',
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 28,
                             ),
                           ),
-                          const SizedBox(width: 10),
-                          Image.asset(
-                            'assets/images/icons/tip.png',
+                          SizedBox(width: 10),
+                          Icon(
+                            CollactionIcons.question,
                             color: kAccentColor,
                           ),
                         ],

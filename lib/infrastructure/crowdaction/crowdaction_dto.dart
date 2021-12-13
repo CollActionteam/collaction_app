@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
@@ -12,40 +14,46 @@ class CrowdActionDto with _$CrowdActionDto {
   const CrowdActionDto._();
 
   factory CrowdActionDto({
-    @JsonKey(name: 'crowdactionID') required String crowdactionId,
+    required String crowdactionID,
     required String title,
     required String description,
     required String category,
-    String? subCategory,
     required String location,
-    @JsonKey(name: 'date_start') required String dateStart,
-    @JsonKey(name: 'date_end') required String dateEnd,
-    @JsonKey(name: 'date_limit_join') required String dateLimitJoin,
-    @JsonKey(name: 'password_join') String? passwordJoin,
-    @JsonKey(name: 'commitment_options')
-        required List<CommitmentOption> commitmentOptions,
-    @JsonKey(name: 'top_participants')
-        required List<TopParticipant> topParticipants,
-    int? totalParticipants,
-    @JsonKey(name: 'images') required CrowdActionImages images,
+    required ImagesDto images,
+
+    /// TODO: Rename DTO fields when naming conventions are up to date
+    required List<TopParticipantDto> top_participants,
+    required List<CommitmentOptionDto> commitment_options,
+    required String date_start,
+    required String date_end,
+    required String date_limit_join,
+    int? participant_count,
+    String? password_join,
+    String? subcategory,
   }) = _CrowdActionDto;
 
   CrowdAction toDomain() {
     return CrowdAction(
-        crowdActionId: crowdactionId,
-        title: title,
-        description: description,
-        category: category,
-        subCategory: subCategory,
-        location: location,
-        start: DateTime.parse(dateStart),
-        end: DateTime.parse(dateEnd),
-        dateLimitJoin: DateTime.parse(dateLimitJoin),
-        passwordJoin: passwordJoin,
-        commitmentOptions: commitmentOptions.flatten(),
-        topParticipants: topParticipants,
-        totalParticipants: totalParticipants ?? 0,
-        images: images);
+      crowdactionID: crowdactionID,
+      title: title,
+      description: description,
+      category: category,
+      location: location,
+      topParticipants: top_participants
+          .map((participant) => participant.toDomain())
+          .toList(),
+      commitmentOptions: commitment_options
+          .flatten()
+          .map((option) => option.toDomain())
+          .toList(),
+      dateStart: DateTime.parse(date_start),
+      dateEnd: DateTime.parse(date_end),
+      dateLimitJoin: DateTime.parse(date_limit_join),
+      images: images.toDomain(),
+      participantCount: participant_count ?? 0,
+      passwordJoin: password_join,
+      subCategory: subcategory,
+    );
   }
 
   factory CrowdActionDto.fromJson(Map<String, dynamic> json) =>
@@ -53,47 +61,70 @@ class CrowdActionDto with _$CrowdActionDto {
 }
 
 @freezed
-class CrowdActionList with _$CrowdActionList {
-  const CrowdActionList._();
+class ImagesDto with _$ImagesDto {
+  const ImagesDto._();
 
-  factory CrowdActionList({
-    required List<CrowdActionDto> crowdactions,
-  }) = _CrowdActionList;
+  factory ImagesDto({
+    required String card,
+    required String banner,
+  }) = _ImagesDto;
 
-  factory CrowdActionList.fromJson(Map<String, dynamic> json) =>
-      _$CrowdActionListFromJson(json);
+  Images toDomain() {
+    return Images(
+      card: card,
+      banner: banner,
+    );
+  }
+
+  factory ImagesDto.fromJson(Map<String, dynamic> json) =>
+      _$ImagesDtoFromJson(json);
 }
 
 @freezed
-class CrowdActionImages with _$CrowdActionImages {
-  factory CrowdActionImages({required String card, required String banner}) =
-      _CrowdActionImages;
+class CommitmentOptionDto with _$CommitmentOptionDto {
+  const CommitmentOptionDto._();
 
-  factory CrowdActionImages.fromJson(Map<String, dynamic> json) =>
-      _$CrowdActionImagesFromJson(json);
+  factory CommitmentOptionDto({
+    required String id,
+    required String label,
+    required String description,
+    List<CommitmentOptionDto>? requires,
+    String? icon,
+    String? ref,
+  }) = _CommitmentOptionDto;
+
+  CommitmentOption toDomain() {
+    return CommitmentOption(
+      id: id,
+      label: label,
+      description: description,
+      icon: icon,
+      ref: ref,
+    );
+  }
+
+  factory CommitmentOptionDto.fromJson(Map<String, dynamic> json) =>
+      _$CommitmentOptionDtoFromJson(json);
 }
 
 @freezed
-class TopParticipant with _$TopParticipant {
-  factory TopParticipant(
-      {required String name,
-      String? imageUrl,
-      @JsonKey(name: 'userID') required String userId}) = _TopParticipant;
+class TopParticipantDto with _$TopParticipantDto {
+  const TopParticipantDto._();
 
-  factory TopParticipant.fromJson(Map<String, dynamic> json) =>
-      _$TopParticipantFromJson(json);
-}
+  factory TopParticipantDto({
+    required String userID,
+    required String name,
+    String? imageUrl,
+  }) = _TopParticipantDto;
 
-@freezed
-class CommitmentOption with _$CommitmentOption {
-  factory CommitmentOption(
-      {required String id,
-      required String label,
-      String? icon,
-      String? ref,
-      required String description,
-      List<CommitmentOption>? requires}) = _CommitmentOption;
+  TopParticipant toDomain() {
+    return TopParticipant(
+      userId: userID,
+      name: name,
+      imageUrl: imageUrl,
+    );
+  }
 
-  factory CommitmentOption.fromJson(Map<String, dynamic> json) =>
-      _$CommitmentOptionFromJson(json);
+  factory TopParticipantDto.fromJson(Map<String, dynamic> json) =>
+      _$TopParticipantDtoFromJson(json);
 }
