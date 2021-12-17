@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/application/crowdaction/subscription/status/subscription_status_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../application/crowdaction/subscription/subscription_bloc.dart';
+import '../../../../../application/crowdaction/subscription_status/subscription_status_bloc.dart';
 import '../../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../../../shared_widgets/pill_button.dart';

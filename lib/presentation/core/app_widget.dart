@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/subscription/subscription_bloc.dart';
 import '../../application/auth/auth_bloc.dart';
-import '../../application/crowdaction/subscription/status/subscription_status_bloc.dart';
+import '../../application/crowdaction/subscription_status/subscription_status_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';

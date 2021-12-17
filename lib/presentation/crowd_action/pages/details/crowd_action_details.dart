@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../application/crowdaction/subscription/status/subscription_status_bloc.dart';
+import '../../../../application/crowdaction/subscription_status/subscription_status_bloc.dart';
 import '../../../../domain/auth/i_auth_repository.dart';
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../domain/crowdaction/crowdaction_status.dart';
