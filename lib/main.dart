@@ -13,11 +13,11 @@ Future<void> main() async {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await Firebase.initializeApp();
 
       configureInjection();
       getIt<ISettingsRepository>();
 
+      await Firebase.initializeApp();
       await dotenv.load();
 
       runApp(AppWidget());
