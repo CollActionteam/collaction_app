@@ -10,7 +10,7 @@ import '../../../shared_widgets/accent_chip.dart';
 import '../../../shared_widgets/content_placeholder.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
 import '../../../themes/constants.dart';
-import '../../utils/crowd_action.ext.dart';
+import '../../utils/crowdaction.ext.dart';
 
 class InSpotLightHeader extends StatefulWidget {
   const InSpotLightHeader({

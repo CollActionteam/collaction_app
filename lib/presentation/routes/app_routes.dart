@@ -1,15 +1,15 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 
-import '../../../presentation/crowd_action/pages/participants.dart';
+import '../../../presentation/crowdaction/pages/participants.dart';
 import '../../../presentation/user/user_profile_page.dart';
 import '../auth/auth_screen.dart';
 import '../auth/pages/verified.dart';
 import '../contact_form/contact_form_screen.dart';
-import '../crowd_action/crowd_action_browse.dart';
-import '../crowd_action/pages/details/crowd_action_details.dart';
-import '../crowd_action/pages/in_spot_light.dart';
-import '../crowd_action/pages/participants.dart';
+import '../crowdaction/crowdaction_browse.dart';
+import '../crowdaction/pages/details/crowdaction_details.dart';
+import '../crowdaction/pages/in_spot_light.dart';
+import '../crowdaction/pages/participants.dart';
 import '../demo/components_demo/components_demo_screen.dart';
 import '../demo/demo_screen.dart';
 import '../home/home_screen.dart';

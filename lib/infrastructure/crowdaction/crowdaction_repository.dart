@@ -52,7 +52,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
+          '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
 
       final response = await _client.post(uri,
           headers: {
@@ -80,7 +80,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
+          '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
 
       final response = await _client.delete(uri, headers: {
         'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
+          '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
 
       final response = await _client.get(uri, headers: {
         'Content-Type': 'application/json',

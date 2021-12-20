@@ -17,7 +17,7 @@ import '../../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../../shared_widgets/participant_avatars.dart';
 import '../../../shared_widgets/pill_button.dart';
 import '../../../themes/constants.dart';
-import '../../utils/crowd_action.ext.dart';
+import '../../utils/crowdaction.ext.dart';
 import 'widgets/commitment/commitment_badge.dart';
 import 'widgets/confirm_participation.dart';
 import 'widgets/created_by.dart';
