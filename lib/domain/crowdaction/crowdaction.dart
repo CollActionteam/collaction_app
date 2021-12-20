@@ -36,6 +36,7 @@ class CommitmentOption with _$CommitmentOption {
     required String id,
     required String label,
     required String description,
+    List<CommitmentOption>? requires,
     String? icon,
     String? ref,
   }) = _CommitmentOption;

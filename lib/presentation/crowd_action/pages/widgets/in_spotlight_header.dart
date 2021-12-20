@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
-import '../../../../domain/crowdaction/participant.dart';
 import '../../../routes/app_routes.gr.dart';
 import '../../../shared_widgets/accent_chip.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
@@ -97,7 +96,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                               ),
                               ...crowdAction.toChips()
                             ],
-                            participants: sampleParticipants,
+                            participants: crowdAction.topParticipants,
                             totalParticipants: crowdAction.participantCount,
                             onTap: () => context.router.push(
                               CrowdActionDetailsRoute(

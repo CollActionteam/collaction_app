@@ -13,3 +13,15 @@ extension CrowdActionX on CrowdAction {
     ];
   }
 }
+
+extension ParticipantsX on List<TopParticipant>? {
+  double avatarWidth() {
+    if (this?.length == 3) {
+      return 100.0;
+    } else if (this?.length == 2) {
+      return 80.0;
+    } else {
+      return 40.0;
+    }
+  }
+}

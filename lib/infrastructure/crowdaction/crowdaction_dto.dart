@@ -3,8 +3,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
+import '../crowdaction/crowdaction.ext.dart';
 
 part 'crowdaction_dto.freezed.dart';
+
 part 'crowdaction_dto.g.dart';
 
 @freezed
@@ -40,8 +42,10 @@ class CrowdActionDto with _$CrowdActionDto {
       topParticipants: top_participants
           .map((participant) => participant.toDomain())
           .toList(),
-      commitmentOptions:
-          commitment_options.map((option) => option.toDomain()).toList(),
+      commitmentOptions: commitment_options
+          .flatten()
+          .map((option) => option.toDomain())
+          .toList(),
       dateStart: DateTime.parse(date_start),
       dateEnd: DateTime.parse(date_end),
       dateLimitJoin: DateTime.parse(date_limit_join),
@@ -84,6 +88,7 @@ class CommitmentOptionDto with _$CommitmentOptionDto {
     required String id,
     required String label,
     required String description,
+    List<CommitmentOptionDto>? requires,
     String? icon,
     String? ref,
   }) = _CommitmentOptionDto;
