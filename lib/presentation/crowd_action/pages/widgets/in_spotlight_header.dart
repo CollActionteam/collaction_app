@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../routes/app_routes.gr.dart';
 import '../../../shared_widgets/accent_chip.dart';
+import '../../../shared_widgets/content_placeholder.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
 import '../../../themes/constants.dart';
 import '../../utils/crowd_action.ext.dart';
@@ -70,8 +71,9 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                       );
                     },
                     spotLightCrowdActionsError: (_) {
-                      // TODO - Implement screen with missing spot lights
-                      return const Text("Error");
+                      return const ContentPlaceholder(
+                        textColor: Colors.white,
+                      );
                     },
                     spotLightCrowdActions: (_pages) {
                       return Column(
