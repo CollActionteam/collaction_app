@@ -8,7 +8,7 @@ class ShareCollActionCard extends StatelessWidget {
   // TODO Review (and update) text being shared.
   static const shareText =
       "Check out CollAction at https://play.google.com/store/apps/details?id=org.collaction.collaction_app" +
-          " for Android and https://apps.apple.com/nl/app/id1597643827 for iOS." +
+          " for Android and https://apps.apple.com/app/id1597643827 for iOS." +
           " Let's solve all collective action problems in the world.";
 
   static const shareEmailSubject = "Join me on CollAction";
