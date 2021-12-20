@@ -35,74 +35,79 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: kPrimaryColor400,
-      margin: const EdgeInsets.only(bottom: 20),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 35,
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: 12),
-            child: Text(
-              "In the spotlight",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          BlocBuilder<SpotlightBloc, SpotlightState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                fetchingCrowdSpotLightActions: () {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: kAccentColor,
-                    ),
-                  );
-                },
-                spotLightCrowdActionsError: (_) {
-                  // TODO - Implement screen with missing spot lights
-                  return const Text("Error");
-                },
-                spotLightCrowdActions: (_pages) {
-                  return ExpandablePageView.builder(
-                    itemBuilder: (ctx, index) {
-                      final crowdAction = _pages[index];
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          color: kPrimaryColor400,
+          width: constraints.maxWidth,
+          margin: const EdgeInsets.only(bottom: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 35,
+              ),
+              Container(
+                padding: const EdgeInsets.only(left: 12),
+                child: Text(
+                  "In the spotlight",
+                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              BlocBuilder<SpotlightBloc, SpotlightState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    fetchingCrowdSpotLightActions: () {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: kAccentColor,
+                        ),
+                      );
+                    },
+                    spotLightCrowdActionsError: (_) {
+                      // TODO - Implement screen with missing spot lights
+                      return const Text("Error");
+                    },
+                    spotLightCrowdActions: (_pages) {
                       return Column(
                         children: [
-                          CrowdActionCard(
-                            title: crowdAction.title,
-                            imagePath: crowdAction.images.card,
-                            chips: [
-                              GestureDetector(
-                                onTap: () {
-                                  // TODO - Sign up, to crowd action
-                                },
-                                child: const AccentChip(
-                                  text: "Sign up now",
-                                  leading: Icon(
-                                    Icons.check,
-                                    color: Colors.white,
+                          ExpandablePageView.builder(
+                            itemBuilder: (ctx, index) {
+                              final crowdAction = _pages[index];
+                              return CrowdActionCard(
+                                title: crowdAction.title,
+                                imagePath: crowdAction.images.card,
+                                chips: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      // TODO - Sign up, to crowd action
+                                    },
+                                    child: const AccentChip(
+                                      text: "Sign up now",
+                                      leading: Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  ...crowdAction.toChips()
+                                ],
+                                participants: crowdAction.topParticipants,
+                                totalParticipants: crowdAction.participantCount,
+                                onTap: () => context.router.push(
+                                  CrowdActionDetailsRoute(
+                                    crowdAction: crowdAction,
                                   ),
                                 ),
-                              ),
-                              ...crowdAction.toChips()
-                            ],
-                            participants: crowdAction.topParticipants,
-                            totalParticipants: crowdAction.participantCount,
-                            onTap: () => context.router.push(
-                              CrowdActionDetailsRoute(
-                                crowdAction: crowdAction,
-                              ),
-                            ),
+                              );
+                            },
+                            itemCount: _pages.length,
+                            controller: _pageController,
                           ),
                           const SizedBox(
                             height: 5,
@@ -127,19 +132,17 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                         ],
                       );
                     },
-                    itemCount: _pages.length,
-                    controller: _pageController,
+                    orElse: () => const SizedBox(),
                   );
                 },
-                orElse: () => const SizedBox(),
-              );
-            },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
