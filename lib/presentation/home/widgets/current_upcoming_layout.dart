@@ -6,6 +6,7 @@ import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
+import '../../shared_widgets/content_placeholder.dart';
 import '../../themes/constants.dart';
 
 class CurrentAndUpcomingLayout extends StatefulWidget {
@@ -64,19 +65,18 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
               ),
             ),
             state.maybeMap(
-                  fetchingCrowdSpotLightActions: (_) => const Center(
-                      child: CircularProgressIndicator(
-                    color: kAccentColor,
-                  )),
-                  spotLightCrowdActions: (fetchedData) =>
-                      _fetched(fetchedData.crowdActions),
-                  spotLightCrowdActionsError: (failure) => Center(
-                    child: Text(
-                        'Error: ${failure.error.toString()} occured!! Please try again.'),
-                  ),
-                  orElse: () {},
-                ) ??
-                const SizedBox(),
+              fetchingCrowdSpotLightActions: (_) => const Center(
+                child: CircularProgressIndicator(
+                  color: kAccentColor,
+                ),
+              ),
+              spotLightCrowdActions: (fetchedData) =>
+                  _fetched(fetchedData.crowdActions),
+              spotLightCrowdActionsError: (failure) => const ContentPlaceholder(
+                textColor: Colors.black,
+              ),
+              orElse: () => const SizedBox(),
+            ),
             const SizedBox(height: 20),
           ],
         ),

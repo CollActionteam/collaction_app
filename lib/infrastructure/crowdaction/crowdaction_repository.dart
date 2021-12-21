@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:collaction_app/domain/auth/errors.dart';
-import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
+import '../../domain/auth/errors.dart';
+import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 import '../../domain/crowdaction/crowdaction_failures.dart';
 import '../../domain/crowdaction/crowdaction_status.dart';
