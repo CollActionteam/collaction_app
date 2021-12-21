@@ -3,8 +3,13 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+<<<<<<< HEAD
 
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
+=======
+import '../../../../application/crowdaction/spotlight/spot_light_bloc.dart';
+import '../../../../domain/crowdaction/participant.dart';
+>>>>>>> c9f28df... completed settings page and profile page layout (not in MVP)
 import '../../../routes/app_routes.gr.dart';
 import '../../../shared_widgets/accent_chip.dart';
 import '../../../shared_widgets/content_placeholder.dart';
