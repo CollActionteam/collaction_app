@@ -1,5 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/settings/settings_layout.dart';
+import 'package:collaction_app/presentation/settings/settings_page.dart';
 
 import '../../../presentation/crowd_action/pages/participants.dart';
 import '../../../presentation/user/user_profile_page.dart';
@@ -55,6 +57,8 @@ import '../onboarding/onboarding.dart';
     ),
     AutoRoute(path: 'auth', page: AuthPage),
     AutoRoute(path: 'verified', page: VerifiedPage),
+    AutoRoute(path: 'settings-page', page: SettingsPage),
+    AutoRoute(path: 'settings-layout', page: SettingsLayout),
   ],
 )
 class $AppRouter {}
