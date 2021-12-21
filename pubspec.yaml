@@ -51,6 +51,7 @@ dependencies:
   phone_number: ^0.11.0+2
   rive: 0.7.28
   rxdart: ^0.27.1
+  sentry_flutter: ^6.2.2
   share_plus: ^2.1.4
   shared_preferences: ^2.0.7
   url_launcher: ^6.0.9

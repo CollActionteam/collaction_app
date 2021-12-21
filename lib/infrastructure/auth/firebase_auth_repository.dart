@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../domain/auth/auth_failures.dart';
 import '../../domain/auth/auth_success.dart';
@@ -94,7 +95,8 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       return right(authResult.additionalUserInfo?.isNewUser == true);
     } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
       return left(const AuthFailure.serverError());
     }
   }
@@ -109,7 +111,8 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       return right(unit);
     } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
       return left(const AuthFailure.serverError());
     }
   }
@@ -123,9 +126,11 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       // final user = firebaseAuth.currentUser!;
       // await user.updatePhotoURL(profileUrl);
       return right(unit);
-    } on firebase_auth.FirebaseAuthException catch (error) {
-      return left(error.toFailure());
-    } catch (_) {
+    } on firebase_auth.FirebaseAuthException catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
+      return left(exception.toFailure());
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
       return left(const AuthFailure.serverError());
     }
   }

@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../domain/auth/errors.dart';
 import '../../domain/auth/i_auth_repository.dart';
@@ -36,7 +37,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
           .map<CrowdAction>((json) =>
               CrowdActionDto.fromJson(json as Map<String, dynamic>).toDomain())
           .toList() as List<CrowdAction>);
-    } catch (error) {
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
       return left(const CrowdActionFailure.networkRequestFailed());
     }
   }
@@ -66,7 +68,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
       } else {
         return left(const CrowdActionFailure.networkRequestFailed());
       }
-    } catch (e) {
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
       return left(const CrowdActionFailure.networkRequestFailed());
     }
   }
@@ -92,7 +95,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
       } else {
         return left(const CrowdActionFailure.networkRequestFailed());
       }
-    } catch (e) {
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
       return left(const CrowdActionFailure.networkRequestFailed());
     }
   }
@@ -113,7 +117,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
           .map<CrowdAction>((json) =>
               CrowdActionDto.fromJson(json as Map<String, dynamic>).toDomain())
           .toList() as List<CrowdAction>);
-    } catch (e) {
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
       return left(const CrowdActionFailure.networkRequestFailed());
     }
   }
@@ -148,7 +153,8 @@ class CrowdActionRepository implements ICrowdActionRepository {
       }
 
       return right(const CrowdActionStatus.notSubscribed());
-    } catch (e) {
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
       return left(const CrowdActionFailure.networkRequestFailed());
     }
   }
