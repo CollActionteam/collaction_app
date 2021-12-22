@@ -43,7 +43,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     yield const SubscriptionState.subscribingToCrowdAction();
 
     final failureOrSuccess =
-        await _crowdActionRepository.subscribeToCrowdAction(value.action);
+        await _crowdActionRepository.subscribeToCrowdAction(
+            value.action, value.commitments, value.password);
 
     yield failureOrSuccess.fold(
       (failure) => const SubscriptionState.subscriptionFailed(),

@@ -45,6 +45,7 @@ class ContactFormPageState extends State<ContactFormPage> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: CustomAppBar(context),
+        backgroundColor: kSecondaryColor,
         body: ScrollConfiguration(
           behavior: NoRippleBehavior(),
           child: SingleChildScrollView(

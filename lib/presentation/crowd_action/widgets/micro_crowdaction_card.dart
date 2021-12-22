@@ -38,7 +38,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                     const SizedBox(width: 10.0),
                     Expanded(
                       child: Text(
-                        crowdAction.name,
+                        crowdAction.title,
                         style: Theme.of(context)
                             .textTheme
                             .headline6!

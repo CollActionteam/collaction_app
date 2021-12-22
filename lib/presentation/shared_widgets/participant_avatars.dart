@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/crowdaction/participant.dart';
+import '../../domain/crowdaction/crowdaction.dart';
 
 class ParticipantAvatars extends StatelessWidget {
-  final List<Participant> participants;
+  final List<TopParticipant> participants;
 
   const ParticipantAvatars({
     Key? key,
@@ -24,17 +24,24 @@ class ParticipantAvatars extends StatelessWidget {
     );
   }
 
-  Align _createAvatar(Participant participant, int index) {
+  Align _createAvatar(TopParticipant participant, int index) {
     return Align(
       alignment: _getIndexAlignment(index),
       child: CircleAvatar(
         backgroundColor: Colors.white,
-        child: CircleAvatar(
-          radius: 18,
-          backgroundColor: Colors.grey[300],
-          backgroundImage: NetworkImage(
-              participant.photo ?? ""), // Provide your custom image
-        ),
+        child: participant.imageUrl != null
+            ? CircleAvatar(
+                radius: 18,
+                backgroundColor: Colors.grey[300],
+                backgroundImage: NetworkImage(
+                    participant.imageUrl!), // Provide your custom image
+              )
+            : Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
       ),
     );
   }

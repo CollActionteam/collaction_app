@@ -1,13 +1,14 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/shared_widgets/return_elevated_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final BuildContext _context;
   final String title;
   final bool closable;
+
   const CustomAppBar(
     this._context, {
     Key? key,
@@ -23,27 +24,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: !closable
           ? Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () => context.router.pop(),
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(const CircleBorder()),
-                backgroundColor: MaterialStateProperty.all(kSecondaryColor),
-                elevation: MaterialStateProperty.all<double>(4.0),
-                padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(8.0)),
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () => context.router.pop(),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(const CircleBorder()),
+                  backgroundColor: MaterialStateProperty.all(kSecondaryColor),
+                  elevation: MaterialStateProperty.all<double>(4.0),
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.all(8.0)),
+                ),
+                child: const Icon(
+                  CollactionIcons.left,
+                  color: kPrimaryColor300,
+                ),
               ),
-              child: const Icon(
-                CollactionIcons.left,
-                color: kPrimaryColor300,
-              ),
-            ),
-          )
+            )
           : null,
       actions: [
         if (closable)
           GestureDetector(
             onTap: () => context.router.pop(),
-            child: Image.asset('assets/images/icons/close_icon.png'),
+            child: const Icon(CollactionIcons.cross),
           ),
       ],
       title: Text(title, style: const TextStyle(color: kPrimaryColor)),

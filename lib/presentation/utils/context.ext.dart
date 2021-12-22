@@ -7,6 +7,7 @@ extension ContextX on BuildContext {
     ScaffoldMessenger.of(this).removeCurrentSnackBar();
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(
       backgroundColor: kErrorColor,
+      behavior: SnackBarBehavior.floating,
       content: Text(
         message,
         style: const TextStyle(color: kSecondaryColor),

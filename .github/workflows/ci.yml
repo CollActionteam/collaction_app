@@ -75,8 +75,8 @@ jobs:
         echo ${{ secrets.ENV }} | base64 -d > .env
         flutter test -r expanded .
 
-  build:
-    if: ${{ github.ref == 'refs/heads/development' }}
+  build: # Dynamically build for dev or prod depending on the branch
+    if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
     needs: [test]
     runs-on: macos-latest
     timeout-minutes: 30
@@ -86,8 +86,9 @@ jobs:
     - name: Create release notes file
       run: |
         cat > release_notes.txt <<EOF
+        Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
         Commit: $(git rev-parse --short HEAD)
-        Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        Author: $(git log -1 --pretty=format:'%an')
         Message: $(git log -1 --pretty=%B)
         EOF
     - name: Setup Java for Android
@@ -115,7 +116,7 @@ jobs:
       run: flutter pub run flutter_launcher_icons:main
     - name: Build appbundle
       run: |
-        echo ${{ secrets.ENV }} | base64 -d > .env
+        echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
         echo ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON }} | base64 -d > android/app/google-services.json
         flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER
         cp release_notes.txt build/app/outputs/
