@@ -25,8 +25,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Get the current month
-      final date = DateTime.parse(DateTime.now().toString());
-      final month = DateFormat.MMMM().format(date);
+      final month = DateFormat.MMMM().format(DateTime.now());
 
       // Verify that header widget is shown
       expect(find.text("$month's CrowdActions"), findsOneWidget);

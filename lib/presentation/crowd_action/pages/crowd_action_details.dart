@@ -204,7 +204,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Text(
-                        'Your challenge, your rules.\n Choose which commitment you want to make this month.',
+                        'Your challenge, your rules.\nChoose which commitment you want to make this month.',
                         style: Theme.of(context).textTheme.caption!.copyWith(
                               color: kPrimaryColor300,
                               fontWeight: FontWeight.w400,
@@ -462,7 +462,8 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       height: 30,
                     ),
                     Text(
-                      "You’re almost there! You’ve selected the displayed commitment to stick to through this CrowdAction. By clicking “Go!” you will officially commit to this goal.",
+                      //! Commitment(s) based on selected commitments
+                      "You’re almost there! You’ve selected the displayed commitment to stick to through this CrowdAction. By clicking “Go!” you will officially commit to this CrowdAction.",
                       style: Theme.of(context).textTheme.caption?.copyWith(
                             color: kPrimaryColor400,
                           ),
@@ -717,7 +718,7 @@ class _CommitmentsWidgetState extends State<CommitmentsWidget> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Text(
-                'Your challenge, your rules. Choose which commitment you want to make this month.',
+                'Your challenge, your rules.\nChoose which commitment you want to make this month.',
                 style: Theme.of(context).textTheme.caption!.copyWith(
                       color: kPrimaryColor300,
                       fontWeight: FontWeight.w400,
@@ -1050,7 +1051,7 @@ class _BadgesPopupCard extends StatelessWidget {
                           maxWidth: 300,
                         ),
                         child: Text(
-                          'Different commitments give you a different set of points. These points correspond with badges.\n Which one will you attain this month?',
+                          'Different commitments give you a different set of points. These points correspond with badges.\nWhich one will you attain this month?',
                           style: Theme.of(context).textTheme.caption!.copyWith(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
@@ -1168,7 +1169,6 @@ class _BadgesPopupCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: CircleAvatar(
-                    // color: kSecondaryColor,
                     backgroundColor: kSecondaryColor,
                     child: IconButton(
                       onPressed: () => context.router.pop(),

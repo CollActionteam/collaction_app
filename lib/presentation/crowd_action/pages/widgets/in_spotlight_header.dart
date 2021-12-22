@@ -136,11 +136,5 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
     );
   }
 
-  //? Move to Spotlight Bloc and fetch on loading the page?
-  String sectionHeadingText() {
-    final _date = DateTime.parse(DateTime.now().toString());
-    final _month = DateFormat.MMMM().format(_date);
-
-    return "$_month's CrowdActions";
-  }
+  String sectionHeadingText() => DateFormat.MMMM().format(DateTime.now());
 }
