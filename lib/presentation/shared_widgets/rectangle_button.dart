@@ -20,15 +20,19 @@ class RectangleButton extends StatelessWidget {
     return TextButton(
       onPressed: enabled ? onTap : null,
       style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all<Color?>(
-              kSecondaryColor.withOpacity(0.1)),
-          padding: MaterialStateProperty.all<EdgeInsets?>(
-              const EdgeInsets.symmetric(vertical: 16.0)),
-          backgroundColor: enabled
-              ? MaterialStateProperty.all<Color?>(kEnabledButtonColor)
-              : MaterialStateProperty.all<Color?>(kDisabledButtonColor),
-          shape: MaterialStateProperty.all<OutlinedBorder?>(
-              const RoundedRectangleBorder())),
+        overlayColor: MaterialStateProperty.all<Color?>(
+          kSecondaryColor.withOpacity(0.1),
+        ),
+        padding: MaterialStateProperty.all<EdgeInsets?>(
+          const EdgeInsets.symmetric(vertical: 16.0),
+        ),
+        backgroundColor: enabled
+            ? MaterialStateProperty.all<Color?>(kEnabledButtonColor)
+            : MaterialStateProperty.all<Color?>(kDisabledButtonColor),
+        shape: MaterialStateProperty.all<OutlinedBorder?>(
+          const RoundedRectangleBorder(),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -39,7 +43,9 @@ class RectangleButton extends StatelessWidget {
           Text(
             text,
             style: const TextStyle(
-                color: kSecondaryColor, fontWeight: FontWeight.w700),
+              color: kSecondaryColor,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),

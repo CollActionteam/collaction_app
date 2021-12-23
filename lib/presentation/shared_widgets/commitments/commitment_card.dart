@@ -1,7 +1,7 @@
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
+import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 
 /// Creates a new CommitmentCard
@@ -48,22 +48,23 @@ class CommitmentCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-                padding: const EdgeInsets.all(15.0),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kSecondaryColor,
-                ),
-                alignment: Alignment.center,
-                child: commitment.icon != null
-                    ? Image.network(
-                        commitment.icon!,
-                        height: 32.5,
-                      )
-                    : const Icon(
-                        CollactionIcons.collaction,
-                        color: kAccentColor,
-                        size: 32.5,
-                      )),
+              padding: const EdgeInsets.all(15.0),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: kSecondaryColor,
+              ),
+              alignment: Alignment.center,
+              child: commitment.icon != null
+                  ? Image.network(
+                      commitment.icon!,
+                      height: 32.5,
+                    )
+                  : const Icon(
+                      CollactionIcons.collaction,
+                      color: kAccentColor,
+                      size: 32.5,
+                    ),
+            ),
             const Spacer(),
             Container(
               width: MediaQuery.of(context).size.width * 0.5,
@@ -77,9 +78,10 @@ class CommitmentCard extends StatelessWidget {
                   Text(
                     commitment.label,
                     style: textTheme.caption!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: kPrimaryColor400),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: kPrimaryColor400,
+                    ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

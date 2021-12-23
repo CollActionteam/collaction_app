@@ -1,3 +1,4 @@
+/// TODO: Remove all old code related to GraphQL!!!
 const placeholder = "#i#";
 
 const queryGetCrowdActions = "{ crowdactions {name description start end } }";

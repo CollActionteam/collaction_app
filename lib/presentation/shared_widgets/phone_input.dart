@@ -18,13 +18,14 @@ class PhoneInput extends StatefulWidget {
   final PhoneResponse? phone;
   final TextEditingController phoneNumberController;
 
-  const PhoneInput(this.phoneNumberController,
-      {Key? key,
-      this.isValid,
-      this.onChange,
-      this.phone,
-      this.readOnly = false})
-      : super(key: key);
+  const PhoneInput(
+    this.phoneNumberController, {
+    Key? key,
+    this.isValid,
+    this.onChange,
+    this.phone,
+    this.readOnly = false,
+  }) : super(key: key);
 
   @override
   _PhoneInputState createState() => _PhoneInputState();
@@ -119,7 +120,8 @@ class _PhoneInputState extends State<PhoneInput> {
                     widget.phoneNumberController.selection =
                         TextSelection.fromPosition(
                       TextPosition(
-                          offset: widget.phoneNumberController.text.length),
+                        offset: widget.phoneNumberController.text.length,
+                      ),
                     );
                   },
                   style: const TextStyle(fontSize: 20.0),
@@ -183,12 +185,12 @@ class _PhoneInputState extends State<PhoneInput> {
 
   /// Return phone input validation result [isValid]
   void _triggerValidReturn(bool isValid) {
-    if (widget.isValid != null) widget.isValid!(isValid);
+    widget.isValid?.call(isValid);
   }
 
   /// Return phone number [phoneNumber]
   void _triggerPhoneReturn(PhoneResponse phoneNumber) {
-    if (widget.onChange != null) widget.onChange!(phoneNumber);
+    widget.onChange?.call(phoneNumber);
   }
 
   /// Validate the combination of the country dial code

@@ -9,10 +9,10 @@ import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 import '../utils/context.ext.dart';
-import 'pages/enter_username.dart';
-import 'pages/profile_photo.dart';
-import 'pages/verification_code.dart';
-import 'pages/verify_phone.dart';
+import 'widgets/enter_username.dart';
+import 'widgets/profile_photo.dart';
+import 'widgets/verification_code.dart';
+import 'widgets/verify_phone.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -24,20 +24,11 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   final _pageController = PageController();
   double _currentPage = 0.0;
-  late List<Widget> _pages;
-
   bool _displayDots = true;
 
   @override
   void initState() {
     super.initState();
-    _pages = [
-      const VerifyPhonePage(),
-      const EnterVerificationCode(),
-      const EnterUserName(),
-      SelectProfilePhoto(onSkip: () => _authDone(context))
-    ];
-
     _pageController.addListener(
       () => setState(() => _currentPage = _pageController.page!),
     );
@@ -94,7 +85,12 @@ class _AuthPageState extends State<AuthPage> {
                       child: PageView(
                         controller: _pageController,
                         physics: const NeverScrollableScrollPhysics(),
-                        children: _pages,
+                        children: [
+                          const VerifyPhonePage(),
+                          const EnterVerificationCode(),
+                          const EnterUserName(),
+                          SelectProfilePhoto(onSkip: () => _authDone(context))
+                        ],
                       ),
                     ),
                     if (_displayDots)
@@ -121,6 +117,9 @@ class _AuthPageState extends State<AuthPage> {
   void _authDone(BuildContext context) =>
       context.router.replaceAll([const VerifiedRoute()]);
 
-  void _toPage(int page) => _pageController.animateToPage(page,
-      duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
+  void _toPage(int page) => _pageController.animateToPage(
+        page,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeIn,
+      );
 }

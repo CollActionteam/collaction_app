@@ -9,8 +9,10 @@ class SpotlightState with _$SpotlightState {
       _FetchingSpotLightCrowdActions;
 
   const factory SpotlightState.spotLightCrowdActionsError(
-      CrowdActionFailure error) = _SpotLightCrowdActionsError;
+    CrowdActionFailure error,
+  ) = _SpotLightCrowdActionsError;
 
   const factory SpotlightState.spotLightCrowdActions(
-      List<CrowdAction> crowdActions) = _SpotLightCrowdActions;
+    List<CrowdAction> crowdActions,
+  ) = _SpotLightCrowdActions;
 }

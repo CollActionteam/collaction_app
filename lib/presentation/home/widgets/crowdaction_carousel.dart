@@ -4,11 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
-import '../../core/collaction_icons.dart';
-import '../../shared_widgets/accent_action_chip.dart';
 import '../../shared_widgets/crowdaction_card.dart';
 import '../../shared_widgets/no_ripple_behavior.dart';
-import '../../shared_widgets/secondary_chip.dart';
 import '../../themes/constants.dart';
 
 class CrowdActionCarousel extends StatefulWidget {
@@ -61,23 +58,7 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
                     itemCount: 3,
                     itemBuilder: (context, index) => CrowdActionCard(
                       scaleFactor: scaleFactor,
-                      title: crowdActions[index].title,
-                      imagePath:
-                          'https://collaction-production.s3.eu-central-1.amazonaws.com/7d50f62a-a73d-401e-a1d8-33a9e8817870.jpg',
-                      // TODO: Use crowdaction image
-                      chips: [
-                        // TODO: Use crowdaction chips
-                        AccentActionChip(
-                          () {},
-                          text: 'Sign up now',
-                          leading: const Icon(
-                            CollactionIcons.plus,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SecondaryChip(text: 'Sustainability'),
-                        const SecondaryChip(text: 'Environment')
-                      ],
+                      crowdAction: crowdActions[index],
                     ),
                   ),
                 ),
@@ -94,9 +75,11 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
                 ),
                 onTap: (position) {
                   _currentPage = position;
-                  _pageController.animateToPage(_currentPage.toInt(),
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeIn);
+                  _pageController.animateToPage(
+                    _currentPage.toInt(),
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeIn,
+                  );
                 },
               )
             ],

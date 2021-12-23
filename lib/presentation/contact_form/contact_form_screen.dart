@@ -50,109 +50,126 @@ class ContactFormPageState extends State<ContactFormPage> {
           child: SingleChildScrollView(
             controller: _pageScrollController,
             child: BlocConsumer<ContactFormBloc, ContactFormState>(
-                listener: _contactFormBlocListener,
-                bloc: _contactFormBloc,
-                builder: (context, state) {
-                  final isEnabled = state.maybeMap(
-                    initial: (_) => true,
-                    failed: (_) => true,
-                    orElse: () => false,
-                  );
-                  return Form(
-                    key: _formKey,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 100.0, horizontal: 20.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Contact us",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 32.0),
+              listener: _contactFormBlocListener,
+              bloc: _contactFormBloc,
+              builder: (context, state) {
+                final isEnabled = state.maybeMap(
+                  initial: (_) => true,
+                  failed: (_) => true,
+                  orElse: () => false,
+                );
+                return Form(
+                  key: _formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 100.0,
+                      horizontal: 20.0,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Contact us",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 32.0,
+                          ),
+                          maxLines: 2,
+                          textAlign: TextAlign.left,
+                        ),
+                        const SizedBox(height: 35.0),
+                        TextFormField(
+                          key: _emailKey,
+                          onChanged: (value) =>
+                              _emailKey.currentState!.validate(),
+                          enabled: isEnabled,
+                          keyboardType: TextInputType.emailAddress,
+                          style: const TextStyle(fontSize: 20.0),
+                          decoration: InputDecoration(
+                            hintText: 'Your email address',
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                color: Colors.transparent,
+                              ),
+                            ),
+                          ),
+                          validator: (value) => _validateEmail(value),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
+                          child: Text(
+                            "We will send our response to your email address",
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption!
+                                .copyWith(color: kPrimaryColor300),
                             maxLines: 2,
                             textAlign: TextAlign.left,
                           ),
-                          const SizedBox(height: 35.0),
-                          TextFormField(
-                            key: _emailKey,
-                            onChanged: (value) =>
-                                _emailKey.currentState!.validate(),
-                            enabled: isEnabled,
-                            keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(fontSize: 20.0),
-                            decoration: InputDecoration(
-                              hintText: 'Your email address',
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                    width: 0, color: Colors.transparent),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                    width: 0, color: Colors.transparent),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                    width: 0, color: Colors.transparent),
+                        ),
+                        const SizedBox(height: 25.0),
+                        TextFormField(
+                          enabled: isEnabled,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          minLines: 5,
+                          decoration: InputDecoration(
+                            hintText: 'Your message to us',
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                color: Colors.transparent,
                               ),
                             ),
-                            validator: (value) => _validateEmail(value),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
-                            child: Text(
-                              "We will send our response to your email address",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption!
-                                  .copyWith(color: kPrimaryColor300),
-                              maxLines: 2,
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          const SizedBox(height: 25.0),
-                          TextFormField(
-                            enabled: isEnabled,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            minLines: 5,
-                            decoration: InputDecoration(
-                              hintText: 'Your message to us',
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                    width: 0, color: Colors.transparent),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                    width: 0, color: Colors.transparent),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                    width: 0, color: Colors.transparent),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                color: Colors.transparent,
                               ),
                             ),
-                            validator: _validateMessage,
-                            onChanged: _validateMessage,
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                color: Colors.transparent,
+                              ),
+                            ),
                           ),
-                          const SizedBox(height: 35.0),
-                          PillButton(
-                            text: 'Send',
-                            isLoading: state is Submitting,
-                            isEnabled: isEnabled,
-                            onTap: isEnabled ? _submitForm : null,
-                          ),
-                        ],
-                      ),
+                          validator: _validateMessage,
+                          onChanged: _validateMessage,
+                        ),
+                        const SizedBox(height: 35.0),
+                        PillButton(
+                          text: 'Send',
+                          isLoading: state is Submitting,
+                          isEnabled: isEnabled,
+                          onTap: isEnabled ? _submitForm : null,
+                        ),
+                      ],
                     ),
-                  );
-                }),
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -162,23 +179,28 @@ class ContactFormPageState extends State<ContactFormPage> {
   void _contactFormBlocListener(BuildContext context, ContactFormState state) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     state.map(
-        initial: (_) {},
-        submitting: (_) {},
-        submissionSuccessful: (_) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(
+      initial: (_) {},
+      submitting: (_) {},
+      submissionSuccessful: (_) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
+              const SnackBar(
                 content: Text('Success!'),
                 behavior: SnackBarBehavior.floating,
-              ))
-              .closed
-              .then((value) => Navigator.pop(context));
-        },
-        failed: (_) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              ),
+            )
+            .closed
+            .then((value) => Navigator.pop(context));
+      },
+      failed: (_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
             content: Text('Error! Failed to submit form.'),
             behavior: SnackBarBehavior.floating,
-          ));
-        });
+          ),
+        );
+      },
+    );
   }
 
   String? _validateEmail(String? value) {

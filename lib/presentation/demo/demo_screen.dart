@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
-import '../shared_widgets/custom_app_bars/clean_app_bar.dart';
 import '../shared_widgets/rectangle_button.dart';
 import 'components_demo/current_user_status_text.dart';
 
@@ -16,10 +15,9 @@ class DemoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CleanAppBar(),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 24.0),
           child: SingleChildScrollView(
             controller: _pageScrollController,
             child: Column(

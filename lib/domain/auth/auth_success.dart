@@ -9,9 +9,11 @@ class AuthSuccess with _$AuthSuccess {
   const factory AuthSuccess.codeSent({required Credential credential}) =
       _SmsCodeSent;
 
-  const factory AuthSuccess.codeRetrievalTimedOut(
-      {required Credential credential}) = _CodeRetrievalTimedOut;
+  const factory AuthSuccess.codeRetrievalTimedOut({
+    required Credential credential,
+  }) = _CodeRetrievalTimedOut;
 
-  const factory AuthSuccess.verificationCompleted(
-      {required Credential credential}) = _VerificationCompleted;
+  const factory AuthSuccess.verificationCompleted({
+    required Credential credential,
+  }) = _VerificationCompleted;
 }

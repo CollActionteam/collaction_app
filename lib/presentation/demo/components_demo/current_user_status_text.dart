@@ -13,20 +13,27 @@ class CurrentUserStatusText extends StatefulWidget {
 }
 
 class _CurrentUserStatusTextState extends State<CurrentUserStatusText> {
-  final _userRepository = getIt<IUserRepository>();
+  late final IUserRepository _userRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    _userRepository = getIt<IUserRepository>();
+  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        builder: (context, AsyncSnapshot<User> snapshot) {
-          if (snapshot.hasData) {
-            final name = snapshot.data!.id;
-            final number = snapshot.data!.phoneNumber ?? 'no phone number';
-            return Text('Current user: $name ($number)');
-          } else {
-            return const Text('...');
-          }
-        },
-        stream: _userRepository.observeUser());
+      builder: (context, AsyncSnapshot<User> snapshot) {
+        if (snapshot.hasData) {
+          final name = snapshot.data!.id;
+          final number = snapshot.data!.phoneNumber ?? 'no phone number';
+          return Text('Current user: $name ($number)');
+        } else {
+          return const Text('...');
+        }
+      },
+      stream: _userRepository.observeUser(),
+    );
   }
 }

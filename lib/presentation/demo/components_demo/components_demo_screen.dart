@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/crowdaction/crowdaction.dart';
 import '../../core/collaction_icons.dart';
 import '../../shared_widgets/accent_action_chip.dart';
 import '../../shared_widgets/accent_chip.dart';
@@ -27,42 +28,74 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
           width: double.infinity,
           child: Column(
             children: [
-              const CrowdActionCard(
-                title:
-                    "This is the headline for a crowdaction with three lines",
-                imagePath:
-                    "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
-                chips: [
-                  AccentChip(
-                    text: "Sign up now",
-                    leading: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
+              CrowdActionCard(
+                crowdAction: CrowdAction(
+                  crowdactionID: "",
+                  title:
+                      "This is the headline for a crowdaction with three lines",
+                  images: const Images(
+                    card:
+                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+                    banner:
+                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
                   ),
-                  SecondaryChip(text: "Sustainability"),
-                  SecondaryChip(text: "Community"),
-                ],
+                  category: "Sustainability",
+                  subCategory: "Community",
+                  commitmentOptions: [
+                    CommitmentOption(
+                      id: "",
+                      label: "no-beef",
+                      description: "Don't eat beef for 30 days!",
+                    ),
+                    CommitmentOption(
+                      id: "",
+                      label: "vegetarian",
+                      description: "Don't eat meat for 30 days!",
+                    ),
+                  ],
+                  dateEnd: DateTime.now(),
+                  dateLimitJoin: DateTime.now(),
+                  dateStart: DateTime.now(),
+                  description: '',
+                  location: '',
+                  participantCount: 0,
+                  topParticipants: [],
+                ),
               ),
               const SizedBox(height: 24.0),
-              const CrowdActionCard(
-                title:
-                    "This is the headline for a crowdaction with three lines and some do ipsum incididunt deserunt quis commodo incididunt.",
-                description:
-                    "This is the description for a crowdaction. It gives users an idea about the crowdaction. Dolore et consectetur culpa amet veniam non fugiat adipisicing.",
-                imagePath:
-                    "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
-                chips: [
-                  AccentChip(
-                    text: "Sign up now",
-                    leading: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
+              CrowdActionCard(
+                crowdAction: CrowdAction(
+                  crowdactionID: "",
+                  title:
+                      "This is the headline for a crowdaction with three lines",
+                  images: const Images(
+                    card:
+                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+                    banner:
+                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
                   ),
-                  SecondaryChip(text: "Sustainability"),
-                  SecondaryChip(text: "Community"),
-                ],
+                  category: "Sustainability",
+                  subCategory: "Community",
+                  commitmentOptions: [
+                    CommitmentOption(
+                      id: "",
+                      label: "no-beef",
+                      description: "Don't eat beef for 30 days!",
+                    ),
+                    CommitmentOption(
+                      id: "",
+                      label: "vegetarian",
+                      description: "Don't eat meat for 30 days!",
+                    ),
+                  ],
+                  dateEnd: DateTime.now(),
+                  dateLimitJoin: DateTime.now(),
+                  dateStart: DateTime.now(),
+                  description: '',
+                  location: '',
+                  participantCount: 0,
+                  topParticipants: [],
+                ),
               ),
               const SizedBox(height: 24.0),
               RectangleButton(

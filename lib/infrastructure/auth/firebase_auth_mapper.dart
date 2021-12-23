@@ -17,6 +17,7 @@ extension FirebaseUserX on firebase_auth.User? {
         isEmailVerified: this!.emailVerified,
         photoURL: this?.photoURL,
         getIdToken: this!.getIdToken,
+        joinDate: this!.metadata.creationTime,
       );
     }
   }
