@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/crowdaction/crowdaction.dart';
-import '../../themes/constants.dart';
+import '../../../../domain/crowdaction/crowdaction.dart';
+import '../../../themes/constants.dart';
 
 class MicroCrowdActionCard extends StatelessWidget {
   final CrowdAction crowdAction;

@@ -5,7 +5,7 @@ import '../../application/user_details/user_details_bloc.dart';
 import '../../domain/user/user.dart';
 import '../../infrastructure/core/injection.dart';
 import '../themes/constants.dart';
-import 'user_profile_tab.dart';
+import 'profile_tab.dart';
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({Key? key}) : super(key: key);
