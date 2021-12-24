@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/collaction_icons.dart';
 import '../../../../../themes/constants.dart';
 import 'commitment_avatar.dart';
 
@@ -270,7 +270,7 @@ class _BadgesPopupCard extends StatelessWidget {
                       backgroundColor: kSecondaryColor,
                       child: IconButton(
                         onPressed: () => context.router.pop(),
-                        icon: Icon(
+                        icon: const Icon(
                           CollactionIcons.cross,
                           color: kPrimaryColor300,
                         ),

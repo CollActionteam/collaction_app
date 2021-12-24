@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../presentation/core/collaction_icons.dart';
-import '../../../presentation/themes/constants.dart';
+import '../../../domain/core/i_settings_repository.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
+import '../../../infrastructure/core/injection.dart';
+import '../../../presentation/core/collaction_icons.dart';
 import '../../../presentation/routes/app_routes.gr.dart';
+import '../../../presentation/themes/constants.dart';
 
 class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
@@ -89,14 +91,14 @@ class _PasswordModalState extends State<PasswordModal> {
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
-                  borderSide:
-                      const BorderSide(width: 2, color: Colors.red),
+                  borderSide: const BorderSide(width: 2, color: Colors.red),
                 ),
-                errorText: _validated != null && _validated == false ? "Invalid password" : null,
+                errorText: _validated != null && _validated == false
+                    ? "Invalid password"
+                    : null,
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
-                  borderSide:
-                      const BorderSide(width: 2, color: Colors.red),
+                  borderSide: const BorderSide(width: 2, color: Colors.red),
                 ),
                 suffixIcon: IconButton(
                   icon: _showInput
@@ -145,6 +147,7 @@ class _PasswordModalState extends State<PasswordModal> {
       setState(() {
         _validated = true;
       });
+      addCrowdActionAccess();
       context.router.pop();
       context.router.push(
         CrowdActionDetailsRoute(
@@ -156,5 +159,11 @@ class _PasswordModalState extends State<PasswordModal> {
         _validated = false;
       });
     }
+  }
+
+  Future<void> addCrowdActionAccess() async {
+    final _settingsRepository = getIt<ISettingsRepository>();
+    await _settingsRepository.addCrowdActionAccess(
+        crowdActionId: widget.crowdAction.crowdactionID);
   }
 }

@@ -1,6 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
-import 'package:collaction_app/presentation/home/widgets/password_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
