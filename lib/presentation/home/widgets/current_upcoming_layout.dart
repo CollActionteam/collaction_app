@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
+<<<<<<< HEAD
+=======
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../../presentation/core/collaction_icons.dart';
+import '../../../presentation/home/widgets/password_modal.dart';
+>>>>>>> feat: add password modal to in spotlight crowdactions
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/content_placeholder.dart';
 import '../../shared_widgets/micro_crowdaction_card.dart';
@@ -93,4 +99,101 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
       ),
     );
   }
+<<<<<<< HEAD
+=======
+
+  Widget _fetched(List<CrowdAction> fetchedData) {
+    return Column(
+      children: fetchedData
+          .map(
+            (e) => GestureDetector(
+              onTap: () {
+                if (e.passwordJoin != "") {
+                  showPasswordModal(context, e);
+                } else {
+                  context.router.push(CrowdActionDetailsRoute(crowdAction: e));
+                }
+              },
+              child: Container(
+                height: 148,
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 4,
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                                image: NetworkImage(e.images.card.toString()),
+                                fit: BoxFit.cover)),
+                        margin: const EdgeInsets.only(left: 10),
+                        height: 128,
+                        width: 100,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const AccentChip(
+                                    text: "Sign up now",
+                                    leading: Icon(
+                                      Icons.check,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  if (e.passwordJoin != "")
+                                    const Icon(CollactionIcons.lock),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  e.title.toString(),
+                                  softWrap: false,
+                                  maxLines: 2,
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 6, bottom: 10),
+                                child: Text(
+                                  e.description.toString(),
+                                  softWrap: false,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: kInactiveColor),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+          .toList(),
+    );
+  }
+>>>>>>> feat: add password modal to in spotlight crowdactions
 }

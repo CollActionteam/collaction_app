@@ -167,3 +167,22 @@ class _PasswordModalState extends State<PasswordModal> {
         crowdActionId: widget.crowdAction.crowdactionID);
   }
 }
+
+Future<void> showPasswordModal(
+    BuildContext context, CrowdAction crowdAction) async {
+  final _settingsRepository = getIt<ISettingsRepository>();
+  final _accessList = await _settingsRepository.getCrowdActionAccessList();
+
+  if (_accessList.contains(crowdAction.crowdactionID)) {
+    context.router.push(CrowdActionDetailsRoute(crowdAction: crowdAction));
+  } else {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      constraints: const BoxConstraints(maxHeight: 350),
+      builder: (context) {
+        return PasswordModal(crowdAction: crowdAction);
+      },
+    );
+  }
+}

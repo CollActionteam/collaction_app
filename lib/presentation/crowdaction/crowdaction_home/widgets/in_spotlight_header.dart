@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
+import '../../../core/collaction_icons.dart';
+import '../../../home/widgets/password_modal.dart';
 import '../../../routes/app_routes.gr.dart';
 import '../../../shared_widgets/content_placeholder.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
