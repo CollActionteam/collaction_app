@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../presentation/themes/constants.dart';
@@ -19,7 +18,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    showOnboarding();
+    WidgetsBinding.instance?.addPostFrameCallback((_) => showCaptivePage());
+  }
+
+  Future<void> showCaptivePage() async {
+    if (DateTime.now().isAfter(DateTime.parse('2021-01-31'))) {
+      context.router.push(const CaptiveRoute());
+    } else {
+      showOnboarding();
+    }
   }
 
   Future<void> showOnboarding() async {

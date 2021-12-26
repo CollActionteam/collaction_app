@@ -1,8 +1,8 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 
 import '../../../presentation/crowd_action/pages/participants.dart';
 import '../../../presentation/user/user_profile_page.dart';
+import '../../presentation/home/captive_screen.dart';
 import '../auth/auth_screen.dart';
 import '../auth/pages/verified.dart';
 import '../contact_form/contact_form_screen.dart';
@@ -53,6 +53,7 @@ import '../onboarding/onboarding.dart';
         ),
       ],
     ),
+    AutoRoute(path: 'captive', page: CaptivePage),
     AutoRoute(path: 'auth', page: AuthPage),
     AutoRoute(path: 'verified', page: VerifiedPage),
   ],
