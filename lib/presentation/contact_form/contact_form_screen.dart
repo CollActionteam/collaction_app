@@ -1,6 +1,6 @@
-import 'package:collaction_app/presentation/contact_form/widgets/contact_form.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/contact_form/widgets/contact_form.dart';
 import '../../presentation/shared_widgets/no_ripple_behavior.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 
