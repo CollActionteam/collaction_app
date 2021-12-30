@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../../infrastructure/core/injection.dart';
-import 'pill_button.dart';
 
 class ContentPlaceholder extends StatelessWidget {
   final Color textColor;
