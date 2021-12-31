@@ -48,4 +48,7 @@ class CollactionIcons {
   static const IconData message = IconData(0xe819, fontFamily: _kFontFam);
   static const IconData opensource = IconData(0xe81a, fontFamily: _kFontFam);
   static const IconData crossCircle = IconData(0xe81b, fontFamily: _kFontFam);
+  static const IconData instagram = IconData(0xe81c, fontFamily: _kFontFam);
+  static const IconData globe = IconData(0xe81d, fontFamily: _kFontFam);
+  static const IconData linkedin = IconData(0xe81e, fontFamily: _kFontFam);
 }

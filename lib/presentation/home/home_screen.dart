@@ -18,11 +18,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) => showCaptivePage());
+    WidgetsBinding.instance
+        ?.addPostFrameCallback((_) => checkAndMaybeShowCaptivePage());
   }
 
-  Future<void> showCaptivePage() async {
-    if (DateTime.now().isAfter(DateTime.parse('2022-01-31'))) {
+  Future<void> checkAndMaybeShowCaptivePage() async {
+    if (DateTime.now().isAfter(DateTime.parse('2021-01-31'))) {
       context.router.popAndPush(const CaptiveRoute());
     } else {
       showOnboarding();

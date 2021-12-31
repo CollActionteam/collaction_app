@@ -1,5 +1,5 @@
+import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../presentation/contact_form/widgets/contact_form.dart';
@@ -100,10 +100,10 @@ class CaptivePage extends StatelessWidget {
                       elevation: 0,
                       onPressed: () => launch('https://collaction.org'),
                       mini: true,
-                      child: SvgPicture.asset(
-                        'assets/vectors/globe.svg',
-                        color: kInactiveColor,
-                      ),
+                        child: const Icon(
+                          CollactionIcons.globe,
+                          color: kPrimaryColor400,
+                        )
                     ),
                     const SizedBox(width: 5),
                     FloatingActionButton(
@@ -112,10 +112,10 @@ class CaptivePage extends StatelessWidget {
                       onPressed: () =>
                           launch('https://instagram.com/collaction_org'),
                       mini: true,
-                      child: SvgPicture.asset(
-                        'assets/vectors/insta.svg',
-                        color: kInactiveColor,
-                      ),
+                        child: const Icon(
+                          CollactionIcons.instagram,
+                          color: kPrimaryColor400,
+                        )
                     ),
                     const SizedBox(width: 5),
                     FloatingActionButton(
@@ -124,10 +124,10 @@ class CaptivePage extends StatelessWidget {
                       onPressed: () => launch(
                           'https://linkedin.com/company/15079855/admin/'),
                       mini: true,
-                      child: SvgPicture.asset(
-                        'assets/vectors/linkedin.svg',
-                        color: kInactiveColor,
-                      ),
+                        child: const Icon(
+                          CollactionIcons.linkedin,
+                          color: kPrimaryColor400,
+                        )
                     ),
                   ],
                 ),
