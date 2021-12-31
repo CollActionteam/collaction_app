@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> checkAndMaybeShowCaptivePage() async {
-    if (DateTime.now().isAfter(DateTime.parse('2021-01-31'))) {
+    if (DateTime.now().isAfter(DateTime.parse('2022-01-31'))) {
       context.router.popAndPush(const CaptiveRoute());
     } else {
       showOnboarding();
