@@ -103,7 +103,7 @@ class CaptivePage extends StatelessWidget {
                         child: const Icon(
                           CollactionIcons.globe,
                           color: kPrimaryColor400,
-                        )
+                      ),
                     ),
                     const SizedBox(width: 5),
                     FloatingActionButton(
@@ -115,7 +115,7 @@ class CaptivePage extends StatelessWidget {
                         child: const Icon(
                           CollactionIcons.instagram,
                           color: kPrimaryColor400,
-                        )
+                      ),
                     ),
                     const SizedBox(width: 5),
                     FloatingActionButton(
@@ -127,7 +127,7 @@ class CaptivePage extends StatelessWidget {
                         child: const Icon(
                           CollactionIcons.linkedin,
                           color: kPrimaryColor400,
-                        )
+                      ),
                     ),
                   ],
                 ),
