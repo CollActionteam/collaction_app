@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../../infrastructure/core/injection.dart';
-import 'pill_button.dart';
 
 class ContentPlaceholder extends StatelessWidget {
   final Color textColor;
@@ -30,13 +29,14 @@ class ContentPlaceholder extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
+                  // TODO use giphy.com API or custom service for more variety and smaller builds
                   Image.asset(
-                    'assets/images/content_placeholder.png',
+                    'assets/images/content_placeholder.gif',
                     width: 125,
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Nothing to see here',
+                    'There is nothing here',
                     style: TextStyle(
                       fontSize: 34,
                       fontWeight: FontWeight.w700,
@@ -47,7 +47,7 @@ class ContentPlaceholder extends StatelessWidget {
                   if (!signedIn) ...[
                     const SizedBox(height: 5),
                     Text(
-                      'How about creating an account in the meantime?',
+                      'We’re working hard on adding new content. In the meantime we have a happy dog for you \ud83d\ude09',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w300,
@@ -56,12 +56,6 @@ class ContentPlaceholder extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 10),
-                    PillButton(
-                      text: "Create account",
-                      onTap: () {
-                        /// TODO: Add onTap here
-                      },
-                    ),
                   ],
                 ],
               ),
