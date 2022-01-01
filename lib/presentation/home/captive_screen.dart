@@ -100,9 +100,9 @@ class CaptivePage extends StatelessWidget {
                       elevation: 0,
                       onPressed: () => launch('https://collaction.org'),
                       mini: true,
-                        child: const Icon(
-                          CollactionIcons.globe,
-                          color: kPrimaryColor400,
+                      child: const Icon(
+                        CollactionIcons.globe,
+                        color: kPrimaryColor400,
                       ),
                     ),
                     const SizedBox(width: 5),
@@ -112,9 +112,9 @@ class CaptivePage extends StatelessWidget {
                       onPressed: () =>
                           launch('https://instagram.com/collaction_org'),
                       mini: true,
-                        child: const Icon(
-                          CollactionIcons.instagram,
-                          color: kPrimaryColor400,
+                      child: const Icon(
+                        CollactionIcons.instagram,
+                        color: kPrimaryColor400,
                       ),
                     ),
                     const SizedBox(width: 5),
@@ -124,9 +124,9 @@ class CaptivePage extends StatelessWidget {
                       onPressed: () => launch(
                           'https://linkedin.com/company/15079855/admin/'),
                       mini: true,
-                        child: const Icon(
-                          CollactionIcons.linkedin,
-                          color: kPrimaryColor400,
+                      child: const Icon(
+                        CollactionIcons.linkedin,
+                        color: kPrimaryColor400,
                       ),
                     ),
                   ],
