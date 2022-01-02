@@ -46,14 +46,15 @@ class MicroCrowdActionCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // TODO: Only show for crowdactions where the "join deadline" has not expired.
-                      const AccentChip(
-                        text: "Sign up now",
-                        leading: Icon(
-                          Icons.check,
-                          color: Colors.white,
+                      if (crowdAction.dateLimitJoin.compareTo(DateTime.now()) >=
+                          0)
+                        const AccentChip(
+                          text: "Sign up now",
+                          leading: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: Text(
