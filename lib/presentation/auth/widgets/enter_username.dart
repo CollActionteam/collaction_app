@@ -64,7 +64,7 @@ class _EnterUserNameState extends State<EnterUserName> {
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
                   labelText: 'Your name',
-                  helperText: "Use your real name or choose a user name",
+                  helperText: "Use your real name or choose a username",
                   focusColor: kAccentColor,
                 ),
                 validator: _validate,

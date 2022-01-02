@@ -13,6 +13,7 @@ final sampleParticipants = [
   Participant("https://source.unsplash.com/WNoLnJo7tS8/500x500", "John")
 ];
 
+/// TODO - Switch Participants to BLOC
 final participantsPageParticipants = List.generate(10, (index) => index)
     .expand(
       (element) => [

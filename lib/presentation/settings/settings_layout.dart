@@ -22,21 +22,6 @@ class SettingsLayout extends StatelessWidget {
             ),
           ),
         ),
-        // leading: ElevatedButton(
-        //   style: ButtonStyle(
-        //     padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
-        //     backgroundColor: MaterialStateProperty.all(kSecondaryColor),
-        //     elevation: MaterialStateProperty.all(2),
-        //   ),
-        //   onPressed: () => context.router.pop(),
-        //   child: const CircleAvatar(
-        //     backgroundColor: kSecondaryColor,
-        //     child: Icon(
-        //       Icons.arrow_back_ios_new_outlined,
-        //       color: kPrimaryColor300,
-        //     ),
-        //   ),
-        // ),
         actions: [
           ElevatedButton(
             style: ButtonStyle(

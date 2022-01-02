@@ -5,6 +5,8 @@ import '../themes/constants.dart';
 
 class SettingsPage extends StatelessWidget {
   SettingsPage({Key? key}) : super(key: key);
+
+  /// TODO - Switch Images with Icons
   final List<Map<String, String?>> settingsContents = [
     {
       'leading_icon': 'assets/images/icons/share.png',
@@ -71,15 +73,9 @@ class SettingsPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  // ignore: avoid_print
-                  print('launching....');
                   await launch(url);
                 }
               },
-              // context.router.push(SettingsDetails(
-              //   title: title,
-              //   url: url,
-              // )),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               tileColor: kAlmostTransparent,

@@ -8,6 +8,7 @@ import 'accent_chip.dart';
 
 class MicroCrowdActionCard extends StatelessWidget {
   final CrowdAction crowdAction;
+
   const MicroCrowdActionCard(this.crowdAction, {Key? key}) : super(key: key);
 
   @override
@@ -45,6 +46,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // TODO: Only show for crowdactions where the "join deadline" has not expired.
                       const AccentChip(
                         text: "Sign up now",
                         leading: Icon(
