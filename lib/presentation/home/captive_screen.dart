@@ -6,7 +6,7 @@ import '../../presentation/contact_form/widgets/contact_form.dart';
 import '../../presentation/crowd_action/pages/widgets/share_collaction_card.dart';
 import '../../presentation/shared_widgets/content_placeholder.dart';
 import '../../presentation/themes/constants.dart';
-// import '../../presentation/shared_widgets/custom_fab.dart';
+// TODO import '../../presentation/shared_widgets/custom_fab.dart';
 
 class CaptivePage extends StatelessWidget {
   const CaptivePage({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class CaptivePage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: const [
-                      // Leaving this commented for now, not sure what it should do ...
+                      // TODO: Leaving this commented for now, not sure what it should do ...
                       // Row(
                       //   mainAxisAlignment: MainAxisAlignment.end,
                       //   children: [
@@ -50,9 +50,9 @@ class CaptivePage extends StatelessWidget {
             Container(
               color: Colors.white,
               child: Column(
-                children: const [
-                  SizedBox(height: 40),
-                  Text(
+                children: [
+                  const SizedBox(height: 40),
+                  const Text(
                     'Veganuary CrowdAction | ASML',
                     style: TextStyle(
                       fontSize: 34,
@@ -61,8 +61,8 @@ class CaptivePage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'ASML used Collaction to host their company-wide Veganuary challenge.',
                     style: TextStyle(
                       fontSize: 17,
@@ -71,14 +71,14 @@ class CaptivePage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  // Is this an implemented feature?
-                  // TextButton(
-                  //   onPressed: () {},
-                  //   child: const Text("Show my impact"),
-                  // ),
-                  SizedBox(height: 40),
-                  ShareCollActionCard(),
-                  ContactForm(
+                  TextButton(
+                    onPressed: () =>
+                        launch("https://www.collaction.org/impact"),
+                    child: const Text("Show my impact"),
+                  ),
+                  const SizedBox(height: 40),
+                  const ShareCollActionCard(),
+                  const ContactForm(
                     edgeInsets:
                         EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                   ),
