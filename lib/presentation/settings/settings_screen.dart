@@ -8,12 +8,15 @@ class SettingsPage extends StatelessWidget {
 
   /// TODO - Switch Images with Icons
   final List<Map<String, String?>> settingsContents = [
+    /// TODO - Use existing share
     {
       'leading_icon': 'assets/images/icons/share.png',
       'title': 'Share Collaction',
       'url': 'https://www.collaction.org/',
       'trailing_icon': 'assets/images/arrow_fwd.png',
     },
+
+    /// TODO - Navigate to Contact Us Page
     {
       'leading_icon': 'assets/images/icons/contact_us.png',
       'title': 'Contact Us',
@@ -23,21 +26,25 @@ class SettingsPage extends StatelessWidget {
     {
       'leading_icon': 'assets/images/icons/terms_and_cond.png',
       'title': 'Terms and Conditions',
-      'url': 'https://www.collaction.org/',
+      'url': 'https://www.collaction.org/terms',
       'trailing_icon': 'assets/images/arrow_fwd.png',
     },
     {
       'leading_icon': 'assets/images/icons/privacy_policy.png',
       'title': 'Privacy Policy',
-      'url': 'https://www.collaction.org/',
+      'url': 'https://www.collaction.org/privacy',
       'trailing_icon': 'assets/images/arrow_fwd.png',
     },
+
+    /// TODO - Opensource libraries https://pub.dev/packages/flutter_oss_licenses
     {
       'leading_icon': 'assets/images/icons/os_libraries.png',
       'title': 'Open Source Libraries',
       'url': 'https://www.collaction.org/',
       'trailing_icon': 'assets/images/redirecting.png',
     },
+
+    /// TODO - Signout
     {
       'leading_icon': 'assets/images/icons/logout.png',
       'title': 'Log Out',
