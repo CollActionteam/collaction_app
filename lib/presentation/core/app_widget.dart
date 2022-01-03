@@ -35,12 +35,6 @@ class _AppWidgetState extends State<AppWidget> {
   }
 
   @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -63,5 +57,11 @@ class _AppWidgetState extends State<AppWidget> {
         routeInformationParser: _appRouter.defaultRouteParser(),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 }

@@ -53,6 +53,7 @@ import '../settings/settings_screen.dart';
         ),
       ],
     ),
+    AutoRoute(path: 'onboarding', page: OnboardingPage),
     AutoRoute(path: 'captive', page: CaptivePage),
     AutoRoute(path: 'auth', page: AuthPage),
     AutoRoute(path: 'verified', page: VerifiedPage),
