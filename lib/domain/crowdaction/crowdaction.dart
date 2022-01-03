@@ -44,6 +44,8 @@ class CrowdAction with _$CrowdAction {
       return 40.0;
     }
   }
+
+  bool get usesPassword => passwordJoin != null && passwordJoin!.isNotEmpty;
 }
 
 @freezed

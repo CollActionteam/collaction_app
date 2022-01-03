@@ -75,9 +75,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                 children: [
                   ...fetchedData.crowdActions
                       .map(
-                        (crowdAction) => MicroCrowdActionCard(
-                          crowdAction,
-                        ),
+                        (crowdAction) => MicroCrowdActionCard(crowdAction),
                       )
                       .toList(),
                 ],
