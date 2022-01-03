@@ -117,6 +117,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
           child: Column(
             children: [
               Container(
+                width: double.infinity,
                 color: kAlmostTransparent,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
