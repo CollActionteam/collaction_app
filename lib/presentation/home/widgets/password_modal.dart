@@ -71,6 +71,7 @@ class _PasswordModalState extends State<PasswordModal> {
               style: const TextStyle(fontSize: 17, letterSpacing: 2.0),
               obscureText: _showInput,
               decoration: InputDecoration(
+                hintText: "Password",
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 enabledBorder: OutlineInputBorder(
@@ -96,8 +97,14 @@ class _PasswordModalState extends State<PasswordModal> {
                 ),
                 suffixIcon: IconButton(
                   icon: _showInput
-                      ? const Icon(CollactionIcons.eye)
-                      : const Icon(CollactionIcons.eyeOff),
+                      ? const Icon(
+                          CollactionIcons.eye,
+                          color: kPrimaryColor300,
+                        )
+                      : const Icon(
+                          CollactionIcons.eyeOff,
+                          color: kPrimaryColor300,
+                        ),
                   onPressed: () {
                     setState(() {
                       _showInput = !_showInput;
@@ -111,12 +118,14 @@ class _PasswordModalState extends State<PasswordModal> {
             ),
           ),
           CircleAvatar(
-            backgroundColor: _disableButton ? kPrimaryColor200 : kAccentColor,
+            backgroundColor:
+                _disableButton ? kDisabledButtonColor : kAccentColor,
             minRadius: 30,
             child: IconButton(
               onPressed: !_disableButton ? () => _validatePassword() : null,
               icon: const Icon(CollactionIcons.arrowRight),
-              color: kSecondaryColor,
+              color: Colors.white,
+              disabledColor: Colors.white,
             ),
           ),
         ],
@@ -162,7 +171,9 @@ class _PasswordModalState extends State<PasswordModal> {
 }
 
 Future<void> showPasswordModal(
-    BuildContext context, CrowdAction crowdAction) async {
+  BuildContext context,
+  CrowdAction crowdAction,
+) async {
   final _settingsRepository = getIt<ISettingsRepository>();
   final _accessList = await _settingsRepository.getCrowdActionAccessList();
 

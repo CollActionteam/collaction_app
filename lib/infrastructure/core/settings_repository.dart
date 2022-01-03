@@ -58,6 +58,8 @@ class SettingsRepository implements ISettingsRepository, Disposable {
         _prefs.getStringList(_prefsKeyCrowdActionAccessList) ?? [];
     _crowdActionAccessList.add(crowdActionId);
     _prefs.setStringList(
-        _prefsKeyCrowdActionAccessList, _crowdActionAccessList);
+      _prefsKeyCrowdActionAccessList,
+      _crowdActionAccessList,
+    );
   }
 }

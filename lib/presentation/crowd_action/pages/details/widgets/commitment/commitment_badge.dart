@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/collaction_icons.dart';
 import '../../../../../themes/constants.dart';
-import 'commitment_avatar.dart';
 
 class BadgesWidget extends StatelessWidget {
   static const String _heroBadgesTag = 'display-badges';
@@ -183,10 +182,6 @@ class _BadgesPopupCard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(width: 40),
-                            const CommitmentAvatar(elevation: 5.0),
-                            const SizedBox(width: 10),
-                            const CommitmentAvatar(elevation: 5.0),
                           ],
                         ),
                       ),
@@ -221,8 +216,6 @@ class _BadgesPopupCard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(width: 40),
-                            const CommitmentAvatar(elevation: 5.0),
                           ],
                         ),
                       ),
@@ -256,8 +249,6 @@ class _BadgesPopupCard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(width: 40),
-                            const CommitmentAvatar(elevation: 5.0),
                           ],
                         ),
                       )
@@ -314,14 +305,21 @@ class HeroBadgesDialogRoute<T> extends PageRoute<T> {
   Color get barrierColor => kPrimaryColor.withOpacity(0.25);
 
   @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return child;
   }
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation) {
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
     return _builder(context);
   }
 

@@ -1,13 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
-import '../../../core/collaction_icons.dart';
-import '../../../home/widgets/password_modal.dart';
-import '../../../routes/app_routes.gr.dart';
 import '../../../shared_widgets/content_placeholder.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
 import '../../../themes/constants.dart';
@@ -85,11 +81,6 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                               final crowdAction = _pages[index];
                               return CrowdActionCard(
                                 crowdAction: crowdAction,
-                                onTap: () => context.router.push(
-                                  CrowdActionDetailsRoute(
-                                    crowdAction: crowdAction,
-                                  ),
-                                ),
                               );
                             },
                             itemCount: _pages.length,
