@@ -74,10 +74,11 @@ dev_dependencies:
   network_image_mock: ^2.0.1
 
 flutter_icons:
-  android: "ic_launcher"
+  android: true
   ios: true
   image_path: "assets/images/icons/app_icon.png"
-  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/images/icons/app_icon.png"
+  adaptive_icon_background: "#ff2eb394"
   remove_alpha_ios: true
 
 flutter:
