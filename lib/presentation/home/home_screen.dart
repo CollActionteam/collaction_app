@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
     final settingsRepository = getIt<ISettingsRepository>();
     if (!(await settingsRepository.getWasUserOnboarded())) {
       await settingsRepository.setWasUserOnboarded(wasOnboarded: true);
-      context.router.push(const AuthRoute());
+      context.router.push(const OnboardingRoute());
     }
   }
 
