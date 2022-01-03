@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import '../themes/constants.dart';
 
 class CenteredLoadingIndicator extends StatelessWidget {
-  const CenteredLoadingIndicator({Key? key}) : super(key: key);
+  final String label;
+  const CenteredLoadingIndicator({
+    Key? key,
+    this.label = 'Loading CrowdActions',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +16,20 @@ class CenteredLoadingIndicator extends StatelessWidget {
       children: [
         Center(
           child: Column(
-            children: const [
-              SizedBox(
+            children: [
+              const SizedBox(
                 height: 60,
                 width: 60,
                 child: CircularProgressIndicator(
-                  color: kIrisColor,
+                  color: kAccentColor,
                   strokeWidth: 5.0,
                 ),
               ),
-              SizedBox(height: 25),
-              Text('Loading CrowdActions', style: TextStyle(fontSize: 16.0)),
+              const SizedBox(height: 25),
+              Text(
+                label,
+                style: const TextStyle(fontSize: 16.0),
+              ),
             ],
           ),
         ),

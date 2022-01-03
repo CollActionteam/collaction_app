@@ -60,9 +60,12 @@ void main() {
           );
 
           expect(
-              find.byWidgetPredicate((widget) =>
-                  widget is AppBar && widget.backgroundColor == Colors.red),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is AppBar && widget.backgroundColor == Colors.red,
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -79,10 +82,12 @@ void main() {
             ),
           );
           expect(
-              find.byWidgetPredicate((widget) =>
-                  widget is AppBar &&
-                  widget.backgroundColor == kSecondaryColor),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is AppBar && widget.backgroundColor == kSecondaryColor,
+            ),
+            findsOneWidget,
+          );
         },
       );
     },
@@ -106,9 +111,11 @@ void main() {
           );
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.centerTitle == false),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.centerTitle == false,
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -126,9 +133,11 @@ void main() {
           );
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.centerTitle == true),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.centerTitle == true,
+            ),
+            findsOneWidget,
+          );
         },
       );
     },
@@ -158,7 +167,9 @@ void main() {
             MaterialApp(
               home: Scaffold(
                 appBar: ScrollableAppBar(
-                    pageScrollController: scrollController, elevation: 1.0),
+                  pageScrollController: scrollController,
+                  elevation: 1.0,
+                ),
                 body: ListView.builder(
                   controller: scrollController,
                   itemBuilder: (context, index) => ListTile(
@@ -171,18 +182,22 @@ void main() {
           );
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 1.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 1.0,
+            ),
+            findsOneWidget,
+          );
 
           scrollController.jumpTo(scrollController.position.maxScrollExtent);
 
           await tester.pump();
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 1.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 1.0,
+            ),
+            findsOneWidget,
+          );
 
           scrollController
               .jumpTo(scrollController.position.maxScrollExtent / 2);
@@ -190,9 +205,11 @@ void main() {
           await tester.pump();
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 1.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 1.0,
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -208,13 +225,14 @@ void main() {
               home: Scaffold(
                 appBar: scrollableAppBar,
                 body: ListView.builder(
-                    itemBuilder: (context, index) => ListTile(
-                          title: Text(
-                            index.toString(),
-                          ),
-                        ),
-                    itemCount: 20,
-                    controller: scrollController),
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(
+                      index.toString(),
+                    ),
+                  ),
+                  itemCount: 20,
+                  controller: scrollController,
+                ),
               ),
             ),
           );
@@ -225,18 +243,22 @@ void main() {
           await tester.pump();
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 2.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 2.0,
+            ),
+            findsOneWidget,
+          );
 
           scrollController.jumpTo(scrollController.position.maxScrollExtent);
 
           await tester.pump();
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 2.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 2.0,
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -252,21 +274,24 @@ void main() {
               home: Scaffold(
                 appBar: scrollableAppBar,
                 body: ListView.builder(
-                    itemBuilder: (context, index) => ListTile(
-                          title: Text(
-                            index.toString(),
-                          ),
-                        ),
-                    itemCount: 20,
-                    controller: scrollController),
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(
+                      index.toString(),
+                    ),
+                  ),
+                  itemCount: 20,
+                  controller: scrollController,
+                ),
               ),
             ),
           );
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 0.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 0.0,
+            ),
+            findsOneWidget,
+          );
 
           scrollController
               .jumpTo(scrollController.position.maxScrollExtent / 2);
@@ -274,18 +299,22 @@ void main() {
           await tester.pump();
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation != 0.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation != 0.0,
+            ),
+            findsOneWidget,
+          );
 
           scrollController.jumpTo(scrollController.position.minScrollExtent);
 
           await tester.pump();
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 0.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 0.0,
+            ),
+            findsOneWidget,
+          );
         },
       );
     },
@@ -303,21 +332,27 @@ void main() {
                 appBar: ScrollableAppBar(
                   pageScrollController: ScrollController(),
                   title: 'Home',
-                  titleTextStyle:
-                      const TextStyle(fontSize: 10.0, color: Colors.yellow),
+                  titleTextStyle: const TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.yellow,
+                  ),
                 ),
               ),
             ),
           );
 
           expect(
-              find.byWidgetPredicate(
-                (widget) =>
-                    widget is AppBar &&
-                    widget.titleTextStyle ==
-                        const TextStyle(fontSize: 10.0, color: Colors.yellow),
-              ),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is AppBar &&
+                  widget.titleTextStyle ==
+                      const TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.yellow,
+                      ),
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -328,16 +363,20 @@ void main() {
             MaterialApp(
               home: Scaffold(
                 appBar: ScrollableAppBar(
-                    pageScrollController: ScrollController(), title: 'Home'),
+                  pageScrollController: ScrollController(),
+                  title: 'Home',
+                ),
               ),
             ),
           );
 
           find.descendant(
             of: find.byType(ScrollableAppBar),
-            matching: find.byWidgetPredicate((widget) =>
-                widget is AppBar &&
-                widget.titleTextStyle?.color == kPrimaryColor),
+            matching: find.byWidgetPredicate(
+              (widget) =>
+                  widget is AppBar &&
+                  widget.titleTextStyle?.color == kPrimaryColor,
+            ),
           );
         },
       );

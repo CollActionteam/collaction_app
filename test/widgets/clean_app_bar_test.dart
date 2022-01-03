@@ -56,9 +56,12 @@ void main() {
           );
 
           expect(
-              find.byWidgetPredicate((widget) =>
-                  widget is AppBar && widget.backgroundColor == Colors.red),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is AppBar && widget.backgroundColor == Colors.red,
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -73,10 +76,12 @@ void main() {
             ),
           );
           expect(
-              find.byWidgetPredicate((widget) =>
-                  widget is AppBar &&
-                  widget.backgroundColor == kSecondaryColor),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is AppBar && widget.backgroundColor == kSecondaryColor,
+            ),
+            findsOneWidget,
+          );
         },
       );
     },
@@ -98,9 +103,11 @@ void main() {
           );
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.centerTitle == false),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.centerTitle == false,
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -115,9 +122,11 @@ void main() {
             ),
           );
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.centerTitle == true),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.centerTitle == true,
+            ),
+            findsOneWidget,
+          );
         },
       );
     },
@@ -140,9 +149,11 @@ void main() {
           );
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 3.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 3.0,
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -158,9 +169,11 @@ void main() {
           );
 
           expect(
-              find.byWidgetPredicate(
-                  (widget) => widget is AppBar && widget.elevation == 0.0),
-              findsOneWidget);
+            find.byWidgetPredicate(
+              (widget) => widget is AppBar && widget.elevation == 0.0,
+            ),
+            findsOneWidget,
+          );
         },
       );
     },
@@ -177,19 +190,27 @@ void main() {
               home: Scaffold(
                 appBar: CleanAppBar(
                   title: 'Home',
-                  titleTextStyle:
-                      TextStyle(fontSize: 10.0, color: Colors.yellow),
+                  titleTextStyle: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.yellow,
+                  ),
                 ),
               ),
             ),
           );
 
           expect(
-              find.byWidgetPredicate((widget) =>
+            find.byWidgetPredicate(
+              (widget) =>
                   widget is AppBar &&
                   widget.titleTextStyle ==
-                      const TextStyle(fontSize: 10.0, color: Colors.yellow)),
-              findsOneWidget);
+                      const TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.yellow,
+                      ),
+            ),
+            findsOneWidget,
+          );
         },
       );
 
@@ -207,10 +228,13 @@ void main() {
           );
 
           find.descendant(
-              of: find.byType(CleanAppBar),
-              matching: find.byWidgetPredicate((widget) =>
+            of: find.byType(CleanAppBar),
+            matching: find.byWidgetPredicate(
+              (widget) =>
                   widget is AppBar &&
-                  widget.titleTextStyle?.color == kPrimaryColor));
+                  widget.titleTextStyle?.color == kPrimaryColor,
+            ),
+          );
         },
       );
     },

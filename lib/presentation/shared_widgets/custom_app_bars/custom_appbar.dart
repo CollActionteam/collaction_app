@@ -19,34 +19,62 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: kSecondaryColor,
+      backgroundColor: Colors.transparent,
       elevation: 0.0,
       centerTitle: true,
       leading: !closable
           ? Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () => context.router.pop(),
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  primary: Colors.white,
-                  onPrimary: kAccentColor,
-                  elevation: 4,
-                ),
-                child: const Icon(
-                  CollactionIcons.left,
+              child: Material(
+                type: MaterialType.button,
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                elevation: 4,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () => context.router.pop(),
+                  child: const Icon(
+                    CollactionIcons.left,
+                    color: kPrimaryColor400,
+                  ),
                 ),
               ),
             )
           : null,
       actions: [
         if (closable)
-          GestureDetector(
-            onTap: () => context.router.pop(),
-            child: const Icon(CollactionIcons.cross),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () => context.router.pop(),
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                primary: Colors.white,
+                onPrimary: kPrimaryColor0,
+                tapTargetSize: MaterialTapTargetSize.padded,
+              ).merge(
+                ButtonStyle(
+                  elevation: MaterialStateProperty.resolveWith<double?>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return 5;
+                      }
+                      return 4;
+                    },
+                  ),
+                ),
+              ),
+              child: const Icon(
+                CollactionIcons.cross,
+                color: kPrimaryColor300,
+              ),
+            ),
           ),
       ],
-      title: Text(title, style: const TextStyle(color: kPrimaryColor)),
+      title: Text(
+        title,
+        style: const TextStyle(color: kPrimaryColor),
+      ),
     );
   }
 

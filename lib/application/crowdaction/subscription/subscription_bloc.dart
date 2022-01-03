@@ -16,39 +16,53 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final ICrowdActionRepository _crowdActionRepository;
 
   SubscriptionBloc(this._crowdActionRepository)
-      : super(const SubscriptionState.initial());
-
-  @override
-  Stream<SubscriptionState> mapEventToState(SubscriptionEvent event) async* {
-    yield* event.map(
-      participate: _mapParticipateToState,
-      withdrawParticipation: _mapWithDrawParticipationToState,
+      : super(const SubscriptionState.initial()) {
+    on<SubscriptionEvent>(
+      (event, emit) {
+        event.map(
+          participate: (event) => _mapParticipateToState(emit, event),
+          withdrawParticipation: (event) =>
+              _mapWithDrawParticipationToState(emit, event),
+        );
+      },
     );
   }
 
   Stream<SubscriptionState> _mapWithDrawParticipationToState(
-      _WithdrawParticipation value) async* {
-    yield const SubscriptionState.unsubscribingFromCrowdAction();
+    Emitter<SubscriptionState> emit,
+    _WithdrawParticipation value,
+  ) async* {
+    emit(const SubscriptionState.unsubscribingFromCrowdAction());
 
     final failureOrSuccess =
         await _crowdActionRepository.unsubscribeFromCrowdAction(value.action);
 
-    yield failureOrSuccess.fold(
-      (failure) => const SubscriptionState.unsubscribingFailed(),
-      (_) => const SubscriptionState.unsubscribed(),
+    emit(
+      failureOrSuccess.fold(
+        (failure) => const SubscriptionState.unsubscribingFailed(),
+        (_) => const SubscriptionState.unsubscribed(),
+      ),
     );
   }
 
-  Stream<SubscriptionState> _mapParticipateToState(_Participate value) async* {
-    yield const SubscriptionState.subscribingToCrowdAction();
+  Stream<SubscriptionState> _mapParticipateToState(
+    Emitter<SubscriptionState> emit,
+    _Participate value,
+  ) async* {
+    emit(const SubscriptionState.subscribingToCrowdAction());
 
     final failureOrSuccess =
         await _crowdActionRepository.subscribeToCrowdAction(
-            value.action, value.commitments, value.password);
+      value.action,
+      value.commitments,
+      value.password,
+    );
 
-    yield failureOrSuccess.fold(
-      (failure) => const SubscriptionState.subscriptionFailed(),
-      (_) => const SubscriptionState.subscribed(),
+    emit(
+      failureOrSuccess.fold(
+        (failure) => const SubscriptionState.subscriptionFailed(),
+        (_) => const SubscriptionState.subscribed(),
+      ),
     );
   }
 }

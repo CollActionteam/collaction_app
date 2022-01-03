@@ -21,7 +21,7 @@ class ContentPlaceholder extends StatelessWidget {
           builder: (context, state) {
             final signedIn = state.maybeWhen(
               orElse: () => false,
-              authenticated: () => true,
+              authenticated: (_) => true,
               unAuthenticated: () => false,
             );
 

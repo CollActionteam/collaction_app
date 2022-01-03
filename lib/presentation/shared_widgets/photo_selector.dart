@@ -42,9 +42,34 @@ class _PhotoSelectorState extends State<PhotoSelector> {
                     FloatingActionButton(
                       onPressed: () async {
                         final XFile? image = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                          source: ImageSource.gallery,
+                        );
 
                         if (image != null) {
+                          if (mounted) {
+                            if (await _fileTooBig(image)) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "File size too big, must be 5 MB or less",
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            if (_fileNotAnImage(image)) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "File must be an image (JPG or PNG)",
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+                          }
+
                           _cropImage(image);
                         }
                       },
@@ -69,6 +94,30 @@ class _PhotoSelectorState extends State<PhotoSelector> {
                             await _picker.pickImage(source: ImageSource.camera);
 
                         if (image != null) {
+                          if (mounted) {
+                            if (await _fileTooBig(image)) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "File size too big, must be 5 MB or less",
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            if (_fileNotAnImage(image)) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "File must be an image (JPG or PNG)",
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+                          }
+
                           _cropImage(image);
                         }
                       },
@@ -91,40 +140,52 @@ class _PhotoSelectorState extends State<PhotoSelector> {
   }
 
   final _compression = 100;
-
   Future<void> _cropImage(XFile image) async {
     final File? croppedFile = await ImageCropper.cropImage(
-        sourcePath: image.path,
-        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-        aspectRatioPresets: [CropAspectRatioPreset.square],
-        maxWidth: 250,
-        maxHeight: 250,
-        compressQuality: _compression,
-        androidUiSettings: const AndroidUiSettings(
-            toolbarTitle: 'Profile Photo',
-            toolbarColor: kAccentColor,
-            toolbarWidgetColor: Colors.white,
-            lockAspectRatio: true),
-        iosUiSettings: const IOSUiSettings(
-            minimumAspectRatio: 1.0,
-            aspectRatioLockEnabled: true,
-            title: 'Profile Photo'));
+      sourcePath: image.path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      aspectRatioPresets: [CropAspectRatioPreset.square],
+      compressFormat: ImageCompressFormat.png,
+      maxWidth: 1023,
+      maxHeight: 1023,
+      compressQuality: _compression,
+      androidUiSettings: const AndroidUiSettings(
+        toolbarTitle: 'Profile Photo',
+        toolbarColor: kAccentColor,
+        toolbarWidgetColor: Colors.white,
+        lockAspectRatio: true,
+      ),
+      iosUiSettings: const IOSUiSettings(
+        minimumAspectRatio: 1.0,
+        aspectRatioLockEnabled: true,
+        title: 'Profile Photo',
+      ),
+    );
 
     if (widget.onSelected != null && croppedFile != null) {
-      /*_logFileSize(croppedFile.path);*/
       widget.onSelected!(croppedFile);
     }
   }
 
-/*void _logFileSize(String path)async{
-      final file = File(path);
-      final int bytes = await file.length();
-      if (bytes <= 0){
-        print("0 B");
-        return;
-      }
-      const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-      final i = (log(bytes) / log(1024)).floor();
-      print('${(bytes / pow(1024, i)).toStringAsFixed(2)} ${suffixes[i]}');
-  }*/
+  /// Validates the filesize is lower or equal to 5 MB
+  ///
+  /// [file] The file to validate
+  Future<bool> _fileTooBig(XFile file) async {
+    final mb = (await file.readAsBytes()).lengthInBytes / 1024 / 1024;
+    if (mb > 5) {
+      return true;
+    }
+    return false;
+  }
+
+  /// Validates MimeType if mimetype is present
+  ///
+  /// [file] The file to validate
+  bool _fileNotAnImage(XFile file) {
+    final mimeType = file.mimeType ?? 'image';
+    if (!mimeType.contains('image')) {
+      return true;
+    }
+    return false;
+  }
 }

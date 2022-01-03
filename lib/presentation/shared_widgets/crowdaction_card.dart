@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
-import '../../domain/crowdaction/participant.dart';
-import '../crowd_action/utils/crowd_action.ext.dart';
 import '../themes/constants.dart';
-import 'participant_avatars.dart';
 
 class CrowdActionCard extends StatelessWidget {
-  final String title;
-  final String imagePath;
-  final List<Widget> chips;
-  final String? description;
+  final CrowdAction crowdAction;
   final double scaleFactor;
-  final List<TopParticipant>? participants;
-  final int? totalParticipants;
   final Function()? onTap;
 
   const CrowdActionCard({
     Key? key,
-    required this.title,
-    required this.imagePath,
-    required this.chips,
-    this.description,
+    required this.crowdAction,
     this.scaleFactor = 1.0,
-    this.participants,
-    this.totalParticipants,
     this.onTap,
   }) : super(key: key);
 
@@ -45,6 +32,7 @@ class CrowdActionCard extends StatelessWidget {
           ],
         ),
         child: Container(
+          height: 395 * scaleFactor,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: kSecondaryColor,
@@ -62,7 +50,7 @@ class CrowdActionCard extends StatelessWidget {
                   ),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(imagePath),
+                    image: NetworkImage(crowdAction.images.card),
                   ),
                 ),
               ),
@@ -77,7 +65,7 @@ class CrowdActionCard extends StatelessWidget {
                         const SizedBox(width: 15.0),
                         Wrap(
                           spacing: 12.0,
-                          children: chips,
+                          children: crowdAction.toChips(),
                         ),
                       ],
                     ),
@@ -88,63 +76,63 @@ class CrowdActionCard extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          title,
+                          crowdAction.title,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 22.0 * scaleFactor,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColor400),
+                            fontSize: 22.0 * scaleFactor,
+                            fontWeight: FontWeight.bold,
+                            color: kPrimaryColor400,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  if (description != null) ...[
-                    const SizedBox(height: 18.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Text(
-                        description!,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2
-                            ?.copyWith(color: kInactiveColor),
-                      ),
+                  const SizedBox(height: 18.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Text(
+                      crowdAction.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          ?.copyWith(color: kInactiveColor),
                     ),
-                  ],
-                  // TODO: Add participants widget
-                  if (_someParticipants()) ...[
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 40,
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: participants?.avatarWidth(),
-                            child: ParticipantAvatars(
-                              participants: participants ?? [],
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                              child: Text(
-                            "Join ${participants?.title(totalParticipants ?? 0) ?? ""}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption
-                                ?.copyWith(fontSize: 12),
-                          ))
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
+                  // TODO: Implement after MVP
+                  //   if (_someParticipants()) ...[
+                  //     const SizedBox(
+                  //       height: 20,
+                  //     ),
+                  //     Container(
+                  //       height: 40,
+                  //       margin: const EdgeInsets.symmetric(horizontal: 20),
+                  //       child: Row(
+                  //         children: [
+                  //           SizedBox(
+                  //             width: crowdAction.avatarWidth(),
+                  //             child: ParticipantAvatars(
+                  //               participants: crowdAction.topParticipants,
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 20,
+                  //           ),
+                  //           Expanded(
+                  //             child: Text(
+                  //               "Join ${crowdAction.topParticipants.title(crowdAction.participantCount)}",
+                  //               style: Theme.of(context)
+                  //                   .textTheme
+                  //                   .caption
+                  //                   ?.copyWith(fontSize: 12),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
                   const SizedBox(
                     height: 40,
                   ),
@@ -156,9 +144,4 @@ class CrowdActionCard extends StatelessWidget {
       ),
     );
   }
-
-  bool _someParticipants() =>
-      totalParticipants != null &&
-      participants != null &&
-      participants?.isNotEmpty == true;
 }

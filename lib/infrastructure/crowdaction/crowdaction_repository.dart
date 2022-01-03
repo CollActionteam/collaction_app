@@ -22,8 +22,9 @@ class CrowdActionRepository implements ICrowdActionRepository {
   const CrowdActionRepository(this._client, this._authRepository);
 
   @override
-  Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions(
-      {int amount = 0}) async {
+  Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions({
+    int amount = 0,
+  }) async {
     try {
       final response = await _client.get(
         Uri.parse('${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions'),
@@ -32,10 +33,14 @@ class CrowdActionRepository implements ICrowdActionRepository {
 
       final responseBody = jsonDecode(response.body);
 
-      return right(responseBody
-          .map<CrowdAction>((json) =>
-              CrowdActionDto.fromJson(json as Map<String, dynamic>).toDomain())
-          .toList() as List<CrowdAction>);
+      return right(
+        responseBody
+            .map<CrowdAction>(
+              (json) => CrowdActionDto.fromJson(json as Map<String, dynamic>)
+                  .toDomain(),
+            )
+            .toList() as List<CrowdAction>,
+      );
     } catch (error) {
       return left(const CrowdActionFailure.networkRequestFailed());
     }
@@ -43,23 +48,27 @@ class CrowdActionRepository implements ICrowdActionRepository {
 
   @override
   Future<Either<CrowdActionFailure, Unit>> subscribeToCrowdAction(
-      CrowdAction crowdAction,
-      List<String> commitments,
-      String? password) async {
+    CrowdAction crowdAction,
+    List<String> commitments,
+    String? password,
+  ) async {
     try {
       final user = (await _authRepository.getSignedInUser())
           .getOrElse(() => throw NotAuthenticatedError());
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
+        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+      );
 
-      final response = await _client.post(uri,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $tokenId'
-          },
-          body: jsonEncode({'password': password, 'commitments': commitments}));
+      final response = await _client.post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $tokenId'
+        },
+        body: jsonEncode({'password': password, 'commitments': commitments}),
+      );
 
       if (response.statusCode == 200) {
         return right(unit);
@@ -73,19 +82,24 @@ class CrowdActionRepository implements ICrowdActionRepository {
 
   @override
   Future<Either<CrowdActionFailure, Unit>> unsubscribeFromCrowdAction(
-      CrowdAction crowdAction) async {
+    CrowdAction crowdAction,
+  ) async {
     try {
       final user = (await _authRepository.getSignedInUser())
           .getOrElse(() => throw NotAuthenticatedError());
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
+        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+      );
 
-      final response = await _client.delete(uri, headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $tokenId'
-      });
+      final response = await _client.delete(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $tokenId'
+        },
+      );
 
       if (response.statusCode == 200) {
         return right(unit);
@@ -103,16 +117,20 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-            '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions?status=joinable'),
-        headers: {'Content-Type': 'application/json'},
+          '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions?status=joinable',
+        ),
       );
 
       final responseBody = jsonDecode(response.body);
 
-      return right(responseBody
-          .map<CrowdAction>((json) =>
-              CrowdActionDto.fromJson(json as Map<String, dynamic>).toDomain())
-          .toList() as List<CrowdAction>);
+      return right(
+        responseBody
+            .map<CrowdAction>(
+              (json) => CrowdActionDto.fromJson(json as Map<String, dynamic>)
+                  .toDomain(),
+            )
+            .toList() as List<CrowdAction>,
+      );
     } catch (e) {
       return left(const CrowdActionFailure.networkRequestFailed());
     }
@@ -127,12 +145,16 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation');
+        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+      );
 
-      final response = await _client.get(uri, headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $tokenId'
-      });
+      final response = await _client.get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $tokenId'
+        },
+      );
 
       if (response.statusCode == 200) {
         final status = jsonDecode(response.body) as Map<String, dynamic>;
@@ -140,8 +162,11 @@ class CrowdActionRepository implements ICrowdActionRepository {
         if (statusData.userId == user.id &&
             statusData.crowdActionId == crowdAction.crowdactionID &&
             statusData.commitments.isNotEmpty) {
-          return right(CrowdActionStatus.subscribed(
-              statusData.commitments.toSet().toList()));
+          return right(
+            CrowdActionStatus.subscribed(
+              statusData.commitments.toSet().toList(),
+            ),
+          );
         } else {
           throw Exception("Invalid Status");
         }

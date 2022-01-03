@@ -13,13 +13,20 @@ final sampleParticipants = [
   Participant("https://source.unsplash.com/WNoLnJo7tS8/500x500", "John")
 ];
 
+/// TODO - Switch Participants to BLOC
 final participantsPageParticipants = List.generate(10, (index) => index)
-    .expand((element) => [
-          Participant(
-              "https://source.unsplash.com/mEZ3PoFGs_k/500x500", "Barbara"),
-          Participant("https://source.unsplash.com/L2dTmhQzx4Q/500x500",
-              "Barbara With A Very Long Name That Spans Two Lines"),
-        ])
+    .expand(
+      (element) => [
+        Participant(
+          "https://source.unsplash.com/mEZ3PoFGs_k/500x500",
+          "Barbara",
+        ),
+        Participant(
+          "https://source.unsplash.com/L2dTmhQzx4Q/500x500",
+          "Barbara With A Very Long Name That Spans Two Lines",
+        ),
+      ],
+    )
     .toList();
 
 extension ParticipantsX on List<TopParticipant> {

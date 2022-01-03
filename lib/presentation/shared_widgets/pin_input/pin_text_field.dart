@@ -18,7 +18,8 @@ class PinTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.0125),
+        horizontal: MediaQuery.of(context).size.width * 0.0125,
+      ),
       child: SizedBox(
         height: MediaQuery.of(context).size.width * 0.12,
         width: MediaQuery.of(context).size.width * 0.12,

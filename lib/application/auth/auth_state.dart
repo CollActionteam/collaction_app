@@ -46,7 +46,7 @@ class AuthState with _$AuthState {
   const factory AuthState.photoUpdateDone() = _ProfilePhotoUpdateDone;
 
   /// Splash Auth states
-  const factory AuthState.authenticated() = _Authenticated;
+  const factory AuthState.authenticated(User user) = _Authenticated;
 
   const factory AuthState.unAuthenticated() = _UnAuthenticated;
 }

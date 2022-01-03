@@ -22,6 +22,20 @@ class _HomePageState extends State<HomePage> {
     showOnboarding();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return AutoTabsScaffold(
+      routes: const [
+        CrowdactionRouter(),
+        UserProfileRouter(),
+        if (!kReleaseMode) ...[
+          DemoScreenRouter(),
+        ],
+      ],
+      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
+    );
+  }
+
   Future<void> showOnboarding() async {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
@@ -48,27 +62,17 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(CollactionIcons.user),
           label: '',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.assignment_outlined,
+        if (!kReleaseMode) ...[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assignment_outlined,
+            ),
+            label: '',
           ),
-          label: '',
-        )
+        ],
       ],
       currentIndex: tabsRouter.activeIndex,
       onTap: tabsRouter.setActiveIndex,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AutoTabsScaffold(
-      routes: const [
-        CrowdactionRouter(),
-        UserProfileRouter(),
-        DemoScreenRouter(),
-      ],
-      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
     );
   }
 }
