@@ -1,3 +1,4 @@
+import 'package:collaction_app/presentation/shared_widgets/custom_app_bars/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -55,8 +56,9 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Padding(
+    return Scaffold(
+      appBar: CustomAppBar(context, closable: true),
+      body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView.separated(
           itemCount: 6,
