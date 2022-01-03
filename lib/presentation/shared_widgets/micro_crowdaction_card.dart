@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
+import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
 import 'accent_chip.dart';
@@ -14,8 +15,15 @@ class MicroCrowdActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.router
-          .push(CrowdActionDetailsRoute(crowdAction: crowdAction)),
+      onTap: () {
+        if (crowdAction.usesPassword) {
+          showPasswordModal(context, crowdAction);
+        } else {
+          context.router.push(
+            CrowdActionDetailsRoute(crowdAction: crowdAction),
+          );
+        }
+      },
       child: Container(
         height: 148,
         width: MediaQuery.of(context).size.width,
