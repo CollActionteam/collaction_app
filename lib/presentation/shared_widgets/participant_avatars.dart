@@ -18,8 +18,9 @@ class ParticipantAvatars extends StatelessWidget {
           .toList()
           .asMap()
           .entries
-          .map((participant) =>
-              _createAvatar(participant.value, participant.key))
+          .map(
+            (participant) => _createAvatar(participant.value, participant.key),
+          )
           .toList(),
     );
   }
@@ -34,7 +35,8 @@ class ParticipantAvatars extends StatelessWidget {
                 radius: 18,
                 backgroundColor: Colors.grey[300],
                 backgroundImage: NetworkImage(
-                    participant.imageUrl!), // Provide your custom image
+                  participant.imageUrl!,
+                ), // Provide your custom image
               )
             : Container(
                 decoration: BoxDecoration(

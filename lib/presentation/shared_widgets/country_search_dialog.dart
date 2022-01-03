@@ -19,9 +19,12 @@ class _CountrySearchState extends State<CountrySearch> {
   @override
   void initState() {
     super.initState();
-    _countries = List<CountryDetails>.from(_countryCodes
-      ..sort(
-          (a, b) => a.alpha2Code?.compareTo(b.alpha2Code ?? "") == 1 ? 1 : -1));
+    _countries = List<CountryDetails>.from(
+      _countryCodes
+        ..sort(
+          (a, b) => a.alpha2Code?.compareTo(b.alpha2Code ?? "") == 1 ? 1 : -1,
+        ),
+    );
   }
 
   @override
@@ -72,10 +75,11 @@ class _CountrySearchState extends State<CountrySearch> {
                         ),
                         const SizedBox(width: 10),
                         Expanded(
-                            child: Text(
-                          country.name!,
-                          overflow: TextOverflow.ellipsis,
-                        ))
+                          child: Text(
+                            country.name!,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -97,10 +101,15 @@ class _CountrySearchState extends State<CountrySearch> {
       if (text.isEmpty) {
         _countries.addAll(_countryCodes);
       } else {
-        _countries.addAll(_countryCodes.where((country) =>
-            country.name?.toLowerCase().contains(text.toLowerCase()) == true ||
-            country.alpha2Code?.toLowerCase().contains(text) == true ||
-            country.dialCode?.contains(text) == true));
+        _countries.addAll(
+          _countryCodes.where(
+            (country) =>
+                country.name?.toLowerCase().contains(text.toLowerCase()) ==
+                    true ||
+                country.alpha2Code?.toLowerCase().contains(text) == true ||
+                country.dialCode?.contains(text) == true,
+          ),
+        );
       }
     });
   }

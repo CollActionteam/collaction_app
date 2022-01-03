@@ -26,15 +26,17 @@ class _RectangularButtonState extends State<RectangularButton> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: widget.onPressed,
+      onPressed: widget.isEnabled ? widget.onPressed : null,
       style: ButtonStyle(
         shape: MaterialStateProperty.all<OutlinedBorder?>(
-            const RoundedRectangleBorder()),
+          const RoundedRectangleBorder(),
+        ),
         backgroundColor: widget.isEnabled
             ? MaterialStateProperty.all<Color?>(kEnabledButtonColor)
             : MaterialStateProperty.all<Color?>(kDisabledButtonColor),
         minimumSize: MaterialStateProperty.all<Size?>(
-            Size(double.infinity, widget.height)),
+          Size(double.infinity, widget.height),
+        ),
       ),
       child: widget.isLoading
           ? const CircularProgressIndicator(
@@ -43,9 +45,10 @@ class _RectangularButtonState extends State<RectangularButton> {
           : Text(
               widget.text,
               style: const TextStyle(
-                  color: kSecondaryColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.0),
+                color: kSecondaryColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 16.0,
+              ),
             ),
     );
   }

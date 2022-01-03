@@ -32,6 +32,7 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+           
         </activity>
         <activity
           android:name="com.yalantis.ucrop.UCropActivity"
@@ -43,4 +44,11 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+     <queries>
+        <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:scheme="https" />
+        </intent>
+      </queries>
 </manifest>

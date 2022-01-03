@@ -5,7 +5,8 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.verifyPhone(String phoneNumber) = _VerifyPhone;
 
   const factory AuthEvent.updated(
-      Either<AuthFailure, AuthSuccess> failureOrCredential) = _Updated;
+    Either<AuthFailure, AuthSuccess> failureOrCredential,
+  ) = _Updated;
 
   const factory AuthEvent.signInWithPhone(String smsCode) = _SignInWithPhone;
 

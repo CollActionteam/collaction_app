@@ -1,9 +1,9 @@
 import 'package:collaction_app/presentation/core/collaction_icons.dart';
+import 'package:collaction_app/presentation/crowdaction/crowdaction_home/widgets/share_collaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../presentation/contact_form/widgets/contact_form.dart';
-import '../../presentation/crowd_action/pages/widgets/share_collaction_card.dart';
 import '../../presentation/shared_widgets/content_placeholder.dart';
 import '../../presentation/themes/constants.dart';
 // TODO import '../../presentation/shared_widgets/custom_fab.dart';

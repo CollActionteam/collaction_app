@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -15,25 +17,32 @@ class SpotlightBloc extends Bloc<SpotlightEvent, SpotlightState> {
   final ICrowdActionRepository _crowdActionRepository;
 
   SpotlightBloc(this._crowdActionRepository)
-      : super(const SpotlightState.initial());
-
-  @override
-  Stream<SpotlightState> mapEventToState(SpotlightEvent event) async* {
-    yield* event.map(
-        getSpotLightCrowdActions: _mapGetSpotLightCrowdActionsToState);
+      : super(const SpotlightState.initial()) {
+    on<SpotlightEvent>(
+      (event, emit) async {
+        await event.map(
+          getSpotLightCrowdActions: (event) async =>
+              await _mapGetSpotLightCrowdActionsToState(emit, event),
+        );
+      },
+    );
   }
 
-  Stream<SpotlightState> _mapGetSpotLightCrowdActionsToState(
-      _GetSpotlightCrowdActions value) async* {
-    yield const SpotlightState.fetchingCrowdSpotLightActions();
+  FutureOr<void> _mapGetSpotLightCrowdActionsToState(
+    Emitter<SpotlightState> emit,
+    _GetSpotlightCrowdActions event,
+  ) async {
+    emit(const SpotlightState.fetchingCrowdSpotLightActions());
 
     final spotlightCrowdActionsResult =
         await _crowdActionRepository.getSpotlightCrowdActions();
 
-    yield spotlightCrowdActionsResult.fold(
-      (failure) => SpotlightState.spotLightCrowdActionsError(failure),
-      (spotLightCrowdActions) =>
-          SpotlightState.spotLightCrowdActions(spotLightCrowdActions),
+    emit(
+      spotlightCrowdActionsResult.fold(
+        (failure) => SpotlightState.spotLightCrowdActionsError(failure),
+        (spotLightCrowdActions) =>
+            SpotlightState.spotLightCrowdActions(spotLightCrowdActions),
+      ),
     );
   }
 }

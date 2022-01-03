@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/presentation/utils/mvp.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../presentation/themes/constants.dart';
@@ -23,6 +24,20 @@ class _HomePageState extends State<HomePage> {
       checkAndMaybeShowOnboarding()
           .then((_) => checkAndMaybeShowCaptivePage(context.router));
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AutoTabsScaffold(
+      routes: [
+        const CrowdactionRouter(),
+        const UserProfileRouter(),
+        if (!kReleaseMode) ...[
+          const DemoScreenRouter(),
+        ],
+      ],
+      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
+    );
   }
 
   Future<void> checkAndMaybeShowOnboarding() async {
@@ -51,27 +66,17 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(CollactionIcons.user),
           label: '',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.assignment_outlined,
+        if (!kReleaseMode) ...[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assignment_outlined,
+            ),
+            label: '',
           ),
-          label: '',
-        )
+        ],
       ],
       currentIndex: tabsRouter.activeIndex,
       onTap: tabsRouter.setActiveIndex,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AutoTabsScaffold(
-      routes: const [
-        CrowdactionRouter(),
-        UserProfileRouter(),
-        DemoScreenRouter(),
-      ],
-      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
     );
   }
 }

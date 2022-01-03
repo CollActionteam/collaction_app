@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../presentation/shared_widgets/secondary_chip.dart';
 
 part 'crowdaction.freezed.dart';
 
 @freezed
 class CrowdAction with _$CrowdAction {
+  const CrowdAction._();
+
   const factory CrowdAction({
     required String crowdactionID,
     required String title,
@@ -20,6 +25,25 @@ class CrowdAction with _$CrowdAction {
     String? passwordJoin,
     String? subCategory,
   }) = _CrowdAction;
+
+  bool get hasParticipants => participantCount > 0;
+
+  List<Widget> toChips() {
+    return [
+      SecondaryChip(text: category),
+      if (subCategory != null) ...[SecondaryChip(text: subCategory ?? "")],
+    ];
+  }
+
+  double avatarWidth() {
+    if (topParticipants.length == 3) {
+      return 100.0;
+    } else if (topParticipants.length == 2) {
+      return 80.0;
+    } else {
+      return 40.0;
+    }
+  }
 }
 
 @freezed
