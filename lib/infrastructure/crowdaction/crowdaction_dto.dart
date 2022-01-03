@@ -97,6 +97,7 @@ class CommitmentOptionDto with _$CommitmentOptionDto {
       id: id,
       label: label,
       description: description,
+      requires: requires?.map((option) => option.toDomain()).toList(),
       ref: ref,
     );
   }
