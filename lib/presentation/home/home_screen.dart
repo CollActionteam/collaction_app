@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/utils/mvp.dart';
 import 'package:flutter/material.dart';
 
 import '../../../presentation/themes/constants.dart';
@@ -18,19 +19,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        ?.addPostFrameCallback((_) => checkAndMaybeShowCaptivePage());
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      checkAndMaybeShowOnboarding()
+          .then((_) => checkAndMaybeShowCaptivePage(context.router));
+    });
   }
 
-  Future<void> checkAndMaybeShowCaptivePage() async {
-    if (DateTime.now().isAfter(DateTime.parse('2022-01-31'))) {
-      context.router.popAndPush(const CaptiveRoute());
-    } else {
-      showOnboarding();
-    }
-  }
-
-  Future<void> showOnboarding() async {
+  Future<void> checkAndMaybeShowOnboarding() async {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
     if (!(await settingsRepository.getWasUserOnboarded())) {

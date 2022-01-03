@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:collaction_app/presentation/utils/mvp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +16,11 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Timer.periodic(
+        const Duration(minutes: 1),
+        (Timer timer) =>
+            checkAndMaybeShowCaptivePage(_appRouter, timer: timer));
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
