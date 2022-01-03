@@ -102,7 +102,7 @@ class _PasswordModalState extends State<PasswordModal> {
                           color: kPrimaryColor300,
                         )
                       : const Icon(
-                          CollactionIcons.eyeOff,
+                          CollactionIcons.eye_off,
                           color: kPrimaryColor300,
                         ),
                   onPressed: () {
@@ -123,7 +123,7 @@ class _PasswordModalState extends State<PasswordModal> {
             minRadius: 30,
             child: IconButton(
               onPressed: !_disableButton ? () => _validatePassword() : null,
-              icon: const Icon(CollactionIcons.arrowRight),
+              icon: const Icon(CollactionIcons.arrow_right),
               color: Colors.white,
               disabledColor: Colors.white,
             ),

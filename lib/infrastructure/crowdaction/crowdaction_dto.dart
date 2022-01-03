@@ -89,7 +89,6 @@ class CommitmentOptionDto with _$CommitmentOptionDto {
     required String label,
     required String description,
     List<CommitmentOptionDto>? requires,
-    String? icon,
     String? ref,
   }) = _CommitmentOptionDto;
 
@@ -98,7 +97,6 @@ class CommitmentOptionDto with _$CommitmentOptionDto {
       id: id,
       label: label,
       description: description,
-      icon: icon,
       ref: ref,
     );
   }

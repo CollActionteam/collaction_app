@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../presentation/shared_widgets/secondary_chip.dart';
+import 'utils.dart';
 
 part 'crowdaction.freezed.dart';
 
@@ -58,14 +59,17 @@ class Images with _$Images {
 
 @freezed
 class CommitmentOption with _$CommitmentOption {
+  const CommitmentOption._();
+
   factory CommitmentOption({
     required String id,
     required String label,
     required String description,
     List<CommitmentOption>? requires,
-    String? icon,
     String? ref,
   }) = _CommitmentOption;
+
+  IconData get icon => idToIcon(id);
 }
 
 @freezed
