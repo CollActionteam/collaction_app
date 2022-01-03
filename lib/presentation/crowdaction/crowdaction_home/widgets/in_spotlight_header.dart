@@ -95,9 +95,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                             itemCount: _pages.length,
                             controller: _pageController,
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Row(
                             children: [
                               Expanded(child: Container()),

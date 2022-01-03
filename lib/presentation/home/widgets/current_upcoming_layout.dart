@@ -106,12 +106,13 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
     return Column(
       children: fetchedData
           .map(
-            (e) => GestureDetector(
+            (crowdAction) => GestureDetector(
               onTap: () {
-                if (e.passwordJoin != "") {
-                  showPasswordModal(context, e);
+                if (crowdAction.usesPassword) {
+                  showPasswordModal(context, crowdAction);
                 } else {
-                  context.router.push(CrowdActionDetailsRoute(crowdAction: e));
+                  context.router
+                      .push(CrowdActionDetailsRoute(crowdAction: crowdAction));
                 }
               },
               child: Container(
@@ -120,7 +121,8 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   elevation: 4,
                   child: Row(
                     children: [
@@ -129,7 +131,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                                image: NetworkImage(e.images.card.toString()),
+                                image: NetworkImage(crowdAction.images.card),
                                 fit: BoxFit.cover)),
                         margin: const EdgeInsets.only(left: 10),
                         height: 128,
@@ -152,14 +154,14 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  if (e.passwordJoin != "")
+                                  if (crowdAction.usesPassword)
                                     const Icon(CollactionIcons.lock),
                                 ],
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  e.title.toString(),
+                                  crowdAction.title,
                                   softWrap: false,
                                   maxLines: 2,
                                   style: const TextStyle(
@@ -172,13 +174,14 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                                 padding:
                                     const EdgeInsets.only(top: 6, bottom: 10),
                                 child: Text(
-                                  e.description.toString(),
+                                  crowdAction.description,
                                   softWrap: false,
                                   maxLines: 1,
                                   style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: kInactiveColor),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: kInactiveColor,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),

@@ -30,12 +30,6 @@ class _PasswordModalState extends State<PasswordModal> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(minWidth: 380),
@@ -120,13 +114,7 @@ class _PasswordModalState extends State<PasswordModal> {
             backgroundColor: _disableButton ? kPrimaryColor200 : kAccentColor,
             minRadius: 30,
             child: IconButton(
-              onPressed: () {
-                if (_disableButton == true) {
-                  return;
-                } else {
-                  _validatePassword();
-                }
-              },
+              onPressed: !_disableButton ? () => _validatePassword() : null,
               icon: const Icon(CollactionIcons.arrowRight),
               color: kSecondaryColor,
             ),
@@ -138,7 +126,7 @@ class _PasswordModalState extends State<PasswordModal> {
 
   void _validateInput(String value) {
     setState(() {
-      value == "" ? _disableButton = true : _disableButton = false;
+      _disableButton = value.isEmpty;
     });
   }
 
@@ -150,9 +138,7 @@ class _PasswordModalState extends State<PasswordModal> {
       addCrowdActionAccess();
       context.router.pop();
       context.router.push(
-        CrowdActionDetailsRoute(
-          crowdAction: widget.crowdAction,
-        ),
+        CrowdActionDetailsRoute(crowdAction: widget.crowdAction),
       );
     } else {
       setState(() {
@@ -164,7 +150,14 @@ class _PasswordModalState extends State<PasswordModal> {
   Future<void> addCrowdActionAccess() async {
     final _settingsRepository = getIt<ISettingsRepository>();
     await _settingsRepository.addCrowdActionAccess(
-        crowdActionId: widget.crowdAction.crowdactionID);
+      crowdActionId: widget.crowdAction.crowdactionID,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
 
