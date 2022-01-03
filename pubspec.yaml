@@ -76,7 +76,7 @@ dev_dependencies:
 flutter_icons:
   android: "ic_launcher"
   ios: true
-  image_path: "assets/icon/icon.png"
+  image_path: "assets/icon/app_icon.png"
   adaptive_icon_background: "#ffffff"
   remove_alpha_ios: true
 
