@@ -24,9 +24,14 @@ class _AppWidgetState extends State<AppWidget> {
   void initState() {
     super.initState();
     _timer = Timer.periodic(
-        const Duration(minutes: 1),
-        (Timer timer) =>
-            checkAndMaybeShowCaptivePage(_appRouter, timer: timer));
+      const Duration(minutes: 1),
+      (Timer timer) =>
+          checkAndMaybeShowCaptivePage(_appRouter).then((wasCaptivePageShown) {
+        if (wasCaptivePageShown) {
+          timer.cancel();
+        }
+      }),
+    );
   }
 
   @override

@@ -124,7 +124,8 @@ class CaptivePage extends StatelessWidget {
                         backgroundColor: Colors.white,
                         elevation: 0,
                         onPressed: () => launch(
-                            'https://linkedin.com/company/15079855/admin/'),
+                          'https://linkedin.com/company/15079855/',
+                        ),
                         mini: true,
                         child: const Icon(
                           CollactionIcons.linkedin,

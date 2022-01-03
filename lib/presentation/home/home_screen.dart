@@ -21,19 +21,22 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      checkAndMaybeShowOnboarding()
-          .then((_) => checkAndMaybeShowCaptivePage(context.router));
+      checkAndMaybeShowCaptivePage(context.router).then((wasCaptivePageShown) {
+        if (!wasCaptivePageShown) {
+          checkAndMaybeShowOnboarding();
+        }
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: [
-        const CrowdactionRouter(),
-        const UserProfileRouter(),
+      routes: const [
+        CrowdactionRouter(),
+        UserProfileRouter(),
         if (!kReleaseMode) ...[
-          const DemoScreenRouter(),
+          DemoScreenRouter(),
         ],
       ],
       bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
