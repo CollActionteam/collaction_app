@@ -37,9 +37,9 @@ class CommitmentCardListState extends State<CommitmentCardList> {
 
   @override
   void initState() {
+    super.initState();
     _commitments = List<CommitmentOption>.from(widget.commitments);
     _activeCommitments = List<String>.from(widget.active);
-    super.initState();
   }
 
   @override
