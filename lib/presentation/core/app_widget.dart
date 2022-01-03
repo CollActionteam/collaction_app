@@ -11,16 +11,32 @@ import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
 
-class AppWidget extends StatelessWidget {
+class AppWidget extends StatefulWidget {
+  @override
+  State<AppWidget> createState() => _AppWidgetState();
+}
+
+class _AppWidgetState extends State<AppWidget> {
   final _appRouter = AppRouter();
+  late Timer _timer;
 
   @override
-  Widget build(BuildContext context) {
-    Timer.periodic(
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(
         const Duration(minutes: 1),
         (Timer timer) =>
             checkAndMaybeShowCaptivePage(_appRouter, timer: timer));
+  }
 
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
