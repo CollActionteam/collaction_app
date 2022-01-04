@@ -165,7 +165,6 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 isLoading: state is SubscribingToCrowdAction,
                 isEnabled: _commitments.isNotEmpty,
                 onTap: () {
-                  // TODO - Confirm Participation
                   context.read<SubscriptionBloc>().add(
                         SubscriptionEvent.participate(
                           widget.crowdAction,
@@ -182,7 +181,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 height: 52,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.router.pop();
                   },
                   child: const Text("Cancel"),
                 ),
