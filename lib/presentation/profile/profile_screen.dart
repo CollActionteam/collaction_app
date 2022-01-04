@@ -44,7 +44,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
-                    onPressed: () => context.router.push(const SettingsRoute()),
+                    onPressed: () =>
+                        context.router.push(const SettingsRoute()).then((_) {
+                      context.read<ProfileBloc>().add(GetUserProfile());
+                    }),
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       primary: Colors.white,

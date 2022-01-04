@@ -21,8 +21,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final userOrFailure = await _profileRepository.getUserProfile();
 
       emit(
-        userOrFailure.fold(
-          (failure) => state.copyWith(isEditing: false),
+        await userOrFailure.fold(
+          (failure) => const ProfileState(
+            userProfile: null,
+            isEditing: false,
+          ),
           (userProfile) => state.copyWith(
             userProfile: userProfile,
             isEditing: false,
