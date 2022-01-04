@@ -35,9 +35,6 @@ class _RealtimeParticipationTextState extends State<RealtimeParticipationText> {
 
   @override
   void initState() {
-    context.read<SubscriptionStatusBloc>().add(
-          SubscriptionStatusEvent.checkParticipationStatus(widget.crowdAction),
-        );
     participantCount = widget.crowdAction.participantCount;
     subscriptionStateSubscription =
         context.read<SubscriptionBloc>().stream.listen((state) {

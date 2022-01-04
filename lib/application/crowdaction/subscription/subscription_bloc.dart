@@ -18,20 +18,20 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   SubscriptionBloc(this._crowdActionRepository)
       : super(const SubscriptionState.initial()) {
     on<SubscriptionEvent>(
-      (event, emit) {
-        event.map(
+      (event, emit) async {
+        await event.map(
           participate: (event) => _mapParticipateToState(emit, event),
           withdrawParticipation: (event) =>
-              _mapWithDrawParticipationToState(emit, event),
+              _mapWithdrawParticipationToState(emit, event),
         );
       },
     );
   }
 
-  Stream<SubscriptionState> _mapWithDrawParticipationToState(
+  FutureOr<void> _mapWithdrawParticipationToState(
     Emitter<SubscriptionState> emit,
     _WithdrawParticipation value,
-  ) async* {
+  ) async {
     emit(const SubscriptionState.unsubscribingFromCrowdAction());
 
     final failureOrSuccess =
@@ -45,10 +45,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     );
   }
 
-  Stream<SubscriptionState> _mapParticipateToState(
+  FutureOr<void> _mapParticipateToState(
     Emitter<SubscriptionState> emit,
     _Participate value,
-  ) async* {
+  ) async {
     emit(const SubscriptionState.subscribingToCrowdAction());
 
     final failureOrSuccess =
