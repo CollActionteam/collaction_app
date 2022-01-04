@@ -292,7 +292,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ],
                       ),
                     ),
-                    Offstage(child: UserProfileTab(user: state.userProfile?.user)),
+                    Offstage(
+                      child: UserProfileTab(user: state.userProfile?.user),
+                    ),
                   ],
                 ),
               ),
