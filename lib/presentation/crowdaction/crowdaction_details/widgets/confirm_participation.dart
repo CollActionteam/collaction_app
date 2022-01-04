@@ -109,21 +109,28 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
               const SizedBox(
                 height: 30,
               ),
-              Expanded(
+              Container(
+                constraints: const BoxConstraints(maxHeight: 300),
                 child: ListView(
+                  shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   children: [
-                    Text(
-                      widget.crowdAction.description,
-                      style: Theme.of(context).textTheme.caption?.copyWith(
-                            color: kPrimaryColor400,
-                          ),
+                    Container(
+                      constraints: const BoxConstraints(maxHeight: 80),
+                      child: Text(
+                        widget.crowdAction.description,
+                        overflow: TextOverflow.fade,
+                        style: Theme.of(context).textTheme.caption?.copyWith(
+                              color: kPrimaryColor400,
+                            ),
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     Text(
                       "Your Commitment",
+                      textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
                           .caption
@@ -147,7 +154,10 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                         widget.onSelect(selectedIds);
                       },
                     ),
-                    const SizedBox(
+                  ],
+                ),
+              ),
+              const SizedBox(
                       height: 20,
                     ),
                     PillButton(
@@ -177,9 +187,6 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                         child: const Text("Cancel"),
                       ),
                     ),
-                  ],
-                ),
-              ),
               const SizedBox(
                 height: 15,
               ),
