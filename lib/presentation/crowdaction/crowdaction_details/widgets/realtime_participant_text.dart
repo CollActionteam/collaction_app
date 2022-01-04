@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:collaction_app/application/crowdaction/subscription/subscription_bloc.dart';
-import 'package:collaction_app/application/crowdaction/subscription_status/subscription_status_bloc.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
