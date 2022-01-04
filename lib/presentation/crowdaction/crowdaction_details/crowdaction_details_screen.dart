@@ -15,6 +15,7 @@ import '../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 import 'widgets/confirm_participation.dart';
+import 'widgets/realtime_participant_text.dart';
 import 'widgets/withdraw_participation.dart';
 
 class CrowdActionDetailsPage extends StatefulWidget {
@@ -158,7 +159,15 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                       height: 20,
                     ),
 
-                    /// TODO: Implement after MVP
+                    /// TODO: Implement properly after MVP
+                    RealtimeParticipationText(
+                      crowdAction: widget.crowdAction,
+                    ),
+                    const SizedBox(
+                      child: SizedBox(
+                        height: 20,
+                      ),
+                    ),
                     // GestureDetector(
                     //   onTap: () {
                     //     context.router

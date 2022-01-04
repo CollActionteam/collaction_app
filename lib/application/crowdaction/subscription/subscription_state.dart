@@ -10,7 +10,7 @@ class SubscriptionState with _$SubscriptionState {
 
   const factory SubscriptionState.subscribed() = Subscribed;
 
-  const factory SubscriptionState.subscriptionFailed() = _SubscriptionFailed;
+  const factory SubscriptionState.subscriptionFailed() = SubscriptionFailed;
 
   /// Un subscription
   const factory SubscriptionState.unsubscribingFromCrowdAction() =
@@ -18,5 +18,5 @@ class SubscriptionState with _$SubscriptionState {
 
   const factory SubscriptionState.unsubscribed() = _Unsubscribed;
 
-  const factory SubscriptionState.unsubscribingFailed() = _UnsubscribingFailed;
+  const factory SubscriptionState.unsubscribingFailed() = UnsubscribingFailed;
 }
