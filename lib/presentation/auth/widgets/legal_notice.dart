@@ -1,7 +1,8 @@
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../themes/constants.dart';
 
 class LegalNotice extends StatelessWidget {
   const LegalNotice({

@@ -1,17 +1,17 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
-import 'package:collaction_app/presentation/profile/widget/profile_picture.dart';
-import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
 import '../../infrastructure/core/injection.dart';
+import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/photo_selector.dart';
+import '../shared_widgets/pill_button.dart';
 import '../themes/constants.dart';
+import 'widget/profile_picture.dart';
 import 'widget/profile_tab.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -44,7 +44,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
-                    onPressed: () => context.router.push(const SettingsRoute()),
+                    onPressed: () =>
+                        context.router.push(const SettingsRoute()).then((_) {
+                      context.read<ProfileBloc>().add(GetUserProfile());
+                    }),
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       primary: Colors.white,

@@ -33,8 +33,9 @@ class ProfilePicture extends StatelessWidget {
       maxRadius: _maxRadius,
       foregroundImage: imageProvider,
       backgroundImage: const AssetImage(
-        'assets/images/logo.png',
+        'assets/images/default_avatar.png',
       ),
+      backgroundColor: Colors.transparent,
     );
   }
 }

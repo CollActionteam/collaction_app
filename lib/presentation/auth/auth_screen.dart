@@ -44,9 +44,9 @@ class _AuthPageState extends State<AuthPage> {
             smsCodeSent: (_) => _toPage(1),
             loggedIn: (loggedInState) {
               if (loggedInState.isNewUser) {
-                // TODO - Handle if is existing user
-              } else {
                 _toPage(2);
+              } else {
+                _authDone(context);
               }
             },
             authError: (authError) => context.showErrorSnack(
