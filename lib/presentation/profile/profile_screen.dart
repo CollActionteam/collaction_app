@@ -24,10 +24,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     final bioController = TextEditingController();
-    final profileBloc = getIt<ProfileBloc>();
 
     return BlocProvider<ProfileBloc>(
-      create: (context) => profileBloc..add(GetUserProfile()),
+      create: (context) => getIt<ProfileBloc>()..add(GetUserProfile()),
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           bioController.value =
@@ -288,11 +287,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             const SizedBox(height: 40),
                             PillButton(
                               text: 'Create account or sign in',
-                              onTap: () async {
-                                await context.router.push(const AuthRoute());
+                              onTap: () => context.router
+                                  .push(const AuthRoute())
+                                  .then((_) {
                                 // Refresh profile
-                                profileBloc.add(GetUserProfile());
-                              },
+                                context
+                                    .read<ProfileBloc>()
+                                    .add(GetUserProfile());
+                              }),
                             ),
                           ],
                           const SizedBox(height: 20),
