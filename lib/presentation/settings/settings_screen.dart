@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/application/user/profile/profile_bloc.dart';
+import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
@@ -18,6 +20,33 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final logoutButton = ListTile(
+      onTap: () async {
+        // TODO: Fix Profile Page not updating + pop settings page
+        BlocProvider.of<AuthBloc>(context).add(const AuthEvent.signedOut());
+        await context.router.pop();
+      },
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 15,
+        horizontal: 20,
+      ),
+      tileColor: kAlmostTransparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      leading: const CircleAvatar(
+        radius: 32.5,
+        backgroundColor: kSecondaryColor,
+        child: Icon(
+          CollactionIcons.share,
+          color: kErrorColor,
+        ),
+      ),
+      title: const Text(
+        'Log out',
+      ),
+    );
+
     return Scaffold(
       appBar: CustomAppBar(context, closable: true),
       body: Column(
@@ -163,7 +192,8 @@ class SettingsPage extends StatelessWidget {
                         const SizedBox(height: 15),
                         ListTile(
                           // TODO change to "Open source libraries" and use https://pub.dev/packages/flutter_oss_licenses
-                          onTap: () => launch('https://github.com/CollActionteam/collaction_app'),
+                          onTap: () => launch(
+                              'https://github.com/CollActionteam/collaction_app'),
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: 20,
@@ -186,33 +216,13 @@ class SettingsPage extends StatelessWidget {
                           trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
-                        ListTile(
-                          onTap: () async {
-                            // TODO: Fix Profile Page not updating + pop settings page
-                            BlocProvider.of<AuthBloc>(context)
-                                .add(const AuthEvent.signedOut());
-                            await context.router.pop();
-                          },
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.share,
-                              color: kErrorColor,
-                            ),
-                          ),
-                          title: const Text(
-                            'Log out',
-                          ),
-                        ),
+                        BlocBuilder(
+                          bloc: getIt<ProfileBloc>()..add(GetUserProfile()),
+                          builder: (context, ProfileState state) =>
+                              state.userProfile == null
+                                  ? const SizedBox()
+                                  : logoutButton,
+                        )
                       ],
                     ),
                   ],
