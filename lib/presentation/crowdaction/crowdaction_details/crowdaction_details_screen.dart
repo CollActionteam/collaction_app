@@ -36,10 +36,10 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
 
   @override
   void initState() {
+    super.initState();
     context.read<SubscriptionStatusBloc>().add(
           SubscriptionStatusEvent.checkParticipationStatus(widget.crowdAction),
         );
-    super.initState();
   }
 
   @override

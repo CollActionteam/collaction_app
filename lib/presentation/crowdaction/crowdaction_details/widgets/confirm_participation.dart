@@ -30,8 +30,8 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
 
   @override
   void initState() {
-    _commitments = List<String>.from(widget.commitments);
     super.initState();
+    _commitments = List<String>.from(widget.commitments);
   }
 
   @override
