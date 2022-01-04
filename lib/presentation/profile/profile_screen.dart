@@ -24,9 +24,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     final bioController = TextEditingController();
+    final profileBloc = getIt<ProfileBloc>();
 
     return BlocProvider<ProfileBloc>(
-      create: (context) => getIt<ProfileBloc>()..add(GetUserProfile()),
+      create: (context) => profileBloc..add(GetUserProfile()),
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           bioController.value =
@@ -290,7 +291,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               onTap: () async {
                                 await context.router.push(const AuthRoute());
                                 // Refresh profile
-                                getIt<ProfileBloc>().add(GetUserProfile());
+                                profileBloc.add(GetUserProfile());
                               },
                             ),
                           ],
