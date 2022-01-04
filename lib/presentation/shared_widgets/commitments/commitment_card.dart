@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
-import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 
 /// Creates a new CommitmentCard
@@ -54,16 +53,11 @@ class CommitmentCard extends StatelessWidget {
                 color: kSecondaryColor,
               ),
               alignment: Alignment.center,
-              child: commitment.icon != null
-                  ? Image.network(
-                      commitment.icon!,
-                      height: 32.5,
-                    )
-                  : const Icon(
-                      CollactionIcons.collaction,
-                      color: kAccentColor,
-                      size: 32.5,
-                    ),
+              child: Icon(
+                commitment.icon,
+                color: kAccentColor,
+                size: 30,
+              ),
             ),
             const Spacer(),
             Container(

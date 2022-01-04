@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/utils/mvp.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    showOnboarding();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      checkAndMaybeShowCaptivePage(context.router).then((wasCaptivePageShown) {
+        if (!wasCaptivePageShown) {
+          checkAndMaybeShowOnboarding();
+        }
+      });
+    });
   }
 
   @override
@@ -36,12 +43,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> showOnboarding() async {
+  Future<void> checkAndMaybeShowOnboarding() async {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
     if (!(await settingsRepository.getWasUserOnboarded())) {
       await settingsRepository.setWasUserOnboarded(wasOnboarded: true);
-      context.router.push(const AuthRoute());
+      context.router.push(const OnboardingRoute());
     }
   }
 

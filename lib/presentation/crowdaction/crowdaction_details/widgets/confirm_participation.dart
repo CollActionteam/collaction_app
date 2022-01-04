@@ -109,36 +109,53 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
               const SizedBox(
                 height: 30,
               ),
-              Text(
-                widget.crowdAction.description,
-                style: Theme.of(context).textTheme.caption?.copyWith(
-                      color: kPrimaryColor400,
+              Container(
+                constraints: const BoxConstraints(maxHeight: 300),
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    Container(
+                      constraints: const BoxConstraints(maxHeight: 80),
+                      child: Text(
+                        widget.crowdAction.description,
+                        overflow: TextOverflow.fade,
+                        style: Theme.of(context).textTheme.caption?.copyWith(
+                              color: kPrimaryColor400,
+                            ),
+                      ),
                     ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Your Commitment",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption
-                    ?.copyWith(color: kPrimaryColor300, fontSize: 10),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CommitmentCardList(
-                active: _commitments,
-                commitments: widget.crowdAction.commitmentOptions
-                    .where((commitment) => _commitments.contains(commitment.id))
-                    .toList(),
-                onSelected: (selectedIds) {
-                  setState(() {
-                    _commitments = selectedIds;
-                  });
-                  widget.onSelect(selectedIds);
-                },
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Your Commitment",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption
+                          ?.copyWith(color: kPrimaryColor300, fontSize: 10),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CommitmentCardList(
+                      active: _commitments,
+                      commitments: widget.crowdAction.commitmentOptions
+                          .where(
+                            (commitment) =>
+                                _commitments.contains(commitment.id),
+                          )
+                          .toList(),
+                      onSelected: (selectedIds) {
+                        setState(() {
+                          _commitments = selectedIds;
+                        });
+                        widget.onSelect(selectedIds);
+                      },
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -148,7 +165,6 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 isLoading: state is SubscribingToCrowdAction,
                 isEnabled: _commitments.isNotEmpty,
                 onTap: () {
-                  // TODO - Confirm Participation
                   context.read<SubscriptionBloc>().add(
                         SubscriptionEvent.participate(
                           widget.crowdAction,
@@ -165,7 +181,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 height: 52,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.router.pop();
                   },
                   child: const Text("Cancel"),
                 ),

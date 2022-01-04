@@ -81,7 +81,7 @@ class SettingsPage extends StatelessWidget {
                           title: const Text(
                             'Share CollAction',
                           ),
-                          trailing: const Icon(CollactionIcons.arrowRight),
+                          trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
                         ListTile(
@@ -108,7 +108,7 @@ class SettingsPage extends StatelessWidget {
                           title: const Text(
                             'Contact us',
                           ),
-                          trailing: const Icon(CollactionIcons.arrowRight),
+                          trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
                         ListTile(
@@ -133,7 +133,7 @@ class SettingsPage extends StatelessWidget {
                           title: const Text(
                             'Terms of use',
                           ),
-                          trailing: const Icon(CollactionIcons.arrowRight),
+                          trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
                         ListTile(
@@ -158,7 +158,7 @@ class SettingsPage extends StatelessWidget {
                           title: const Text(
                             'Privacy policy',
                           ),
-                          trailing: const Icon(CollactionIcons.arrowRight),
+                          trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
                         ListTile(
@@ -182,7 +182,7 @@ class SettingsPage extends StatelessWidget {
                           title: const Text(
                             'Open source libraries',
                           ),
-                          trailing: const Icon(CollactionIcons.arrowRight),
+                          trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
                         ListTile(

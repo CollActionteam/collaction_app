@@ -6,9 +6,11 @@ import '../../infrastructure/core/injection.dart';
 
 class ContentPlaceholder extends StatelessWidget {
   final Color textColor;
+  final String? description;
   const ContentPlaceholder({
     Key? key,
     required this.textColor,
+    this.description,
   }) : super(key: key);
 
   @override
@@ -44,6 +46,19 @@ class ContentPlaceholder extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
+                  if (description != null) ...[
+                    const SizedBox(height: 20),
+                    Text(
+                      description!,
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w300,
+                        color: textColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                   if (!signedIn) ...[
                     const SizedBox(height: 5),
                     Text(

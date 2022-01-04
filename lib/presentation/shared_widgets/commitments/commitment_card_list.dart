@@ -37,9 +37,9 @@ class CommitmentCardListState extends State<CommitmentCardList> {
 
   @override
   void initState() {
+    super.initState();
     _commitments = List<CommitmentOption>.from(widget.commitments);
     _activeCommitments = List<String>.from(widget.active);
-    super.initState();
   }
 
   @override
@@ -65,12 +65,16 @@ class CommitmentCardListState extends State<CommitmentCardList> {
     setState(() {
       // Remove from active commitments
       _activeCommitments.remove(option.id);
-      // Check if has required
-      final children = option.requires;
-      // If yes - loop & deselect all children
-      if (children != null) {
-        _deselectAll(children);
+
+      // Recursively deselect all parents
+      final activeCommitmentOptions = _commitments
+          .where((commitment) => _activeCommitments.contains(commitment.id));
+      for (final commitment in activeCommitmentOptions) {
+        if (commitment.requires?.contains(option) == true) {
+          _deselectCommitment(commitment);
+        }
       }
+
       // If is required child deselect & parent
       widget.onSelected(_activeCommitments);
     });
@@ -99,19 +103,6 @@ class CommitmentCardListState extends State<CommitmentCardList> {
         final children = commitment.requires;
         if (children != null) {
           _selectAll(children);
-        }
-      }
-    }
-  }
-
-  void _deselectAll(List<CommitmentOption> commitments) {
-    for (final commitment in _commitments) {
-      if (commitments.contains(commitment)) {
-        _activeCommitments.removeWhere((id) => commitment.id == id);
-
-        final children = commitment.requires;
-        if (children != null) {
-          _deselectAll(children);
         }
       }
     }
