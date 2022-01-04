@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:collaction_app/presentation/profile/widget/profile_picture.dart';
 import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,42 @@ class _UserProfilePageState extends State<UserProfilePage> {
               TextEditingValue(text: state.userProfile?.profile.bio ?? '');
 
           return Scaffold(
+            extendBodyBehindAppBar: true,
             backgroundColor: kAlmostTransparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              centerTitle: true,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () => context.router.push(const SettingsRoute()),
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      primary: Colors.white,
+                      onPrimary: kPrimaryColor0,
+                      tapTargetSize: MaterialTapTargetSize.padded,
+                    ).merge(
+                      ButtonStyle(
+                        elevation: MaterialStateProperty.resolveWith<double?>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.pressed)) {
+                              return 5;
+                            }
+                            return 4;
+                          },
+                        ),
+                      ),
+                    ),
+                    child: const Icon(
+                      CollactionIcons.settings,
+                      color: kPrimaryColor300,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
