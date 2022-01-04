@@ -42,7 +42,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
-                    onPressed: () => context.router.push(SettingsRoute()),
+                    onPressed: () => context.router.push(const SettingsRoute()),
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       primary: Colors.white,
