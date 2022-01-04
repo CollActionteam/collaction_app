@@ -112,7 +112,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                     children: const [
                       Expanded(
                         child: Text(
-                          'It’s always nice to put a face to your name!',
+                          'We love to see happy faces',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: kInactiveColor),
                         ),
