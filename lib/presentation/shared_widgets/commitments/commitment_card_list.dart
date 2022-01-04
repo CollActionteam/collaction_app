@@ -67,8 +67,9 @@ class CommitmentCardListState extends State<CommitmentCardList> {
       _activeCommitments.remove(option.id);
 
       // Recursively deselect all parents
-      for (final commitment in _commitments
-          .where((commitment) => _activeCommitments.contains(commitment.id))) {
+      final activeCommitmentOptions = _commitments
+          .where((commitment) => _activeCommitments.contains(commitment.id));
+      for (final commitment in activeCommitmentOptions) {
         if (commitment.requires?.contains(option) == true) {
           _deselectCommitment(commitment);
         }
