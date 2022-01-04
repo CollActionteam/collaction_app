@@ -77,9 +77,7 @@ class _VerifiedPageState extends State<VerifiedPage> {
                     maxWidth: MediaQuery.of(context).size.width * 0.9,
                   ),
                   child: PillButton(
-                    onTap: () => context.router.popUntilRoot(),
-
-                    /// TODO: Verify if this is correct! (should return to homescreen)
+                    onTap: () => context.router.replaceAll([const HomeRoute()]),
                     text: 'Go to CrowdActions',
                   ),
                 ),
