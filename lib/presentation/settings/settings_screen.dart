@@ -20,6 +20,31 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ossLicenses = ListTile(
+      // TODO change to "Open source libraries" and use https://pub.dev/packages/flutter_oss_licenses
+      onTap: () => launch('https://github.com/CollActionteam/collaction_app'),
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 15,
+        horizontal: 20,
+      ),
+      tileColor: kAlmostTransparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      leading: const CircleAvatar(
+        radius: 32.5,
+        backgroundColor: kSecondaryColor,
+        child: Icon(
+          CollactionIcons.opensource,
+          color: kPrimaryColor300,
+        ),
+      ),
+      title: const Text(
+        'Open source',
+      ),
+      trailing: const Icon(CollactionIcons.arrow_right),
+    );
+
     final logoutButton = ListTile(
       onTap: () async {
         // TODO: Fix Profile Page not updating + pop settings page
@@ -190,38 +215,18 @@ class SettingsPage extends StatelessWidget {
                           trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
-                        ListTile(
-                          // TODO change to "Open source libraries" and use https://pub.dev/packages/flutter_oss_licenses
-                          onTap: () => launch(
-                              'https://github.com/CollActionteam/collaction_app'),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.opensource,
-                              color: kPrimaryColor300,
-                            ),
-                          ),
-                          title: const Text(
-                            'Open source',
-                          ),
-                          trailing: const Icon(CollactionIcons.arrow_right),
-                        ),
-                        const SizedBox(height: 15),
+                        ossLicenses,
                         BlocBuilder(
                           bloc: getIt<ProfileBloc>()..add(GetUserProfile()),
                           builder: (context, ProfileState state) =>
                               state.userProfile == null
                                   ? const SizedBox()
-                                  : logoutButton,
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        logoutButton,
+                                      ],
+                                    ),
                         )
                       ],
                     ),
