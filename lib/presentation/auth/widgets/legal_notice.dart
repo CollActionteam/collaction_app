@@ -1,3 +1,4 @@
+import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,7 +10,7 @@ class LegalNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(color: Color(0xFF666666));
+    const textStyle = TextStyle(color: kPrimaryColor300);
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
