@@ -8,7 +8,7 @@ import '../../../application/auth/auth_bloc.dart';
 import '../../../application/user/avatar/avatar_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/photo_selector.dart';
-import '../../shared_widgets/rectangular_button.dart';
+import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
 class SelectProfilePhoto extends StatefulWidget {
@@ -56,43 +56,40 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () => showModalBottomSheet(
-                      context: context,
-                      builder: (context) => PhotoSelector(
-                        onSelected: (File photo) {
-                          setState(() {
-                            _photo = photo;
-                            _isPhotoValid = true;
-                          });
-
-                          avatarBloc.add(AvatarEvent.uploadAvatar(photo));
-                        },
-                      ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircleAvatar(
-                            backgroundColor: kAlmostTransparent,
-                            radius: 50.0,
-                            backgroundImage:
-                                _photo != null ? FileImage(_photo!) : null,
-                          ),
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircleAvatar(
+                          backgroundColor: kAlmostTransparent,
+                          radius: 50.0,
+                          backgroundImage:
+                              _photo != null ? FileImage(_photo!) : null,
                         ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: FloatingActionButton(
-                            onPressed: () {},
-                            backgroundColor: kAccentColor,
-                            mini: true,
-                            child: const Icon(Icons.add),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: FloatingActionButton(
+                          onPressed: () => showModalBottomSheet(
+                            context: context,
+                            builder: (context) => PhotoSelector(
+                              onSelected: (File photo) {
+                                setState(() {
+                                  _photo = photo;
+                                  _isPhotoValid = true;
+                                });
+
+                                avatarBloc.add(AvatarEvent.uploadAvatar(photo));
+                              },
+                            ),
                           ),
-                        )
-                      ],
-                    ),
+                          backgroundColor: kAccentColor,
+                          mini: true,
+                          child: const Icon(Icons.add),
+                        ),
+                      )
+                    ],
                   ),
                   const SizedBox(height: 30.0),
                   Row(
@@ -115,7 +112,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                     children: const [
                       Expanded(
                         child: Text(
-                          'It’s always nice to put a face to your name!',
+                          'We love to see happy faces',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: kInactiveColor),
                         ),
@@ -127,11 +124,11 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: RectangularButton(
+                        child: PillButton(
                           text: 'Next',
                           isEnabled: _isPhotoValid,
                           isLoading: state is AwaitingProfilePhotoUpdate,
-                          onPressed: () {
+                          onTap: () {
                             if (_isPhotoValid &&
                                 state is! AwaitingProfilePhotoUpdate) {
                               context
@@ -151,7 +148,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                         child: TextButton(
                           onPressed: () => context.router.pop(),
                           child: const Text(
-                            'Skip for now',
+                            'Maybe later',
                             style: TextStyle(
                               color: kAccentColor,
                               fontWeight: FontWeight.w700,

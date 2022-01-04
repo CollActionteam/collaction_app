@@ -36,10 +36,10 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
 
   @override
   void initState() {
+    super.initState();
     context.read<SubscriptionStatusBloc>().add(
           SubscriptionStatusEvent.checkParticipationStatus(widget.crowdAction),
         );
-    super.initState();
   }
 
   @override
@@ -233,7 +233,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                       child: Text(
-                        'Short description about what the commitments are and how you can select/deselect them',
+                        'Your challenge, your rules.\nChoose which commitment you want to make this month.',
                         style: Theme.of(context).textTheme.caption!.copyWith(
                               color: kPrimaryColor300,
                               fontWeight: FontWeight.w400,
@@ -345,7 +345,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               Text(
-                "Participate",
+                "Register",
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1

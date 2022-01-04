@@ -8,7 +8,7 @@ import '../../../domain/auth/i_auth_repository.dart';
 import '../../../domain/user/user.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../routes/app_routes.gr.dart';
-import '../../shared_widgets/rectangle_button.dart';
+import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
 class VerifiedPage extends StatefulWidget {
@@ -65,7 +65,7 @@ class _VerifiedPageState extends State<VerifiedPage> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Now go ahead and change the world one crowdaction at a time',
+                  'Now go ahead and change the world one CrowdAction at a time',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -76,18 +76,18 @@ class _VerifiedPageState extends State<VerifiedPage> {
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.9,
                   ),
-                  child: RectangleButton(
+                  child: PillButton(
                     onTap: () => context.router.popUntilRoot(),
 
                     /// TODO: Verify if this is correct! (should return to homescreen)
-                    text: 'Go to crowdactions',
+                    text: 'Go to CrowdActions',
                   ),
                 ),
                 TextButton(
                   onPressed: () =>
                       context.router.replaceAll([const HomeRoute()]),
                   child: const Text(
-                    'Show me all crowdactions',
+                    'Show me all CrowdActions',
                     style: TextStyle(
                       color: kAccentColor,
                       fontWeight: FontWeight.w700,

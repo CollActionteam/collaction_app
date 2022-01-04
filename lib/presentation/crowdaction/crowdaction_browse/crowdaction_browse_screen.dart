@@ -1,10 +1,10 @@
-import 'package:collaction_app/presentation/shared_widgets/custom_app_bars/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/centered_loading_indicator.dart';
+import '../../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../../shared_widgets/micro_crowdaction_card.dart';
 
 /// Route for the user to browse available Collactions.

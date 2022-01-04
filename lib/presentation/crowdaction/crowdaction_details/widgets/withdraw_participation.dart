@@ -24,7 +24,7 @@ class WithdrawParticipation extends StatelessWidget {
               return GestureDetector(
                 onTap: () => _withdrawParticipationModal(context),
                 child: Text(
-                  'Withdraw my participation',
+                  'Cancel my participation',
                   style: Theme.of(context).textTheme.headline3!.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
@@ -73,6 +73,7 @@ class WithdrawParticipation extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     backgroundColor: Colors.redAccent,
+                    behavior: SnackBarBehavior.floating,
                     content: const Text(
                       "Error encountered while unsubscribing to crowdaction",
                     ),
@@ -113,7 +114,7 @@ class WithdrawParticipation extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    crowdAction.title,
+                    "We’d love to keep you",
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -123,24 +124,19 @@ class WithdrawParticipation extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    constraints: const BoxConstraints(maxHeight: 80),
-                    child: Text(
-                      crowdAction.description,
-                      overflow: TextOverflow.fade,
-                      style: Theme.of(context).textTheme.caption?.copyWith(
-                            color: kPrimaryColor400,
-                          ),
-                    ),
+                  Text(
+                    "You are about to cancel your participation. You are free to sign up for this CrowdAction again any time before it starts.",
+                    style: Theme.of(context).textTheme.caption?.copyWith(
+                          color: kPrimaryColor400,
+                        ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   PillButton(
-                    text: "Withdraw Participation",
+                    text: "Cancel my participation",
                     isLoading: state is UnsubscribingFromCrowdAction,
                     onTap: () {
-                      // TODO - Withdraw Participation
                       context.read<SubscriptionBloc>().add(
                             SubscriptionEvent.withdrawParticipation(
                               crowdAction,

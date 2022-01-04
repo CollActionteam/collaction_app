@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../presentation/contact_form/widgets/contact_form.dart';
 import '../../presentation/shared_widgets/no_ripple_behavior.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
+import '../themes/constants.dart';
 
 class ContactFormPage extends StatefulWidget {
   const ContactFormPage({Key? key}) : super(key: key);
@@ -32,6 +33,7 @@ class ContactFormPageState extends State<ContactFormPage> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: CustomAppBar(context),
+        backgroundColor: kSecondaryColor,
         body: ScrollConfiguration(
           behavior: NoRippleBehavior(),
           child: SingleChildScrollView(

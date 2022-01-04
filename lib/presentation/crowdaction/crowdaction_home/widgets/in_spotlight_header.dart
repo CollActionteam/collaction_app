@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../shared_widgets/content_placeholder.dart';
@@ -46,9 +47,9 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                 height: 35,
               ),
               Container(
-                padding: const EdgeInsets.only(left: 12),
+                padding: const EdgeInsets.only(left: 12, top: 8),
                 child: Text(
-                  "In the spotlight",
+                  sectionHeadingText(),
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -119,5 +120,10 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
         );
       },
     );
+  }
+
+  String sectionHeadingText() {
+    final _month = DateFormat.MMMM().format(DateTime.now());
+    return "$_month's CrowdActions";
   }
 }

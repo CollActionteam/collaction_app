@@ -53,7 +53,7 @@ class ShareCollActionCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                "CollAction is an application powered by the crowd the more the better",
+                "Join a CrowdAction together with your friends and amplify your impact",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -64,17 +64,69 @@ class ShareCollActionCard extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            PillButton(
-              text: "Share CollAction",
-              onTap: () => Share.share(
-                shareText,
-                subject: shareEmailSubject,
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: 30),
+            const ShareCollactionButton(
+              shareText: shareText,
+              shareEmailSubject: shareEmailSubject,
             ),
             const SizedBox(height: 30)
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ShareCollactionButton extends StatefulWidget {
+  const ShareCollactionButton({
+    Key? key,
+    required this.shareText,
+    required this.shareEmailSubject,
+  }) : super(key: key);
+
+  final String shareText;
+  final String shareEmailSubject;
+
+  @override
+  State<ShareCollactionButton> createState() => _ShareCollactionButtonState();
+}
+
+class _ShareCollactionButtonState extends State<ShareCollactionButton> {
+  late bool _isClicked;
+  Future<void> _clickCallback() async {
+    setState(() {
+      _isClicked = true;
+    });
+
+    Share.share(
+      widget.shareText,
+      subject: widget.shareEmailSubject,
+    );
+    await Future.delayed(const Duration(seconds: 1));
+
+    setState(() {
+      _isClicked = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _isClicked = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Focus(
+      onFocusChange: (bool focused) {
+        setState(() {
+          _isClicked = focused == false;
+        });
+      },
+      child: PillButton(
+        text: "Share CollAction",
+        isEnabled: !_isClicked,
+        onTap: _clickCallback,
+        margin: const EdgeInsets.symmetric(horizontal: 30),
       ),
     );
   }

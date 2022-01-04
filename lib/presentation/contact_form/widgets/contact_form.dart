@@ -54,7 +54,7 @@ class _ContactFormState extends State<ContactForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Contact us",
+                  "Get in touch",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 32.0,
@@ -71,25 +71,34 @@ class _ContactFormState extends State<ContactForm> {
                   style: const TextStyle(fontSize: 20.0),
                   decoration: InputDecoration(
                     hintText: 'Your email address',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide: const BorderSide(
-                        width: 0,
                         color: Colors.transparent,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide: const BorderSide(
-                        width: 0,
                         color: Colors.transparent,
                       ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide: const BorderSide(
-                        width: 0,
-                        color: Colors.transparent,
+                        color: Colors.red,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide: const BorderSide(
+                        color: Colors.red,
                       ),
                     ),
                   ),
@@ -98,7 +107,7 @@ class _ContactFormState extends State<ContactForm> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
                   child: Text(
-                    "We will send our response to your email address",
+                    "We’ll get back to you by email",
                     style: Theme.of(context)
                         .textTheme
                         .caption!
@@ -115,25 +124,34 @@ class _ContactFormState extends State<ContactForm> {
                   minLines: 5,
                   decoration: InputDecoration(
                     hintText: 'Your message to us',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide: const BorderSide(
-                        width: 0,
                         color: Colors.transparent,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide: const BorderSide(
-                        width: 0,
                         color: Colors.transparent,
                       ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide: const BorderSide(
-                        width: 0,
-                        color: Colors.transparent,
+                        color: Colors.red,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide: const BorderSide(
+                        color: Colors.red,
                       ),
                     ),
                   ),

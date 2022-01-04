@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
-import '../shared_widgets/rectangle_button.dart';
+import '../core/collaction_icons.dart';
 import '../themes/constants.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -48,14 +48,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
     ];
     final titlePages = [
-      "Idea",
+      "Goal",
       "Crowd",
       "Action",
     ];
     final textPages = [
-      "Propose a collective action and set a target number of participants",
-      "People pledge to take action if the target is met before the deadline",
-      "If enough people commit, we all act!",
+      "Choose a challenge to reach your monthly sustainability goal",
+      "Notice how much impact you can make if you join forces with likeminded people",
+      "Commit to the goal and make the change",
     ];
 
     return Scaffold(
@@ -141,16 +141,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       ),
                     ),
                     const SizedBox(height: 25.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: RectangleButton(
-                            text: currentPage == 2.0 ? "Get started" : "Next",
-                            onTap: () =>
-                                currentPage == 2.0 ? getStarted() : nextPage(),
+                    Material(
+                      elevation: 4,
+                      shape: const CircleBorder(),
+                      child: CircleAvatar(
+                        backgroundColor: kAccentColor,
+                        radius: 30,
+                        child: IconButton(
+                          onPressed: () =>
+                              currentPage == 2.0 ? getStarted() : nextPage(),
+                          icon: const Icon(
+                            CollactionIcons.arrow_right,
+                            color: kSecondaryColor,
                           ),
                         ),
-                      ],
+                      ),
                     ),
                     Row(
                       children: [
@@ -158,11 +163,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           child: TextButton(
                             onPressed: () => context.router.pop(),
                             child: const Text(
-                              "Skip onboarding",
+                              "Skip",
                               style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                color: kPrimaryColor300,
-                                decoration: TextDecoration.underline,
+                                fontWeight: FontWeight.w700,
+                                color: kAccentColor,
                               ),
                             ),
                           ),
