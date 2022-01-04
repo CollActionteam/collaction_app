@@ -162,7 +162,8 @@ class SettingsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         ListTile(
-                          onTap: () => launch(''), // TODO: Link?
+                          // TODO change to "Open source libraries" and use https://pub.dev/packages/flutter_oss_licenses
+                          onTap: () => launch('https://github.com/CollActionteam/collaction_app'),
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: 20,
@@ -180,7 +181,7 @@ class SettingsPage extends StatelessWidget {
                             ),
                           ),
                           title: const Text(
-                            'Open source libraries',
+                            'Open source',
                           ),
                           trailing: const Icon(CollactionIcons.arrow_right),
                         ),
