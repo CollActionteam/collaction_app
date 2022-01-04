@@ -109,65 +109,75 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
               const SizedBox(
                 height: 30,
               ),
-              Text(
-                widget.crowdAction.description,
-                style: Theme.of(context).textTheme.caption?.copyWith(
-                      color: kPrimaryColor400,
+              Expanded(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    Text(
+                      widget.crowdAction.description,
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                            color: kPrimaryColor400,
+                          ),
                     ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Your Commitment",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption
-                    ?.copyWith(color: kPrimaryColor300, fontSize: 10),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CommitmentCardList(
-                active: _commitments,
-                commitments: widget.crowdAction.commitmentOptions
-                    .where((commitment) => _commitments.contains(commitment.id))
-                    .toList(),
-                onSelected: (selectedIds) {
-                  setState(() {
-                    _commitments = selectedIds;
-                  });
-                  widget.onSelect(selectedIds);
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              PillButton(
-                text: "Confirm Participation",
-                isLoading: state is SubscribingToCrowdAction,
-                isEnabled: _commitments.isNotEmpty,
-                onTap: () {
-                  // TODO - Confirm Participation
-                  context.read<SubscriptionBloc>().add(
-                        SubscriptionEvent.participate(
-                          widget.crowdAction,
-                          _commitments,
-                          "",
-                        ),
-                      );
-                },
-                margin: EdgeInsets.zero,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Cancel"),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Your Commitment",
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption
+                          ?.copyWith(color: kPrimaryColor300, fontSize: 10),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CommitmentCardList(
+                      active: _commitments,
+                      commitments: widget.crowdAction.commitmentOptions
+                          .where(
+                            (commitment) =>
+                                _commitments.contains(commitment.id),
+                          )
+                          .toList(),
+                      onSelected: (selectedIds) {
+                        setState(() {
+                          _commitments = selectedIds;
+                        });
+                        widget.onSelect(selectedIds);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    PillButton(
+                      text: "Confirm Participation",
+                      isLoading: state is SubscribingToCrowdAction,
+                      isEnabled: _commitments.isNotEmpty,
+                      onTap: () {
+                        // TODO - Confirm Participation
+                        context.read<SubscriptionBloc>().add(
+                              SubscriptionEvent.participate(
+                                widget.crowdAction,
+                                _commitments,
+                                "",
+                              ),
+                            );
+                      },
+                      margin: EdgeInsets.zero,
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
