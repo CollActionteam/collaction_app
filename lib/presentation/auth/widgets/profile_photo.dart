@@ -61,10 +61,13 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CircleAvatar(
-                          backgroundColor: kAlmostTransparent,
+                          backgroundColor: Colors.transparent,
                           radius: 50.0,
-                          backgroundImage:
+                          foregroundImage:
                               _photo != null ? FileImage(_photo!) : null,
+                          backgroundImage: const AssetImage(
+                            'assets/images/default_avatar.png',
+                          ),
                         ),
                       ),
                       Positioned(
