@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../application/auth/auth_bloc.dart';
 import '../../shared_widgets/phone_input.dart';
 import '../../shared_widgets/rectangular_button.dart';
+import 'legal_notice.dart';
 
 class VerifyPhonePage extends StatefulWidget {
   const VerifyPhonePage({Key? key}) : super(key: key);
@@ -69,6 +70,8 @@ class VerifyPhonePageState extends State<VerifyPhonePage> {
                 ),
               ],
             ),
+            const SizedBox(height: 20),
+            const LegalNotice(),
           ],
         );
       },

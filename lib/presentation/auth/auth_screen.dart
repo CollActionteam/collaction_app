@@ -81,7 +81,7 @@ class _AuthPageState extends State<AuthPage> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 470.0,
+                      height: 520.0,
                       child: PageView(
                         controller: _pageController,
                         physics: const NeverScrollableScrollPhysics(),
