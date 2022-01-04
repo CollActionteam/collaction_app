@@ -84,7 +84,10 @@ class _PhoneInputState extends State<PhoneInput> {
                 onTap: _showCountrySelectDialog,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  color: Theme.of(context).inputDecorationTheme.fillColor,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Theme.of(context).inputDecorationTheme.fillColor,
+                  ),
                   child: Row(
                     children: [
                       Image.asset(
@@ -126,9 +129,18 @@ class _PhoneInputState extends State<PhoneInput> {
                   },
                   style: const TextStyle(fontSize: 20.0),
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone number',
-                    hintText: '00 00 00 00',
+                  decoration: InputDecoration(
+                    hintText: 'Phone number',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(width: 0, color: Colors.transparent),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(width: 0, color: Colors.transparent),
+                    ),
                   ),
                 ),
               ),

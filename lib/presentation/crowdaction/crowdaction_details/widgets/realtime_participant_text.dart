@@ -34,6 +34,7 @@ class _RealtimeParticipationTextState extends State<RealtimeParticipationText> {
 
   @override
   void initState() {
+    super.initState();
     participantCount = widget.crowdAction.participantCount;
     subscriptionStateSubscription =
         context.read<SubscriptionBloc>().stream.listen((state) {
@@ -49,7 +50,6 @@ class _RealtimeParticipationTextState extends State<RealtimeParticipationText> {
         });
       }
     });
-    super.initState();
   }
 
   @override

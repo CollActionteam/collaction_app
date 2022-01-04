@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../themes/constants.dart';
+
 class PinTextField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController controller;
@@ -36,6 +38,18 @@ class PinTextField extends StatelessWidget {
             contentPadding:
                 EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             counterText: "",
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: const BorderSide(width: 0, color: Colors.transparent),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: const BorderSide(color: kAccentColor),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: const BorderSide(color: kAccentColor),
+            ),
           ),
           focusNode: focusNode,
           onChanged: onChanged,

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collaction_app/presentation/utils/mvp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +9,7 @@ import '../../application/crowdaction/subscription_status/subscription_status_bl
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
+import '../utils/mvp.dart';
 
 class AppWidget extends StatefulWidget {
   @override

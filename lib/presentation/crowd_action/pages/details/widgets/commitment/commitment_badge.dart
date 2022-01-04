@@ -61,7 +61,7 @@ class BadgesWidget extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           const Text(
-            'Short description about what the badges are and how to achieve different levels',
+            'The commitments you’ve chosen will give you the following badge',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: kPrimaryColor300,
@@ -126,10 +126,10 @@ class _BadgesPopupCard extends StatelessWidget {
           elevation: 4.0,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Column(
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
                     children: [
                       const SizedBox(height: 15),
                       Padding(
@@ -148,7 +148,7 @@ class _BadgesPopupCard extends StatelessWidget {
                           maxWidth: 300,
                         ),
                         child: Text(
-                          'Short description about how you can earn different achievements/badges',
+                          'Different commitments give you a different set of points. These points correspond with badges.\nWhich one will you attain this month?',
                           style: Theme.of(context).textTheme.caption!.copyWith(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
@@ -254,23 +254,19 @@ class _BadgesPopupCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: CircleAvatar(
-                      // color: kSecondaryColor,
-                      backgroundColor: kSecondaryColor,
-                      child: IconButton(
-                        onPressed: () => context.router.pop(),
-                        icon: const Icon(
-                          CollactionIcons.cross,
-                          color: kPrimaryColor300,
-                        ),
-                        color: Colors.pink,
-                      ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                    backgroundColor: kSecondaryColor,
+                    child: IconButton(
+                      onPressed: () => context.router.pop(),
+                      icon: const Icon(CollactionIcons.cross),
+                      color: Colors.red,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

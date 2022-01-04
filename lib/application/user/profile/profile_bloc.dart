@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:collaction_app/domain/user/i_avatar_repository.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/profile/user_profile.dart';
+import '../../../domain/user/i_avatar_repository.dart';
 import '../../../domain/user/i_profile_repository.dart';
 
 part 'profile_event.dart';

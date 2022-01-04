@@ -30,8 +30,8 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
 
   @override
   void initState() {
-    _commitments = List<String>.from(widget.commitments);
     super.initState();
+    _commitments = List<String>.from(widget.commitments);
   }
 
   @override
@@ -57,6 +57,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.redAccent,
+                behavior: SnackBarBehavior.floating,
                 content: const Text(
                   "Could not participate in crowd action",
                 ),
@@ -99,7 +100,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 height: 20,
               ),
               Text(
-                widget.crowdAction.title,
+                "Participate",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -118,7 +119,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                     Container(
                       constraints: const BoxConstraints(maxHeight: 80),
                       child: Text(
-                        widget.crowdAction.description,
+                        sectionDescription(),
                         overflow: TextOverflow.fade,
                         style: Theme.of(context).textTheme.caption?.copyWith(
                               color: kPrimaryColor400,
@@ -129,12 +130,12 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                       height: 20,
                     ),
                     Text(
-                      "Your Commitment",
+                      sectionHeading(),
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
                           .caption
-                          ?.copyWith(color: kPrimaryColor300, fontSize: 10),
+                          ?.copyWith(color: kPrimaryColor300, fontSize: 12),
                     ),
                     const SizedBox(
                       height: 20,
@@ -161,7 +162,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 height: 20,
               ),
               PillButton(
-                text: "Confirm Participation",
+                text: "Confirm",
                 isLoading: state is SubscribingToCrowdAction,
                 isEnabled: _commitments.isNotEmpty,
                 onTap: () {
@@ -196,6 +197,22 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
     );
   }
 
+  String sectionDescription() {
+    if (_commitments.length > 1) {
+      return "You’re almost there! You’ve selected the displayed commitments to stick to through this CrowdAction. By clicking “Confirm” you will officially commit to this CrowdAction.";
+    } else {
+      return "You’re almost there! You’ve selected the displayed commitment to stick to through this CrowdAction. By clicking “Confirm” you will officially commit to this CrowdAction.";
+    }
+  }
+
+  String sectionHeading() {
+    if (_commitments.length > 1) {
+      return "Your Commitments";
+    } else {
+      return "Your Commitment";
+    }
+  }
+
   void _participationSuccess(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -226,7 +243,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 height: 20,
               ),
               Text(
-                widget.crowdAction.title,
+                "Participate",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -237,7 +254,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 height: 28,
               ),
               Text(
-                "Success!",
+                "All set!",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.subtitle1?.copyWith(
                       fontWeight: FontWeight.bold,
@@ -257,15 +274,26 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 height: 20,
               ),
               PillButton(
-                text: "Got It",
+                text: "Got it",
                 onTap: () {
-                  // TODO - Pop
                   context.router.pop();
                 },
                 margin: EdgeInsets.zero,
               ),
               const SizedBox(height: 20),
-              //TODO - Add message to change commitments const Divider(),
+              // TODO - Add message to change commitments const Divider(),
+              // TODO - Change button: "Change" -> "Change commitment"
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                constraints: const BoxConstraints(maxWidth: 250),
+                child: Text(
+                  "You can change your commitment until the CrowdAction starts",
+                  style: Theme.of(context).textTheme.caption?.copyWith(
+                        color: kPrimaryColor200,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+              )
               // const SizedBox(
               //   height: 15,
               // ),

@@ -1,5 +1,6 @@
-import 'package:collaction_app/domain/profile/profile.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../domain/profile/profile.dart';
 
 part 'profile_dto.freezed.dart';
 part 'profile_dto.g.dart';
