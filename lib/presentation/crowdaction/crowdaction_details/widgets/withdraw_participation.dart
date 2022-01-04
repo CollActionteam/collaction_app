@@ -123,11 +123,15 @@ class WithdrawParticipation extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Text(
-                    crowdAction.description,
-                    style: Theme.of(context).textTheme.caption?.copyWith(
-                          color: kPrimaryColor400,
-                        ),
+                  Container(
+                    constraints: const BoxConstraints(maxHeight: 80),
+                    child: Text(
+                      crowdAction.description,
+                      overflow: TextOverflow.fade,
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                            color: kPrimaryColor400,
+                          ),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
