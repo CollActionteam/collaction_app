@@ -7,6 +7,7 @@ import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
+import '../utils/mvp.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,15 +20,35 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    showOnboarding();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      checkAndMaybeShowCaptivePage(context.router).then((wasCaptivePageShown) {
+        if (!wasCaptivePageShown) {
+          checkAndMaybeShowOnboarding();
+        }
+      });
+    });
   }
 
-  Future<void> showOnboarding() async {
+  @override
+  Widget build(BuildContext context) {
+    return AutoTabsScaffold(
+      routes: const [
+        CrowdactionRouter(),
+        UserProfileRouter(),
+        if (!kReleaseMode) ...[
+          DemoScreenRouter(),
+        ],
+      ],
+      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
+    );
+  }
+
+  Future<void> checkAndMaybeShowOnboarding() async {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
     if (!(await settingsRepository.getWasUserOnboarded())) {
       await settingsRepository.setWasUserOnboarded(wasOnboarded: true);
-      context.router.push(const AuthRoute());
+      context.router.push(const OnboardingRoute());
     }
   }
 
@@ -48,27 +69,17 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(CollactionIcons.user),
           label: '',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.assignment_outlined,
+        if (!kReleaseMode) ...[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assignment_outlined,
+            ),
+            label: '',
           ),
-          label: '',
-        )
+        ],
       ],
       currentIndex: tabsRouter.activeIndex,
       onTap: tabsRouter.setActiveIndex,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AutoTabsScaffold(
-      routes: const [
-        CrowdactionRouter(),
-        UserProfileRouter(),
-        DemoScreenRouter(),
-      ],
-      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
     );
   }
 }

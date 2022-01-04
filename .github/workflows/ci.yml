@@ -12,12 +12,12 @@ name: CI
 
 on:
   push:
-    branches: [development]
+    branches: [master, development]
   pull_request:
     types: [opened, synchronize]
     
 env:
-  flutter_version: '2.5.x'
+  flutter_version: '2.8.x'
   flutter_channel: 'stable'
   java_version: '12.x'
 

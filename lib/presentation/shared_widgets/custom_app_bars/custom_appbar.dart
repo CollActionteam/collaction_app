@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: kSecondaryColor,
+      backgroundColor: Colors.transparent,
       elevation: 0.0,
       centerTitle: true,
       leading: !closable
@@ -32,7 +32,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   backgroundColor: MaterialStateProperty.all(kSecondaryColor),
                   elevation: MaterialStateProperty.all<double>(4.0),
                   padding: MaterialStateProperty.all<EdgeInsets>(
-                      const EdgeInsets.all(8.0)),
+                    const EdgeInsets.all(8.0),
+                  ),
                 ),
                 child: const Icon(
                   CollactionIcons.left,
@@ -43,12 +44,38 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           : null,
       actions: [
         if (closable)
-          GestureDetector(
-            onTap: () => context.router.pop(),
-            child: const Icon(CollactionIcons.cross),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () => context.router.pop(),
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                primary: Colors.white,
+                onPrimary: kPrimaryColor0,
+                tapTargetSize: MaterialTapTargetSize.padded,
+              ).merge(
+                ButtonStyle(
+                  elevation: MaterialStateProperty.resolveWith<double?>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return 5;
+                      }
+                      return 4;
+                    },
+                  ),
+                ),
+              ),
+              child: const Icon(
+                CollactionIcons.cross,
+                color: kPrimaryColor300,
+              ),
+            ),
           ),
       ],
-      title: Text(title, style: const TextStyle(color: kPrimaryColor)),
+      title: Text(
+        title,
+        style: const TextStyle(color: kPrimaryColor),
+      ),
     );
   }
 

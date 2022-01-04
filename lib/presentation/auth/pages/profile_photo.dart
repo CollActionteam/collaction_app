@@ -124,9 +124,10 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                     child: const Text(
                       'Maybe later',
                       style: TextStyle(
-                          color: kAccentColor,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14.0),
+                        color: kAccentColor,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14.0,
+                      ),
                     ),
                   ),
                 ),

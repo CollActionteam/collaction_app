@@ -1,5 +1,4 @@
-import 'dart:async';
-
+/// TODO: Remove all old code related to GraphQL!!!
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,31 +18,36 @@ class CrowdActionGetterBloc
   final ICrowdActionRepository _crowdActionRepository;
 
   CrowdActionGetterBloc(this._crowdActionRepository)
-      : super(const CrowdActionGetterState.initial());
+      : super(const CrowdActionGetterState.initial()) {
+    on<CrowdActionGetterEvent>(
+      (event, emit) async {
+        await event.map(
+          getMore: (event) async {
+            emit(const CrowdActionGetterState.fetchingCrowdActions());
+            try {
+              Either<CrowdActionFailure, List<CrowdAction>> response;
+              if (event.amount != null && event.amount! > 0) {
+                response = await _crowdActionRepository.getCrowdActions(
+                  amount: event.amount!,
+                );
+              } else {
+                response = await _crowdActionRepository.getCrowdActions();
+              }
 
-  @override
-  Stream<CrowdActionGetterState> mapEventToState(
-    CrowdActionGetterEvent event,
-  ) async* {
-    yield* event.map(
-      getMore: (event) async* {
-        yield const CrowdActionGetterState.fetchingCrowdActions();
-        try {
-          Either<CrowdActionFailure, List<CrowdAction>> response;
-          if (event.amount != null && event.amount! > 0) {
-            response = await _crowdActionRepository.getCrowdActions(
-                amount: event.amount!);
-          } else {
-            response = await _crowdActionRepository.getCrowdActions();
-          }
-
-          yield response.fold(
-              (failure) => const CrowdActionGetterState.noCrowdActions(),
-              (crowdActions) => CrowdActionGetterState.fetched(crowdActions));
-        } catch (e) {
-          yield const CrowdActionGetterState
-              .noCrowdActions(); // TODO: Consider implementing error state
-        }
+              emit(
+                response.fold(
+                  (failure) => const CrowdActionGetterState.noCrowdActions(),
+                  (crowdActions) =>
+                      CrowdActionGetterState.fetched(crowdActions),
+                ),
+              );
+            } catch (e) {
+              emit(
+                const CrowdActionGetterState.noCrowdActions(),
+              ); // TODO: Consider implementing error state
+            }
+          },
+        );
       },
     );
   }

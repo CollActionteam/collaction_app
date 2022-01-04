@@ -20,27 +20,32 @@ class SubscriptionStatusBloc
   final ICrowdActionRepository _crowdActionRepository;
 
   SubscriptionStatusBloc(this._crowdActionRepository)
-      : super(const SubscriptionStatusState.initial());
-
-  @override
-  Stream<SubscriptionStatusState> mapEventToState(
-      SubscriptionStatusEvent event) async* {
-    yield* event.map(
-      checkParticipationStatus: _mapCheckParticipationStatusToState,
+      : super(const SubscriptionStatusState.initial()) {
+    on<SubscriptionStatusEvent>(
+      (event, emit) {
+        event.map(
+          checkParticipationStatus: (event) =>
+              _mapCheckParticipationStatusToState(emit, event),
+        );
+      },
     );
   }
 
   Stream<SubscriptionStatusState> _mapCheckParticipationStatusToState(
-      _CheckParticipationStatus value) async* {
-    yield const SubscriptionStatusState.checkingSubscriptionStatus();
+    Emitter<SubscriptionStatusState> emit,
+    _CheckParticipationStatus value,
+  ) async* {
+    emit(const SubscriptionStatusState.checkingSubscriptionStatus());
 
     final subscriptionStatus = await _crowdActionRepository
         .checkCrowdActionSubscriptionStatus(value.action);
 
-    yield subscriptionStatus.fold(
-      (failure) =>
-          const SubscriptionStatusState.checkingSubscriptionStatusFailed(),
-      (status) => SubscriptionStatusState.subscriptionStatus(status),
+    emit(
+      subscriptionStatus.fold(
+        (failure) =>
+            const SubscriptionStatusState.checkingSubscriptionStatusFailed(),
+        (status) => SubscriptionStatusState.subscriptionStatus(status),
+      ),
     );
   }
 }

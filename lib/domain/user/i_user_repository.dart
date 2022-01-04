@@ -16,12 +16,16 @@ class Credential extends Equatable {
   @override
   List<Object?> get props => [verificationId, smsCode, forceResendToken];
 
-  Credential copyWith(
-      {String? verificationId, String? smsCode, int? forceResendToken}) {
+  Credential copyWith({
+    String? verificationId,
+    String? smsCode,
+    int? forceResendToken,
+  }) {
     return Credential(
-        verificationId: verificationId ?? this.verificationId,
-        smsCode: smsCode ?? this.smsCode,
-        forceResendToken: forceResendToken ?? this.forceResendToken);
+      verificationId: verificationId ?? this.verificationId,
+      smsCode: smsCode ?? this.smsCode,
+      forceResendToken: forceResendToken ?? this.forceResendToken,
+    );
   }
 }
 

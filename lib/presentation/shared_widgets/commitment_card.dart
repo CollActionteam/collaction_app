@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/crowdaction/commitment.dart';
+import '../../domain/commitment/commitment.dart';
 import '../../presentation/themes/constants.dart';
 import '../core/collaction_icons.dart';
 
@@ -28,10 +28,12 @@ class CommitmentCardList extends StatelessWidget {
   Widget build(BuildContext context) {
     // Build Commitment cards from the provided list of commitments
     final List<CommitmentCard> cards = commitments
-        .map((commitment) => CommitmentCard(
-              commitment: commitment,
-              onSelected: onSelected,
-            ))
+        .map(
+          (commitment) => CommitmentCard(
+            commitment: commitment,
+            onSelected: onSelected,
+          ),
+        )
         .toList();
 
     // Show horizontally or vertically
@@ -99,22 +101,23 @@ class _CommitmentCardState extends State<CommitmentCard> {
         child: Row(
           children: [
             Container(
-                padding: const EdgeInsets.all(15.0),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kAlmostTransparent,
-                ),
-                alignment: Alignment.center,
-                child: widget.commitment.icon != null
-                    ? Image.network(
-                        widget.commitment.icon!,
-                        height: 30,
-                      )
-                    : const Icon(
-                        CollactionIcons.collaction,
-                        color: kAccentColor,
-                        size: 30,
-                      )),
+              padding: const EdgeInsets.all(15.0),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: kAlmostTransparent,
+              ),
+              alignment: Alignment.center,
+              child: widget.commitment.icon != null
+                  ? Image.network(
+                      widget.commitment.icon!,
+                      height: 30,
+                    )
+                  : const Icon(
+                      CollactionIcons.collaction,
+                      color: kAccentColor,
+                      size: 30,
+                    ),
+            ),
             const Spacer(),
             Container(
               width: MediaQuery.of(context).size.width * 0.5,

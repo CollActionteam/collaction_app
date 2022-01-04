@@ -2,6 +2,9 @@ include: package:lint/analysis_options.yaml
 
 analyzer:
   errors:
+    always_use_package_imports: ignore
+    avoid_dynamic_calls: ignore
+    invalid_annotation_target: ignore
     missing_return: error
     missing_required_param: error
     must_be_immutable: error
@@ -17,3 +20,4 @@ analyzer:
     - "**/injection.config.dart"
     # Other generated files
     - "lib/generated_plugin_registrant.dart"
+    - "**/*.gr.dart"

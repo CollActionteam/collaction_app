@@ -14,19 +14,19 @@ class ScrollableAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double minElevation;
   final double maxElevation;
 
-  const ScrollableAppBar(
-      {Key? key,
-      this.title = '',
-      this.centerTitle = true,
-      this.backgroundColor = kSecondaryColor,
-      this.titleTextStyle,
-      this.leading,
-      this.actions,
-      this.elevation,
-      this.minElevation = 0.0,
-      this.maxElevation = 2.0,
-      required this.pageScrollController})
-      : super(key: key);
+  const ScrollableAppBar({
+    Key? key,
+    this.title = '',
+    this.centerTitle = true,
+    this.backgroundColor = kSecondaryColor,
+    this.titleTextStyle,
+    this.leading,
+    this.actions,
+    this.elevation,
+    this.minElevation = 0.0,
+    this.maxElevation = 2.0,
+    required this.pageScrollController,
+  }) : super(key: key);
 
   @override
   ScrollableAppBarState createState() => ScrollableAppBarState();

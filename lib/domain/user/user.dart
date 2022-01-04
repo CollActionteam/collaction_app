@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 part 'user.freezed.dart';
 
@@ -9,22 +10,27 @@ class User with _$User {
   static Future<String?> _getAnonymousIdToken([bool forceRefresh = false]) =>
       Future.value(null);
   static const User anonymous = User(
-      id: 'anonymous',
-      displayName: 'anonymous',
-      getIdToken: _getAnonymousIdToken);
+    id: 'anonymous',
+    displayName: 'anonymous',
+    getIdToken: _getAnonymousIdToken,
+  );
 
   bool get isAnonymous => this == anonymous;
 
-  // TODO: should the user really have any fields beyond id token?
-  // ...since the profile will most likely be provided by an external microservice
+  /// TODO: Refactor after MVP to only neccessary fields (use profile microservice for details)
   const factory User({
     required String id,
     required Future<String?> Function([bool forceRefresh]) getIdToken,
+    DateTime? joinDate,
     String? displayName,
     String? photoURL,
     String? email,
-    @Default(false) bool isEmailVerified,
     String? phoneNumber,
+    @Default(false) bool isEmailVerified,
     @Default(false) bool isPhoneNumberVerified,
   }) = _User;
+
+  String get formattedJoinDate {
+    return DateFormat('MMMM yyyy').format(joinDate!);
+  }
 }

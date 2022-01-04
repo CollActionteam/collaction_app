@@ -46,22 +46,26 @@ class UserRepository implements IUserRepository, Disposable {
   Stream<Credential> registerPhoneNumber(String phoneNumber) {
     final result = BehaviorSubject<Credential>();
     _firebaseAuth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        verificationCompleted: (credential) {
-          result.add(Credential(
-              verificationId: credential.verificationId ??
-                  result.valueOrNull?.verificationId,
-              smsCode: credential.smsCode));
-          result.close();
-        },
-        verificationFailed: (firebase_auth.FirebaseAuthException error) {
-          result.addError(AuthException(message: error.message));
-          result.close();
-        },
-        codeSent: (verificationId, resendToken) {
-          result.add(Credential(verificationId: verificationId));
-        },
-        codeAutoRetrievalTimeout: (_) => result.close());
+      phoneNumber: phoneNumber,
+      verificationCompleted: (credential) {
+        result.add(
+          Credential(
+            verificationId:
+                credential.verificationId ?? result.valueOrNull?.verificationId,
+            smsCode: credential.smsCode,
+          ),
+        );
+        result.close();
+      },
+      verificationFailed: (firebase_auth.FirebaseAuthException error) {
+        result.addError(AuthException(message: error.message));
+        result.close();
+      },
+      codeSent: (verificationId, resendToken) {
+        result.add(Credential(verificationId: verificationId));
+      },
+      codeAutoRetrievalTimeout: (_) => result.close(),
+    );
     return result.stream.distinct();
   }
 
@@ -70,14 +74,17 @@ class UserRepository implements IUserRepository, Disposable {
     assert(credential.verificationId != null);
     assert(credential.smsCode != null);
     final firebaseCredential = firebase_auth.PhoneAuthProvider.credential(
-        verificationId: credential.verificationId!,
-        smsCode: credential.smsCode!);
+      verificationId: credential.verificationId!,
+      smsCode: credential.smsCode!,
+    );
     final userCredential = await _firebaseAuth
         .signInWithCredential(firebaseCredential)
         .onError<firebase_auth.FirebaseAuthException>(
-            (error, stackTrace) => throw AuthException(message: error.message));
+          (error, stackTrace) => throw AuthException(message: error.message),
+        );
     return SignInResult(
-        isNewUser: userCredential.additionalUserInfo?.isNewUser ?? false);
+      isNewUser: userCredential.additionalUserInfo?.isNewUser ?? false,
+    );
   }
 
   @override

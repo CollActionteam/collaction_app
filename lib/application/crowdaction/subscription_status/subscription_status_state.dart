@@ -9,7 +9,8 @@ class SubscriptionStatusState with _$SubscriptionStatusState {
       CheckingSubscriptionStatus;
 
   const factory SubscriptionStatusState.subscriptionStatus(
-      CrowdActionStatus status) = SubscriptionStatus;
+    CrowdActionStatus status,
+  ) = SubscriptionStatus;
 
   const factory SubscriptionStatusState.checkingSubscriptionStatusFailed() =
       _CheckingSubscriptionStatusFailed;

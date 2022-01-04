@@ -36,8 +36,9 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   Future<void> signOut() => firebaseAuth.signOut();
 
   @override
-  Stream<Either<AuthFailure, AuthSuccess>> verifyPhone(
-      {required String phoneNumber}) {
+  Stream<Either<AuthFailure, AuthSuccess>> verifyPhone({
+    required String phoneNumber,
+  }) {
     final result = StreamController<Either<AuthFailure, AuthSuccess>>();
 
     Credential credential = const Credential();
@@ -57,8 +58,13 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         result.close();
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-        result.add(right(AuthSuccess.codeRetrievalTimedOut(
-            credential: credential.copyWith(verificationId: verificationId))));
+        result.add(
+          right(
+            AuthSuccess.codeRetrievalTimedOut(
+              credential: credential.copyWith(verificationId: verificationId),
+            ),
+          ),
+        );
         result.close();
       },
       verificationCompleted:
@@ -69,7 +75,8 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         );
 
         result.add(
-            right(AuthSuccess.verificationCompleted(credential: credential)));
+          right(AuthSuccess.verificationCompleted(credential: credential)),
+        );
         result.close();
       },
     );
@@ -78,14 +85,17 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   }
 
   @override
-  Future<Either<AuthFailure, bool>> signInWithPhone(
-      {required Credential authCredentials}) async {
+  Future<Either<AuthFailure, bool>> signInWithPhone({
+    required Credential authCredentials,
+  }) async {
     try {
       final String verificationId = authCredentials.verificationId!;
       final String smsCode = authCredentials.smsCode!;
       // Create a PhoneAuthCredential with the code
       final credential = firebase_auth.PhoneAuthProvider.credential(
-          verificationId: verificationId, smsCode: smsCode);
+        verificationId: verificationId,
+        smsCode: smsCode,
+      );
 
       // Sign the user in (or link) with the credential
       final authResult = await firebaseAuth.signInWithCredential(credential);
@@ -100,8 +110,9 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> updateUsername(
-      {required String username}) async {
+  Future<Either<AuthFailure, Unit>> updateUsername({
+    required String username,
+  }) async {
     try {
       final user = firebaseAuth.currentUser!;
       await user.updateDisplayName(username);
@@ -131,8 +142,10 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   }
 
   @override
-  Stream<Either<AuthFailure, AuthSuccess>> resendOTP(
-      {required String phoneNumber, required Credential authCredentials}) {
+  Stream<Either<AuthFailure, AuthSuccess>> resendOTP({
+    required String phoneNumber,
+    required Credential authCredentials,
+  }) {
     final result = StreamController<Either<AuthFailure, AuthSuccess>>();
 
     Credential credential = const Credential();
@@ -156,7 +169,8 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         credential = credential.copyWith(verificationId: verificationId);
 
         result.add(
-            right(AuthSuccess.codeRetrievalTimedOut(credential: credential)));
+          right(AuthSuccess.codeRetrievalTimedOut(credential: credential)),
+        );
         result.close();
       },
       verificationCompleted:
@@ -167,7 +181,8 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         );
 
         result.add(
-            right(AuthSuccess.verificationCompleted(credential: credential)));
+          right(AuthSuccess.verificationCompleted(credential: credential)),
+        );
         result.close();
       },
     );

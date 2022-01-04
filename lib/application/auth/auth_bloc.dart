@@ -5,12 +5,12 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 
 import '../../domain/auth/auth_failures.dart';
 import '../../domain/auth/auth_success.dart';
 import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/user/i_user_repository.dart';
+import '../../domain/user/user.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
@@ -24,27 +24,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   StreamSubscription<Either<AuthFailure, AuthSuccess>>?
       _verifyStreamSubscription;
 
-  AuthBloc(this._authRepository) : super(const AuthState.initial());
-
-  @override
-  Stream<AuthState> mapEventToState(
-    AuthEvent event,
-  ) async* {
-    yield* event.map(
-      verifyPhone: _mapVerifyPhoneToState,
-      signInWithPhone: _mapSignInWithPhoneToState,
-      updateUsername: _mapUpdateUsernameToState,
-      updated: _mapUpdatedToState,
-      reset: _mapResetToState,
-      authCheckRequested: _mapAuthCheckRequestToState,
-      signedOut: _mapSignOutToState,
-      updateProfilePhoto: _mapUpdateProfilePhotoToState,
-      resendCode: _mapResendCodeToState,
+  AuthBloc(this._authRepository) : super(const AuthState.initial()) {
+    on<AuthEvent>(
+      (event, emit) async {
+        await event.map(
+          verifyPhone: (event) async =>
+              await _mapVerifyPhoneToState(emit, event),
+          signInWithPhone: (event) async =>
+              await _mapSignInWithPhoneToState(emit, event),
+          updateUsername: (event) async =>
+              await _mapUpdateUsernameToState(emit, event),
+          updated: (event) async => await _mapUpdatedToState(emit, event),
+          reset: (event) async => await _mapResetToState(emit, event),
+          authCheckRequested: (event) async =>
+              await _mapAuthCheckRequestToState(emit, event),
+          signedOut: (event) async => await _mapSignOutToState(emit, event),
+          updateProfilePhoto: (event) async =>
+              await _mapUpdateProfilePhotoToState(emit, event),
+          resendCode: (event) async => await _mapResendCodeToState(emit, event),
+        );
+      },
     );
   }
 
-  Stream<AuthState> _mapResendCodeToState(_ResendCode value) async* {
-    yield const AuthState.awaitingCodeResend();
+  FutureOr<void> _mapResendCodeToState(
+    Emitter<AuthState> emit,
+    _ResendCode event,
+  ) async {
+    emit(const AuthState.awaitingCodeResend());
 
     _verifyStreamSubscription = _authRepository
         .resendOTP(phoneNumber: _phone!, authCredentials: _credential!)
@@ -53,101 +60,133 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
   }
 
-  Stream<AuthState> _mapUpdateProfilePhotoToState(
-      _UpdateProfilePhoto value) async* {
-    yield const AuthState.awaitingPhotoUpdate();
+  FutureOr<void> _mapUpdateProfilePhotoToState(
+    Emitter<AuthState> emit,
+    _UpdateProfilePhoto event,
+  ) async {
+    emit(const AuthState.awaitingPhotoUpdate());
 
     final failureOrSuccess =
-        await _authRepository.updatePhoto(photo: value.photo);
+        await _authRepository.updatePhoto(photo: event.photo);
 
-    yield failureOrSuccess.fold(
-      (failure) => AuthState.authError(failure),
-      (_) => const AuthState.photoUpdateDone(),
+    emit(
+      failureOrSuccess.fold(
+        (failure) => AuthState.authError(failure),
+        (_) => const AuthState.photoUpdateDone(),
+      ),
     );
   }
 
-  Stream<AuthState> _mapSignOutToState(_SignedOut value) async* {
+  FutureOr<void> _mapSignOutToState(
+    Emitter<AuthState> emit,
+    _SignedOut event,
+  ) async {
     await _authRepository.signOut();
-    yield const AuthState.unAuthenticated();
+    emit(const AuthState.unAuthenticated());
   }
 
-  Stream<AuthState> _mapAuthCheckRequestToState(
-      _AuthCheckRequested value) async* {
+  FutureOr<void> _mapAuthCheckRequestToState(
+    Emitter<AuthState> emit,
+    _AuthCheckRequested event,
+  ) async {
     final userOption = await _authRepository.getSignedInUser();
 
-    yield userOption.fold(
-      () => const AuthState.unAuthenticated(),
-      (a) => const AuthState.authenticated(),
+    emit(
+      userOption.fold(
+        () => const AuthState.unAuthenticated(),
+        (user) => AuthState.authenticated(user),
+      ),
     );
   }
 
   /// Reset auth state
-  Stream<AuthState> _mapResetToState(value) async* {
+  FutureOr<void> _mapResetToState(
+    Emitter<AuthState> emit,
+    event,
+  ) async {
     _verifyStreamSubscription?.cancel();
     _credential = null;
-    yield const _Initial();
+    emit(const _Initial());
   }
 
   /// Handle auth updating state [_Updated]
-  Stream<AuthState> _mapUpdatedToState(_Updated value) async* {
-    yield value.failureOrCredential.fold(
-      (failure) => AuthState.authError(failure),
-      (r) {
-        return r.map(
-          codeSent: (e) {
-            _credential = e.credential;
-            return const AuthState.smsCodeSent();
-          },
-          codeRetrievalTimedOut: (e) {
-            _credential = e.credential;
-            return const AuthState.codeRetrievalTimedOut();
-          },
-          verificationCompleted: (e) {
-            _credential = e.credential;
-            return AuthState.verificationCompleted(_credential?.smsCode ?? '');
-          },
-        );
-      },
+  FutureOr<void> _mapUpdatedToState(
+    Emitter<AuthState> emit,
+    _Updated event,
+  ) async {
+    emit(
+      event.failureOrCredential.fold(
+        (failure) => AuthState.authError(failure),
+        (r) {
+          return r.map(
+            codeSent: (event) {
+              _credential = event.credential;
+              return const AuthState.smsCodeSent();
+            },
+            codeRetrievalTimedOut: (event) {
+              _credential = event.credential;
+              return const AuthState.codeRetrievalTimedOut();
+            },
+            verificationCompleted: (event) {
+              _credential = event.credential;
+              return AuthState.verificationCompleted(
+                _credential?.smsCode ?? '',
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
   /// Update username in user profile [_UpdateUsername]
-  Stream<AuthState> _mapUpdateUsernameToState(_UpdateUsername e) async* {
-    yield const AuthState.awaitingUsernameUpdate();
+  FutureOr<void> _mapUpdateUsernameToState(
+    Emitter<AuthState> emit,
+    _UpdateUsername event,
+  ) async {
+    emit(const AuthState.awaitingUsernameUpdate());
 
     final failureOrSuccess =
-        await _authRepository.updateUsername(username: e.username);
+        await _authRepository.updateUsername(username: event.username);
 
-    yield failureOrSuccess.fold(
-      (failure) => AuthState.authError(failure),
-      (_) => const AuthState.usernameUpdateDone(),
+    emit(
+      failureOrSuccess.fold(
+        (failure) => AuthState.authError(failure),
+        (_) => const AuthState.usernameUpdateDone(),
+      ),
     );
   }
 
   /// Submit phone for validation [_SignInWithPhone]
-  Stream<AuthState> _mapSignInWithPhoneToState(_SignInWithPhone e) async* {
-    yield const AuthState.signingInUser();
+  FutureOr<void> _mapSignInWithPhoneToState(
+    Emitter<AuthState> emit,
+    _SignInWithPhone event,
+  ) async {
+    emit(const AuthState.signingInUser());
 
     if (_credential == null) {
-      yield const AuthState.authError(AuthFailure.verificationFailed());
+      emit(const AuthState.authError(AuthFailure.verificationFailed()));
     } else {
       final authSuccessOrFailure = await _authRepository.signInWithPhone(
-        authCredentials: _credential!.copyWith(smsCode: e.smsCode),
+        authCredentials: _credential!.copyWith(smsCode: event.smsCode),
       );
 
-      yield authSuccessOrFailure.fold(
-        (failure) => AuthState.authError(failure),
-        (success) => AuthState.loggedIn(isNewUser: success),
+      authSuccessOrFailure.fold(
+        (failure) => emit(AuthState.authError(failure)),
+        (success) => emit(AuthState.loggedIn(isNewUser: success)),
       );
     }
   }
 
   /// Submit SMS code for validation completion [_VerifyPhone]
-  Stream<AuthState> _mapVerifyPhoneToState(_VerifyPhone e) async* {
-    yield const AuthState.awaitingVerification();
+  FutureOr<void> _mapVerifyPhoneToState(
+    Emitter<AuthState> emit,
+    _VerifyPhone event,
+  ) async {
+    emit(const AuthState.awaitingVerification());
 
     _verifyStreamSubscription =
-        _authRepository.verifyPhone(phoneNumber: e.phoneNumber).listen(
+        _authRepository.verifyPhone(phoneNumber: event.phoneNumber).listen(
               (failureOrCredential) =>
                   add(AuthEvent.updated(failureOrCredential)),
             );
