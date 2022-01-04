@@ -158,35 +158,35 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                 ),
               ),
               const SizedBox(
-                      height: 20,
-                    ),
-                    PillButton(
-                      text: "Confirm Participation",
-                      isLoading: state is SubscribingToCrowdAction,
-                      isEnabled: _commitments.isNotEmpty,
-                      onTap: () {
-                        // TODO - Confirm Participation
-                        context.read<SubscriptionBloc>().add(
-                              SubscriptionEvent.participate(
-                                widget.crowdAction,
-                                _commitments,
-                                "",
-                              ),
-                            );
-                      },
-                      margin: EdgeInsets.zero,
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 52,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text("Cancel"),
-                      ),
-                    ),
+                height: 20,
+              ),
+              PillButton(
+                text: "Confirm Participation",
+                isLoading: state is SubscribingToCrowdAction,
+                isEnabled: _commitments.isNotEmpty,
+                onTap: () {
+                  // TODO - Confirm Participation
+                  context.read<SubscriptionBloc>().add(
+                        SubscriptionEvent.participate(
+                          widget.crowdAction,
+                          _commitments,
+                          "",
+                        ),
+                      );
+                },
+                margin: EdgeInsets.zero,
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Cancel"),
+                ),
+              ),
               const SizedBox(
                 height: 15,
               ),
