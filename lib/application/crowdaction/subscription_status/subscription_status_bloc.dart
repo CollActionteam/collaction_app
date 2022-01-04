@@ -22,8 +22,8 @@ class SubscriptionStatusBloc
   SubscriptionStatusBloc(this._crowdActionRepository)
       : super(const SubscriptionStatusState.initial()) {
     on<SubscriptionStatusEvent>(
-      (event, emit) {
-        event.map(
+      (event, emit) async {
+        await event.map(
           checkParticipationStatus: (event) =>
               _mapCheckParticipationStatusToState(emit, event),
         );
@@ -31,10 +31,10 @@ class SubscriptionStatusBloc
     );
   }
 
-  Stream<SubscriptionStatusState> _mapCheckParticipationStatusToState(
+  FutureOr<void> _mapCheckParticipationStatusToState(
     Emitter<SubscriptionStatusState> emit,
     _CheckParticipationStatus value,
-  ) async* {
+  ) async {
     emit(const SubscriptionStatusState.checkingSubscriptionStatus());
 
     final subscriptionStatus = await _crowdActionRepository
