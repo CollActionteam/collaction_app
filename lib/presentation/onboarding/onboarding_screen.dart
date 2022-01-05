@@ -1,10 +1,10 @@
 // TODO: Route to this screen if first time user
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/domain/core/i_settings_repository.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/core/i_settings_repository.dart';
+import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../themes/constants.dart';
 
