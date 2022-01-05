@@ -1,11 +1,14 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/application/user/profile/profile_bloc.dart';
+import 'package:collaction_app/infrastructure/core/injection.dart';
+import 'package:collaction_app/presentation/settings/widgets/share_collaction_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../core/collaction_icons.dart';
+import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 
@@ -18,6 +21,57 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ossLicenses = ListTile(
+      // TODO change to "Open source libraries" and use https://pub.dev/packages/flutter_oss_licenses
+      onTap: () => launch('https://github.com/CollActionteam/collaction_app'),
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 15,
+        horizontal: 20,
+      ),
+      tileColor: kAlmostTransparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      leading: const CircleAvatar(
+        radius: 32.5,
+        backgroundColor: kSecondaryColor,
+        child: Icon(
+          CollactionIcons.opensource,
+          color: kPrimaryColor300,
+        ),
+      ),
+      title: const Text(
+        'Open source',
+      ),
+      trailing: const Icon(CollactionIcons.arrow_right),
+    );
+
+    final logoutButton = ListTile(
+      onTap: () async {
+        BlocProvider.of<AuthBloc>(context).add(const AuthEvent.signedOut());
+        await context.router.pop();
+      },
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 15,
+        horizontal: 20,
+      ),
+      tileColor: kAlmostTransparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      leading: const CircleAvatar(
+        radius: 32.5,
+        backgroundColor: kSecondaryColor,
+        child: Icon(
+          CollactionIcons.share,
+          color: kErrorColor,
+        ),
+      ),
+      title: const Text(
+        'Log out',
+      ),
+    );
+
     return Scaffold(
       appBar: CustomAppBar(context, closable: true),
       body: Column(
@@ -57,38 +111,11 @@ class SettingsPage extends StatelessWidget {
                     // const SizedBox(height: 20),
                     Column(
                       children: [
-                        ListTile(
-                          onTap: () => Share.share(
-                            shareText,
-                            subject: shareEmailSubject,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.share,
-                              color: kPrimaryColor300,
-                            ),
-                          ),
-                          title: const Text(
-                            'Share CollAction',
-                          ),
-                          trailing: const Icon(CollactionIcons.arrow_right),
-                        ),
+                        const ShareCollactionListTile(),
                         const SizedBox(height: 15),
                         ListTile(
-                          onTap: () => Share.share(
-                            shareText,
-                            subject: shareEmailSubject,
-                          ),
+                          onTap: () =>
+                              context.router.push(const ContactFormRoute()),
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: 20,
@@ -161,57 +188,19 @@ class SettingsPage extends StatelessWidget {
                           trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
-                        ListTile(
-                          onTap: () => launch(''), // TODO: Link?
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.opensource,
-                              color: kPrimaryColor300,
-                            ),
-                          ),
-                          title: const Text(
-                            'Open source libraries',
-                          ),
-                          trailing: const Icon(CollactionIcons.arrow_right),
-                        ),
-                        const SizedBox(height: 15),
-                        ListTile(
-                          onTap: () async {
-                            // TODO: Fix Profile Page not updating + pop settings page
-                            BlocProvider.of<AuthBloc>(context)
-                                .add(const AuthEvent.signedOut());
-                            await context.router.pop();
-                          },
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.share,
-                              color: kErrorColor,
-                            ),
-                          ),
-                          title: const Text(
-                            'Log out',
-                          ),
-                        ),
+                        ossLicenses,
+                        BlocBuilder(
+                          bloc: getIt<ProfileBloc>()..add(GetUserProfile()),
+                          builder: (context, ProfileState state) =>
+                              state.userProfile == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        logoutButton,
+                                      ],
+                                    ),
+                        )
                       ],
                     ),
                   ],

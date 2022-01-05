@@ -45,7 +45,6 @@ import '../settings/settings_screen.dart';
           page: EmptyRouterPage,
           children: [
             AutoRoute(path: '', page: DemoPage),
-            AutoRoute(path: 'contact-form', page: ContactFormPage),
             AutoRoute(path: 'components-demo', page: ComponentsDemoPage),
             AutoRoute(path: 'onboarding', page: OnboardingPage),
             AutoRoute(path: 'verified', page: VerifiedPage),
@@ -59,6 +58,7 @@ import '../settings/settings_screen.dart';
     AutoRoute(path: 'verified', page: VerifiedPage),
     AutoRoute(path: 'settings-page', page: SettingsPage),
     AutoRoute(path: 'settings-layout', page: SettingsLayout),
+    AutoRoute(path: 'contact-form', page: ContactFormPage),
   ],
 )
 class $AppRouter {}
