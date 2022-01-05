@@ -43,7 +43,7 @@ class SettingsPage extends StatelessWidget {
       title: const Text(
         'Open source',
       ),
-      trailing: const Icon(CollactionIcons.arrow_right),
+      trailing: const Icon(CollactionIcons.external_link),
     );
 
     final logoutButton = ListTile(
@@ -63,7 +63,7 @@ class SettingsPage extends StatelessWidget {
         radius: 32.5,
         backgroundColor: kSecondaryColor,
         child: Icon(
-          CollactionIcons.share,
+          CollactionIcons.logout,
           color: kErrorColor,
         ),
       ),
@@ -160,7 +160,7 @@ class SettingsPage extends StatelessWidget {
                           title: const Text(
                             'Terms of use',
                           ),
-                          trailing: const Icon(CollactionIcons.arrow_right),
+                          trailing: const Icon(CollactionIcons.external_link),
                         ),
                         const SizedBox(height: 15),
                         ListTile(
@@ -185,7 +185,7 @@ class SettingsPage extends StatelessWidget {
                           title: const Text(
                             'Privacy policy',
                           ),
-                          trailing: const Icon(CollactionIcons.arrow_right),
+                          trailing: const Icon(CollactionIcons.external_link),
                         ),
                         const SizedBox(height: 15),
                         ossLicenses,
