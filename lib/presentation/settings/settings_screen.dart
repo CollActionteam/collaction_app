@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/user/profile/profile_bloc.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
+import 'package:collaction_app/presentation/settings/widgets/share_collaction_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../application/auth/auth_bloc.dart';
@@ -112,35 +112,11 @@ class SettingsPage extends StatelessWidget {
                     // const SizedBox(height: 20),
                     Column(
                       children: [
-                        ListTile(
-                          onTap: () => Share.share(
-                            shareText,
-                            subject: shareEmailSubject,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.share,
-                              color: kPrimaryColor300,
-                            ),
-                          ),
-                          title: const Text(
-                            'Share CollAction',
-                          ),
-                          trailing: const Icon(CollactionIcons.arrow_right),
-                        ),
+                        const ShareCollactionListTile(),
                         const SizedBox(height: 15),
                         ListTile(
-                          onTap: () => context.router.push(const ContactFormRoute()),
+                          onTap: () =>
+                              context.router.push(const ContactFormRoute()),
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: 20,
