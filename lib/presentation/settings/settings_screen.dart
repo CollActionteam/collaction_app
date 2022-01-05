@@ -48,7 +48,6 @@ class SettingsPage extends StatelessWidget {
 
     final logoutButton = ListTile(
       onTap: () async {
-        // TODO: Fix Profile Page not updating + pop settings page
         BlocProvider.of<AuthBloc>(context).add(const AuthEvent.signedOut());
         await context.router.pop();
       },
