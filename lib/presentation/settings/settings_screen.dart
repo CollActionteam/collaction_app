@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../core/collaction_icons.dart';
+import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 
@@ -139,10 +140,7 @@ class SettingsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         ListTile(
-                          onTap: () => Share.share(
-                            shareText,
-                            subject: shareEmailSubject,
-                          ),
+                          onTap: () => context.router.push(const ContactFormRoute()),
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: 20,
