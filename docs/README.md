@@ -55,14 +55,14 @@ Authentication > Sign-in method > Sign in providers > Phone > Phone numbers for 
 To update the icons font with a new svg, go to [FlutterIcons](https://www.fluttericon.com/)
 
 - Appended to the `Download` button is a settings button, tap that and choose `Import`.
-- Browse to your project folder and choose the [config.json](assets/fonts/icons/config.json) file
+- Browse to your project folder and choose the [config.json](../assets/fonts/icons/config.json) file
   that contains the font configuration. That should restore the existing font.
 - Drag your svg to the `Custom Icons` section then select it.
 - Switch to the names tab right next to the icons tab.
 - Give your icon an appropriate name then `Download`
-- Replace the corresponding [config.json](assets/fonts/icons/config.json)
-  ,[collaction.ttf](assets/fonts/icons/collaction.ttf)
-  and [collaction_icons.dart](lib/presentation/core/collaction_icons.dart) files in the project.
+- Replace the corresponding [config.json](../assets/fonts/icons/config.json)
+  ,[collaction.ttf](../assets/fonts/icons/collaction.ttf)
+  and [collaction_icons.dart](../lib/presentation/core/collaction_icons.dart) files in the project.
 - Use your new icon
 
 > Note: If the icon preview in [FlutterIcons](https://www.fluttericon.com/) is not how you expect the icon to look, reach out to the design team to help flatten the svg.
