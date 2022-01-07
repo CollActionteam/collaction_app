@@ -12,10 +12,6 @@ import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 import 'widgets/share_collaction_list_tile.dart';
 
-const shareText =
-    "Check out CollAction at https://play.google.com/store/apps/details?id=org.collaction.collaction_app for Android and https://apps.apple.com/app/id1597643827 for iOS. Let's solve all collective action problems in the world.";
-const shareEmailSubject = "Join me on CollAction";
-
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
