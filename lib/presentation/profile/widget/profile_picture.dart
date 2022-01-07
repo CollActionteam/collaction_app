@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePicture extends StatelessWidget {
@@ -25,7 +24,7 @@ class ProfilePicture extends StatelessWidget {
       // ignore: unnecessary_cast
       imageProvider = FileImage(_image!) as ImageProvider<Object>;
     } else if (_userId != null) {
-      imageProvider = CachedNetworkImageProvider(
+      imageProvider = NetworkImage(
         'https://static-dev.collaction.org/profile-pictures/$_userId.png',
       );
     }

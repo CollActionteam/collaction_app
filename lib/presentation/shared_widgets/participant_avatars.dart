@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
@@ -35,7 +34,7 @@ class ParticipantAvatars extends StatelessWidget {
             ? CircleAvatar(
                 radius: 18,
                 backgroundColor: Colors.grey[300],
-                backgroundImage: CachedNetworkImageProvider(
+                backgroundImage: NetworkImage(
                   participant.imageUrl!,
                 ), // Provide your custom image
               )
