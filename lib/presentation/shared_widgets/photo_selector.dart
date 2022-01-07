@@ -79,8 +79,10 @@ class _PhotoSelectorState extends State<PhotoSelector> {
                   children: [
                     FloatingActionButton(
                       onPressed: () async {
-                        final XFile? image =
-                            await _picker.pickImage(source: ImageSource.camera);
+                        final XFile? image = await _picker.pickImage(
+                          source: ImageSource.camera,
+                          preferredCameraDevice: CameraDevice.front,
+                        );
 
                         if (image != null) {
                           if (mounted) {

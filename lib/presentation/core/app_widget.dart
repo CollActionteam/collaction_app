@@ -52,7 +52,8 @@ class _AppWidgetState extends State<AppWidget> {
         color: Colors.white,
         title: 'CollAction',
         theme: lightTheme(context),
-        debugShowCheckedModeBanner: false,
+        // Do NOT hide banner in debug mode to distinguish between release and non-release builds!
+        // debugShowCheckedModeBanner: false,
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
       ),
