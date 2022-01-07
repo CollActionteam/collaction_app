@@ -41,11 +41,11 @@ Phone authentication has to be enabled in the Firebase console.
 You can find phone numbers to use for testing in the Firebase Console by navigating to
 Authentication > Sign-in method > Sign in providers > Phone > Phone numbers for testing
 
-## Generation OpenSource Licenses
+## Generating OpenSource Licenses
 
 To generate the OpenSource licenses dart file via [flutter_oss_licenses](https://pub.dev/packages/flutter_oss_licenses), run the command `flutter pub run flutter_oss_licenses:generate.dart lib/presentation/licenses/oss_licenses.dart` from the project root.
 
->Note: You need to format the [oss_licenses.dart](../lib/presentation/licenses/oss_licenses.dart) for `flutter analyze` to work.
+>Note: Run `flutter format .` once  [oss_licenses.dart](../lib/presentation/licenses/oss_licenses.dart) is created.
 
 ## Getting Started with Flutter
 
