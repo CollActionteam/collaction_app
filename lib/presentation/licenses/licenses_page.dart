@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../core/collaction_icons.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../shared_widgets/no_ripple_behavior.dart';
 import '../themes/constants.dart';
@@ -12,6 +14,32 @@ class LicensesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        width: double.infinity,
+        height: 52,
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        child: ElevatedButton(
+          onPressed: () =>
+              launch('https://github.com/CollActionteam/collaction_app'),
+          style: ElevatedButton.styleFrom(
+            primary: kAccentColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(52),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Text("Want to contribute?"),
+              SizedBox(
+                width: 8,
+              ),
+              Icon(CollactionIcons.external_link)
+            ],
+          ),
+        ),
+      ),
       backgroundColor: kSecondaryColor,
       body: ScrollConfiguration(
         behavior: NoRippleBehavior(),
