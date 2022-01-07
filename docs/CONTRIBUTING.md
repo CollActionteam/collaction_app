@@ -1,11 +1,11 @@
 # Contributing to CollAction
-We welcome any and all contribution, no matter how small or how big. To make contributing easy we have setup this document, describing guidelines that will make your contribution smoother.
+We welcome any and all contribution. To make contributing easy we have setup this document, describing guidelines that will make your contribution smoother.
 
 - [Filing an issue](#filing-an-issue)
 - [Filing a feature request](#feature-request)
 - [Branches naming conventions](#branches)
-- [Commits and pull requests](#prs)
-- [Frequently asked questions](#faq)
+- [Commit conventions](#commits)
+- [Pull requests](#prs)
 
 # <a name="filing-an-issue"></a> Filing an issue or a bug
 We are super stoked if you are ready to file your first issue/bug report! If that is the case, please use the issue template or [click here to file a bug report](https://github.com/CollActionteam/collaction_app/issues/new?assignees=&labels=&template=bug_report.md&title=%5BBUG%5D%3A+Your+issue+title+here).
@@ -38,7 +38,7 @@ These three parts are separated by a slash (`/`), and concatenating the parts ex
 `feat/can-104/profile-avatar`, `chore/gh-97/update-readme`, etc.
 
 Don't use underscore (`_`) in branch naming, and don't use uppercase letters.
-# <a name="prs"></a> Commits and pull requests
+# <a name="commits"></a> Commit conventions
 To ensure our commit history stays clean, and can more easily be used for tracking, we follow some simple conventions that go hand in hand with our [branches naming conventions](#branches).
 
 The format for the commit title is:
@@ -71,8 +71,15 @@ The footer is used for referencing Github issues, and if the commit is related t
 
 References to issues with Github are made by prefixing the issue number with `#`.
 
-Often used examples: `Relates: #100`, `Closes: #97 Relates: #103`
+Often used examples: `Relates: #100`, `Closes: #97 Relates: #103`.
 
 If the commit relates to multiple issues, you can repeat the keyword for any amount of times necessary: `Relates: #60 Relates: #69`.
-# <a name="faq"></a> Frequently asked questions
-TBD
+# <a name="prs"></a> Pull requests
+When your feature is ready to be merged, you can open a pull request to `development`, please do note, we never allow pull requests directly to `master`.
+
+Use your commit title for the PR title as well, if you have multiple small commits on your branch, squash them all into one commit and make sure it follows [our commit conventions](#commits).
+
+Remember to reference any github issues that might be related to your PR, in the PR message!
+
+One rule for when you are done opening your PR:
+- Don't tag everyone to review/approve your PR, we keep an eye open on PRs daily, and we might have other priorities. We will get to your PR when time is right.
