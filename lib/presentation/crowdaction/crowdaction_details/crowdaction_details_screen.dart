@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../application/crowdaction/subscription_status/subscription_status_bloc.dart';
 import '../../../../domain/auth/i_auth_repository.dart';
@@ -106,8 +108,11 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  widget.crowdAction.images.banner,
+                background: CachedNetworkImage(
+                  imageUrl: widget.crowdAction.images.banner,
+                  placeholder: (context, url) => _imagePlaceholder(context),
+                  errorWidget: (context, url, error) =>
+                      _imagePlaceholder(context),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -168,45 +173,6 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                         height: 20,
                       ),
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     context.router
-                    //         .push(const CrowdActionParticipantsRoute());
-                    //   },
-                    //   child: SizedBox(
-                    //     height: 40,
-                    //     child: Row(
-                    //       children: [
-                    //         // TODO - Add participants to crowdaction
-                    //         SizedBox(
-                    //           width: widget.crowdAction.avatarWidth(),
-                    //           child: ParticipantAvatars(
-                    //             participants:
-                    //                 widget.crowdAction.topParticipants,
-                    //           ),
-                    //         ),
-                    //         const SizedBox(
-                    //           width: 20,
-                    //         ),
-                    //         Expanded(
-                    //           child: Text(
-                    //             "Join ${widget.crowdAction.topParticipants.title(widget.crowdAction.participantCount)}",
-                    //             style: Theme.of(context)
-                    //                 .textTheme
-                    //                 .caption
-                    //                 ?.copyWith(
-                    //                   fontSize: 12,
-                    //                   color: kPrimaryColor300,
-                    //                 ),
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
                     Text(
                       widget.crowdAction.description,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
@@ -275,6 +241,18 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Shimmer _imagePlaceholder(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: kSecondaryTransparent,
+      highlightColor: kAlmostTransparent,
+      child: Container(
+        height: 310,
+        color: kSecondaryTransparent,
+        width: MediaQuery.of(context).size.width,
       ),
     );
   }

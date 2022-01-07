@@ -23,6 +23,7 @@ environment:
 dependencies:
   auto_route: ^3.2.0
   bloc: ^8.0.1
+  cached_network_image: ^3.2.0
   country_codes: ^2.1.1
   country_icons: ^2.0.2
   cupertino_icons: ^1.0.2
@@ -56,6 +57,7 @@ dependencies:
   rxdart: ^0.27.1
   share_plus: ^2.1.4
   shared_preferences: ^2.0.7
+  shimmer: ^2.0.0
   url_launcher: ^6.0.9
 
 dev_dependencies:
