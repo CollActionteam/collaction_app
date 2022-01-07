@@ -26,16 +26,16 @@ We use simple naming conventions for branches, to easily navigate and track mult
 
 <a name="tags"></a>Often used tags are: `feat`, `feature`, `chore`, `task`, `refac`, `refactor`, `fix`, `bugfix`, `docs`, `documentation`, etc.
 
-The second part is what issue or feature the branch relates to. This is used by taking the issue number, and prefixing it with either `gh-` or `can-`.
+The second part is what issue or feature the branch relates to. This is used by taking the issue number, and prefixing it with `gh-`.
 
-Examples: `gh-97`, `can-104`, etc.
+Examples: `gh-97`, `gh-104`, etc.
 
 The third and last part describes the scope, it's okay to be generic if the scope is not easily defined. Multiple branches can have a similar name, and thus the scope helps differentiate and specify what exactly the branch pertains to. All words in the scope must be separated by `-`.
 
 <a name="scopes"></a>Examples: `profile-avatar`, `profile-settings`, `auth-new-user`, `crowdaction-details`, etc.
 
 These three parts are separated by a slash (`/`), and concatenating the parts examples for branch names are:
-`feat/can-104/profile-avatar`, `chore/gh-97/update-readme`, etc.
+`feat/gh-104/profile-avatar`, `chore/gh-97/update-readme`, etc.
 
 Don't use underscore (`_`) in branch naming, and don't use uppercase letters.
 # <a name="commits"></a> Commit conventions
@@ -51,6 +51,14 @@ The format for a commit with body and footer is:
 <body>
 <newline>
 <footer>
+```
+A full example commit:
+```
+feature(user): add missing user repository method
+
+Motivation: Ability to update the authenticated user was missing
+
+Closes: #117 Relates: #132
 ```
 ### Tag
 The tag describes the type of work that was actually done in the commit. This can differentiate from the branch name which the commit comes from, in case something changed and the purpose of the commit is not the same as it was intended. Most of the times, the commit tag will be the same as the branch tag.
