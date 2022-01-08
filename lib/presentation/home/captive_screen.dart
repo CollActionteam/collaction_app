@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../../presentation/utils/launch_url.dart';
 
 import '../../presentation/contact_form/widgets/contact_form.dart';
 import '../../presentation/shared_widgets/content_placeholder.dart';
@@ -75,7 +75,7 @@ class CaptivePage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () =>
-                          launch("https://www.collaction.org/impact"),
+                          launchUrl("https://www.collaction.org/impact"),
                       child: const Text("Show my impact"),
                     ),
                     const SizedBox(height: 40),
@@ -100,7 +100,7 @@ class CaptivePage extends StatelessWidget {
                       FloatingActionButton(
                         backgroundColor: Colors.white,
                         elevation: 0,
-                        onPressed: () => launch('https://collaction.org'),
+                        onPressed: () => launchUrl('https://collaction.org'),
                         mini: true,
                         child: const Icon(
                           CollactionIcons.globe,
@@ -112,7 +112,7 @@ class CaptivePage extends StatelessWidget {
                         backgroundColor: Colors.white,
                         elevation: 0,
                         onPressed: () =>
-                            launch('https://instagram.com/collaction_org'),
+                            launchUrl('https://instagram.com/collaction_org'),
                         mini: true,
                         child: const Icon(
                           CollactionIcons.instagram,
@@ -123,7 +123,7 @@ class CaptivePage extends StatelessWidget {
                       FloatingActionButton(
                         backgroundColor: Colors.white,
                         elevation: 0,
-                        onPressed: () => launch(
+                        onPressed: () => launchUrl(
                           'https://linkedin.com/company/15079855/',
                         ),
                         mini: true,

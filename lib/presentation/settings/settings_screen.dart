@@ -4,7 +4,7 @@ import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/settings/widgets/share_collaction_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../../presentation/utils/launch_url.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../core/collaction_icons.dart';
@@ -23,7 +23,8 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ossLicenses = ListTile(
       // TODO change to "Open source libraries" and use https://pub.dev/packages/flutter_oss_licenses
-      onTap: () => launch('https://github.com/CollActionteam/collaction_app'),
+      onTap: () =>
+          launchUrl('https://github.com/CollActionteam/collaction_app'),
       contentPadding: const EdgeInsets.symmetric(
         vertical: 15,
         horizontal: 20,
@@ -140,7 +141,7 @@ class SettingsPage extends StatelessWidget {
                         const SizedBox(height: 15),
                         ListTile(
                           onTap: () =>
-                              launch('https://www.collaction.org/terms'),
+                              launchUrl('https://www.collaction.org/terms'),
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: 20,
@@ -165,7 +166,7 @@ class SettingsPage extends StatelessWidget {
                         const SizedBox(height: 15),
                         ListTile(
                           onTap: () =>
-                              launch('https://www.collaction.org/privacy'),
+                              launchUrl('https://www.collaction.org/privacy'),
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: 20,
