@@ -182,7 +182,8 @@ class _ContactFormState extends State<ContactForm> {
         ScaffoldMessenger.of(context)
             .showSnackBar(
               const SnackBar(
-                content: Text('Success!'),
+                content:
+                    Text('Success! Thank you for contacting us \ud83d\ude42'),
                 behavior: SnackBarBehavior.floating,
               ),
             )
