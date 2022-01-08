@@ -17,12 +17,12 @@ class LegalNotice extends StatelessWidget {
       text: TextSpan(
         children: [
           const TextSpan(
-            text: "By clicking the next button, you agree to CollAction’s ",
+            text: "By clicking the button, you agree to CollAction’s ",
             style: textStyle,
           ),
           TextSpan(
             style: textStyle.copyWith(decoration: TextDecoration.underline),
-            text: "terms & conditions",
+            text: "terms of use",
             recognizer: TapGestureRecognizer()
               ..onTap = () async {
                 const url = "https://www.collaction.org/terms";
@@ -36,7 +36,7 @@ class LegalNotice extends StatelessWidget {
           ),
           const TextSpan(
             style: textStyle,
-            text: " and to our ",
+            text: " and ",
           ),
           TextSpan(
             style: textStyle.copyWith(decoration: TextDecoration.underline),
