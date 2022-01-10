@@ -21,3 +21,4 @@ analyzer:
     # Other generated files
     - "lib/generated_plugin_registrant.dart"
     - "**/*.gr.dart"
+    - "lib/presentation/licenses/oss_licenses.dart"
