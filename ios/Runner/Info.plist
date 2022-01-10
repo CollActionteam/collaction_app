@@ -20,6 +20,17 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.164614571144-e8b9m24eq9tgvnrqrcc91e5lvteqpp17</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -44,7 +55,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Select and upload a picture from the Photo Library to use as a profile picture in the app.</string>
+	<string>Select and upload an image from the Photo Library to use as a profile picture in the app.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Capture and upload an image to use as a profile picture in the app.</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<!-- TODO add "Open with CollAction" in the future -->

@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
     if (!(await settingsRepository.getWasUserOnboarded())) {
-      await settingsRepository.setWasUserOnboarded(wasOnboarded: true);
       context.router.push(const OnboardingRoute());
     }
   }

@@ -9,7 +9,7 @@ import '../routes/app_routes.gr.dart';
 Future<bool> checkAndMaybeShowCaptivePage(
   StackRouter router,
 ) async {
-  if (DateTime.now().isAfter(DateTime.parse('2022-01-31'))) {
+  if (!DateTime.now().isBefore(DateTime.parse('2022-02-01'))) {
     if (!router.isRouteActive(const CaptiveRoute().routeName)) {
       await router.popAndPush(const CaptiveRoute());
       return true;
