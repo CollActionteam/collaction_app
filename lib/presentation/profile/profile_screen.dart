@@ -357,7 +357,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     content: Text(
                       "Profile picture will be reviewed!" +
                           // TODO remove one this has been fixed on the backend
-                          "\n(It can take up to 24 hours for the picture to be updated.)",
+                          "\n(It may take some time for the picture to be updated.)",
                     ),
                     duration: Duration(seconds: 5),
                   ),
