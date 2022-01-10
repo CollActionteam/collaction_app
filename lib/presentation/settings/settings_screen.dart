@@ -1,20 +1,16 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/application/user/profile/profile_bloc.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
-import 'package:collaction_app/presentation/settings/widgets/share_collaction_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../presentation/utils/launch_url.dart';
 
 import '../../application/auth/auth_bloc.dart';
+import '../../application/user/profile/profile_bloc.dart';
+import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
-
-const shareText =
-    "Check out CollAction at https://play.google.com/store/apps/details?id=org.collaction.collaction_app for Android and https://apps.apple.com/app/id1597643827 for iOS. Let's solve all collective action problems in the world.";
-const shareEmailSubject = "Join me on CollAction";
+import 'widgets/share_collaction_list_tile.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -22,9 +18,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ossLicenses = ListTile(
-      // TODO change to "Open source libraries" and use https://pub.dev/packages/flutter_oss_licenses
-      onTap: () =>
-          launchUrl('https://github.com/CollActionteam/collaction_app'),
+      onTap: () => context.router.push(const LicensesRoute()),
       contentPadding: const EdgeInsets.symmetric(
         vertical: 15,
         horizontal: 20,

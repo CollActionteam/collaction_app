@@ -67,6 +67,12 @@ To update the icons font with a new svg, go to [FlutterIcons](https://www.flutte
 
 > Note: If the icon preview in [FlutterIcons](https://www.fluttericon.com/) is not how you expect the icon to look, reach out to the design team to help flatten the svg.
 
+## Generating OpenSource Licenses
+
+To generate the OpenSource licenses dart file via [flutter_oss_licenses](https://pub.dev/packages/flutter_oss_licenses), run the command `flutter pub run flutter_oss_licenses:generate.dart lib/presentation/licenses/oss_licenses.dart` from the project root.
+
+>Note: Run `flutter format .` once  [oss_licenses.dart](../lib/presentation/licenses/oss_licenses.dart) is created.
+
 ## Getting Started with Flutter
 
 A few resources to get you started if this is your first Flutter project:
