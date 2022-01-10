@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
@@ -40,7 +41,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image: NetworkImage(crowdAction.images.card),
+                    image: CachedNetworkImageProvider(crowdAction.images.card),
                     fit: BoxFit.cover,
                   ),
                 ),

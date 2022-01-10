@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/commitment/commitment.dart';
@@ -108,8 +109,18 @@ class _CommitmentCardState extends State<CommitmentCard> {
               ),
               alignment: Alignment.center,
               child: widget.commitment.icon != null
-                  ? Image.network(
-                      widget.commitment.icon!,
+                  ? CachedNetworkImage(
+                      imageUrl: widget.commitment.icon!,
+                      placeholder: (context, url) => const Icon(
+                        CollactionIcons.collaction,
+                        color: kAccentColor,
+                        size: 30,
+                      ),
+                      errorWidget: (context, url, error) => const Icon(
+                        CollactionIcons.collaction,
+                        color: kAccentColor,
+                        size: 30,
+                      ),
                       height: 30,
                     )
                   : const Icon(

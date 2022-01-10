@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ import '../../core/collaction_icons.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
+import '../../shared_widgets/image_skeleton_loader.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 import 'widgets/confirm_participation.dart';
@@ -33,6 +35,7 @@ class CrowdActionDetailsPage extends StatefulWidget {
 class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   List<String> _commitments = [];
   final GlobalKey<CommitmentCardListState> _commitmentsKey = GlobalKey();
+  final _headerHeight = 310.0;
 
   @override
   void initState() {
@@ -75,7 +78,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              expandedHeight: 310.0,
+              expandedHeight: _headerHeight,
               pinned: true,
               backgroundColor: Colors.transparent,
               elevation: 0,
@@ -106,8 +109,14 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  widget.crowdAction.images.banner,
+                background: CachedNetworkImage(
+                  imageUrl: widget.crowdAction.images.banner,
+                  placeholder: (context, url) => ImageSkeletonLoader(
+                    height: _headerHeight,
+                  ),
+                  errorWidget: (context, url, error) => ImageSkeletonLoader(
+                    height: _headerHeight,
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -168,45 +177,6 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                         height: 20,
                       ),
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     context.router
-                    //         .push(const CrowdActionParticipantsRoute());
-                    //   },
-                    //   child: SizedBox(
-                    //     height: 40,
-                    //     child: Row(
-                    //       children: [
-                    //         // TODO - Add participants to crowdaction
-                    //         SizedBox(
-                    //           width: widget.crowdAction.avatarWidth(),
-                    //           child: ParticipantAvatars(
-                    //             participants:
-                    //                 widget.crowdAction.topParticipants,
-                    //           ),
-                    //         ),
-                    //         const SizedBox(
-                    //           width: 20,
-                    //         ),
-                    //         Expanded(
-                    //           child: Text(
-                    //             "Join ${widget.crowdAction.topParticipants.title(widget.crowdAction.participantCount)}",
-                    //             style: Theme.of(context)
-                    //                 .textTheme
-                    //                 .caption
-                    //                 ?.copyWith(
-                    //                   fontSize: 12,
-                    //                   color: kPrimaryColor300,
-                    //                 ),
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
                     Text(
                       widget.crowdAction.description,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
