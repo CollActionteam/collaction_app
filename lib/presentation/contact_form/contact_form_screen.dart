@@ -38,7 +38,13 @@ class ContactFormPageState extends State<ContactFormPage> {
           behavior: NoRippleBehavior(),
           child: SingleChildScrollView(
             controller: _pageScrollController,
-            child: const ContactForm(),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 100.0,
+                horizontal: 20.0,
+              ),
+              child: ContactForm(),
+            ),
           ),
         ),
       ),

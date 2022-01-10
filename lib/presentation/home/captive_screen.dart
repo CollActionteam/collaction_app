@@ -79,54 +79,64 @@ class CaptivePage extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 40),
-                    const Text(
-                      'Veganuary CrowdAction | ASML',
-                      style: TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.w700,
-                        color: kPrimaryColor400,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'ASML used Collaction to host their company-wide Veganuary challenge.',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w300,
-                        color: kPrimaryColor400,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    TextButton(
-                      onPressed: () =>
-                          launchUrl("https://www.collaction.org/impact"),
-                      child: RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Show my impact ",
-                              style: TextStyle(
-                                color: kEnabledButtonColor,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Veganuary CrowdAction | ASML',
+                            style: TextStyle(
+                              fontSize: 34,
+                              fontWeight: FontWeight.w700,
+                              color: kPrimaryColor400,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            'ASML used Collaction to host their company-wide Veganuary challenge.',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w300,
+                              color: kPrimaryColor400,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 20),
+                          TextButton(
+                            onPressed: () =>
+                                launchUrl("https://www.collaction.org/impact"),
+                            child: RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Show my impact ",
+                                    style: TextStyle(
+                                      color: kEnabledButtonColor,
+                                    ),
+                                  ),
+                                  WidgetSpan(
+                                    child: Icon(
+                                      CollactionIcons.external_link,
+                                      size: 14,
+                                      color: kEnabledButtonColor,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            WidgetSpan(
-                              child: Icon(
-                                CollactionIcons.external_link,
-                                size: 14,
-                                color: kEnabledButtonColor,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 30),
                     const ShareCollActionCard(),
-                    const ContactForm(
-                      edgeInsets:
-                          EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 40,
+                        horizontal: 20.0,
+                      ),
+                      child: ContactForm(centerTitle: true),
                     ),
                   ],
                 ),
@@ -142,6 +152,8 @@ class CaptivePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       FloatingActionButton(
+                        key: const Key('captive-website'),
+                        heroTag: 'captive-website',
                         backgroundColor: Colors.white,
                         elevation: 0,
                         onPressed: () => launchUrl('https://collaction.org'),
@@ -153,6 +165,8 @@ class CaptivePage extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       FloatingActionButton(
+                        key: const Key('captive-instagram'),
+                        heroTag: 'captive-instagram',
                         backgroundColor: Colors.white,
                         elevation: 0,
                         onPressed: () =>
@@ -165,6 +179,8 @@ class CaptivePage extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       FloatingActionButton(
+                        key: const Key('captive-linkedin'),
+                        heroTag: 'captive-linkedin',
                         backgroundColor: Colors.white,
                         elevation: 0,
                         onPressed: () => launchUrl(
