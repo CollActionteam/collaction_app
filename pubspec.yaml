@@ -45,7 +45,7 @@ dependencies:
   http: ^0.13.4
   image: ^3.1.0
   image_cropper: ^1.4.1
-  image_picker: ^0.8.4
+  image_picker: ^0.8.4+4
   injectable: ^1.4.1
   intl: ^0.17.0
   json_annotation: ^4.4.0
