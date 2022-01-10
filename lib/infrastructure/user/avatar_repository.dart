@@ -6,6 +6,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:image/image.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/auth/errors.dart';
@@ -47,12 +48,17 @@ class AvatarRepository implements IAvatarRepository, Disposable {
   }
 
   @override
-  Future<Either<UploadFailure, Unit>> uploadAvatar(File image, Uri uri) async {
+  Future<Either<UploadFailure, Unit>> uploadAvatar(
+    File imageFile,
+    Uri uri,
+  ) async {
     try {
-      final bytes = await image.readAsBytes();
+      final imageBytes = await imageFile.readAsBytes();
+      final resizedImage = copyResize(decodeImage(imageBytes)!, width: 300);
+      final resizedBytes = encodePng(resizedImage);
       final response = await _client.put(
         uri,
-        body: bytes,
+        body: resizedBytes,
       );
 
       if (response.statusCode == 200) {

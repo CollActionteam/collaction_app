@@ -33,7 +33,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
           bioController.value =
               TextEditingValue(text: state.userProfile?.profile.bio ?? '');
 
-          return Scaffold(
+          final scaffold = Scaffold(
             extendBodyBehindAppBar: true,
             backgroundColor: kAlmostTransparent,
             appBar: AppBar(
@@ -347,6 +347,24 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
               ),
             ),
+          );
+
+          return BlocListener<ProfileBloc, ProfileState>(
+            listener: (context, state) {
+              if (state.wasProfilePictureUpdated == true) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      "Profile picture will be reviewed!" +
+                          // TODO remove one this has been fixed on the backend
+                          "\n(It may take some time for the picture to be updated.)",
+                    ),
+                    duration: Duration(seconds: 5),
+                  ),
+                );
+              }
+            },
+            child: scaffold,
           );
         },
       ),

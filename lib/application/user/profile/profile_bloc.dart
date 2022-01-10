@@ -42,8 +42,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       if (event.bio != null) {
         await _profileRepository.saveProfile(bio: event.bio);
       }
-
-      if (event.image != null) {
+      final wasImageUpdated = event.image != null;
+      if (wasImageUpdated) {
         final uploadURI = await _avatarRepository.getAvatarUploadPath();
         uploadURI.fold(
           (_) => null,
@@ -52,6 +52,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           },
         );
       }
+      // TODO handle could not upload profile picture!
 
       final userOrFailure = await _profileRepository.getUserProfile();
 
@@ -61,6 +62,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           (userProfile) => state.copyWith(
             userProfile: userProfile,
             isEditing: false,
+            wasProfilePictureUpdated: wasImageUpdated,
           ),
         ),
       );

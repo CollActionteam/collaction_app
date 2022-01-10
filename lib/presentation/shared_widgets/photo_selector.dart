@@ -47,17 +47,6 @@ class _PhotoSelectorState extends State<PhotoSelector> {
 
                         if (image != null) {
                           if (mounted) {
-                            if (await _fileTooBig(image)) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "File size too big, must be 5 MB or less",
-                                  ),
-                                ),
-                              );
-                              return;
-                            }
-
                             if (_fileNotAnImage(image)) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -90,22 +79,13 @@ class _PhotoSelectorState extends State<PhotoSelector> {
                   children: [
                     FloatingActionButton(
                       onPressed: () async {
-                        final XFile? image =
-                            await _picker.pickImage(source: ImageSource.camera);
+                        final XFile? image = await _picker.pickImage(
+                          source: ImageSource.camera,
+                          preferredCameraDevice: CameraDevice.front,
+                        );
 
                         if (image != null) {
                           if (mounted) {
-                            if (await _fileTooBig(image)) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "File size too big, must be 5 MB or less",
-                                  ),
-                                ),
-                              );
-                              return;
-                            }
-
                             if (_fileNotAnImage(image)) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -165,17 +145,6 @@ class _PhotoSelectorState extends State<PhotoSelector> {
     if (widget.onSelected != null && croppedFile != null) {
       widget.onSelected!(croppedFile);
     }
-  }
-
-  /// Validates the filesize is lower or equal to 5 MB
-  ///
-  /// [file] The file to validate
-  Future<bool> _fileTooBig(XFile file) async {
-    final mb = (await file.readAsBytes()).lengthInBytes / 1024 / 1024;
-    if (mb > 5) {
-      return true;
-    }
-    return false;
   }
 
   /// Validates MimeType if mimetype is present

@@ -9,9 +9,9 @@ import '../../../presentation/shared_widgets/pill_button.dart';
 import '../../../presentation/themes/constants.dart';
 
 class ContactForm extends StatefulWidget {
-  const ContactForm({this.edgeInsets, Key? key}) : super(key: key);
+  final bool centerTitle;
 
-  final EdgeInsets? edgeInsets;
+  const ContactForm({Key? key, this.centerTitle = false}) : super(key: key);
 
   @override
   State<ContactForm> createState() => _ContactFormState();
@@ -21,6 +21,7 @@ class _ContactFormState extends State<ContactForm> {
   late ContactFormBloc _contactFormBloc;
   late GlobalKey<FormState> _formKey;
   late GlobalKey<FormFieldState> _emailKey;
+  late bool centerTitle;
   ContactFormDto? _formContents;
 
   @override
@@ -29,6 +30,7 @@ class _ContactFormState extends State<ContactForm> {
     _contactFormBloc = getIt<ContactFormBloc>();
     _formKey = GlobalKey<FormState>();
     _emailKey = GlobalKey<FormFieldState>();
+    centerTitle = widget.centerTitle;
   }
 
   @override
@@ -44,129 +46,129 @@ class _ContactFormState extends State<ContactForm> {
         );
         return Form(
           key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 100.0,
-              horizontal: 20.0,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Get in touch",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 32.0,
-                  ),
-                  maxLines: 2,
-                  textAlign: TextAlign.left,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: centerTitle
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Get in touch",
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 32.0,
                 ),
-                const SizedBox(height: 35.0),
-                TextFormField(
-                  key: _emailKey,
-                  onChanged: (value) => _emailKey.currentState!.validate(),
-                  enabled: isEnabled,
-                  keyboardType: TextInputType.emailAddress,
-                  style: const TextStyle(fontSize: 20.0),
-                  decoration: InputDecoration(
-                    hintText: 'Your email address',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
+                maxLines: 2,
+                textAlign: centerTitle ? TextAlign.center : TextAlign.left,
+              ),
+              const SizedBox(height: 35.0),
+              TextFormField(
+                key: _emailKey,
+                onChanged: (value) => _emailKey.currentState!.validate(),
+                enabled: isEnabled,
+                keyboardType: TextInputType.emailAddress,
+                style: const TextStyle(fontSize: 20.0),
+                decoration: InputDecoration(
+                  hintText: 'Your email address',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
                     ),
                   ),
-                  validator: (value) => _validateEmail(value),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
-                  child: Text(
-                    "We’ll get back to you by email",
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(color: kPrimaryColor300),
-                    maxLines: 2,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                const SizedBox(height: 25.0),
-                TextFormField(
-                  enabled: isEnabled,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  minLines: 5,
-                  decoration: InputDecoration(
-                    hintText: 'Your message to us',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
                     ),
                   ),
-                  validator: _validateMessage,
-                  onChanged: _validateMessage,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 35.0),
-                PillButton(
-                  text: 'Send',
-                  isLoading: state is Submitting,
-                  isEnabled: isEnabled,
-                  onTap: isEnabled ? _submitForm : null,
+                validator: (value) => _validateEmail(value),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
+                child: Row(
+                  children: [
+                    Text(
+                      "We’ll get back to you by email",
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption!
+                          .copyWith(color: kPrimaryColor300),
+                      maxLines: 2,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 25.0),
+              TextFormField(
+                enabled: isEnabled,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                minLines: 5,
+                decoration: InputDecoration(
+                  hintText: 'Your message to us',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                validator: _validateMessage,
+                onChanged: _validateMessage,
+              ),
+              const SizedBox(height: 35.0),
+              PillButton(
+                text: 'Send',
+                isLoading: state is Submitting,
+                isEnabled: isEnabled,
+                onTap: isEnabled ? _submitForm : null,
+              ),
+            ],
           ),
         );
       },
@@ -182,7 +184,8 @@ class _ContactFormState extends State<ContactForm> {
         ScaffoldMessenger.of(context)
             .showSnackBar(
               const SnackBar(
-                content: Text('Success!'),
+                content:
+                    Text('Success! Thank you for contacting us \ud83d\ude42'),
                 behavior: SnackBarBehavior.floating,
               ),
             )
