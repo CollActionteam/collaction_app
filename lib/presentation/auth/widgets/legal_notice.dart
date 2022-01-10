@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import '../../../presentation/utils/launch_url.dart';
 import '../../themes/constants.dart';
 
 class LegalNotice extends StatelessWidget {
@@ -17,40 +17,24 @@ class LegalNotice extends StatelessWidget {
       text: TextSpan(
         children: [
           const TextSpan(
-            text: "By clicking the next button, you agree to CollAction’s ",
+            text: "By clicking the button, you agree to CollAction’s ",
             style: textStyle,
           ),
           TextSpan(
             style: textStyle.copyWith(decoration: TextDecoration.underline),
-            text: "terms & conditions",
+            text: "terms of use",
             recognizer: TapGestureRecognizer()
-              ..onTap = () async {
-                const url = "https://www.collaction.org/terms";
-                if (await canLaunch(url)) {
-                  await launch(
-                    url,
-                    forceSafariVC: false,
-                  );
-                }
-              },
+              ..onTap = () => launchUrl("https://www.collaction.org/terms"),
           ),
           const TextSpan(
             style: textStyle,
-            text: " and to our ",
+            text: " and ",
           ),
           TextSpan(
             style: textStyle.copyWith(decoration: TextDecoration.underline),
             text: "privacy policy",
             recognizer: TapGestureRecognizer()
-              ..onTap = () async {
-                const url = "https://www.collaction.org/privacy";
-                if (await canLaunch(url)) {
-                  await launch(
-                    url,
-                    forceSafariVC: false,
-                  );
-                }
-              },
+              ..onTap = () => launchUrl("https://www.collaction.org/privacy"),
           ),
           const TextSpan(
             style: textStyle,
