@@ -1,6 +1,7 @@
-// import 'package:auto_route/auto_route.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+// TODO this was used previously. Maybe refactor?
 // import '../../../presentation/shared_widgets/custom_fab.dart';
 import '../../../presentation/utils/launch_url.dart';
 import '../../presentation/contact_form/widgets/contact_form.dart';
@@ -8,7 +9,7 @@ import '../../presentation/shared_widgets/content_placeholder.dart';
 import '../../presentation/themes/constants.dart';
 import '../core/collaction_icons.dart';
 import '../crowdaction/crowdaction_home/widgets/share_collaction_card.dart';
-// import '../routes/app_routes.gr.dart';
+import '../routes/app_routes.gr.dart';
 
 class CaptivePage extends StatelessWidget {
   const CaptivePage({Key? key}) : super(key: key);
@@ -29,21 +30,41 @@ class CaptivePage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      children: const [
-                        /*
+                      children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            CustomFAB(
-                              isMini: true,
-                              onPressed: () =>
-                                  context.router.push(const SettingsRoute()),
-                              child: const Icon(Icons.settings),
+                            ElevatedButton(
+                              onPressed: () => context.router.push(
+                                const SettingsRoute(),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                primary: Colors.white,
+                                onPrimary: kPrimaryColor0,
+                                tapTargetSize: MaterialTapTargetSize.padded,
+                              ).merge(
+                                ButtonStyle(
+                                  elevation: MaterialStateProperty.resolveWith<
+                                      double?>(
+                                    (Set<MaterialState> states) {
+                                      if (states
+                                          .contains(MaterialState.pressed)) {
+                                        return 5;
+                                      }
+                                      return 4;
+                                    },
+                                  ),
+                                ),
+                              ),
+                              child: const Icon(
+                                CollactionIcons.settings,
+                                color: kPrimaryColor300,
+                              ),
                             )
                           ],
                         ),
-                        */
-                        ContentPlaceholder(
+                        const ContentPlaceholder(
                           textColor: kPrimaryColor400,
                           description:
                               "The first testing round and CrowdActions have come to their end! Stay tuned for the next release.",
