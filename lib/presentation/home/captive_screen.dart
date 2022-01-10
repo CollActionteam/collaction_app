@@ -1,12 +1,14 @@
+// import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import '../../../presentation/utils/launch_url.dart';
 
+// import '../../../presentation/shared_widgets/custom_fab.dart';
+import '../../../presentation/utils/launch_url.dart';
 import '../../presentation/contact_form/widgets/contact_form.dart';
 import '../../presentation/shared_widgets/content_placeholder.dart';
 import '../../presentation/themes/constants.dart';
 import '../core/collaction_icons.dart';
 import '../crowdaction/crowdaction_home/widgets/share_collaction_card.dart';
-// TODO import '../../presentation/shared_widgets/custom_fab.dart';
+// import '../routes/app_routes.gr.dart';
 
 class CaptivePage extends StatelessWidget {
   const CaptivePage({Key? key}) : super(key: key);
@@ -28,17 +30,19 @@ class CaptivePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: const [
-                        // TODO: Leaving this commented for now, not sure what it should do ...
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.end,
-                        //   children: [
-                        //     CustomFAB(
-                        //       isMini: true,
-                        //       onPressed: () {},
-                        //       child: const Icon(Icons.settings),
-                        //     )
-                        //   ],
-                        // ),
+                        /*
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CustomFAB(
+                              isMini: true,
+                              onPressed: () =>
+                                  context.router.push(const SettingsRoute()),
+                              child: const Icon(Icons.settings),
+                            )
+                          ],
+                        ),
+                        */
                         ContentPlaceholder(
                           textColor: kPrimaryColor400,
                           description:
@@ -73,10 +77,29 @@ class CaptivePage extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 20),
                     TextButton(
                       onPressed: () =>
                           launchUrl("https://www.collaction.org/impact"),
-                      child: const Text("Show my impact"),
+                      child: RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Show my impact ",
+                              style: TextStyle(
+                                color: kEnabledButtonColor,
+                              ),
+                            ),
+                            WidgetSpan(
+                              child: Icon(
+                                CollactionIcons.external_link,
+                                size: 14,
+                                color: kEnabledButtonColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 40),
                     const ShareCollActionCard(),
