@@ -15,7 +15,7 @@ on:
     branches: [master, development]
   pull_request:
     types: [opened, synchronize]
-    
+
 env:
   flutter_version: '2.8.x'
   flutter_channel: 'stable'
@@ -40,10 +40,12 @@ jobs:
         flutter-version: ${{ env.flutter_version }}
     - name: Get Flutter dependencies
       run: flutter pub get .
-    - name: Build generated code
-      run: flutter pub run build_runner build --delete-conflicting-outputs
     - name: Check for any formatting issues
       run: flutter format --dry-run --set-exit-if-changed .
+    - name: Build generated code
+        run:   |
+          flutter pub run flutter_oss_licenses:generate.dart lib/presentation/licenses/oss_licenses.dart
+          flutter pub run build_runner build --delete-conflicting-outputs
     - name: Statically analyze the Dart code
       run:  |
         echo ${{ secrets.ENV }} | base64 -d > .env
@@ -128,7 +130,7 @@ jobs:
         signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
         alias: ${{ secrets.ANDROID_ALIAS }}
         keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}  
+        keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
     - name: Build apk (deprecate)
       run: flutter build apk --release --build-number $GITHUB_RUN_NUMBER
     - name: Sign apk (deprecate)
@@ -224,7 +226,7 @@ jobs:
           name: ios-release
       - name: 'Upload iOS app to TestFlight'
         uses: apple-actions/upload-testflight-build@v1
-        with: 
+        with:
           app-path: 'CollAction.ipa'
           issuer-id: ${{ secrets.IOS_APPSTORE_ISSUER_ID }}
           api-key-id: ${{ secrets.IOS_APPSTORE_API_KEY_ID }}
