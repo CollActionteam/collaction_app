@@ -1,14 +1,17 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/comments/comment_form.dart';
 import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../../../test_utilities.dart';
 
 void main() {
+  setUpAll(() => HttpOverrides.global = null);
   group('CrowdAction new comment from', () {
     Future<void> _pumpTestWidget(WidgetTester tester) => tester.pumpWidget(
           const MaterialApp(
@@ -19,8 +22,19 @@ void main() {
         );
 
     // ignore: avoid_positional_boolean_parameters
-    Future<String> getIdToken([bool forceRefresh = false]) async {
-      return "stuff";
+    Future<String> getIdToken([bool forceRefresh = false]) async => "stuff";
+
+    void _setUpUser() {
+      final StreamController<User> controller = StreamController<User>()
+        ..add(
+          User(
+            id: "12345",
+            displayName: "John Doe",
+            getIdToken: getIdToken,
+          ),
+        );
+
+      TestUtilities.mockUser(controller.stream);
     }
 
     // Username
@@ -35,6 +49,8 @@ void main() {
 
       await _pumpTestWidget(tester);
 
+      await tester.pumpAndSettle();
+
       expect(find.text(name), findsOneWidget);
     });
 
@@ -48,6 +64,8 @@ void main() {
       TestUtilities.mockUser(controller.stream);
 
       await _pumpTestWidget(tester);
+
+      await tester.pumpAndSettle();
 
       final nameTextWidget = tester.firstWidget(find.text(name)) as Text;
       expect(nameTextWidget.style?.color, kPrimaryColor400);
@@ -64,8 +82,10 @@ void main() {
 
       await _pumpTestWidget(tester);
 
+      await tester.pumpAndSettle();
+
       final nameTextWidget = tester.firstWidget(find.text(name)) as Text;
-      expect(nameTextWidget.style?.fontWeight, 300);
+      expect(nameTextWidget.style?.fontWeight, FontWeight.w300);
     });
 
     // Avatar
@@ -85,16 +105,19 @@ void main() {
 
       TestUtilities.mockUser(controller.stream);
 
-      await _pumpTestWidget(tester);
+      mockNetworkImagesFor(() async {
+        await _pumpTestWidget(tester);
 
-      final imageWidget = tester.firstWidget(
-        find.descendant(
-          of: find.byType(CircleAvatar),
-          matching: find.byType(NetworkImage),
-        ),
-      ) as NetworkImage;
+        await tester.pumpAndSettle();
 
-      expect(imageWidget.url, photoURL);
+        final imageWidget =
+            tester.firstWidget(find.byType(CircleAvatar)) as CircleAvatar;
+
+        expect(imageWidget.backgroundImage is NetworkImage, true);
+
+        final provider = imageWidget.backgroundImage as NetworkImage?;
+        expect(provider?.url, photoURL);
+      });
     });
 
     testWidgets(
@@ -115,6 +138,8 @@ void main() {
 
       await _pumpTestWidget(tester);
 
+      await tester.pumpAndSettle();
+
       final textWidget = tester.firstWidget(
         find.descendant(
           of: find.byType(CircleAvatar),
@@ -128,53 +153,58 @@ void main() {
     // Comment text field
     testWidgets('Comment text field has label "Write a comment"',
         (WidgetTester tester) async {
+      _setUpUser();
       await _pumpTestWidget(tester);
-
+      await tester.pumpAndSettle();
       final commentTextField =
           tester.firstWidget(find.byType(TextField)) as TextField;
-      expect(commentTextField.decoration?.labelText, "Write a comment");
+      expect(commentTextField.decoration?.hintText, "Write a comment");
     });
 
     testWidgets(
         'Comment text field allows for multiline input with a maximum of 5 lines',
         (WidgetTester tester) async {
+      _setUpUser();
       await _pumpTestWidget(tester);
-
+      await tester.pumpAndSettle();
       final commentTextField =
           tester.firstWidget(find.byType(TextField)) as TextField;
       expect(commentTextField.minLines, 1);
-      // TODO - Affirm how to set maximum height & leave lines as infinite
       expect(commentTextField.maxLines, 5);
     });
 
     testWidgets('Comment text field should have border radius of 20',
         (WidgetTester tester) async {
+      _setUpUser();
       await _pumpTestWidget(tester);
-
+      await tester.pumpAndSettle();
       final commentTextField =
           tester.firstWidget(find.byType(TextField)) as TextField;
       final borderRadius =
           (commentTextField.decoration?.border as OutlineInputBorder?)
               ?.borderRadius;
-      expect(borderRadius?.topLeft, 20);
-      expect(borderRadius?.topRight, 20);
-      expect(borderRadius?.bottomLeft, 20);
-      expect(borderRadius?.bottomRight, 20);
+      const radius = Radius.circular(20);
+      expect(borderRadius?.topLeft, radius);
+      expect(borderRadius?.topRight, radius);
+      expect(borderRadius?.bottomLeft, radius);
+      expect(borderRadius?.bottomRight, radius);
     });
 
     testWidgets('Comment text field should have background of PRIMARY/0',
         (WidgetTester tester) async {
+      _setUpUser();
       await _pumpTestWidget(tester);
-
+      await tester.pumpAndSettle();
       final commentTextField =
           tester.firstWidget(find.byType(TextField)) as TextField;
-      expect(commentTextField.decoration?.fillColor, kPrimaryColor0);
+      expect(commentTextField.decoration?.fillColor, kAlmostTransparent);
     });
 
     testWidgets('Comment text field should have text color of PRIMARY/300',
         (WidgetTester tester) async {
+      _setUpUser();
       await _pumpTestWidget(tester);
-
+      await tester.pumpAndSettle();
       final commentTextField =
           tester.firstWidget(find.byType(TextField)) as TextField;
       expect(commentTextField.style?.color, kPrimaryColor300);
@@ -182,19 +212,36 @@ void main() {
 
     testWidgets('Comment text field should have font weight of 300',
         (WidgetTester tester) async {
+      _setUpUser();
       await _pumpTestWidget(tester);
-
+      await tester.pumpAndSettle();
       final commentTextField =
           tester.firstWidget(find.byType(TextField)) as TextField;
-      expect(commentTextField.style?.fontWeight, 300);
+      expect(commentTextField.style?.fontWeight, FontWeight.w300);
     });
 
     // Publish comment button
+    testWidgets('"Publish comment" button has text "Publish comment"',
+        (WidgetTester tester) async {
+      _setUpUser();
+      await _pumpTestWidget(tester);
+      await tester.pumpAndSettle();
+
+      final buttonTextWidget = tester.firstWidget(
+        find.descendant(
+          of: find.byType(ElevatedButton),
+          matching: find.byType(Text),
+        ),
+      ) as Text;
+      expect(buttonTextWidget.data, "Publish comment");
+    });
+
     testWidgets(
         '"Publish comment" button is disabled when comment text field is empty',
         (WidgetTester tester) async {
+      _setUpUser();
       await _pumpTestWidget(tester);
-
+      await tester.pumpAndSettle();
       expect(find.byType(TextField), findsOneWidget);
       await tester.pump();
       await tester.enterText(find.byType(TextField), "");
@@ -209,8 +256,9 @@ void main() {
     testWidgets(
         '"Publish comment" button is enabled when comment text field has content',
         (WidgetTester tester) async {
+      _setUpUser();
       await _pumpTestWidget(tester);
-
+      await tester.pumpAndSettle();
       expect(find.byType(TextField), findsOneWidget);
       await tester.pump();
       await tester.enterText(find.byType(TextField), "Hi");
@@ -219,7 +267,7 @@ void main() {
 
       final publishCommentButton =
           tester.firstWidget(find.byType(ElevatedButton)) as ElevatedButton;
-      expect(publishCommentButton.enabled, false);
+      expect(publishCommentButton.enabled, true);
     });
 
     // TODO - Write tests for pill button
