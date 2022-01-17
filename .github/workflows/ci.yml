@@ -2,7 +2,6 @@
 # This is the main worflow for testing and building
 # the app.
 #   The following is not yet implemented:
-#    - Builds for different environments (test/prod)
 #    - Use fastlane (?)
 #    - Obfuscate the build and remove debug symbols
 #      (https://docs.flutter.dev/deployment/obfuscate)
@@ -82,7 +81,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
     needs: [test]
     runs-on: macos-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Fetch code from repository
         uses: actions/checkout@v2
