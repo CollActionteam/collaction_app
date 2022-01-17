@@ -32,11 +32,11 @@ dependencies:
   email_validator: ^2.0.1
   equatable: ^2.0.3
   expandable_page_view: ^1.0.9
-  firebase_analytics: ^8.3.2
-  firebase_auth: ^3.0.2
-  firebase_core: ^1.5.0
-  firebase_crashlytics: ^2.3.0
-  firebase_remote_config: ^0.11.0
+  firebase_analytics: ^9.0.5
+  firebase_auth: ^3.3.5
+  firebase_core: ^1.11.0
+  firebase_crashlytics: ^2.4.5
+  firebase_remote_config: ^1.0.4
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
