@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/crowdaction/crowdaction.dart';
-import 'comment_form.dart';
+import 'crowdaction_comment_form.dart';
 
 class CrowdActionComments extends StatelessWidget {
   final CrowdAction crowdAction;

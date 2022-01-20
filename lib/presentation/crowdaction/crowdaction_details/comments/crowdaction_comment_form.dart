@@ -6,6 +6,12 @@ import '../../../../infrastructure/core/injection.dart';
 import '../../../shared_widgets/pill_button.dart';
 import '../../../themes/constants.dart';
 
+/// A [CrowdAction] comment form
+///
+/// When you need to share a message about a crowdaction,
+/// the comment is entered into the text field.
+///
+/// Tap participate to send the comment
 class CommentForm extends StatefulWidget {
   const CommentForm({Key? key}) : super(key: key);
 

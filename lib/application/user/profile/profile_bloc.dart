@@ -8,6 +8,7 @@ import '../../../domain/user/i_avatar_repository.dart';
 import '../../../domain/user/i_profile_repository.dart';
 
 part 'profile_event.dart';
+
 part 'profile_state.dart';
 
 @injectable

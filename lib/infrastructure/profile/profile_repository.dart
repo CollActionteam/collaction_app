@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +9,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../domain/auth/errors.dart';
 import '../../domain/auth/i_auth_repository.dart';
+import '../../domain/profile/profile.dart';
 import '../../domain/profile/user_profile.dart';
 import '../../domain/user/i_profile_repository.dart';
 import '../../domain/user/profile_failure.dart';
@@ -17,7 +19,10 @@ import '../../infrastructure/profile/profile_dto.dart';
 class ProfileRepository implements IProfileRepository {
   final IAuthRepository _authRepository;
   final http.Client _client;
+
   const ProfileRepository(this._authRepository, this._client);
+
+  static const List<Profile> _profiles = [];
 
   @override
   Future<Either<ProfileFailure, UserProfile>> getUserProfile() async {
@@ -153,6 +158,57 @@ class ProfileRepository implements IProfileRepository {
       );
     } catch (_) {
       return left(const ProfileFailure.unexpected());
+    }
+  }
+
+  @override
+  Stream<Either<ProfileFailure, Profile>> getUserProfileById(
+    String userId,
+  ) async* {
+    try {
+      final _profile =
+          _profiles.firstWhereOrNull((profile) => profile.userid == userId);
+
+      if (_profile != null) {
+        yield right(_profile);
+        return;
+      }
+
+      final userOption = await _authRepository.getSignedInUser();
+
+      yield await userOption.fold(
+        () => left(const ProfileFailure.noUser()),
+        (user) async {
+          final user = (await _authRepository.getSignedInUser())
+              .getOrElse(() => throw NotAuthenticatedError());
+          final tokenId = await user.getIdToken();
+
+          final response = await _client.get(
+            Uri.parse(
+              '${dotenv.env['BASE_API_ENDPOINT_URL']!}/profiles/$userId',
+            ),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $tokenId'
+            },
+          );
+
+          final json = jsonDecode(response.body);
+          if (json['message'] != null && response.statusCode == 404) {
+            return left(const ProfileFailure.unexpected());
+          }
+
+          final profile =
+              ProfileDto.fromJson(json['data'] as Map<String, dynamic>)
+                  .toDomain();
+
+          _profiles.add(profile);
+
+          return right(profile);
+        },
+      );
+    } catch (_) {
+      yield left(const ProfileFailure.unexpected());
     }
   }
 }

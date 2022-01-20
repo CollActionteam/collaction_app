@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collaction_app/presentation/crowdaction/crowdaction_details/comments/crowdaction_comments.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -242,6 +243,8 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 crowdAction: widget.crowdAction,
               ),
               const SizedBox(height: 70),
+              // TODO - Add Comments
+              CrowdActionComments(crowdAction: widget.crowdAction)
             ],
           ),
         ),

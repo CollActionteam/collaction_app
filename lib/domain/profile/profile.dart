@@ -8,5 +8,11 @@ class Profile with _$Profile {
 
   const factory Profile({
     String? bio,
+    required String phone,
+    required String userid,
+    required String displayname,
+    String? country,
+    String? city,
+    String? photoUrl,
   }) = _Profile;
 }

@@ -4,7 +4,10 @@ import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction_status.dart';
 import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
+import 'package:collaction_app/domain/profile/profile.dart';
+import 'package:collaction_app/domain/user/i_profile_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
+import 'package:collaction_app/domain/user/profile_failure.dart';
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
@@ -22,6 +25,8 @@ class MockUserRepository extends Mock implements IUserRepository {}
 class MockSettingsRepository extends Mock implements ISettingsRepository {}
 
 class MockContactFormApi extends Mock implements IContactFormApi {}
+
+class MockProfileApi extends Mock implements IProfileRepository {}
 
 // ignore: avoid_classes_with_only_static_members
 class TestUtilities {
@@ -70,5 +75,27 @@ class TestUtilities {
     );
 
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
+  }
+
+  static void mockProfileApi(Profile profile, {bool error = false}) {
+    if (GetIt.instance.isRegistered<IProfileRepository>()) {
+      GetIt.instance.unregister<IProfileRepository>();
+    }
+
+    registerFallbackValue(profile);
+
+    final crowdActionRepo = MockProfileApi();
+
+    when(() => crowdActionRepo.getUserProfileById(profile.userid)).thenAnswer(
+      (_) async* {
+        if (error) {
+          yield left(const ProfileFailure.noUser());
+        } else {
+          yield right(profile);
+        }
+      },
+    );
+
+    GetIt.instance.registerSingleton<IProfileRepository>(crowdActionRepo);
   }
 }
