@@ -131,23 +131,11 @@ jobs:
           alias: ${{ secrets.ANDROID_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-      - name: Build apk (deprecate)
-        run: flutter build apk --release --build-number $GITHUB_RUN_NUMBER
-      - name: Sign apk (deprecate)
-        uses: r0adkll/sign-android-release@v1
-        id: sign_apk
-        with:
-          releaseDirectory: build/app/outputs/flutter-apk
-          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
-          alias: ${{ secrets.ANDROID_ALIAS }}
-          keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
       - name: Upload android build artifacts
         uses: actions/upload-artifact@v2
         with:
           name: android-release
           path: |
-            ${{steps.sign_apk.outputs.signedReleaseFile}}
             ${{steps.sign_appbundle.outputs.signedReleaseFile}}
             build/app/outputs/logs
             build/app/outputs/release_notes.txt
@@ -198,7 +186,6 @@ jobs:
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
           rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
 
-  # TODO Update to distribute appbundle once released
   distribute_android:
     needs: [build]
     runs-on: ubuntu-latest
@@ -213,7 +200,7 @@ jobs:
           appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: internal
-          file: flutter-apk/app-signed.apk
+          file: bundle/release/app-release.aab
           releaseNotesFile: release_notes.txt
 
   distribute_ios:
