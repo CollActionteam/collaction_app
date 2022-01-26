@@ -9,7 +9,7 @@ class CrowdActionComment with _$CrowdActionComment {
   const factory CrowdActionComment({
     required String crowdactionID,
     required String message,
-    required String senderId,
+    required String authorId,
     required DateTime createdAt,
   }) = _CrowdActionComment;
 }

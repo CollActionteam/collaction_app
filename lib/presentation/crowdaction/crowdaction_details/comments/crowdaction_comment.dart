@@ -26,52 +26,59 @@ class CrowdActionUserComment extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          "${comment.createdAt.toCommentTime()} ago",
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
-            color: kPrimaryColor300,
-            fontSize: 11,
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14),
-          child: StreamBuilder(
-            stream: getIt<IUserRepository>().observeUser(),
-            builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-              return Row(
-                children: [
-                  UserAvatar(userId: comment.senderId),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Expanded(
-                    child: UserDisplayName(
-                      userId: comment.senderId,
-                    ),
-                  ),
-                  if (snapshot.data?.id == comment.senderId) ...[
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Delete",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: kAccentColor,
-                          fontSize: 11,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "${comment.createdAt.toCommentTime()} ago",
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: kPrimaryColor300,
+                  fontSize: 11,
+                ),
+              ),
+              StreamBuilder(
+                stream: getIt<IUserRepository>().observeUser(),
+                builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                  return Row(
+                    children: [
+                      UserAvatar(userId: comment.senderId),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                        child: UserDisplayName(
+                          userId: comment.senderId,
                         ),
                       ),
-                    )
-                  ]
-                ],
-              );
-            },
+                      if (snapshot.data?.id == comment.senderId) ...[
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            "Delete",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: kAccentColor,
+                              fontSize: 11,
+                            ),
+                          ),
+                        )
+                      ]
+                    ],
+                  );
+                },
+              )
+            ],
           ),
         ),
         const SizedBox(
           height: 10,
         ),
         Container(
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: kAlmostTransparent,

@@ -12,7 +12,7 @@ class CrowdActionCommentDto with _$CrowdActionCommentDto {
   factory CrowdActionCommentDto({
     required String crowdactionID,
     required String message,
-    required String senderId,
+    required String authorId,
     required String createdAt,
   }) = _CrowdActionCommentDto;
 
@@ -20,7 +20,7 @@ class CrowdActionCommentDto with _$CrowdActionCommentDto {
     return CrowdActionComment(
       crowdactionID: crowdactionID,
       message: message,
-      senderId: senderId,
+      authorId: authorId,
       createdAt: DateTime.tryParse(createdAt)!,
     );
   }
