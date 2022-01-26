@@ -64,7 +64,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           children: [
             Expanded(
               child: PageView.builder(
-                // physics: const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 controller: _pageController,
                 itemBuilder: (context, index) => OnBoard(
