@@ -23,9 +23,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final settingsRepository = getIt<ISettingsRepository>();
 
   final imagePages = [
-    'assets/images/onboarding_one.png',
-    'assets/images/onboarding_two.png',
-    'assets/images/onboarding_three.png',
+    CollactionIcons.goal,
+    CollactionIcons.crowd,
+    CollactionIcons.collaction,
   ];
 
   final titlePages = [
@@ -64,11 +64,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
           children: [
             Expanded(
               child: PageView.builder(
-                physics: const NeverScrollableScrollPhysics(),
+                // physics: const NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 controller: _pageController,
                 itemBuilder: (context, index) => OnBoard(
-                  image: imagePages[index],
+                  icon: imagePages[index],
                   title: titlePages[index],
                   message: textPages[index],
                   scaleFactor: scaleFactor,

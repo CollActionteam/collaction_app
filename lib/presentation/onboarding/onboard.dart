@@ -1,11 +1,12 @@
+import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../themes/constants.dart';
 
 /// Single onboarding slate
 class OnBoard extends StatelessWidget {
-  /// Image asset to display in board
-  final String image;
+  /// Icon to display in board
+  final IconData icon;
 
   /// Onboard title
   final String title;
@@ -18,7 +19,7 @@ class OnBoard extends StatelessWidget {
 
   const OnBoard({
     Key? key,
-    required this.image,
+    required this.icon,
     required this.title,
     required this.message,
     this.scaleFactor = 1.0,
@@ -29,7 +30,11 @@ class OnBoard extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Image.asset(image),
+          child: Icon(
+            icon,
+            color: kAccentColor,
+            size: icon == CollactionIcons.goal ? 40 : 180 * scaleFactor,
+          ),
         ),
         SizedBox(
           height: 5.0 * scaleFactor,
