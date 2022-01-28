@@ -1,10 +1,10 @@
 import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../themes/constants.dart';
+import '../../themes/constants.dart';
 
 /// Single onboarding slate
-class OnBoard extends StatelessWidget {
+class OnboardingStep extends StatelessWidget {
   /// Icon to display in board
   final IconData icon;
 
@@ -17,7 +17,7 @@ class OnBoard extends StatelessWidget {
   /// Screen scale factor
   final double scaleFactor;
 
-  const OnBoard({
+  const OnboardingStep({
     Key? key,
     required this.icon,
     required this.title,

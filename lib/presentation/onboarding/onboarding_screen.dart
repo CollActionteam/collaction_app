@@ -7,7 +7,7 @@ import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../themes/constants.dart';
-import 'onboard.dart';
+import 'widgets/onboarding_step.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 controller: _pageController,
-                itemBuilder: (context, index) => OnBoard(
+                itemBuilder: (context, index) => OnboardingStep(
                   icon: imagePages[index],
                   title: titlePages[index],
                   message: textPages[index],
