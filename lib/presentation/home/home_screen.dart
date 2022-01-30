@@ -59,6 +59,7 @@ class _HomePageState extends State<HomePage> {
       selectedItemColor: kEnabledButtonColor,
       unselectedItemColor: kDisabledButtonColor,
       type: BottomNavigationBarType.fixed,
+      elevation: 0,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(CollactionIcons.collaction),
