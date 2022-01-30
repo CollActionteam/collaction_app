@@ -57,9 +57,12 @@ class MicroCrowdActionCard extends StatelessWidget {
                     children: [
                       if (crowdAction.dateLimitJoin.compareTo(DateTime.now()) >=
                           0)
-                        const AccentChip(
-                          text: "Sign up now",
-                          leading: Icon(
+                        AccentChip(
+                          text: crowdAction.isOpen ? "Open" : "Closed",
+                          color: crowdAction.isOpen
+                              ? kAccentColor
+                              : kPrimaryColor200,
+                          leading: const Icon(
                             Icons.check,
                             color: Colors.white,
                           ),

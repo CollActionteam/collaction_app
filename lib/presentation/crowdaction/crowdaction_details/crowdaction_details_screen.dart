@@ -48,31 +48,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton:
-          BlocConsumer<SubscriptionStatusBloc, SubscriptionStatusState>(
-        listener: (context, state) {
-          if (state is SubscriptionStatus &&
-              state.status is SubscribedToCrowdAction) {
-            _commitments = state.status
-                .maybeWhen(subscribed: dartz.id, orElse: () => <String>[]);
-
-            _commitmentsKey.currentState?.selectCommitments(_commitments);
-          }
-        },
-        builder: (context, state) {
-          if (state is SubscriptionStatus &&
-              state.status is SubscribedToCrowdAction) {
-            return Container();
-          } else {
-            return PillButton(
-              text: "Participate",
-              isLoading: state is CheckingSubscriptionStatus,
-              isEnabled: _commitments.isNotEmpty,
-              onTap: () => _participate(context),
-            );
-          }
-        },
-      ),
+      floatingActionButton: _participateButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -153,9 +129,12 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                           onTap: () {
                             // TODO - Sign up, to crowd action
                           },
-                          child: const AccentChip(
-                            text: "Sign up now",
-                            leading: Icon(
+                          child: AccentChip(
+                            text: widget.crowdAction.isOpen ? "Open" : "Closed",
+                            color: widget.crowdAction.isOpen
+                                ? kAccentColor
+                                : kPrimaryColor200,
+                            leading: const Icon(
                               Icons.check,
                               color: Colors.white,
                             ),
@@ -247,6 +226,35 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
         ),
       ),
     );
+  }
+
+  Widget? _participateButton() {
+    return widget.crowdAction.isOpen
+        ? BlocConsumer<SubscriptionStatusBloc, SubscriptionStatusState>(
+            listener: (context, state) {
+              if (state is SubscriptionStatus &&
+                  state.status is SubscribedToCrowdAction) {
+                _commitments = state.status
+                    .maybeWhen(subscribed: dartz.id, orElse: () => <String>[]);
+
+                _commitmentsKey.currentState?.selectCommitments(_commitments);
+              }
+            },
+            builder: (context, state) {
+              if (state is SubscriptionStatus &&
+                  state.status is SubscribedToCrowdAction) {
+                return Container();
+              } else {
+                return PillButton(
+                  text: "Participate",
+                  isLoading: state is CheckingSubscriptionStatus,
+                  isEnabled: _commitments.isNotEmpty,
+                  onTap: () => _participate(context),
+                );
+              }
+            },
+          )
+        : null;
   }
 
   Future<void> _participate(BuildContext context) async {
