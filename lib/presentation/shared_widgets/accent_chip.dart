@@ -6,20 +6,22 @@ class AccentChip extends StatelessWidget {
   final String text;
   final Widget? leading;
   final VoidCallback? onDeleted;
+  final Color color;
 
   const AccentChip({
     Key? key,
     required this.text,
     this.leading,
     this.onDeleted,
+    this.color = kAccentColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Chip(
       avatar: leading,
-      backgroundColor: kAccentColor,
-      shape: const StadiumBorder(side: BorderSide(color: kAccentColor)),
+      backgroundColor: color,
+      shape: StadiumBorder(side: BorderSide(color: color)),
       label: Text(
         text,
         style: Theme.of(context).textTheme.caption?.copyWith(
