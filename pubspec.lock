@@ -925,7 +925,7 @@ packages:
       name: rive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.28"
+    version: "0.8.1"
   rxdart:
     dependency: "direct main"
     description:
