@@ -8,7 +8,7 @@ ThemeData lightTheme(BuildContext context) {
   return theme.copyWith(
     primaryColor: kPrimaryColor,
     colorScheme: theme.colorScheme.copyWith(secondary: kAccentColor),
-    primaryColorBrightness: Brightness.light,
+    brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.white,
     textTheme: theme.textTheme.apply(
       fontFamily: 'Rubik',
