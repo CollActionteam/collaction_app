@@ -3,5 +3,5 @@
 set -e
 
 flutter format -o none --set-exit-if-changed .
-flutter analyze --fatal-infos .
+flutter analyze .
 flutter test -r expanded .
