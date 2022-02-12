@@ -62,4 +62,5 @@ class CollactionIcons {
   static const IconData vegetarian = IconData(0xe825, fontFamily: _kFontFam);
   static const IconData crowd = IconData(0xe826, fontFamily: _kFontFam);
   static const IconData goal = IconData(0xe827, fontFamily: _kFontFam);
+  static const IconData rocket = IconData(0xe828, fontFamily: _kFontFam);
 }

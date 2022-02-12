@@ -68,6 +68,14 @@ class SettingsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         SettingsListTile(
+                          title: 'Onboarding',
+                          icon: CollactionIcons.rocket,
+                          trailingIcon: CollactionIcons.arrow_right,
+                          onTap: () =>
+                              context.router.push(const OnboardingRoute()),
+                        ),
+                        const SizedBox(height: 15),
+                        SettingsListTile(
                           title: 'Open source libraries',
                           icon: CollactionIcons.opensource,
                           trailingIcon: CollactionIcons.arrow_right,
