@@ -45,7 +45,7 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
                     MicroCrowdActionCard(crowdActions.crowdActions[index]),
               );
             },
-            orElse: () => Container(),
+            orElse: () => const SizedBox(),
           ),
         ),
       ),

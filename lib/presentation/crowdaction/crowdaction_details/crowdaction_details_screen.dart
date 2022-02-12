@@ -243,7 +243,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
             builder: (context, state) {
               if (state is SubscriptionStatus &&
                   state.status is SubscribedToCrowdAction) {
-                return Container();
+                return const SizedBox();
               } else {
                 return PillButton(
                   text: "Participate",
