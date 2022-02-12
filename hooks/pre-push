@@ -4,4 +4,3 @@ set -e
 
 flutter format -o none --set-exit-if-changed .
 flutter analyze .
-flutter test -r expanded .
