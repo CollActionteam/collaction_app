@@ -22,7 +22,7 @@ class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
       create: (context) => getIt<CrowdActionGetterBloc>()
         ..add(const CrowdActionGetterEvent.getMore(null)),
       child: Scaffold(
-        appBar: CustomAppBar(context, title: 'Browse CrowdActions'),
+        appBar: const CustomAppBar(title: 'Browse CrowdActions'),
         body: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
           builder: (context, state) => state.maybeMap(
             initial: (_) => const CenteredLoadingIndicator(),

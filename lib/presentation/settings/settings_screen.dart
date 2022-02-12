@@ -68,7 +68,7 @@ class SettingsPage extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: CustomAppBar(context, closable: true),
+      appBar: const CustomAppBar(closable: true),
       body: Column(
         children: [
           Expanded(
