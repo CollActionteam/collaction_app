@@ -103,12 +103,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
               ],
             ),
-            /*appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-              centerTitle: true,
-              
-            ),*/
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
