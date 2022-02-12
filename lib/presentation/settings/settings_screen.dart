@@ -10,6 +10,7 @@ import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
+import 'widgets/settings_list_tile.dart';
 import 'widgets/share_collaction_list_tile.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -17,56 +18,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ossLicenses = ListTile(
-      onTap: () => context.router.push(const LicensesRoute()),
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 15,
-        horizontal: 20,
-      ),
-      tileColor: kAlmostTransparent,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      leading: const CircleAvatar(
-        radius: 32.5,
-        backgroundColor: kSecondaryColor,
-        child: Icon(
-          CollactionIcons.opensource,
-          color: kPrimaryColor300,
-        ),
-      ),
-      title: const Text(
-        'Open source',
-      ),
-      trailing: const Icon(CollactionIcons.external_link),
-    );
-
-    final logoutButton = ListTile(
-      onTap: () async {
-        BlocProvider.of<AuthBloc>(context).add(const AuthEvent.signedOut());
-        await context.router.pop();
-      },
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 15,
-        horizontal: 20,
-      ),
-      tileColor: kAlmostTransparent,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      leading: const CircleAvatar(
-        radius: 32.5,
-        backgroundColor: kSecondaryColor,
-        child: Icon(
-          CollactionIcons.logout,
-          color: kErrorColor,
-        ),
-      ),
-      title: const Text(
-        'Log out',
-      ),
-    );
-
     return Scaffold(
       appBar: const CustomAppBar(closable: true),
       body: Column(
@@ -108,93 +59,58 @@ class SettingsPage extends StatelessWidget {
                       children: [
                         const ShareCollactionListTile(),
                         const SizedBox(height: 15),
-                        ListTile(
+                        SettingsListTile(
+                          title: 'Contact us',
+                          icon: CollactionIcons.message,
+                          trailingIcon: CollactionIcons.arrow_right,
                           onTap: () =>
                               context.router.push(const ContactFormRoute()),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.message,
-                              color: kPrimaryColor300,
-                            ),
-                          ),
-                          title: const Text(
-                            'Contact us',
-                          ),
-                          trailing: const Icon(CollactionIcons.arrow_right),
                         ),
                         const SizedBox(height: 15),
-                        ListTile(
+                        SettingsListTile(
+                          title: 'Open source libraries',
+                          icon: CollactionIcons.opensource,
+                          trailingIcon: CollactionIcons.arrow_right,
+                          onTap: () =>
+                              context.router.push(const LicensesRoute()),
+                        ),
+                        const SizedBox(height: 15),
+                        SettingsListTile(
+                          title: 'Terms of use',
+                          icon: CollactionIcons.lock,
+                          trailingIcon: CollactionIcons.external_link,
                           onTap: () =>
                               launchUrl('https://www.collaction.org/terms'),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.file,
-                              color: kPrimaryColor300,
-                            ),
-                          ),
-                          title: const Text(
-                            'Terms of use',
-                          ),
-                          trailing: const Icon(CollactionIcons.external_link),
                         ),
                         const SizedBox(height: 15),
-                        ListTile(
+                        SettingsListTile(
+                          title: 'Privacy policy',
+                          icon: CollactionIcons.file,
+                          trailingIcon: CollactionIcons.external_link,
                           onTap: () =>
                               launchUrl('https://www.collaction.org/privacy'),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20,
-                          ),
-                          tileColor: kAlmostTransparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          leading: const CircleAvatar(
-                            radius: 32.5,
-                            backgroundColor: kSecondaryColor,
-                            child: Icon(
-                              CollactionIcons.lock,
-                              color: kPrimaryColor300,
-                            ),
-                          ),
-                          title: const Text(
-                            'Privacy policy',
-                          ),
-                          trailing: const Icon(CollactionIcons.external_link),
                         ),
-                        const SizedBox(height: 15),
-                        ossLicenses,
                         BlocBuilder(
                           bloc: getIt<ProfileBloc>()..add(GetUserProfile()),
-                          builder: (context, ProfileState state) =>
-                              state.userProfile == null
-                                  ? const SizedBox()
-                                  : Column(
-                                      children: [
-                                        const SizedBox(height: 15),
-                                        logoutButton,
-                                      ],
+                          builder: (context, ProfileState state) => state
+                                      .userProfile ==
+                                  null
+                              ? const SizedBox()
+                              : Column(
+                                  children: [
+                                    const SizedBox(height: 15),
+                                    SettingsListTile(
+                                      title: 'Log out',
+                                      icon: CollactionIcons.logout,
+                                      iconColor: kErrorColor,
+                                      onTap: () async {
+                                        BlocProvider.of<AuthBloc>(context)
+                                            .add(const AuthEvent.signedOut());
+                                        await context.router.pop();
+                                      },
                                     ),
+                                  ],
+                                ),
                         )
                       ],
                     ),
