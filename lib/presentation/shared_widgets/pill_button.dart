@@ -57,28 +57,27 @@ class PillButton extends StatelessWidget {
                   color: Colors.white,
                 ),
               )
-            : leading != null
-                ? ElevatedButton.icon(
-                    icon: leading ?? Container(),
-                    label: Text(text),
-                    onPressed: isEnabled ? onTap : null,
-                    style: ElevatedButton.styleFrom(
-                      primary: kAccentColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(52),
-                      ),
-                    ),
-                  )
-                : ElevatedButton(
-                    onPressed: isEnabled ? onTap : null,
-                    style: ElevatedButton.styleFrom(
-                      primary: kAccentColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(52),
-                      ),
-                    ),
-                    child: Text(text),
+            : ElevatedButton.icon(
+                icon: leading ?? const SizedBox(),
+                label: Text(text),
+                onPressed: isEnabled ? onTap : null,
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                    (states) {
+                      if (states.contains(MaterialState.disabled)) {
+                        return kAlmostTransparent;
+                      }
+                      return kAccentColor;
+                    },
                   ),
+                  elevation: MaterialStateProperty.all<double>(0),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(52),
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }
