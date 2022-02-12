@@ -7,7 +7,6 @@ import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
-import '../utils/mvp.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,11 +20,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      checkAndMaybeShowCaptivePage(context.router).then((wasCaptivePageShown) {
-        if (!wasCaptivePageShown) {
-          checkAndMaybeShowOnboarding();
-        }
-      });
+      checkAndMaybeShowOnboarding();
     });
   }
 
