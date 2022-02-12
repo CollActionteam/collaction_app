@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
 import '../../infrastructure/core/injection.dart';
@@ -22,6 +23,12 @@ class UserProfilePage extends StatefulWidget {
 class _UserProfilePageState extends State<UserProfilePage> {
   File? _image;
 
+  Future<void> share() async {
+    await Share.share(
+      'Become part of the CollAction crowd. Join now via ${Platform.isAndroid ? "https://play.google.com/store/apps/details?id=org.collaction.collaction_app" : "https://apps.apple.com/us/app/collaction-power-to-the-crowd/id1597643827"}',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final bioController = TextEditingController();
@@ -36,36 +43,59 @@ class _UserProfilePageState extends State<UserProfilePage> {
           final scaffold = Scaffold(
             extendBodyBehindAppBar: true,
             backgroundColor: kAlmostTransparent,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () =>
-                        context.router.push(const SettingsRoute()).then((_) {
-                      context.read<ProfileBloc>().add(GetUserProfile());
-                    }),
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      primary: Colors.white,
-                      onPrimary: kPrimaryColor0,
-                      tapTargetSize: MaterialTapTargetSize.padded,
-                    ).merge(
-                      ButtonStyle(
-                        elevation: MaterialStateProperty.resolveWith<double?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return 5;
-                            }
-                            return 4;
-                          },
-                        ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.miniEndTop,
+            floatingActionButton: Column(
+              children: [
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: share,
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    primary: kEnabledButtonColor,
+                  ).merge(
+                    ButtonStyle(
+                      elevation: MaterialStateProperty.resolveWith<double?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return 5;
+                          }
+                          return 4;
+                        },
                       ),
                     ),
-                    child: const Icon(
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+                    child: Icon(CollactionIcons.share),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () =>
+                      context.router.push(const SettingsRoute()).then((_) {
+                    context.read<ProfileBloc>().add(GetUserProfile());
+                  }),
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    primary: Colors.white,
+                    onPrimary: kPrimaryColor0,
+                    tapTargetSize: MaterialTapTargetSize.padded,
+                  ).merge(
+                    ButtonStyle(
+                      elevation: MaterialStateProperty.resolveWith<double?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return 5;
+                          }
+                          return 4;
+                        },
+                      ),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+                    child: Icon(
                       CollactionIcons.settings,
                       color: kPrimaryColor300,
                     ),
