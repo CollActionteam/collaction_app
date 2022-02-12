@@ -25,7 +25,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   Future<void> share() async {
     await Share.share(
-      'Become part of CollAction crowd. Join Now via ${Platform.isAndroid ? "https://play.google.com/store/apps/details?id=org.collaction.collaction_app" : "https://apps.apple.com/us/app/collaction-power-to-the-crowd/id1597643827"}',
+      'Become part of the CollAction crowd. Join now via ${Platform.isAndroid ? "https://play.google.com/store/apps/details?id=org.collaction.collaction_app" : "https://apps.apple.com/us/app/collaction-power-to-the-crowd/id1597643827"}',
     );
   }
 
