@@ -16,6 +16,7 @@ import '../licenses/licenses_page.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../settings/settings_layout.dart';
 import '../settings/settings_screen.dart';
+import '../shared_widgets/web_view_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -61,6 +62,7 @@ import '../settings/settings_screen.dart';
     AutoRoute(path: 'licenses-page', page: LicensesPage),
     AutoRoute(path: 'settings-layout', page: SettingsLayout),
     AutoRoute(path: 'contact-form', page: ContactFormPage),
+    AutoRoute(path: 'webview', page: WebViewPage),
   ],
 )
 class $AppRouter {}
