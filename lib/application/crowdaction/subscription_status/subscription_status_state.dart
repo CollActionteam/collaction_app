@@ -15,3 +15,15 @@ class SubscriptionStatusState with _$SubscriptionStatusState {
   const factory SubscriptionStatusState.checkingSubscriptionStatusFailed() =
       _CheckingSubscriptionStatusFailed;
 }
+
+extension SubscriptionStatusX on SubscriptionStatusState {
+  bool get isSubscribed =>
+      this is SubscriptionStatus &&
+      (this as SubscriptionStatus).status is SubscribedToCrowdAction;
+
+  List<String> get commitments => isSubscribed
+      ? (this as SubscriptionStatus)
+          .status
+          .maybeWhen(subscribed: id, orElse: () => <String>[])
+      : [];
+}
