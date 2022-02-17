@@ -10,8 +10,8 @@ class ExpandableText extends StatefulWidget {
     Key? key,
     this.trimLines = 3,
     this.clickableTextColor = kAccentColor,
-    this.readMoreText = "... read more",
-    this.readLessText = " read less",
+    this.readMoreText = " more",
+    this.readLessText = " less",
     this.style = const TextStyle(color: Colors.black),
   }) : super(key: key);
 
@@ -64,7 +64,6 @@ class ExpandableTextState extends State<ExpandableText> {
         final TextPainter textPainter = TextPainter(
           text: link,
           textDirection: TextDirection.rtl,
-          //better to pass this from master widget if ltr and rtl both supported
           maxLines: widget.trimLines,
           ellipsis: '...',
         );
@@ -91,7 +90,9 @@ class ExpandableTextState extends State<ExpandableText> {
           textSpan = TextSpan(
             text: _readMore ? widget.text.substring(0, endIndex) : widget.text,
             style: widget.style,
-            children: <TextSpan>[link],
+            children: _readMore
+                ? <TextSpan>[const TextSpan(text: '...'), link]
+                : [link],
           );
         } else {
           textSpan = TextSpan(
