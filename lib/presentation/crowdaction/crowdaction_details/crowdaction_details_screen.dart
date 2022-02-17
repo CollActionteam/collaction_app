@@ -13,6 +13,7 @@ import '../../core/collaction_icons.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
+import '../../shared_widgets/expandable_text.dart';
 import '../../shared_widgets/image_skeleton_loader.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
@@ -156,14 +157,15 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                         height: 20,
                       ),
                     ),
-                    Text(
+                    ExpandableText(
                       widget.crowdAction.description,
+                      trimLines: 5,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             fontSize: 17,
                             fontWeight: FontWeight.w300,
                             height: 1.5,
                           ),
-                    )
+                    ),
                   ],
                 ),
               ),
