@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/crowdaction/subscription_status/subscription_status_bloc.dart';
 import '../../../../domain/auth/i_auth_repository.dart';
 import '../../../../domain/crowdaction/crowdaction.dart';
-import '../../../../domain/crowdaction/crowdaction_status.dart';
 import '../../../../infrastructure/core/injection.dart';
+import '../../../application/crowdaction/subscription/subscription_bloc.dart';
 import '../../core/collaction_icons.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
@@ -34,8 +33,6 @@ class CrowdActionDetailsPage extends StatefulWidget {
 }
 
 class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
-  List<String> _commitments = [];
-  final GlobalKey<CommitmentCardListState> _commitmentsKey = GlobalKey();
   final _headerHeight = 310.0;
 
   @override
@@ -44,6 +41,9 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
     context.read<SubscriptionStatusBloc>().add(
           SubscriptionStatusEvent.checkParticipationStatus(widget.crowdAction),
         );
+    context
+        .read<SubscriptionBloc>()
+        .add(SubscriptionEvent.setCommitments(widget.crowdAction));
   }
 
   @override
@@ -195,23 +195,9 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 20),
-                child: BlocBuilder<SubscriptionStatusBloc,
-                    SubscriptionStatusState>(
-                  builder: (context, state) {
-                    return CommitmentCardList(
-                      readOnly: state is SubscriptionStatus &&
-                          state.status is SubscribedToCrowdAction,
-                      key: _commitmentsKey,
-                      active: _commitments,
-                      commitments: widget.crowdAction.commitmentOptions,
-                      onSelected: (List<String> selectedIds) {
-                        setState(() => _commitments = selectedIds);
-                      },
-                    );
-                  },
-                ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 20),
+                child: CommitmentCardList(),
               ),
 
               /// TODO: Implement after MVP
@@ -234,24 +220,31 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
     return widget.crowdAction.isOpen
         ? BlocConsumer<SubscriptionStatusBloc, SubscriptionStatusState>(
             listener: (context, state) {
-              if (state is SubscriptionStatus &&
-                  state.status is SubscribedToCrowdAction) {
-                _commitments = state.status
-                    .maybeWhen(subscribed: dartz.id, orElse: () => <String>[]);
-
-                _commitmentsKey.currentState?.selectCommitments(_commitments);
-              }
+              context.read<SubscriptionBloc>()
+                ..add(
+                  SubscriptionEvent.setActiveCommitments(
+                    state.isSubscribed ? state.commitments : [],
+                  ),
+                )
+                ..add(
+                  SubscriptionEvent.setDeactivatedState(
+                    isDeactivated: state.isSubscribed,
+                  ),
+                );
             },
             builder: (context, state) {
-              if (state is SubscriptionStatus &&
-                  state.status is SubscribedToCrowdAction) {
+              if (state.isSubscribed) {
                 return const SizedBox();
               } else {
-                return PillButton(
-                  text: "Participate",
-                  isLoading: state is CheckingSubscriptionStatus,
-                  isEnabled: _commitments.isNotEmpty,
-                  onTap: () => _participate(context),
+                return BlocBuilder<SubscriptionBloc, SubscriptionState>(
+                  builder: (context, subscriptionState) {
+                    return PillButton(
+                      text: "Participate",
+                      isLoading: state is CheckingSubscriptionStatus,
+                      isEnabled: subscriptionState.activeCommitments.isNotEmpty,
+                      onTap: () => _participate(context),
+                    );
+                  },
                 );
               }
             },
@@ -283,13 +276,7 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
       ),
       builder: (context) {
         return ConfirmParticipation(
-          commitments: _commitments,
           crowdAction: widget.crowdAction,
-          onSelect: (List<String> selectedIds) {
-            setState(() {
-              _commitments = selectedIds;
-            });
-          },
         );
       },
     );

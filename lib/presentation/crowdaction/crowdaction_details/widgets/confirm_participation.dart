@@ -9,36 +9,20 @@ import '../../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../../shared_widgets/pill_button.dart';
 import '../../../themes/constants.dart';
 
-class ConfirmParticipation extends StatefulWidget {
+class ConfirmParticipation extends StatelessWidget {
   final CrowdAction crowdAction;
-  final List<String> commitments;
-  final Function(List<String>) onSelect;
 
   const ConfirmParticipation({
     Key? key,
     required this.crowdAction,
-    required this.commitments,
-    required this.onSelect,
   }) : super(key: key);
-
-  @override
-  State<ConfirmParticipation> createState() => _ConfirmParticipationState();
-}
-
-class _ConfirmParticipationState extends State<ConfirmParticipation> {
-  late List<String> _commitments;
-
-  @override
-  void initState() {
-    super.initState();
-    _commitments = List<String>.from(widget.commitments);
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SubscriptionBloc, SubscriptionState>(
       listener: (context, state) {
-        state.maybeMap(
+        state.mapOrNull(
+          (value) => {},
           subscribed: (state) {
             // Close the modal
             Navigator.of(context).pop();
@@ -48,7 +32,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
             // Update Status
             context.read<SubscriptionStatusBloc>().add(
                   SubscriptionStatusEvent.checkParticipationStatus(
-                    widget.crowdAction,
+                    crowdAction,
                   ),
                 );
           },
@@ -65,8 +49,8 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                   onPressed: () {
                     context.read<SubscriptionBloc>().add(
                           SubscriptionEvent.participate(
-                            widget.crowdAction,
-                            _commitments,
+                            crowdAction,
+                            state.activeCommitments,
                             "",
                           ),
                         );
@@ -76,7 +60,6 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
               ),
             );
           },
-          orElse: () {},
         );
       },
       builder: (context, state) {
@@ -119,7 +102,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                     Container(
                       constraints: const BoxConstraints(maxHeight: 80),
                       child: Text(
-                        sectionDescription(),
+                        sectionDescription(state),
                         overflow: TextOverflow.fade,
                         style: Theme.of(context).textTheme.caption?.copyWith(
                               color: kPrimaryColor400,
@@ -130,7 +113,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                       height: 20,
                     ),
                     Text(
-                      sectionHeading(),
+                      sectionHeading(state),
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -140,21 +123,7 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
                     const SizedBox(
                       height: 20,
                     ),
-                    CommitmentCardList(
-                      active: _commitments,
-                      commitments: widget.crowdAction.commitmentOptions
-                          .where(
-                            (commitment) =>
-                                _commitments.contains(commitment.id),
-                          )
-                          .toList(),
-                      onSelected: (selectedIds) {
-                        setState(() {
-                          _commitments = selectedIds;
-                        });
-                        widget.onSelect(selectedIds);
-                      },
-                    ),
+                    const CommitmentCardList(),
                   ],
                 ),
               ),
@@ -164,12 +133,12 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
               PillButton(
                 text: "Confirm",
                 isLoading: state is SubscribingToCrowdAction,
-                isEnabled: _commitments.isNotEmpty,
+                isEnabled: state.activeCommitments.isNotEmpty,
                 onTap: () {
                   context.read<SubscriptionBloc>().add(
                         SubscriptionEvent.participate(
-                          widget.crowdAction,
-                          _commitments,
+                          crowdAction,
+                          state.activeCommitments,
                           "",
                         ),
                       );
@@ -197,16 +166,16 @@ class _ConfirmParticipationState extends State<ConfirmParticipation> {
     );
   }
 
-  String sectionDescription() {
-    if (_commitments.length > 1) {
+  String sectionDescription(SubscriptionState state) {
+    if (state.activeCommitments.length > 1) {
       return "You’re almost there! You’ve selected the displayed commitments to stick to through this CrowdAction. By clicking “Confirm” you will officially commit to this CrowdAction.";
     } else {
       return "You’re almost there! You’ve selected the displayed commitment to stick to through this CrowdAction. By clicking “Confirm” you will officially commit to this CrowdAction.";
     }
   }
 
-  String sectionHeading() {
-    if (_commitments.length > 1) {
+  String sectionHeading(SubscriptionState state) {
+    if (state.activeCommitments.length > 1) {
       return "Your Commitments";
     } else {
       return "Your Commitment";

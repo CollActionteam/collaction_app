@@ -16,12 +16,18 @@ class CommitmentCard extends StatelessWidget {
     this.onDeSelected,
     Key? key,
     this.active = false,
+    this.deactivated = false,
   }) : super(key: key);
 
   final CommitmentOption commitment;
   final Function(CommitmentOption)? onSelected;
   final Function(CommitmentOption)? onDeSelected;
   final bool active;
+
+  /// Deactivated commit
+  /// When a user is participating in a crowdaction,
+  /// the card should be marked as deactivated
+  final bool deactivated;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +44,7 @@ class CommitmentCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: active ? kAlmostTransparent : kSecondaryColor,
+          border: active ? null : Border.all(color: kPrimaryColor0),
         ),
         margin: const EdgeInsets.symmetric(
           vertical: 5.0,
@@ -74,7 +81,7 @@ class CommitmentCard extends StatelessWidget {
                     style: textTheme.caption!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: kPrimaryColor400,
+                      color: deactivated ? kPrimaryColor300 : kPrimaryColor400,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -84,8 +91,10 @@ class CommitmentCard extends StatelessWidget {
                   ),
                   Text(
                     commitment.description,
-                    style: textTheme.caption!
-                        .copyWith(fontSize: 13, color: kPrimaryColor300),
+                    style: textTheme.caption!.copyWith(
+                      fontSize: 13,
+                      color: deactivated ? kPrimaryColor200 : kPrimaryColor300,
+                    ),
                     softWrap: true,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -94,28 +103,29 @@ class CommitmentCard extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Container(
-              constraints: const BoxConstraints(
-                minHeight: 32,
-                minWidth: 32,
-              ),
-              decoration: BoxDecoration(
-                color: active ? kPrimaryColor400 : Colors.transparent,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: active ? kPrimaryColor400 : kPrimaryColor200,
-                  width: 3,
+            if (!deactivated)
+              Container(
+                constraints: const BoxConstraints(
+                  minHeight: 32,
+                  minWidth: 32,
                 ),
-              ),
-              child: Visibility(
-                visible: active,
-                child: const Icon(
-                  Icons.check,
-                  size: 30,
-                  color: Colors.white,
+                decoration: BoxDecoration(
+                  color: active ? kPrimaryColor400 : Colors.transparent,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: active ? kPrimaryColor400 : kPrimaryColor200,
+                    width: 3,
+                  ),
                 ),
-              ),
-            )
+                child: Visibility(
+                  visible: active,
+                  child: const Icon(
+                    Icons.check,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
+              )
           ],
         ),
       ),
