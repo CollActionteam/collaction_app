@@ -165,15 +165,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   List<String> _activeCommitments = [];
 
   void _selectAll(List<CommitmentOption> commitments) {
-    for (final commitment in _commitments) {
-      if (commitments.contains(commitment)) {
-        _activeCommitments.add(commitment.id);
-        _activeCommitments = _activeCommitments.toSet().toList();
-
-        final children = commitment.requires;
-        if (children != null) {
-          _selectAll(children);
+    for (final commitment in commitments) {
+      child = commitment;
+      while (child != null) {
+        if (!_activeCommitments.contains(child.id)) {
+          _activeCommitments.add(child.id);
         }
+        child = child.requires;
       }
     }
   }
