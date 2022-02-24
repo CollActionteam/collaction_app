@@ -182,11 +182,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _deselectCommitment(CommitmentOption option) {
-    // setState(() {
-    //   // Remove from active commitments
     _activeCommitments.remove(option.id);
-    //
-    //   // Recursively deselect all parents
+
     final activeCommitmentOptions = _commitments
         .where((commitment) => _activeCommitments.contains(commitment.id));
     for (final commitment in activeCommitmentOptions) {
@@ -194,23 +191,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         _deselectCommitment(commitment);
       }
     }
-
-    //   // If is required child deselect & parent
-    //   widget.onSelected(_activeCommitments);
-    // });
   }
 
   void _selectCommitment(CommitmentOption option) {
-    // setState(() {
     _activeCommitments.add(option.id);
-    // Check if has required
+
     final children = option.requires;
-    // If yes - Loop and check
     if (children != null) {
       _selectAll(children);
     }
-
-    // widget.onSelected(_activeCommitments);
-    // });
   }
 }
