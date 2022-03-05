@@ -7,6 +7,7 @@ import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
 import 'accent_chip.dart';
+import 'micro_lock.dart';
 
 class MicroCrowdActionCard extends StatelessWidget {
   final CrowdAction crowdAction;
@@ -55,18 +56,24 @@ class MicroCrowdActionCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (crowdAction.dateLimitJoin.compareTo(DateTime.now()) >=
-                          0)
-                        AccentChip(
-                          text: crowdAction.isOpen ? "Open" : "Closed",
-                          color: crowdAction.isOpen
-                              ? kAccentColor
-                              : kPrimaryColor200,
-                          leading: const Icon(
-                            Icons.check,
-                            color: Colors.white,
+                      Row(
+                        children: [
+                          AccentChip(
+                            text: crowdAction.isOpen ? "Open" : "Closed",
+                            color: crowdAction.isOpen
+                                ? kAccentColor
+                                : kPrimaryColor200,
+                            leading: Icon(
+                              crowdAction.isOpen ? Icons.check : Icons.close,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
+                          if (crowdAction.hasPassword) ...[
+                            const SizedBox(width: 10),
+                            const MicroLock(),
+                          ],
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: Text(

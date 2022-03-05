@@ -7,12 +7,15 @@ class CustomFAB extends StatelessWidget {
   final bool isMini;
   final String? heroTag;
   final GestureTapCallback? onPressed;
+  final Color? color;
+
   const CustomFAB({
     Key? key,
     required this.child,
     this.isMini = false,
     this.heroTag = "fabBtn",
     this.onPressed,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -20,7 +23,8 @@ class CustomFAB extends StatelessWidget {
     return FloatingActionButton(
       onPressed: onPressed,
       heroTag: heroTag,
-      backgroundColor: onPressed != null ? kAccentColor : kDisabledButtonColor,
+      backgroundColor:
+          color ?? (onPressed != null ? kAccentColor : kDisabledButtonColor),
       mini: isMini,
       child: child,
     );
