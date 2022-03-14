@@ -24,7 +24,11 @@ class LegalNotice extends StatelessWidget {
             style: textStyle.copyWith(decoration: TextDecoration.underline),
             text: "terms of use",
             recognizer: TapGestureRecognizer()
-              ..onTap = () => launchUrl("https://www.collaction.org/terms"),
+              ..onTap = () => launchUrl(
+                    "https://www.collaction.org/terms",
+                    useWebView: true,
+                    context: context,
+                  ),
           ),
           const TextSpan(
             style: textStyle,
@@ -34,7 +38,11 @@ class LegalNotice extends StatelessWidget {
             style: textStyle.copyWith(decoration: TextDecoration.underline),
             text: "privacy policy",
             recognizer: TapGestureRecognizer()
-              ..onTap = () => launchUrl("https://www.collaction.org/privacy"),
+              ..onTap = () => launchUrl(
+                    "https://www.collaction.org/privacy",
+                    useWebView: true,
+                    context: context,
+                  ),
           ),
           const TextSpan(
             style: textStyle,

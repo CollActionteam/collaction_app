@@ -5,12 +5,10 @@ import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final BuildContext _context;
   final String title;
   final bool closable;
 
-  const CustomAppBar(
-    this._context, {
+  const CustomAppBar({
     Key? key,
     this.title = "",
     this.closable = false,
@@ -81,5 +79,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size(MediaQuery.of(_context).size.width, 55.0);
+  Size get preferredSize => const Size.fromHeight(55.0);
 }

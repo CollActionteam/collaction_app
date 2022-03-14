@@ -57,6 +57,7 @@ class WithdrawParticipation extends StatelessWidget {
         return BlocConsumer<SubscriptionBloc, SubscriptionState>(
           listener: (context, state) {
             state.maybeMap(
+              (_) => {},
               unsubscribed: (state) {
                 Navigator.pop(context);
                 _withdrawSuccess(context);

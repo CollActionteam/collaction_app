@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+set -e
+
+flutter format -o none --set-exit-if-changed .
+flutter analyze .

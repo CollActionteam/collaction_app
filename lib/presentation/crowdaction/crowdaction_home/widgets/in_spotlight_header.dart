@@ -90,7 +90,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                           const SizedBox(height: 5),
                           Row(
                             children: [
-                              Expanded(child: Container()),
+                              const Expanded(child: SizedBox()),
                               DotsIndicator(
                                 position: _currentPage,
                                 dotsCount: _pages.length,
@@ -102,7 +102,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                                   spacing: EdgeInsets.all(8.0),
                                 ),
                               ),
-                              Expanded(child: Container()),
+                              const Expanded(child: SizedBox()),
                             ],
                           ),
                         ],

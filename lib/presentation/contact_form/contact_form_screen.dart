@@ -32,7 +32,7 @@ class ContactFormPageState extends State<ContactFormPage> {
       },
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: CustomAppBar(context),
+        appBar: const CustomAppBar(),
         backgroundColor: kSecondaryColor,
         body: ScrollConfiguration(
           behavior: NoRippleBehavior(),
