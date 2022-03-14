@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:collaction_app/presentation/crowdaction/crowdaction_details/comments/crowdaction_comments.dart';
-import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +16,7 @@ import '../../shared_widgets/expandable_text.dart';
 import '../../shared_widgets/image_skeleton_loader.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
+import 'comments/crowdaction_comments.dart';
 import 'widgets/confirm_participation.dart';
 import 'widgets/realtime_participant_text.dart';
 import 'widgets/withdraw_participation.dart';

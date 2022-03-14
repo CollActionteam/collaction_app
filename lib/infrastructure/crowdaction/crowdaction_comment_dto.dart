@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/crowdaction/crowdaction_comment.dart';
 
 part 'crowdaction_comment_dto.freezed.dart';
+
 part 'crowdaction_comment_dto.g.dart';
 
 @freezed
@@ -10,17 +11,21 @@ class CrowdActionCommentDto with _$CrowdActionCommentDto {
   const CrowdActionCommentDto._();
 
   factory CrowdActionCommentDto({
+    required String commentID,
     required String crowdactionID,
     required String message,
     required String authorId,
+    int? likes,
     required String createdAt,
   }) = _CrowdActionCommentDto;
 
   CrowdActionComment toDomain() {
     return CrowdActionComment(
+      commentID: commentID,
       crowdactionID: crowdactionID,
       message: message,
       authorId: authorId,
+      likes: likes,
       createdAt: DateTime.tryParse(createdAt)!,
     );
   }

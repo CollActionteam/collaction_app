@@ -10,22 +10,32 @@ extension DateX on DateTime {
     if (interval > 1) {
       return "${interval.floor()} years";
     }
+
     interval = seconds / 2592000;
     if (interval > 1) {
       return "${interval.floor()} months";
     }
+
+    interval = seconds / 604800;
+    if (interval > 1) {
+      return "${interval.floor()} weeks";
+    }
+
     interval = seconds / 86400;
     if (interval > 1) {
       return "${interval.floor()} days";
     }
+
     interval = seconds / 3600;
     if (interval > 1) {
       return "${interval.floor()} hours";
     }
+
     interval = seconds / 60;
     if (interval > 1) {
       return "${interval.floor()} minutes";
     }
+
     return "$seconds seconds";
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/subscription/subscription_bloc.dart';
 import '../../application/auth/auth_bloc.dart';
+import '../../application/crowdaction/comments/crowdaction_comments_bloc.dart';
 import '../../application/crowdaction/subscription_status/subscription_status_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
@@ -23,6 +24,9 @@ class AppWidget extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<SubscriptionStatusBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CrowdactionCommentsBloc>(),
         )
       ],
       child: MaterialApp.router(

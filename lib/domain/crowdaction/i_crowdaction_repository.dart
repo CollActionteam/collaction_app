@@ -8,6 +8,7 @@ abstract class ICrowdActionRepository {
   Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions({
     int amount = 0,
   });
+
   Future<Either<CrowdActionFailure, List<CrowdAction>>>
       getSpotlightCrowdActions();
 

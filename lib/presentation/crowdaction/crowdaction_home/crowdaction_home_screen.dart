@@ -12,9 +12,13 @@ class CrowdActionHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SpotlightBloc>()
-        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<SpotlightBloc>()
+            ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+        )
+      ],
       child: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,

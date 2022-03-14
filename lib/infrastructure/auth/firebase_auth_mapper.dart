@@ -1,6 +1,9 @@
+import 'package:collaction_app/infrastructure/auth/firebase_auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import '../../domain/auth/auth_failures.dart';
+import '../../domain/auth/errors.dart';
+import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/user/user.dart';
 
 extension FirebaseUserX on firebase_auth.User? {
@@ -34,5 +37,19 @@ extension FirebaseErrorX on firebase_auth.FirebaseAuthException {
     } else {
       return const AuthFailure.serverError();
     }
+  }
+}
+
+extension FirebaseRepoX on IAuthRepository {
+  Future<Map<String, String>> getAuthHeaders() async {
+    final user = (await getSignedInUser())
+        .getOrElse(() => throw NotAuthenticatedError());
+
+    final tokenId = await user.getIdToken();
+
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $tokenId'
+    };
   }
 }
