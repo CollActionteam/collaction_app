@@ -24,7 +24,7 @@ class CrowdActionComments extends StatelessWidget {
               "crowdactionID": "Stuff",
               "message":
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-              "senderId": "2VHwkJn1GhZAvSCxYf2OKMIJBc72",
+              "authorId": "2VHwkJn1GhZAvSCxYf2OKMIJBc72",
               "createdAt": DateTime.now().toString()
             }).toDomain(),
           ),

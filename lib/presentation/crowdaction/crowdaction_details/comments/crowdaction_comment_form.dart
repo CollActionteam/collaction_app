@@ -5,6 +5,7 @@ import '../../../../domain/user/user.dart';
 import '../../../../infrastructure/core/injection.dart';
 import '../../../shared_widgets/pill_button.dart';
 import '../../../themes/constants.dart';
+import '../../../utils/strings.ext.dart';
 
 /// A [CrowdAction] comment form
 ///
@@ -41,17 +42,15 @@ class _CommentFormState extends State<CommentForm> {
                 children: [
                   CircleAvatar(
                     radius: 18,
-                    backgroundColor: Colors.grey[300],
+                    backgroundColor: kAccentColor,
                     backgroundImage: snapshot.data?.photoURL != null
                         ? NetworkImage(
                             snapshot.data?.photoURL ?? "",
                           )
                         : null,
-                    child: Container(
-                      color: Colors.grey[300],
-                      child: Text(
-                        (snapshot.data?.displayName?.toUpperCase() ?? "A")[0],
-                      ),
+                    child: Text(
+                      (snapshot.data?.displayName?.toUpperCase() ?? "A")[0],
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                   const SizedBox(
@@ -59,7 +58,7 @@ class _CommentFormState extends State<CommentForm> {
                   ),
                   Expanded(
                     child: Text(
-                      snapshot.data?.displayName ?? "",
+                      snapshot.data?.displayName?.toTitleCase() ?? "",
                       style: const TextStyle(
                         color: kPrimaryColor400,
                         fontWeight: FontWeight.w300,

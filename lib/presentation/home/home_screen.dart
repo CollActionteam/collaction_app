@@ -20,13 +20,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      checkAndMaybeShowCaptivePage(context.router).then((wasCaptivePageShown) {
-        if (!wasCaptivePageShown) {
-          checkAndMaybeShowOnboarding();
-        }
-      });
-    });
+    // WidgetsBinding.instance?.addPostFrameCallback((_) {
+    //   checkAndMaybeShowCaptivePage(context.router).then((wasCaptivePageShown) {
+    //     if (!wasCaptivePageShown) {
+    //       checkAndMaybeShowOnboarding();
+    //     }
+    //   });
+    // });
   }
 
   @override

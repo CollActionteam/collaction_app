@@ -8,6 +8,7 @@ import '../../domain/user/i_profile_repository.dart';
 import '../../domain/user/profile_failure.dart';
 import '../../infrastructure/core/injection.dart';
 import '../themes/constants.dart';
+import '../utils/strings.ext.dart';
 
 /// Show a user's display name from the user's profile
 class UserDisplayName extends StatelessWidget {
@@ -25,7 +26,7 @@ class UserDisplayName extends StatelessWidget {
         if (snapshot.hasData && snapshot.data?.isRight() == true) {
           final profile = snapshot.data?.fold((l) => null, id);
           return Text(
-            profile?.displayname ?? "",
+            profile?.displayname.toTitleCase() ?? "",
             style: const TextStyle(
               color: kPrimaryColor400,
               fontWeight: FontWeight.w300,
@@ -37,8 +38,11 @@ class UserDisplayName extends StatelessWidget {
             highlightColor: kAlmostTransparent,
             child: Container(
               height: 17,
-              color: kSecondaryTransparent,
               width: MediaQuery.of(context).size.width / 3,
+              decoration: BoxDecoration(
+                color: kSecondaryTransparent,
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
           );
         }

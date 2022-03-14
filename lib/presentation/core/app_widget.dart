@@ -18,20 +18,20 @@ class AppWidget extends StatefulWidget {
 
 class _AppWidgetState extends State<AppWidget> {
   final _appRouter = AppRouter();
-  late Timer _timer;
+  // late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(
-      const Duration(minutes: 1),
-      (Timer timer) =>
-          checkAndMaybeShowCaptivePage(_appRouter).then((wasCaptivePageShown) {
-        if (wasCaptivePageShown) {
-          timer.cancel();
-        }
-      }),
-    );
+    // _timer = Timer.periodic(
+    //   const Duration(minutes: 1),
+    //   (Timer timer) =>
+    //       checkAndMaybeShowCaptivePage(_appRouter).then((wasCaptivePageShown) {
+    //     if (wasCaptivePageShown) {
+    //       timer.cancel();
+    //     }
+    //   }),
+    // );
   }
 
   @override
@@ -62,7 +62,7 @@ class _AppWidgetState extends State<AppWidget> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    // _timer.cancel();
     super.dispose();
   }
 }

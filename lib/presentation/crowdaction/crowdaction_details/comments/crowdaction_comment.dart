@@ -1,12 +1,12 @@
-import 'package:collaction_app/domain/user/i_user_repository.dart';
-import 'package:collaction_app/domain/user/user.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
-import 'package:collaction_app/presentation/shared_widgets/user_avatar.dart';
-import 'package:collaction_app/presentation/shared_widgets/user_display_name.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/crowdaction/crowdaction_comment.dart';
+import '../../../../domain/user/i_user_repository.dart';
+import '../../../../domain/user/user.dart';
+import '../../../../infrastructure/core/injection.dart';
+import '../../../shared_widgets/user_avatar.dart';
+import '../../../shared_widgets/user_display_name.dart';
+import '../../../themes/constants.dart';
 import '../../../utils/time.ext.dart';
 
 /// Display a user's comment on a crowd action
@@ -45,16 +45,16 @@ class CrowdActionUserComment extends StatelessWidget {
                 builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
                   return Row(
                     children: [
-                      UserAvatar(userId: comment.senderId),
+                      UserAvatar(userId: comment.authorId),
                       const SizedBox(
                         width: 15,
                       ),
                       Expanded(
                         child: UserDisplayName(
-                          userId: comment.senderId,
+                          userId: comment.authorId,
                         ),
                       ),
-                      if (snapshot.data?.id == comment.senderId) ...[
+                      if (snapshot.data?.id == comment.authorId) ...[
                         TextButton(
                           onPressed: () {},
                           child: const Text(
