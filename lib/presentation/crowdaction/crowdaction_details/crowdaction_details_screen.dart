@@ -12,6 +12,7 @@ import '../../core/collaction_icons.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
+import '../../shared_widgets/custom_fab.dart';
 import '../../shared_widgets/expandable_text.dart';
 import '../../shared_widgets/image_skeleton_loader.dart';
 import '../../shared_widgets/pill_button.dart';
@@ -86,15 +87,37 @@ class _CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 ],
               ),
               flexibleSpace: FlexibleSpaceBar(
-                background: CachedNetworkImage(
-                  imageUrl: widget.crowdAction.images.banner,
-                  placeholder: (context, url) => ImageSkeletonLoader(
-                    height: _headerHeight,
-                  ),
-                  errorWidget: (context, url, error) => ImageSkeletonLoader(
-                    height: _headerHeight,
-                  ),
-                  fit: BoxFit.cover,
+                background: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: CachedNetworkImage(
+                        imageUrl: widget.crowdAction.images.banner,
+                        placeholder: (context, url) => ImageSkeletonLoader(
+                          height: _headerHeight,
+                        ),
+                        errorWidget: (context, url, error) =>
+                            ImageSkeletonLoader(
+                          height: _headerHeight,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    if (widget.crowdAction.hasPassword) ...[
+                      const Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: CustomFAB(
+                          heroTag: 'locked',
+                          isMini: true,
+                          color: kSecondaryColor,
+                          child: Icon(
+                            CollactionIcons.lock,
+                            color: kPrimaryColor300,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),

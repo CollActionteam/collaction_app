@@ -1,8 +1,9 @@
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
-import 'package:collaction_app/presentation/utils/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../core/collaction_icons.dart';
+import '../../themes/constants.dart';
+import '../../utils/strings.dart';
 
 class ShareCollactionListTile extends StatefulWidget {
   const ShareCollactionListTile({
