@@ -3,9 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
+import '../core/collaction_icons.dart';
 import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
+import 'custom_fab.dart';
 
 class CrowdActionCard extends StatelessWidget {
   final CrowdAction crowdAction;
@@ -68,6 +70,25 @@ class CrowdActionCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                child: crowdAction.hasPassword
+                    ? Stack(
+                        children: const [
+                          Positioned(
+                            bottom: 10,
+                            right: 10,
+                            child: CustomFAB(
+                              heroTag: 'locked',
+                              isMini: true,
+                              color: kSecondaryColor,
+                              child: Icon(
+                                CollactionIcons.lock,
+                                color: kPrimaryColor300,
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    : null,
               ),
               const SizedBox(height: 5.0),
               Column(
