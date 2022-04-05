@@ -34,6 +34,7 @@ class _PasswordModalState extends State<PasswordModal> {
     return Container(
       constraints: const BoxConstraints(minWidth: 380),
       margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         color: kSecondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -62,60 +63,57 @@ class _PasswordModalState extends State<PasswordModal> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextField(
-              controller: _controller,
-              onChanged: (value) => _validateInput(value),
-              onSubmitted: (value) => _validatePassword(),
-              style: const TextStyle(fontSize: 17, letterSpacing: 2.0),
-              obscureText: _showInput,
-              decoration: InputDecoration(
-                hintText: "Password",
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide:
-                      const BorderSide(width: 0, color: Colors.transparent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide:
-                      const BorderSide(width: 0, color: Colors.transparent),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(width: 2, color: Colors.red),
-                ),
-                errorText: _validated != null && _validated == false
-                    ? "Invalid password"
-                    : null,
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(width: 2, color: Colors.red),
-                ),
-                suffixIcon: IconButton(
-                  icon: _showInput
-                      ? const Icon(
-                          CollactionIcons.eye,
-                          color: kPrimaryColor300,
-                        )
-                      : const Icon(
-                          CollactionIcons.eye_off,
-                          color: kPrimaryColor300,
-                        ),
-                  onPressed: () {
-                    setState(() {
-                      _showInput = !_showInput;
-                    });
-                  },
-                  splashRadius: 2,
-                ),
+          TextField(
+            controller: _controller,
+            onChanged: (value) => _validateInput(value),
+            onSubmitted: (value) => _validatePassword(),
+            style: const TextStyle(fontSize: 17, letterSpacing: 2.0),
+            obscureText: _showInput,
+            decoration: InputDecoration(
+              hintText: "Password",
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide:
+                    const BorderSide(width: 0, color: Colors.transparent),
               ),
-              obscuringCharacter: '*',
-              cursorColor: kAccentColor,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide:
+                    const BorderSide(width: 0, color: Colors.transparent),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: const BorderSide(width: 2, color: Colors.red),
+              ),
+              errorText: _validated != null && _validated == false
+                  ? "Invalid password"
+                  : null,
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: const BorderSide(width: 2, color: Colors.red),
+              ),
+              suffixIcon: IconButton(
+                icon: _showInput
+                    ? const Icon(
+                        CollactionIcons.eye,
+                        color: kPrimaryColor300,
+                      )
+                    : const Icon(
+                        CollactionIcons.eye_off,
+                        color: kPrimaryColor300,
+                      ),
+                onPressed: () {
+                  setState(() {
+                    _showInput = !_showInput;
+                  });
+                },
+                splashRadius: 2,
+              ),
             ),
+            obscuringCharacter: '*',
+            cursorColor: kAccentColor,
           ),
           CircleAvatar(
             backgroundColor:
