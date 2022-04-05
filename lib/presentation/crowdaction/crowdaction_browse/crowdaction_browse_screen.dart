@@ -9,14 +9,9 @@ import '../../shared_widgets/micro_crowdaction_card.dart';
 import '../../themes/constants.dart';
 
 /// Route for the user to browse available Collactions.
-class CrowdActionBrowsePage extends StatefulWidget {
+class CrowdActionBrowsePage extends StatelessWidget {
   const CrowdActionBrowsePage({Key? key}) : super(key: key);
 
-  @override
-  _CrowdActionBrowsePageState createState() => _CrowdActionBrowsePageState();
-}
-
-class _CrowdActionBrowsePageState extends State<CrowdActionBrowsePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CrowdActionGetterBloc>(
