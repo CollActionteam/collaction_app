@@ -51,7 +51,7 @@ class ConfirmParticipation extends StatelessWidget {
                           SubscriptionEvent.participate(
                             crowdAction,
                             state.activeCommitments,
-                            "",
+                            crowdAction.passwordJoin,
                           ),
                         );
                   },
@@ -139,7 +139,7 @@ class ConfirmParticipation extends StatelessWidget {
                         SubscriptionEvent.participate(
                           crowdAction,
                           state.activeCommitments,
-                          "",
+                          crowdAction.passwordJoin,
                         ),
                       );
                 },
