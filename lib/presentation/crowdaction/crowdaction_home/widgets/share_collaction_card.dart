@@ -1,7 +1,7 @@
-import 'package:collaction_app/presentation/crowdaction/crowdaction_home/widgets/share_collaction_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../themes/constants.dart';
+import 'share_collaction_button.dart';
 
 class ShareCollActionCard extends StatelessWidget {
   const ShareCollActionCard({

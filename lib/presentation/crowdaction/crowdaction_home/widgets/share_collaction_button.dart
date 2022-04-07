@@ -1,7 +1,8 @@
-import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
-import 'package:collaction_app/presentation/utils/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../../shared_widgets/pill_button.dart';
+import '../../../utils/strings.dart';
 
 class ShareCollactionButton extends StatefulWidget {
   const ShareCollactionButton({

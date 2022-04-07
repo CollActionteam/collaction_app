@@ -1,6 +1,6 @@
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 
 /// Single onboarding slate
