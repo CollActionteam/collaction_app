@@ -89,16 +89,22 @@ class SettingsPage extends StatelessWidget {
                           title: 'Terms of use',
                           icon: CollactionIcons.lock,
                           trailingIcon: CollactionIcons.external_link,
-                          onTap: () =>
-                              launchUrl('https://www.collaction.org/terms'),
+                          onTap: () => launchUrl(
+                            'https://www.collaction.org/terms',
+                            useWebView: true,
+                            context: context,
+                          ),
                         ),
                         const SizedBox(height: 15),
                         SettingsListTile(
                           title: 'Privacy policy',
                           icon: CollactionIcons.file,
                           trailingIcon: CollactionIcons.external_link,
-                          onTap: () =>
-                              launchUrl('https://www.collaction.org/privacy'),
+                          onTap: () => launchUrl(
+                            'https://www.collaction.org/privacy',
+                            useWebView: true,
+                            context: context,
+                          ),
                         ),
                         BlocBuilder(
                           bloc: getIt<ProfileBloc>()..add(GetUserProfile()),
