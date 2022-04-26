@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/application/settings/build_information/build_information_bloc.dart';
+import 'package:collaction_app/presentation/settings/widgets/build_information_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../presentation/utils/launch_url.dart';
@@ -119,7 +121,19 @@ class SettingsPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                        )
+                        ),
+                        BlocBuilder<BuildInformationBloc,
+                            BuildInformationState>(
+                          bloc: getIt<BuildInformationBloc>()
+                            ..add(const BuildInformationEvent.fetch()),
+                          builder: (context, state) {
+                            return state.when(
+                              loading: () => const SizedBox(),
+                              fetched: (buildInfo) =>
+                                  BuildInformationTile(information: buildInfo),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ],
