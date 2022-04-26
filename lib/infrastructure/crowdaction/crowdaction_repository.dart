@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
@@ -18,8 +18,13 @@ import 'crowdaction_status_dto.dart';
 class CrowdActionRepository implements ICrowdActionRepository {
   final http.Client _client;
   final IAuthRepository _authRepository;
+  final ISettingsRepository _settingsRepository;
 
-  const CrowdActionRepository(this._client, this._authRepository);
+  const CrowdActionRepository(
+    this._client,
+    this._authRepository,
+    this._settingsRepository,
+  );
 
   @override
   Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions({
@@ -27,7 +32,9 @@ class CrowdActionRepository implements ICrowdActionRepository {
   }) async {
     try {
       final response = await _client.get(
-        Uri.parse('${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions'),
+        Uri.parse(
+          '${await _settingsRepository.baseApiEndpointUrl}/crowdactions',
+        ),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -58,7 +65,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
       );
 
       final response = await _client.post(
@@ -90,7 +97,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
       );
 
       final response = await _client.delete(
@@ -117,7 +124,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions?status=joinable',
+          '${await _settingsRepository.baseApiEndpointUrl}/crowdactions?status=joinable',
         ),
       );
 
@@ -145,7 +152,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
       );
 
       final response = await _client.get(
