@@ -18,7 +18,11 @@ class WebViewPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: CustomAppBar(title: title),
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppBar(
+        title: title,
+        closable: true,
+      ),
       body: WebView(initialUrl: url),
     );
   }

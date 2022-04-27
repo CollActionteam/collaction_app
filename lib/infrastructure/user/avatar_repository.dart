@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart';
@@ -18,7 +18,13 @@ import '../../domain/user/upload_failures.dart';
 class AvatarRepository implements IAvatarRepository, Disposable {
   final http.Client _client;
   final IAuthRepository _authRepository;
-  const AvatarRepository(this._client, this._authRepository);
+  final ISettingsRepository _settingsRepository;
+
+  const AvatarRepository(
+    this._client,
+    this._authRepository,
+    this._settingsRepository,
+  );
 
   @override
   Future<Either<UploadPathFailure, Uri>> getAvatarUploadPath() async {
@@ -29,7 +35,7 @@ class AvatarRepository implements IAvatarRepository, Disposable {
 
       final response = await _client.get(
         Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}/upload-profile-picture',
+          '${await _settingsRepository.baseApiEndpointUrl}/upload-profile-picture',
         ),
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +79,6 @@ class AvatarRepository implements IAvatarRepository, Disposable {
 
   @override
   FutureOr onDispose() {
-    // TODO: implement onDispose
-    throw UnimplementedError();
+    _client.close();
   }
 }

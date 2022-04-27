@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
@@ -17,7 +17,13 @@ import '../../infrastructure/profile/profile_dto.dart';
 class ProfileRepository implements IProfileRepository {
   final IAuthRepository _authRepository;
   final http.Client _client;
-  const ProfileRepository(this._authRepository, this._client);
+  final ISettingsRepository _settingsRepository;
+
+  const ProfileRepository(
+    this._authRepository,
+    this._client,
+    this._settingsRepository,
+  );
 
   @override
   Future<Either<ProfileFailure, UserProfile>> getUserProfile() async {
@@ -33,7 +39,7 @@ class ProfileRepository implements IProfileRepository {
 
           final response = await _client.get(
             Uri.parse(
-              '${dotenv.env['BASE_API_ENDPOINT_URL']!}/profiles/${user.id}',
+              '${await _settingsRepository.baseApiEndpointUrl}/profiles/${user.id}',
             ),
             headers: {
               'Content-Type': 'application/json',
@@ -84,7 +90,7 @@ class ProfileRepository implements IProfileRepository {
 
           final response = await _client.post(
             Uri.parse(
-              '${dotenv.env['BASE_API_ENDPOINT_URL']!}/profiles/${user.id}',
+              '${await _settingsRepository.baseApiEndpointUrl}/profiles/${user.id}',
             ),
             headers: {
               'Content-Type': 'application/json',
@@ -128,7 +134,7 @@ class ProfileRepository implements IProfileRepository {
 
           final response = await _client.put(
             Uri.parse(
-              '${dotenv.env['BASE_API_ENDPOINT_URL']!}/profiles/${user.id}',
+              '${await _settingsRepository.baseApiEndpointUrl}/profiles/${user.id}',
             ),
             headers: {
               'Content-Type': 'application/json',
