@@ -65,7 +65,7 @@ class ProfileRepository implements IProfileRepository {
           }
 
           final profile =
-              ProfileDto.fromJson(json['data'] as Map<String, dynamic>)
+              ProfileDto.fromJson(json['Data'] as Map<String, dynamic>)
                   .toDomain();
 
           return right(UserProfile(user: user, profile: profile));
