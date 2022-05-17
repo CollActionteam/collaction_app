@@ -143,12 +143,9 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
           ];
         },
         body: RefreshIndicator(
-          onRefresh: () async => Future.delayed(
-            const Duration(seconds: 1),
-            () => context.read<SpotlightBloc>().add(
-                  const SpotlightEvent.getSpotLightCrowdActions(),
-                ),
-          ),
+          onRefresh: () async => context.read<SpotlightBloc>().add(
+                const SpotlightEvent.getSpotLightCrowdActions(),
+              ),
           color: kAccentColor,
           child: SingleChildScrollView(
             child: Column(
@@ -176,21 +173,11 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                       Wrap(
                         spacing: 12.0,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              // TODO - Sign up, to crowd action
-                            },
-                            child: AccentChip(
-                              text:
-                                  widget.crowdAction.isOpen ? "Open" : "Closed",
-                              color: widget.crowdAction.isOpen
-                                  ? kAccentColor
-                                  : kPrimaryColor200,
-                              leading: const Icon(
-                                Icons.check,
-                                color: Colors.white,
-                              ),
-                            ),
+                          AccentChip(
+                            text: widget.crowdAction.isOpen ? "Open" : "Closed",
+                            color: widget.crowdAction.isOpen
+                                ? kAccentColor
+                                : kPrimaryColor200,
                           ),
                           ...widget.crowdAction.toChips()
                         ],
@@ -355,7 +342,7 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
               ),
               Container(
                 width: 60.0,
-                height: 3.0,
+                height: 5.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   color: kSecondaryTransparent,

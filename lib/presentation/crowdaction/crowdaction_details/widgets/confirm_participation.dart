@@ -73,7 +73,7 @@ class ConfirmParticipation extends StatelessWidget {
               ),
               Container(
                 width: 60.0,
-                height: 3.0,
+                height: 5.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   color: kSecondaryTransparent,
@@ -202,7 +202,7 @@ class ConfirmParticipation extends StatelessWidget {
               ),
               Container(
                 width: 60.0,
-                height: 3.0,
+                height: 5.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   color: kSecondaryTransparent,
