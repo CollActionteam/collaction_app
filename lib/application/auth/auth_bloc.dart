@@ -125,7 +125,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             },
             codeRetrievalTimedOut: (event) {
               _credential = event.credential;
-              return const AuthState.codeRetrievalTimedOut();
+              return AuthState.codeRetrievalTimedOut(_credential);
             },
             verificationCompleted: (event) {
               _credential = event.credential;

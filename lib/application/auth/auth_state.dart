@@ -16,7 +16,8 @@ class AuthState with _$AuthState {
       _VerificationCompleted;
 
   /// SMS Code autocomplete has timed out, allow user to resend code
-  const factory AuthState.codeRetrievalTimedOut() = _CodeRetrievalTimedOut;
+  const factory AuthState.codeRetrievalTimedOut(Credential? credential) =
+      _CodeRetrievalTimedOut;
 
   /// An error has occurred during authentication
   const factory AuthState.authError(AuthFailure failure) = _AuthError;

@@ -25,6 +25,10 @@ class _EnterVerificationCodeState extends State<EnterVerificationCode> {
           authError: (_) {},
           verificationCompleted: (verificationState) =>
               _pinKey.currentState?.autoComplete(verificationState.smsCode),
+          codeRetrievalTimedOut: (credentials) =>
+              // TODO: Remove this print
+              // ignore: avoid_print
+              print(credentials.credential?.smsCode ?? 'No SMS Code'),
           orElse: () {},
         );
       },
