@@ -21,7 +21,7 @@ class LicensesPage extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: ElevatedButton(
           onPressed: () =>
-              launch('https://github.com/CollActionteam/collaction_app'),
+              launchUrl(Uri.parse('https://github.com/CollActionteam/collaction_app')),
           style: ElevatedButton.styleFrom(
             primary: kAccentColor,
             shape: RoundedRectangleBorder(
