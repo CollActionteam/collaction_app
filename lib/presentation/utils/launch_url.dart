@@ -18,14 +18,14 @@ Future<void> launchUrl(
   BuildContext? context,
   bool useWebView = false,
 }) async {
-  if (await canLaunch(url)) {
+  if (await canLaunchUrl(Uri.parse(url))) {
     if (useWebView) {
       if (context != null) {
         context.router.push(WebViewRoute(url: url));
         return;
       }
-      launch(url, forceWebView: true);
+      launchUrl(url, useWebView: true);
     }
-    launch(url);
+    launchUrl(url);
   }
 }
