@@ -1,0 +1,41 @@
+name: Flutter_tests
+
+on:
+  push:
+    branches: [development]
+  pull:
+    types: [opened, synchronize]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Cache Flutter install
+        uses: actions/cache@v2
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
+
+      - name: Install and set Flutter environment
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "2.10.x"
+          channel: "stable"
+
+      - name: Install packages
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test --coverage
+
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v2
+        with:
+          verbose: true
