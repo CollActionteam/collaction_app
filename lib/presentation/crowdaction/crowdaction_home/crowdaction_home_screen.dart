@@ -16,36 +16,31 @@ class CrowdActionHomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<SpotlightBloc>()
         ..add(const SpotlightEvent.getSpotLightCrowdActions()),
-      child: const _HomeScreenScrollView(),
-    );
-  }
-}
-
-class _HomeScreenScrollView extends StatelessWidget {
-  const _HomeScreenScrollView({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () async => Future.delayed(
-        const Duration(seconds: 1),
-        () => context
-            .read<SpotlightBloc>()
-            .add(const SpotlightEvent.getSpotLightCrowdActions()),
-      ),
-      color: kAccentColor,
-      child: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: const [
-              InSpotLightHeader(),
-              CurrentAndUpcomingLayout(),
-              ShareCollActionCard(),
-              CurrentAndUpcomingLayout(isCurrent: false)
-            ],
+      child: Scaffold(
+        body: SafeArea(
+          child: RefreshIndicator(
+            onRefresh: () async => Future.delayed(
+              const Duration(seconds: 1),
+              () => context
+                  .read<SpotlightBloc>()
+                  .add(const SpotlightEvent.getSpotLightCrowdActions()),
+            ),
+            color: kAccentColor,
+            child: SingleChildScrollView(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  children: const [
+                    InSpotLightHeader(),
+                    CurrentAndUpcomingLayout(),
+                    SizedBox(height: 20),
+                    ShareCollActionCard(),
+                    SizedBox(height: 20),
+                    CurrentAndUpcomingLayout(isCurrent: false)
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),
