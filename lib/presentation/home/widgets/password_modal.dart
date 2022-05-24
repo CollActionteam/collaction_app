@@ -19,8 +19,8 @@ class PasswordModal extends StatefulWidget {
 class _PasswordModalState extends State<PasswordModal> {
   late bool _showInput;
   late bool _disableButton;
-  bool? _validated;
   final _controller = TextEditingController();
+  bool? _validated;
 
   @override
   void initState() {
@@ -60,6 +60,7 @@ class _PasswordModalState extends State<PasswordModal> {
                       color: kPrimaryColor300,
                       fontSize: 12,
                     ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -112,7 +113,6 @@ class _PasswordModalState extends State<PasswordModal> {
                 splashRadius: 2,
               ),
             ),
-            obscuringCharacter: '*',
             cursorColor: kAccentColor,
           ),
           CircleAvatar(

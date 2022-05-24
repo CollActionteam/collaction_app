@@ -36,7 +36,6 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          color: kPrimaryColor400,
           width: constraints.maxWidth,
           margin: const EdgeInsets.only(bottom: 20),
           child: Column(
@@ -52,7 +51,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                   sectionHeadingText(),
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: kPrimaryColor400,
                       ),
                 ),
               ),
