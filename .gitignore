@@ -54,6 +54,7 @@ app.*.map.json
 
 # Test coverage files
 /coverage/*
+/test/coverage_helper_test.dart
 
 # Generated files
 **/*.freezed.dart
