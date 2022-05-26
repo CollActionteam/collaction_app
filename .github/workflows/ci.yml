@@ -76,6 +76,13 @@ jobs:
         run: |
           echo ${{ secrets.ENV }} | base64 -d > .env
           flutter test -r expanded .
+      - name: Generate test coverage file
+        run: flutter test --coverage
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          verbose: true
+          file: coverage/lcov.info
 
   build: # Dynamically build for dev or prod depending on the branch
     if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}

@@ -52,6 +52,9 @@ app.*.map.json
 **/GoogleService-Info.plist
 **/google-services.json
 
+# Test coverage files
+/coverage/*
+
 # Generated files
 **/*.freezed.dart
 **/*.config.dart
