@@ -1,6 +1,5 @@
 ignore:
   - "**/*.g.dart"
-  - "**/*.g.dart"
   - "**/*.freezed.dart"
   - "**/injection.config.dart"
   - "lib/generated_plugin_registrant.dart"
