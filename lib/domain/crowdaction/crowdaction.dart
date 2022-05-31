@@ -48,8 +48,6 @@ class CrowdAction with _$CrowdAction {
     }
   }
 
-  bool get usesPassword => passwordJoin != null && passwordJoin!.isNotEmpty;
-
   bool get isOpen {
     final now = DateTime.now();
     return now.isBefore(dateLimitJoin) && dateEnd.isAfter(now);
