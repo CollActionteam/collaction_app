@@ -9,6 +9,7 @@ class User with _$User {
 
   static Future<String?> _getAnonymousIdToken([bool forceRefresh = false]) =>
       Future.value(null);
+
   static const User anonymous = User(
     id: 'anonymous',
     displayName: 'anonymous',

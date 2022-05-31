@@ -1,9 +1,19 @@
-import 'package:collaction_app/domain/profile/profile.dart';
+import 'package:collaction_app/infrastructure/profile/profile_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'profile_fixture.dart';
+
 void main() {
-  test('testing Profile DTO', () async {
-    const tProfile = Profile(bio: 'test');
-    expect(const Profile(bio: 'test'), tProfile);
+  group('Tests of Profile DTO and its members', () {
+    test('ProfileDto.fromJson()', () {
+      final profileDto = ProfileDto.fromJson(cProfileDtoJson);
+      expect(profileDto, cProfileDtoFromJson);
+    });
+
+    test('ProfileDto.toDomain()', () {
+      final profileDto = ProfileDto.fromJson(cProfileDtoJson);
+      final profile = profileDto.toDomain();
+      expect(profile, cProfileFromJson);
+    });
   });
 }
