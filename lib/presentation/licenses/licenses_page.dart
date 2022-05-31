@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../core/collaction_icons.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../shared_widgets/no_ripple_behavior.dart';
 import '../themes/constants.dart';
+import '../utils/launch_url.dart';
 import 'oss_licenses.dart';
 
 class LicensesPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class LicensesPage extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: ElevatedButton(
           onPressed: () => launchUrl(
-            Uri.parse('https://github.com/CollActionteam/collaction_app'),
+            'https://github.com/CollActionteam/collaction_app',
           ),
           style: ElevatedButton.styleFrom(
             primary: kAccentColor,
