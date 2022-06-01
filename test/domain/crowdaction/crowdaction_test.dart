@@ -89,6 +89,19 @@ void main() {
       expect(passwordCA.hasPassword, true);
       expect(noParticipantPwdCrowdactions.hasPassword, true);
     });
+
+    test('testing CrowdAction.toChips() method', () {
+      // tests for CrowdAction without subCategory
+      expect(participantCA.toChips().length, 1);
+      expect(participantCA.category, 'tCategory');
+      expect(participantCA.subCategory, null);
+
+      // tests for CrowdActions with SubCategory
+      final tCA = participantCA.copyWith(subCategory: 'tSubCategory');
+      expect(tCA.toChips().length, 2);
+      expect(tCA.category, 'tCategory');
+      expect(tCA.subCategory, 'tSubCategory');
+    });
     test('testing CrowdAction.avatarWidth() method', () {
       expect(noParticipantCA.avatarWidth(), 40);
       expect(participantCA.avatarWidth(), 80);
