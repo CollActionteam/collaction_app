@@ -1,4 +1,5 @@
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_app/domain/crowdaction/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -15,13 +16,13 @@ void main() {
     );
   }
 
-  final List<CommitmentOption> tCommitmentOptions = [
-    CommitmentOption(
-      id: 'no-beef',
-      label: 'tLabel',
-      description: 'tDescription',
-    ),
-  ];
+  final tCommitmentOption = CommitmentOption(
+    id: 'no-beef',
+    label: 'tLabel',
+    description: 'tDescription',
+  );
+
+  final List<CommitmentOption> tListCommitmentOptions = [tCommitmentOption];
 
   const Images tImage = Images(card: 'tCard', banner: 'tBanner');
 
@@ -39,7 +40,7 @@ void main() {
       location: 'tLocation',
       topParticipants:
           participantCnt > 0 ? generateTopParticipants(participantCnt) : [],
-      commitmentOptions: tCommitmentOptions,
+      commitmentOptions: tListCommitmentOptions,
       dateStart: DateTime(2022, 1, 2),
       dateEnd: endDate ?? DateTime(2022, 1, 31),
       dateLimitJoin: dateLimitJoin ?? DateTime(2022, 1, 10),
@@ -49,33 +50,33 @@ void main() {
     );
   }
 
+  late CrowdAction noParticipantCA;
+  late CrowdAction participantCA;
+  late CrowdAction passwordCA;
+  late CrowdAction noParticipantPwdCrowdactions;
+
+  setUp(() {
+    // when no participants, no password
+    noParticipantCA = generatingCrowdactions();
+
+    // when no password but participants > 0
+    participantCA = generatingCrowdactions(
+      participantCnt: 2,
+    );
+
+    // when participant > 0 for private crowdaction
+    passwordCA = generatingCrowdactions(
+      participantCnt: 2,
+      password: true,
+    );
+
+    // no participant but private crowdaction
+    noParticipantPwdCrowdactions = generatingCrowdactions(
+      password: true,
+    );
+  });
+
   group('Testing Crowdaction DTO', () {
-    late CrowdAction noParticipantCA;
-    late CrowdAction participantCA;
-    late CrowdAction passwordCA;
-    late CrowdAction noParticipantPwdCrowdactions;
-
-    setUp(() {
-      // when no participants, no password
-      noParticipantCA = generatingCrowdactions();
-
-      // when no password but participants > 0
-      participantCA = generatingCrowdactions(
-        participantCnt: 2,
-      );
-
-      // when participant > 0 for private crowdaction
-      passwordCA = generatingCrowdactions(
-        participantCnt: 2,
-        password: true,
-      );
-
-      // no participant but private crowdaction
-      noParticipantPwdCrowdactions = generatingCrowdactions(
-        password: true,
-      );
-    });
-
     test('testing hasParticipants getter', () {
       expect(noParticipantCA.hasParticipants, false);
       expect(participantCA.hasParticipants, true);
@@ -150,6 +151,12 @@ void main() {
       expect(tBeforeEndCrowdAction2.isOpen, false);
       expect(tAfterCrowdAction.isOpen, false);
       expect(tAfterCrowdAction2.isOpen, false);
+    });
+  });
+
+  test('testing CommitmentOptions.idToIcon() method', () {
+    crowdActionCommitmentIcons.forEach((key, value) {
+      expect(tCommitmentOption.copyWith(id: key).icon, value);
     });
   });
 }
