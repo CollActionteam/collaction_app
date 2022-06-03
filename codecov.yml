@@ -1,3 +1,11 @@
+codecov:
+  status:
+    project:
+      default:
+        target: 0%
+        paths:
+          - "lib"
+
 ignore:
   - "**/*.g.dart"
   - "**/*.freezed.dart"
