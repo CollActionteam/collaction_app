@@ -1,10 +1,16 @@
-codecov:
+coverage:
   status:
     project:
       default:
         target: 0%
+        threshold: 0%
         paths:
           - "lib"
+    # Disable Patch because it is noisy and not always correct
+    patch:
+      default:
+        enabled: no
+        if_not_found: success
 
 ignore:
   - "**/*.g.dart"
