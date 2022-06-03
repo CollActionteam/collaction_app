@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'profile_fixture.dart';
 
 void main() {
-  group('Tests covering UserProfile', () {
+  group('Tests covering UserProfile:', () {
     Future<String?> _getAnonymousIdToken([bool forceRefresh = false]) =>
         Future.value(null);
     const cAnonUser = User.anonymous;

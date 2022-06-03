@@ -1,22 +1,20 @@
 import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {
-  late ContactFormDto tContactForm;
-  setUp(() {
-    tContactForm =
-        ContactFormDto(email: 'test@test.com', message: 'Testing DTO');
-  });
-  test('testing Contact form DTO', () async {
-    expect(
-      ContactFormDto(email: 'test@test.com', message: 'Testing DTO'),
-      tContactForm,
-    );
-  });
+import 'contact_form_fixture.dart';
 
-  test('testing ContactFormDto.fromJson() method', () async {
-    final jsonMap = {'email': 'test@test.com', 'message': 'Testing fromJson()'};
-    final result = ContactFormDto.fromJson(jsonMap);
-    expect(result, isA<ContactFormDto>());
+void main() {
+  group('Contact Form DTO Tests:', () {
+    test('Test .fromJson() member', () {
+      final tContactFormDto = ContactFormDto.fromJson(cContactFormJson);
+      expect(tContactFormDto, isA<ContactFormDto>());
+      expect(tContactFormDto, cContactFormDto);
+    });
+
+    test('Test subject default value', () {
+      final tContactFormDto =
+          ContactFormDto(email: 'another@test.com', message: 'Hello World!');
+      expect(tContactFormDto.subject, cContactFormDtoDefault.subject);
+    });
   });
 }

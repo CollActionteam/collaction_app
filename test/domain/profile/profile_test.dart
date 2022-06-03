@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'profile_fixture.dart';
 
 void main() {
-  group('Tests of Profile DTO and its members', () {
+  group('Tests of Profile DTO and its members:', () {
     test('ProfileDto.fromJson()', () {
       final profileDto = ProfileDto.fromJson(cProfileDtoJson);
       expect(profileDto, cProfileDtoFromJson);
