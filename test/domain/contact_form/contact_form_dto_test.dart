@@ -4,12 +4,12 @@ import 'contact_form_fixture.dart';
 
 void main() {
   group('Testing Contact form DTO', () {
-    test('testing Contact form DTO', () async {
-      expect(
-        ContactFormDto(email: 'test@test.com', message: 'Testing DTO'),
-        tContactForm,
-      );
-    });
+    // test('testing Contact form DTO', () async {
+    //   expect(
+    //     ContactFormDto(email: 'test@test.com', message: 'Testing DTO'),
+    //     tContactForm,
+    //   );
+    // });
 
     test('testing ContactFormDto.fromJson() method', () async {
       final jsonMap = {
@@ -18,6 +18,14 @@ void main() {
       };
       final result = ContactFormDto.fromJson(jsonMap);
       expect(result, isA<ContactFormDto>());
+    });
+
+    test('Test subject default value', () {
+      final tContactFormDTO = ContactFormDto(
+        email: 'another@test.com',
+        message: 'Hello CollAction!',
+      );
+      expect(tContactFormDTO.subject, tContactForm.subject);
     });
   });
 }
