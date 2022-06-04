@@ -7,13 +7,15 @@ part 'user.freezed.dart';
 class User with _$User {
   const User._();
 
-  static Future<String?> _getAnonymousIdToken([bool forceRefresh = false]) =>
+  @visibleForTesting
+  // ignore: avoid_positional_boolean_parameters
+  static Future<String?> getAnonymousIdToken([bool forceRefresh = false]) =>
       Future.value(null);
 
   static const User anonymous = User(
     id: 'anonymous',
     displayName: 'anonymous',
-    getIdToken: _getAnonymousIdToken,
+    getIdToken: getAnonymousIdToken,
   );
 
   bool get isAnonymous => this == anonymous;
