@@ -115,6 +115,38 @@ void main() {
       );
     }
 
+    {
+      when(() => userRepository.updateUsername(username: 'tUsernameFailure'))
+          .thenAnswer(
+              (_) => Future.value(left(const AuthFailure.serverError())));
+
+      when(() => userRepository.updateUsername(username: 'tUsernameSuccess'))
+          .thenAnswer((_) => Future.value(right(unit)));
+
+      blocTest(
+        'Update username failed',
+        build: () => AuthBloc(userRepository),
+        act: (AuthBloc bloc) async {
+          bloc.add(const AuthEvent.updateUsername('tUsernameFailure'));
+        },
+        expect: () => [
+          const AuthState.awaitingUsernameUpdate(),
+          const AuthState.authError(AuthFailure.serverError())
+        ],
+      );
+      blocTest(
+        'Update username success',
+        build: () => AuthBloc(userRepository),
+        act: (AuthBloc bloc) async {
+          bloc.add(const AuthEvent.updateUsername('tUsernameSuccess'));
+        },
+        expect: () => [
+          const AuthState.awaitingUsernameUpdate(),
+          const AuthState.usernameUpdateDone(),
+        ],
+      );
+    }
+
     blocTest(
       'Reset to initial auth state',
       build: () => AuthBloc(MockAuthRepository()),
