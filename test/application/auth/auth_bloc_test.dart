@@ -50,6 +50,9 @@ void main() {
         ),
       ).thenAnswer((_) => Future.value(right(true)));
 
+      when(() => userRepository.signOut())
+          .thenAnswer((_) => Future<void>.value());
+
       blocTest(
         '"Happy path" transition coverage',
         build: () => AuthBloc(userRepository),
@@ -75,6 +78,17 @@ void main() {
           const AuthState.smsCodeSent(),
           const AuthState.signingInUser(),
           const AuthState.loggedIn(isNewUser: true),
+        ],
+      );
+
+      blocTest(
+        'Sign Out',
+        build: () => AuthBloc(userRepository),
+        act: (AuthBloc bloc) async {
+          bloc.add(const AuthEvent.signedOut());
+        },
+        expect: () => [
+          const AuthState.unAuthenticated(),
         ],
       );
     }
