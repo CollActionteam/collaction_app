@@ -9,6 +9,8 @@ import 'package:mocktail/mocktail.dart';
 // ignore: depend_on_referenced_packages
 import 'package:test/test.dart';
 
+import 'auth_bloc_fixtures.dart';
+
 class MockAuthRepository extends Mock implements IAuthRepository {}
 
 void main() {
@@ -25,11 +27,11 @@ void main() {
       const Credential(verificationId: verificationId, smsCode: smsCode),
     );
 
-    final userRepository = MockAuthRepository();
+    final authRepository = MockAuthRepository();
 
     {
       when(
-        () => userRepository.verifyPhone(
+        () => authRepository.verifyPhone(
           phoneNumber: any(named: 'phoneNumber'),
         ),
       ).thenAnswer(
@@ -45,17 +47,17 @@ void main() {
       );
 
       when(
-        () => userRepository.signInWithPhone(
+        () => authRepository.signInWithPhone(
           authCredentials: any(named: 'authCredentials'),
         ),
       ).thenAnswer((_) => Future.value(right(true)));
 
-      when(() => userRepository.signOut())
+      when(() => authRepository.signOut())
           .thenAnswer((_) => Future<void>.value());
 
       blocTest(
         '"Happy path" transition coverage',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(authRepository),
         act: (AuthBloc bloc) {
           bloc.add(const AuthEvent.verifyPhone('+1234567890'));
         },
@@ -67,7 +69,7 @@ void main() {
 
       blocTest(
         'SMS Submission',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(authRepository),
         act: (AuthBloc bloc) async {
           bloc.add(const AuthEvent.verifyPhone('+1234567890'));
           await Future.delayed(const Duration(seconds: 2));
@@ -83,7 +85,7 @@ void main() {
 
       blocTest(
         'Sign Out',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(authRepository),
         act: (AuthBloc bloc) async {
           bloc.add(const AuthEvent.signedOut());
         },
@@ -94,17 +96,17 @@ void main() {
     }
 
     {
-      final userRepository = MockAuthRepository();
+      final authRepository = MockAuthRepository();
       const error = AuthFailure.verificationFailed();
       when(
-        () => userRepository.verifyPhone(
+        () => authRepository.verifyPhone(
           phoneNumber: any(named: 'phoneNumber'),
         ),
       ).thenAnswer((_) => Stream.fromIterable([left(error)]));
 
       blocTest(
         'Error auth states',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(authRepository),
         act: (AuthBloc bloc) {
           bloc.add(const AuthEvent.verifyPhone('+1234567890'));
         },
@@ -116,16 +118,16 @@ void main() {
     }
 
     {
-      when(() => userRepository.updateUsername(username: 'tUsernameFailure'))
+      when(() => authRepository.updateUsername(username: 'tUsernameFailure'))
           .thenAnswer(
               (_) => Future.value(left(const AuthFailure.serverError())));
 
-      when(() => userRepository.updateUsername(username: 'tUsernameSuccess'))
+      when(() => authRepository.updateUsername(username: 'tUsernameSuccess'))
           .thenAnswer((_) => Future.value(right(unit)));
 
       blocTest(
         'Update username failed',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(authRepository),
         act: (AuthBloc bloc) async {
           bloc.add(const AuthEvent.updateUsername('tUsernameFailure'));
         },
@@ -136,7 +138,7 @@ void main() {
       );
       blocTest(
         'Update username success',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(authRepository),
         act: (AuthBloc bloc) async {
           bloc.add(const AuthEvent.updateUsername('tUsernameSuccess'));
         },
@@ -144,6 +146,33 @@ void main() {
           const AuthState.awaitingUsernameUpdate(),
           const AuthState.usernameUpdateDone(),
         ],
+      );
+    }
+
+    {
+      when(() => authRepository.getSignedInUser())
+          .thenAnswer((_) => Future.value(none()));
+      blocTest(
+        'AuthCheck requested unauthenticated',
+        build: () => AuthBloc(authRepository),
+        act: (AuthBloc bloc) {
+          bloc.add(const AuthEvent.authCheckRequested());
+        },
+        expect: () => [const AuthState.unAuthenticated()],
+      );
+    }
+
+    {
+      final tAuthRepo2 = MockAuthRepository();
+      when(() => tAuthRepo2.getSignedInUser())
+          .thenAnswer((_) => Future.value(some(tUser)));
+      blocTest(
+        'AuthCheck requested authenticated',
+        build: () => AuthBloc(tAuthRepo2),
+        act: (AuthBloc bloc) {
+          bloc.add(const AuthEvent.authCheckRequested());
+        },
+        expect: () => [const AuthState.authenticated(tUser)],
       );
     }
 
