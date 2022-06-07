@@ -4,14 +4,8 @@ import 'contact_form_fixture.dart';
 
 void main() {
   group('Testing Contact form DTO', () {
-    // test('testing Contact form DTO', () async {
-    //   expect(
-    //     ContactFormDto(email: 'test@test.com', message: 'Testing DTO'),
-    //     tContactForm,
-    //   );
-    // });
-
-    test('testing ContactFormDto.fromJson() method', () async {
+    
+    test('Testing ContactFormDto.fromJson() method', () async {
       final jsonMap = {
         'email': 'test@test.com',
         'message': 'Testing fromJson()'
