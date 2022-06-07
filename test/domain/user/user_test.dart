@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Test for User DTO', () {
-    test('testing getAnonymousToken method', () {
+    test('Testing getAnonymousToken method', () {
       expect(User.getAnonymousIdToken(), isA<Future<String?>>());
     });
   });
