@@ -1,76 +1,9 @@
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/crowdaction/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'crowdaction_test_fixtures.dart';
 
 void main() {
-  List<TopParticipant> generateTopParticipants(int num) {
-    final topParticipantCnt = num < 3 ? num : 3;
-    return List.generate(
-      topParticipantCnt,
-      (i) => TopParticipant(userId: 'tUser$i', name: 'tName$i'),
-    );
-  }
-
-  final tCommitmentOption = CommitmentOption(
-    id: 'no-beef',
-    label: 'tLabel',
-    description: 'tDescription',
-  );
-
-  final List<CommitmentOption> tListCommitmentOptions = [tCommitmentOption];
-
-  const Images tImage = Images(card: 'tCard', banner: 'tBanner');
-
-  CrowdAction generateDummyCrowdaction({
-    int participantCnt = 0,
-    bool password = false,
-    DateTime? endDate,
-    DateTime? dateLimitJoin,
-  }) {
-    return CrowdAction(
-      crowdactionID: 'tID',
-      title: 'tTitle',
-      description: 'tDescription',
-      category: 'tCategory',
-      location: 'tLocation',
-      topParticipants:
-          participantCnt > 0 ? generateTopParticipants(participantCnt) : [],
-      commitmentOptions: tListCommitmentOptions,
-      dateStart: DateTime(2022, 1, 2),
-      dateEnd: endDate ?? DateTime(2022, 1, 31),
-      dateLimitJoin: dateLimitJoin ?? DateTime(2022, 1, 10),
-      images: tImage,
-      participantCount: participantCnt,
-      passwordJoin: password ? 'testPwd' : null,
-    );
-  }
-
-  late CrowdAction noParticipantCA;
-  late CrowdAction participantCA;
-  late CrowdAction passwordCA;
-  late CrowdAction noParticipantPwdCrowdactions;
-
-  setUp(() {
-    // when no participants, no password
-    noParticipantCA = generatingCrowdactions();
-
-    // when no password but participants > 0
-    participantCA = generatingCrowdactions(
-      participantCnt: 2,
-    );
-
-    // when participant > 0 for private crowdaction
-    passwordCA = generatingCrowdactions(
-      participantCnt: 2,
-      password: true,
-    );
-
-    // no participant but private crowdaction
-    noParticipantPwdCrowdactions = generatingCrowdactions(
-      password: true,
-    );
-  });
-
   group('Testing Crowdaction DTO', () {
     test('Testing hasParticipants getter', () {
       expect(noParticipantCA.hasParticipants, false);
@@ -101,21 +34,21 @@ void main() {
     test('Testing CrowdAction.avatarWidth() method', () {
       expect(noParticipantCA.avatarWidth(), 40);
       expect(participantCA.avatarWidth(), 80);
-      final tCA = generatingCrowdactions(participantCnt: 5);
+      final tCA = generateDummyCrowdaction(participantCnt: 5);
       expect(tCA.avatarWidth(), 100);
     });
 
     test('Testing CrowdAction.isOpen() method', () {
       final DateTime now = DateTime.now();
 
-      final CrowdAction tAfterCrowdAction = generatingCrowdactions(
+      final CrowdAction tAfterCrowdAction = generateDummyCrowdaction(
         dateLimitJoin: now.subtract(const Duration(days: 15)),
         endDate: now.subtract(
           const Duration(days: 10),
         ),
       );
 
-      final CrowdAction tAfterCrowdAction2 = generatingCrowdactions(
+      final CrowdAction tAfterCrowdAction2 = generateDummyCrowdaction(
         dateLimitJoin: now.subtract(
           const Duration(days: 15),
         ),
@@ -124,7 +57,7 @@ void main() {
         ),
       );
 
-      final CrowdAction tBeforeEndCrowdAction = generatingCrowdactions(
+      final CrowdAction tBeforeEndCrowdAction = generateDummyCrowdaction(
         dateLimitJoin: now.add(
           const Duration(days: 3),
         ),
@@ -133,7 +66,7 @@ void main() {
         ),
       );
 
-      final CrowdAction tBeforeEndCrowdAction2 = generatingCrowdactions(
+      final CrowdAction tBeforeEndCrowdAction2 = generateDummyCrowdaction(
         dateLimitJoin: now.add(
           const Duration(days: 3),
         ),

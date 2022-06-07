@@ -6,12 +6,7 @@ void main() {
   late Participant tParticipant;
 
   List<TopParticipant> generateTopParticipants(int num) {
-    late int topParticipantCnt;
-    if (num < 3) {
-      topParticipantCnt = num;
-    } else {
-      topParticipantCnt = 3;
-    }
+    final topParticipantCnt = num < 3 ? num : 3;
     return List.generate(
       topParticipantCnt,
       (i) => TopParticipant(userId: 'tUser$i', name: 'tName$i'),
@@ -21,7 +16,7 @@ void main() {
   setUp(() {
     tParticipant = Participant('tPhoto', 'tName');
   });
-  
+
   test('Participant test', () {
     expect(tParticipant.name, 'tName');
     expect(tParticipant.photo, 'tPhoto');
@@ -61,7 +56,7 @@ void main() {
     List<TopParticipant> tTopParticipants;
     int totalParticipants;
     String title;
-    
+
     test('When top participants length>3 and total participants > 3', () {
       tTopParticipants = generateTopParticipants(3);
       totalParticipants = 3;
