@@ -72,21 +72,21 @@ void main() {
   });
 
   group('Testing Crowdaction DTO', () {
-    test('testing hasParticipants getter', () {
+    test('Testing hasParticipants getter', () {
       expect(noParticipantCA.hasParticipants, false);
       expect(participantCA.hasParticipants, true);
       expect(passwordCA.hasParticipants, true);
       expect(noParticipantPwdCrowdactions.hasParticipants, false);
     });
 
-    test('testing hasPassword getter', () {
+    test('Testing hasPassword getter', () {
       expect(noParticipantCA.hasPassword, false);
       expect(participantCA.hasPassword, false);
       expect(passwordCA.hasPassword, true);
       expect(noParticipantPwdCrowdactions.hasPassword, true);
     });
 
-    test('testing CrowdAction.toChips() method', () {
+    test('Testing CrowdAction.toChips() method', () {
       // tests for CrowdAction without subCategory
       expect(participantCA.toChips().length, 1);
       expect(participantCA.category, 'tCategory');
@@ -98,14 +98,14 @@ void main() {
       expect(tCA.category, 'tCategory');
       expect(tCA.subCategory, 'tSubCategory');
     });
-    test('testing CrowdAction.avatarWidth() method', () {
+    test('Testing CrowdAction.avatarWidth() method', () {
       expect(noParticipantCA.avatarWidth(), 40);
       expect(participantCA.avatarWidth(), 80);
       final tCA = generatingCrowdactions(participantCnt: 5);
       expect(tCA.avatarWidth(), 100);
     });
 
-    test('testing CrowdAction.isOpen() method', () {
+    test('Testing CrowdAction.isOpen() method', () {
       final DateTime now = DateTime.now();
 
       final CrowdAction tAfterCrowdAction = generatingCrowdactions(
@@ -149,7 +149,7 @@ void main() {
     });
   });
 
-  test('testing CommitmentOptions.idToIcon() method', () {
+  test('Testing CommitmentOptions.idToIcon() method', () {
     crowdActionCommitmentIcons.forEach((key, value) {
       expect(tCommitmentOption.copyWith(id: key).icon, value);
     });

@@ -21,19 +21,20 @@ void main() {
   setUp(() {
     tParticipant = Participant('tPhoto', 'tName');
   });
+  
   test('Participant test', () {
     expect(tParticipant.name, 'tName');
     expect(tParticipant.photo, 'tPhoto');
   });
 
-  test('test sample participants data', () {
+  test('Test sample participants data', () {
     expect(sampleParticipants.length, 3);
     for (final sample in sampleParticipants) {
       expect(sample.runtimeType, Participant);
     }
   });
 
-  test('testing participants page participants ', () {
+  test('Testing participants page participants ', () {
     expect(participantsPageParticipants.length, 20);
 
     for (int i = 0; i < 20; i++) {
@@ -56,25 +57,26 @@ void main() {
     }
   });
 
-  group('testing ParticipantX title generation extension', () {
+  group('Testing ParticipantX title generation extension', () {
     List<TopParticipant> tTopParticipants;
     int totalParticipants;
     String title;
-    test('when top participants length>3 and total participants > 3', () {
+    
+    test('When top participants length>3 and total participants > 3', () {
       tTopParticipants = generateTopParticipants(3);
       totalParticipants = 3;
       title = tTopParticipants.title(totalParticipants);
       expect(title, 'tName0, tName1 and ${totalParticipants - 2} others!');
     });
 
-    test('when Top participants length = 1', () {
+    test('When Top participants length = 1', () {
       tTopParticipants = generateTopParticipants(1);
       totalParticipants = 3;
       title = tTopParticipants.title(totalParticipants);
       expect(title, 'tName0');
     });
 
-    test('when Top participants length = 2', () {
+    test('When Top participants length = 2', () {
       tTopParticipants = generateTopParticipants(2);
       totalParticipants = 5;
       title = tTopParticipants.title(totalParticipants);
