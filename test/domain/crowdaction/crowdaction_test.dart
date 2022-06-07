@@ -4,12 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   List<TopParticipant> generateTopParticipants(int num) {
-    late int topParticipantCnt;
-    if (num < 3) {
-      topParticipantCnt = num;
-    } else {
-      topParticipantCnt = 3;
-    }
+    final topParticipantCnt = num < 3 ? num : 3;
     return List.generate(
       topParticipantCnt,
       (i) => TopParticipant(userId: 'tUser$i', name: 'tName$i'),
@@ -26,7 +21,7 @@ void main() {
 
   const Images tImage = Images(card: 'tCard', banner: 'tBanner');
 
-  CrowdAction generatingCrowdactions({
+  CrowdAction generateDummyCrowdaction({
     int participantCnt = 0,
     bool password = false,
     DateTime? endDate,
