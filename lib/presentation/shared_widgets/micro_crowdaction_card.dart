@@ -18,7 +18,7 @@ class MicroCrowdActionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (crowdAction.usesPassword) {
+        if (crowdAction.hasPassword) {
           showPasswordModal(context, crowdAction);
         } else {
           context.router.push(

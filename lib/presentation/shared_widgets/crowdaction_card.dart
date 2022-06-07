@@ -26,7 +26,7 @@ class CrowdActionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap ??
           () {
-            if (crowdAction.usesPassword) {
+            if (crowdAction.hasPassword) {
               showPasswordModal(context, crowdAction);
             } else {
               context.router.push(
