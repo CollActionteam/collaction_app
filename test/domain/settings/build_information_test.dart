@@ -2,7 +2,7 @@ import 'package:collaction_app/domain/settings/build_information.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('test for BuildInformation() constructor', () {
+  test('Test for BuildInformation() constructor', () {
     const BuildInformation tBuildInfo =
         BuildInformation(buildNumber: 'tBuildNo', version: 'tVersion');
     expect(tBuildInfo.buildNumber, 'tBuildNo');
