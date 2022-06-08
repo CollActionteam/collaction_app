@@ -120,7 +120,8 @@ void main() {
     {
       when(() => authRepository.updateUsername(username: 'tUsernameFailure'))
           .thenAnswer(
-              (_) => Future.value(left(const AuthFailure.serverError())));
+        (_) => Future.value(left(const AuthFailure.serverError())),
+      );
 
       when(() => authRepository.updateUsername(username: 'tUsernameSuccess'))
           .thenAnswer((_) => Future.value(right(unit)));
@@ -173,6 +174,38 @@ void main() {
           bloc.add(const AuthEvent.authCheckRequested());
         },
         expect: () => [const AuthState.authenticated(tUser)],
+      );
+    }
+    {
+      final mockFile1 = MockImageFile();
+      when(() => authRepository.updatePhoto(photo: mockFile1)).thenAnswer(
+        (_) => Future.value(left(const AuthFailure.serverError())),
+      );
+      blocTest(
+        'Testing upload profile photo failure',
+        build: () => AuthBloc(authRepository),
+        act: (AuthBloc bloc) {
+          bloc.add(AuthEvent.updateProfilePhoto(mockFile1));
+        },
+        expect: () => [
+          const AuthState.awaitingPhotoUpdate(),
+          const AuthState.authError(AuthFailure.serverError())
+        ],
+      );
+      final mockFile2 = MockImageFile();
+      when(() => authRepository.updatePhoto(photo: mockFile2)).thenAnswer(
+        (_) => Future.value(right(unit)),
+      );
+      blocTest(
+        'Testing upload profile photo success',
+        build: () => AuthBloc(authRepository),
+        act: (AuthBloc bloc) {
+          bloc.add(AuthEvent.updateProfilePhoto(mockFile2));
+        },
+        expect: () => [
+          const AuthState.awaitingPhotoUpdate(),
+          const AuthState.photoUpdateDone(),
+        ],
       );
     }
 
