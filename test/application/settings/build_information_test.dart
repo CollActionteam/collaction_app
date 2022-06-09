@@ -23,14 +23,16 @@ void main() {
     when(() => tSettingsRepo.getBuildInformation())
         .thenAnswer((_) => Future.value(tBuildInfo));
 
-    blocTest('Testing fetch event',
-        build: () => tBuildInfoBloc,
-        act: (BuildInformationBloc bloc) {
-          bloc.add(const BuildInformationEvent.fetch());
-        },
-        expect: () => [
-              const BuildInformationState.loading(),
-              const BuildInformationState.fetched(tBuildInfo),
-            ]);
+    blocTest(
+      'Testing fetch event',
+      build: () => tBuildInfoBloc,
+      act: (BuildInformationBloc bloc) {
+        bloc.add(const BuildInformationEvent.fetch());
+      },
+      expect: () => [
+        const BuildInformationState.loading(),
+        const BuildInformationState.fetched(tBuildInfo),
+      ],
+    );
   });
 }
