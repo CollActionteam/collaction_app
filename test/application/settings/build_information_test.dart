@@ -1,11 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:collaction_app/application/settings/build_information/build_information_bloc.dart';
-import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/settings/build_information.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockSettingsRepository extends Mock implements ISettingsRepository {}
+import '../../test_utilities.dart';
 
 void main() {
   group('Testing Build Information BLoC', () {
