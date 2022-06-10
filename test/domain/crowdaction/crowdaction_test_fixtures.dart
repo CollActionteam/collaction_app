@@ -1,5 +1,7 @@
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 
+import '../../test_utilities.dart';
+
 List<TopParticipant> generateTopParticipants(int num) {
   final topParticipantCnt = num < 3 ? num : 3;
   return List.generate(
@@ -7,12 +9,6 @@ List<TopParticipant> generateTopParticipants(int num) {
     (i) => TopParticipant(userId: 'tUser$i', name: 'tName$i'),
   );
 }
-
-final tCommitmentOption = CommitmentOption(
-  id: 'no-beef',
-  label: 'tLabel',
-  description: 'tDescription',
-);
 
 final List<CommitmentOption> tListCommitmentOptions = [tCommitmentOption];
 
