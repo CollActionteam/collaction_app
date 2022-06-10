@@ -4,6 +4,7 @@ import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import '../../test_utilities.dart';
 import 'spotlight_bloc_fixtures.dart';
 
 void main() {

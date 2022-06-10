@@ -2,6 +2,7 @@ import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
 import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction_status.dart';
 import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
@@ -72,3 +73,27 @@ class TestUtilities {
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
   }
 }
+
+final tCrowdaction = CrowdAction(
+  crowdactionID: 'tID',
+  title: 'tTitle',
+  description: 'tDescription',
+  category: 'tCategory',
+  location: 'tLocation',
+  topParticipants: [TopParticipant(userId: 'tUser', name: 'tName')],
+  commitmentOptions: [tCommitmentOption],
+  dateStart: DateTime(2022, 1, 2),
+  dateEnd: DateTime(2022, 1, 31),
+  dateLimitJoin: DateTime(2022, 1, 10),
+  images: const Images(card: 'tCard', banner: 'tBanner'),
+  participantCount: 10,
+  passwordJoin: 'testPwd',
+);
+
+final tCommitmentOption = CommitmentOption(
+  id: 'no-beef',
+  label: 'tLabel',
+  description: 'tDescription',
+);
+
+final List<String> tCommitment = ['tCommitment'];

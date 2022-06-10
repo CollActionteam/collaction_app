@@ -1,6 +1,7 @@
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/crowdaction/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
+import '../../test_utilities.dart';
 import 'crowdaction_test_fixtures.dart';
 
 void main() {
