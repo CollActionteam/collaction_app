@@ -2,10 +2,10 @@ import 'package:collaction_app/domain/core/value_failures.dart';
 import 'package:collaction_app/domain/core/value_objects.dart';
 import 'package:dartz/dartz.dart';
 
-class MockValueObjects extends ValueObject {
+class MockValueObjects extends ValueObject<String> {
+  const MockValueObjects(this.value);
   @override
-  // TODO: implement value
-  Either<ValueFailure, dynamic> get value => throw UnimplementedError();
+  final Either<ValueFailure<String>, String> value;
 }
 
 const inputEmptyString = '';
