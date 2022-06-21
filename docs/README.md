@@ -75,7 +75,7 @@ To generate the OpenSource licenses dart file via [flutter_oss_licenses](https:/
 
 ## Running tests and generating Test Report
 
-- Step 1: Just for the 1st time, To make sure that all files are included, run ```./.github/scripts/coverage_gen.sh``` to generate report for the whole project.
+- Step 1: Just for the 1st time, to make sure that all files are included, run ```./.github/scripts/coverage_gen.sh``` to generate a report for the whole project.
 - Step 2: Run ```flutter test --coverage```. This will generate the report locally.
 - Step 3: Run ```genhtml coverage/lcov.info -o coverage```.
 - Step 4: Run ``` firefox coverage/index.html``` (or run ```coverage/index.html``` to any of your web browser).
