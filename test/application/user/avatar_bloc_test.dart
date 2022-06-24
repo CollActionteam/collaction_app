@@ -4,7 +4,7 @@ import 'package:collaction_app/domain/user/upload_failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-
+import '../../test_utilities.dart';
 import 'avatar_bloc_fixtures.dart';
 
 void main() {
@@ -19,7 +19,7 @@ void main() {
     });
 
     {
-      final avatarRepo1 = MockAvatarRepo();
+      final avatarRepo1 = MockAvatarRepository();
       when(() => avatarRepo1.getAvatarUploadPath()).thenAnswer(
         (_) => Future.value(
           left(const UploadPathFailure.unexpected()),
@@ -39,7 +39,7 @@ void main() {
     }
 
     {
-      final avatarRepo2 = MockAvatarRepo();
+      final avatarRepo2 = MockAvatarRepository();
 
       when(() => avatarRepo2.getAvatarUploadPath()).thenAnswer(
         (_) => Future.value(right(tUri)),
@@ -62,7 +62,7 @@ void main() {
       );
     }
     {
-      final avatarRepo3 = MockAvatarRepo();
+      final avatarRepo3 = MockAvatarRepository();
       when(() => avatarRepo3.getAvatarUploadPath()).thenAnswer(
         (_) => Future.value(right(tUri)),
       );

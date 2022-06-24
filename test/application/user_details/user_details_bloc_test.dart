@@ -19,7 +19,6 @@ void main() {
     when(() => tUserRepo.observeUser()).thenAnswer((_) {
       final x = StreamController<User>();
       x.add(tUser);
-      print('x.stream is User? ${x.stream.distinct() is Stream<User>}');
       return x.stream.distinct();
     });
 
