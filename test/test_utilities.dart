@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
 import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
@@ -5,6 +7,8 @@ import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction_status.dart';
 import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
+import 'package:collaction_app/domain/user/i_avatar_repository.dart';
+import 'package:collaction_app/domain/user/i_profile_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:dartz/dartz.dart';
@@ -23,6 +27,16 @@ class MockUserRepository extends Mock implements IUserRepository {}
 class MockSettingsRepository extends Mock implements ISettingsRepository {}
 
 class MockContactFormApi extends Mock implements IContactFormApi {}
+
+class MockAvatarRepository extends Mock implements IAvatarRepository {}
+
+class MockAvatarFile extends Mock implements File {}
+
+class MockProfileRepository extends Mock implements IProfileRepository {}
+
+// ignore: avoid_positional_boolean_parameters
+Future<String?> getAnonymousIdToken([bool forceRefresh = false]) =>
+    Future.value(null);
 
 // ignore: avoid_classes_with_only_static_members
 class TestUtilities {
