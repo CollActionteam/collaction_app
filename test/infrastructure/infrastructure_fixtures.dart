@@ -1,5 +1,6 @@
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
+import 'package:collaction_app/infrastructure/crowdaction/crowdaction_status_dto.dart';
 
 String generateEndDate(DateTime now) {
   return now.add(const Duration(days: 3)).toString();
@@ -96,4 +97,22 @@ CrowdAction tCrowdAction = CrowdAction(
   topParticipants: [tTopParticipantDto.toDomain()],
   participantCount: 0,
   subCategory: '',
+);
+
+Map<String, dynamic> tCrowdactionStatusJson = {
+  'userID': 'tUserId',
+  'crowdactionID': 'tCrowdactionId',
+  'name': 'tName',
+  'title': 'tTile',
+  'date': 'tDate',
+  'commitments': ['tCommitmentOption'],
+};
+
+CrowdActionStatusDto tCrowdactionStatusDto = CrowdActionStatusDto(
+  userId: 'tUserId',
+  crowdActionId: 'tCrowdactionId',
+  name: 'tName',
+  title: 'tTile',
+  date: 'tDate',
+  commitments: ['tCommitmentOption'],
 );
