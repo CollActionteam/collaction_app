@@ -121,7 +121,7 @@ class _PhotoSelectorState extends State<PhotoSelector> {
 
   final _compression = 100;
   Future<void> _cropImage(XFile image) async {
-    final File? croppedFile = await ImageCropper.cropImage(
+    final CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: image.path,
       aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       aspectRatioPresets: [CropAspectRatioPreset.square],
@@ -129,21 +129,23 @@ class _PhotoSelectorState extends State<PhotoSelector> {
       maxWidth: 1023,
       maxHeight: 1023,
       compressQuality: _compression,
-      androidUiSettings: const AndroidUiSettings(
-        toolbarTitle: 'Profile Photo',
-        toolbarColor: kAccentColor,
-        toolbarWidgetColor: Colors.white,
-        lockAspectRatio: true,
-      ),
-      iosUiSettings: const IOSUiSettings(
-        minimumAspectRatio: 1.0,
-        aspectRatioLockEnabled: true,
-        title: 'Profile Photo',
-      ),
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Profile Photo',
+          toolbarColor: kAccentColor,
+          toolbarWidgetColor: Colors.white,
+          lockAspectRatio: true,
+        ),
+        IOSUiSettings(
+          minimumAspectRatio: 1.0,
+          aspectRatioLockEnabled: true,
+          title: 'Profile Photo',
+        ),
+      ],
     );
 
     if (widget.onSelected != null && croppedFile != null) {
-      widget.onSelected!(croppedFile);
+      widget.onSelected!(File(croppedFile.path));
     }
   }
 
