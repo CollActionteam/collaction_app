@@ -77,7 +77,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                           onPressed: () => showModalBottomSheet(
                             context: context,
                             builder: (context) => PhotoSelector(
-                              onSelected: (File photo) {
+                              onSelected: (photo) {
                                 setState(() {
                                   _photo = photo;
                                   _isPhotoValid = true;
