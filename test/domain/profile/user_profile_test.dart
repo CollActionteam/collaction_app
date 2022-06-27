@@ -7,7 +7,7 @@ import 'profile_fixture.dart';
 void main() {
   group('Tests covering UserProfile', () {
     Future<String?> _getAnonymousIdToken([bool forceRefresh = false]) =>
-        Future.value(null);
+        Future.value();
     const cAnonUser = User.anonymous;
     final cUser = User(id: 'test', getIdToken: _getAnonymousIdToken);
     final cUserProfile = UserProfile(user: cUser, profile: cProfileFromJson);
