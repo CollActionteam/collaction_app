@@ -9,7 +9,7 @@ final IUserRepository tUserRepo = MockUserRepository();
 
 // ignore: avoid_positional_boolean_parameters
 Future<String?> testGetAnonymousTokenId([bool forceRefresh = false]) =>
-    Future.value(null);
+    Future.value();
 
 const User tUser = User(
   id: 'tId',
