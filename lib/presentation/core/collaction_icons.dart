@@ -17,7 +17,7 @@
 import 'package:flutter/widgets.dart';
 
 class CollactionIcons {
-  const CollactionIcons._();
+  // const CollactionIcons._();
 
   static const _kFontFam = 'CollactionIcons';
 
