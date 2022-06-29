@@ -10,7 +10,7 @@ class User with _$User {
   @visibleForTesting
   // ignore: avoid_positional_boolean_parameters
   static Future<String?> getAnonymousIdToken([bool forceRefresh = false]) =>
-      Future.value(null);
+      Future.value();
 
   static const User anonymous = User(
     id: 'anonymous',

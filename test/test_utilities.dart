@@ -36,7 +36,7 @@ class MockProfileRepository extends Mock implements IProfileRepository {}
 
 // ignore: avoid_positional_boolean_parameters
 Future<String?> getAnonymousIdToken([bool forceRefresh = false]) =>
-    Future.value(null);
+    Future.value();
 
 // ignore: avoid_classes_with_only_static_members
 class TestUtilities {
