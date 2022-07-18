@@ -14,6 +14,8 @@ final List<CommitmentOption> tListCommitmentOptions = [tCommitmentOption];
 
 const Images tImage = Images(card: 'tCard', banner: 'tBanner');
 
+const Location tLocation = Location(code: 'tCode', name: 'tName');
+
 CrowdAction generateDummyCrowdaction({
   int participantCnt = 0,
   bool password = false,
@@ -21,20 +23,19 @@ CrowdAction generateDummyCrowdaction({
   DateTime? dateLimitJoin,
 }) {
   return CrowdAction(
-    crowdactionID: 'tID',
+    id: 'tID',
+    type: 'tType',
     title: 'tTitle',
     description: 'tDescription',
     category: 'tCategory',
-    location: 'tLocation',
-    topParticipants:
-        participantCnt > 0 ? generateTopParticipants(participantCnt) : [],
+    location: tLocation,
     commitmentOptions: tListCommitmentOptions,
-    dateStart: DateTime(2022, 1, 2),
-    dateEnd: endDate ?? DateTime(2022, 1, 31),
-    dateLimitJoin: dateLimitJoin ?? DateTime(2022, 1, 10),
+    endAt: endDate ?? DateTime(2022, 1, 31),
     images: tImage,
     participantCount: participantCnt,
-    passwordJoin: password ? 'testPwd' : null,
+    status: Status.started,
+    joinStatus: JoinStatus.open,
+    password: password ? 'testPwd' : null,
   );
 }
 

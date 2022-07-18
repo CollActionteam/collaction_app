@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/crowdaction/subscription/subscription_bloc.dart';
 import '../../application/auth/auth_bloc.dart';
-import '../../application/crowdaction/subscription_status/subscription_status_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
@@ -18,12 +16,6 @@ class AppWidget extends StatelessWidget {
         BlocProvider(
           create: (_) => getIt<AuthBloc>(),
         ),
-        BlocProvider(
-          create: (context) => getIt<SubscriptionBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<SubscriptionStatusBloc>(),
-        )
       ],
       child: MaterialApp.router(
         color: Colors.white,

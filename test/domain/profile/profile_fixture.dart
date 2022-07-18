@@ -5,6 +5,18 @@ const cProfileDtoJson = {
   'bio': "I am Jack!",
 };
 
-const cProfileDtoFromJson = ProfileDto(bio: "I am Jack!");
+const cProfileDtoFromJson = ProfileDto(
+  userId: "123456",
+  firstName: "Jack",
+  bio: "I am Jack!",
+  avatar: 'avatar',
+  phone: '+123456789',
+);
 
-const cProfileFromJson = Profile(bio: "I am Jack!");
+const cProfileFromJson = Profile(
+  userId: "123456",
+  firstName: "Jack",
+  bio: "I am Jack!",
+  avatar: 'avatar',
+  phone: '+123456789',
+);
