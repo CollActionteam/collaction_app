@@ -137,41 +137,7 @@ class CrowdActionCard extends StatelessWidget {
                           ?.copyWith(color: kInactiveColor),
                     ),
                   ),
-                  // TODO: Implement after MVP
-                  //   if (_someParticipants()) ...[
-                  //     const SizedBox(
-                  //       height: 20,
-                  //     ),
-                  //     Container(
-                  //       height: 40,
-                  //       margin: const EdgeInsets.symmetric(horizontal: 20),
-                  //       child: Row(
-                  //         children: [
-                  //           SizedBox(
-                  //             width: crowdAction.avatarWidth(),
-                  //             child: ParticipantAvatars(
-                  //               participants: crowdAction.topParticipants,
-                  //             ),
-                  //           ),
-                  //           const SizedBox(
-                  //             width: 20,
-                  //           ),
-                  //           Expanded(
-                  //             child: Text(
-                  //               "Join ${crowdAction.topParticipants.title(crowdAction.participantCount)}",
-                  //               style: Theme.of(context)
-                  //                   .textTheme
-                  //                   .caption
-                  //                   ?.copyWith(fontSize: 12),
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ],
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  const SizedBox(height: 40),
                 ],
               ),
             ],

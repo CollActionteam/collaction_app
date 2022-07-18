@@ -1,58 +1,73 @@
+import 'package:collaction_app/application/participation/participation_bloc.dart';
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/crowdaction/subscription/subscription_bloc.dart';
 import 'commitment_card.dart';
 
-class CommitmentCardList extends StatelessWidget {
+class CommitmentCardList extends StatefulWidget {
+  final List<CommitmentOption> commitmentOptions;
+  final List<CommitmentOption> selectedCommitments;
+
   /// Widget for easily creating a list of CommitmentCard(s)
   const CommitmentCardList({
     Key? key,
+    required this.commitmentOptions,
+    required this.selectedCommitments,
   }) : super(key: key);
 
   @override
+  State<CommitmentCardList> createState() => _CommitmentCardListState();
+}
+
+class _CommitmentCardListState extends State<CommitmentCardList> {
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SubscriptionBloc, SubscriptionState>(
+    return BlocBuilder<ParticipationBloc, ParticipationState>(
       builder: (context, state) {
-        final _commitments = state.deactivated
-            ? state.commitments
-                .where(
-                  (commitment) =>
-                      state.activeCommitments.contains(commitment.id),
-                )
-                .toList()
-            : state.commitments;
+        bool isParticipating = false;
+
+        state.mapOrNull(
+          participating: (_) => isParticipating = true,
+        );
 
         return ListView.builder(
           physics: const BouncingScrollPhysics(),
           itemBuilder: (ctx, index) {
-            final option = _commitments[index];
-
+            final option = widget.commitmentOptions[index];
             return CommitmentCard(
+              key: Key(option.id),
               commitment: option,
-              onSelected: state.deactivated
-                  ? null
-                  : (commitment) {
-                      context
-                          .read<SubscriptionBloc>()
-                          .add(SubscriptionEvent.selectCommitment(commitment));
-                    },
-              onDeSelected: state.deactivated
-                  ? null
-                  : (commitment) {
-                      context.read<SubscriptionBloc>().add(
-                            SubscriptionEvent.deselectCommitment(commitment),
-                          );
-                    },
-              active: !state.deactivated &&
-                  state.activeCommitments.contains(option.id),
-              deactivated: state.deactivated,
+              onSelected: isParticipating ? null : selectCommitment,
+              onDeSelected: isParticipating ? null : deselectCommitment,
+              active: widget.selectedCommitments.contains(option),
+              deactivated: isParticipating || isBlocked(option),
             );
           },
-          itemCount: _commitments.length,
+          itemCount: widget.commitmentOptions.length,
           shrinkWrap: true,
         );
       },
     );
+  }
+
+  void selectCommitment(CommitmentOption commitment) {
+    setState(() {
+      widget.selectedCommitments.add(commitment);
+      for (final id in commitment.blocks) {
+        widget.selectedCommitments.removeWhere((c) => c.id == id);
+      }
+    });
+  }
+
+  void deselectCommitment(CommitmentOption commitment) {
+    setState(() {
+      widget.selectedCommitments.removeWhere((c) => c.id == commitment.id);
+    });
+  }
+
+  bool isBlocked(CommitmentOption commitment) {
+    return widget.selectedCommitments
+        .any((c) => c.blocks.contains(commitment.id));
   }
 }

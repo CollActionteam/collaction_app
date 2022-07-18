@@ -138,7 +138,7 @@ class _PasswordModalState extends State<PasswordModal> {
   }
 
   void _validatePassword() {
-    if (_controller.text == widget.crowdAction.passwordJoin) {
+    if (_controller.text == widget.crowdAction.password) {
       setState(() {
         _validated = true;
       });
@@ -157,7 +157,7 @@ class _PasswordModalState extends State<PasswordModal> {
   Future<void> addCrowdActionAccess() async {
     final _settingsRepository = getIt<ISettingsRepository>();
     await _settingsRepository.addCrowdActionAccess(
-      crowdActionId: widget.crowdAction.crowdactionID,
+      crowdActionId: widget.crowdAction.id,
     );
   }
 
@@ -175,7 +175,7 @@ Future<void> showPasswordModal(
   final _settingsRepository = getIt<ISettingsRepository>();
   final _accessList = await _settingsRepository.getCrowdActionAccessList();
 
-  if (_accessList.contains(crowdAction.crowdactionID)) {
+  if (_accessList.contains(crowdAction.id)) {
     context.router.push(CrowdActionDetailsRoute(crowdAction: crowdAction));
   } else {
     showModalBottomSheet(

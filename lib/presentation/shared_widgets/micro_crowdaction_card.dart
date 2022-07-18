@@ -42,7 +42,9 @@ class MicroCrowdActionCard extends StatelessWidget {
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(crowdAction.images.card),
+                    image: CachedNetworkImageProvider(
+                      crowdAction.images.card,
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),

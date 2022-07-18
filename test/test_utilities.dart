@@ -15,6 +15,7 @@ import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'domain/crowdaction/crowdaction_test_fixtures.dart';
 import 'utils/crowdactions.dart';
 
 class MockCrowdActionRepository extends Mock implements ICrowdActionRepository {
@@ -79,7 +80,7 @@ class TestUtilities {
         .thenAnswer(
       (_) async => right(
         CrowdActionStatus.subscribed(
-          crowdActions.first.commitment_options.map((e) => e.id).toList(),
+          crowdActions.first.commitmentOptions.map((e) => e.id).toList(),
         ),
       ),
     );
@@ -89,25 +90,28 @@ class TestUtilities {
 }
 
 final tCrowdaction = CrowdAction(
-  crowdactionID: 'tID',
+  id: 'tID',
+  type: '',
   title: 'tTitle',
   description: 'tDescription',
   category: 'tCategory',
-  location: 'tLocation',
-  topParticipants: [TopParticipant(userId: 'tUser', name: 'tName')],
+  location: tLocation,
   commitmentOptions: [tCommitmentOption],
-  dateStart: DateTime(2022, 1, 2),
-  dateEnd: DateTime(2022, 1, 31),
-  dateLimitJoin: DateTime(2022, 1, 10),
+  endAt: DateTime(2022, 1, 31),
   images: const Images(card: 'tCard', banner: 'tBanner'),
   participantCount: 10,
-  passwordJoin: 'testPwd',
+  status: Status.ended,
+  joinStatus: JoinStatus.closed,
+  password: 'testPwd',
 );
 
 final tCommitmentOption = CommitmentOption(
   id: 'no-beef',
+  type: 'food',
   label: 'tLabel',
   description: 'tDescription',
+  points: 0,
+  blocks: [],
 );
 
 final List<String> tCommitment = ['tCommitment'];
