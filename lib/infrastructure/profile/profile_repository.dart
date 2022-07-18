@@ -107,7 +107,7 @@ class ProfileRepository implements IProfileRepository {
       return await userOption.fold(
         () => left(const ProfileFailure.noUser()),
         (user) async {
-          final tokenId = await user.getIdToken();
+          final token = await user.getIdToken();
 
           final response = await _client.put(
             Uri.parse(
@@ -115,19 +115,14 @@ class ProfileRepository implements IProfileRepository {
             ),
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer $tokenId',
+              'Authorization': 'Bearer $token',
             },
-
-            /// TODO: Refactor to include actual country and city
             body: jsonEncode({
-              "firstName": user.displayName,
-              "lastName": "",
-              "country": "NL",
               "bio": bio,
             }),
           );
 
-          if (response.statusCode == 201) {
+          if (response.statusCode == 200) {
             return right(unit);
           }
 

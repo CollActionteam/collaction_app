@@ -32,12 +32,6 @@ void main() {
       expect(tCA.category, 'tCategory');
       expect(tCA.subcategory, 'tSubCategory');
     });
-    // test('Testing CrowdAction.avatarWidth() method', () {
-    //   expect(noParticipantCA.avatarWidth(), 40);
-    //   expect(participantCA.avatarWidth(), 80);
-    //   final tCA = generateDummyCrowdaction(participantCnt: 5);
-    //   expect(tCA.avatarWidth(), 100);
-    // });
 
     test('Testing CrowdAction.isOpen() method', () {
       final DateTime now = DateTime.now();

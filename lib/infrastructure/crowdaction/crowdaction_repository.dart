@@ -130,7 +130,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/api/v1/crowdactions?status=STARTED',
+          '${await _settingsRepository.baseApiEndpointUrl}/api/v1/crowdactions?status=STARTED&status=WAITING&pageSize=3',
         ),
       );
 

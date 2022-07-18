@@ -142,16 +142,19 @@ class BadgesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(height: 40),
-          Image.asset('assets/images/badges_tab_empty.png'),
-          const SizedBox(height: 40),
-          SignUpCTA(
-            user: user,
-            title: 'Unique badges based on your commitments',
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
+            Image.asset('assets/images/badges_tab_empty.png'),
+            const SizedBox(height: 40),
+            SignUpCTA(
+              user: user,
+              title: 'Unique badges based on your commitments',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -164,16 +167,19 @@ class CrowdActionsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(height: 40),
-          Image.asset('assets/images/crowdactions_tab_empty.png'),
-          const SizedBox(height: 40),
-          SignUpCTA(
-            user: user,
-            title: 'All CrowdActions you have participated in',
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
+            Image.asset('assets/images/crowdactions_tab_empty.png'),
+            const SizedBox(height: 40),
+            SignUpCTA(
+              user: user,
+              title: 'All CrowdActions you have participated in',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -186,16 +192,19 @@ class CommitmentsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(height: 40),
-          Image.asset('assets/images/commitments_tab_empty.png'),
-          const SizedBox(height: 40),
-          SignUpCTA(
-            user: user,
-            title: 'View your amazing commitments here',
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
+            Image.asset('assets/images/commitments_tab_empty.png'),
+            const SizedBox(height: 40),
+            SignUpCTA(
+              user: user,
+              title: 'View your amazing commitments here',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -231,18 +240,16 @@ class SignUpCTA extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
-          Text(
-            user != null
-                ? 'We are working on this feature!'
-                : 'Create an account to participate in \nCrowdActions and make waves with other \nlikeminded people!',
-            style: const TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 17,
-              color: kPrimaryColor300,
-            ),
-            textAlign: TextAlign.center,
-          ),
           if (user == null) ...[
+            const Text(
+              'Create an account to participate in \nCrowdActions and make waves with other \nlikeminded people!',
+              style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 17,
+                color: kPrimaryColor300,
+              ),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 40),
             PillButton(
               text: 'Create account or sign in',

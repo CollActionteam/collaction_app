@@ -4,6 +4,7 @@ import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/application/participation/participation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../../domain/crowdaction/crowdaction.dart';
@@ -166,7 +167,8 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                           children: [
                             Positioned.fill(
                               child: CachedNetworkImage(
-                                imageUrl: widget.crowdAction.images.banner,
+                                imageUrl:
+                                    '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${widget.crowdAction.images.banner}',
                                 placeholder: (context, url) =>
                                     ImageSkeletonLoader(
                                   height: _headerHeight,

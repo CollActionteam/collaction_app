@@ -45,7 +45,7 @@ void main() {
         (_) => Future.value(right(tUri)),
       );
 
-      when(() => avatarRepo2.uploadAvatar(tAvatarFile, tUri)).thenAnswer(
+      when(() => avatarRepo2.uploadAvatar(tAvatarFile)).thenAnswer(
         (_) => Future.value(left(const UploadFailure.uploadFailed())),
       );
 
@@ -67,7 +67,7 @@ void main() {
         (_) => Future.value(right(tUri)),
       );
 
-      when(() => avatarRepo3.uploadAvatar(tAvatarFile, tUri)).thenAnswer(
+      when(() => avatarRepo3.uploadAvatar(tAvatarFile)).thenAnswer(
         (_) => Future.value(right(unit)),
       );
 
