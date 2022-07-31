@@ -34,7 +34,7 @@ class CommitmentCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
-        if (!active) {
+        if (!active && !deactivated) {
           onSelected?.call(commitment);
         } else {
           onDeSelected?.call(commitment);
@@ -44,7 +44,9 @@ class CommitmentCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: active ? kAlmostTransparent : kSecondaryColor,
-          border: active ? null : Border.all(color: kPrimaryColor0),
+          border: active
+              ? Border.all(color: Colors.transparent)
+              : Border.all(color: kPrimaryColor0),
         ),
         margin: const EdgeInsets.symmetric(
           vertical: 5.0,
@@ -103,29 +105,38 @@ class CommitmentCard extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            if (!deactivated)
+            if (!deactivated || (deactivated && active)) ...[
               Container(
                 constraints: const BoxConstraints(
+                  maxHeight: 32,
+                  maxWidth: 32,
                   minHeight: 32,
                   minWidth: 32,
                 ),
                 decoration: BoxDecoration(
-                  color: active ? kPrimaryColor400 : Colors.transparent,
+                  color: active
+                      ? kPrimaryColor400.withAlpha(deactivated ? 50 : 255)
+                      : Colors.transparent,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: active ? kPrimaryColor400 : kPrimaryColor200,
+                    color: active
+                        ? kPrimaryColor400.withAlpha(deactivated ? 0 : 255)
+                        : kPrimaryColor200,
                     width: 3,
                   ),
                 ),
-                child: Visibility(
-                  visible: active,
+                child: Opacity(
+                  opacity: deactivated ? 0.5 : 1,
                   child: const Icon(
                     Icons.check,
-                    size: 30,
+                    size: 26,
                     color: Colors.white,
                   ),
                 ),
               )
+            ] else ...[
+              const SizedBox(height: 32, width: 32),
+            ]
           ],
         ),
       ),

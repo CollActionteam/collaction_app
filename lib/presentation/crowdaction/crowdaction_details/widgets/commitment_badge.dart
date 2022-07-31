@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/collaction_icons.dart';
-import '../../../../../themes/constants.dart';
+import '../../../core/collaction_icons.dart';
+import '../../../themes/constants.dart';
 
 class BadgesWidget extends StatelessWidget {
   static const String _heroBadgesTag = 'display-badges';

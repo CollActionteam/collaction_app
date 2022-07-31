@@ -30,7 +30,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
             children: [
               CrowdActionCard(
                 crowdAction: CrowdAction(
-                  crowdactionID: "",
+                  id: "",
+                  type: "",
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
@@ -40,32 +41,41 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                         "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
                   ),
                   category: "Sustainability",
-                  subCategory: "Community",
+                  subcategory: "Community",
                   commitmentOptions: [
                     CommitmentOption(
                       id: "",
+                      type: "food",
                       label: "no-beef",
                       description: "Don't eat beef for 30 days!",
+                      points: 0,
+                      blocks: [],
                     ),
                     CommitmentOption(
                       id: "",
+                      type: "food",
                       label: "vegetarian",
                       description: "Don't eat meat for 30 days!",
+                      points: 0,
+                      blocks: [],
                     ),
                   ],
-                  dateEnd: DateTime.now(),
-                  dateLimitJoin: DateTime.now(),
-                  dateStart: DateTime.now(),
+                  endAt: DateTime.now(),
                   description: '',
-                  location: '',
+                  location: const Location(
+                    code: 'NL',
+                    name: 'The Netherlands',
+                  ),
+                  status: Status.started,
+                  joinStatus: JoinStatus.open,
                   participantCount: 0,
-                  topParticipants: [],
                 ),
               ),
               const SizedBox(height: 24.0),
               CrowdActionCard(
                 crowdAction: CrowdAction(
-                  crowdactionID: "",
+                  id: "",
+                  type: "",
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
@@ -75,26 +85,34 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                         "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
                   ),
                   category: "Sustainability",
-                  subCategory: "Community",
+                  subcategory: "Community",
                   commitmentOptions: [
                     CommitmentOption(
                       id: "",
+                      type: "food",
                       label: "no-beef",
                       description: "Don't eat beef for 30 days!",
+                      points: 0,
+                      blocks: [],
                     ),
                     CommitmentOption(
                       id: "",
+                      type: "food",
                       label: "vegetarian",
                       description: "Don't eat meat for 30 days!",
+                      points: 0,
+                      blocks: [],
                     ),
                   ],
-                  dateEnd: DateTime.now(),
-                  dateLimitJoin: DateTime.now(),
-                  dateStart: DateTime.now(),
+                  endAt: DateTime.now(),
                   description: '',
-                  location: '',
+                  location: const Location(
+                    code: 'NL',
+                    name: 'The Netherlands',
+                  ),
+                  status: Status.started,
+                  joinStatus: JoinStatus.open,
                   participantCount: 0,
-                  topParticipants: [],
                 ),
               ),
               const SizedBox(height: 24.0),

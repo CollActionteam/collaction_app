@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../home/widgets/password_modal.dart';
@@ -42,7 +43,9 @@ class MicroCrowdActionCard extends StatelessWidget {
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(crowdAction.images.card),
+                    image: CachedNetworkImageProvider(
+                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${crowdAction.images.card}',
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),

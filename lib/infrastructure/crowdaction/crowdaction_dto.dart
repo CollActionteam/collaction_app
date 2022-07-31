@@ -3,7 +3,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
-import '../crowdaction/crowdaction.ext.dart';
 
 part 'crowdaction_dto.freezed.dart';
 
@@ -14,45 +13,39 @@ class CrowdActionDto with _$CrowdActionDto {
   const CrowdActionDto._();
 
   factory CrowdActionDto({
-    required String crowdactionID,
+    required String id,
+    required String type,
     required String title,
     required String description,
     required String category,
-    required String location,
+    required LocationDto location,
+    required List<CommitmentOptionDto> commitmentOptions,
     required ImagesDto images,
-
-    /// TODO: Rename DTO fields when naming conventions are up to date
-    required List<TopParticipantDto> top_participants,
-    required List<CommitmentOptionDto> commitment_options,
-    required String date_start,
-    required String date_end,
-    required String date_limit_join,
-    int? participant_count,
-    String? password_join,
+    required int participantCount,
+    required Status status,
+    required JoinStatus joinStatus,
+    required String endAt,
+    String? password,
     String? subcategory,
   }) = _CrowdActionDto;
 
   CrowdAction toDomain() {
     return CrowdAction(
-      crowdactionID: crowdactionID,
+      id: id,
+      type: type,
       title: title,
       description: description,
       category: category,
-      location: location,
-      topParticipants: top_participants
-          .map((participant) => participant.toDomain())
-          .toList(),
-      commitmentOptions: commitment_options
-          .flatten()
-          .map((option) => option.toDomain())
-          .toList(),
-      dateStart: DateTime.parse(date_start),
-      dateEnd: DateTime.parse(date_end),
-      dateLimitJoin: DateTime.parse(date_limit_join),
+      location: location.toDomain(),
+      commitmentOptions:
+          commitmentOptions.map((option) => option.toDomain()).toList(),
       images: images.toDomain(),
-      participantCount: participant_count ?? 0,
-      passwordJoin: password_join,
-      subCategory: subcategory,
+      participantCount: participantCount,
+      status: status,
+      joinStatus: joinStatus,
+      endAt: DateTime.parse(endAt),
+      password: password,
+      subcategory: subcategory,
     );
   }
 
@@ -81,24 +74,46 @@ class ImagesDto with _$ImagesDto {
 }
 
 @freezed
+class LocationDto with _$LocationDto {
+  const LocationDto._();
+
+  factory LocationDto({
+    required String code,
+    required String name,
+  }) = _LocationDto;
+
+  Location toDomain() {
+    return Location(
+      code: code,
+      name: name,
+    );
+  }
+
+  factory LocationDto.fromJson(Map<String, dynamic> json) =>
+      _$LocationDtoFromJson(json);
+}
+
+@freezed
 class CommitmentOptionDto with _$CommitmentOptionDto {
   const CommitmentOptionDto._();
 
   factory CommitmentOptionDto({
     required String id,
+    required String type,
     required String label,
     required String description,
-    List<CommitmentOptionDto>? requires,
-    String? ref,
+    required int points,
+    required List<String> blocks,
   }) = _CommitmentOptionDto;
 
   CommitmentOption toDomain() {
     return CommitmentOption(
       id: id,
+      type: type,
       label: label,
       description: description,
-      requires: requires?.map((option) => option.toDomain()).toList(),
-      ref: ref,
+      points: points,
+      blocks: blocks,
     );
   }
 

@@ -9,7 +9,7 @@ import '../../test_utilities.dart';
 import 'spotlight_bloc_fixtures.dart';
 
 void main() {
-  final tCAList = [tCrowdaction, tCrowdaction.copyWith(crowdactionID: 'id2')];
+  final tCAList = [tCrowdaction, tCrowdaction.copyWith(id: 'id2')];
   group('Testing Crowdaction Getter BLoC for defined amount', () {
     final caGetter = CrowdActionGetterBloc(tCrowdactionRepo);
     test('Testing initial state', () {

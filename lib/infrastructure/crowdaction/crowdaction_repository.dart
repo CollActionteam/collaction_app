@@ -33,13 +33,12 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/crowdactions',
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/api/crowdactions',
         ),
         headers: {'Content-Type': 'application/json'},
       );
 
       final responseBody = jsonDecode(response.body);
-
       return right(
         responseBody
             .map<CrowdAction>(
@@ -65,7 +64,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/participations',
       );
 
       final response = await _client.post(
@@ -74,7 +73,11 @@ class CrowdActionRepository implements ICrowdActionRepository {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $tokenId'
         },
-        body: jsonEncode({'password': password, 'commitments': commitments}),
+        body: jsonEncode({
+          'crowdActionId': crowdAction.id,
+          'password': password,
+          'commitmentOptions': commitments
+        }),
       );
 
       if (response.statusCode == 200) {
@@ -97,15 +100,18 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/participations',
       );
 
-      final response = await _client.delete(
+      final response = await _client.post(
         uri,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $tokenId'
         },
+        body: jsonEncode({
+          'crowdActionId': crowdAction.id,
+        }),
       );
 
       if (response.statusCode == 200) {
@@ -124,12 +130,11 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/crowdactions?status=joinable',
+          '${await _settingsRepository.baseApiEndpointUrl}/api/v1/crowdactions?status=STARTED&status=WAITING&pageSize=3',
         ),
       );
 
-      final responseBody = jsonDecode(response.body);
-
+      final responseBody = jsonDecode(response.body)['items'];
       return right(
         responseBody
             .map<CrowdAction>(
@@ -152,7 +157,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/participations/${Uri.encodeComponent(crowdAction.id)}',
       );
 
       final response = await _client.get(
@@ -167,7 +172,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
         final status = jsonDecode(response.body) as Map<String, dynamic>;
         final statusData = CrowdActionStatusDto.fromJson(status);
         if (statusData.userId == user.id &&
-            statusData.crowdActionId == crowdAction.crowdactionID &&
+            statusData.crowdActionId == crowdAction.id &&
             statusData.commitments.isNotEmpty) {
           return right(
             CrowdActionStatus.subscribed(
