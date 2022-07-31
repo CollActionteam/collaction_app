@@ -46,7 +46,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       if (wasImageUpdated) {
         await _avatarRepository.uploadAvatar(event.image!);
       }
-    
+
       // TODO handle could not upload profile picture!
       final userOrFailure = await _profileRepository.getUserProfile();
 
