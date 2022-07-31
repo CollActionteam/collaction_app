@@ -20,7 +20,7 @@ CrowdAction generateDummyCrowdaction({
   int participantCnt = 0,
   bool password = false,
   DateTime? endDate,
-  DateTime? dateLimitJoin,
+  JoinStatus? joinStatus,
 }) {
   return CrowdAction(
     id: 'tID',
@@ -34,7 +34,7 @@ CrowdAction generateDummyCrowdaction({
     images: tImage,
     participantCount: participantCnt,
     status: Status.started,
-    joinStatus: JoinStatus.open,
+    joinStatus: joinStatus ?? JoinStatus.open,
     password: password ? 'testPwd' : null,
   );
 }

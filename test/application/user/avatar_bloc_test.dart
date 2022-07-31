@@ -18,70 +18,36 @@ void main() {
       expect(tAvatarBloc.state, const AvatarState.initial());
     });
 
-    {
-      final avatarRepo1 = MockAvatarRepo();
-      when(() => avatarRepo1.getAvatarUploadPath()).thenAnswer(
-        (_) => Future.value(
-          left(const UploadPathFailure.unexpected()),
-        ),
-      );
-      blocTest(
-        'Testing upload URI failure',
-        build: () => AvatarBloc(avatarRepo1),
-        act: (AvatarBloc bloc) => bloc.add(
-          AvatarEvent.uploadAvatar(tAvatarFile),
-        ),
-        expect: () => [
-          const AvatarState.uploading(),
-          const AvatarState.uploadFailed(),
-        ],
-      );
-    }
+    final avatarRepo2 = MockAvatarRepo();
+    when(() => avatarRepo2.uploadAvatar(tAvatarFile)).thenAnswer(
+      (_) => Future.value(left(const UploadFailure.uploadFailed())),
+    );
+    blocTest(
+      'Testing upload URI success but upload avatar failed',
+      build: () => AvatarBloc(avatarRepo2),
+      act: (AvatarBloc bloc) {
+        bloc.add(AvatarEvent.uploadAvatar(tAvatarFile));
+      },
+      expect: () => [
+        const AvatarState.uploading(),
+        const AvatarState.uploadFailed(),
+      ],
+    );
 
-    {
-      final avatarRepo2 = MockAvatarRepo();
-
-      when(() => avatarRepo2.getAvatarUploadPath()).thenAnswer(
-        (_) => Future.value(right(tUri)),
-      );
-
-      when(() => avatarRepo2.uploadAvatar(tAvatarFile)).thenAnswer(
-        (_) => Future.value(left(const UploadFailure.uploadFailed())),
-      );
-
-      blocTest(
-        'Testing upload URI success but upload avatar failed',
-        build: () => AvatarBloc(avatarRepo2),
-        act: (AvatarBloc bloc) {
-          bloc.add(AvatarEvent.uploadAvatar(tAvatarFile));
-        },
-        expect: () => [
-          const AvatarState.uploading(),
-          const AvatarState.uploadFailed(),
-        ],
-      );
-    }
-    {
-      final avatarRepo3 = MockAvatarRepo();
-      when(() => avatarRepo3.getAvatarUploadPath()).thenAnswer(
-        (_) => Future.value(right(tUri)),
-      );
-
-      when(() => avatarRepo3.uploadAvatar(tAvatarFile)).thenAnswer(
-        (_) => Future.value(right(unit)),
-      );
-
-      blocTest(
-        'Testing upload URI success and upload avatar success',
-        build: () => AvatarBloc(avatarRepo3),
-        act: (AvatarBloc bloc) {
-          bloc.add(AvatarEvent.uploadAvatar(tAvatarFile));
-        },
-        expect: () => [
-          const AvatarState.uploading(),
-          const AvatarState.uploadSuccess(),
-        ],
-      );
-    }
+    final avatarRepo3 = MockAvatarRepo();
+    when(() => avatarRepo3.uploadAvatar(tAvatarFile)).thenAnswer(
+      (_) => Future.value(right(unit)),
+    );
+    blocTest(
+      'Testing upload URI success and upload avatar success',
+      build: () => AvatarBloc(avatarRepo3),
+      act: (AvatarBloc bloc) {
+        bloc.add(AvatarEvent.uploadAvatar(tAvatarFile));
+      },
+      expect: () => [
+        const AvatarState.uploading(),
+        const AvatarState.uploadSuccess(),
+      ],
+    );
   });
 }
