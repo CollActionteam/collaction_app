@@ -24,68 +24,32 @@ void main() {
       // tests for CrowdAction without subCategory
       expect(participantCA.toChips().length, 1);
       expect(participantCA.category, 'tCategory');
-      expect(participantCA.subCategory, null);
+      expect(participantCA.subcategory, null);
 
       // tests for CrowdActions with SubCategory
-      final tCA = participantCA.copyWith(subCategory: 'tSubCategory');
+      final tCA = participantCA.copyWith(subcategory: 'tSubCategory');
       expect(tCA.toChips().length, 2);
       expect(tCA.category, 'tCategory');
-      expect(tCA.subCategory, 'tSubCategory');
-    });
-    test('Testing CrowdAction.avatarWidth() method', () {
-      expect(noParticipantCA.avatarWidth(), 40);
-      expect(participantCA.avatarWidth(), 80);
-      final tCA = generateDummyCrowdaction(participantCnt: 5);
-      expect(tCA.avatarWidth(), 100);
+      expect(tCA.subcategory, 'tSubCategory');
     });
 
     test('Testing CrowdAction.isOpen() method', () {
-      final DateTime now = DateTime.now();
-
-      final CrowdAction tAfterCrowdAction = generateDummyCrowdaction(
-        dateLimitJoin: now.subtract(const Duration(days: 15)),
-        endDate: now.subtract(
-          const Duration(days: 10),
-        ),
+      final tClosedCrowdAction = generateDummyCrowdaction(
+        joinStatus: JoinStatus.closed,
       );
 
-      final CrowdAction tAfterCrowdAction2 = generateDummyCrowdaction(
-        dateLimitJoin: now.subtract(
-          const Duration(days: 15),
-        ),
-        endDate: now.add(
-          const Duration(days: 10),
-        ),
+      final tOpenCrowdAction = generateDummyCrowdaction(
+        joinStatus: JoinStatus.open,
       );
 
-      final CrowdAction tBeforeEndCrowdAction = generateDummyCrowdaction(
-        dateLimitJoin: now.add(
-          const Duration(days: 3),
-        ),
-        endDate: now.add(
-          const Duration(days: 10),
-        ),
-      );
-
-      final CrowdAction tBeforeEndCrowdAction2 = generateDummyCrowdaction(
-        dateLimitJoin: now.add(
-          const Duration(days: 3),
-        ),
-        endDate: now.subtract(
-          const Duration(days: 10),
-        ),
-      );
-
-      expect(tBeforeEndCrowdAction.isOpen, true);
-      expect(tBeforeEndCrowdAction2.isOpen, false);
-      expect(tAfterCrowdAction.isOpen, false);
-      expect(tAfterCrowdAction2.isOpen, false);
+      expect(tClosedCrowdAction.isOpen, false);
+      expect(tOpenCrowdAction.isOpen, true);
     });
-  });
 
-  test('Testing CommitmentOptions.idToIcon() method', () {
-    crowdActionCommitmentIcons.forEach((key, value) {
-      expect(tCommitmentOption.copyWith(id: key).icon, value);
+    test('Testing CommitmentOptions.idToIcon() method', () {
+      crowdActionCommitmentIcons.forEach((key, value) {
+        expect(tCommitmentOption.copyWith(id: key).icon, value);
+      });
     });
   });
 }

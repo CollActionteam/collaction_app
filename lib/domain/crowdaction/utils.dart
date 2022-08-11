@@ -12,4 +12,5 @@ const crowdActionCommitmentIcons = {
   'no-cheese': CollactionIcons.no_cheese,
 };
 
-IconData idToIcon(String id) => crowdActionCommitmentIcons[id]!;
+IconData idToIcon(String id) =>
+    crowdActionCommitmentIcons[id] ?? CollactionIcons.no_beef;

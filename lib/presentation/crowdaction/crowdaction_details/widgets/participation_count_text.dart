@@ -24,7 +24,7 @@ class ParticipationCountText extends StatelessWidget {
           initial: () {
             final count = crowdAction.participantCount;
             return Text(
-              "Join $count participant${count <= 1 ? "" : "s"}",
+              "Join $count participant${count == 1 ? "" : "s"}",
               style: Theme.of(context).textTheme.caption?.copyWith(
                     fontSize: 14,
                     color: kPrimaryColor300,
@@ -46,7 +46,7 @@ class ParticipationCountText extends StatelessWidget {
           },
           spotLightCrowdActions: (_crowdActions) {
             final CrowdAction _updatedCrowdAction = _crowdActions.firstWhere(
-              (element) => element.crowdactionID == crowdAction.crowdactionID,
+              (element) => element.id == crowdAction.id,
             );
             final count = _updatedCrowdAction.participantCount;
             return Text("Join $count participant${count <= 1 ? "" : "s"}");
