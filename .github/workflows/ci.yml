@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 env:
-  flutter_version: "3.0.x"
+  flutter_version: "3.0.4"
   flutter_channel: "stable"
   java_version: "12.x"
 
