@@ -26,8 +26,7 @@ _The watch command keeps re-building generated files. It is generally not recomm
   flutter pub run build_runner watch --delete-conflicting-outputs
 ```
 
-_If you want to build once you are done with your changes, to build generated files once run this
-command, it's preferred._
+_If you want to build generated files once run this command, it's preferred._
 
 ```bash
   flutter pub run build_runner build --delete-conflicting-outputs
