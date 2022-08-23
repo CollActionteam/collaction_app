@@ -22,46 +22,27 @@ import 'widgets/confirm_participation.dart';
 import 'widgets/participation_count_text.dart';
 import 'widgets/withdraw_participation.dart';
 
-class CrowdActionDetailsPage extends StatelessWidget {
-  final CrowdAction crowdAction;
-
-  const CrowdActionDetailsPage({
-    Key? key,
-    required this.crowdAction,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SpotlightBloc>(),
-      child: _CrowdActionDetailsView(
-        crowdAction: crowdAction,
-      ),
-    );
-  }
-}
-
-class _CrowdActionDetailsView extends StatefulWidget {
-  const _CrowdActionDetailsView({Key? key, required this.crowdAction})
+class CrowdActionDetailsPage extends StatefulWidget {
+  const CrowdActionDetailsPage({Key? key, required this.crowdAction})
       : super(key: key);
 
   final CrowdAction crowdAction;
 
   @override
-  State<_CrowdActionDetailsView> createState() =>
-      _CrowdActionDetailsViewState();
+  State<CrowdActionDetailsPage> createState() => CrowdActionDetailsPageState();
 }
 
-class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
+class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   final _headerHeight = 310.0;
   final List<CommitmentOption> selectedCommitments = [];
-
+  late CrowdAction crowdAction;
   late final ParticipationBloc participationBloc;
 
   @override
   void initState() {
     super.initState();
     participationBloc = getIt<ParticipationBloc>();
+    crowdAction = widget.crowdAction;
   }
 
   @override
@@ -70,6 +51,9 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider<SpotlightBloc>.value(
+          value: BlocProvider.of<SpotlightBloc>(context),
+        ),
         BlocProvider<ParticipationBloc>(
           create: (context) => participationBloc
             ..add(
@@ -85,6 +69,17 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
       ],
       child: MultiBlocListener(
         listeners: [
+          BlocListener<SpotlightBloc, SpotlightState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                spotLightCrowdActions: (crowdActions) {
+                  crowdAction =
+                      crowdActions.firstWhere((c) => c.id == crowdAction.id);
+                },
+                orElse: () {},
+              );
+            },
+          ),
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               state.maybeWhen(
@@ -107,6 +102,9 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                   });
                 },
               );
+
+              BlocProvider.of<SpotlightBloc>(context)
+                  .add(const SpotlightEvent.getSpotLightCrowdActions());
             },
           ),
         ],
@@ -157,9 +155,7 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                               ),
                             ),
                           ),
-                          const Expanded(
-                            child: SizedBox(),
-                          ),
+                          const Expanded(child: SizedBox()),
                         ],
                       ),
                       flexibleSpace: FlexibleSpaceBar(
@@ -229,9 +225,7 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                                       fontSize: 28,
                                     ),
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              const SizedBox(height: 20),
                               Wrap(
                                 spacing: 12.0,
                                 children: [
@@ -246,17 +240,11 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                                   ...widget.crowdAction.toChips()
                                 ],
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              const SizedBox(height: 20),
                               ParticipationCountText(
                                 crowdAction: widget.crowdAction,
                               ),
-                              const SizedBox(
-                                child: SizedBox(
-                                  height: 20,
-                                ),
-                              ),
+                              const SizedBox(height: 20),
                               ExpandableText(
                                 widget.crowdAction.description,
                                 trimLines: 5,
@@ -306,7 +294,6 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                             ],
                           ),
                         ),
-
                         CommitmentCardList(
                           commitmentOptions:
                               widget.crowdAction.commitmentOptions,

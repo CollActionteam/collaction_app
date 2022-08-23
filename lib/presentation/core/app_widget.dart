@@ -1,3 +1,4 @@
+import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,8 +14,11 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<AuthBloc>(
           create: (_) => getIt<AuthBloc>(),
+        ),
+        BlocProvider<SpotlightBloc>(
+          create: (_) => getIt<SpotlightBloc>(),
         ),
       ],
       child: MaterialApp.router(
