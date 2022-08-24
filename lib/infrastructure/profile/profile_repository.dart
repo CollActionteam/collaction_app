@@ -10,6 +10,7 @@ import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/profile/user_profile.dart';
 import '../../domain/user/i_profile_repository.dart';
 import '../../domain/user/profile_failure.dart';
+import '../../domain/user/user.dart';
 import '../../infrastructure/profile/profile_dto.dart';
 
 @LazySingleton(as: IProfileRepository)
@@ -32,24 +33,22 @@ class ProfileRepository implements IProfileRepository {
       return await userOption.fold(
         () => left(const ProfileFailure.noUser()),
         (user) async {
-          final tokenId = await user.getIdToken();
+          var userProfile = await _getUserProfile(user);
 
-          final response = await _client.get(
-            Uri.parse(
-              '${await _settingsRepository.baseApiEndpointUrl}/api/v1/profiles/me',
-            ),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $tokenId'
-            },
-          );
+          if (userProfile != null) {
+            return right(userProfile);
+          }
 
-          final json = jsonDecode(response.body);
+          /// If user has no profile, create one
+          /// TODO(obella): Cleanup later
+          final resultOrFailure = await createProfile();
 
-          final profile =
-              ProfileDto.fromJson(json as Map<String, dynamic>).toDomain();
+          if (resultOrFailure.isRight()) {
+            userProfile = await _getUserProfile(user);
+            return right(userProfile!);
+          }
 
-          return right(UserProfile(user: user, profile: profile));
+          return left(const ProfileFailure.noUser());
         },
       );
     } catch (_) {
@@ -132,5 +131,32 @@ class ProfileRepository implements IProfileRepository {
     } catch (_) {
       return left(const ProfileFailure.unexpected());
     }
+  }
+
+  /// Get user profile from api
+  Future<UserProfile?> _getUserProfile(User user) async {
+    final tokenId = await user.getIdToken();
+
+    final response = await _client.get(
+      Uri.parse(
+        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/profiles/me',
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $tokenId'
+      },
+    );
+
+    /// Return profile if request is successful
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+
+      final profile =
+          ProfileDto.fromJson(json as Map<String, dynamic>).toDomain();
+
+      return UserProfile(user: user, profile: profile);
+    }
+
+    return null;
   }
 }
