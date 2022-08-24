@@ -13,6 +13,7 @@ import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 
 import 'domain/crowdaction/crowdaction_test_fixtures.dart';
@@ -34,6 +35,8 @@ class MockAvatarRepository extends Mock implements IAvatarRepository {}
 class MockAvatarFile extends Mock implements File {}
 
 class MockProfileRepository extends Mock implements IProfileRepository {}
+
+class MockHttpClient extends Mock implements http.Client {}
 
 // ignore: avoid_positional_boolean_parameters
 Future<String?> getAnonymousIdToken([bool forceRefresh = false]) =>

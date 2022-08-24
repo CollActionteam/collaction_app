@@ -14,7 +14,6 @@ const cProfileDtoFromJson = ProfileDto(
   firstName: "Jack",
   bio: "I am Jack!",
   avatar: 'avatar',
-  phone: '+31612345678',
 );
 
 const cProfileFromJson = Profile(
@@ -22,5 +21,4 @@ const cProfileFromJson = Profile(
   firstName: "Jack",
   bio: "I am Jack!",
   avatar: 'avatar',
-  phone: '+31612345678',
 );
