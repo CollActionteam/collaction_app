@@ -3,8 +3,8 @@ import 'package:collaction_app/application/settings/build_information/build_info
 import 'package:collaction_app/presentation/settings/widgets/build_information_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../presentation/utils/launch_url.dart';
 
+import '../../../presentation/utils/launch_url.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
 import '../../infrastructure/core/injection.dart';
@@ -60,14 +60,6 @@ class SettingsPage extends StatelessWidget {
                     Column(
                       children: [
                         const ShareCollactionListTile(),
-                        const SizedBox(height: 15),
-                        SettingsListTile(
-                          title: 'Contact us',
-                          icon: CollactionIcons.message,
-                          trailingIcon: CollactionIcons.arrow_right,
-                          onTap: () =>
-                              context.router.push(const ContactFormRoute()),
-                        ),
                         const SizedBox(height: 15),
                         SettingsListTile(
                           title: 'Onboarding',

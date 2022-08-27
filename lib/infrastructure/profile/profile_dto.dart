@@ -13,7 +13,6 @@ class ProfileDto with _$ProfileDto {
     required String userId,
     required String firstName,
     required String avatar,
-    required String phone,
     String? bio,
   }) = _ProfileDto;
 
@@ -22,7 +21,6 @@ class ProfileDto with _$ProfileDto {
       userId: userId,
       firstName: firstName,
       avatar: avatar,
-      phone: phone,
       bio: bio,
     );
   }

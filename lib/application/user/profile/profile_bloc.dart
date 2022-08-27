@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/profile/user_profile.dart';
