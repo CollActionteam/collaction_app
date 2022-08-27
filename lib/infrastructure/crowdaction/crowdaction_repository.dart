@@ -33,7 +33,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/v1/api/crowdactions',
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions',
         ),
         headers: {'Content-Type': 'application/json'},
       );
@@ -64,7 +64,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/participations',
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/participations',
       );
 
       final response = await _client.post(
@@ -100,7 +100,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/participations',
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/participations',
       );
 
       final response = await _client.post(
@@ -130,7 +130,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/api/v1/crowdactions?status=STARTED&status=WAITING&pageSize=3',
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions?status=STARTED&status=WAITING&pageSize=3',
         ),
       );
 
@@ -157,7 +157,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/participations/${Uri.encodeComponent(crowdAction.id)}',
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/participations/${Uri.encodeComponent(crowdAction.id)}',
       );
 
       final response = await _client.get(

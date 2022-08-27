@@ -23,8 +23,8 @@ void main() {
   late ISettingsRepository settingsRepository;
 
   const _baseUrl = 'https://example.com';
-  final _profileGetUrl = Uri.parse('$_baseUrl/api/v1/profiles/me');
-  final _profilePostUrl = Uri.parse('$_baseUrl/api/v1/profiles');
+  final _profileGetUrl = Uri.parse('$_baseUrl/v1/profiles/me');
+  final _profilePostUrl = Uri.parse('$_baseUrl/v1/profiles');
   const _profileJson = cProfileDtoJson;
 
   /// Auth
