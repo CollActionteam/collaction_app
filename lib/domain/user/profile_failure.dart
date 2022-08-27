@@ -7,4 +7,6 @@ part 'profile_failure.freezed.dart';
 class ProfileFailure with _$ProfileFailure {
   const factory ProfileFailure.unexpected() = Unexpected;
   const factory ProfileFailure.noUser() = NoUser;
+  const factory ProfileFailure.errorFetchingParticipants() =
+      ErrorFetchingParticipants;
 }

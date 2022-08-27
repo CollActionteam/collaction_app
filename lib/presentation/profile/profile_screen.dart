@@ -175,7 +175,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 11,
-                                color: Color(0xFF666666),
+                                color: kPrimaryColor300,
                               ),
                               textAlign: TextAlign.left,
                             ),

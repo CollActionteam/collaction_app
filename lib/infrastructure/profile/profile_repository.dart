@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:collaction_app/domain/auth/errors.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
+import 'package:collaction_app/domain/crowdaction/participant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
@@ -158,5 +160,37 @@ class ProfileRepository implements IProfileRepository {
     }
 
     return null;
+  }
+
+  @override
+  Future<Either<ProfileFailure, List<Participant>>> fetchParticipantsProfile({
+    required String crowdactionId,
+    required int page,
+  }) async {
+    final tokenId = (await _authRepository.getSignedInUser())
+        .fold(() => throw NotAuthenticatedError(), (a) => a.id);
+
+    final parameters = 'page=$page&pageSize=15&crowdActionId=$crowdactionId';
+    final url =
+        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/participations?$parameters';
+
+    final response = await _client.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $tokenId',
+      },
+    );
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body) as Map<String, dynamic>;
+      final participantsJson = json['items'] as List<dynamic>?;
+      final List<Participant> participants =
+          participantsJson!.map<Participant>((participant) {
+        return Participant.fromJson(participant as Map<String, dynamic>);
+      }).toList();
+      return right(participants);
+    } else {
+      return left(const ProfileFailure.errorFetchingParticipants());
+    }
   }
 }

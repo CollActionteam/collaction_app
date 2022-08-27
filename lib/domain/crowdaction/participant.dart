@@ -1,16 +1,37 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'crowdaction.dart';
+part 'participant.freezed.dart';
+part 'participant.g.dart';
 
-class Participant {
-  final String? photo;
-  final String name;
+@freezed
+class Participant with _$Participant {
+  factory Participant({
+    required String userId,
+    required String avatar,
+    required String fullName,
+  }) = _Participant;
 
-  Participant(this.photo, this.name);
+  factory Participant.fromJson(Map<String, dynamic> json) =>
+      _$ParticipantFromJson(json);
 }
 
 final sampleParticipants = [
-  Participant("https://source.unsplash.com/mEZ3PoFGs_k/500x500", "Barbara"),
-  Participant("https://source.unsplash.com/L2dTmhQzx4Q/500x500", "Mike"),
-  Participant("https://source.unsplash.com/WNoLnJo7tS8/500x500", "John")
+  Participant(
+    userId: 'ashdgvfasdbhsvfda',
+    avatar: "https://source.unsplash.com/mEZ3PoFGs_k/500x500",
+    fullName: "Barbara",
+  ),
+  Participant(
+    userId: 'ashdgvfasdbhsvfdb',
+    avatar: "https://source.unsplash.com/L2dTmhQzx4Q/500x500",
+    fullName: "Mike",
+  ),
+  Participant(
+    userId: 'ashdgvfasdbhsvfdc',
+    avatar: "https://source.unsplash.com/WNoLnJo7tS8/500x500",
+    fullName: "John",
+  )
 ];
 
 /// TODO - Switch Participants to BLOC
@@ -18,12 +39,14 @@ final participantsPageParticipants = List.generate(10, (index) => index)
     .expand(
       (element) => [
         Participant(
-          "https://source.unsplash.com/mEZ3PoFGs_k/500x500",
-          "Barbara",
+          userId: 'asdhvfg',
+          avatar: "https://source.unsplash.com/mEZ3PoFGs_k/500x500",
+          fullName: "Barbara",
         ),
         Participant(
-          "https://source.unsplash.com/L2dTmhQzx4Q/500x500",
-          "Barbara With A Very Long Name That Spans Two Lines",
+          userId: 'asjkdbhvf',
+          avatar: "https://source.unsplash.com/L2dTmhQzx4Q/500x500",
+          fullName: "Barbara With A Very Long Name That Spans Two Lines",
         ),
       ],
     )

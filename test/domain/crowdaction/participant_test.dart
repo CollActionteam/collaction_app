@@ -14,12 +14,17 @@ void main() {
   }
 
   setUp(() {
-    tParticipant = Participant('tPhoto', 'tName');
+    tParticipant = Participant(
+      userId: 'asdhb',
+      avatar: 'tPhoto',
+      fullName: 'tName',
+    );
   });
 
   test('Participant test', () {
-    expect(tParticipant.name, 'tName');
-    expect(tParticipant.photo, 'tPhoto');
+    expect(tParticipant.userId, 'asdhb');
+    expect(tParticipant.fullName, 'tName');
+    expect(tParticipant.avatar, 'tPhoto');
   });
 
   test('Test sample participants data', () {
@@ -34,18 +39,18 @@ void main() {
 
     for (int i = 0; i < 20; i++) {
       if (i.isEven) {
-        expect(participantsPageParticipants[i].name, 'Barbara');
+        expect(participantsPageParticipants[i].fullName, 'Barbara');
         expect(
-          participantsPageParticipants[i].photo,
+          participantsPageParticipants[i].avatar,
           'https://source.unsplash.com/mEZ3PoFGs_k/500x500',
         );
       } else {
         expect(
-          participantsPageParticipants[i].name,
+          participantsPageParticipants[i].fullName,
           'Barbara With A Very Long Name That Spans Two Lines',
         );
         expect(
-          participantsPageParticipants[i].photo,
+          participantsPageParticipants[i].avatar,
           'https://source.unsplash.com/L2dTmhQzx4Q/500x500',
         );
       }
