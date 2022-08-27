@@ -1,7 +1,9 @@
+import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dart';
 import 'package:collaction_app/presentation/profile/widget/badges_tab.dart';
 import 'package:collaction_app/presentation/profile/widget/commitments_tab.dart';
 import 'package:collaction_app/presentation/profile/widget/crowdactions_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/user/user.dart';
 import '../../themes/constants.dart';
@@ -21,7 +23,7 @@ class _UserProfileTabState extends State<UserProfileTab>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(initialIndex: 1, length: 3, vsync: this);
   }
 
   @override
@@ -96,13 +98,16 @@ class _UserProfileTabState extends State<UserProfileTab>
             Expanded(
               child: Container(
                 color: Colors.white,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    BadgesTab(user: widget.user),
-                    CrowdActionsTab(user: widget.user),
-                    CommitmentsTab(user: widget.user),
-                  ],
+                child: BlocProvider<ProfileTabBloc>(
+                  create: (context) => ProfileTabBloc(),
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      BadgesTab(user: widget.user),
+                      CrowdActionsTab(user: widget.user),
+                      CommitmentsTab(user: widget.user),
+                    ],
+                  ),
                 ),
               ),
             ),

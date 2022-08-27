@@ -1,3 +1,4 @@
+import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class _CountrySearchState extends State<CountrySearch> {
               Expanded(
                 child: TextField(
                   decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: Icon(Icons.search, color: kAccentColor),
                   ),
                   onChanged: _searchCountry,
                 ),

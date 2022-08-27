@@ -10,8 +10,8 @@ class ExpandableText extends StatefulWidget {
     Key? key,
     this.trimLines = 3,
     this.clickableTextColor = kAccentColor,
-    this.readMoreText = " more",
-    this.readLessText = " less",
+    this.readMoreText = "more",
+    this.readLessText = "less",
     this.style = const TextStyle(color: Colors.black),
   }) : super(key: key);
 
@@ -58,7 +58,8 @@ class ExpandableTextState extends State<ExpandableText>
   @override
   void initState() {
     super.initState();
-    text = '${widget.text.substring(0, widget.trimLines * 30)}... ';
+    text =
+        '${widget.text.substring(0, widget.text.length > widget.trimLines * 30 ? widget.trimLines * 30 : widget.text.length)}... ';
 
     controller = AnimationController(
       vsync: this,
@@ -66,7 +67,8 @@ class ExpandableTextState extends State<ExpandableText>
     );
 
     sizeAnimation = Tween<double>(
-      begin: widget.trimLines * 30,
+      begin:
+          showReadMore ? widget.trimLines * 30 : widget.text.length.toDouble(),
       end: widget.text.length.toDouble(),
     ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
@@ -82,20 +84,30 @@ class ExpandableTextState extends State<ExpandableText>
         children: [
           TextSpan(
             text:
-                '${widget.text.substring(0, (sizeAnimation.value).toInt())}${readMore ? '... ' : ' '}',
+                '${widget.text.substring(0, (sizeAnimation.value > widget.text.length ? widget.text.length : sizeAnimation.value).floor())}${showReadMore ? (readMore ? '... ' : ' ') : ''}',
             style: widget.style,
           ),
-          TextSpan(
-            text: readMore ? widget.readMoreText : widget.readLessText,
-            style: TextStyle(
-              color: widget.clickableTextColor,
-              decorationColor: widget.clickableTextColor,
-              decorationStyle: TextDecorationStyle.solid,
+          if (showReadMore) ...[
+            TextSpan(
+              text: readMore ? widget.readMoreText : widget.readLessText,
+              style: TextStyle(
+                color: widget.clickableTextColor,
+                decorationColor: widget.clickableTextColor,
+                decorationStyle: TextDecorationStyle.solid,
+              ),
+              recognizer: TapGestureRecognizer()..onTap = onTapLink,
             ),
-            recognizer: TapGestureRecognizer()..onTap = onTapLink,
-          ),
+          ]
         ],
       ),
     );
+  }
+
+  bool get showReadMore => widget.text.length > widget.trimLines * 30;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

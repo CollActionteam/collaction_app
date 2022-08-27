@@ -98,8 +98,8 @@ class SettingsPage extends StatelessWidget {
                             context: context,
                           ),
                         ),
-                        BlocBuilder(
-                          bloc: getIt<ProfileBloc>()..add(GetUserProfile()),
+                        BlocBuilder<ProfileBloc, ProfileState>(
+                          bloc: BlocProvider.of<ProfileBloc>(context),
                           builder: (context, ProfileState state) => state
                                       .userProfile ==
                                   null

@@ -165,7 +165,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                             Positioned.fill(
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.crowdAction.images.banner}',
+                                    '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${widget.crowdAction.images.banner}',
                                 placeholder: (context, url) =>
                                     ImageSkeletonLoader(
                                   height: _headerHeight,

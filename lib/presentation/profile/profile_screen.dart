@@ -34,8 +34,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     final bioController = TextEditingController();
 
-    return BlocProvider<ProfileBloc>(
-      create: (context) => getIt<ProfileBloc>()..add(GetUserProfile()),
+    return BlocProvider<ProfileBloc>.value(
+      value: BlocProvider.of<ProfileBloc>(context),
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           bioController.value =
