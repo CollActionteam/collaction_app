@@ -174,9 +174,7 @@ class ParticipationDialog extends StatelessWidget {
                         ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Text(
                   "Your commitment${selectedCommitments.length > 1 ? 's' : ''}",
                   textAlign: TextAlign.center,
@@ -185,10 +183,9 @@ class ParticipationDialog extends StatelessWidget {
                       .caption
                       ?.copyWith(color: kPrimaryColor300, fontSize: 12),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 ListView.builder(
+                  padding: EdgeInsets.zero,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (ctx, index) {
                     final option = selectedCommitments[index];

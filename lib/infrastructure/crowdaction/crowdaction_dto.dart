@@ -101,9 +101,10 @@ class CommitmentOptionDto with _$CommitmentOptionDto {
     required String id,
     required String type,
     required String label,
-    required String description,
     required int points,
     required List<String> blocks,
+    String? description,
+    String? icon,
   }) = _CommitmentOptionDto;
 
   CommitmentOption toDomain() {
@@ -111,9 +112,10 @@ class CommitmentOptionDto with _$CommitmentOptionDto {
       id: id,
       type: type,
       label: label,
-      description: description,
       points: points,
       blocks: blocks,
+      description: description,
+      iconId: icon,
     );
   }
 

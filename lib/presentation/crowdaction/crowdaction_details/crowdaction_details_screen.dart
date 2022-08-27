@@ -37,18 +37,18 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   final List<CommitmentOption> selectedCommitments = [];
   late CrowdAction crowdAction;
   late final ParticipationBloc participationBloc;
+  late Function(BuildContext) participate;
 
   @override
   void initState() {
     super.initState();
     participationBloc = getIt<ParticipationBloc>();
+    participate = _signUpModal;
     crowdAction = widget.crowdAction;
   }
 
   @override
   Widget build(BuildContext context) {
-    void Function(BuildContext) participate = _signUpModal;
-
     return MultiBlocProvider(
       providers: [
         BlocProvider<SpotlightBloc>.value(
@@ -103,8 +103,9 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 },
               );
 
-              BlocProvider.of<SpotlightBloc>(context)
-                  .add(const SpotlightEvent.getSpotLightCrowdActions());
+              BlocProvider.of<SpotlightBloc>(context).add(
+                const SpotlightEvent.getSpotLightCrowdActions(),
+              );
             },
           ),
         ],
@@ -164,7 +165,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                             Positioned.fill(
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${widget.crowdAction.images.banner}',
+                                    '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.crowdAction.images.banner}',
                                 placeholder: (context, url) =>
                                     ImageSkeletonLoader(
                                   height: _headerHeight,

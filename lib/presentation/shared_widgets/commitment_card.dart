@@ -145,13 +145,14 @@ class _CommitmentCardState extends State<CommitmentCard> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                    widget.commitment.description,
-                    style: textTheme.bodyText2!.copyWith(fontSize: 13),
-                    softWrap: true,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  if (widget.commitment.description != null)
+                    Text(
+                      widget.commitment.description!,
+                      style: textTheme.bodyText2!.copyWith(fontSize: 13),
+                      softWrap: true,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                 ],
               ),
             ),

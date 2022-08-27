@@ -63,4 +63,6 @@ class CollactionIcons {
   static const IconData crowd = IconData(0xe826, fontFamily: _kFontFam);
   static const IconData goal = IconData(0xe827, fontFamily: _kFontFam);
   static const IconData rocket = IconData(0xe828, fontFamily: _kFontFam);
+  static const IconData energy = IconData(0xe82a, fontFamily: _kFontFam);
+  static const IconData bike = IconData(0xe829, fontFamily: _kFontFam);
 }

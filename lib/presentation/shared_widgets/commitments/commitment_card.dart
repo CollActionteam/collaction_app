@@ -48,11 +48,8 @@ class CommitmentCard extends StatelessWidget {
               ? Border.all(color: Colors.transparent)
               : Border.all(color: kPrimaryColor0),
         ),
-        margin: const EdgeInsets.symmetric(
-          vertical: 5.0,
-          horizontal: 10.0,
-        ),
-        padding: const EdgeInsets.all(15.0),
+        margin: const EdgeInsets.symmetric(vertical: 5.0),
+        padding: const EdgeInsets.all(10.0),
         child: Row(
           children: [
             Container(
@@ -88,19 +85,20 @@ class CommitmentCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    commitment.description,
-                    style: textTheme.caption!.copyWith(
-                      fontSize: 13,
-                      color: deactivated ? kPrimaryColor200 : kPrimaryColor300,
+                  if (commitment.description != null) ...[
+                    const SizedBox(height: 5),
+                    Text(
+                      commitment.description!,
+                      style: textTheme.caption!.copyWith(
+                        fontSize: 13,
+                        color:
+                            deactivated ? kPrimaryColor200 : kPrimaryColor300,
+                      ),
+                      softWrap: true,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    softWrap: true,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  ]
                 ],
               ),
             ),
