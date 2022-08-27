@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/profile/widget/badges_tab.dart';
+import 'package:collaction_app/presentation/profile/widget/commitments_tab.dart';
+import 'package:collaction_app/presentation/profile/widget/crowdactions_tab.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/user/user.dart';
-import '../../routes/app_routes.gr.dart';
-import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
 class UserProfileTab extends StatefulWidget {
@@ -130,136 +130,6 @@ class _TabLabel extends StatelessWidget {
       style: const TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 11,
-      ),
-    );
-  }
-}
-
-class BadgesTab extends StatelessWidget {
-  final User? user;
-  const BadgesTab({Key? key, this.user}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            Image.asset('assets/images/badges_tab_empty.png'),
-            const SizedBox(height: 40),
-            SignUpCTA(
-              user: user,
-              title: 'Unique badges based on your commitments',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CrowdActionsTab extends StatelessWidget {
-  final User? user;
-  const CrowdActionsTab({Key? key, this.user}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            Image.asset('assets/images/crowdactions_tab_empty.png'),
-            const SizedBox(height: 40),
-            SignUpCTA(
-              user: user,
-              title: 'All CrowdActions you have participated in',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CommitmentsTab extends StatelessWidget {
-  final User? user;
-  const CommitmentsTab({Key? key, this.user}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            Image.asset('assets/images/commitments_tab_empty.png'),
-            const SizedBox(height: 40),
-            SignUpCTA(
-              user: user,
-              title: 'View your amazing commitments here',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SignUpCTA extends StatelessWidget {
-  final User? user;
-  final String? title;
-
-  const SignUpCTA({
-    Key? key,
-    this.user,
-    this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          Text(
-            user != null
-                ? (title != null
-                    ? title!
-                    : 'Unique content based on your activity')
-                : 'Become part of the CollAction crowd',
-            style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 34,
-              color: kPrimaryColor400,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 10),
-          if (user == null) ...[
-            const Text(
-              'Create an account to participate in \nCrowdActions and make waves with other \nlikeminded people!',
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 17,
-                color: kPrimaryColor300,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 40),
-            PillButton(
-              text: 'Create account or sign in',
-              onTap: () {
-                context.router.push(const AuthRoute());
-              },
-            ),
-          ],
-          const SizedBox(height: 20),
-        ],
       ),
     );
   }
