@@ -27,13 +27,6 @@ void main() {
     expect(tParticipant.avatar, 'tPhoto');
   });
 
-  test('Test sample participants data', () {
-    expect(sampleParticipants.length, 3);
-    for (final sample in sampleParticipants) {
-      expect(sample.runtimeType, Participant);
-    }
-  });
-
   test('Testing participants page participants ', () {
     expect(participantsPageParticipants.length, 20);
 
