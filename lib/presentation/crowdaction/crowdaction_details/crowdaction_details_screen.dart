@@ -306,17 +306,20 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                         // CrowdActionCreatedByWidget(
                         //   crowdAction: widget.crowdAction,
                         // ),
-                        BlocProvider.value(
-                          value: participationBloc,
-                          child: WithdrawParticipation(
-                            participationBloc: participationBloc,
-                            crowdAction: widget.crowdAction,
-                            isParticipating:
-                                state.whenOrNull(participating: (_) => true) ??
-                                    false,
+                        if (widget.crowdAction.status != Status.ended) ...[
+                          BlocProvider.value(
+                            value: participationBloc,
+                            child: WithdrawParticipation(
+                              participationBloc: participationBloc,
+                              crowdAction: widget.crowdAction,
+                              isParticipating: state.whenOrNull(
+                                    participating: (_) => true,
+                                  ) ??
+                                  false,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 70),
+                          const SizedBox(height: 70),
+                        ]
                       ],
                     ),
                   ),

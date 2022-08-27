@@ -28,90 +28,101 @@ class _UserProfileTabState extends State<UserProfileTab>
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Container(
-        color: Colors.white,
-        constraints: const BoxConstraints(maxHeight: 600),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5.0),
-              child: Container(
-                height: 54,
-                margin: const EdgeInsets.only(bottom: 5.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: kAlmostTransparent,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      offset: const Offset(0, 2),
-                      blurRadius: 5.0,
-                    ),
-                  ],
-                ),
-                child: TabBar(
-                  tabs: [
-                    Column(
-                      children: const [
-                        ImageIcon(
-                          AssetImage(
-                            'assets/images/badge.png',
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        _TabLabel(label: 'Badges'),
-                      ],
-                    ),
-                    Column(
-                      children: const [
-                        ImageIcon(
-                          AssetImage(
-                            'assets/images/crowdactions.png',
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        _TabLabel(label: 'CrowdActions'),
-                      ],
-                    ),
-                    Column(
-                      children: const [
-                        ImageIcon(
-                          AssetImage(
-                            'assets/images/commitments.png',
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        _TabLabel(label: 'Commitments'),
-                      ],
-                    )
-                  ],
-                  unselectedLabelColor: const Color(0xffacb3bf),
-                  indicatorColor: Colors.transparent,
-                  labelColor: kAccentColor,
-                  controller: _tabController,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: Colors.white,
-                child: BlocProvider<ProfileTabBloc>(
-                  create: (context) => ProfileTabBloc(),
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      BadgesTab(user: widget.user),
-                      CrowdActionsTab(user: widget.user),
-                      CommitmentsTab(user: widget.user),
+    return BlocProvider<ProfileTabBloc>.value(
+      value: BlocProvider.of<ProfileTabBloc>(context)
+        ..add(FetchProfileTabInfo()),
+      child: DefaultTabController(
+        length: 3,
+        child: Container(
+          color: Colors.white,
+          constraints: const BoxConstraints(maxHeight: 600),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5.0),
+                child: Container(
+                  height: 54,
+                  margin: const EdgeInsets.only(bottom: 5.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: kAlmostTransparent,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        offset: const Offset(0, 2),
+                        blurRadius: 5.0,
+                      ),
                     ],
+                  ),
+                  child: TabBar(
+                    tabs: [
+                      Column(
+                        children: const [
+                          ImageIcon(
+                            AssetImage(
+                              'assets/images/badge.png',
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          _TabLabel(label: 'Badges'),
+                        ],
+                      ),
+                      Column(
+                        children: const [
+                          ImageIcon(
+                            AssetImage(
+                              'assets/images/crowdactions.png',
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          _TabLabel(label: 'CrowdActions'),
+                        ],
+                      ),
+                      Column(
+                        children: const [
+                          ImageIcon(
+                            AssetImage(
+                              'assets/images/commitments.png',
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          _TabLabel(label: 'Commitments'),
+                        ],
+                      )
+                    ],
+                    unselectedLabelColor: const Color(0xffacb3bf),
+                    indicatorColor: Colors.transparent,
+                    labelColor: kAccentColor,
+                    controller: _tabController,
                   ),
                 ),
               ),
-            ),
-          ],
+              BlocBuilder<ProfileTabBloc, ProfileTabState>(
+                builder: (context, state) {
+                  return Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          BadgesTab(user: widget.user),
+                          CrowdActionsTab(
+                            user: widget.user,
+                            crowdActions: state.crowdActions,
+                          ),
+                          CommitmentsTab(
+                            user: widget.user,
+                            crowdActions: state.crowdActions,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

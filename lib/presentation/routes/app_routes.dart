@@ -39,7 +39,17 @@ import '../shared_widgets/web_view_page.dart';
         AutoRoute(
           path: 'user',
           name: 'UserProfileRouter',
-          page: UserProfilePage,
+          page: EmptyRouterPage,
+          children: [
+            AutoRoute(
+              path: '',
+              page: UserProfilePage,
+            ),
+            AutoRoute(
+              path: 'details',
+              page: CrowdActionDetailsPage,
+            ),
+          ],
         ),
         AutoRoute(
           path: 'demo',

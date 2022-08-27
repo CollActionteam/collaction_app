@@ -7,7 +7,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
-import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/photo_selector.dart';
@@ -387,11 +386,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               if (state.wasProfilePictureUpdated == true) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text(
-                      "Profile picture will be reviewed!" +
-                          // TODO remove one this has been fixed on the backend
-                          "\n(It may take some time for the picture to be updated.)",
-                    ),
+                    content: Text("Profile picture will be reviewed!"),
                     duration: Duration(seconds: 5),
                   ),
                 );

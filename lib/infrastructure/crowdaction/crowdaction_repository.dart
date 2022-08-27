@@ -189,4 +189,46 @@ class CrowdActionRepository implements ICrowdActionRepository {
       return left(const CrowdActionFailure.networkRequestFailed());
     }
   }
+
+  @override
+  Future<Either<CrowdActionFailure, List<CrowdAction>>>
+      getCrowdActionsForUser() async {
+    // TODO: Implement Pagination
+    try {
+      final user = (await _authRepository.getSignedInUser()).getOrElse(
+        () => throw NotAuthenticatedError(),
+      );
+
+      final tokenId = await user.getIdToken();
+
+      final uri = Uri.parse(
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions/me',
+      );
+
+      final response = await _client.get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $tokenId'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        return right(
+          responseBody['items']
+              .map<CrowdAction>(
+                (json) => CrowdActionDto.fromJson(
+                  json as Map<String, dynamic>,
+                ).toDomain(),
+              )
+              .toList() as List<CrowdAction>,
+        );
+      }
+
+      return left(const CrowdActionFailure.networkRequestFailed());
+    } catch (_) {
+      return left(const CrowdActionFailure.serverError());
+    }
+  }
 }

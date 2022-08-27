@@ -1,6 +1,13 @@
 part of 'profile_tab_bloc.dart';
 
-@freezed
-class ProfileTabState with _$ProfileTabState {
-  const factory ProfileTabState.initial() = _Initial;
+class ProfileTabState {
+  final List<CrowdAction> crowdActions;
+
+  const ProfileTabState({required this.crowdActions});
+
+  ProfileTabState copyWith({List<CrowdAction>? crowdActions}) {
+    return ProfileTabState(crowdActions: crowdActions ?? this.crowdActions);
+  }
+
+  ProfileTabState.initial() : crowdActions = [];
 }
