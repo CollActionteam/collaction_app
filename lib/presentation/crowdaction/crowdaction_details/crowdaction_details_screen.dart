@@ -94,6 +94,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 state.whenOrNull(
                   participating: (p) {
                     setState(() {
+                      selectedCommitments.clear();
                       for (final id in p.commitmentOptions) {
                         selectedCommitments.add(
                           widget.crowdAction.commitmentOptions
