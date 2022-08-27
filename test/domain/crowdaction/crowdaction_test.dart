@@ -46,9 +46,9 @@ void main() {
       expect(tOpenCrowdAction.isOpen, true);
     });
 
-    test('Testing CommitmentOptions.idToIcon() method', () {
+    test('Testing CommitmentOptions.mapIcon() method', () {
       crowdActionCommitmentIcons.forEach((key, value) {
-        expect(tCommitmentOption.copyWith(id: key).icon, value);
+        expect(tCommitmentOption.copyWith(iconId: key).icon, value);
       });
     });
   });
