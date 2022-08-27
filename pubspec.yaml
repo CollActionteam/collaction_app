@@ -100,7 +100,7 @@ flutter:
   fonts:
     - family: CollactionIcons
       fonts:
-        - asset: assets/fonts/icons/Collaction.ttf
+        - asset: assets/fonts/icons/CollactionIcons.ttf
     - family: Rubik
       fonts:
         - asset: assets/fonts/Rubik/Rubik-Bold.ttf

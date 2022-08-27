@@ -48,7 +48,7 @@ class CrowdActionCard extends StatelessWidget {
           ],
         ),
         child: Container(
-          height: 395 * scaleFactor,
+          height: 400 * scaleFactor,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: kSecondaryColor,
@@ -57,7 +57,7 @@ class CrowdActionCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 216 * scaleFactor,
+                height: 215 * scaleFactor,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: const BorderRadius.only(
@@ -67,7 +67,7 @@ class CrowdActionCard extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: CachedNetworkImageProvider(
-                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${crowdAction.images.card}',
+                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
                     ),
                   ),
                 ),
@@ -138,7 +138,6 @@ class CrowdActionCard extends StatelessWidget {
                           ?.copyWith(color: kInactiveColor),
                     ),
                   ),
-                  const SizedBox(height: 40),
                 ],
               ),
             ],

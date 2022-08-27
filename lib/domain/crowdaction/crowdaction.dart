@@ -81,12 +81,13 @@ class CommitmentOption with _$CommitmentOption {
     required String id,
     required String type,
     required String label,
-    required String description,
     required int points,
     required List<String> blocks,
+    String? description,
+    String? iconId,
   }) = _CommitmentOption;
 
-  IconData get icon => idToIcon(id);
+  IconData get icon => mapIcon(iconId);
 }
 
 @freezed

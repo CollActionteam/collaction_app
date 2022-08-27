@@ -34,15 +34,11 @@ class ParticipationCountText extends StatelessWidget {
           },
           fetchingCrowdSpotLightActions: () {
             return const Center(
-              child: CircularProgressIndicator(
-                color: kAccentColor,
-              ),
+              child: CircularProgressIndicator(color: kAccentColor),
             );
           },
           spotLightCrowdActionsError: (_) {
-            return const ContentPlaceholder(
-              textColor: Colors.white,
-            );
+            return const ContentPlaceholder(textColor: Colors.white);
           },
           spotLightCrowdActions: (_crowdActions) {
             final CrowdAction _updatedCrowdAction = _crowdActions.firstWhere(

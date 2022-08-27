@@ -57,17 +57,17 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
   final List<CommitmentOption> selectedCommitments = [];
 
   late final ParticipationBloc participationBloc;
+  late Function(BuildContext) participate;
 
   @override
   void initState() {
     super.initState();
     participationBloc = getIt<ParticipationBloc>();
+    participate = _signUpModal;
   }
 
   @override
   Widget build(BuildContext context) {
-    void Function(BuildContext) participate = _signUpModal;
-
     return MultiBlocProvider(
       providers: [
         BlocProvider<ParticipationBloc>(
@@ -106,6 +106,10 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                     }
                   });
                 },
+              );
+
+              BlocProvider.of<SpotlightBloc>(context).add(
+                const SpotlightEvent.getSpotLightCrowdActions(),
               );
             },
           ),
@@ -157,9 +161,7 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                               ),
                             ),
                           ),
-                          const Expanded(
-                            child: SizedBox(),
-                          ),
+                          const Expanded(child: SizedBox()),
                         ],
                       ),
                       flexibleSpace: FlexibleSpaceBar(
@@ -168,7 +170,7 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                             Positioned.fill(
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${widget.crowdAction.images.banner}',
+                                    '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.crowdAction.images.banner}',
                                 placeholder: (context, url) =>
                                     ImageSkeletonLoader(
                                   height: _headerHeight,
@@ -246,16 +248,12 @@ class _CrowdActionDetailsViewState extends State<_CrowdActionDetailsView> {
                                   ...widget.crowdAction.toChips()
                                 ],
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              const SizedBox(height: 20),
                               ParticipationCountText(
                                 crowdAction: widget.crowdAction,
                               ),
                               const SizedBox(
-                                child: SizedBox(
-                                  height: 20,
-                                ),
+                                child: SizedBox(height: 20),
                               ),
                               ExpandableText(
                                 widget.crowdAction.description,

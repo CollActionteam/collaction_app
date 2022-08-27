@@ -32,6 +32,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
         );
 
         return ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           physics: const BouncingScrollPhysics(),
           itemBuilder: (ctx, index) {
             final option = widget.commitmentOptions[index];
