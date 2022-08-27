@@ -10,7 +10,13 @@ import '../../../presentation/themes/constants.dart';
 
 class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
-  const PasswordModal({Key? key, required this.crowdAction}) : super(key: key);
+  final bool viewOnly;
+
+  const PasswordModal({
+    Key? key,
+    required this.crowdAction,
+    this.viewOnly = false,
+  }) : super(key: key);
 
   @override
   State<PasswordModal> createState() => _PasswordModalState();
@@ -145,7 +151,10 @@ class _PasswordModalState extends State<PasswordModal> {
       addCrowdActionAccess();
       context.router.pop();
       context.router.push(
-        CrowdActionDetailsRoute(crowdAction: widget.crowdAction),
+        CrowdActionDetailsRoute(
+          crowdAction: widget.crowdAction,
+          viewOnly: widget.viewOnly,
+        ),
       );
     } else {
       setState(() {
@@ -170,13 +179,16 @@ class _PasswordModalState extends State<PasswordModal> {
 
 Future<void> showPasswordModal(
   BuildContext context,
-  CrowdAction crowdAction,
-) async {
+  CrowdAction crowdAction, {
+  bool viewOnly = false,
+}) async {
   final _settingsRepository = getIt<ISettingsRepository>();
   final _accessList = await _settingsRepository.getCrowdActionAccessList();
 
   if (_accessList.contains(crowdAction.id)) {
-    context.router.push(CrowdActionDetailsRoute(crowdAction: crowdAction));
+    context.router.push(
+      CrowdActionDetailsRoute(crowdAction: crowdAction, viewOnly: viewOnly),
+    );
   } else {
     showModalBottomSheet(
       context: context,

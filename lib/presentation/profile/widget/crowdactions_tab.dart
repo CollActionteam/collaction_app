@@ -44,7 +44,10 @@ class CrowdActionsTab extends StatelessWidget {
               ...crowdActions!.map(
                 (c) => Column(
                   children: [
-                    MicroCrowdActionCard(c),
+                    MicroCrowdActionCard(
+                      c,
+                      viewOnly: true,
+                    ),
                     const SizedBox(height: 10)
                   ],
                 ),

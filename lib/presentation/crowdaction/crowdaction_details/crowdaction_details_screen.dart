@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/application/participation/participation_bloc.dart';
+import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,10 +24,14 @@ import 'widgets/participation_count_text.dart';
 import 'widgets/withdraw_participation.dart';
 
 class CrowdActionDetailsPage extends StatefulWidget {
-  const CrowdActionDetailsPage({Key? key, required this.crowdAction})
-      : super(key: key);
-
   final CrowdAction crowdAction;
+  final bool viewOnly;
+
+  const CrowdActionDetailsPage({
+    Key? key,
+    required this.crowdAction,
+    this.viewOnly = false,
+  }) : super(key: key);
 
   @override
   State<CrowdActionDetailsPage> createState() => CrowdActionDetailsPageState();
@@ -51,6 +56,9 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<ProfileTabBloc>.value(
+          value: BlocProvider.of<ProfileTabBloc>(context),
+        ),
         BlocProvider<SpotlightBloc>.value(
           value: BlocProvider.of<SpotlightBloc>(context),
         ),
@@ -69,17 +77,42 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
       ],
       child: MultiBlocListener(
         listeners: [
-          BlocListener<SpotlightBloc, SpotlightState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                spotLightCrowdActions: (crowdActions) {
-                  crowdAction =
-                      crowdActions.firstWhere((c) => c.id == crowdAction.id);
-                },
-                orElse: () {},
-              );
-            },
-          ),
+          if (!widget.viewOnly) ...[
+            BlocListener<SpotlightBloc, SpotlightState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                  spotLightCrowdActions: (crowdActions) {
+                    crowdAction =
+                        crowdActions.firstWhere((c) => c.id == crowdAction.id);
+                  },
+                  orElse: () {},
+                );
+              },
+            ),
+            BlocListener<ParticipationBloc, ParticipationState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  participating: (p) {
+                    setState(() {
+                      for (final id in p.commitmentOptions) {
+                        selectedCommitments.add(
+                          widget.crowdAction.commitmentOptions
+                              .firstWhere((c) => c.id == id),
+                        );
+                      }
+                    });
+                  },
+                );
+
+                BlocProvider.of<SpotlightBloc>(context).add(
+                  const SpotlightEvent.getSpotLightCrowdActions(),
+                );
+                BlocProvider.of<ProfileTabBloc>(context).add(
+                  FetchProfileTabInfo(),
+                );
+              },
+            ),
+          ],
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               state.maybeWhen(
@@ -88,42 +121,24 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               );
             },
           ),
-          BlocListener<ParticipationBloc, ParticipationState>(
-            listener: (context, state) {
-              state.whenOrNull(
-                participating: (p) {
-                  setState(() {
-                    for (final id in p.commitmentOptions) {
-                      selectedCommitments.add(
-                        widget.crowdAction.commitmentOptions
-                            .firstWhere((c) => c.id == id),
-                      );
-                    }
-                  });
-                },
-              );
-
-              BlocProvider.of<SpotlightBloc>(context).add(
-                const SpotlightEvent.getSpotLightCrowdActions(),
-              );
-            },
-          ),
         ],
         child: BlocBuilder<ParticipationBloc, ParticipationState>(
           builder: (context, state) {
             return Scaffold(
-              floatingActionButton: state.when(
-                loading: () => const PillButton(
-                  text: "Participate",
-                  isEnabled: false,
-                  isLoading: true,
-                ),
-                notParticipating: () => PillButton(
-                  text: "Participate",
-                  onTap: () => participate.call(context),
-                ),
-                participating: (_) => const SizedBox.shrink(),
-              ),
+              floatingActionButton: !widget.viewOnly
+                  ? state.when(
+                      loading: () => const PillButton(
+                        text: "Participate",
+                        isEnabled: false,
+                        isLoading: true,
+                      ),
+                      notParticipating: () => PillButton(
+                        text: "Participate",
+                        onTap: () => participate.call(context),
+                      ),
+                      participating: (_) => const SizedBox.shrink(),
+                    )
+                  : null,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerFloat,
               body: NestedScrollView(
@@ -278,20 +293,23 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                       fontSize: 28,
                                     ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: Text(
-                                  'Your challenge, your rules.\nChoose which commitment(s) you want to make for this CrowdAction.',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .caption!
-                                      .copyWith(
-                                        color: kPrimaryColor300,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                  textAlign: TextAlign.center,
+                              if (!widget.viewOnly) ...[
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: Text(
+                                    'Your challenge, your rules.\nChoose which commitment(s) you want to make for this CrowdAction.',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .caption!
+                                        .copyWith(
+                                          color: kPrimaryColor300,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ],
                           ),
                         ),
@@ -306,7 +324,8 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                         // CrowdActionCreatedByWidget(
                         //   crowdAction: widget.crowdAction,
                         // ),
-                        if (widget.crowdAction.status != Status.ended) ...[
+                        if (widget.crowdAction.status != Status.ended &&
+                            !widget.viewOnly) ...[
                           BlocProvider.value(
                             value: participationBloc,
                             child: WithdrawParticipation(
