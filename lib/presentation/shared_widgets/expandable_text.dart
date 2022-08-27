@@ -10,8 +10,8 @@ class ExpandableText extends StatefulWidget {
     Key? key,
     this.trimLines = 3,
     this.clickableTextColor = kAccentColor,
-    this.readMoreText = " more",
-    this.readLessText = " less",
+    this.readMoreText = "more",
+    this.readLessText = "less",
     this.style = const TextStyle(color: Colors.black),
   }) : super(key: key);
 
@@ -37,75 +37,77 @@ class ExpandableText extends StatefulWidget {
   ExpandableTextState createState() => ExpandableTextState();
 }
 
-class ExpandableTextState extends State<ExpandableText> {
-  bool _readMore = true;
+class ExpandableTextState extends State<ExpandableText>
+    with SingleTickerProviderStateMixin {
+  bool readMore = true;
+  late String text;
 
-  void _onTapLink() {
-    setState(() => _readMore = !_readMore);
+  late AnimationController controller;
+  late Animation<double> sizeAnimation;
+
+  void onTapLink() {
+    if (readMore) {
+      controller.forward();
+      readMore = false;
+    } else {
+      controller.reverse();
+      readMore = true;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    text =
+        '${widget.text.substring(0, widget.text.length > widget.trimLines * 30 ? widget.trimLines * 30 : widget.text.length)}... ';
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+
+    sizeAnimation = Tween<double>(
+      begin:
+          showReadMore ? widget.trimLines * 30 : widget.text.length.toDouble(),
+      end: widget.text.length.toDouble(),
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+
+    controller.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final TextSpan link = TextSpan(
-      text: _readMore ? widget.readMoreText : widget.readLessText,
-      style: widget.style?.copyWith(color: widget.clickableTextColor),
-      recognizer: TapGestureRecognizer()..onTap = _onTapLink,
-    );
-
-    final Widget result = LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final double maxWidth = constraints.maxWidth;
-        // Create a TextSpan with data
-        final text = TextSpan(
-          text: widget.text,
-          style: widget.style,
-        );
-        // Layout and measure link
-        final TextPainter textPainter = TextPainter(
-          text: link,
-          textDirection: TextDirection.rtl,
-          maxLines: widget.trimLines,
-          ellipsis: '...',
-        );
-
-        textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
-        final linkSize = textPainter.size;
-        // Layout and measure text
-        textPainter.text = text;
-        textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
-        final textSize = textPainter.size;
-        // Get the endIndex of data
-        int endIndex;
-        final pos = textPainter.getPositionForOffset(
-          Offset(
-            textSize.width - linkSize.width,
-            textSize.height,
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text:
+                '${widget.text.substring(0, (sizeAnimation.value > widget.text.length ? widget.text.length : sizeAnimation.value).floor())}${showReadMore ? (readMore ? '... ' : ' ') : ''}',
+            style: widget.style,
           ),
-        );
-
-        endIndex = textPainter.getOffsetBefore(pos.offset) ?? -1;
-
-        TextSpan textSpan;
-        if (textPainter.didExceedMaxLines) {
-          textSpan = TextSpan(
-            text: _readMore ? widget.text.substring(0, endIndex) : widget.text,
-            style: widget.style,
-            children: _readMore
-                ? <TextSpan>[const TextSpan(text: '...'), link]
-                : [link],
-          );
-        } else {
-          textSpan = TextSpan(
-            text: widget.text,
-            style: widget.style,
-          );
-        }
-
-        return RichText(
-          text: textSpan,
-        );
-      },
+          if (showReadMore) ...[
+            TextSpan(
+              text: readMore ? widget.readMoreText : widget.readLessText,
+              style: TextStyle(
+                color: widget.clickableTextColor,
+                decorationColor: widget.clickableTextColor,
+                decorationStyle: TextDecorationStyle.solid,
+              ),
+              recognizer: TapGestureRecognizer()..onTap = onTapLink,
+            ),
+          ]
+        ],
+      ),
     );
-    return result;
+  }
+
+  bool get showReadMore => widget.text.length > widget.trimLines * 30;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

@@ -73,7 +73,7 @@ class AvatarRepository implements IAvatarRepository, Disposable {
       final request = http.MultipartRequest(
         'POST',
         Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/api/v1/profiles/me/image',
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/profiles/me/image',
         ),
       );
 

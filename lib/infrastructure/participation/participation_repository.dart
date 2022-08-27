@@ -33,7 +33,7 @@ class ParticipationRepository implements IParticipationRepository {
       final token = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${await settingsRepository.baseApiEndpointUrl}/api/v1/participations/$crowdActionId',
+        '${await settingsRepository.baseApiEndpointUrl}/v1/participations/$crowdActionId',
       );
 
       final response = await client.get(
@@ -71,7 +71,7 @@ class ParticipationRepository implements IParticipationRepository {
       final token = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${await settingsRepository.baseApiEndpointUrl}/api/v1/participations',
+        '${await settingsRepository.baseApiEndpointUrl}/v1/participations',
       );
 
       final response = await client.post(

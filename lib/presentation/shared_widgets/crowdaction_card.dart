@@ -67,7 +67,7 @@ class CrowdActionCard extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: CachedNetworkImageProvider(
-                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
+                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${crowdAction.images.card}',
                     ),
                   ),
                 ),

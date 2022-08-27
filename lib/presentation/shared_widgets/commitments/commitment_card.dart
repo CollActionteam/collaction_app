@@ -10,6 +10,13 @@ import '../../themes/constants.dart';
 /// [onSelected] Callback function for when the card is selected,
 /// returns the id of the selected commitment
 class CommitmentCard extends StatelessWidget {
+  final CommitmentOption commitment;
+  final Function(CommitmentOption)? onSelected;
+  final Function(CommitmentOption)? onDeSelected;
+  final bool active;
+  final bool deactivated;
+  final bool viewOnly;
+
   const CommitmentCard({
     required this.commitment,
     this.onSelected,
@@ -17,17 +24,8 @@ class CommitmentCard extends StatelessWidget {
     Key? key,
     this.active = false,
     this.deactivated = false,
+    this.viewOnly = false,
   }) : super(key: key);
-
-  final CommitmentOption commitment;
-  final Function(CommitmentOption)? onSelected;
-  final Function(CommitmentOption)? onDeSelected;
-  final bool active;
-
-  /// Deactivated commit
-  /// When a user is participating in a crowdaction,
-  /// the card should be marked as deactivated
-  final bool deactivated;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +101,7 @@ class CommitmentCard extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            if (!deactivated || (deactivated && active)) ...[
+            if ((!deactivated || (deactivated && active)) && !viewOnly) ...[
               Container(
                 constraints: const BoxConstraints(
                   maxHeight: 32,

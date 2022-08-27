@@ -68,7 +68,7 @@ class ProfileRepository implements IProfileRepository {
 
           final response = await _client.post(
             Uri.parse(
-              '${await _settingsRepository.baseApiEndpointUrl}/api/v1/profiles',
+              '${await _settingsRepository.baseApiEndpointUrl}/v1/profiles',
             ),
             headers: {
               'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ class ProfileRepository implements IProfileRepository {
 
           final response = await _client.put(
             Uri.parse(
-              '${await _settingsRepository.baseApiEndpointUrl}/api/v1/profiles',
+              '${await _settingsRepository.baseApiEndpointUrl}/v1/profiles',
             ),
             headers: {
               'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ class ProfileRepository implements IProfileRepository {
 
     final response = await _client.get(
       Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/api/v1/profiles/me',
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/profiles/me',
       ),
       headers: {
         'Content-Type': 'application/json',
