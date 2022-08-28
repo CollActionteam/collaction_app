@@ -52,7 +52,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
                     image: CachedNetworkImageProvider(
-                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${crowdAction.images.card}',
+                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
                     ),
                     fit: BoxFit.cover,
                   ),
