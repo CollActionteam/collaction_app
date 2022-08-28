@@ -1,6 +1,6 @@
 part of 'profile_bloc.dart';
 
-class ProfileState {
+class ProfileState extends Equatable {
   const ProfileState({
     required this.userProfile,
     this.isEditing,
@@ -29,4 +29,7 @@ class ProfileState {
           wasProfilePictureUpdated ?? false, // Reset state implicitly
     );
   }
+
+  @override
+  List<Object?> get props => [userProfile, isEditing, wasProfilePictureUpdated];
 }

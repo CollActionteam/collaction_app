@@ -12,9 +12,11 @@ import '../crowdaction/crowdaction_participants/crowdaction_participants_screen.
 import '../demo/components_demo/components_demo_screen.dart';
 import '../demo/demo_screen.dart';
 import '../home/home_screen.dart';
+import '../licenses/licenses_page.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../settings/settings_layout.dart';
 import '../settings/settings_screen.dart';
+import '../shared_widgets/web_view_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -37,7 +39,17 @@ import '../settings/settings_screen.dart';
         AutoRoute(
           path: 'user',
           name: 'UserProfileRouter',
-          page: UserProfilePage,
+          page: EmptyRouterPage,
+          children: [
+            AutoRoute(
+              path: '',
+              page: UserProfilePage,
+            ),
+            AutoRoute(
+              path: 'details',
+              page: CrowdActionDetailsPage,
+            ),
+          ],
         ),
         AutoRoute(
           path: 'demo',
@@ -57,8 +69,10 @@ import '../settings/settings_screen.dart';
     AutoRoute(path: 'auth', page: AuthPage),
     AutoRoute(path: 'verified', page: VerifiedPage),
     AutoRoute(path: 'settings-page', page: SettingsPage),
+    AutoRoute(path: 'licenses-page', page: LicensesPage),
     AutoRoute(path: 'settings-layout', page: SettingsLayout),
     AutoRoute(path: 'contact-form', page: ContactFormPage),
+    AutoRoute(path: 'webview', page: WebViewPage),
   ],
 )
 class $AppRouter {}

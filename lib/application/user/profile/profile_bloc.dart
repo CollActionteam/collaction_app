@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/profile/user_profile.dart';
@@ -44,16 +45,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
       final wasImageUpdated = event.image != null;
       if (wasImageUpdated) {
-        final uploadURI = await _avatarRepository.getAvatarUploadPath();
-        uploadURI.fold(
-          (_) => null,
-          (uri) async {
-            await _avatarRepository.uploadAvatar(event.image!, uri);
-          },
-        );
+        await _avatarRepository.uploadAvatar(event.image!);
       }
-      // TODO handle could not upload profile picture!
 
+      // TODO handle could not upload profile picture!
       final userOrFailure = await _profileRepository.getUserProfile();
 
       emit(

@@ -1,26 +1,37 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
 import 'accent_chip.dart';
+import 'micro_lock.dart';
 
 class MicroCrowdActionCard extends StatelessWidget {
   final CrowdAction crowdAction;
+  final bool viewOnly;
 
-  const MicroCrowdActionCard(this.crowdAction, {Key? key}) : super(key: key);
+  const MicroCrowdActionCard(
+    this.crowdAction, {
+    Key? key,
+    this.viewOnly = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (crowdAction.usesPassword) {
-          showPasswordModal(context, crowdAction);
+        if (crowdAction.hasPassword) {
+          showPasswordModal(context, crowdAction, viewOnly: viewOnly);
         } else {
           context.router.push(
-            CrowdActionDetailsRoute(crowdAction: crowdAction),
+            CrowdActionDetailsRoute(
+              crowdAction: crowdAction,
+              viewOnly: viewOnly,
+            ),
           );
         }
       },
@@ -40,7 +51,9 @@ class MicroCrowdActionCard extends StatelessWidget {
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image: NetworkImage(crowdAction.images.card),
+                    image: CachedNetworkImageProvider(
+                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${crowdAction.images.card}',
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -54,15 +67,24 @@ class MicroCrowdActionCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (crowdAction.dateLimitJoin.compareTo(DateTime.now()) >=
-                          0)
-                        const AccentChip(
-                          text: "Sign up now",
-                          leading: Icon(
-                            Icons.check,
-                            color: Colors.white,
+                      Row(
+                        children: [
+                          AccentChip(
+                            text: crowdAction.isOpen ? "Open" : "Closed",
+                            color: crowdAction.isOpen
+                                ? kAccentColor
+                                : kPrimaryColor200,
+                            leading: Icon(
+                              crowdAction.isOpen ? Icons.check : Icons.close,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
+                          if (crowdAction.hasPassword) ...[
+                            const SizedBox(width: 10),
+                            const MicroLock(),
+                          ],
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: Text(

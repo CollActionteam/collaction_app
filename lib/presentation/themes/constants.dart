@@ -18,7 +18,9 @@ const Color kSuccessColor = Color(0xFF2EB494);
 
 const Color kIrisColor = Color(0xFF5D5FEF);
 
-const Color kPrimaryColor0 = Color(0xFFB3B3B3);
-const Color kPrimaryColor400 = Color(0xFF333333);
-const Color kPrimaryColor300 = Color(0xFF666666);
+const Color kPrimaryColor0 = Color(0xFFEFEFEF);
+const Color kPrimaryColor100 = Color(0xFFCCCCCC);
 const Color kPrimaryColor200 = Color(0xFF999999);
+const Color kPrimaryColor300 = Color(0xFF666666);
+const Color kPrimaryColor400 = Color(0xFF333333);
+const Color kPrimaryColor500 = Color(0xFF000000);

@@ -23,9 +23,11 @@ class ContactFormApi extends IContactFormApi {
         .post(
           Uri.parse('${await settingsRepository.baseApiEndpointUrl}/contact'),
           body: json.encode({
-            ...contents.toJson(),
-            "app_version":
-                "${Platform.operatingSystem} ${packageInfo.version}+${packageInfo.buildNumber}"
+            'data': {
+              ...contents.toJson(),
+              "app_version":
+                  "${Platform.operatingSystem} ${packageInfo.version}+${packageInfo.buildNumber}"
+            },
           }),
           headers: {
             'accept': '*/*',

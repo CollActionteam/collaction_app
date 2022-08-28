@@ -21,20 +21,12 @@ class AvatarBloc extends Bloc<AvatarEvent, AvatarState> {
         uploadAvatar: (image) async {
           emit(const AvatarState.uploading());
 
-          final uploadURI = await avatarRepository.getAvatarUploadPath();
+          final uploadAvatar = await avatarRepository.uploadAvatar(image);
 
           emit(
-            await uploadURI.fold(
+            uploadAvatar.fold(
               (failure) => const AvatarState.uploadFailed(),
-              (uri) async {
-                final uploadAvatar =
-                    await avatarRepository.uploadAvatar(image, uri);
-
-                return uploadAvatar.fold(
-                  (failure) => const AvatarState.uploadFailed(),
-                  (success) => const AvatarState.uploadSuccess(),
-                );
-              },
+              (success) => const AvatarState.uploadSuccess(),
             ),
           );
         },

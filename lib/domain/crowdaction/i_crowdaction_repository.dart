@@ -23,4 +23,7 @@ abstract class ICrowdActionRepository {
   Future<Either<CrowdActionFailure, Unit>> unsubscribeFromCrowdAction(
     CrowdAction crowdAction,
   );
+
+  Future<Either<CrowdActionFailure, List<CrowdAction>>>
+      getCrowdActionsForUser();
 }

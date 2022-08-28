@@ -1,10 +1,14 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
+import '../core/collaction_icons.dart';
 import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
+import 'custom_fab.dart';
 
 class CrowdActionCard extends StatelessWidget {
   final CrowdAction crowdAction;
@@ -23,7 +27,7 @@ class CrowdActionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap ??
           () {
-            if (crowdAction.usesPassword) {
+            if (crowdAction.hasPassword) {
               showPasswordModal(context, crowdAction);
             } else {
               context.router.push(
@@ -44,7 +48,7 @@ class CrowdActionCard extends StatelessWidget {
           ],
         ),
         child: Container(
-          height: 395 * scaleFactor,
+          height: 400 * scaleFactor,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: kSecondaryColor,
@@ -53,7 +57,7 @@ class CrowdActionCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 216 * scaleFactor,
+                height: 215 * scaleFactor,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: const BorderRadius.only(
@@ -62,9 +66,30 @@ class CrowdActionCard extends StatelessWidget {
                   ),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(crowdAction.images.card),
+                    image: CachedNetworkImageProvider(
+                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}${crowdAction.images.card}',
+                    ),
                   ),
                 ),
+                child: crowdAction.hasPassword
+                    ? Stack(
+                        children: const [
+                          Positioned(
+                            bottom: 10,
+                            right: 10,
+                            child: CustomFAB(
+                              heroTag: 'locked',
+                              isMini: true,
+                              color: kSecondaryColor,
+                              child: Icon(
+                                CollactionIcons.lock,
+                                color: kPrimaryColor300,
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    : null,
               ),
               const SizedBox(height: 5.0),
               Column(
@@ -112,41 +137,6 @@ class CrowdActionCard extends StatelessWidget {
                           .bodyText2
                           ?.copyWith(color: kInactiveColor),
                     ),
-                  ),
-                  // TODO: Implement after MVP
-                  //   if (_someParticipants()) ...[
-                  //     const SizedBox(
-                  //       height: 20,
-                  //     ),
-                  //     Container(
-                  //       height: 40,
-                  //       margin: const EdgeInsets.symmetric(horizontal: 20),
-                  //       child: Row(
-                  //         children: [
-                  //           SizedBox(
-                  //             width: crowdAction.avatarWidth(),
-                  //             child: ParticipantAvatars(
-                  //               participants: crowdAction.topParticipants,
-                  //             ),
-                  //           ),
-                  //           const SizedBox(
-                  //             width: 20,
-                  //           ),
-                  //           Expanded(
-                  //             child: Text(
-                  //               "Join ${crowdAction.topParticipants.title(crowdAction.participantCount)}",
-                  //               style: Theme.of(context)
-                  //                   .textTheme
-                  //                   .caption
-                  //                   ?.copyWith(fontSize: 12),
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ],
-                  const SizedBox(
-                    height: 40,
                   ),
                 ],
               ),

@@ -1,118 +1,74 @@
+import 'package:collaction_app/application/participation/participation_bloc.dart';
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/crowdaction/crowdaction.dart';
 import 'commitment_card.dart';
 
 class CommitmentCardList extends StatefulWidget {
-  final List<CommitmentOption> commitments;
-  final Function(List<String>) onSelected;
-  final List<String> active;
-  final Axis axis;
-  final bool readOnly;
+  final List<CommitmentOption> commitmentOptions;
+  final List<CommitmentOption> selectedCommitments;
 
   /// Widget for easily creating a list of CommitmentCard(s)
-  ///
-  ///[commitments] The commitments the list is made up of
-  ///
-  /// [onSelected] Callback function for when a card is selected,
-  /// returns the id of the selected commitment
-  ///
-  /// [axis] The direction of the list, defaults to [Axis.vertical]
   const CommitmentCardList({
-    required this.commitments,
-    required this.onSelected,
-    this.axis = Axis.vertical,
     Key? key,
-    this.active = const <String>[],
-    this.readOnly = false,
+    required this.commitmentOptions,
+    required this.selectedCommitments,
   }) : super(key: key);
 
   @override
-  State<CommitmentCardList> createState() => CommitmentCardListState();
+  State<CommitmentCardList> createState() => _CommitmentCardListState();
 }
 
-class CommitmentCardListState extends State<CommitmentCardList> {
-  late List<CommitmentOption> _commitments;
-  late List<String> _activeCommitments;
-
-  @override
-  void initState() {
-    super.initState();
-    _commitments = List<CommitmentOption>.from(widget.commitments);
-    _activeCommitments = List<String>.from(widget.active);
-  }
-
+class _CommitmentCardListState extends State<CommitmentCardList> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (ctx, index) {
-        final option = _commitments[index];
+    return BlocBuilder<ParticipationBloc, ParticipationState>(
+      builder: (context, state) {
+        bool isParticipating = false;
 
-        return CommitmentCard(
-          commitment: option,
-          onSelected: widget.readOnly ? null : _selectCommitment,
-          onDeSelected: widget.readOnly ? null : _deselectCommitment,
-          active: _activeCommitments.contains(option.id),
+        state.mapOrNull(
+          participating: (_) => isParticipating = true,
+        );
+
+        return ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (ctx, index) {
+            final option = widget.commitmentOptions[index];
+            return CommitmentCard(
+              key: Key(option.id),
+              commitment: option,
+              onSelected: isParticipating ? null : selectCommitment,
+              onDeSelected: isParticipating ? null : deselectCommitment,
+              active: widget.selectedCommitments.contains(option),
+              deactivated: isParticipating || isBlocked(option),
+            );
+          },
+          itemCount: widget.commitmentOptions.length,
+          shrinkWrap: true,
         );
       },
-      itemCount: _commitments.length,
-      shrinkWrap: true,
     );
   }
 
-  void _deselectCommitment(CommitmentOption option) {
+  void selectCommitment(CommitmentOption commitment) {
     setState(() {
-      // Remove from active commitments
-      _activeCommitments.remove(option.id);
-
-      // Recursively deselect all parents
-      final activeCommitmentOptions = _commitments
-          .where((commitment) => _activeCommitments.contains(commitment.id));
-      for (final commitment in activeCommitmentOptions) {
-        if (commitment.requires?.contains(option) == true) {
-          _deselectCommitment(commitment);
-        }
+      widget.selectedCommitments.add(commitment);
+      for (final id in commitment.blocks) {
+        widget.selectedCommitments.removeWhere((c) => c.id == id);
       }
-
-      // If is required child deselect & parent
-      widget.onSelected(_activeCommitments);
     });
   }
 
-  void _selectCommitment(CommitmentOption option) {
+  void deselectCommitment(CommitmentOption commitment) {
     setState(() {
-      _activeCommitments.add(option.id);
-      // Check if has required
-      final children = option.requires;
-      // If yes - Loop and check
-      if (children != null) {
-        _selectAll(children);
-      }
-
-      widget.onSelected(_activeCommitments);
+      widget.selectedCommitments.removeWhere((c) => c.id == commitment.id);
     });
   }
 
-  void _selectAll(List<CommitmentOption> commitments) {
-    for (final commitment in _commitments) {
-      if (commitments.contains(commitment)) {
-        _activeCommitments.add(commitment.id);
-        _activeCommitments = _activeCommitments.toSet().toList();
-
-        final children = commitment.requires;
-        if (children != null) {
-          _selectAll(children);
-        }
-      }
-    }
-  }
-
-  void selectCommitments(List<String> commitments) {
-    _activeCommitments.addAll(commitments);
-
-    setState(() {
-      _activeCommitments = _activeCommitments.toSet().toList();
-    });
+  bool isBlocked(CommitmentOption commitment) {
+    return widget.selectedCommitments
+        .any((c) => c.blocks.contains(commitment.id));
   }
 }

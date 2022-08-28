@@ -10,11 +10,17 @@ class ProfileDto with _$ProfileDto {
   const ProfileDto._();
 
   const factory ProfileDto({
+    required String userId,
+    required String firstName,
+    required String avatar,
     String? bio,
   }) = _ProfileDto;
 
   Profile toDomain() {
     return Profile(
+      userId: userId,
+      firstName: firstName,
+      avatar: avatar,
       bio: bio,
     );
   }

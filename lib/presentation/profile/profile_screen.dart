@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
-import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/photo_selector.dart';
@@ -22,12 +23,18 @@ class UserProfilePage extends StatefulWidget {
 class _UserProfilePageState extends State<UserProfilePage> {
   File? _image;
 
+  Future<void> share() async {
+    await Share.share(
+      'Become part of the CollAction crowd. Join now via ${Platform.isAndroid ? "https://play.google.com/store/apps/details?id=org.collaction.collaction_app" : "https://apps.apple.com/us/app/collaction-power-to-the-crowd/id1597643827"}',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final bioController = TextEditingController();
 
-    return BlocProvider<ProfileBloc>(
-      create: (context) => getIt<ProfileBloc>()..add(GetUserProfile()),
+    return BlocProvider<ProfileBloc>.value(
+      value: BlocProvider.of<ProfileBloc>(context),
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           bioController.value =
@@ -36,36 +43,59 @@ class _UserProfilePageState extends State<UserProfilePage> {
           final scaffold = Scaffold(
             extendBodyBehindAppBar: true,
             backgroundColor: kAlmostTransparent,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () =>
-                        context.router.push(const SettingsRoute()).then((_) {
-                      context.read<ProfileBloc>().add(GetUserProfile());
-                    }),
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      primary: Colors.white,
-                      onPrimary: kPrimaryColor0,
-                      tapTargetSize: MaterialTapTargetSize.padded,
-                    ).merge(
-                      ButtonStyle(
-                        elevation: MaterialStateProperty.resolveWith<double?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return 5;
-                            }
-                            return 4;
-                          },
-                        ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.miniEndTop,
+            floatingActionButton: Column(
+              children: [
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: share,
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    primary: kEnabledButtonColor,
+                  ).merge(
+                    ButtonStyle(
+                      elevation: MaterialStateProperty.resolveWith<double?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return 5;
+                          }
+                          return 4;
+                        },
                       ),
                     ),
-                    child: const Icon(
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+                    child: Icon(CollactionIcons.share),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () =>
+                      context.router.push(const SettingsRoute()).then((_) {
+                    context.read<ProfileBloc>().add(GetUserProfile());
+                  }),
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    primary: Colors.white,
+                    onPrimary: kPrimaryColor0,
+                    tapTargetSize: MaterialTapTargetSize.padded,
+                  ).merge(
+                    ButtonStyle(
+                      elevation: MaterialStateProperty.resolveWith<double?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return 5;
+                          }
+                          return 4;
+                        },
+                      ),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+                    child: Icon(
                       CollactionIcons.settings,
                       color: kPrimaryColor300,
                     ),
@@ -94,7 +124,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: ProfilePicture(
                                     image: _image,
-                                    userId: state.userProfile?.user.id,
+                                    profileImage: state
+                                                .userProfile?.profile.avatar !=
+                                            null
+                                        ? '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${state.userProfile?.profile.avatar}'
+                                        : null,
                                     maxRadius: 50,
                                   ),
                                 ),
@@ -126,7 +160,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           const SizedBox(height: 10),
                           Center(
                             child: Text(
-                              state.userProfile?.user.displayName ?? 'You',
+                              state.userProfile?.profile.firstName ?? 'You',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 22,
@@ -340,9 +374,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ],
                       ),
                     ),
-                    Offstage(
-                      child: UserProfileTab(user: state.userProfile?.user),
-                    ),
+                    UserProfileTab(user: state.userProfile?.user),
                   ],
                 ),
               ),
@@ -354,11 +386,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               if (state.wasProfilePictureUpdated == true) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text(
-                      "Profile picture will be reviewed!" +
-                          // TODO remove one this has been fixed on the backend
-                          "\n(It may take some time for the picture to be updated.)",
-                    ),
+                    content: Text("Profile picture will be reviewed!"),
                     duration: Duration(seconds: 5),
                   ),
                 );

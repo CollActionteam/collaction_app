@@ -7,7 +7,7 @@ class Commitment with _$Commitment {
   const factory Commitment({
     required int id,
     required String title,
-    required String description,
+    String? description,
     @Default(false) bool checked,
     String? icon,
   }) = _Commitment;

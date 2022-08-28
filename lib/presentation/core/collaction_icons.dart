@@ -14,7 +14,6 @@
 ///
 ///
 // ignore_for_file: constant_identifier_names
-
 import 'package:flutter/widgets.dart';
 
 class CollactionIcons {
@@ -61,4 +60,9 @@ class CollactionIcons {
   static const IconData pescatarian = IconData(0xe823, fontFamily: _kFontFam);
   static const IconData vegan = IconData(0xe824, fontFamily: _kFontFam);
   static const IconData vegetarian = IconData(0xe825, fontFamily: _kFontFam);
+  static const IconData crowd = IconData(0xe826, fontFamily: _kFontFam);
+  static const IconData goal = IconData(0xe827, fontFamily: _kFontFam);
+  static const IconData rocket = IconData(0xe828, fontFamily: _kFontFam);
+  static const IconData energy = IconData(0xe82a, fontFamily: _kFontFam);
+  static const IconData bike = IconData(0xe829, fontFamily: _kFontFam);
 }

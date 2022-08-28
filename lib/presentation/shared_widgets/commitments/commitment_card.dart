@@ -10,25 +10,29 @@ import '../../themes/constants.dart';
 /// [onSelected] Callback function for when the card is selected,
 /// returns the id of the selected commitment
 class CommitmentCard extends StatelessWidget {
+  final CommitmentOption commitment;
+  final Function(CommitmentOption)? onSelected;
+  final Function(CommitmentOption)? onDeSelected;
+  final bool active;
+  final bool deactivated;
+  final bool viewOnly;
+
   const CommitmentCard({
     required this.commitment,
     this.onSelected,
     this.onDeSelected,
     Key? key,
     this.active = false,
+    this.deactivated = false,
+    this.viewOnly = false,
   }) : super(key: key);
-
-  final CommitmentOption commitment;
-  final Function(CommitmentOption)? onSelected;
-  final Function(CommitmentOption)? onDeSelected;
-  final bool active;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
-        if (!active) {
+        if (!active && !deactivated) {
           onSelected?.call(commitment);
         } else {
           onDeSelected?.call(commitment);
@@ -38,12 +42,12 @@ class CommitmentCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: active ? kAlmostTransparent : kSecondaryColor,
+          border: active
+              ? Border.all(color: Colors.transparent)
+              : Border.all(color: kPrimaryColor0),
         ),
-        margin: const EdgeInsets.symmetric(
-          vertical: 5.0,
-          horizontal: 10.0,
-        ),
-        padding: const EdgeInsets.all(15.0),
+        margin: const EdgeInsets.symmetric(vertical: 5.0),
+        padding: const EdgeInsets.all(10.0),
         child: Row(
           children: [
             Container(
@@ -74,48 +78,61 @@ class CommitmentCard extends StatelessWidget {
                     style: textTheme.caption!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: kPrimaryColor400,
+                      color: deactivated ? kPrimaryColor300 : kPrimaryColor400,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    commitment.description,
-                    style: textTheme.caption!
-                        .copyWith(fontSize: 13, color: kPrimaryColor300),
-                    softWrap: true,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  if (commitment.description != null) ...[
+                    const SizedBox(height: 5),
+                    Text(
+                      commitment.description!,
+                      style: textTheme.caption!.copyWith(
+                        fontSize: 13,
+                        color:
+                            deactivated ? kPrimaryColor200 : kPrimaryColor300,
+                      ),
+                      softWrap: true,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ]
                 ],
               ),
             ),
             const Spacer(),
-            Container(
-              constraints: const BoxConstraints(
-                minHeight: 32,
-                minWidth: 32,
-              ),
-              decoration: BoxDecoration(
-                color: active ? kPrimaryColor400 : Colors.transparent,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: active ? kPrimaryColor400 : kPrimaryColor200,
-                  width: 3,
+            if ((!deactivated || (deactivated && active)) && !viewOnly) ...[
+              Container(
+                constraints: const BoxConstraints(
+                  maxHeight: 32,
+                  maxWidth: 32,
+                  minHeight: 32,
+                  minWidth: 32,
                 ),
-              ),
-              child: Visibility(
-                visible: active,
-                child: const Icon(
-                  Icons.check,
-                  size: 30,
-                  color: Colors.white,
+                decoration: BoxDecoration(
+                  color: active
+                      ? kPrimaryColor400.withAlpha(deactivated ? 50 : 255)
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: active
+                        ? kPrimaryColor400.withAlpha(deactivated ? 0 : 255)
+                        : kPrimaryColor200,
+                    width: 3,
+                  ),
                 ),
-              ),
-            )
+                child: Opacity(
+                  opacity: deactivated ? 0.5 : 1,
+                  child: const Icon(
+                    Icons.check,
+                    size: 26,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ] else ...[
+              const SizedBox(height: 32, width: 32),
+            ]
           ],
         ),
       ),

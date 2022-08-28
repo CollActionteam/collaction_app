@@ -10,7 +10,13 @@ import '../../../presentation/themes/constants.dart';
 
 class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
-  const PasswordModal({Key? key, required this.crowdAction}) : super(key: key);
+  final bool viewOnly;
+
+  const PasswordModal({
+    Key? key,
+    required this.crowdAction,
+    this.viewOnly = false,
+  }) : super(key: key);
 
   @override
   State<PasswordModal> createState() => _PasswordModalState();
@@ -19,8 +25,8 @@ class PasswordModal extends StatefulWidget {
 class _PasswordModalState extends State<PasswordModal> {
   late bool _showInput;
   late bool _disableButton;
-  bool? _validated;
   final _controller = TextEditingController();
+  bool? _validated;
 
   @override
   void initState() {
@@ -34,6 +40,7 @@ class _PasswordModalState extends State<PasswordModal> {
     return Container(
       constraints: const BoxConstraints(minWidth: 380),
       margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         color: kSecondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -59,63 +66,60 @@ class _PasswordModalState extends State<PasswordModal> {
                       color: kPrimaryColor300,
                       fontSize: 12,
                     ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextField(
-              controller: _controller,
-              onChanged: (value) => _validateInput(value),
-              onSubmitted: (value) => _validatePassword(),
-              style: const TextStyle(fontSize: 17, letterSpacing: 2.0),
-              obscureText: _showInput,
-              decoration: InputDecoration(
-                hintText: "Password",
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide:
-                      const BorderSide(width: 0, color: Colors.transparent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide:
-                      const BorderSide(width: 0, color: Colors.transparent),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(width: 2, color: Colors.red),
-                ),
-                errorText: _validated != null && _validated == false
-                    ? "Invalid password"
-                    : null,
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(width: 2, color: Colors.red),
-                ),
-                suffixIcon: IconButton(
-                  icon: _showInput
-                      ? const Icon(
-                          CollactionIcons.eye,
-                          color: kPrimaryColor300,
-                        )
-                      : const Icon(
-                          CollactionIcons.eye_off,
-                          color: kPrimaryColor300,
-                        ),
-                  onPressed: () {
-                    setState(() {
-                      _showInput = !_showInput;
-                    });
-                  },
-                  splashRadius: 2,
-                ),
+          TextField(
+            controller: _controller,
+            onChanged: (value) => _validateInput(value),
+            onSubmitted: (value) => _validatePassword(),
+            style: const TextStyle(fontSize: 17, letterSpacing: 2.0),
+            obscureText: _showInput,
+            decoration: InputDecoration(
+              hintText: "Password",
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide:
+                    const BorderSide(width: 0, color: Colors.transparent),
               ),
-              obscuringCharacter: '*',
-              cursorColor: kAccentColor,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide:
+                    const BorderSide(width: 0, color: Colors.transparent),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: const BorderSide(width: 2, color: Colors.red),
+              ),
+              errorText: _validated != null && _validated == false
+                  ? "Invalid password"
+                  : null,
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: const BorderSide(width: 2, color: Colors.red),
+              ),
+              suffixIcon: IconButton(
+                icon: _showInput
+                    ? const Icon(
+                        CollactionIcons.eye,
+                        color: kPrimaryColor300,
+                      )
+                    : const Icon(
+                        CollactionIcons.eye_off,
+                        color: kPrimaryColor300,
+                      ),
+                onPressed: () {
+                  setState(() {
+                    _showInput = !_showInput;
+                  });
+                },
+                splashRadius: 2,
+              ),
             ),
+            cursorColor: kAccentColor,
           ),
           CircleAvatar(
             backgroundColor:
@@ -140,14 +144,17 @@ class _PasswordModalState extends State<PasswordModal> {
   }
 
   void _validatePassword() {
-    if (_controller.text == widget.crowdAction.passwordJoin) {
+    if (_controller.text == widget.crowdAction.password) {
       setState(() {
         _validated = true;
       });
       addCrowdActionAccess();
       context.router.pop();
       context.router.push(
-        CrowdActionDetailsRoute(crowdAction: widget.crowdAction),
+        CrowdActionDetailsRoute(
+          crowdAction: widget.crowdAction,
+          viewOnly: widget.viewOnly,
+        ),
       );
     } else {
       setState(() {
@@ -159,7 +166,7 @@ class _PasswordModalState extends State<PasswordModal> {
   Future<void> addCrowdActionAccess() async {
     final _settingsRepository = getIt<ISettingsRepository>();
     await _settingsRepository.addCrowdActionAccess(
-      crowdActionId: widget.crowdAction.crowdactionID,
+      crowdActionId: widget.crowdAction.id,
     );
   }
 
@@ -172,13 +179,16 @@ class _PasswordModalState extends State<PasswordModal> {
 
 Future<void> showPasswordModal(
   BuildContext context,
-  CrowdAction crowdAction,
-) async {
+  CrowdAction crowdAction, {
+  bool viewOnly = false,
+}) async {
   final _settingsRepository = getIt<ISettingsRepository>();
   final _accessList = await _settingsRepository.getCrowdActionAccessList();
 
-  if (_accessList.contains(crowdAction.crowdactionID)) {
-    context.router.push(CrowdActionDetailsRoute(crowdAction: crowdAction));
+  if (_accessList.contains(crowdAction.id)) {
+    context.router.push(
+      CrowdActionDetailsRoute(crowdAction: crowdAction, viewOnly: viewOnly),
+    );
   } else {
     showModalBottomSheet(
       context: context,

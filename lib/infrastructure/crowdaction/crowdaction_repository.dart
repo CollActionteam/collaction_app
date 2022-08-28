@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
@@ -18,8 +18,13 @@ import 'crowdaction_status_dto.dart';
 class CrowdActionRepository implements ICrowdActionRepository {
   final http.Client _client;
   final IAuthRepository _authRepository;
+  final ISettingsRepository _settingsRepository;
 
-  const CrowdActionRepository(this._client, this._authRepository);
+  const CrowdActionRepository(
+    this._client,
+    this._authRepository,
+    this._settingsRepository,
+  );
 
   @override
   Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions({
@@ -27,12 +32,13 @@ class CrowdActionRepository implements ICrowdActionRepository {
   }) async {
     try {
       final response = await _client.get(
-        Uri.parse('${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions'),
+        Uri.parse(
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions',
+        ),
         headers: {'Content-Type': 'application/json'},
       );
 
       final responseBody = jsonDecode(response.body);
-
       return right(
         responseBody
             .map<CrowdAction>(
@@ -58,7 +64,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/participations',
       );
 
       final response = await _client.post(
@@ -67,7 +73,11 @@ class CrowdActionRepository implements ICrowdActionRepository {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $tokenId'
         },
-        body: jsonEncode({'password': password, 'commitments': commitments}),
+        body: jsonEncode({
+          'crowdActionId': crowdAction.id,
+          'password': password,
+          'commitmentOptions': commitments
+        }),
       );
 
       if (response.statusCode == 200) {
@@ -90,15 +100,18 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/participations',
       );
 
-      final response = await _client.delete(
+      final response = await _client.post(
         uri,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $tokenId'
         },
+        body: jsonEncode({
+          'crowdActionId': crowdAction.id,
+        }),
       );
 
       if (response.statusCode == 200) {
@@ -117,12 +130,11 @@ class CrowdActionRepository implements ICrowdActionRepository {
     try {
       final response = await _client.get(
         Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions?status=joinable',
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions?status=STARTED&status=WAITING&pageSize=3',
         ),
       );
 
-      final responseBody = jsonDecode(response.body);
-
+      final responseBody = jsonDecode(response.body)['items'];
       return right(
         responseBody
             .map<CrowdAction>(
@@ -145,7 +157,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
       final tokenId = await user.getIdToken();
 
       final uri = Uri.parse(
-        '${dotenv.env['BASE_API_ENDPOINT_URL']}/crowdactions/${Uri.encodeComponent(crowdAction.crowdactionID)}/participation',
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/participations/${Uri.encodeComponent(crowdAction.id)}',
       );
 
       final response = await _client.get(
@@ -160,7 +172,7 @@ class CrowdActionRepository implements ICrowdActionRepository {
         final status = jsonDecode(response.body) as Map<String, dynamic>;
         final statusData = CrowdActionStatusDto.fromJson(status);
         if (statusData.userId == user.id &&
-            statusData.crowdActionId == crowdAction.crowdactionID &&
+            statusData.crowdActionId == crowdAction.id &&
             statusData.commitments.isNotEmpty) {
           return right(
             CrowdActionStatus.subscribed(
@@ -175,6 +187,48 @@ class CrowdActionRepository implements ICrowdActionRepository {
       return right(const CrowdActionStatus.notSubscribed());
     } catch (e) {
       return left(const CrowdActionFailure.networkRequestFailed());
+    }
+  }
+
+  @override
+  Future<Either<CrowdActionFailure, List<CrowdAction>>>
+      getCrowdActionsForUser() async {
+    // TODO: Implement Pagination
+    try {
+      final user = (await _authRepository.getSignedInUser()).getOrElse(
+        () => throw NotAuthenticatedError(),
+      );
+
+      final tokenId = await user.getIdToken();
+
+      final uri = Uri.parse(
+        '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions/me',
+      );
+
+      final response = await _client.get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $tokenId'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        return right(
+          responseBody['items']
+              .map<CrowdAction>(
+                (json) => CrowdActionDto.fromJson(
+                  json as Map<String, dynamic>,
+                ).toDomain(),
+              )
+              .toList() as List<CrowdAction>,
+        );
+      }
+
+      return left(const CrowdActionFailure.networkRequestFailed());
+    } catch (_) {
+      return left(const CrowdActionFailure.serverError());
     }
   }
 }

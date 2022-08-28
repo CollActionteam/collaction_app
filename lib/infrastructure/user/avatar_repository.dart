@@ -1,13 +1,17 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:image/image.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path/path.dart';
 
 import '../../domain/auth/errors.dart';
 import '../../domain/auth/i_auth_repository.dart';
@@ -18,7 +22,13 @@ import '../../domain/user/upload_failures.dart';
 class AvatarRepository implements IAvatarRepository, Disposable {
   final http.Client _client;
   final IAuthRepository _authRepository;
-  const AvatarRepository(this._client, this._authRepository);
+  final ISettingsRepository _settingsRepository;
+
+  const AvatarRepository(
+    this._client,
+    this._authRepository,
+    this._settingsRepository,
+  );
 
   @override
   Future<Either<UploadPathFailure, Uri>> getAvatarUploadPath() async {
@@ -29,7 +39,7 @@ class AvatarRepository implements IAvatarRepository, Disposable {
 
       final response = await _client.get(
         Uri.parse(
-          '${dotenv.env['BASE_API_ENDPOINT_URL']}/upload-profile-picture',
+          '${await _settingsRepository.baseApiEndpointUrl}/upload-profile-picture',
         ),
         headers: {
           'Content-Type': 'application/json',
@@ -50,16 +60,34 @@ class AvatarRepository implements IAvatarRepository, Disposable {
   @override
   Future<Either<UploadFailure, Unit>> uploadAvatar(
     File imageFile,
-    Uri uri,
   ) async {
     try {
       final imageBytes = await imageFile.readAsBytes();
-      final resizedImage = copyResize(decodeImage(imageBytes)!, width: 300);
-      final resizedBytes = encodePng(resizedImage);
-      final response = await _client.put(
-        uri,
-        body: resizedBytes,
+      final imageResized = copyResize(decodeImage(imageBytes)!, width: 200);
+      final resizedBytes = encodePng(imageResized);
+
+      final user = (await _authRepository.getSignedInUser())
+          .getOrElse(() => throw NotAuthenticatedError());
+      final token = await user.getIdToken();
+
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/profiles/me/image',
+        ),
       );
+
+      request.headers['Authorization'] = 'Bearer $token';
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'file',
+          resizedBytes,
+          contentType: MediaType('image', 'png'),
+          filename: basename(imageFile.path),
+        ),
+      );
+
+      final response = await request.send();
 
       if (response.statusCode == 200) {
         return right(unit);
@@ -73,7 +101,6 @@ class AvatarRepository implements IAvatarRepository, Disposable {
 
   @override
   FutureOr onDispose() {
-    // TODO: implement onDispose
-    throw UnimplementedError();
+    _client.close();
   }
 }

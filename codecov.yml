@@ -1,0 +1,22 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 0%
+        threshold: 0%
+        paths:
+          - "lib"
+    # Disable Patch because it is noisy and not always correct
+    patch:
+      default:
+        enabled: no
+        if_not_found: success
+
+ignore:
+  - "**/*.g.dart"
+  - "**/*.freezed.dart"
+  - "**/injection.config.dart"
+  - "lib/generated_plugin_registrant.dart"
+  - "**/*.gr.dart"
+  - "lib/presentation/licenses/oss_licenses.dart"
+  

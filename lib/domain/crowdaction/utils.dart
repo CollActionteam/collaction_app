@@ -10,6 +10,9 @@ const crowdActionCommitmentIcons = {
   'pescatarian': CollactionIcons.pescatarian,
   'no-dairy': CollactionIcons.no_dairy,
   'no-cheese': CollactionIcons.no_cheese,
+  'bike': CollactionIcons.bike,
+  'energy': CollactionIcons.energy,
 };
 
-IconData idToIcon(String id) => crowdActionCommitmentIcons[id]!;
+IconData mapIcon(String? icon) =>
+    crowdActionCommitmentIcons[icon] ?? CollactionIcons.no_beef;
