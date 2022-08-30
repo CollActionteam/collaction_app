@@ -37,16 +37,21 @@ class CrowdActionRepository implements ICrowdActionRepository {
         ),
         headers: {'Content-Type': 'application/json'},
       );
-
-      final responseBody = jsonDecode(response.body);
-      return right(
-        responseBody
-            .map<CrowdAction>(
-              (json) => CrowdActionDto.fromJson(json as Map<String, dynamic>)
-                  .toDomain(),
-            )
-            .toList() as List<CrowdAction>,
-      );
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        return right(
+          responseBody['items']
+              .map<CrowdAction>(
+                (json) => CrowdActionDto.fromJson(json as Map<String, dynamic>)
+                    .toDomain(),
+              )
+              .toList() as List<CrowdAction>,
+        );
+      } else {
+        return left(
+          const CrowdActionFailure.serverError(),
+        );
+      }
     } catch (error) {
       return left(const CrowdActionFailure.networkRequestFailed());
     }
