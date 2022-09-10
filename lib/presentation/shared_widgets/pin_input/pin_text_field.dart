@@ -7,6 +7,7 @@ class PinTextField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final ValueChanged<String> onChanged;
+  final VoidCallback? onPaste;
 
   const PinTextField({
     Key? key,
@@ -14,6 +15,7 @@ class PinTextField extends StatelessWidget {
     required this.controller,
     required this.focusNode,
     required this.onChanged,
+    this.onPaste,
   }) : super(key: key);
 
   @override
@@ -25,34 +27,41 @@ class PinTextField extends StatelessWidget {
       child: SizedBox(
         height: MediaQuery.of(context).size.width * 0.12,
         width: MediaQuery.of(context).size.width * 0.12,
-        child: TextFormField(
-          readOnly: readOnly,
-          controller: controller,
-          textAlignVertical: TextAlignVertical.center,
-          textAlign: TextAlign.center,
-          showCursor: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(fontSize: 28),
-          maxLength: 1,
-          decoration: InputDecoration(
-            contentPadding:
-                EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-            counterText: "",
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              borderSide: const BorderSide(width: 0, color: Colors.transparent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              borderSide: const BorderSide(color: kAccentColor),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              borderSide: const BorderSide(color: kAccentColor),
+        child: GestureDetector(
+          onLongPress: onPaste,
+          onTap: () => focusNode.requestFocus(),
+          child: AbsorbPointer(
+            child: TextFormField(
+              readOnly: readOnly,
+              controller: controller,
+              textAlignVertical: TextAlignVertical.center,
+              textAlign: TextAlign.center,
+              showCursor: false,
+              keyboardType: TextInputType.number,
+              style: const TextStyle(fontSize: 28),
+              maxLength: 1,
+              decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+                counterText: "",
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide:
+                      const BorderSide(width: 0, color: Colors.transparent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: const BorderSide(color: kAccentColor),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: const BorderSide(color: kAccentColor),
+                ),
+              ),
+              focusNode: focusNode,
+              onChanged: onChanged,
             ),
           ),
-          focusNode: focusNode,
-          onChanged: onChanged,
         ),
       ),
     );
