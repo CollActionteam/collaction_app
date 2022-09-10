@@ -159,12 +159,25 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                           const SizedBox(height: 10),
                           Center(
-                            child: Text(
-                              state.userProfile?.profile.firstName ?? 'You',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22,
-                              ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  state.userProfile?.profile.firstName ??
+                                      'Your',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                                Text(
+                                  state.userProfile?.profile.firstName ??
+                                      'Welcome',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           if (state.userProfile != null) ...[
