@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'pin_text_field.dart';
 
@@ -40,12 +41,14 @@ class PinInputState extends State<PinInput> {
       children: size
           .map(
             (index) => PinTextField(
+              key: ValueKey('pin_input_$index'),
               controller: controllers[index],
               focusNode: focusNodes[index],
               onChanged: (value) {
                 _onChanged(value, index);
               },
               readOnly: widget.readOnly,
+              onPaste: _onPaste,
             ),
           )
           .toList(growable: false),
@@ -85,6 +88,17 @@ class PinInputState extends State<PinInput> {
       digits.asMap().forEach((index, value) => controllers[index].text = value);
 
       widget.submit(_pin);
+    }
+  }
+
+  Future<void> _onPaste() async {
+    final pin = (await Clipboard.getData("text/plain"))?.text ?? '';
+
+    // Validate clipboard data
+    // * Should be same length as PIN
+    // * Should all be digits
+    if (pin.length == widget.pinLength && int.tryParse(pin) != null) {
+      autoComplete(pin);
     }
   }
 
