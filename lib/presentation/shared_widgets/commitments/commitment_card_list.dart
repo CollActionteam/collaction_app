@@ -1,12 +1,13 @@
 import 'package:collaction_app/application/participation/participation_bloc.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_app/presentation/shared_widgets/shimmers/commitment_card_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'commitment_card.dart';
 
 class CommitmentCardList extends StatefulWidget {
-  final List<CommitmentOption> commitmentOptions;
+  final List<CommitmentOption>? commitmentOptions;
   final List<CommitmentOption> selectedCommitments;
 
   /// Widget for easily creating a list of CommitmentCard(s)
@@ -25,6 +26,19 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
   Widget build(BuildContext context) {
     return BlocBuilder<ParticipationBloc, ParticipationState>(
       builder: (context, state) {
+        if (widget.commitmentOptions == null) {
+          return ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            physics: const BouncingScrollPhysics(),
+            children: const [
+              CommitmentCardShimmer(),
+              CommitmentCardShimmer(),
+              CommitmentCardShimmer(),
+            ],
+          );
+        }
+
         bool isParticipating = false;
 
         state.mapOrNull(
@@ -35,7 +49,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           physics: const BouncingScrollPhysics(),
           itemBuilder: (ctx, index) {
-            final option = widget.commitmentOptions[index];
+            final option = widget.commitmentOptions![index];
             return CommitmentCard(
               key: Key(option.id),
               commitment: option,
@@ -45,7 +59,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
               deactivated: isParticipating || isBlocked(option),
             );
           },
-          itemCount: widget.commitmentOptions.length,
+          itemCount: widget.commitmentOptions!.length,
           shrinkWrap: true,
         );
       },

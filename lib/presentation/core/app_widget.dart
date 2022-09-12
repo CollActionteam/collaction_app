@@ -1,4 +1,3 @@
-import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.dart';
 import 'package:collaction_app/application/user/profile/profile_bloc.dart';
 import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +17,6 @@ class AppWidget extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(
           create: (_) => getIt<AuthBloc>(),
-        ),
-        BlocProvider<SpotlightBloc>(
-          create: (_) => getIt<SpotlightBloc>(),
         ),
         BlocProvider<ProfileBloc>(
           create: (_) => getIt<ProfileBloc>()..add(GetUserProfile()),

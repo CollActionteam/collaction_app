@@ -5,6 +5,10 @@ import 'crowdaction_failures.dart';
 import 'crowdaction_status.dart';
 
 abstract class ICrowdActionRepository {
+  Future<Either<CrowdActionFailure, CrowdAction>> getCrowdAction(
+    String id,
+  );
+
   Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions({
     int amount = 0,
   });

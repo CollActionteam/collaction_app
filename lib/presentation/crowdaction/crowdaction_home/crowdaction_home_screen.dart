@@ -12,28 +12,24 @@ class CrowdActionHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SpotlightBloc>.value(
-      value: BlocProvider.of<SpotlightBloc>(context)
-        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
-      child: Scaffold(
-        body: SafeArea(
-          child: RefreshIndicator(
-            onRefresh: () async => BlocProvider.of<SpotlightBloc>(context)
-                .add(const SpotlightEvent.getSpotLightCrowdActions()),
-            color: kAccentColor,
-            child: SingleChildScrollView(
-              child: SizedBox(
-                width: double.infinity,
-                child: Column(
-                  children: const [
-                    InSpotLightHeader(),
-                    CurrentAndUpcomingLayout(),
-                    SizedBox(height: 20),
-                    ShareCollActionCard(),
-                    SizedBox(height: 20),
-                    CurrentAndUpcomingLayout(isCurrent: false)
-                  ],
-                ),
+    return Scaffold(
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async => BlocProvider.of<SpotlightBloc>(context)
+              .add(const SpotlightEvent.getSpotLightCrowdActions()),
+          color: kAccentColor,
+          child: SingleChildScrollView(
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: const [
+                  InSpotLightHeader(),
+                  CurrentAndUpcomingLayout(),
+                  SizedBox(height: 20),
+                  ShareCollActionCard(),
+                  SizedBox(height: 20),
+                  CurrentAndUpcomingLayout(isCurrent: false)
+                ],
               ),
             ),
           ),
