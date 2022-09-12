@@ -27,6 +27,30 @@ class CrowdActionRepository implements ICrowdActionRepository {
   );
 
   @override
+  Future<Either<CrowdActionFailure, CrowdAction>> getCrowdAction(
+    String id,
+  ) async {
+    try {
+      final response = await _client.get(
+        Uri.parse(
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions/$id',
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        final crowdActionDto = CrowdActionDto.fromJson(
+          jsonDecode(response.body) as Map<String, dynamic>,
+        );
+        return right(crowdActionDto.toDomain());
+      }
+
+      return left(const CrowdActionFailure.serverError());
+    } catch (ex) {
+      return left(const CrowdActionFailure.networkRequestFailed());
+    }
+  }
+
+  @override
   Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions({
     int amount = 0,
   }) async {
