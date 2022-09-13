@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ProfilePicture extends StatelessWidget {
   final File? image;
@@ -34,11 +32,7 @@ class ProfilePicture extends StatelessWidget {
         'assets/images/default_avatar.png',
       ),
       backgroundColor: Colors.transparent,
-      child: Shimmer.fromColors(
-        baseColor: kSecondaryTransparent,
-        highlightColor: kAlmostTransparent,
-        child: const CircleAvatar(radius: 50),
-      ),
+      child: const SizedBox.shrink(),
     );
   }
 }
