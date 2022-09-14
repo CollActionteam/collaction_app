@@ -14,10 +14,14 @@ class EnterUserName extends StatefulWidget {
 }
 
 class _EnterUserNameState extends State<EnterUserName> {
-  final _usernameController = TextEditingController();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
+  final _firstnameKey = GlobalKey();
+  final _lastnameKey = GlobalKey();
   final _formKey = GlobalKey<FormState>();
   bool _isNameValid = false;
-  String? _username;
+  String? _firstname;
+  String? _lastname;
 
   @override
   Widget build(BuildContext context) {
@@ -57,34 +61,69 @@ class _EnterUserNameState extends State<EnterUserName> {
               onChanged: () => setState(
                 () => _isNameValid = _formKey.currentState?.validate() == true,
               ),
-              child: TextFormField(
-                controller: _usernameController,
-                onChanged: (username) => _username = username,
-                style: const TextStyle(fontSize: 20.0),
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  hintText: 'Preferred name',
-                  helperText: "Use your real name or choose a user name",
-                  focusColor: kAccentColor,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide:
-                        const BorderSide(width: 0, color: Colors.transparent),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: _firstnameController,
+                    key: _firstnameKey,
+                    onChanged: (firstname) => _firstname = firstname,
+                    style: const TextStyle(fontSize: 20.0),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      hintText: 'Your First Name',
+                      focusColor: kAccentColor,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                            width: 0, color: Colors.transparent),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                            width: 0, color: Colors.transparent),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                            width: 0, color: Colors.transparent),
+                      ),
+                    ),
+                    validator: _validateFirstName,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                    ],
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide:
-                        const BorderSide(width: 0, color: Colors.transparent),
+                  const SizedBox(height: 25.0),
+                  TextFormField(
+                    controller: _lastnameController,
+                    key: _lastnameKey,
+                    onChanged: (lastname) => _lastname = lastname,
+                    style: const TextStyle(fontSize: 20.0),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      hintText: 'Your Last Name',
+                      focusColor: kAccentColor,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                            width: 0, color: Colors.transparent),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                            width: 0, color: Colors.transparent),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                            width: 0, color: Colors.transparent),
+                      ),
+                    ),
+                    validator: _validateLastName,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                    ],
                   ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide:
-                        const BorderSide(width: 0, color: Colors.transparent),
-                  ),
-                ),
-                validator: _validate,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9_.-]")),
                 ],
               ),
             ),
@@ -100,9 +139,8 @@ class _EnterUserNameState extends State<EnterUserName> {
                     onTap: () {
                       if (_isNameValid && state is! AwaitingUsernameUpdate) {
                         FocusScope.of(context).unfocus();
-                        context
-                            .read<AuthBloc>()
-                            .add(AuthEvent.updateUsername(_username!));
+                        context.read<AuthBloc>().add(
+                            AuthEvent.updateUsername(_firstname!, _lastname!));
                       }
                     },
                   ),
@@ -115,17 +153,33 @@ class _EnterUserNameState extends State<EnterUserName> {
     );
   }
 
-  String? _validate(String? value) {
+  String? _validateFirstName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Username is required";
+      return "First name is required";
     }
 
     if (value.length < 4 || value.length > 20) {
-      return "Username should be between 4 and 60 characters long";
+      return "First name should be between 4 and 60 characters long";
     }
 
-    if (!value.startsWith(RegExp("[a-zA-Z0-9]"))) {
-      return "Username should start with a letter or number";
+    if (!value.startsWith(RegExp("[a-zA-Z]"))) {
+      return "First name should start with a letter or number";
+    }
+
+    return null;
+  }
+
+  String? _validateLastName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "Last name is required";
+    }
+
+    if (value.length < 4 || value.length > 20) {
+      return "Last name should be between 4 and 60 characters long";
+    }
+
+    if (!value.startsWith(RegExp("[a-zA-Z]"))) {
+      return "Last name should start with a letter or number";
     }
 
     return null;
@@ -133,7 +187,8 @@ class _EnterUserNameState extends State<EnterUserName> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
     super.dispose();
   }
 }

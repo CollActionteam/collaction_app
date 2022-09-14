@@ -146,8 +146,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthState.awaitingUsernameUpdate());
 
-    final failureOrSuccess =
-        await _authRepository.updateUsername(username: event.username);
+    final failureOrSuccess = await _authRepository.updateUsername(
+        firstname: event.firstname, lastname: event.lastname);
 
     emit(
       failureOrSuccess.fold(

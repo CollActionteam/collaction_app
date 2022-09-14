@@ -159,4 +159,42 @@ class ProfileRepository implements IProfileRepository {
 
     return null;
   }
+
+  // update user name
+  @override
+  Future<Either<ProfileFailure, Unit>> updateUsername(
+      {String? firstname, String? lastname}) async {
+    try {
+      final userOption = await _authRepository.getSignedInUser();
+
+      return await userOption.fold(
+        () => left(const ProfileFailure.noUser()),
+        (user) async {
+          final token = await user.getIdToken();
+
+          final response = await _client.put(
+            Uri.parse(
+              '${await _settingsRepository.baseApiEndpointUrl}/v1/profiles',
+            ),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode({
+              "firstName": firstname,
+              "lastName": lastname,
+            }),
+          );
+
+          if (response.statusCode == 200) {
+            return right(unit);
+          }
+
+          return left(const ProfileFailure.unexpected());
+        },
+      );
+    } catch (_) {
+      return left(const ProfileFailure.unexpected());
+    }
+  }
 }

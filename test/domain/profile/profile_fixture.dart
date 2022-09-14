@@ -12,6 +12,7 @@ const cProfileDtoJson = {
 const cProfileDtoFromJson = ProfileDto(
   userId: "123456",
   firstName: "Jack",
+  lastName: "Ma",
   bio: "I am Jack!",
   avatar: 'avatar',
 );
@@ -19,6 +20,7 @@ const cProfileDtoFromJson = ProfileDto(
 const cProfileFromJson = Profile(
   userId: "123456",
   firstName: "Jack",
+  lastName: "Ma",
   bio: "I am Jack!",
   avatar: 'avatar',
 );

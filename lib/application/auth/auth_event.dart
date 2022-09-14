@@ -12,7 +12,8 @@ class AuthEvent with _$AuthEvent {
 
   const factory AuthEvent.resendCode() = _ResendCode;
 
-  const factory AuthEvent.updateUsername(String username) = _UpdateUsername;
+  const factory AuthEvent.updateUsername(String firstname, String lastname) =
+      _UpdateUsername;
 
   const factory AuthEvent.updateProfilePhoto(File photo) = _UpdateProfilePhoto;
 
