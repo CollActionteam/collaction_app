@@ -133,7 +133,7 @@ void main() {
         _profilePostUrl,
         headers: _httpHeader,
         body: jsonEncode({
-          "firstName": _user.displayName,
+          "firstName": _user.firstname,
           "lastName": "",
           "country": "NL",
           "bio": "My bio is currently empty",

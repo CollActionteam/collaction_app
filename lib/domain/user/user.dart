@@ -16,7 +16,6 @@ class User with _$User {
     id: 'anonymous',
     firstname: 'anonymous',
     lastname: 'anonymous',
-    displayName: '',
     getIdToken: getAnonymousIdToken,
   );
 
@@ -29,7 +28,6 @@ class User with _$User {
     DateTime? joinDate,
     String? firstname,
     String? lastname,
-    String? displayName,
     String? photoURL,
     String? email,
     String? phoneNumber,

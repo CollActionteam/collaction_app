@@ -50,10 +50,12 @@ class _VerifiedPageState extends State<VerifiedPage> {
                   stream: _userRepository.observeUser(),
                   builder: (context, AsyncSnapshot<User> snapshot) {
                     if (snapshot.hasData) {
-                      final _firstname = snapshot.data?.firstname ?? "";
+                      final String firstname = snapshot.data?.firstname ?? "";
+                      final String lastname = snapshot.data?.lastname ?? "";
+                      final displayname = "$firstname $lastname";
 
                       return Text(
-                        _firstname,
+                        displayname,
                         style: const TextStyle(
                           fontSize: 34,
                           fontWeight: FontWeight.w700,

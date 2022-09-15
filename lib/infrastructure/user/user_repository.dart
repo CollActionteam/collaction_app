@@ -28,7 +28,7 @@ class UserRepository implements IUserRepository, Disposable {
     } else {
       return User(
         id: firebaseUser.uid,
-        displayName: firebaseUser.displayName,
+        firstname: firebaseUser.displayName,
         phoneNumber: firebaseUser.phoneNumber,
         isPhoneNumberVerified: firebaseUser.phoneNumber != null,
         email: firebaseUser.email,

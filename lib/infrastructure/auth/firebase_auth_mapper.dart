@@ -10,7 +10,7 @@ extension FirebaseUserX on firebase_auth.User? {
     } else {
       return User(
         id: this!.uid,
-        displayName: this?.displayName,
+        firstname: this?.displayName,
         phoneNumber: this?.phoneNumber,
         isPhoneNumberVerified: this?.phoneNumber != null,
         email: this?.email,
