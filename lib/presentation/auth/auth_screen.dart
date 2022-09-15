@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
+import '../../application/auth/username_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
@@ -58,10 +59,10 @@ class _AuthPageState extends State<AuthPage> {
                 invalidSmsCode: (_) => "Invalid SMS Code",
               ),
             ),
-            usernameUpdateDone: (_) {
-              _toPage(3);
-              setState(() => _displayDots = false);
-            },
+            // usernameUpdateDone: (_) {
+            //   _toPage(3);
+            //   setState(() => _displayDots = false);
+            // },
             photoUpdateDone: (_) => _authDone(context),
             orElse: () {},
           );

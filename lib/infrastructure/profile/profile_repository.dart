@@ -77,8 +77,8 @@ class ProfileRepository implements IProfileRepository {
 
             /// TODO: Refactor to include actual country and city
             body: jsonEncode({
-              "firstName": user.displayName,
-              "lastName": "",
+              "firstName": user.firstname,
+              "lastName": user.lastname,
               "country": "NL",
               "bio": "My bio is currently empty",
             }),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/auth/auth_bloc.dart';
+import '../../../application/auth/username_bloc.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
@@ -25,7 +25,7 @@ class _EnterUserNameState extends State<EnterUserName> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
+    return BlocBuilder<UsernameBloc, UsernameState>(
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -139,8 +139,9 @@ class _EnterUserNameState extends State<EnterUserName> {
                     onTap: () {
                       if (_isNameValid && state is! AwaitingUsernameUpdate) {
                         FocusScope.of(context).unfocus();
-                        context.read<AuthBloc>().add(
-                            AuthEvent.updateUsername(_firstname!, _lastname!));
+                        context.read<UsernameBloc>().add(
+                            UsernameEvent.updateUsername(
+                                _firstname!, _lastname!));
                       }
                     },
                   ),

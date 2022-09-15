@@ -14,7 +14,9 @@ class User with _$User {
 
   static const User anonymous = User(
     id: 'anonymous',
-    displayName: 'anonymous',
+    firstname: 'anonymous',
+    lastname: 'anonymous',
+    displayName: '',
     getIdToken: getAnonymousIdToken,
   );
 
@@ -25,6 +27,8 @@ class User with _$User {
     required String id,
     required Future<String?> Function([bool forceRefresh]) getIdToken,
     DateTime? joinDate,
+    String? firstname,
+    String? lastname,
     String? displayName,
     String? photoURL,
     String? email,

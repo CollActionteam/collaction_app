@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 
 import '../../../application/auth/auth_bloc.dart';
+import '../../../application/auth/username_bloc.dart';
 import '../../../domain/auth/i_auth_repository.dart';
 import '../../../domain/user/user.dart';
 import '../../../infrastructure/core/injection.dart';
@@ -49,10 +50,10 @@ class _VerifiedPageState extends State<VerifiedPage> {
                   stream: _userRepository.observeUser(),
                   builder: (context, AsyncSnapshot<User> snapshot) {
                     if (snapshot.hasData) {
-                      final name = snapshot.data?.displayName ?? "";
+                      final _firstname = snapshot.data?.firstname ?? "";
 
                       return Text(
-                        name,
+                        _firstname,
                         style: const TextStyle(
                           fontSize: 34,
                           fontWeight: FontWeight.w700,
