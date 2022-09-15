@@ -38,9 +38,11 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
       lastname: event.lastname,
     );
 
-    emit(failureOrSuccess.fold(
-      (failure) => UsernameState.updateFailed(failure),
-      (_) => const UsernameState.usernameUpdateSuccessful(),
-    ));
+    emit(
+      failureOrSuccess.fold(
+        (failure) => UsernameState.updateFailed(failure),
+        (_) => const UsernameState.usernameUpdateSuccessful(),
+      ),
+    );
   }
 }

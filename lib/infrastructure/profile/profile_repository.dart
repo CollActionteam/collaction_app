@@ -162,8 +162,10 @@ class ProfileRepository implements IProfileRepository {
 
   // update user name
   @override
-  Future<Either<ProfileFailure, Unit>> updateUsername(
-      {String? firstname, String? lastname}) async {
+  Future<Either<ProfileFailure, Unit>> updateUsername({
+    String? firstname,
+    String? lastname,
+  }) async {
     try {
       final userOption = await _authRepository.getSignedInUser();
 

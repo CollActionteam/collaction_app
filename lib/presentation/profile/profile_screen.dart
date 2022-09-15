@@ -169,6 +169,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     fontSize: 22,
                                   ),
                                 ),
+                                const Text(
+                                  " ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 22,
+                                  ),
+                                ),
                                 Text(
                                   state.userProfile?.profile.lastName ??
                                       'There',

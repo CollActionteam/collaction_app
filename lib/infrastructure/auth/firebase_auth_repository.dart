@@ -116,7 +116,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   }) async {
     try {
       final user = firebaseAuth.currentUser!;
-      final String username = firstname + ' ' + lastname;
+      final String username = '$firstname $lastname';
       await user.updateDisplayName(username);
 
       return right(unit);

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 
 import '../../../application/auth/auth_bloc.dart';
-import '../../../application/auth/username_bloc.dart';
 import '../../../domain/auth/i_auth_repository.dart';
 import '../../../domain/user/user.dart';
 import '../../../infrastructure/core/injection.dart';
