@@ -97,7 +97,7 @@ class _EnterUserNameState extends State<EnterUserName> {
                           ),
                         ),
                       ),
-                      validator: _validateFirstName,
+                      validator: (value) => _validateName(value),
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
                       ],
@@ -133,7 +133,8 @@ class _EnterUserNameState extends State<EnterUserName> {
                           ),
                         ),
                       ),
-                      validator: _validateLastName,
+                      validator: (value) =>
+                          _validateName(value, firstName: false, minLength: 4),
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
                       ],
@@ -172,33 +173,21 @@ class _EnterUserNameState extends State<EnterUserName> {
     );
   }
 
-  String? _validateFirstName(String? value) {
+  String? _validateName(
+    String? value, {
+    bool firstName = true,
+    int minLength = 2,
+  }) {
     if (value == null || value.trim().isEmpty) {
-      return "First name is required";
+      return "${firstName ? 'First' : 'Last'} name is required";
     }
 
-    if (value.length < 4 || value.length > 20) {
-      return "First name should be between 4 and 60 characters long";
+    if (value.length < minLength || value.length > 20) {
+      return "${firstName ? 'First' : 'Last'} name should be between 4 and 60 characters long";
     }
 
     if (!value.startsWith(RegExp("[a-zA-Z]"))) {
-      return "First name should start with a letter or number";
-    }
-
-    return null;
-  }
-
-  String? _validateLastName(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return "Last name is required";
-    }
-
-    if (value.length < 4 || value.length > 20) {
-      return "Last name should be between 4 and 60 characters long";
-    }
-
-    if (!value.startsWith(RegExp("[a-zA-Z]"))) {
-      return "Last name should start with a letter or number";
+      return "${firstName ? 'First' : 'Last'} name should start with a letter or number";
     }
 
     return null;

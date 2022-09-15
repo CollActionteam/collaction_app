@@ -163,27 +163,22 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  state.userProfile?.profile.firstName ?? 'Hi ',
+                                  state.userProfile?.profile.firstName ?? 'You',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 22,
                                   ),
                                 ),
-                                const Text(
-                                  " ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 22,
+                                if (state.userProfile?.profile.lastName !=
+                                    null) ...[
+                                  Text(
+                                    ' ${state.userProfile!.profile.lastName}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 22,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  state.userProfile?.profile.lastName ??
-                                      'There',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 22,
-                                  ),
-                                ),
+                                ]
                               ],
                             ),
                           ),

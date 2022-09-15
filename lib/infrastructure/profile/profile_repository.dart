@@ -160,7 +160,6 @@ class ProfileRepository implements IProfileRepository {
     return null;
   }
 
-  // update user name
   @override
   Future<Either<ProfileFailure, Unit>> updateUsername({
     String? firstname,
