@@ -85,7 +85,7 @@ class _AuthPageState extends State<AuthPage> {
                         children: [
                           const VerifyPhonePage(),
                           const EnterVerificationCode(),
-                          const EnterUserName(),
+                          EnterUserName(onDone: _usernameDone),
                           SelectProfilePhoto(onSkip: () => _authDone(context))
                         ],
                       ),
@@ -119,4 +119,6 @@ class _AuthPageState extends State<AuthPage> {
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeIn,
       );
+
+  void _usernameDone() => _toPage(3);
 }
