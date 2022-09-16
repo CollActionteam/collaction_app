@@ -58,10 +58,6 @@ class _AuthPageState extends State<AuthPage> {
                 invalidSmsCode: (_) => "Invalid SMS Code",
               ),
             ),
-            // usernameUpdateDone: (_) {
-            //   _toPage(3);
-            //   setState(() => _displayDots = false);
-            // },
             photoUpdateDone: (_) => _authDone(context),
             orElse: () {},
           );

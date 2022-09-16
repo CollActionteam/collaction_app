@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:collaction_app/domain/user/i_profile_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,7 +14,7 @@ part 'username_bloc.freezed.dart';
 
 @injectable
 class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
-  final IAuthRepository profileRepository;
+  final IProfileRepository profileRepository;
 
   UsernameBloc(this.profileRepository) : super(const _Initial()) {
     on<UsernameEvent>(
@@ -26,7 +27,6 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
     );
   }
 
-  // update username
   FutureOr<void> _mapUpdateUsernameToState(
     Emitter<UsernameState> emit,
     _UpdateUsername event,
@@ -40,7 +40,7 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
 
     emit(
       failureOrSuccess.fold(
-        (failure) => UsernameState.updateFailed(failure),
+        (failure) => const UsernameState.updateFailed(),
         (_) => const UsernameState.usernameUpdateSuccessful(),
       ),
     );

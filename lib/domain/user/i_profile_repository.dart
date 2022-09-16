@@ -10,7 +10,7 @@ abstract class IProfileRepository {
     String? bio,
   });
   Future<Either<ProfileFailure, Unit>> updateUsername({
-    String? firstname,
-    String? lastname,
+    required String firstname,
+    required String lastname,
   });
 }

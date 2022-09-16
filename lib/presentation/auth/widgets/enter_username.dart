@@ -39,9 +39,9 @@ class _EnterUserNameState extends State<EnterUserName> {
               /// TODO: Loading indication
             },
             usernameUpdateSuccessful: () {
-              widget.onDone.call();
+              widget.onDone();
             },
-            updateFailed: (failure) {
+            updateFailed: () {
               /// TODO: Show error snackbar | Implement failures
             },
           );

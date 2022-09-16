@@ -110,24 +110,6 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> updateUsername({
-    required String firstname,
-    required String lastname,
-  }) async {
-    try {
-      final user = firebaseAuth.currentUser!;
-      final String username = '$firstname $lastname';
-      await user.updateDisplayName(username);
-
-      return right(unit);
-    } on firebase_auth.FirebaseAuthException catch (error) {
-      return left(error.toFailure());
-    } catch (_) {
-      return left(const AuthFailure.serverError());
-    }
-  }
-
-  @override
   Future<Either<AuthFailure, Unit>> updatePhoto({required File photo}) async {
     try {
       // TODO Upload photo to storage
