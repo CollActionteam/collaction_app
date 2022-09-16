@@ -10,12 +10,10 @@ extension FirebaseUserX on firebase_auth.User? {
     } else {
       return User(
         id: this!.uid,
-        displayName: this?.displayName,
         phoneNumber: this?.phoneNumber,
         isPhoneNumberVerified: this?.phoneNumber != null,
         email: this?.email,
         isEmailVerified: this!.emailVerified,
-        photoURL: this?.photoURL,
         getIdToken: this!.getIdToken,
         joinDate: this!.metadata.creationTime,
       );

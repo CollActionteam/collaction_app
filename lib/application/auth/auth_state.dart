@@ -33,12 +33,6 @@ class AuthState with _$AuthState {
   /// Code is being resent
   const factory AuthState.awaitingCodeResend() = AwaitingCodeResend;
 
-  /// Username/Display name is being updated
-  const factory AuthState.awaitingUsernameUpdate() = AwaitingUsernameUpdate;
-
-  /// Username/Display update done
-  const factory AuthState.usernameUpdateDone() = _UsernameUpdateDone;
-
   /// Profile Photo is being updated
   const factory AuthState.awaitingPhotoUpdate() = AwaitingProfilePhotoUpdate;
 
