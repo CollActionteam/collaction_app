@@ -53,7 +53,7 @@ class CrowdActionsTab extends StatelessWidget {
                 ),
               ),
             ],
-            if (user == null) ...[
+            if (user == null || (crowdActions?.isEmpty ?? false)) ...[
               SignUpCTA(
                 user: user,
                 title: 'All CrowdActions you have participated in',
