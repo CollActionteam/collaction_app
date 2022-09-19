@@ -118,7 +118,9 @@ class _EnterUserNameState extends State<EnterUserName> {
                         ),
                         validator: (value) => _validateName(value),
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                          FilteringTextInputFormatter.allow(
+                            RegExp("[a-zA-ZæÆøØåÅ]"),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 25.0),
@@ -158,7 +160,9 @@ class _EnterUserNameState extends State<EnterUserName> {
                           minLength: 4,
                         ),
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                          FilteringTextInputFormatter.allow(
+                            RegExp("[a-zA-ZæÆøØåÅ]"),
+                          ),
                         ],
                       ),
                     ],
@@ -217,11 +221,11 @@ class _EnterUserNameState extends State<EnterUserName> {
     }
 
     if (value.length < minLength || value.length > 20) {
-      return "${firstName ? 'First' : 'Last'} name should be between 4 and 60 characters long";
+      return "${firstName ? 'First' : 'Last'} name should be between $minLength and 20 characters long";
     }
 
-    if (!value.startsWith(RegExp("[a-zA-Z]"))) {
-      return "${firstName ? 'First' : 'Last'} name should start with a letter or number";
+    if (!value.startsWith(RegExp("[a-zA-ZæÆøØåÅ]"))) {
+      return "${firstName ? 'First' : 'Last'} name should start with a letter";
     }
 
     return null;
