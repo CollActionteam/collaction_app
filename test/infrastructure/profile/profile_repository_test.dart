@@ -22,16 +22,16 @@ void main() {
   late http.Client client;
   late ISettingsRepository settingsRepository;
 
-  const _baseUrl = 'https://example.com';
-  final _profileGetUrl = Uri.parse('$_baseUrl/v1/profiles/me');
-  final _profilePostUrl = Uri.parse('$_baseUrl/v1/profiles');
-  const _profileJson = cProfileDtoJson;
+  const baseUrl = 'https://example.com';
+  final profileGetUrl = Uri.parse('$baseUrl/v1/profiles/me');
+  final profilePostUrl = Uri.parse('$baseUrl/v1/profiles');
+  const profileJson = cProfileDtoJson;
 
   /// Auth
-  const _user = cUser;
-  final _profile = ProfileDto.fromJson(_profileJson).toDomain();
-  final _userProfile = UserProfile(user: cUser, profile: _profile);
-  const _httpHeader = {
+  const user = cUser;
+  final profile = ProfileDto.fromJson(profileJson).toDomain();
+  final userProfile = UserProfile(user: cUser, profile: profile);
+  const httpHeader = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $cAuthToken',
   };
@@ -47,7 +47,7 @@ void main() {
     );
 
     when(() => settingsRepository.baseApiEndpointUrl)
-        .thenAnswer((_) async => _baseUrl);
+        .thenAnswer((_) async => baseUrl);
   });
 
   test(
@@ -65,7 +65,7 @@ void main() {
     expect(resultOrFailure.isLeft(), equals(true));
     expect((resultOrFailure as Left).value, isA<NoUser>());
 
-    verifyNever(() => client.get(_profileGetUrl));
+    verifyNever(() => client.get(profileGetUrl));
   });
 
   test(
@@ -74,11 +74,11 @@ void main() {
       'and the http request to get profile is successful', () async {
     /// arrange
     when(() => authRepository.getSignedInUser())
-        .thenAnswer((_) async => some(_user));
+        .thenAnswer((_) async => some(user));
 
-    when(() => client.get(_profileGetUrl, headers: any(named: 'headers')))
+    when(() => client.get(profileGetUrl, headers: any(named: 'headers')))
         .thenAnswer((_) async {
-      return http.Response(jsonEncode(_profileJson), 200);
+      return http.Response(jsonEncode(profileJson), 200);
     });
 
     /// act
@@ -86,9 +86,9 @@ void main() {
 
     /// assert
     expect(resultOrFailure.isRight(), equals(true));
-    expect((resultOrFailure as Right).value, equals(_userProfile));
+    expect((resultOrFailure as Right).value, equals(userProfile));
 
-    verify(() => client.get(_profileGetUrl, headers: _httpHeader)).called(1);
+    verify(() => client.get(profileGetUrl, headers: httpHeader)).called(1);
   });
 
   test(
@@ -97,22 +97,22 @@ void main() {
       'and the http request to get profile is unsuccessful', () async {
     /// arrange
     when(() => authRepository.getSignedInUser())
-        .thenAnswer((_) async => some(_user));
+        .thenAnswer((_) async => some(user));
 
     final List<Future<http.Response> Function(Invocation)> responses = [
       /// First request fails to obtain profile
       (_) async => http.Response(jsonEncode({}), 500),
 
       /// After profile creation request, second call should pass
-      (_) async => http.Response(jsonEncode(_profileJson), 200),
+      (_) async => http.Response(jsonEncode(profileJson), 200),
     ];
 
-    when(() => client.get(_profileGetUrl, headers: any(named: 'headers')))
+    when(() => client.get(profileGetUrl, headers: any(named: 'headers')))
         .thenAnswer((invocation) => responses.removeAt(0)(invocation));
 
     when(
       () => client.post(
-        _profilePostUrl,
+        profilePostUrl,
         headers: any(named: 'headers'),
         body: any(named: 'body'),
       ),
@@ -125,15 +125,15 @@ void main() {
 
     /// assert
     expect(resultOrFailure.isRight(), equals(true));
-    expect((resultOrFailure as Right).value, equals(_userProfile));
+    expect((resultOrFailure as Right).value, equals(userProfile));
 
-    verify(() => client.get(_profileGetUrl, headers: _httpHeader)).called(2);
+    verify(() => client.get(profileGetUrl, headers: httpHeader)).called(2);
     verify(
       () => client.post(
-        _profilePostUrl,
-        headers: _httpHeader,
+        profilePostUrl,
+        headers: httpHeader,
         body: jsonEncode({
-          "firstName": _user.displayName,
+          "firstName": user.displayName,
           "lastName": "",
           "country": "NL",
           "bio": "My bio is currently empty",

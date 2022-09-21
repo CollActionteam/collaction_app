@@ -23,7 +23,7 @@ class CaptivePage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              ColoredBox(
                 color: kAlmostTransparent,
                 child: SafeArea(
                   bottom: false,
@@ -40,8 +40,8 @@ class CaptivePage extends StatelessWidget {
                               ),
                               style: ElevatedButton.styleFrom(
                                 shape: const CircleBorder(),
-                                primary: Colors.white,
-                                onPrimary: kPrimaryColor0,
+                                backgroundColor: Colors.white,
+                                foregroundColor: kPrimaryColor0,
                                 tapTargetSize: MaterialTapTargetSize.padded,
                               ).merge(
                                 ButtonStyle(
@@ -74,7 +74,7 @@ class CaptivePage extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              ColoredBox(
                 color: Colors.white,
                 child: Column(
                   children: [

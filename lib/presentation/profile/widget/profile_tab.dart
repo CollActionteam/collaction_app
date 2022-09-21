@@ -101,7 +101,7 @@ class _UserProfileTabState extends State<UserProfileTab>
               BlocBuilder<ProfileTabBloc, ProfileTabState>(
                 builder: (context, state) {
                   return Expanded(
-                    child: Container(
+                    child: ColoredBox(
                       color: Colors.white,
                       child: TabBarView(
                         controller: _tabController,
