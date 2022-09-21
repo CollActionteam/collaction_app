@@ -48,7 +48,7 @@ class PillButton extends StatelessWidget {
             ? ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  primary: kAccentColor,
+                  backgroundColor: kAccentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),

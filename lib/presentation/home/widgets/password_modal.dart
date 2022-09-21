@@ -164,8 +164,8 @@ class _PasswordModalState extends State<PasswordModal> {
   }
 
   Future<void> addCrowdActionAccess() async {
-    final _settingsRepository = getIt<ISettingsRepository>();
-    await _settingsRepository.addCrowdActionAccess(
+    final settingsRepository = getIt<ISettingsRepository>();
+    await settingsRepository.addCrowdActionAccess(
       crowdActionId: widget.crowdAction.id,
     );
   }
@@ -182,10 +182,10 @@ Future<void> showPasswordModal(
   CrowdAction crowdAction, {
   bool viewOnly = false,
 }) async {
-  final _settingsRepository = getIt<ISettingsRepository>();
-  final _accessList = await _settingsRepository.getCrowdActionAccessList();
+  final settingsRepository = getIt<ISettingsRepository>();
+  final accessList = await settingsRepository.getCrowdActionAccessList();
 
-  if (_accessList.contains(crowdAction.id)) {
+  if (accessList.contains(crowdAction.id)) {
     context.router.push(
       CrowdActionDetailsRoute(crowdAction: crowdAction, viewOnly: viewOnly),
     );

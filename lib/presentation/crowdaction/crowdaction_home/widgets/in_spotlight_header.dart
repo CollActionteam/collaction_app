@@ -77,17 +77,17 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                           textColor: Colors.white,
                         );
                       },
-                      spotLightCrowdActions: (_pages) {
+                      spotLightCrowdActions: (pages) {
                         return Column(
                           children: [
                             ExpandablePageView.builder(
                               itemBuilder: (ctx, index) {
-                                final crowdAction = _pages[index];
+                                final crowdAction = pages[index];
                                 return CrowdActionCard(
                                   crowdAction: crowdAction,
                                 );
                               },
-                              itemCount: _pages.length,
+                              itemCount: pages.length,
                               controller: _pageController,
                             ),
                             const SizedBox(height: 5),
@@ -96,7 +96,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                                 const Expanded(child: SizedBox()),
                                 DotsIndicator(
                                   position: _currentPage,
-                                  dotsCount: _pages.length,
+                                  dotsCount: pages.length,
                                   decorator: const DotsDecorator(
                                     activeColor: kAccentColor,
                                     color: Color(0xFFCCCCCC),
@@ -127,7 +127,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
   }
 
   String sectionHeadingText() {
-    final _month = DateFormat.MMMM().format(DateTime.now());
-    return "$_month's CrowdActions";
+    final month = DateFormat.MMMM().format(DateTime.now());
+    return "$month's CrowdActions";
   }
 }

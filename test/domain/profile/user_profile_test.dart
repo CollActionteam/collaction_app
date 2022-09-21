@@ -6,22 +6,23 @@ import 'profile_fixture.dart';
 
 void main() {
   group('Tests covering UserProfile', () {
-    Future<String?> _getAnonymousIdToken([bool forceRefresh = false]) =>
+    //ignore: avoid_positional_boolean_parameters
+    Future<String?> getAnonymousIdToken([bool forceRefresh = false]) =>
         Future.value();
     const cAnonUser = User.anonymous;
-    final cUser = User(id: 'test', getIdToken: _getAnonymousIdToken);
+    final cUser = User(id: 'test', getIdToken: getAnonymousIdToken);
     final cUserProfile = UserProfile(user: cUser, profile: cProfileFromJson);
     const cAnonymousProfile =
         UserProfile(user: cAnonUser, profile: cProfileFromJson);
     final cUserJoinDate = User(
       id: 'test',
       joinDate: DateTime(2022, 12),
-      getIdToken: _getAnonymousIdToken,
+      getIdToken: getAnonymousIdToken,
     );
 
     test('Test non-anonymous UserProfile', () {
       final tUserProfile = UserProfile(
-        user: User(id: 'test', getIdToken: _getAnonymousIdToken),
+        user: User(id: 'test', getIdToken: getAnonymousIdToken),
         profile: cProfileFromJson,
       );
 
@@ -45,7 +46,7 @@ void main() {
     });
 
     test('Test default values', () {
-      final tUser = User(id: 'test', getIdToken: _getAnonymousIdToken);
+      final tUser = User(id: 'test', getIdToken: getAnonymousIdToken);
 
       expect(tUser.isEmailVerified, false);
       expect(tUser.isPhoneNumberVerified, false);

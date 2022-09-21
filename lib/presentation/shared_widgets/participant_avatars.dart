@@ -38,7 +38,7 @@ class ParticipantAvatars extends StatelessWidget {
                   participant.imageUrl!,
                 ), // Provide your custom image
               )
-            : Container(
+            : DecoratedBox(
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(20),

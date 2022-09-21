@@ -65,12 +65,12 @@ class SettingsRepository implements ISettingsRepository, Disposable {
   @override
   Future<void> addCrowdActionAccess({required String crowdActionId}) async {
     await _initCompleter.future;
-    final _crowdActionAccessList =
+    final crowdActionAccessList =
         _prefs.getStringList(_prefsKeyCrowdActionAccessList) ?? [];
-    _crowdActionAccessList.add(crowdActionId);
+    crowdActionAccessList.add(crowdActionId);
     _prefs.setStringList(
       _prefsKeyCrowdActionAccessList,
-      _crowdActionAccessList,
+      crowdActionAccessList,
     );
   }
 

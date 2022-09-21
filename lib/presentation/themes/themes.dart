@@ -20,7 +20,7 @@ ThemeData lightTheme(BuildContext context) {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: kAccentColor,
+        foregroundColor: kAccentColor,
       ),
     ),
     inputDecorationTheme: const InputDecorationTheme(
