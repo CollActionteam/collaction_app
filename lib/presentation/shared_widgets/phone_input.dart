@@ -210,7 +210,10 @@ class _PhoneInputState extends State<PhoneInput> {
   Future<bool> _validatePhone(CountryDetails country, String number) async {
     final dialCode = country.dialCode?.toCode();
     final phoneNumber = "$dialCode ${number.trim()}";
-    validatedNumber = await plugin.validate(phoneNumber, country.alpha2Code!);
+    validatedNumber = await plugin.validate(
+      phoneNumber,
+      regionCode: country.alpha2Code,
+    );
 
     _triggerPhoneReturn(PhoneResponse(country.alpha2Code!, phoneNumber));
     _triggerValidReturn(validatedNumber);
