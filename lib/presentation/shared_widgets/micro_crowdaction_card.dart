@@ -70,7 +70,11 @@ class MicroCrowdActionCard extends StatelessWidget {
                       Row(
                         children: [
                           AccentChip(
-                            text: crowdAction.isOpen ? "Open" : "Closed",
+                            text: crowdAction.isOpen
+                                ? "Now open"
+                                : (crowdAction.isEnded
+                                    ? "Finished"
+                                    : "Currently running"),
                             color: crowdAction.isOpen
                                 ? kAccentColor
                                 : kPrimaryColor200,
