@@ -1,19 +1,19 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
 import 'package:collaction_app/application/participation/participation_bloc.dart';
 import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dart';
+import 'package:collaction_app/presentation/core/routes/app_page.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_chips.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_details_banner.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_title.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participation_count_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../infrastructure/core/injection.dart';
-import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../shared_widgets/expandable_text.dart';
 import '../../shared_widgets/pill_button.dart';
@@ -368,8 +368,8 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   }
 
   void _createAccount(BuildContext context) {
-    Navigator.of(context).pop();
-    context.router.push(const AuthRoute());
+    context.pop();
+    context.push(AppPage.auth.toPath);
   }
 }
 

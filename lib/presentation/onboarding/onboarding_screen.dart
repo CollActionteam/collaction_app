@@ -1,7 +1,8 @@
 // TODO: Route to this screen if first time user
-import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/core/routes/app_page.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
@@ -101,7 +102,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               child: TextButton(
                 onPressed: () => settingsRepository
                     .setWasUserOnboarded(wasOnboarded: true)
-                    .then((_) => context.router.pop()),
+                    .then((_) => context.pop()),
                 child: const Text(
                   "Skip",
                   style: TextStyle(
@@ -130,7 +131,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   void getStarted() {
     // TODO: Replace with authentication route ( context.router.replace(AuthenticationRoute); ) - => and arrow function
     settingsRepository.setWasUserOnboarded(wasOnboarded: true).then(
-          (_) => context.router.popUntilRoot(),
+          (_) => context.replace(AppPage.auth.toPath),
         );
   }
 }

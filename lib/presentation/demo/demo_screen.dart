@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/core/routes/app_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
-import '../routes/app_routes.gr.dart';
 import '../shared_widgets/rectangle_button.dart';
 import 'components_demo/current_user_status_text.dart';
 
@@ -34,7 +34,7 @@ class DemoPage extends StatelessWidget {
                       child: RectangleButton(
                         text: "Reusable Components",
                         onTap: () =>
-                            context.router.push(const ComponentsDemoRoute()),
+                            context.push(AppPage.componentsDemo.toPath),
                       ),
                     ),
                   ],
@@ -45,8 +45,7 @@ class DemoPage extends StatelessWidget {
                     Expanded(
                       child: RectangleButton(
                         text: "Contact Form",
-                        onTap: () =>
-                            context.router.push(const ContactFormRoute()),
+                        onTap: () => context.push(AppPage.contactForm.toPath),
                       ),
                     ),
                   ],
@@ -57,8 +56,7 @@ class DemoPage extends StatelessWidget {
                     Expanded(
                       child: RectangleButton(
                         text: "Onboarding",
-                        onTap: () =>
-                            context.router.push(const OnboardingRoute()),
+                        onTap: () => context.push(AppPage.onBoarding.toPath),
                       ),
                     ),
                   ],
@@ -75,7 +73,7 @@ class DemoPage extends StatelessWidget {
                     Expanded(
                       child: RectangleButton(
                         text: "Register",
-                        onTap: () => context.router.push(const AuthRoute()),
+                        onTap: () => context.push(AppPage.auth.toPath),
                       ),
                     ),
                   ],

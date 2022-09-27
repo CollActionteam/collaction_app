@@ -1,15 +1,16 @@
 import 'package:collaction_app/application/user/profile/profile_bloc.dart';
 import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dart';
+import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../../infrastructure/core/injection.dart';
-import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
+import 'routes/router.dart';
 
 class AppWidget extends StatelessWidget {
-  final _appRouter = AppRouter();
+  final _appRouter = AppRouter(getIt<ISettingsRepository>());
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +35,9 @@ class AppWidget extends StatelessWidget {
           color: Colors.white,
           title: 'CollAction',
           theme: lightTheme(context),
-          routerDelegate: _appRouter.delegate(),
-          routeInformationParser: _appRouter.defaultRouteParser(),
+          routeInformationProvider: _appRouter.router.routeInformationProvider,
+          routeInformationParser: _appRouter.router.routeInformationParser,
+          routerDelegate: _appRouter.router.routerDelegate,
         ),
       ),
     );

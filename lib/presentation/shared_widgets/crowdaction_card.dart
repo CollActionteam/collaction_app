@@ -1,12 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../core/collaction_icons.dart';
+import '../core/routes/app_page.dart';
 import '../home/widgets/password_modal.dart';
-import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
 import 'custom_fab.dart';
 
@@ -30,8 +30,12 @@ class CrowdActionCard extends StatelessWidget {
             if (crowdAction.hasPassword) {
               showPasswordModal(context, crowdAction);
             } else {
-              context.router.push(
-                CrowdActionDetailsRoute(crowdAction: crowdAction),
+              // TODO: Use id
+              context.push(
+                AppPage.crowdActionDetails.toPath,
+                extra: <String, Object?>{
+                  'crowdAction': crowdAction,
+                },
               );
             }
           },

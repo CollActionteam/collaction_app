@@ -29,6 +29,8 @@ class SettingsRepository implements ISettingsRepository, Disposable {
     ]).then(_initCompleter.complete);
   }
 
+  bool? _isOnBoarded;
+
   @override
   FutureOr onDispose() => _streamSubscription.cancel();
 
@@ -46,14 +48,17 @@ class SettingsRepository implements ISettingsRepository, Disposable {
 
   @override
   Future<bool> getWasUserOnboarded() async {
+    if (_isOnBoarded != null) return _isOnBoarded ?? false;
     await _initCompleter.future;
-    return _prefs.getBool(_prefsKeyWasUserOnboarded) ?? false;
+    _isOnBoarded = _prefs.getBool(_prefsKeyWasUserOnboarded) ?? false;
+    return _isOnBoarded ?? false;
   }
 
   @override
   Future<void> setWasUserOnboarded({required bool wasOnboarded}) async {
     await _initCompleter.future;
     _prefs.setBool(_prefsKeyWasUserOnboarded, wasOnboarded);
+    _isOnBoarded = wasOnboarded;
   }
 
   @override

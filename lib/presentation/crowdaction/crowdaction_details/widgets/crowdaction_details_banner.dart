@@ -1,13 +1,14 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:collaction_app/presentation/shared_widgets/custom_fab.dart';
 import 'package:collaction_app/presentation/shared_widgets/image_skeleton_loader.dart';
 import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../core/collaction_icons.dart';
 
 class CrowdActionDetailsBanner extends StatelessWidget {
   const CrowdActionDetailsBanner({
@@ -37,7 +38,7 @@ class CrowdActionDetailsBanner extends StatelessWidget {
               elevation: 4,
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
-                onTap: () => context.router.pop(),
+                onTap: () => context.pop(),
                 child: const Icon(
                   CollactionIcons.left,
                   color: kPrimaryColor400,

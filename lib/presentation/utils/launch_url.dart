@@ -1,8 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../routes/app_routes.gr.dart';
+import '../core/routes/app_page.dart';
 
 /// Launches a URL, either in a webview or by using
 /// the default browser of the phone, if URL is reachable.
@@ -21,7 +21,7 @@ Future<void> launchUrl(
   if (await canLaunchUrl(Uri.parse(url))) {
     if (useWebView) {
       if (context != null) {
-        context.router.push(WebViewRoute(url: url));
+        context.push(AppPage.webView.toPath, extra: url);
         return;
       }
       launchUrl(url, useWebView: true);

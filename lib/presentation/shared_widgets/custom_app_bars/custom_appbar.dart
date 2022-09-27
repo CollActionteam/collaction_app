@@ -1,5 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
@@ -25,7 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                onPressed: () => context.router.pop(),
+                onPressed: () => context.pop(),
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(const CircleBorder()),
                   backgroundColor: MaterialStateProperty.all(kSecondaryColor),
@@ -46,7 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () => context.router.pop(),
+              onPressed: () => context.pop(),
               style: ElevatedButton.styleFrom(
                 foregroundColor: kPrimaryColor0,
                 backgroundColor: Colors.white,

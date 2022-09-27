@@ -1,5 +1,6 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/core/routes/app_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // TODO this was used previously. Maybe refactor?
 // import '../../../presentation/shared_widgets/custom_fab.dart';
@@ -9,7 +10,6 @@ import '../../presentation/shared_widgets/content_placeholder.dart';
 import '../../presentation/themes/constants.dart';
 import '../core/collaction_icons.dart';
 import '../crowdaction/crowdaction_home/widgets/share_collaction_card.dart';
-import '../routes/app_routes.gr.dart';
 
 class CaptivePage extends StatelessWidget {
   const CaptivePage({super.key});
@@ -35,9 +35,8 @@ class CaptivePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             ElevatedButton(
-                              onPressed: () => context.router.push(
-                                const SettingsRoute(),
-                              ),
+                              onPressed: () =>
+                                  context.push(AppPage.settings.toPath),
                               style: ElevatedButton.styleFrom(
                                 shape: const CircleBorder(),
                                 backgroundColor: Colors.white,

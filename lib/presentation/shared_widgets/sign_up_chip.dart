@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/user/i_user_repository.dart';
 import '../../../domain/user/user.dart';
 import '../../../infrastructure/core/injection.dart';
-import '../routes/app_routes.gr.dart';
+import '../core/routes/app_page.dart';
 import 'accent_chip.dart';
 
 class SignUpChip extends StatefulWidget {
@@ -23,7 +23,7 @@ class _SignUpChipState extends State<SignUpChip> {
           return const SizedBox();
         } else {
           return GestureDetector(
-            onTap: () => context.router.push(const AuthRoute()),
+            onTap: () => context.push(AppPage.auth.toPath),
             child: const AccentChip(
               text: "Sign up now",
               leading: Icon(
