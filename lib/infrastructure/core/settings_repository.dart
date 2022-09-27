@@ -48,10 +48,10 @@ class SettingsRepository implements ISettingsRepository, Disposable {
 
   @override
   Future<bool> getWasUserOnboarded() async {
-    if (_isOnBoarded != null) return _isOnBoarded ?? false;
+    if (_isOnBoarded != null) return _isOnBoarded!;
     await _initCompleter.future;
     _isOnBoarded = _prefs.getBool(_prefsKeyWasUserOnboarded) ?? false;
-    return _isOnBoarded ?? false;
+    return _isOnBoarded!;
   }
 
   @override
