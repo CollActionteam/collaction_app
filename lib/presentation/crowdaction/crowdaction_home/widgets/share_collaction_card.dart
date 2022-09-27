@@ -22,7 +22,7 @@ class ShareCollActionCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: kPrimaryColor400,

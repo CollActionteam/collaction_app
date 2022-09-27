@@ -24,7 +24,7 @@ class LicensesPage extends StatelessWidget {
             'https://github.com/CollActionteam/collaction_app',
           ),
           style: ElevatedButton.styleFrom(
-            primary: kAccentColor,
+            backgroundColor: kAccentColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(52),
             ),

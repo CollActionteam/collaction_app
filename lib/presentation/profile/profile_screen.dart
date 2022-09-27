@@ -52,7 +52,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   onPressed: share,
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
-                    primary: kEnabledButtonColor,
+                    backgroundColor: kEnabledButtonColor,
                   ).merge(
                     ButtonStyle(
                       elevation: MaterialStateProperty.resolveWith<double?>(
@@ -77,9 +77,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     context.read<ProfileBloc>().add(GetUserProfile());
                   }),
                   style: ElevatedButton.styleFrom(
+                    foregroundColor: kPrimaryColor0,
+                    backgroundColor: Colors.white,
                     shape: const CircleBorder(),
-                    primary: Colors.white,
-                    onPrimary: kPrimaryColor0,
                     tapTargetSize: MaterialTapTargetSize.padded,
                   ).merge(
                     ButtonStyle(

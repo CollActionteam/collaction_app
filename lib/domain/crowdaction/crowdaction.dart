@@ -39,6 +39,7 @@ class CrowdAction with _$CrowdAction {
   }
 
   bool get isOpen => joinStatus == JoinStatus.open;
+  bool get isEnded => joinStatus == JoinStatus.closed;
 }
 
 @freezed
