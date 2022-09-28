@@ -1,4 +1,4 @@
-part of 'package:collaction_app/presentation/home/home_screen.dart';
+part of '../home_screen.dart';
 
 /// Home page navigation bar
 Widget bottomNavbar(BuildContext context) {
