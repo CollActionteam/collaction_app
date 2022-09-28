@@ -1,4 +1,4 @@
-part 'app_page.ext.dart';
+part 'package:collaction_app/presentation/core/routes/app_page.ext.dart';
 
 enum AppPage {
   mainPage,

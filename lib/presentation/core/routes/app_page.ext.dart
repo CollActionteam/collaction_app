@@ -1,4 +1,4 @@
-part of 'app_page.dart';
+part of 'package:collaction_app/presentation/core/routes/app_page.dart';
 
 extension AppPageExt on AppPage {
   // Route paths
