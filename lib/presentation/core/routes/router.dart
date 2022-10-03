@@ -30,28 +30,22 @@ class AppRouter {
         routes: [
           ShellRoute(
             builder: (BuildContext context, GoRouterState state, Widget child) {
-              return HomePage(
-                child: child,
-              );
+              return HomePage(child: child);
             },
             routes: <RouteBase>[
               GoRoute(
                 path: AppPage.home.toPath,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const CrowdActionHomeScreen();
-                },
+                pageBuilder: (_, __) =>
+                    const NoTransitionPage(child: CrowdActionHomeScreen()),
               ),
               GoRoute(
                 path: AppPage.userProfile.toPath,
-                builder: (BuildContext context, GoRouterState state) {
-                  return UserProfilePage();
-                },
+                pageBuilder: (_, __) =>
+                    NoTransitionPage(child: UserProfilePage()),
               ),
               GoRoute(
                 path: AppPage.demoPage.toPath,
-                builder: (BuildContext context, GoRouterState state) {
-                  return DemoPage();
-                },
+                pageBuilder: (_, __) => NoTransitionPage(child: DemoPage()),
               )
             ],
           ),
