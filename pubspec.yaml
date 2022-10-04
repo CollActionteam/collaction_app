@@ -47,6 +47,7 @@ dependencies:
   image: ^3.1.1
   image_cropper: ^3.0.0
   image_picker: ^0.8.4+7
+  infinite_scroll_pagination: ^3.2.0
   injectable: ^1.5.3
   intl: ^0.17.0
   json_annotation: ^4.5.0
