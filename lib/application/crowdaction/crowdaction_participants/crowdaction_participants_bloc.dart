@@ -16,12 +16,16 @@ class CrowdActionParticipantsBloc
   final IParticipationRepository participationRepository;
 
   CrowdActionParticipantsBloc(this.participationRepository)
-      : super(const _Initial()) {
+      : super(const CrowdActionParticipantsState.initial()) {
     on<CrowdActionParticipantsEvent>((event, emit) async {
-      emit(const CrowdActionParticipantsState.loading());
-
       await event.when(
+        init: () async {
+          emit(const CrowdActionParticipantsState.loading());
+          emit(const CrowdActionParticipantsState.initial());
+        },
         getParticipants: (crowdActionId, pageNumber) async {
+          emit(const CrowdActionParticipantsState.loading());
+
           final paginatedParticipationsOrFailure =
               await participationRepository.getParticipations(
             crowdActionId: crowdActionId,

@@ -106,7 +106,7 @@ class ParticipationRepository implements IParticipationRepository {
   }) async {
     try {
       final uri = Uri.parse(
-        '${await settingsRepository.baseApiEndpointUrl}/v1/participations?crowdActionId=$crowdActionId&pageNumber=$pageNumber&pageSize=5',
+        '${await settingsRepository.baseApiEndpointUrl}/v1/participations?crowdActionId=$crowdActionId&page=$pageNumber',
       );
 
       final response = await client.get(

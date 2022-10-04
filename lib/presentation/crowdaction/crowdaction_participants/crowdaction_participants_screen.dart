@@ -24,19 +24,13 @@ class CrowdActionParticipantsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<CrowdActionParticipantsBloc>(
       create: (context) => getIt<CrowdActionParticipantsBloc>()
-        ..add(
-          CrowdActionParticipantsEvent.getParticipants(
-            crowdActionId: crowdActionId,
-            pageNumber: 1,
-          ),
-        ),
+        ..add(const CrowdActionParticipantsEvent.init()),
       child: BlocListener<CrowdActionParticipantsBloc,
           CrowdActionParticipantsState>(
         listener: (context, state) {
           state.map(
             initial: (_) {
               pagingController.addPageRequestListener((pageKey) {
-                print("reached one");
                 BlocProvider.of<CrowdActionParticipantsBloc>(context).add(
                   CrowdActionParticipantsEvent.getParticipants(
                     crowdActionId: crowdActionId,
@@ -45,9 +39,12 @@ class CrowdActionParticipantsPage extends StatelessWidget {
                 );
               });
 
-              pagingController.addStatusListener((status) {
-                print(status);
-              });
+              BlocProvider.of<CrowdActionParticipantsBloc>(context).add(
+                CrowdActionParticipantsEvent.getParticipants(
+                  crowdActionId: crowdActionId,
+                  pageNumber: 1,
+                ),
+              );
             },
             loading: (_) {},
             success: (state) {
@@ -82,9 +79,10 @@ class CrowdActionParticipantsPage extends StatelessWidget {
             ),
           ),
           body: RefreshIndicator(
-            onRefresh: () => Future.sync(
-              () => pagingController.refresh(),
-            ),
+            color: kAccentColor,
+            onRefresh: () async {
+              pagingController.refresh();
+            },
             child: PagedListView.separated(
               pagingController: pagingController,
               separatorBuilder: (context, index) => const SizedBox(
@@ -99,6 +97,7 @@ class CrowdActionParticipantsPage extends StatelessWidget {
                     backgroundImage: const AssetImage(
                       'assets/images/default_avatar.png',
                     ),
+                    onForegroundImageError: (_, __) {},
                   ),
                   title: Text(
                     participation.fullName,
@@ -109,10 +108,10 @@ class CrowdActionParticipantsPage extends StatelessWidget {
                   ),
                 ),
                 firstPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(color: Colors.orange),
+                  child: CircularProgressIndicator(color: kAccentColor),
                 ),
                 newPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(color: Colors.purple),
+                  child: CircularProgressIndicator(color: kAccentColor),
                 ),
                 firstPageErrorIndicatorBuilder: (context) => const Text(
                   'Something went wrong, try to refresh by dragging down',
