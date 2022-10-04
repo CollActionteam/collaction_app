@@ -35,10 +35,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
-                    card:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
-                    banner:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+                    card: "",
+                    banner: "",
                   ),
                   category: "Sustainability",
                   subcategory: "Community",
@@ -79,10 +77,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
-                    card:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
-                    banner:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+                    card: "",
+                    banner: "",
                   ),
                   category: "Sustainability",
                   subcategory: "Community",

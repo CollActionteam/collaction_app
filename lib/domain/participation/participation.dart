@@ -9,6 +9,8 @@ class Participation with _$Participation {
   const factory Participation({
     required String id,
     required String crowdActionId,
+    required String fullName,
+    required String avatar,
     required String userId,
     required List<String> commitmentOptions,
     required DateTime joinDate,

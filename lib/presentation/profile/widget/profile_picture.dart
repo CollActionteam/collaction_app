@@ -33,6 +33,7 @@ class ProfilePicture extends StatelessWidget {
       ),
       backgroundColor: Colors.transparent,
       child: const SizedBox.shrink(),
+      onForegroundImageError: (_, __) {},
     );
   }
 }
