@@ -9,4 +9,8 @@ abstract class IProfileRepository {
   Future<Either<ProfileFailure, Unit>> saveProfile({
     String? bio,
   });
+  Future<Either<ProfileFailure, Unit>> updateUsername({
+    String? firstName,
+    String? lastName,
+  });
 }

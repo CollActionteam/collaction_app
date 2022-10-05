@@ -149,7 +149,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                     children: [
                       Expanded(
                         child: TextButton(
-                          onPressed: () => context.router.pop(),
+                          onPressed: () => widget.onSkip.call(),
                           child: const Text(
                             'Maybe later',
                             style: TextStyle(

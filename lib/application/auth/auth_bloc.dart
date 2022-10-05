@@ -32,8 +32,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               await _mapVerifyPhoneToState(emit, event),
           signInWithPhone: (event) async =>
               await _mapSignInWithPhoneToState(emit, event),
-          updateUsername: (event) async =>
-              await _mapUpdateUsernameToState(emit, event),
           updated: (event) async => await _mapUpdatedToState(emit, event),
           reset: (event) async => await _mapResetToState(emit, event),
           authCheckRequested: (event) async =>
@@ -135,24 +133,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             },
           );
         },
-      ),
-    );
-  }
-
-  /// Update username in user profile [_UpdateUsername]
-  FutureOr<void> _mapUpdateUsernameToState(
-    Emitter<AuthState> emit,
-    _UpdateUsername event,
-  ) async {
-    emit(const AuthState.awaitingUsernameUpdate());
-
-    final failureOrSuccess =
-        await _authRepository.updateUsername(username: event.username);
-
-    emit(
-      failureOrSuccess.fold(
-        (failure) => AuthState.authError(failure),
-        (_) => const AuthState.usernameUpdateDone(),
       ),
     );
   }
