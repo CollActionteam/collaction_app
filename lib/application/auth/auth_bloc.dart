@@ -164,6 +164,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _VerifyPhone event,
   ) async {
     emit(const AuthState.awaitingVerification());
+    _phone = event.phoneNumber;
 
     _verifyStreamSubscription =
         _authRepository.verifyPhone(phoneNumber: event.phoneNumber).listen(
