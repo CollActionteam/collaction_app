@@ -40,7 +40,7 @@ void main() {
     expect: () => const [
       ProfileState(
         userProfile: userProfile,
-        isEditing: false,
+        isPicEditing: false,
         wasProfilePictureUpdated: false,
       )
     ],
@@ -59,7 +59,7 @@ void main() {
     expect: () => const [
       ProfileState(
         userProfile: null,
-        isEditing: false,
+        isPicEditing: false,
       )
     ],
     verify: (_) => verify(() => profileRepository.getUserProfile()).called(1),

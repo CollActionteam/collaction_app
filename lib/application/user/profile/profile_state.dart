@@ -3,33 +3,39 @@ part of 'profile_bloc.dart';
 class ProfileState extends Equatable {
   const ProfileState({
     required this.userProfile,
-    this.isEditing,
+    this.isPicEditing,
+    this.isBioEditing,
     this.wasProfilePictureUpdated,
   });
 
   final UserProfile? userProfile;
-  final bool? isEditing;
+  final bool? isPicEditing;
+  final bool? isBioEditing;
   final bool? wasProfilePictureUpdated;
 
   factory ProfileState.initial() => const ProfileState(
         userProfile: null,
-        isEditing: false,
+        isPicEditing: false,
+        isBioEditing: false,
         wasProfilePictureUpdated: false,
       );
 
   ProfileState copyWith({
     UserProfile? userProfile,
-    bool? isEditing,
+    bool? isPicEditing,
+    bool? isBioEditing,
     bool? wasProfilePictureUpdated,
   }) {
     return ProfileState(
       userProfile: userProfile ?? this.userProfile,
-      isEditing: isEditing ?? this.isEditing,
+      isPicEditing: isPicEditing ?? this.isPicEditing,
+      isBioEditing: isBioEditing ?? this.isBioEditing,
       wasProfilePictureUpdated:
           wasProfilePictureUpdated ?? false, // Reset state implicitly
     );
   }
 
   @override
-  List<Object?> get props => [userProfile, isEditing, wasProfilePictureUpdated];
+  List<Object?> get props =>
+      [userProfile, isPicEditing, isBioEditing, wasProfilePictureUpdated];
 }
