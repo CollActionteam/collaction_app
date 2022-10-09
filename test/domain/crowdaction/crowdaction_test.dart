@@ -5,7 +5,7 @@ import '../../test_utilities.dart';
 import 'crowdaction_test_fixtures.dart';
 
 void main() {
-  group('Testing Crowdaction DTO', () {
+  group('Testing Crowdaction class', () {
     test('Testing hasParticipants getter', () {
       expect(noParticipantCA.hasParticipants, false);
       expect(participantCA.hasParticipants, true);
@@ -51,5 +51,11 @@ void main() {
         expect(tCommitmentOption.copyWith(iconId: key).icon, value);
       });
     });
+  });
+
+  group('Test of CrowdactionDto and its members', () {
+    test('CrowdactionDto.toDomain() method', () {});
+
+    test('CrowdactionDto.fromJson() method', () {});
   });
 }

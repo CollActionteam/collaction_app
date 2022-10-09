@@ -57,3 +57,5 @@ final CrowdAction passwordCA = generateDummyCrowdaction(
 final CrowdAction noParticipantPwdCrowdactions = generateDummyCrowdaction(
   password: true,
 );
+
+//* Fixtures for CrowdactionDTO tests
