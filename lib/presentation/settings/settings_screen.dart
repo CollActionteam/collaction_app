@@ -62,6 +62,14 @@ class SettingsPage extends StatelessWidget {
                         const ShareCollactionListTile(),
                         const SizedBox(height: 15),
                         SettingsListTile(
+                          title: 'Contact us',
+                          icon: CollactionIcons.message,
+                          trailingIcon: CollactionIcons.arrow_right,
+                          onTap: () =>
+                              context.router.push(const ContactFormRoute()),
+                        ),
+                        const SizedBox(height: 15),
+                        SettingsListTile(
                           title: 'Onboarding',
                           icon: CollactionIcons.rocket,
                           trailingIcon: CollactionIcons.arrow_right,
