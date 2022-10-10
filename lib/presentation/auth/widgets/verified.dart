@@ -80,13 +80,11 @@ class VerifiedPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
                     PillButton(
-                      onTap: () =>
-                          context.replace(AppPage.home.toPath),
+                      onTap: () => context.replace(AppPage.home.toPath),
                       text: 'Go to CrowdActions',
                     ),
                     TextButton(
-                      onPressed: () =>
-                          context.replace(AppPage.home.toPath),
+                      onPressed: () => context.replace(AppPage.home.toPath),
                       child: const Text(
                         'Show me all CrowdActions',
                         style: TextStyle(
