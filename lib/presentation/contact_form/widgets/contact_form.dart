@@ -35,145 +35,143 @@ class _ContactFormState extends State<ContactForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<ContactFormBloc, ContactFormState>(
-        listener: _contactFormBlocListener,
-        bloc: _contactFormBloc,
-        builder: (context, state) {
-          final isEnabled = state.maybeMap(
-            initial: (_) => true,
-            failed: (_) => true,
-            orElse: () => false,
-          );
-          return Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: centerTitle
-                  ? CrossAxisAlignment.center
-                  : CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Get in touch",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 32.0,
-                  ),
-                  maxLines: 2,
-                  textAlign: centerTitle ? TextAlign.center : TextAlign.left,
+    return BlocConsumer<ContactFormBloc, ContactFormState>(
+      listener: _contactFormBlocListener,
+      bloc: _contactFormBloc,
+      builder: (context, state) {
+        final isEnabled = state.maybeMap(
+          initial: (_) => true,
+          failed: (_) => true,
+          orElse: () => false,
+        );
+        return Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: centerTitle
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Get in touch",
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 32.0,
                 ),
-                const SizedBox(height: 35.0),
-                TextFormField(
-                  key: _emailKey,
-                  onChanged: (value) => _emailKey.currentState!.validate(),
-                  enabled: isEnabled,
-                  keyboardType: TextInputType.emailAddress,
-                  style: const TextStyle(fontSize: 20.0),
-                  decoration: InputDecoration(
-                    hintText: 'Your email address',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
+                maxLines: 2,
+                textAlign: centerTitle ? TextAlign.center : TextAlign.left,
+              ),
+              const SizedBox(height: 35.0),
+              TextFormField(
+                key: _emailKey,
+                onChanged: (value) => _emailKey.currentState!.validate(),
+                enabled: isEnabled,
+                keyboardType: TextInputType.emailAddress,
+                style: const TextStyle(fontSize: 20.0),
+                decoration: InputDecoration(
+                  hintText: 'Your email address',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
                     ),
                   ),
-                  validator: (value) => _validateEmail(value),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
-                  child: Row(
-                    children: [
-                      Text(
-                        "We’ll get back to you by email",
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(color: kPrimaryColor300),
-                        maxLines: 2,
-                        textAlign: TextAlign.left,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 25.0),
-                TextFormField(
-                  enabled: isEnabled,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  minLines: 5,
-                  decoration: InputDecoration(
-                    hintText: 'Your message to us',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
                     ),
                   ),
-                  validator: _validateMessage,
-                  onChanged: _validateMessage,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 35.0),
-                PillButton(
-                  text: 'Send',
-                  isLoading: state is Submitting,
-                  isEnabled: isEnabled,
-                  onTap: isEnabled ? _submitForm : null,
+                validator: (value) => _validateEmail(value),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
+                child: Row(
+                  children: [
+                    Text(
+                      "We’ll get back to you by email",
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption!
+                          .copyWith(color: kPrimaryColor300),
+                      maxLines: 2,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+              const SizedBox(height: 25.0),
+              TextFormField(
+                enabled: isEnabled,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                minLines: 5,
+                decoration: InputDecoration(
+                  hintText: 'Your message to us',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                validator: _validateMessage,
+                onChanged: _validateMessage,
+              ),
+              const SizedBox(height: 35.0),
+              PillButton(
+                text: 'Send',
+                isLoading: state is Submitting,
+                isEnabled: isEnabled,
+                onTap: isEnabled ? _submitForm : null,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

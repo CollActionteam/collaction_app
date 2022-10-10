@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../auth/auth_screen.dart';
 import '../../auth/widgets/verified.dart';
-import '../../contact_form/widgets/contact_form.dart';
+import '../../contact_form/contact_form_screen.dart';
 import '../../crowdaction/crowdaction_browse/crowdaction_browse_screen.dart';
 import '../../crowdaction/crowdaction_details/crowdaction_details_screen.dart';
 import '../../crowdaction/crowdaction_home/crowdaction_home_screen.dart';
@@ -123,7 +123,7 @@ class AppRouter {
           GoRoute(
             path: AppPage.contactForm.toPath,
             parentNavigatorKey: _rootNavigatorKey,
-            builder: (_, __) => const ContactForm(),
+            builder: (_, __) => const ContactFormPage(),
           ),
           GoRoute(
             path: AppPage.webView.toPath,

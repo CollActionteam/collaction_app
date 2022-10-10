@@ -34,16 +34,17 @@ class ContactFormPageState extends State<ContactFormPage> {
         extendBodyBehindAppBar: true,
         appBar: const CustomAppBar(),
         backgroundColor: kSecondaryColor,
-        body: ScrollConfiguration(
-          behavior: NoRippleBehavior(),
-          child: SingleChildScrollView(
-            controller: _pageScrollController,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 100.0,
-                horizontal: 20.0,
+        body: SafeArea(
+          child: ScrollConfiguration(
+            behavior: NoRippleBehavior(),
+            child: SingleChildScrollView(
+              controller: _pageScrollController,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                ),
+                child: ContactForm(),
               ),
-              child: ContactForm(),
             ),
           ),
         ),
