@@ -1,13 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/user/profile/profile_bloc.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/shared_widgets/shimmers/title_shimmer_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rive/rive.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../routes/app_routes.gr.dart';
+import '../../core/routes/app_page.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
@@ -81,12 +81,12 @@ class VerifiedPage extends StatelessWidget {
                     const SizedBox(height: 40),
                     PillButton(
                       onTap: () =>
-                          context.router.replaceAll([const HomeRoute()]),
+                          context.replace(AppPage.home.toPath),
                       text: 'Go to CrowdActions',
                     ),
                     TextButton(
                       onPressed: () =>
-                          context.router.replaceAll([const HomeRoute()]),
+                          context.replace(AppPage.home.toPath),
                       child: const Text(
                         'Show me all CrowdActions',
                         style: TextStyle(

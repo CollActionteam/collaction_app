@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/crowdaction/crowdaction_participants/crowdaction_participants_bloc.dart';
 import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../themes/constants.dart';
@@ -68,7 +68,7 @@ class CrowdActionParticipantsPage extends StatelessWidget {
                 Icons.chevron_left,
                 color: kPrimaryColor200,
               ),
-              onPressed: () => context.router.pop(),
+              onPressed: () => context.pop(),
             ),
             title: const Text(
               "Participants",

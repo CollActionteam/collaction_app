@@ -1,4 +1,5 @@
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
+import 'package:collaction_app/presentation/crowdaction/crowdaction_participants/crowdaction_participants_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +14,7 @@ import '../../demo/components_demo/components_demo_screen.dart';
 import '../../demo/demo_screen.dart';
 import '../../home/captive_screen.dart';
 import '../../home/home_screen.dart';
+import '../../licenses/licenses_page.dart';
 import '../../onboarding/onboarding_screen.dart';
 import '../../profile/profile_screen.dart';
 import '../../settings/settings_layout.dart';
@@ -72,6 +74,13 @@ class AppRouter {
             },
           ),
           GoRoute(
+            path: AppPage.crowdActionParticipants.toPath,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, state) => CrowdActionParticipantsPage(
+              crowdActionId: state.extra! as String,
+            ),
+          ),
+          GoRoute(
             path: AppPage.onBoarding.toPath,
             parentNavigatorKey: _rootNavigatorKey,
             builder: (_, __) => const OnboardingPage(),
@@ -104,7 +113,7 @@ class AppRouter {
           GoRoute(
             path: AppPage.licenses.toPath,
             parentNavigatorKey: _rootNavigatorKey,
-            builder: (_, __) => const LicensePage(),
+            builder: (_, __) => const LicensesPage(),
           ),
           GoRoute(
             path: AppPage.settingsLayout.toPath,
