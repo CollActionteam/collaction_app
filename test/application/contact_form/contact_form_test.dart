@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:collaction_app/application/contact_form/contact_form_bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'contact_form_fixture.dart';
@@ -12,7 +13,7 @@ void main() {
 
     {
       when(() => tContactFormApi.sendContactFormContents(tContactFormDtoS))
-          .thenAnswer((_) => Future.value(true));
+          .thenAnswer((_) => Future.value(right(unit)));
       blocTest(
         'Testing submit event success',
         build: () => ContactFormBloc(tContactFormApi),
@@ -27,7 +28,7 @@ void main() {
     }
     {
       when(() => tContactFormApi.sendContactFormContents(tContactFormDtoF))
-          .thenAnswer((_) => Future.value(false));
+          .thenAnswer((_) => Future.value(right(unit)));
       blocTest(
         'Testing submit event failure',
         build: () => ContactFormBloc(tContactFormApi),
