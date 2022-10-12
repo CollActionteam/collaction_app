@@ -26,35 +26,5 @@ void main() {
         ],
       );
     }
-    {
-      when(() => tContactFormApi.sendContactFormContents(tContactFormDtoF))
-          .thenAnswer((_) => Future.value(right(unit)));
-      blocTest(
-        'Testing submit event failure',
-        build: () => ContactFormBloc(tContactFormApi),
-        act: (ContactFormBloc bloc) {
-          bloc.add(ContactFormEvent.submitted(tContactFormDtoF));
-        },
-        expect: () => [
-          const ContactFormState.submitting(),
-          const ContactFormState.failed('Submission not successful!'),
-        ],
-      );
-    }
-    {
-      when(() => tContactFormApi.sendContactFormContents(tContactFormDtoE))
-          .thenAnswer((_) => Future.error('error'));
-      blocTest(
-        'Testing submit event Error',
-        build: () => ContactFormBloc(tContactFormApi),
-        act: (ContactFormBloc bloc) {
-          bloc.add(ContactFormEvent.submitted(tContactFormDtoE));
-        },
-        expect: () => [
-          const ContactFormState.submitting(),
-          const ContactFormState.failed('Error submitting form!'),
-        ],
-      );
-    }
   });
 }
