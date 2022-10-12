@@ -27,7 +27,10 @@ class ProfilePicture extends StatelessWidget {
 
     return CircleAvatar(
       maxRadius: maxRadius,
-      foregroundImage: imageProvider,
+      foregroundImage: imageProvider ??
+          const AssetImage(
+            'assets/images/default_avatar.png',
+          ),
       backgroundImage: const AssetImage(
         'assets/images/default_avatar.png',
       ),
