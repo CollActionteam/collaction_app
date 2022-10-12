@@ -23,11 +23,11 @@ class ContactRepository extends IContactRepository {
   ) async {
     try {
       final response = await client.post(
-        Uri.parse('${await settingsRepository.baseApiEndpointUrl}/contact'),
+        Uri.parse('${await settingsRepository.baseApiEndpointUrl}/v1/contact'),
         body: json.encode({
           'email': contents.email,
           'title': contents.subject,
-          'message': contents.message,
+          'body': contents.message,
         }),
         headers: {
           'accept': '*/*',
@@ -35,7 +35,7 @@ class ContactRepository extends IContactRepository {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == HttpStatus.created) {
         return right(unit);
       } else {
         return left(const ContactFailure.serverError());

@@ -24,10 +24,10 @@ class ContactFormBloc extends Bloc<ContactFormEvent, ContactFormState> {
                 await _contactFormApi.sendContactFormContents(event);
 
             if (unitOrFailure.isRight()) {
-              return const ContactFormState.submissionSuccessful();
+              emit(const ContactFormState.submissionSuccessful());
+            } else {
+              emit(const ContactFormState.failed('Submission failed'));
             }
-
-            return const ContactFormState.submissionSuccessful();
           },
         );
       },
