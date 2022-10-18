@@ -176,8 +176,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     ),
                                   ),
                                   Positioned(
-                                    top: 0,
-                                    right: 0,
+                                    bottom: 0,
+                                    left: 0,
                                     child: FloatingActionButton(
                                       onPressed: () {
                                         BlocProvider.of<ProfileBloc>(context)
