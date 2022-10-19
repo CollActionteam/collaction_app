@@ -20,6 +20,8 @@ class PinInput extends StatefulWidget {
 }
 
 class PinInputState extends State<PinInput> {
+  static const int backspace = 0x100000008;
+
   late List<int> size;
   late List<FocusNode> focusNodes;
   late List<TextEditingController> controllers;
@@ -36,22 +38,32 @@ class PinInputState extends State<PinInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: size
-          .map(
-            (index) => PinTextField(
-              key: ValueKey('pin_input_$index'),
-              controller: controllers[index],
-              focusNode: focusNodes[index],
-              onChanged: (value) {
-                _onChanged(value, index);
-              },
-              readOnly: widget.readOnly,
-              onPaste: _onPaste,
-            ),
-          )
-          .toList(growable: false),
+    return KeyboardListener(
+      focusNode: FocusNode(),
+      onKeyEvent: (keyEvent) {
+        if (keyEvent.logicalKey.keyId == backspace) {
+          _onBackspace();
+        }
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: size
+            .map(
+              (index) => PinTextField(
+                key: ValueKey('pin_input_$index'),
+                controller: controllers[index],
+                focusNode: focusNodes[index],
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    _onChanged(value, index);
+                  }
+                },
+                readOnly: widget.readOnly,
+                onPaste: _onPaste,
+              ),
+            )
+            .toList(growable: false),
+      ),
     );
   }
 
@@ -99,6 +111,15 @@ class PinInputState extends State<PinInput> {
     // * Should all be digits
     if (pin.length == widget.pinLength && int.tryParse(pin) != null) {
       autoComplete(pin);
+    }
+  }
+
+  void _onBackspace() {
+    final focusNodeIndex = focusNodes.indexWhere((element) => element.hasFocus);
+    final controller = controllers[focusNodeIndex];
+
+    if (controller.text.isEmpty) {
+      _onChanged("", focusNodeIndex);
     }
   }
 

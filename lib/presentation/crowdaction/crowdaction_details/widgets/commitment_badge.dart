@@ -280,7 +280,7 @@ class HeroBadgesDialogRoute<T> extends PageRoute<T> {
     required WidgetBuilder builder,
     super.settings,
     super.fullscreenDialog = true,
-  })  : _builder = builder;
+  }) : _builder = builder;
 
   final WidgetBuilder _builder;
 

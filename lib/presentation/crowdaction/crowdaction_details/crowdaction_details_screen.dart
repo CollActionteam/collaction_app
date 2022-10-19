@@ -29,7 +29,7 @@ class CrowdActionDetailsPage extends StatefulWidget {
     super.key,
     this.crowdAction,
     this.crowdActionId,
-  })  : assert(crowdAction != null || crowdActionId != null);
+  }) : assert(crowdAction != null || crowdActionId != null);
 
   @override
   State<CrowdActionDetailsPage> createState() => CrowdActionDetailsPageState();
