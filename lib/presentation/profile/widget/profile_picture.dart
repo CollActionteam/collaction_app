@@ -16,25 +16,27 @@ class ProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ImageProvider? imageProvider;
+
     if (image != null) {
-      // ignore: unnecessary_cast
-      imageProvider = FileImage(image!) as ImageProvider<Object>;
-    } else if (profileImage != null) {
+      imageProvider = FileImage(image!);
+    }
+
+    if (profileImage != null && imageProvider == null) {
       imageProvider = NetworkImage(
         profileImage!,
       );
     }
 
+    imageProvider ??= const AssetImage(
+      'assets/images/default_avatar.png',
+    );
+
     return CircleAvatar(
       maxRadius: maxRadius,
-      foregroundImage: imageProvider ??
-          const AssetImage(
-            'assets/images/default_avatar.png',
-          ),
+      foregroundImage: imageProvider,
       backgroundImage: const AssetImage(
         'assets/images/default_avatar.png',
       ),
-      backgroundColor: Colors.transparent,
       child: const SizedBox.shrink(),
       onForegroundImageError: (_, __) {},
     );
