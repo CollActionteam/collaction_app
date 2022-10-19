@@ -12,12 +12,10 @@ import 'micro_lock.dart';
 
 class MicroCrowdActionCard extends StatelessWidget {
   final CrowdAction crowdAction;
-  final bool viewOnly;
 
   const MicroCrowdActionCard(
     this.crowdAction, {
     Key? key,
-    this.viewOnly = false,
   }) : super(key: key);
 
   @override
@@ -25,12 +23,11 @@ class MicroCrowdActionCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (crowdAction.hasPassword) {
-          showPasswordModal(context, crowdAction, viewOnly: viewOnly);
+          showPasswordModal(context, crowdAction);
         } else {
           context.router.push(
             CrowdActionDetailsRoute(
-              crowdAction: crowdAction,
-              viewOnly: viewOnly,
+              crowdActionId: crowdAction.id,
             ),
           );
         }
