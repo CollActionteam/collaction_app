@@ -8,7 +8,7 @@ import 'widgets/in_spotlight_header.dart';
 import 'widgets/share_collaction_card.dart';
 
 class CrowdActionHomeScreen extends StatelessWidget {
-  const CrowdActionHomeScreen({Key? key}) : super(key: key);
+  const CrowdActionHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

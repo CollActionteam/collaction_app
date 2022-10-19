@@ -4,7 +4,7 @@ import '../core/collaction_icons.dart';
 import '../themes/constants.dart';
 
 class MicroLock extends StatelessWidget {
-  const MicroLock({Key? key}) : super(key: key);
+  const MicroLock({super.key});
 
   @override
   Widget build(BuildContext context) {

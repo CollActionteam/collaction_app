@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class CountrySearch extends StatefulWidget {
   final Function(CountryDetails)? onCountrySelected;
 
-  const CountrySearch({Key? key, this.onCountrySelected}) : super(key: key);
+  const CountrySearch({super.key, this.onCountrySelected});
 
   @override
   _CountrySearchState createState() => _CountrySearchState();

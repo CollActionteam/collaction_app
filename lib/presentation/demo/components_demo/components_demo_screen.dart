@@ -12,7 +12,7 @@ import '../../shared_widgets/rectangle_button.dart';
 import '../../shared_widgets/secondary_chip.dart';
 
 class ComponentsDemoPage extends StatefulWidget {
-  const ComponentsDemoPage({Key? key}) : super(key: key);
+  const ComponentsDemoPage({super.key});
 
   @override
   _ComponentsDemoPageState createState() => _ComponentsDemoPageState();

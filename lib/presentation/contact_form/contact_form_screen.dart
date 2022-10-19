@@ -6,7 +6,7 @@ import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 
 class ContactFormPage extends StatefulWidget {
-  const ContactFormPage({Key? key}) : super(key: key);
+  const ContactFormPage({super.key});
 
   @override
   ContactFormPageState createState() {

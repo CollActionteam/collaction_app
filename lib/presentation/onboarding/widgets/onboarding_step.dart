@@ -18,12 +18,12 @@ class OnboardingStep extends StatelessWidget {
   final double scaleFactor;
 
   const OnboardingStep({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.message,
     this.scaleFactor = 1.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

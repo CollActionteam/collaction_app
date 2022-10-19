@@ -9,7 +9,7 @@ import '../themes/constants.dart';
 class PhotoSelector extends StatefulWidget {
   final Function(File)? onSelected;
 
-  const PhotoSelector({Key? key, this.onSelected}) : super(key: key);
+  const PhotoSelector({super.key, this.onSelected});
 
   @override
   _PhotoSelectorState createState() => _PhotoSelectorState();

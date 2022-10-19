@@ -10,9 +10,9 @@ import '../../themes/constants.dart';
 class EnterUserName extends StatefulWidget {
   final void Function(String fullname) onDone;
   const EnterUserName({
-    Key? key,
+    super.key,
     required this.onDone,
-  }) : super(key: key);
+  });
 
   @override
   _EnterUserNameState createState() => _EnterUserNameState();

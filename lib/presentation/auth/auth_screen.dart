@@ -16,7 +16,7 @@ import 'widgets/verification_code.dart';
 import 'widgets/verify_phone.dart';
 
 class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
+  const AuthPage({super.key});
 
   @override
   _AuthPageState createState() => _AuthPageState();

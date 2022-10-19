@@ -10,7 +10,7 @@ import '../../themes/constants.dart';
 
 /// Route for the user to browse available Collactions.
 class CrowdActionBrowsePage extends StatelessWidget {
-  const CrowdActionBrowsePage({Key? key}) : super(key: key);
+  const CrowdActionBrowsePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,7 @@ class CrowdActionBrowsePage extends StatelessWidget {
 }
 
 class _CrowdActionBrowseView extends StatelessWidget {
-  const _CrowdActionBrowseView({
-    Key? key,
-  }) : super(key: key);
+  const _CrowdActionBrowseView();
 
   @override
   Widget build(BuildContext context) {

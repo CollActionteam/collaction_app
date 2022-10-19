@@ -8,7 +8,7 @@ import '../utils/launch_url.dart';
 import 'oss_licenses.dart';
 
 class LicensesPage extends StatelessWidget {
-  const LicensesPage({Key? key}) : super(key: key);
+  const LicensesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

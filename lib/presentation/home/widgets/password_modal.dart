@@ -12,9 +12,9 @@ class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
 
   const PasswordModal({
-    Key? key,
+    super.key,
     required this.crowdAction,
-  }) : super(key: key);
+  });
 
   @override
   State<PasswordModal> createState() => _PasswordModalState();

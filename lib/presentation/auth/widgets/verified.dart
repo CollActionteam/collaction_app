@@ -12,7 +12,7 @@ import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
 class VerifiedPage extends StatelessWidget {
-  const VerifiedPage({Key? key}) : super(key: key);
+  const VerifiedPage({super.key});
 
   @override
   Widget build(BuildContext context) {

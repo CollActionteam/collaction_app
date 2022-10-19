@@ -10,13 +10,13 @@ class PinTextField extends StatelessWidget {
   final VoidCallback? onPaste;
 
   const PinTextField({
-    Key? key,
+    super.key,
     this.readOnly = false,
     required this.controller,
     required this.focusNode,
     required this.onChanged,
     this.onPaste,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

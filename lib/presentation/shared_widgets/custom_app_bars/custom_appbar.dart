@@ -9,10 +9,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool closable;
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     this.title = "",
     this.closable = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

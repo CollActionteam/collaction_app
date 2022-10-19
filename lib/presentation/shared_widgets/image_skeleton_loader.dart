@@ -8,10 +8,10 @@ class ImageSkeletonLoader extends StatelessWidget {
   final bool isCircle;
 
   const ImageSkeletonLoader({
-    Key? key,
+    super.key,
     required this.height,
     this.isCircle = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

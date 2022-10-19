@@ -11,9 +11,9 @@ import '../../../../presentation/themes/constants.dart';
 
 class ParticipationCountText extends StatelessWidget {
   const ParticipationCountText({
-    Key? key,
+    super.key,
     required this.crowdAction,
-  }) : super(key: key);
+  });
 
   final CrowdAction? crowdAction;
 
