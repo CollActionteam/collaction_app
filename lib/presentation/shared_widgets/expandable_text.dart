@@ -7,13 +7,13 @@ import '../themes/constants.dart';
 class ExpandableText extends StatefulWidget {
   const ExpandableText(
     this.text, {
-    Key? key,
+    super.key,
     this.trimLines = 3,
     this.clickableTextColor = kAccentColor,
     this.readMoreText = "more",
     this.readLessText = "less",
     this.style = const TextStyle(color: Colors.black),
-  }) : super(key: key);
+  });
 
   /// Text to display
   final String text;

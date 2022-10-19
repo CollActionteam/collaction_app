@@ -10,10 +10,10 @@ class SignUpCTA extends StatelessWidget {
   final String? title;
 
   const SignUpCTA({
-    Key? key,
+    super.key,
     this.user,
     this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

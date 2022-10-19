@@ -13,9 +13,9 @@ class CrowdActionParticipantsPage extends StatelessWidget {
   final String crowdActionId;
 
   CrowdActionParticipantsPage({
-    Key? key,
+    super.key,
     required this.crowdActionId,
-  }) : super(key: key);
+  });
 
   final PagingController<int, Participation> pagingController =
       PagingController(firstPageKey: 1);

@@ -8,8 +8,7 @@ import 'custom_app_bars/custom_appbar.dart';
 class WebViewPage extends StatelessWidget {
   final String url;
   final String title;
-  const WebViewPage({Key? key, required this.url, this.title = ""})
-      : super(key: key);
+  const WebViewPage({super.key, required this.url, this.title = ""});
 
   @override
   Widget build(BuildContext context) {

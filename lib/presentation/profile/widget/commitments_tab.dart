@@ -10,10 +10,10 @@ class CommitmentsTab extends StatelessWidget {
   final List<CrowdAction>? crowdActions;
 
   const CommitmentsTab({
-    Key? key,
+    super.key,
     this.user,
     this.crowdActions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import '../../../themes/constants.dart';
 class BadgesWidget extends StatelessWidget {
   static const String _heroBadgesTag = 'display-badges';
 
-  const BadgesWidget({Key? key}) : super(key: key);
+  const BadgesWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,7 @@ class BadgesWidget extends StatelessWidget {
 class _BadgesPopupCard extends StatelessWidget {
   static const _heroTag = 'display-badges';
 
-  const _BadgesPopupCard({Key? key}) : super(key: key);
+  const _BadgesPopupCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -278,10 +278,9 @@ class _BadgesPopupCard extends StatelessWidget {
 class HeroBadgesDialogRoute<T> extends PageRoute<T> {
   HeroBadgesDialogRoute({
     required WidgetBuilder builder,
-    RouteSettings? settings,
-    bool fullscreenDialog = true,
-  })  : _builder = builder,
-        super(settings: settings, fullscreenDialog: fullscreenDialog);
+    super.settings,
+    super.fullscreenDialog = true,
+  })  : _builder = builder;
 
   final WidgetBuilder _builder;
 

@@ -9,11 +9,11 @@ class PinInput extends StatefulWidget {
   final Function(String) submit;
 
   const PinInput({
-    Key? key,
+    super.key,
     this.pinLength = 6,
     this.readOnly = false,
     required this.submit,
-  }) : super(key: key);
+  });
 
   @override
   PinInputState createState() => PinInputState();

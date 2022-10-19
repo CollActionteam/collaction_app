@@ -6,9 +6,9 @@ class ParticipantAvatars extends StatelessWidget {
   final List<TopParticipant> participants;
 
   const ParticipantAvatars({
-    Key? key,
+    super.key,
     required this.participants,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

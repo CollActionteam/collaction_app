@@ -7,12 +7,11 @@ import '../../utils/strings.dart';
 
 class ShareCollactionListTile extends StatefulWidget {
   const ShareCollactionListTile({
-    Key? key,
+    super.key,
     String? shareText,
     String? shareEmailSubject,
   })  : _shareText = shareText,
-        _shareEmailSubject = shareEmailSubject,
-        super(key: key);
+        _shareEmailSubject = shareEmailSubject;
 
   final String? _shareText;
   final String? _shareEmailSubject;

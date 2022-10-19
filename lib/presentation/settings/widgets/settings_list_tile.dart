@@ -9,13 +9,13 @@ class SettingsListTile extends StatelessWidget {
   final IconData? trailingIcon;
 
   const SettingsListTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.icon,
     required this.onTap,
     this.iconColor = kPrimaryColor300,
     this.trailingIcon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -22,8 +22,8 @@ class CommitmentCardList extends StatelessWidget {
     required this.commitments,
     required this.onSelected,
     this.axis = Axis.vertical,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +60,8 @@ class CommitmentCard extends StatefulWidget {
   const CommitmentCard({
     required this.commitment,
     required this.onSelected,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Commitment commitment;
   final Function(int) onSelected;

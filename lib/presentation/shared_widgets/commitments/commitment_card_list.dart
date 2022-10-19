@@ -12,10 +12,10 @@ class CommitmentCardList extends StatefulWidget {
 
   /// Widget for easily creating a list of CommitmentCard(s)
   const CommitmentCardList({
-    Key? key,
+    super.key,
     required this.commitmentOptions,
     required this.selectedCommitments,
-  }) : super(key: key);
+  });
 
   @override
   State<CommitmentCardList> createState() => _CommitmentCardListState();

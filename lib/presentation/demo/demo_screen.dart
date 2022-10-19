@@ -8,7 +8,7 @@ import '../shared_widgets/rectangle_button.dart';
 import 'components_demo/current_user_status_text.dart';
 
 class DemoPage extends StatelessWidget {
-  DemoPage({Key? key}) : super(key: key);
+  DemoPage({super.key});
   final settingsRepository = getIt<ISettingsRepository>();
   final _pageScrollController = ScrollController();
 

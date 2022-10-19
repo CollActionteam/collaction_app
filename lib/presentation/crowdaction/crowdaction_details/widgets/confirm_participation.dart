@@ -13,10 +13,10 @@ class ConfirmParticipation extends StatelessWidget {
   final List<CommitmentOption> selectedCommitments;
 
   const ConfirmParticipation({
-    Key? key,
+    super.key,
     required this.crowdAction,
     required this.selectedCommitments,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -120,11 +120,11 @@ class ParticipationDialog extends StatelessWidget {
   final bool isLoading;
 
   const ParticipationDialog({
-    Key? key,
+    super.key,
     required this.crowdAction,
     required this.selectedCommitments,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

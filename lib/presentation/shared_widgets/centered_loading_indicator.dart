@@ -5,9 +5,9 @@ import '../themes/constants.dart';
 class CenteredLoadingIndicator extends StatelessWidget {
   final String label;
   const CenteredLoadingIndicator({
-    Key? key,
+    super.key,
     this.label = 'Loading CrowdActions',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

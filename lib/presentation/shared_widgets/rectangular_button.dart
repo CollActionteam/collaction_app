@@ -10,13 +10,13 @@ class RectangularButton extends StatefulWidget {
   final bool isLoading;
 
   const RectangularButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
     this.isEnabled = false,
     this.isLoading = false,
     this.height = 50.0,
-  }) : super(key: key);
+  });
 
   @override
   _RectangularButtonState createState() => _RectangularButtonState();

@@ -12,7 +12,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
   final TextStyle? titleTextStyle;
 
   const CleanAppBar({
-    Key? key,
+    super.key,
     this.title = '',
     this.centerTitle = true,
     this.leading,
@@ -20,7 +20,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor = kSecondaryColor,
     this.titleTextStyle,
     this.elevation = 0.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

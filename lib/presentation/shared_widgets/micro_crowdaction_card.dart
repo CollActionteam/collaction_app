@@ -15,8 +15,8 @@ class MicroCrowdActionCard extends StatelessWidget {
 
   const MicroCrowdActionCard(
     this.crowdAction, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

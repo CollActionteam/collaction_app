@@ -11,9 +11,9 @@ import 'package:shimmer/shimmer.dart';
 
 class CrowdActionDetailsBanner extends StatelessWidget {
   const CrowdActionDetailsBanner({
-    Key? key,
+    super.key,
     required this.crowdAction,
-  }) : super(key: key);
+  });
 
   final CrowdAction? crowdAction;
 

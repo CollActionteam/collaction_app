@@ -26,11 +26,10 @@ class CrowdActionDetailsPage extends StatefulWidget {
   final String? crowdActionId;
 
   const CrowdActionDetailsPage({
-    Key? key,
+    super.key,
     this.crowdAction,
     this.crowdActionId,
-  })  : assert(crowdAction != null || crowdActionId != null),
-        super(key: key);
+  })  : assert(crowdAction != null || crowdActionId != null);
 
   @override
   State<CrowdActionDetailsPage> createState() => CrowdActionDetailsPageState();
@@ -375,9 +374,9 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
 
 class CrowdActionDescription extends StatelessWidget {
   const CrowdActionDescription({
-    Key? key,
+    super.key,
     required this.crowdAction,
-  }) : super(key: key);
+  });
 
   final CrowdAction? crowdAction;
 

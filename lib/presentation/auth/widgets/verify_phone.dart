@@ -7,7 +7,7 @@ import '../../shared_widgets/phone_input.dart';
 import '../../shared_widgets/pill_button.dart';
 
 class VerifyPhonePage extends StatefulWidget {
-  const VerifyPhonePage({Key? key}) : super(key: key);
+  const VerifyPhonePage({super.key});
 
   @override
   VerifyPhonePageState createState() => VerifyPhonePageState();

@@ -6,8 +6,8 @@ import '../../themes/constants.dart';
 
 class LegalNotice extends StatelessWidget {
   const LegalNotice({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
