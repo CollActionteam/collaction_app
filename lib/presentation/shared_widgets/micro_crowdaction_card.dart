@@ -53,6 +53,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                   image: DecorationImage(
                     image: CachedNetworkImageProvider(
                       '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
+                      errorListener: () {},
                     ),
                     fit: BoxFit.cover,
                   ),

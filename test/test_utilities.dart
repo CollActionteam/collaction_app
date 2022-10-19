@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
+import 'package:collaction_app/domain/contact_form/contact_failures.dart';
 import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
 import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
@@ -28,7 +29,7 @@ class MockUserRepository extends Mock implements IUserRepository {}
 
 class MockSettingsRepository extends Mock implements ISettingsRepository {}
 
-class MockContactFormApi extends Mock implements IContactFormApi {}
+class MockContactFormApi extends Mock implements IContactRepository {}
 
 class MockAvatarRepository extends Mock implements IAvatarRepository {}
 
@@ -51,13 +52,21 @@ class TestUtilities {
     GetIt.I.registerSingleton<IUserRepository>(mockUserRepository);
   }
 
-  static void mockContactFormApi({required bool doesSubmissionSucceed}) {
+  static void mockContactFormApi({
+    required bool doesSubmissionSucceed,
+  }) {
     registerFallbackValue(ContactFormDto(email: '', message: ''));
+
     final mockContactFormApi = MockContactFormApi();
-    when(() => mockContactFormApi.sendContactFormContents(any()))
-        .thenAnswer((_) async => doesSubmissionSucceed);
+
+    when(() => mockContactFormApi.sendContactFormContents(any())).thenAnswer(
+      (_) async => doesSubmissionSucceed
+          ? right(unit)
+          : left(const ContactFailure.serverError()),
+    );
+
     GetIt.I.allowReassignment = true;
-    GetIt.I.registerSingleton<IContactFormApi>(mockContactFormApi);
+    GetIt.I.registerSingleton<IContactRepository>(mockContactFormApi);
   }
 
   static void mockCrowdActionApi() {

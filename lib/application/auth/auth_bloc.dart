@@ -79,6 +79,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
     _SignedOut event,
   ) async {
+    emit(const AuthState.signingOut());
     await _authRepository.signOut();
     emit(const AuthState.unAuthenticated());
   }
