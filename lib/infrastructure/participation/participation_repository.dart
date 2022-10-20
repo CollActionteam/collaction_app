@@ -4,8 +4,10 @@ import 'package:collaction_app/domain/auth/errors.dart';
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/participation/i_participation_repository.dart';
+import 'package:collaction_app/domain/participation/paginated_participations.dart';
 import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:collaction_app/domain/participation/participation_failures.dart';
+import 'package:collaction_app/infrastructure/participation/paginated_participations_dto.dart';
 import 'package:collaction_app/infrastructure/participation/participation_dto.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -92,6 +94,44 @@ class ParticipationRepository implements IParticipationRepository {
         return left(const ParticipationFailure.serverError());
       }
     } catch (_) {
+      return left(const ParticipationFailure.networkRequestFailed());
+    }
+  }
+
+  @override
+  Future<Either<ParticipationFailure, PaginatedParticipations>>
+      getParticipations({
+    required String crowdActionId,
+    int pageNumber = 1,
+  }) async {
+    try {
+      final uri = Uri.parse(
+        '${await settingsRepository.baseApiEndpointUrl}/v1/participations?crowdActionId=$crowdActionId&page=$pageNumber',
+      );
+
+      final response = await client.get(
+        uri,
+      );
+
+      final json = jsonDecode(response.body) as Map<String, dynamic>;
+      final itemsJson = json['items'] as List<dynamic>;
+      final pageInfoJson = json['pageInfo'] as Map<String, dynamic>;
+
+      final participations = itemsJson
+          .map(
+            (item) => ParticipationDto.fromJson(item as Map<String, dynamic>),
+          )
+          .toList();
+
+      final pageInfo = PageInfoDto.fromJson(pageInfoJson);
+
+      return right(
+        PaginatedParticipationsDto(
+          participations: participations,
+          pageInfo: pageInfo,
+        ).toDomain(),
+      );
+    } catch (ex) {
       return left(const ParticipationFailure.networkRequestFailed());
     }
   }

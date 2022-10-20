@@ -12,7 +12,7 @@ import '../../shared_widgets/rectangle_button.dart';
 import '../../shared_widgets/secondary_chip.dart';
 
 class ComponentsDemoPage extends StatefulWidget {
-  const ComponentsDemoPage({Key? key}) : super(key: key);
+  const ComponentsDemoPage({super.key});
 
   @override
   _ComponentsDemoPageState createState() => _ComponentsDemoPageState();
@@ -35,10 +35,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
-                    card:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
-                    banner:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+                    card: "",
+                    banner: "",
                   ),
                   category: "Sustainability",
                   subcategory: "Community",
@@ -79,10 +77,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
-                    card:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
-                    banner:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+                    card: "",
+                    banner: "",
                   ),
                   category: "Sustainability",
                   subcategory: "Community",

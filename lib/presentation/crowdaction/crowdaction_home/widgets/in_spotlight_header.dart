@@ -12,8 +12,8 @@ import '../../../themes/constants.dart';
 
 class InSpotLightHeader extends StatefulWidget {
   const InSpotLightHeader({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<InSpotLightHeader> createState() => _InSpotLightHeaderState();

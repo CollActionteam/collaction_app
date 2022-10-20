@@ -16,11 +16,11 @@ class CrowdActionCard extends StatelessWidget {
   final Function()? onTap;
 
   const CrowdActionCard({
-    Key? key,
+    super.key,
     required this.crowdAction,
     this.scaleFactor = 1.0,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +68,7 @@ class CrowdActionCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     image: CachedNetworkImageProvider(
                       '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
+                      errorListener: () {},
                     ),
                   ),
                 ),

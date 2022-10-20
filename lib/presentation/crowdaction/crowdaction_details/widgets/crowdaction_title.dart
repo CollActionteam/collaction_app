@@ -4,9 +4,9 @@ import 'package:shimmer/shimmer.dart';
 
 class CrowdActionTitle extends StatelessWidget {
   const CrowdActionTitle({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String? title;
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../themes/constants.dart';
 
 class SettingsLayout extends StatelessWidget {
-  const SettingsLayout({Key? key}) : super(key: key);
+  const SettingsLayout({super.key});
 
   @override
   Widget build(BuildContext context) {

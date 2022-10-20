@@ -8,10 +8,10 @@ class ContentPlaceholder extends StatelessWidget {
   final Color textColor;
   final String? description;
   const ContentPlaceholder({
-    Key? key,
+    super.key,
     required this.textColor,
     this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

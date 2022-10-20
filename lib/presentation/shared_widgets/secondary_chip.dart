@@ -7,11 +7,11 @@ class SecondaryChip extends StatelessWidget {
   final Widget? leading;
   final VoidCallback? onDeleted;
   const SecondaryChip({
-    Key? key,
+    super.key,
     required this.text,
     this.leading,
     this.onDeleted,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

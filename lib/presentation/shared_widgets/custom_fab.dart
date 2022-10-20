@@ -10,13 +10,13 @@ class CustomFAB extends StatelessWidget {
   final Color? color;
 
   const CustomFAB({
-    Key? key,
+    super.key,
     required this.child,
     this.isMini = false,
     this.heroTag = "fabBtn",
     this.onPressed,
     this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

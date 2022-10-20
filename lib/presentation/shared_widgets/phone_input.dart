@@ -20,12 +20,12 @@ class PhoneInput extends StatefulWidget {
 
   const PhoneInput(
     this.phoneNumberController, {
-    Key? key,
+    super.key,
     this.isValid,
     this.onChange,
     this.phone,
     this.readOnly = false,
-  }) : super(key: key);
+  });
 
   @override
   _PhoneInputState createState() => _PhoneInputState();

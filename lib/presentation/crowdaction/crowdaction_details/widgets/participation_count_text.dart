@@ -1,6 +1,6 @@
-// TODO Untested! (Confirm if it works as intended)
-
+import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
+import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:collaction_app/presentation/shared_widgets/shimmers/title_shimmer_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,48 +11,55 @@ import '../../../../presentation/themes/constants.dart';
 
 class ParticipationCountText extends StatelessWidget {
   const ParticipationCountText({
-    Key? key,
+    super.key,
     required this.crowdAction,
-  }) : super(key: key);
+  });
 
   final CrowdAction? crowdAction;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CrowdActionDetailsBloc>.value(
-      value: BlocProvider.of<CrowdActionDetailsBloc>(context),
-      child: BlocBuilder<CrowdActionDetailsBloc, CrowdActionDetailsState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () {
-              if (crowdAction != null) {
+    return GestureDetector(
+      onTap: () => context.router.push(
+        CrowdActionParticipantsRoute(
+          crowdActionId: crowdAction!.id,
+        ),
+      ),
+      child: BlocProvider<CrowdActionDetailsBloc>.value(
+        value: BlocProvider.of<CrowdActionDetailsBloc>(context),
+        child: BlocBuilder<CrowdActionDetailsBloc, CrowdActionDetailsState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () {
+                if (crowdAction != null) {
+                  return participantCountText(
+                    context,
+                    crowdAction!.participantCount,
+                  );
+                }
+
+                return shimmer(context);
+              },
+              loadInProgress: () {
+                if (crowdAction == null) {
+                  return shimmer(context);
+                }
+
                 return participantCountText(
                   context,
                   crowdAction!.participantCount,
                 );
-              }
-
-              return shimmer(context);
-            },
-            loadInProgress: () {
-              if (crowdAction == null) {
-                return shimmer(context);
-              }
-
-              return participantCountText(
-                context,
-                crowdAction!.participantCount,
-              );
-            },
-            loadSuccess: (crowdAction) {
-              return participantCountText(
-                context,
-                crowdAction.participantCount,
-              );
-            },
-            loadFailure: (_) => shimmer(context),
-          );
-        },
+              },
+              loadSuccess: (crowdAction) {
+                return participantCountText(
+                  context,
+                  crowdAction.participantCount,
+                );
+              },
+              loadFailure: (_) => shimmer(context),
+            );
+          },
+        ),
       ),
     );
   }

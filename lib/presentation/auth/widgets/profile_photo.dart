@@ -14,7 +14,7 @@ import '../../themes/constants.dart';
 class SelectProfilePhoto extends StatefulWidget {
   final Function() onSkip;
 
-  const SelectProfilePhoto({Key? key, required this.onSkip}) : super(key: key);
+  const SelectProfilePhoto({super.key, required this.onSkip});
 
   @override
   _SelectProfilePhotoState createState() => _SelectProfilePhotoState();
@@ -149,7 +149,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                     children: [
                       Expanded(
                         child: TextButton(
-                          onPressed: () => context.router.pop(),
+                          onPressed: () => widget.onSkip.call(),
                           child: const Text(
                             'Maybe later',
                             style: TextStyle(

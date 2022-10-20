@@ -9,7 +9,7 @@ import '../../shared_widgets/no_ripple_behavior.dart';
 import '../../themes/constants.dart';
 
 class CrowdActionCarousel extends StatefulWidget {
-  const CrowdActionCarousel({Key? key}) : super(key: key);
+  const CrowdActionCarousel({super.key});
 
   @override
   _CrowdActionCarouselState createState() => _CrowdActionCarouselState();

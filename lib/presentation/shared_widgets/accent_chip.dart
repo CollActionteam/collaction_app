@@ -9,12 +9,12 @@ class AccentChip extends StatelessWidget {
   final Color color;
 
   const AccentChip({
-    Key? key,
+    super.key,
     required this.text,
     this.leading,
     this.onDeleted,
     this.color = kAccentColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

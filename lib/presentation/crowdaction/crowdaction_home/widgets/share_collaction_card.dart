@@ -5,8 +5,8 @@ import 'share_collaction_button.dart';
 
 class ShareCollActionCard extends StatelessWidget {
   const ShareCollActionCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

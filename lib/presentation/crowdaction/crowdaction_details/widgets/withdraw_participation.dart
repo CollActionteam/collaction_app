@@ -13,11 +13,11 @@ class WithdrawParticipation extends StatelessWidget {
   final bool isParticipating;
 
   const WithdrawParticipation({
-    Key? key,
+    super.key,
     required this.participationBloc,
     required this.crowdAction,
     required this.isParticipating,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

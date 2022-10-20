@@ -11,7 +11,7 @@ import '../../../presentation/themes/constants.dart';
 class ContactForm extends StatefulWidget {
   final bool centerTitle;
 
-  const ContactForm({Key? key, this.centerTitle = false}) : super(key: key);
+  const ContactForm({super.key, this.centerTitle = false});
 
   @override
   State<ContactForm> createState() => _ContactFormState();

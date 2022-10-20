@@ -8,7 +8,7 @@ import '../../themes/constants.dart';
 class EnterVerificationCode extends StatefulWidget {
   final int pinLength;
 
-  const EnterVerificationCode({Key? key, this.pinLength = 6}) : super(key: key);
+  const EnterVerificationCode({super.key, this.pinLength = 6});
 
   @override
   _EnterVerificationCodeState createState() => _EnterVerificationCodeState();

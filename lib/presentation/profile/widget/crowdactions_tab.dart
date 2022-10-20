@@ -10,10 +10,10 @@ class CrowdActionsTab extends StatelessWidget {
   final List<CrowdAction>? crowdActions;
 
   const CrowdActionsTab({
-    Key? key,
+    super.key,
     this.user,
     this.crowdActions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +44,13 @@ class CrowdActionsTab extends StatelessWidget {
               ...crowdActions!.map(
                 (c) => Column(
                   children: [
-                    MicroCrowdActionCard(
-                      c,
-                      viewOnly: true,
-                    ),
+                    MicroCrowdActionCard(c),
                     const SizedBox(height: 10)
                   ],
                 ),
               ),
             ],
-            if (user == null) ...[
+            if (user == null || (crowdActions?.isEmpty ?? false)) ...[
               SignUpCTA(
                 user: user,
                 title: 'All CrowdActions you have participated in',

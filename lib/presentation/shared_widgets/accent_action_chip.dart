@@ -9,11 +9,11 @@ class AccentActionChip extends StatelessWidget {
   final bool enabled;
   const AccentActionChip(
     this.onTap, {
-    Key? key,
+    super.key,
     required this.text,
     this.leading,
     this.enabled = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

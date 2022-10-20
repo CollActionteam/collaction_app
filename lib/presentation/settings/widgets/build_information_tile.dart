@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 class BuildInformationTile extends StatelessWidget {
   final BuildInformation information;
 
-  const BuildInformationTile({Key? key, required this.information})
-      : super(key: key);
+  const BuildInformationTile({super.key, required this.information});
 
   @override
   Widget build(BuildContext context) {

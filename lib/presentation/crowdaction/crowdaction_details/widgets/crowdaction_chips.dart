@@ -6,11 +6,11 @@ import 'package:shimmer/shimmer.dart';
 
 class CrowdActionChips extends StatelessWidget {
   const CrowdActionChips({
-    Key? key,
+    super.key,
     this.isOpen = false,
     required this.category,
     this.subCategory,
-  }) : super(key: key);
+  });
 
   final bool isOpen;
   final String? category;

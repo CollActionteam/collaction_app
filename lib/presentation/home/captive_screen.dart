@@ -12,7 +12,7 @@ import '../crowdaction/crowdaction_home/widgets/share_collaction_card.dart';
 import '../routes/app_routes.gr.dart';
 
 class CaptivePage extends StatelessWidget {
-  const CaptivePage({Key? key}) : super(key: key);
+  const CaptivePage({super.key});
 
   @override
   Widget build(BuildContext context) {

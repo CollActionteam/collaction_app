@@ -10,7 +10,7 @@ import '../../themes/constants.dart';
 
 class UserProfileTab extends StatefulWidget {
   final User? user;
-  const UserProfileTab({Key? key, this.user}) : super(key: key);
+  const UserProfileTab({super.key, this.user});
 
   @override
   State<UserProfileTab> createState() => _UserProfileTabState();
@@ -137,7 +137,7 @@ class _UserProfileTabState extends State<UserProfileTab>
 
 class _TabLabel extends StatelessWidget {
   final String label;
-  const _TabLabel({Key? key, required this.label}) : super(key: key);
+  const _TabLabel({required this.label});
 
   @override
   Widget build(BuildContext context) {

@@ -13,9 +13,9 @@ class CurrentAndUpcomingLayout extends StatefulWidget {
   final bool isCurrent;
 
   const CurrentAndUpcomingLayout({
-    Key? key,
+    super.key,
     this.isCurrent = true,
-  }) : super(key: key);
+  });
 
   @override
   State<CurrentAndUpcomingLayout> createState() =>

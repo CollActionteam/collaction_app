@@ -10,10 +10,10 @@ class CommitmentsTab extends StatelessWidget {
   final List<CrowdAction>? crowdActions;
 
   const CommitmentsTab({
-    Key? key,
+    super.key,
     this.user,
     this.crowdActions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class CommitmentsTab extends StatelessWidget {
                 ),
               ),
             ],
-            if (user == null) ...[
+            if (user == null || (crowdActions?.isEmpty ?? false)) ...[
               SignUpCTA(
                 user: user,
                 title: 'View your amazing commitments here',

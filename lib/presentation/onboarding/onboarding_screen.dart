@@ -11,7 +11,7 @@ import '../themes/constants.dart';
 import 'widgets/onboarding_step.dart';
 
 class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
+  const OnboardingPage({super.key});
 
   @override
   _OnboardingPageState createState() => _OnboardingPageState();

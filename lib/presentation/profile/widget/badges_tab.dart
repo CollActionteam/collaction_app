@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class BadgesTab extends StatelessWidget {
   final User? user;
-  const BadgesTab({Key? key, this.user}) : super(key: key);
+  const BadgesTab({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {

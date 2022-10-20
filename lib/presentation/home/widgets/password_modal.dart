@@ -10,13 +10,11 @@ import '../../../presentation/themes/constants.dart';
 
 class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
-  final bool viewOnly;
 
   const PasswordModal({
-    Key? key,
+    super.key,
     required this.crowdAction,
-    this.viewOnly = false,
-  }) : super(key: key);
+  });
 
   @override
   State<PasswordModal> createState() => _PasswordModalState();
@@ -145,21 +143,17 @@ class _PasswordModalState extends State<PasswordModal> {
 
   void _validatePassword() {
     if (_controller.text == widget.crowdAction.password) {
-      setState(() {
-        _validated = true;
-      });
+      setState(() => _validated = true);
+
       addCrowdActionAccess();
-      context.router.pop();
-      context.router.push(
+
+      context.router.replace(
         CrowdActionDetailsRoute(
           crowdAction: widget.crowdAction,
-          viewOnly: widget.viewOnly,
         ),
       );
     } else {
-      setState(() {
-        _validated = false;
-      });
+      setState(() => _validated = false);
     }
   }
 
@@ -179,24 +173,21 @@ class _PasswordModalState extends State<PasswordModal> {
 
 Future<void> showPasswordModal(
   BuildContext context,
-  CrowdAction crowdAction, {
-  bool viewOnly = false,
-}) async {
+  CrowdAction crowdAction,
+) async {
   final settingsRepository = getIt<ISettingsRepository>();
   final accessList = await settingsRepository.getCrowdActionAccessList();
 
   if (accessList.contains(crowdAction.id)) {
     context.router.push(
-      CrowdActionDetailsRoute(crowdAction: crowdAction, viewOnly: viewOnly),
+      CrowdActionDetailsRoute(crowdAction: crowdAction),
     );
   } else {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       constraints: const BoxConstraints(maxHeight: 350),
-      builder: (context) {
-        return PasswordModal(crowdAction: crowdAction);
-      },
+      builder: (context) => PasswordModal(crowdAction: crowdAction),
     );
   }
 }
