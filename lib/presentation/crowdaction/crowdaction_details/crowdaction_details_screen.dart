@@ -49,6 +49,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
     participationBloc = getIt<ParticipationBloc>();
     participate = _signUpModal;
     id = widget.crowdActionId ?? widget.crowdAction!.id;
+    crowdAction = widget.crowdAction;
   }
 
   @override
