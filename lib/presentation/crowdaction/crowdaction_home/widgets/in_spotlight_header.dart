@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../infrastructure/core/injection.dart';
 import '../../../shared_widgets/content_placeholder.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
 import '../../../themes/constants.dart';
@@ -34,9 +33,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SpotlightBloc>()
-        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+    return BlocProvider.value(
+      value: BlocProvider.of<SpotlightBloc>(context),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Container(
