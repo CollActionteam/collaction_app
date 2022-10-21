@@ -79,9 +79,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
     _SignedOut event,
   ) async {
-    emit(const AuthState.signingOut());
     await _authRepository.signOut();
-    emit(const AuthState.unAuthenticated());
+    emit(const AuthState.unauthenticated());
   }
 
   FutureOr<void> _mapAuthCheckRequestToState(
@@ -92,7 +91,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     emit(
       userOption.fold(
-        () => const AuthState.unAuthenticated(),
+        () => const AuthState.unauthenticated(),
         (user) => AuthState.authenticated(user),
       ),
     );
