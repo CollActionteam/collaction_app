@@ -1,12 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/core/i_settings_repository.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/core/collaction_icons.dart';
-import '../../../presentation/routes/app_routes.gr.dart';
 import '../../../presentation/themes/constants.dart';
+import '../../core/routes/app_page.dart';
 
 class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
@@ -147,10 +147,13 @@ class _PasswordModalState extends State<PasswordModal> {
 
       addCrowdActionAccess();
 
-      context.router.replace(
-        CrowdActionDetailsRoute(
-          crowdAction: widget.crowdAction,
-        ),
+      // TODO - Replace with ID
+      Navigator.of(context).pop();
+      context.push(
+        AppPage.crowdActionDetails.toPath,
+        extra: <String, Object?>{
+          'crowdAction': widget.crowdAction,
+        },
       );
     } else {
       setState(() => _validated = false);
@@ -179,8 +182,15 @@ Future<void> showPasswordModal(
   final accessList = await settingsRepository.getCrowdActionAccessList();
 
   if (accessList.contains(crowdAction.id)) {
-    context.router.push(
-      CrowdActionDetailsRoute(crowdAction: crowdAction),
+    // if (!context.mounted) return;
+    // TODO: Use id
+    // TODO: Fix async context access
+    //ignore: use_build_context_synchronously
+    context.push(
+      AppPage.crowdActionDetails.toPath,
+      extra: <String, Object?>{
+        'crowdAction': crowdAction,
+      },
     );
   } else {
     showModalBottomSheet(

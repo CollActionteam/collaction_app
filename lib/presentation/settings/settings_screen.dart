@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '/application/settings/build_information/build_information_bloc.dart';
 import '../../../presentation/utils/launch_url.dart';
@@ -8,7 +8,7 @@ import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
-import '../routes/app_routes.gr.dart';
+import '../core/routes/app_page.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 import 'widgets/build_information_tile.dart';
@@ -65,24 +65,21 @@ class SettingsPage extends StatelessWidget {
                           title: 'Contact us',
                           icon: CollactionIcons.message,
                           trailingIcon: CollactionIcons.arrow_right,
-                          onTap: () =>
-                              context.router.push(const ContactFormRoute()),
+                          onTap: () => context.push(AppPage.contactForm.toPath),
                         ),
                         const SizedBox(height: 15),
                         SettingsListTile(
                           title: 'Onboarding',
                           icon: CollactionIcons.rocket,
                           trailingIcon: CollactionIcons.arrow_right,
-                          onTap: () =>
-                              context.router.push(const OnboardingRoute()),
+                          onTap: () => context.push(AppPage.onBoarding.toPath),
                         ),
                         const SizedBox(height: 15),
                         SettingsListTile(
                           title: 'Open source libraries',
                           icon: CollactionIcons.opensource,
                           trailingIcon: CollactionIcons.arrow_right,
-                          onTap: () =>
-                              context.router.push(const LicensesRoute()),
+                          onTap: () => context.push(AppPage.licenses.toPath),
                         ),
                         const SizedBox(height: 15),
                         SettingsListTile(
@@ -122,7 +119,7 @@ class SettingsPage extends StatelessWidget {
                                       onTap: () async {
                                         BlocProvider.of<AuthBloc>(context)
                                             .add(const AuthEvent.signedOut());
-                                        await context.router.pop();
+                                        context.pop();
                                       },
                                     ),
                                   ],

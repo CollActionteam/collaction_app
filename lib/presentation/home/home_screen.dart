@@ -1,80 +1,24 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../presentation/themes/constants.dart';
-import '../../domain/core/i_settings_repository.dart';
-import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
-import '../routes/app_routes.gr.dart';
+import '../core/routes/app_page.dart';
+import '../themes/constants.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+part 'widgets/home_nav.dart';
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+class HomePage extends StatelessWidget {
+  // Current display page
+  final Widget child;
 
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkAndMaybeShowOnboarding();
-    });
-  }
+  const HomePage({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsScaffold(
-      routes: const [
-        CrowdactionRouter(),
-        UserProfileRouter(),
-        if (!kReleaseMode) ...[
-          DemoScreenRouter(),
-        ],
-      ],
-      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
-    );
-  }
-
-  Future<void> checkAndMaybeShowOnboarding() async {
-    // Push onboarding screen if first time launching application
-    final settingsRepository = getIt<ISettingsRepository>();
-    if (!(await settingsRepository.getWasUserOnboarded())) {
-      context.router.push(const OnboardingRoute());
-    }
-  }
-
-  Widget bottomNavbar(TabsRouter tabsRouter) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      selectedItemColor: kEnabledButtonColor,
-      unselectedItemColor: kDisabledButtonColor,
-      type: BottomNavigationBarType.fixed,
-      elevation: 0,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(CollactionIcons.collaction),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(CollactionIcons.user),
-          label: '',
-        ),
-        if (!kReleaseMode) ...[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.assignment_outlined,
-            ),
-            label: '',
-          ),
-        ],
-      ],
-      currentIndex: tabsRouter.activeIndex,
-      onTap: tabsRouter.setActiveIndex,
+    return Scaffold(
+      body: child,
+      bottomNavigationBar: bottomNavbar(context),
     );
   }
 }

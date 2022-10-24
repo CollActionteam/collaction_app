@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
 import '../core/collaction_icons.dart';
-import '../routes/app_routes.gr.dart';
+import '../core/routes/app_page.dart';
 import '../shared_widgets/photo_selector.dart';
 import '../shared_widgets/pill_button.dart';
 import '../themes/constants.dart';
@@ -78,7 +78,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () => context.router.push(const SettingsRoute()),
+                    onPressed: () => context.push(AppPage.settings.toPath),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: kPrimaryColor0,
                       backgroundColor: Colors.white,
@@ -147,7 +147,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                             builder: (context) => PhotoSelector(
                                               onSelected: (image) {
                                                 setState(() => _image = image);
-                                                context.router.pop("dialog");
+                                                context.pop();
                                               },
                                             ),
                                           );
@@ -366,14 +366,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               const SizedBox(height: 40),
                               PillButton(
                                 text: 'Create account or sign in',
-                                onTap: () => context.router
-                                    .push(const AuthRoute())
-                                    .then((_) {
+                                onTap: () {
+                                  context.push(AppPage.auth.toPath);
+
                                   // Refresh profile
                                   context
                                       .read<ProfileBloc>()
                                       .add(GetUserProfile());
-                                }),
+                                },
                               ),
                             ],
                             const SizedBox(height: 20),

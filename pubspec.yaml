@@ -21,7 +21,6 @@ environment:
   sdk: ">=2.18.2 <3.0.0"
 
 dependencies:
-  auto_route: ^5.0.2
   bloc: ^8.1.0
   cached_network_image: ^3.2.2
   country_codes: ^2.2.0
@@ -40,6 +39,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   freezed_annotation: ^2.2.0
   get_it: ^7.2.0
+  go_router: ^5.1.1
   http: ^0.13.5
   image: ^3.2.2
   image_cropper: ^3.0.0
@@ -60,7 +60,6 @@ dependencies:
   webview_flutter: ^3.0.4
 
 dev_dependencies:
-  auto_route_generator: ^5.0.2
   bloc_test: ^9.1.0
   build_runner: ^2.3.0
   firebase_auth_mocks: ^0.8.6

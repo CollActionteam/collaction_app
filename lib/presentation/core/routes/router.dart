@@ -64,12 +64,10 @@ class AppRouter {
             builder: (BuildContext context, GoRouterState state) {
               final extra = state.extra as Map<String, Object?>? ?? {};
               final crowdAction = extra['crowdAction'] as CrowdAction?;
-              final viewOnly = extra['viewOnly'] as bool? ?? false;
 
               return CrowdActionDetailsPage(
                 crowdAction: crowdAction,
                 crowdActionId: crowdAction?.id,
-                viewOnly: viewOnly,
               );
             },
           ),
