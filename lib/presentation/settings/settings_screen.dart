@@ -122,6 +122,8 @@ class SettingsPage extends StatelessWidget {
                                       onTap: () async {
                                         BlocProvider.of<AuthBloc>(context)
                                             .add(const AuthEvent.signedOut());
+                                        BlocProvider.of<ProfileBloc>(context)
+                                            .add(GetUserProfile());
                                         await context.router.pop();
                                       },
                                     ),
