@@ -4,4 +4,4 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../domain/participation/participation.dart';
 
-part 'config/network.config.dart';
+part 'config/network_config.dart';
