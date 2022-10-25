@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,9 +24,8 @@ class CurrentAndUpcomingLayout extends StatefulWidget {
 class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SpotlightBloc>(
-      create: (context) => getIt<SpotlightBloc>()
-        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+    return BlocProvider.value(
+      value: BlocProvider.of<SpotlightBloc>(context),
       child: BlocBuilder<SpotlightBloc, SpotlightState>(
         builder: (ctx, state) => LayoutBuilder(
           builder: (context, constraints) {
