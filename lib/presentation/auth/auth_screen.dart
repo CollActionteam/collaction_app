@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
-import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';

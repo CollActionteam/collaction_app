@@ -3,11 +3,12 @@ import 'package:collaction_app/domain/profile/user_profile.dart';
 import 'package:collaction_app/domain/user/user.dart';
 
 /// Reusable user objects
-Future<String?> getUserIdToken([bool]) async {
+// ignore: avoid_types_as_parameter_names
+Future<String?> _getUserIdToken([bool]) async {
   return 'tokenId';
 }
 
-const testUser = User(id: 'id', getIdToken: getUserIdToken);
+const testUser = User(id: 'id', getIdToken: _getUserIdToken);
 
 final testProfile = Profile(
   userId: testUser.id,
