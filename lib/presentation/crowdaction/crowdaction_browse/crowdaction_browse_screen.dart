@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/shared_widgets/custom_app_bars/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -52,50 +52,36 @@ class CrowdActionBrowsePage extends StatelessWidget {
           );
         },
         child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.chevron_left,
-                color: kPrimaryColor200,
-              ),
-              onPressed: () => context.router.pop(),
-            ),
-            title: const Text(
-              "Browse CrowdActions",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: kPrimaryColor400,
-              ),
-            ),
+          appBar: const CustomAppBar(
+            title: "Browse CrowdActions",
           ),
           body: RefreshIndicator(
             color: kAccentColor,
             onRefresh: () async {
               pagingController.refresh();
             },
-            child: PagedListView.separated(
-              pagingController: pagingController,
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 16,
-              ),
-              builderDelegate: PagedChildBuilderDelegate<CrowdAction>(
-                itemBuilder: (context, crowdAction, index) =>
-                    MicroCrowdActionCard(
-                  crowdAction,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: PagedListView.separated(
+                pagingController: pagingController,
+                separatorBuilder: (_, __) => const SizedBox(height: 20),
+                builderDelegate: PagedChildBuilderDelegate<CrowdAction>(
+                  itemBuilder: (context, crowdAction, index) =>
+                      MicroCrowdActionCard(
+                    crowdAction,
+                  ),
+                  firstPageProgressIndicatorBuilder: (context) => const Center(
+                    child: CircularProgressIndicator(color: kAccentColor),
+                  ),
+                  newPageProgressIndicatorBuilder: (context) => const Center(
+                    child: CircularProgressIndicator(color: kAccentColor),
+                  ),
+                  firstPageErrorIndicatorBuilder: (context) => const Text(
+                    'Something went wrong, try to refresh by dragging down',
+                  ),
+                  noItemsFoundIndicatorBuilder: (context) =>
+                      const Text('No crowdactions yet!'),
                 ),
-                firstPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(color: kAccentColor),
-                ),
-                newPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(color: kAccentColor),
-                ),
-                firstPageErrorIndicatorBuilder: (context) => const Text(
-                  'Something went wrong, try to refresh by dragging down',
-                ),
-                noItemsFoundIndicatorBuilder: (context) =>
-                    const Text('No crowdactions yet!'),
               ),
             ),
           ),

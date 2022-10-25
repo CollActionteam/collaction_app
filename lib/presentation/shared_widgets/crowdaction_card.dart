@@ -24,124 +24,119 @@ class CrowdActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap ??
-          () {
-            if (crowdAction.hasPassword) {
-              showPasswordModal(context, crowdAction);
-            } else {
-              context.router.push(
-                CrowdActionDetailsRoute(crowdAction: crowdAction),
-              );
-            }
-          },
-      child: Container(
-        margin: const EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
+    return Container(
+      margin: const EdgeInsets.all(12.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(20.0),
+        color: kSecondaryColor,
+        elevation: 4,
+        child: InkWell(
           borderRadius: BorderRadius.circular(20.0),
-          boxShadow: const [
-            BoxShadow(
-              color: kShadowColor,
-              blurRadius: 4.0,
-              offset: Offset(0, 4),
+          onTap: onTap ??
+              () {
+                if (crowdAction.hasPassword) {
+                  showPasswordModal(context, crowdAction);
+                } else {
+                  context.router.push(
+                    CrowdActionDetailsRoute(crowdAction: crowdAction),
+                  );
+                }
+              },
+          child: Container(
+            height: 400 * scaleFactor,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
             ),
-          ],
-        ),
-        child: Container(
-          height: 400 * scaleFactor,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: kSecondaryColor,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 215 * scaleFactor,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
-                  ),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(
-                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
-                      errorListener: () {},
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 215 * scaleFactor,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: CachedNetworkImageProvider(
+                        '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
+                        errorListener: () {},
+                      ),
                     ),
                   ),
-                ),
-                child: crowdAction.hasPassword
-                    ? Stack(
-                        children: const [
-                          Positioned(
-                            bottom: 10,
-                            right: 10,
-                            child: CustomFAB(
-                              heroTag: 'locked',
-                              isMini: true,
-                              color: kSecondaryColor,
-                              child: Icon(
-                                CollactionIcons.lock,
-                                color: kPrimaryColor300,
+                  child: crowdAction.hasPassword
+                      ? Stack(
+                          children: const [
+                            Positioned(
+                              bottom: 10,
+                              right: 10,
+                              child: CustomFAB(
+                                heroTag: 'locked',
+                                isMini: true,
+                                color: kSecondaryColor,
+                                child: Icon(
+                                  CollactionIcons.lock,
+                                  color: kPrimaryColor300,
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      )
-                    : null,
-              ),
-              const SizedBox(height: 5.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 15.0),
-                        Wrap(
-                          spacing: 12.0,
-                          children: crowdAction.toChips(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 5.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          crowdAction.title,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 22.0 * scaleFactor,
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryColor400,
+                            )
+                          ],
+                        )
+                      : null,
+                ),
+                const SizedBox(height: 5.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 15.0),
+                          Wrap(
+                            spacing: 12.0,
+                            children: crowdAction.toChips(),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 18.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Text(
-                      crowdAction.description,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2
-                          ?.copyWith(color: kInactiveColor),
+                    const SizedBox(height: 5.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            crowdAction.title,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 22.0 * scaleFactor,
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColor400,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    const SizedBox(height: 18.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Text(
+                        crowdAction.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            ?.copyWith(color: kInactiveColor),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

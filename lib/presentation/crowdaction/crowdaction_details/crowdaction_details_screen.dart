@@ -235,6 +235,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                               ),
                             ),
                             CommitmentCardList(
+                              isEnded: crowdAction?.isClosed ?? true,
                               commitmentOptions: crowdAction?.commitmentOptions,
                               selectedCommitments: selectedCommitments,
                             ),
@@ -344,7 +345,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               PillButton(
-                text: "Create account",
+                text: "Sign in",
                 onTap: () => _createAccount(context),
                 margin: EdgeInsets.zero,
               ),
