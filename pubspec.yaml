@@ -50,6 +50,7 @@ dependencies:
   infinite_scroll_pagination: ^3.2.0
   injectable: ^1.5.3
   intl: ^0.17.0
+  ionicons: ^0.2.1
   json_annotation: ^4.6.0
   meta: ^1.7.0
   mime: ^1.0.2
