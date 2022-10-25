@@ -48,7 +48,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
                     image: CachedNetworkImageProvider(
-                      NetworkConfig.crowdActionCard(crowdAction),
+                      crowdAction.cardUrl,
                       errorListener: () {},
                     ),
                     fit: BoxFit.cover,

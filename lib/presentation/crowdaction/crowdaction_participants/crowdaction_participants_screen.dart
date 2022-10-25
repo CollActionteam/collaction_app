@@ -92,7 +92,7 @@ class CrowdActionParticipantsPage extends StatelessWidget {
                 itemBuilder: (context, participation, index) => ListTile(
                   leading: CircleAvatar(
                     foregroundImage: NetworkImage(
-                      NetworkConfig.participationAvatar(participation),
+                      participation.avatarUrl,
                     ),
                     backgroundImage: const AssetImage(
                       'assets/images/default_avatar.png',

@@ -1,32 +1,35 @@
 part of '../core.dart';
 
 /// Manage all url creation and building
-// ignore_for_file: avoid_classes_with_only_static_members
-class NetworkConfig {
-  // base static url
-  static final _baseStaticUrl = dotenv.get('BASE_STATIC_ENDPOINT_URL');
+// base static url
+final _baseStaticUrl = dotenv.get('BASE_STATIC_ENDPOINT_URL');
 
+extension UserProfileUrlX on UserProfile? {
   // User profile avatar url
-  static String? userAvatar(UserProfile? userProfile) {
-    if (userProfile?.profile.avatar != null) {
-      return '$_baseStaticUrl/${userProfile?.profile.avatar}';
+  String? get avatarUrl {
+    if (this?.profile.avatar != null) {
+      return '$_baseStaticUrl/${this?.profile.avatar}';
     }
 
     return null;
   }
+}
 
+extension CrowdActionUrlX on CrowdAction? {
   // Crowdaction banner url
-  static String crowdActionBanner(CrowdAction? crowdAction) {
-    return '$_baseStaticUrl/${crowdAction?.images.banner}';
+  String get bannerUrl {
+    return '$_baseStaticUrl/${this?.images.banner}';
   }
 
   // Crowdaction card url
-  static String crowdActionCard(CrowdAction? crowdAction) {
-    return '$_baseStaticUrl/${crowdAction?.images.card}';
+  String get cardUrl {
+    return '$_baseStaticUrl/${this?.images.card}';
   }
+}
 
+extension ParticipationUrlX on Participation? {
   // Participation avatar url
-  static String participationAvatar(Participation? participation) {
-    return '$_baseStaticUrl/${participation?.avatar}';
+  String get avatarUrl {
+    return '$_baseStaticUrl/${this?.avatar}';
   }
 }

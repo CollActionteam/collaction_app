@@ -1,4 +1,7 @@
 import 'package:collaction_app/core/core.dart';
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_app/domain/participation/participation.dart';
+import 'package:collaction_app/domain/profile/user_profile.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -24,7 +27,7 @@ void main() {
       // arrange
       final userProfile = testUserProfile;
       // act
-      final userAvatarUrl = NetworkConfig.userAvatar(userProfile);
+      final userAvatarUrl = userProfile.avatarUrl;
 
       // assert
       expect(
@@ -36,8 +39,11 @@ void main() {
     test(
         'should return null '
         'when the user profile is null', () async {
+      // arrange
+      const UserProfile? userProfile = null;
+
       // act
-      final userAvatarUrl = NetworkConfig.userAvatar(null);
+      final userAvatarUrl = userProfile.avatarUrl;
 
       // assert
       expect(
@@ -55,7 +61,7 @@ void main() {
       final crowdAction = testCrowdAction;
 
       // act
-      final crowdActionBannerUrl = NetworkConfig.crowdActionBanner(crowdAction);
+      final crowdActionBannerUrl = crowdAction.bannerUrl;
 
       // assert
       expect(
@@ -67,8 +73,11 @@ void main() {
     test(
         'should return null inclusive crowdaction banner url '
         'when the crowdaction is null', () async {
+      // arrange
+      const CrowdAction? crowdAction = null;
+
       // act
-      final crowdActionBannerUrl = NetworkConfig.crowdActionBanner(null);
+      final crowdActionBannerUrl = crowdAction.bannerUrl;
 
       // assert
       // TODO(isaac): Could this be buggy
@@ -87,7 +96,7 @@ void main() {
       final crowdAction = testCrowdAction;
 
       // act
-      final crowdActionCardUrl = NetworkConfig.crowdActionCard(crowdAction);
+      final crowdActionCardUrl = crowdAction.cardUrl;
 
       // assert
       expect(
@@ -99,8 +108,11 @@ void main() {
     test(
         'should return null inclusive crowdaction card url '
         'when the crowdaction is null', () async {
+      // arrange
+      const CrowdAction? crowdAction = null;
+
       // act
-      final crowdActionCardUrl = NetworkConfig.crowdActionCard(null);
+      final crowdActionCardUrl = crowdAction.cardUrl;
 
       // assert
       // TODO(isaac): Could this be buggy
@@ -119,8 +131,7 @@ void main() {
       final participation = testParticipation;
 
       // act
-      final participationAvatarUrl =
-          NetworkConfig.participationAvatar(participation);
+      final participationAvatarUrl = participation.avatarUrl;
 
       // assert
       expect(
@@ -132,8 +143,11 @@ void main() {
     test(
         'should return null inclusive participation avatar url '
         'when the participation is null', () async {
+      // arrange
+      const Participation? participation = null;
+
       // act
-      final participationAvatarUrl = NetworkConfig.participationAvatar(null);
+      final participationAvatarUrl = participation.avatarUrl;
 
       // assert
       // TODO(isaac): Could this be buggy

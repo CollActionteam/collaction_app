@@ -54,7 +54,7 @@ class CrowdActionDetailsBanner extends StatelessWidget {
             Positioned.fill(
               child: crowdAction != null
                   ? CachedNetworkImage(
-                      imageUrl: NetworkConfig.crowdActionBanner(crowdAction),
+                      imageUrl: crowdAction.bannerUrl,
                       placeholder: (context, url) => const ImageSkeletonLoader(
                         height: 310,
                       ),
