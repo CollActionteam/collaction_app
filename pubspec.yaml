@@ -47,6 +47,7 @@ dependencies:
   infinite_scroll_pagination: ^3.2.0
   injectable: ^1.5.3
   intl: ^0.17.0
+  ionicons: ^0.2.1
   json_annotation: ^4.7.0
   mocktail: ^0.3.0
   package_info_plus: ^3.0.0
