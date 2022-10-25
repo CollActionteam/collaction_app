@@ -2,30 +2,10 @@ import 'package:collaction_app/domain/participation/paginated_participations.dar
 import 'package:collaction_app/infrastructure/participation/participation_dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'paginated_participations_dto.freezed.dart';
+import '../core/page_info_dto.dart';
+
 part 'paginated_participations_dto.g.dart';
-
-@freezed
-class PageInfoDto with _$PageInfoDto {
-  const PageInfoDto._();
-
-  const factory PageInfoDto({
-    required int page,
-    required int pageSize,
-    required int totalPages,
-    required int totalItems,
-  }) = _PageInfoDto;
-
-  factory PageInfoDto.fromJson(Map<String, dynamic> json) =>
-      _$PageInfoDtoFromJson(json);
-
-  PageInfo toDomain() => PageInfo(
-        page: page,
-        pageSize: pageSize,
-        totalPages: totalPages,
-        totalItems: totalItems,
-      );
-}
+part 'paginated_participations_dto.freezed.dart';
 
 @freezed
 class PaginatedParticipationsDto with _$PaginatedParticipationsDto {

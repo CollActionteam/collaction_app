@@ -13,6 +13,8 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
+import '../core/page_info_dto.dart';
+
 @LazySingleton(as: IParticipationRepository)
 class ParticipationRepository implements IParticipationRepository {
   final http.Client client;

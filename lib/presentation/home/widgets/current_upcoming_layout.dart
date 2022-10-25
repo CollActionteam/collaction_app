@@ -51,11 +51,8 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                                   ),
                         ),
                         TextButton(
-                          onPressed: () => context.router.push(
-                            widget.isCurrent
-                                ? const CrowdActionBrowseRoute()
-                                : const CrowdActionBrowseRoute(),
-                          ),
+                          onPressed: () =>
+                              context.router.push(CrowdActionBrowseRoute()),
                           child: const Text(
                             'View all',
                             textAlign: TextAlign.center,

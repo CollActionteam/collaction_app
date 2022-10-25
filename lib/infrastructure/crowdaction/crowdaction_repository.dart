@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
+import 'package:collaction_app/domain/crowdaction/paginated_crowdactions.dart';
+import 'package:collaction_app/infrastructure/crowdaction/paginated_crowdactions_dto.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
@@ -11,6 +13,7 @@ import '../../domain/crowdaction/crowdaction.dart';
 import '../../domain/crowdaction/crowdaction_failures.dart';
 import '../../domain/crowdaction/crowdaction_status.dart';
 import '../../domain/crowdaction/i_crowdaction_repository.dart';
+import '../core/page_info_dto.dart';
 import 'crowdaction_dto.dart';
 import 'crowdaction_status_dto.dart';
 
@@ -51,30 +54,37 @@ class CrowdActionRepository implements ICrowdActionRepository {
   }
 
   @override
-  Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions({
-    int amount = 0,
+  Future<Either<CrowdActionFailure, PaginatedCrowdActions>> getCrowdActions({
+    int pageNumber = 1,
   }) async {
     try {
       final response = await _client.get(
         Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions',
+          '${await _settingsRepository.baseApiEndpointUrl}/v1/crowdactions?page=$pageNumber',
         ),
-        headers: {'Content-Type': 'application/json'},
       );
+
       if (response.statusCode == 200) {
-        final responseBody = jsonDecode(response.body);
+        final json = jsonDecode(response.body) as Map<String, dynamic>;
+        final itemsJson = json['items'] as List<dynamic>;
+        final pageInfoJson = json['pageInfo'] as Map<String, dynamic>;
+
+        final crowdActions = itemsJson
+            .map(
+              (item) => CrowdActionDto.fromJson(item as Map<String, dynamic>),
+            )
+            .toList();
+
+        final pageInfo = PageInfoDto.fromJson(pageInfoJson);
+
         return right(
-          responseBody['items']
-              .map<CrowdAction>(
-                (json) => CrowdActionDto.fromJson(json as Map<String, dynamic>)
-                    .toDomain(),
-              )
-              .toList() as List<CrowdAction>,
+          PaginatedCrowdActionsDto(
+            crowdActions: crowdActions,
+            pageInfo: pageInfo,
+          ).toDomain(),
         );
       } else {
-        return left(
-          const CrowdActionFailure.serverError(),
-        );
+        return left(const CrowdActionFailure.serverError());
       }
     } catch (error) {
       return left(const CrowdActionFailure.networkRequestFailed());

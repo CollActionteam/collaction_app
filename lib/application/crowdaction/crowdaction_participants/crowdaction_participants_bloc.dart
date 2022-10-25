@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:collaction_app/domain/participation/i_participation_repository.dart';
-import 'package:collaction_app/domain/participation/paginated_participations.dart';
 import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:collaction_app/domain/participation/participation_failures.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../domain/core/page_info.dart';
 
 part 'crowdaction_participants_bloc.freezed.dart';
 part 'crowdaction_participants_event.dart';
