@@ -51,6 +51,7 @@ class CommitmentsTab extends StatelessWidget {
                         CrowdActionDetailsRoute(crowdAction: crowdAction),
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             crowdAction.title,

@@ -6,15 +6,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../domain/crowdaction/crowdaction.dart';
+import '../../../../infrastructure/core/injection.dart';
 import '../../../../presentation/themes/constants.dart';
 
 class ParticipationCountText extends StatelessWidget {
   const ParticipationCountText({
     super.key,
     required this.crowdAction,
+    this.isEnded = false,
   });
 
   final CrowdAction? crowdAction;
+  final bool isEnded;
+
+  CrowdActionDetailsBloc getDetailsBloc(BuildContext context) {
+    try {
+      return BlocProvider.of<CrowdActionDetailsBloc>(context);
+    } catch (_) {
+      return getIt<CrowdActionDetailsBloc>()
+        ..add(
+          CrowdActionDetailsEvent.fetchCrowdAction(
+            id: crowdAction!.id,
+          ),
+        );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +43,7 @@ class ParticipationCountText extends StatelessWidget {
         ),
       ),
       child: BlocProvider<CrowdActionDetailsBloc>.value(
-        value: BlocProvider.of<CrowdActionDetailsBloc>(context),
+        value: getDetailsBloc(context),
         child: BlocBuilder<CrowdActionDetailsBloc, CrowdActionDetailsState>(
           builder: (context, state) {
             return state.when(
@@ -74,7 +90,7 @@ class ParticipationCountText extends StatelessWidget {
       );
 
   Text participantCountText(BuildContext context, int participantCount) => Text(
-        "Join $participantCount participant${participantCount == 1 ? "" : "s"}",
+        "${!isEnded ? 'Join ' : ''}$participantCount ${participantCount > 1 ? 'people' : 'person'} ${!isEnded ? 'participating' : 'participated'}",
         style: Theme.of(context).textTheme.caption?.copyWith(
               fontSize: 14,
               color: kPrimaryColor300,

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -10,7 +11,7 @@ import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
 import 'custom_fab.dart';
 
-class CrowdActionCard extends StatelessWidget {
+class CrowdActionCard extends StatefulWidget {
   final CrowdAction crowdAction;
   final double scaleFactor;
   final Function()? onTap;
@@ -23,7 +24,15 @@ class CrowdActionCard extends StatelessWidget {
   });
 
   @override
+  State<CrowdActionCard> createState() => _CrowdActionCardState();
+}
+
+class _CrowdActionCardState extends State<CrowdActionCard>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Container(
       margin: const EdgeInsets.all(12.0),
       child: Material(
@@ -32,18 +41,18 @@ class CrowdActionCard extends StatelessWidget {
         elevation: 4,
         child: InkWell(
           borderRadius: BorderRadius.circular(20.0),
-          onTap: onTap ??
+          onTap: widget.onTap ??
               () {
-                if (crowdAction.hasPassword) {
-                  showPasswordModal(context, crowdAction);
+                if (widget.crowdAction.hasPassword) {
+                  showPasswordModal(context, widget.crowdAction);
                 } else {
                   context.router.push(
-                    CrowdActionDetailsRoute(crowdAction: crowdAction),
+                    CrowdActionDetailsRoute(crowdAction: widget.crowdAction),
                   );
                 }
               },
           child: Container(
-            height: 400 * scaleFactor,
+            height: 460 * widget.scaleFactor,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
             ),
@@ -51,7 +60,7 @@ class CrowdActionCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 215 * scaleFactor,
+                  height: 215 * widget.scaleFactor,
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: const BorderRadius.only(
@@ -61,12 +70,12 @@ class CrowdActionCard extends StatelessWidget {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: CachedNetworkImageProvider(
-                        '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
+                        '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.crowdAction.images.card}',
                         errorListener: () {},
                       ),
                     ),
                   ),
-                  child: crowdAction.hasPassword
+                  child: widget.crowdAction.hasPassword
                       ? Stack(
                           children: const [
                             Positioned(
@@ -97,7 +106,7 @@ class CrowdActionCard extends StatelessWidget {
                           const SizedBox(width: 15.0),
                           Wrap(
                             spacing: 12.0,
-                            children: crowdAction.toChips(),
+                            children: widget.crowdAction.toChips(),
                           ),
                         ],
                       ),
@@ -108,11 +117,11 @@ class CrowdActionCard extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            crowdAction.title,
+                            widget.crowdAction.title,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 22.0 * scaleFactor,
+                              fontSize: 22.0 * widget.scaleFactor,
                               fontWeight: FontWeight.bold,
                               color: kPrimaryColor400,
                             ),
@@ -124,7 +133,7 @@ class CrowdActionCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text(
-                        crowdAction.description,
+                        widget.crowdAction.description,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
@@ -133,6 +142,13 @@ class CrowdActionCard extends StatelessWidget {
                             ?.copyWith(color: kInactiveColor),
                       ),
                     ),
+                    if (widget.crowdAction.participantCount > 0) ...[
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Participants(crowdAction: widget.crowdAction),
+                      ),
+                    ],
                   ],
                 ),
               ],
@@ -142,4 +158,7 @@ class CrowdActionCard extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
