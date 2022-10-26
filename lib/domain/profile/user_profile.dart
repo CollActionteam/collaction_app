@@ -1,3 +1,4 @@
+import 'package:collaction_app/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../user/user.dart';
@@ -13,4 +14,7 @@ class UserProfile with _$UserProfile {
     required User user,
     required Profile profile,
   }) = _UserProfile;
+
+  // User profile avatar url
+  String? get avatarUrl => '$baseStaticUrl/${profile.avatar}';
 }

@@ -1,4 +1,3 @@
-import 'package:collaction_app/core/core.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:collaction_app/domain/profile/user_profile.dart';
@@ -43,7 +42,7 @@ void main() {
       const UserProfile? userProfile = null;
 
       // act
-      final userAvatarUrl = userProfile.avatarUrl;
+      final userAvatarUrl = userProfile?.avatarUrl;
 
       // assert
       expect(
@@ -71,19 +70,18 @@ void main() {
     });
 
     test(
-        'should return null inclusive crowdaction banner url '
+        'should return null crowdaction banner url '
         'when the crowdaction is null', () async {
       // arrange
       const CrowdAction? crowdAction = null;
 
       // act
-      final crowdActionBannerUrl = crowdAction.bannerUrl;
+      final crowdActionBannerUrl = crowdAction?.bannerUrl;
 
       // assert
-      // TODO(isaac): Could this be buggy
       expect(
         crowdActionBannerUrl,
-        equals('$baseStaticUrl/null'),
+        equals(null),
       );
     });
   });
@@ -106,19 +104,18 @@ void main() {
     });
 
     test(
-        'should return null inclusive crowdaction card url '
+        'should return null crowdaction card url '
         'when the crowdaction is null', () async {
       // arrange
       const CrowdAction? crowdAction = null;
 
       // act
-      final crowdActionCardUrl = crowdAction.cardUrl;
+      final crowdActionCardUrl = crowdAction?.cardUrl;
 
       // assert
-      // TODO(isaac): Could this be buggy
       expect(
         crowdActionCardUrl,
-        equals('$baseStaticUrl/null'),
+        equals(null),
       );
     });
   });
@@ -141,19 +138,18 @@ void main() {
     });
 
     test(
-        'should return null inclusive participation avatar url '
+        'should return null participation avatar url '
         'when the participation is null', () async {
       // arrange
       const Participation? participation = null;
 
       // act
-      final participationAvatarUrl = participation.avatarUrl;
+      final participationAvatarUrl = participation?.avatarUrl;
 
       // assert
-      // TODO(isaac): Could this be buggy
       expect(
         participationAvatarUrl,
-        equals('$baseStaticUrl/null'),
+        equals(null),
       );
     });
   });
