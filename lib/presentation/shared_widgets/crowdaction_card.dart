@@ -1,11 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participants.dart';
+// ignore: depend_on_referenced_packages
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../core/collaction_icons.dart';
+import '../crowdaction/crowdaction_details/widgets/participants.dart';
 import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
@@ -13,13 +15,11 @@ import 'custom_fab.dart';
 
 class CrowdActionCard extends StatefulWidget {
   final CrowdAction crowdAction;
-  final double scaleFactor;
   final Function()? onTap;
 
   const CrowdActionCard({
     super.key,
     required this.crowdAction,
-    this.scaleFactor = 1.0,
     this.onTap,
   });
 
@@ -51,8 +51,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                   );
                 }
               },
-          child: Container(
-            height: 460 * widget.scaleFactor,
+          child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
             ),
@@ -60,7 +59,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 215 * widget.scaleFactor,
+                  height: 215,
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: const BorderRadius.only(
@@ -71,6 +70,8 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                       fit: BoxFit.cover,
                       image: CachedNetworkImageProvider(
                         '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.crowdAction.images.card}',
+                        imageRenderMethodForWeb:
+                            ImageRenderMethodForWeb.HttpGet,
                         errorListener: () {},
                       ),
                     ),
@@ -120,8 +121,8 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                             widget.crowdAction.title,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 22.0 * widget.scaleFactor,
+                            style: const TextStyle(
+                              fontSize: 22.0,
                               fontWeight: FontWeight.bold,
                               color: kPrimaryColor400,
                             ),
@@ -148,6 +149,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Participants(crowdAction: widget.crowdAction),
                       ),
+                      const SizedBox(height: 20),
                     ],
                   ],
                 ),

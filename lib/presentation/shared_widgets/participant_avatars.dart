@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:collaction_app/application/participation/top_participants/top_participants_bloc.dart';
-import 'package:collaction_app/domain/participation/participation.dart';
-import 'package:collaction_app/presentation/shared_widgets/shimmers/top_participants_shimmer.dart';
+// ignore: depend_on_referenced_packages
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../application/participation/top_participants/top_participants_bloc.dart';
+import '../../domain/participation/participation.dart';
 import '../../infrastructure/core/injection.dart';
 import '../themes/constants.dart';
+import 'shimmers/top_participants_shimmer.dart';
 
 class TopParticipantAvatars extends StatelessWidget {
   final String crowdActionId;
@@ -77,6 +79,7 @@ class TopParticipantAvatars extends StatelessWidget {
           backgroundColor: Colors.grey[300],
           foregroundImage: CachedNetworkImageProvider(
             '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${participant.avatar}',
+            imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
             errorListener: () {},
           ),
           backgroundImage: const AssetImage('assets/images/default_avatar.png'),
