@@ -74,10 +74,6 @@ class TestUtilities {
 
     final crowdActionRepo = MockCrowdActionRepository();
 
-    when(() => crowdActionRepo.getCrowdActions()).thenAnswer(
-      (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
-    );
-
     when(() => crowdActionRepo.getSpotlightCrowdActions()).thenAnswer(
       (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
     );

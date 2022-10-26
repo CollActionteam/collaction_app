@@ -1,3 +1,4 @@
+import 'package:collaction_app/domain/crowdaction/paginated_crowdactions.dart';
 import 'package:dartz/dartz.dart';
 
 import 'crowdaction.dart';
@@ -9,9 +10,10 @@ abstract class ICrowdActionRepository {
     String id,
   );
 
-  Future<Either<CrowdActionFailure, List<CrowdAction>>> getCrowdActions({
-    int amount = 0,
+  Future<Either<CrowdActionFailure, PaginatedCrowdActions>> getCrowdActions({
+    int pageNumber = 1,
   });
+
   Future<Either<CrowdActionFailure, List<CrowdAction>>>
       getSpotlightCrowdActions();
 

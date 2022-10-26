@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/presentation/profile/widget/signup_cta.dart';
 import 'package:collaction_app/presentation/shared_widgets/commitments/commitment_card.dart';
 import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../routes/app_routes.gr.dart';
 
 class CommitmentsTab extends StatelessWidget {
   final User? user;
@@ -40,19 +43,33 @@ class CommitmentsTab extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              ...crowdActions!.map(
-                (c) => Column(
-                  children: [
-                    ...c.commitmentOptions.map(
-                      (co) => CommitmentCard(
-                        commitment: co,
-                        viewOnly: true,
+              ...crowdActions!
+                  .where((crowdAction) => crowdAction.isRunning)
+                  .map(
+                    (crowdAction) => GestureDetector(
+                      onTap: () => context.router.push(
+                        CrowdActionDetailsRoute(crowdAction: crowdAction),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            crowdAction.title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          ...crowdAction.commitmentOptions.map(
+                            (co) => CommitmentCard(
+                              commitment: co,
+                              viewOnly: true,
+                            ),
+                          ),
+                          const SizedBox(height: 15)
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 10)
-                  ],
-                ),
-              ),
+                  ),
             ],
             if (user == null || (crowdActions?.isEmpty ?? false)) ...[
               SignUpCTA(

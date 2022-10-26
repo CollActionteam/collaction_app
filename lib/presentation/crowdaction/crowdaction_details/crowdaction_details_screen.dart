@@ -6,7 +6,7 @@ import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dar
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_chips.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_details_banner.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_title.dart';
-import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participation_count_text.dart';
+import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -185,7 +185,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                     subCategory: crowdAction?.subcategory,
                                   ),
                                   const SizedBox(height: 20),
-                                  ParticipationCountText(
+                                  Participants(
                                     crowdAction: crowdAction,
                                   ),
                                   const SizedBox(height: 20),
@@ -235,6 +235,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                               ),
                             ),
                             CommitmentCardList(
+                              isEnded: crowdAction?.isClosed ?? true,
                               commitmentOptions: crowdAction?.commitmentOptions,
                               selectedCommitments: selectedCommitments,
                             ),
@@ -344,7 +345,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 20,
               ),
               PillButton(
-                text: "Create account",
+                text: "Sign in",
                 onTap: () => _createAccount(context),
                 margin: EdgeInsets.zero,
               ),

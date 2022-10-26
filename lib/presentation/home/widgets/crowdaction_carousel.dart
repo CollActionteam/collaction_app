@@ -1,8 +1,8 @@
+import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/crowdaction_card.dart';
 import '../../shared_widgets/no_ripple_behavior.dart';
@@ -38,15 +38,22 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
             : 0.9
         : 1.0;
 
-    return BlocProvider<CrowdActionGetterBloc>(
-      create: (context) => getIt<CrowdActionGetterBloc>()
-        ..add(const CrowdActionGetterEvent.getMore(3)),
-      child: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
+    return BlocProvider<SpotlightBloc>(
+      create: (context) => getIt<SpotlightBloc>()
+        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+      child: BlocBuilder<SpotlightBloc, SpotlightState>(
         builder: (context, state) => state.when(
           initial: () => const CircularProgressIndicator(),
-          noCrowdActions: () => const Text('No CrowdActions'),
-          fetchingCrowdActions: () => const CircularProgressIndicator(),
-          fetched: (crowdActions) => Column(
+          fetchingCrowdSpotLightActions: () {
+            // TODO: Shimmer
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+          spotLightCrowdActionsError: (failure) {
+            return const Text('Something went wrong!');
+          },
+          spotLightCrowdActions: (crowdActions) => Column(
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width,

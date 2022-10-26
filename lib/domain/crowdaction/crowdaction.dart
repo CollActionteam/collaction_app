@@ -39,7 +39,17 @@ class CrowdAction with _$CrowdAction {
   }
 
   bool get isOpen => joinStatus == JoinStatus.open;
-  bool get isEnded => joinStatus == JoinStatus.closed;
+  bool get isRunning => status == Status.started;
+  bool get isClosed => status == Status.ended;
+  bool get isWaiting => status == Status.waiting;
+
+  String get statusChipLabel => isOpen
+      ? 'Now open'
+      : isRunning
+          ? 'Currently running'
+          : isWaiting
+              ? 'Starting soon'
+              : 'Finished';
 }
 
 @freezed

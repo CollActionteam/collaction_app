@@ -7,12 +7,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'commitment_card.dart';
 
 class CommitmentCardList extends StatefulWidget {
+  final bool isEnded;
   final List<CommitmentOption>? commitmentOptions;
   final List<CommitmentOption> selectedCommitments;
 
   /// Widget for easily creating a list of CommitmentCard(s)
   const CommitmentCardList({
     super.key,
+    this.isEnded = false,
     required this.commitmentOptions,
     required this.selectedCommitments,
   });
@@ -57,6 +59,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
               onDeSelected: isParticipating ? null : deselectCommitment,
               active: widget.selectedCommitments.contains(option),
               deactivated: isParticipating || isBlocked(option),
+              viewOnly: widget.isEnded,
             );
           },
           itemCount: widget.commitmentOptions!.length,

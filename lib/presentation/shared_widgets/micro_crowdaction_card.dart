@@ -20,27 +20,26 @@ class MicroCrowdActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (crowdAction.hasPassword) {
-          showPasswordModal(context, crowdAction);
-        } else {
-          context.router.push(
-            CrowdActionDetailsRoute(
-              crowdActionId: crowdAction.id,
-            ),
-          );
-        }
-      },
-      child: Container(
-        height: 148,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 4,
+    return Material(
+      borderRadius: BorderRadius.circular(20),
+      color: Colors.white,
+      elevation: 4,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () {
+          if (crowdAction.hasPassword) {
+            showPasswordModal(context, crowdAction);
+          } else {
+            context.router.push(
+              CrowdActionDetailsRoute(
+                crowdActionId: crowdAction.id,
+              ),
+            );
+          }
+        },
+        child: SizedBox(
+          height: 148,
+          width: MediaQuery.of(context).size.width,
           child: Row(
             children: [
               Container(
@@ -61,23 +60,22 @@ class MicroCrowdActionCard extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           AccentChip(
-                            text: crowdAction.isOpen
-                                ? "Now open"
-                                : (crowdAction.isEnded
-                                    ? "Finished"
-                                    : "Currently running"),
-                            color: crowdAction.isOpen
+                            text: crowdAction.statusChipLabel,
+                            color: crowdAction.isOpen || crowdAction.isWaiting
                                 ? kAccentColor
                                 : kPrimaryColor200,
                             leading: Icon(
-                              crowdAction.isOpen ? Icons.check : Icons.close,
+                              crowdAction.isOpen || crowdAction.isWaiting
+                                  ? Icons.check
+                                  : Icons.close,
                               color: Colors.white,
                             ),
                           ),

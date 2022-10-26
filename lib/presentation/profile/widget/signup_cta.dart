@@ -47,7 +47,7 @@ class SignUpCTA extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             PillButton(
-              text: 'Create account or sign in',
+              text: 'Sign in',
               onTap: () {
                 context.router.push(const AuthRoute());
               },

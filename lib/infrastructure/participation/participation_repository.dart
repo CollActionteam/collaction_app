@@ -13,6 +13,8 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
+import '../core/page_info_dto.dart';
+
 @LazySingleton(as: IParticipationRepository)
 class ParticipationRepository implements IParticipationRepository {
   final http.Client client;
@@ -131,6 +133,35 @@ class ParticipationRepository implements IParticipationRepository {
           pageInfo: pageInfo,
         ).toDomain(),
       );
+    } catch (ex) {
+      return left(const ParticipationFailure.networkRequestFailed());
+    }
+  }
+
+  @override
+  Future<Either<ParticipationFailure, List<Participation>>> getTopParticipants({
+    required String crowdActionId,
+  }) async {
+    try {
+      final response = await client.get(
+        Uri.parse(
+          '${await settingsRepository.baseApiEndpointUrl}/v1/participations?crowdActionId=$crowdActionId&pageSize=3',
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body)['items'] as List<dynamic>;
+        final participations = json
+            .map(
+              (item) => ParticipationDto.fromJson(item as Map<String, dynamic>)
+                  .toDomain(),
+            )
+            .toList();
+
+        return right(participations);
+      }
+
+      return left(const ParticipationFailure.serverError());
     } catch (ex) {
       return left(const ParticipationFailure.networkRequestFailed());
     }

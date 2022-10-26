@@ -19,6 +19,7 @@ class AccentChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       avatar: leading,
       backgroundColor: color,
       shape: StadiumBorder(side: BorderSide(color: color)),

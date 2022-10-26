@@ -31,13 +31,15 @@ class CommitmentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
-      onTap: () {
-        if (!active && !deactivated) {
-          onSelected?.call(commitment);
-        } else {
-          onDeSelected?.call(commitment);
-        }
-      },
+      onTap: viewOnly
+          ? null
+          : () {
+              if (!active && !deactivated) {
+                onSelected?.call(commitment);
+              } else {
+                onDeSelected?.call(commitment);
+              }
+            },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),

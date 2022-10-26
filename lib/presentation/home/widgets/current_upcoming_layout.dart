@@ -51,11 +51,8 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                                   ),
                         ),
                         TextButton(
-                          onPressed: () => context.router.push(
-                            widget.isCurrent
-                                ? const CrowdActionBrowseRoute()
-                                : const CrowdActionBrowseRoute(),
-                          ),
+                          onPressed: () =>
+                              context.router.push(CrowdActionBrowseRoute()),
                           child: const Text(
                             'View all',
                             textAlign: TextAlign.center,
@@ -79,8 +76,13 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                       children: [
                         ...fetchedData.crowdActions
                             .map(
-                              (crowdAction) =>
-                                  MicroCrowdActionCard(crowdAction),
+                              (crowdAction) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 7.5,
+                                  horizontal: 10,
+                                ),
+                                child: MicroCrowdActionCard(crowdAction),
+                              ),
                             )
                             .toList(),
                       ],
