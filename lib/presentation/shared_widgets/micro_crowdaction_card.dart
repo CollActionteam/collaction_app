@@ -78,6 +78,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                                   : Icons.close,
                               color: Colors.white,
                             ),
+                            noMaterialTapTargetSize: true,
                           ),
                           if (crowdAction.hasPassword) ...[
                             const SizedBox(width: 10),

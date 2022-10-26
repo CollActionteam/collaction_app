@@ -1,5 +1,6 @@
 import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,13 +32,6 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final scaleFactor = height < 700
-        ? height < 600
-            ? 0.8
-            : 0.9
-        : 1.0;
-
     return BlocProvider<SpotlightBloc>(
       create: (context) => getIt<SpotlightBloc>()
         ..add(const SpotlightEvent.getSpotLightCrowdActions()),
@@ -55,30 +49,25 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
           },
           spotLightCrowdActions: (crowdActions) => Column(
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 400.0 * scaleFactor,
-                child: ScrollConfiguration(
-                  behavior: NoRippleBehavior(),
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: 3,
-                    itemBuilder: (context, index) => CrowdActionCard(
-                      scaleFactor: scaleFactor,
-                      crowdAction: crowdActions[index],
-                    ),
+              ScrollConfiguration(
+                behavior: NoRippleBehavior(),
+                child: ExpandablePageView.builder(
+                  controller: _pageController,
+                  itemCount: 3,
+                  itemBuilder: (context, index) => CrowdActionCard(
+                    crowdAction: crowdActions[index],
                   ),
                 ),
               ),
-              SizedBox(height: 10 * scaleFactor),
+              const SizedBox(height: 10),
               DotsIndicator(
                 dotsCount: crowdActions.length,
                 position: _currentPage,
-                decorator: DotsDecorator(
+                decorator: const DotsDecorator(
                   color: kShadowColor,
-                  size: Size(12.0 * scaleFactor, 12.0 * scaleFactor),
+                  size: Size(12.0, 12.0),
                   activeColor: kAccentColor,
-                  activeSize: Size(12.0 * scaleFactor, 12.0 * scaleFactor),
+                  activeSize: Size(12.0, 12.0),
                 ),
                 onTap: (position) {
                   _currentPage = position;

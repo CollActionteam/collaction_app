@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../shared_widgets/participant_avatars.dart';
+import '../../crowdaction_participants/crowdaction_participants_screen.dart';
 
 class Participants extends StatelessWidget {
   final CrowdAction? crowdAction;
@@ -14,24 +15,31 @@ class Participants extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (crowdAction != null &&
-            (crowdAction?.participantCount ?? 0) > 0) ...[
-          TopParticipantAvatars(
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CrowdActionParticipantsPage(
             crowdActionId: crowdAction!.id,
           ),
-          const SizedBox(
-            width: 20,
+        ),
+      ),
+      child: Row(
+        children: [
+          if (crowdAction != null &&
+              (crowdAction?.participantCount ?? 0) > 0) ...[
+            TopParticipantAvatars(
+              crowdActionId: crowdAction!.id,
+            ),
+            const SizedBox(width: 15),
+          ],
+          Flexible(
+            child: ParticipationCountText(
+              crowdAction: crowdAction,
+              isEnded: crowdAction?.isClosed ?? false,
+            ),
           ),
         ],
-        Flexible(
-          child: ParticipationCountText(
-            crowdAction: crowdAction,
-            isEnded: crowdAction?.isClosed ?? false,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -78,7 +78,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                             .map(
                               (crowdAction) => Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  vertical: 7.5,
+                                  vertical: 10,
                                   horizontal: 10,
                                 ),
                                 child: MicroCrowdActionCard(crowdAction),
