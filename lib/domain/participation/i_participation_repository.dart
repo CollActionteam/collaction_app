@@ -18,4 +18,8 @@ abstract class IParticipationRepository {
     required String crowdActionId,
     int pageNumber = 1,
   });
+
+  Future<Either<ParticipationFailure, List<Participation>>> getTopParticipants({
+    required String crowdActionId,
+  });
 }

@@ -37,7 +37,6 @@ class ProfilePicture extends StatelessWidget {
       backgroundImage: const AssetImage(
         'assets/images/default_avatar.png',
       ),
-      child: const SizedBox.shrink(),
       onForegroundImageError: (_, __) {},
     );
   }
