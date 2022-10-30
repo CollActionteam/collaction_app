@@ -12,7 +12,7 @@ part 'crowdaction_dto.g.dart';
 class CrowdActionDto with _$CrowdActionDto {
   const CrowdActionDto._();
 
-  factory CrowdActionDto({
+  const factory CrowdActionDto({
     required String id,
     required String type,
     required String title,

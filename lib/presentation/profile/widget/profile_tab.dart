@@ -1,12 +1,12 @@
-import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dart';
-import 'package:collaction_app/presentation/profile/widget/badges_tab.dart';
-import 'package:collaction_app/presentation/profile/widget/commitments_tab.dart';
-import 'package:collaction_app/presentation/profile/widget/crowdactions_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/user/profile_tab/profile_tab_bloc.dart';
 import '../../../domain/user/user.dart';
 import '../../themes/constants.dart';
+import 'badges_tab.dart';
+import 'commitments_tab.dart';
+import 'crowdactions_tab.dart';
 
 class UserProfileTab extends StatefulWidget {
   final User? user;

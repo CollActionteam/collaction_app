@@ -48,13 +48,6 @@ abstract class IAuthRepository {
   /// or a [Unit] when successful.
   Future<Either<AuthFailure, Unit>> updateUsername({required String username});
 
-  /// Upload the profile [photo]
-  /// And update the user's imageUrl in the profile
-  ///
-  /// It can either be an [AuthFailure] when an error occurs
-  /// or a [Unit] when successful.
-  Future<Either<AuthFailure, Unit>> updatePhoto({required File photo});
-
   /// Sign out of the user's account
   Future<void> signOut();
 }

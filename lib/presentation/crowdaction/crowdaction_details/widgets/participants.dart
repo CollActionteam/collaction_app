@@ -1,9 +1,9 @@
-import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participation_count_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../shared_widgets/participant_avatars.dart';
 import '../../crowdaction_participants/crowdaction_participants_screen.dart';
+import 'participation_count_text.dart';
 
 class Participants extends StatelessWidget {
   final CrowdAction? crowdAction;

@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
-import 'package:collaction_app/domain/participation/i_participation_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../domain/participation/i_participation_repository.dart';
 import '../../../domain/participation/participation.dart';
 
+part 'top_participants_bloc.freezed.dart';
 part 'top_participants_event.dart';
 part 'top_participants_state.dart';
-part 'top_participants_bloc.freezed.dart';
 
 @injectable
 class TopParticipantsBloc

@@ -1,12 +1,12 @@
-import 'package:collaction_app/application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
-import 'package:collaction_app/presentation/shared_widgets/shimmers/title_shimmer_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../infrastructure/core/injection.dart';
 import '../../../../presentation/themes/constants.dart';
+import '../../../shared_widgets/shimmers/title_shimmer_line.dart';
 
 class ParticipationCountText extends StatelessWidget {
   const ParticipationCountText({

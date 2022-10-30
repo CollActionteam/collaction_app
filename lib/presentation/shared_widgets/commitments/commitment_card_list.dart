@@ -1,9 +1,9 @@
-import 'package:collaction_app/application/participation/participation_bloc.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/presentation/shared_widgets/shimmers/commitment_card_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/participation/participation_bloc.dart';
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../shimmers/commitment_card_shimmer.dart';
 import 'commitment_card.dart';
 
 class CommitmentCardList extends StatefulWidget {

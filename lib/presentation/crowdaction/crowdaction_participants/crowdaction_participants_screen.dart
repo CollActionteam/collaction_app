@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/application/crowdaction/crowdaction_participants/crowdaction_participants_bloc.dart';
-import 'package:collaction_app/domain/participation/participation.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../../../application/crowdaction/crowdaction_participants/crowdaction_participants_bloc.dart';
+import '../../../domain/participation/participation.dart';
+import '../../../infrastructure/core/injection.dart';
 import '../../themes/constants.dart';
 
 class CrowdActionParticipantsPage extends StatelessWidget {

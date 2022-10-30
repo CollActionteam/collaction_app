@@ -1,9 +1,9 @@
-import 'package:collaction_app/application/username/username_bloc.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/username/username_bloc.dart';
+import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
@@ -15,10 +15,10 @@ class EnterUserName extends StatefulWidget {
   });
 
   @override
-  _EnterUserNameState createState() => _EnterUserNameState();
+  EnterUserNameState createState() => EnterUserNameState();
 }
 
-class _EnterUserNameState extends State<EnterUserName> {
+class EnterUserNameState extends State<EnterUserName> {
   final _firstnameController = TextEditingController();
   final _lastnameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();

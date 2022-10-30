@@ -17,10 +17,10 @@ class SelectProfilePhoto extends StatefulWidget {
   const SelectProfilePhoto({super.key, required this.onSkip});
 
   @override
-  _SelectProfilePhotoState createState() => _SelectProfilePhotoState();
+  SelectProfilePhotoState createState() => SelectProfilePhotoState();
 }
 
-class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
+class SelectProfilePhotoState extends State<SelectProfilePhoto> {
   bool _isPhotoValid = false;
   File? _photo;
   late final AvatarBloc avatarBloc;

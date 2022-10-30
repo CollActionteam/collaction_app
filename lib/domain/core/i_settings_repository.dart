@@ -1,4 +1,4 @@
-import 'package:collaction_app/domain/settings/build_information.dart';
+import '../settings/build_information.dart';
 
 abstract class ISettingsRepository {
   Future<String> get baseApiEndpointUrl;

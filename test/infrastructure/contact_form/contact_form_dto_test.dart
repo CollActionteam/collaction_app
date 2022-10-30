@@ -1,6 +1,6 @@
-import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
+import 'package:collaction_app/infrastructure/contact_form/contact_form_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'contact_form_fixture.dart';
+import '../../domain/contact_form/contact_form_fixture.dart';
 
 void main() {
   group('Testing Contact form DTO', () {

@@ -4,10 +4,10 @@ class DemoTabPage extends StatefulWidget {
   const DemoTabPage({super.key});
 
   @override
-  _DemoTabPageState createState() => _DemoTabPageState();
+  DemoTabPageState createState() => DemoTabPageState();
 }
 
-class _DemoTabPageState extends State<DemoTabPage> {
+class DemoTabPageState extends State<DemoTabPage> {
   @override
   Widget build(BuildContext context) {
     return const Center(

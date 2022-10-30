@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:collaction_app/domain/contact_form/contact_failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
-import '../../domain/contact_form/contact_form_dto.dart';
-import '../../domain/contact_form/i_contact_form_api.dart';
+import '../../domain/contact_form/contact_failures.dart';
+import '../../domain/contact_form/i_contact_form_repository.dart';
 import '../../domain/core/i_settings_repository.dart';
+import 'contact_form_dto.dart';
 
 @LazySingleton(as: IContactRepository)
 class ContactRepository extends IContactRepository {

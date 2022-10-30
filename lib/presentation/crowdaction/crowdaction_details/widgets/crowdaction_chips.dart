@@ -1,8 +1,9 @@
-import 'package:collaction_app/presentation/shared_widgets/accent_chip.dart';
-import 'package:collaction_app/presentation/shared_widgets/secondary_chip.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../shared_widgets/accent_chip.dart';
+import '../../../shared_widgets/secondary_chip.dart';
+import '../../../themes/constants.dart';
 
 class CrowdActionChips extends StatelessWidget {
   const CrowdActionChips({

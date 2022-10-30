@@ -1,4 +1,3 @@
-// TODO: Route to this screen if first time user
 import 'package:auto_route/auto_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +13,10 @@ class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
 
   @override
-  _OnboardingPageState createState() => _OnboardingPageState();
+  OnboardingPageState createState() => OnboardingPageState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
   double currentPage = 0;
 
@@ -128,9 +127,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void getStarted() {
-    // TODO: Replace with authentication route ( context.router.replace(AuthenticationRoute); ) - => and arrow function
-    settingsRepository.setWasUserOnboarded(wasOnboarded: true).then(
-          (_) => context.router.popUntilRoot(),
-        );
+    settingsRepository
+        .setWasUserOnboarded(wasOnboarded: true)
+        .then((_) => context.router.popUntilRoot());
   }
 }

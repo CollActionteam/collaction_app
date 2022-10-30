@@ -19,10 +19,10 @@ class RectangularButton extends StatefulWidget {
   });
 
   @override
-  _RectangularButtonState createState() => _RectangularButtonState();
+  RectangularButtonState createState() => RectangularButtonState();
 }
 
-class _RectangularButtonState extends State<RectangularButton> {
+class RectangularButtonState extends State<RectangularButton> {
   @override
   Widget build(BuildContext context) {
     return TextButton(

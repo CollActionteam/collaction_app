@@ -1,13 +1,14 @@
 import 'package:bloc/bloc.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
-import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../../domain/crowdaction/crowdaction_failures.dart';
+import '../../../domain/crowdaction/i_crowdaction_repository.dart';
+
+part 'crowdaction_details_bloc.freezed.dart';
 part 'crowdaction_details_event.dart';
 part 'crowdaction_details_state.dart';
-part 'crowdaction_details_bloc.freezed.dart';
 
 @injectable
 class CrowdActionDetailsBloc

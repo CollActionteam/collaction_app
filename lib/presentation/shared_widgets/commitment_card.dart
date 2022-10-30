@@ -67,10 +67,10 @@ class CommitmentCard extends StatefulWidget {
   final Function(int) onSelected;
 
   @override
-  _CommitmentCardState createState() => _CommitmentCardState();
+  CommitmentCardState createState() => CommitmentCardState();
 }
 
-class _CommitmentCardState extends State<CommitmentCard> {
+class CommitmentCardState extends State<CommitmentCard> {
   late bool active;
 
   @override

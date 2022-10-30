@@ -299,7 +299,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ),
                               onPressed: () {
                                 if (state.isEditing == true) {
-                                  /// TODO: Implement save profile image
                                   BlocProvider.of<ProfileBloc>(context).add(
                                     SaveProfile(
                                       bio: bioController.text,

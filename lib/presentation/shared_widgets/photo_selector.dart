@@ -12,10 +12,10 @@ class PhotoSelector extends StatefulWidget {
   const PhotoSelector({super.key, this.onSelected});
 
   @override
-  _PhotoSelectorState createState() => _PhotoSelectorState();
+  PhotoSelectorState createState() => PhotoSelectorState();
 }
 
-class _PhotoSelectorState extends State<PhotoSelector> {
+class PhotoSelectorState extends State<PhotoSelector> {
   final ImagePicker _picker = ImagePicker();
 
   @override
