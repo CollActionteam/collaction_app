@@ -42,6 +42,7 @@ void main() {
         userProfile: userProfile,
         isPicEditing: false,
         wasProfilePictureUpdated: false,
+        isBioEditing: false,
       )
     ],
     verify: (_) => verify(() => profileRepository.getUserProfile()).called(1),
@@ -60,6 +61,7 @@ void main() {
       ProfileState(
         userProfile: null,
         isPicEditing: false,
+        isBioEditing: false,
       )
     ],
     verify: (_) => verify(() => profileRepository.getUserProfile()).called(1),
