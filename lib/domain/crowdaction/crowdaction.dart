@@ -1,3 +1,4 @@
+import 'package:collaction_app/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -50,6 +51,12 @@ class CrowdAction with _$CrowdAction {
           : isWaiting
               ? 'Starting soon'
               : 'Finished';
+
+  // Crowdaction banner url
+  String get bannerUrl => '$baseStaticUrl/${images.banner}';
+
+  // Crowdaction card url
+  String get cardUrl => '$baseStaticUrl/${images.card}';
 }
 
 @freezed

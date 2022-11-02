@@ -1,3 +1,4 @@
+import 'package:collaction_app/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'participation.freezed.dart';
@@ -16,4 +17,7 @@ class Participation with _$Participation {
     required DateTime joinDate,
     required int dailyCheckIns,
   }) = _Participation;
+
+  // Participation avatar url
+  String get avatarUrl => '$baseStaticUrl/$avatar';
 }
