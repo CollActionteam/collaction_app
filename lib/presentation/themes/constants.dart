@@ -24,3 +24,14 @@ const Color kPrimaryColor200 = Color(0xFF999999);
 const Color kPrimaryColor300 = Color(0xFF666666);
 const Color kPrimaryColor400 = Color(0xFF333333);
 const Color kPrimaryColor500 = Color(0xFF000000);
+
+const TextStyle kCaption1 = TextStyle(
+  fontSize: 12,
+  height: 16 / 12,
+);
+
+const TextStyle kTitle1 = TextStyle(
+  fontSize: 28,
+  height: 34 / 28,
+  fontWeight: FontWeight.w700,
+);
