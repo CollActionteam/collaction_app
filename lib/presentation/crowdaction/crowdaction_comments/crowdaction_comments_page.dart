@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 
 import '../../shared_widgets/expandable_text.dart';
 
+part 'parts/comment_actions.dart';
 part 'parts/comment_item.dart';
 part 'parts/comment_textfield.dart';
+part 'parts/comment_page_header.dart';
 
 class CrowdActionCommentsPage extends StatelessWidget {
   const CrowdActionCommentsPage({super.key});
@@ -17,36 +19,13 @@ class CrowdActionCommentsPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            backgroundColor: kPrimaryColor400,
-            expandedHeight: 156,
-            flexibleSpace: FlexibleSpaceBar(
-              expandedTitleScale: 1,
-              titlePadding: const EdgeInsets.fromLTRB(10, 0, 10, 50),
-              centerTitle: true,
-              title: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text(
-                    'Comments',
-                    style: kTitle1,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'See what others are saying about this crowdaction and join in on the conversation',
-                    style: kCaption1,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                  )
-                ],
-              ),
-            ),
-          ),
+          const CommentPageHeader(),
           SliverPadding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 30,
-              horizontal: 20,
+            padding: EdgeInsets.fromLTRB(
+              30,
+              0,
+              30,
+              MediaQuery.of(context).padding.bottom,
             ),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
@@ -68,7 +47,7 @@ class CrowdActionCommentsPage extends StatelessWidget {
   }
 }
 
-final _dummyComment = 'This is my comment for this crowdaction.';
+const _dummyComment = 'This is my comment for this crowdaction.';
 final List<CrowdactionCommentDto> _comments = [
   CrowdactionCommentDto(
     crowdactionId: '',
@@ -84,7 +63,7 @@ final List<CrowdactionCommentDto> _comments = [
     userId: '',
     createdAt: DateTime.now(),
     likes: 2,
-    likedByMe: false,
+    likedByMe: true,
   ),
   CrowdactionCommentDto(
     crowdactionId: '',
@@ -93,5 +72,15 @@ final List<CrowdactionCommentDto> _comments = [
     createdAt: DateTime.now(),
     likes: 2,
     likedByMe: false,
+    flagged: true,
+  ),
+  CrowdactionCommentDto(
+    crowdactionId: '',
+    content: _dummyComment + ('\n$_dummyComment') * 3,
+    userId: '',
+    createdAt: DateTime.now(),
+    likes: 2,
+    likedByMe: false,
+    flagged: true,
   )
 ];
