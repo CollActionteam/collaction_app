@@ -30,6 +30,12 @@ const TextStyle kCaption1 = TextStyle(
   height: 16 / 12,
 );
 
+const TextStyle body = TextStyle(
+  fontSize: 17,
+  fontWeight: FontWeight.w300,
+  height: 26 / 17,
+);
+
 const TextStyle kTitle1 = TextStyle(
   fontSize: 28,
   height: 34 / 28,

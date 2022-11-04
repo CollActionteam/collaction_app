@@ -19,11 +19,14 @@ class CommentItem extends StatelessWidget {
           child: ExpandableText(
             comment.content,
             trimLines: 6,
-            style: Theme.of(context).textTheme.bodyText2?.copyWith(
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                ?.copyWith(
                   fontSize: 17,
                   fontWeight: FontWeight.w300,
-                  height: 26 / 17,
-                ),
+                )
+                .withLineHeight(26),
           ),
         ),
         const SizedBox(height: 12),
