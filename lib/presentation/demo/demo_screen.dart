@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/presentation/crowdaction/crowdaction_comments/crowdaction_comments_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/core/i_settings_repository.dart';
@@ -31,6 +32,12 @@ class DemoPage extends StatelessWidget {
                 RectangleButton(
                   text: "Reusable Components",
                   onTap: () => context.router.push(const ComponentsDemoRoute()),
+                ),
+                const SizedBox(height: 10.0),
+                RectangleButton(
+                  text: "Crowdaction Comments",
+                  onTap: () =>
+                      context.router.push(const CrowdActionCommentsRoute()),
                 ),
                 const SizedBox(height: 10.0),
                 RectangleButton(

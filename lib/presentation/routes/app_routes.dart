@@ -6,6 +6,7 @@ import '../auth/auth_screen.dart';
 import '../auth/widgets/verified.dart';
 import '../contact_form/contact_form_screen.dart';
 import '../crowdaction/crowdaction_browse/crowdaction_browse_screen.dart';
+import '../crowdaction/crowdaction_comments/crowdaction_comments_page.dart';
 import '../crowdaction/crowdaction_details/crowdaction_details_screen.dart';
 import '../crowdaction/crowdaction_home/crowdaction_home_screen.dart';
 import '../crowdaction/crowdaction_participants/crowdaction_participants_screen.dart';
@@ -60,6 +61,7 @@ import '../shared_widgets/web_view_page.dart';
             AutoRoute(path: 'components-demo', page: ComponentsDemoPage),
             AutoRoute(path: 'onboarding', page: OnboardingPage),
             AutoRoute(path: 'verified', page: VerifiedPage),
+            AutoRoute(path: 'comments', page: CrowdActionCommentsPage),
           ],
         ),
       ],
