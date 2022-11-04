@@ -23,13 +23,15 @@ class CommentItem extends StatelessWidget {
                 .textTheme
                 .bodyText2
                 ?.copyWith(
-                  fontSize: 17,
+                  fontSize: 15,
                   fontWeight: FontWeight.w300,
                 )
-                .withLineHeight(26),
+                .withLineHeight(20),
           ),
         ),
         const SizedBox(height: 12),
+        CommentActions(comment: comment),
+        const SizedBox(height: 16),
       ],
     );
   }
