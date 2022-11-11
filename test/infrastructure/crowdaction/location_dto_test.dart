@@ -1,12 +1,21 @@
+import 'dart:math';
+
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
+import 'location_dto_fixtures.dart';
 
 void main() {
-  group('location dto fromJSON and toDOMAIN unit test', () {
-    test('location fromJSON test', () {
-      // fromJSON unit test
+  group('Location tests', () {
+    test('toDomain() test', () {
+      final Location = tLocationDto.toDomain();
+
+      expect(Location, tLocation);
     });
-    test('location toDOMAIN test', () {
-      // toDOMAIN unit test
+    test('fromJson() test', () {
+      final locationDto = LocationDto.fromJson(tLocationJson);
+
+      expect(locationDto, tLocationDto);
     });
   });
 }

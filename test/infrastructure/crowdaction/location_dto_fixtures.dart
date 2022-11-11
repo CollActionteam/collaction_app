@@ -1,12 +1,17 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
+import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
 
-void main() {
-  group('location dto fromJSON and toDOMAIN test', () {
-    test('fromJSON test', () {
-      // test here
-    });
-    test('toDOMAIN test', () {
-      // test here
-    });
-  });
-}
+final tLocation = Location(
+  code: 'code',
+  name: 'name',
+);
+
+final tLocationDto = LocationDto(
+  code: 'code',
+  name: 'name',
+);
+
+final tLocationJson = {
+  'code': 'code',
+  'name': 'name',
+};
