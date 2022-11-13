@@ -1,7 +1,7 @@
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
 
-final tLocation = Location(
+const tLocation = Location(
   code: 'code',
   name: 'name',
 );
