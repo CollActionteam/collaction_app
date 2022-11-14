@@ -1,5 +1,8 @@
 part of '../crowdaction_comments_page.dart';
 
+/// Comment response text field
+///
+/// [Design](https://www.figma.com/file/dYFW0QF7Fg10dpSIxA3wQb/CollAction-App?node-id=2788%3A18373&t=DLTYxIV5T4DBMHCG-4)
 class CommentTextField extends StatelessWidget {
   const CommentTextField({super.key});
 
