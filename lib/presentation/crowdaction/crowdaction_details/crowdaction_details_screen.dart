@@ -1,24 +1,24 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/application/auth/auth_bloc.dart';
-import 'package:collaction_app/application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
-import 'package:collaction_app/application/participation/participation_bloc.dart';
-import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dart';
-import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_chips.dart';
-import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_details_banner.dart';
-import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_title.dart';
-import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../infrastructure/core/injection.dart';
+import '../../../application/auth/auth_bloc.dart';
+import '../../../application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
+import '../../../application/participation/participation_bloc.dart';
+import '../../../application/user/profile_tab/profile_tab_bloc.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../shared_widgets/expandable_text.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 import 'widgets/confirm_participation.dart';
+import 'widgets/crowdaction_chips.dart';
+import 'widgets/crowdaction_details_banner.dart';
+import 'widgets/crowdaction_title.dart';
+import 'widgets/participants.dart';
 import 'widgets/withdraw_participation.dart';
 
 class CrowdActionDetailsPage extends StatefulWidget {
@@ -97,9 +97,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               );
 
               BlocProvider.of<CrowdActionDetailsBloc>(context).add(
-                CrowdActionDetailsEvent.fetchCrowdAction(
-                  id: id,
-                ),
+                CrowdActionDetailsEvent.fetchCrowdAction(id: id),
               );
 
               BlocProvider.of<ProfileTabBloc>(context).add(
@@ -150,12 +148,9 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                   floatingActionButtonLocation:
                       FloatingActionButtonLocation.centerFloat,
                   body: NestedScrollView(
-                    headerSliverBuilder:
-                        (BuildContext context, bool innerBoxIsScrolled) {
+                    headerSliverBuilder: (context, innerBoxIsScrolled) {
                       return [
-                        CrowdActionDetailsBanner(
-                          crowdAction: crowdAction,
-                        ),
+                        CrowdActionDetailsBanner(crowdAction: crowdAction),
                       ];
                     },
                     body: RefreshIndicator(
@@ -311,9 +306,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Container(
                 width: 60.0,
                 height: 5.0,
@@ -332,9 +325,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                     .subtitle1
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               Text(
                 "You need to create an account in order to participate in a crowdaction. If you have an account already, please log in.",
                 style: Theme.of(context).textTheme.caption?.copyWith(
@@ -349,15 +340,6 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 onTap: () => _createAccount(context),
                 margin: EdgeInsets.zero,
               ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: TextButton(
-                  onPressed: () => _createAccount(context),
-                  child: const Text("Log in"),
-                ),
-              ),
               const SizedBox(
                 height: 15,
               ),
@@ -369,7 +351,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   }
 
   void _createAccount(BuildContext context) {
-    Navigator.of(context).pop();
+    context.router.pop();
     context.router.push(const AuthRoute());
   }
 }

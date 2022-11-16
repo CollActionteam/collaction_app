@@ -1,6 +1,7 @@
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
+
+import '../themes/constants.dart';
 
 /// Dialog to search and select country for phone input
 class CountrySearch extends StatefulWidget {
@@ -9,10 +10,10 @@ class CountrySearch extends StatefulWidget {
   const CountrySearch({super.key, this.onCountrySelected});
 
   @override
-  _CountrySearchState createState() => _CountrySearchState();
+  CountrySearchState createState() => CountrySearchState();
 }
 
-class _CountrySearchState extends State<CountrySearch> {
+class CountrySearchState extends State<CountrySearch> {
   final _countryCodes =
       CountryCodes.countryCodes().whereType<CountryDetails>().toList();
   late List<CountryDetails> _countries;

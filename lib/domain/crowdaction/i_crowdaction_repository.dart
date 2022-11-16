@@ -1,9 +1,9 @@
-import 'package:collaction_app/domain/crowdaction/paginated_crowdactions.dart';
 import 'package:dartz/dartz.dart';
 
 import 'crowdaction.dart';
 import 'crowdaction_failures.dart';
 import 'crowdaction_status.dart';
+import 'paginated_crowdactions.dart';
 
 abstract class ICrowdActionRepository {
   Future<Either<CrowdActionFailure, CrowdAction>> getCrowdAction(

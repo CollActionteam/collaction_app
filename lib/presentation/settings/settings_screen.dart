@@ -32,31 +32,6 @@ class SettingsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // TODO: Implement edit user name
-                    // const Padding(
-                    //   padding: EdgeInsets.only(left: 16.0),
-                    //   child: Text(
-                    //     'Account',
-                    //     style: TextStyle(
-                    //       fontWeight: FontWeight.w700,
-                    //       fontSize: 11,
-                    //       color: kPrimaryColor300,
-                    //     ),
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 20),
-                    // const Padding(
-                    //   padding: EdgeInsets.only(left: 16.0),
-                    //   child: Text(
-                    //     'Other',
-                    //     style: TextStyle(
-                    //       fontWeight: FontWeight.w700,
-                    //       fontSize: 11,
-                    //       color: kPrimaryColor300,
-                    //     ),
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 20),
                     Column(
                       children: [
                         const ShareCollactionListTile(),

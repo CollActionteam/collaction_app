@@ -1,5 +1,5 @@
 import 'package:collaction_app/application/contact_form/contact_form_bloc.dart';
-import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
+import 'package:collaction_app/infrastructure/contact_form/contact_form_dto.dart';
 
 import '../../test_utilities.dart';
 

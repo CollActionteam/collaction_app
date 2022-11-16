@@ -1,5 +1,6 @@
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../themes/constants.dart';
 
 class TopParticipantsShimmer extends StatelessWidget {
   const TopParticipantsShimmer();

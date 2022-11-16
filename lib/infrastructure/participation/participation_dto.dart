@@ -1,5 +1,6 @@
-import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../domain/participation/participation.dart';
 
 part 'participation_dto.freezed.dart';
 part 'participation_dto.g.dart';

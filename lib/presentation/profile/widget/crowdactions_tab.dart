@@ -1,9 +1,10 @@
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/domain/user/user.dart';
-import 'package:collaction_app/presentation/profile/widget/signup_cta.dart';
-import 'package:collaction_app/presentation/shared_widgets/micro_crowdaction_card.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../../domain/user/user.dart';
+import '../../shared_widgets/micro_crowdaction_card.dart';
+import '../../themes/constants.dart';
+import 'signup_cta.dart';
 
 class CrowdActionsTab extends StatelessWidget {
   final User? user;

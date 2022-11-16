@@ -134,19 +134,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     bottom: 0,
                                     right: 0,
                                     child: FloatingActionButton(
-                                      onPressed: () {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) => PhotoSelector(
-                                            onSelected: (image) {
-                                              setState(
-                                                () => _image = image,
-                                              );
-                                              context.router.pop("dialog");
-                                            },
-                                          ),
-                                        );
-                                      },
+                                      onPressed: () =>
+                                          PhotoSelector.showPhotoSelector(
+                                        context,
+                                        onSelected: (image) {
+                                          setState(() => _image = image);
+                                        },
+                                      ),
                                       backgroundColor: kAccentColor,
                                       mini: true,
                                       child: const Icon(Icons.add),
@@ -299,7 +293,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ),
                               onPressed: () {
                                 if (state.isEditing == true) {
-                                  /// TODO: Implement save profile image
                                   BlocProvider.of<ProfileBloc>(context).add(
                                     SaveProfile(
                                       bio: bioController.text,

@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/contact_form/contact_form_dto.dart';
+import '../../domain/contact_form/i_contact_form_repository.dart';
+import '../../infrastructure/contact_form/contact_form_dto.dart';
 
 part 'contact_form_bloc.freezed.dart';
 part 'contact_form_event.dart';

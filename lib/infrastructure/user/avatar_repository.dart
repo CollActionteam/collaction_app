@@ -1,10 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +13,7 @@ import 'package:path/path.dart';
 
 import '../../domain/auth/errors.dart';
 import '../../domain/auth/i_auth_repository.dart';
+import '../../domain/core/i_settings_repository.dart';
 import '../../domain/user/i_avatar_repository.dart';
 import '../../domain/user/upload_failures.dart';
 
@@ -29,33 +28,6 @@ class AvatarRepository implements IAvatarRepository, Disposable {
     this._authRepository,
     this._settingsRepository,
   );
-
-  @override
-  Future<Either<UploadPathFailure, Uri>> getAvatarUploadPath() async {
-    try {
-      final user = (await _authRepository.getSignedInUser())
-          .getOrElse(() => throw NotAuthenticatedError());
-      final tokenId = await user.getIdToken();
-
-      final response = await _client.get(
-        Uri.parse(
-          '${await _settingsRepository.baseApiEndpointUrl}/upload-profile-picture',
-        ),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $tokenId'
-        },
-      );
-
-      /// TODO: Consider implementing simple DTO
-      final uploadUrl = (json.decode(response.body)
-          as Map<String, dynamic>)['upload_url'] as String;
-
-      return right(Uri.parse(uploadUrl));
-    } catch (_) {
-      return left(const UploadPathFailure.unexpected());
-    }
-  }
 
   @override
   Future<Either<UploadFailure, Unit>> uploadAvatar(
@@ -89,7 +61,7 @@ class AvatarRepository implements IAvatarRepository, Disposable {
 
       final response = await request.send();
 
-      if (response.statusCode == 200) {
+      if ([201, 200].contains(response.statusCode)) {
         return right(unit);
       } else {
         return left(const UploadFailure.uploadFailed());

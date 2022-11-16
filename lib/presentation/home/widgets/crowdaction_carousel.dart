@@ -1,9 +1,9 @@
-import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/crowdaction_card.dart';
 import '../../shared_widgets/no_ripple_behavior.dart';
@@ -13,10 +13,10 @@ class CrowdActionCarousel extends StatefulWidget {
   const CrowdActionCarousel({super.key});
 
   @override
-  _CrowdActionCarouselState createState() => _CrowdActionCarouselState();
+  CrowdActionCarouselState createState() => CrowdActionCarouselState();
 }
 
-class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
+class CrowdActionCarouselState extends State<CrowdActionCarousel> {
   final _pageController = PageController();
   double _currentPage = 0;
 
