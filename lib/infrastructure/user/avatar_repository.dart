@@ -61,7 +61,7 @@ class AvatarRepository implements IAvatarRepository, Disposable {
 
       final response = await request.send();
 
-      if (response.statusCode == 200) {
+      if ([201, 200].contains(response.statusCode)) {
         return right(unit);
       } else {
         return left(const UploadFailure.uploadFailed());

@@ -1,6 +1,6 @@
-import 'package:collaction_app/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../core/core.dart';
 import '../user/user.dart';
 import 'profile.dart';
 

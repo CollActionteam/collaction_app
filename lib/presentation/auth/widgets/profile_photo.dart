@@ -74,18 +74,14 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
                         bottom: 0,
                         right: 0,
                         child: FloatingActionButton(
-                          onPressed: () => showModalBottomSheet(
-                            context: context,
-                            builder: (context) => PhotoSelector(
-                              onSelected: (File photo) {
-                                setState(() {
-                                  _photo = photo;
-                                  _isPhotoValid = true;
-                                });
-
-                                avatarBloc.add(AvatarEvent.uploadAvatar(photo));
-                              },
-                            ),
+                          onPressed: () => PhotoSelector.showPhotoSelector(
+                            context,
+                            onSelected: (File photo) {
+                              setState(() {
+                                _photo = photo;
+                                _isPhotoValid = true;
+                              });
+                            },
                           ),
                           backgroundColor: kAccentColor,
                           mini: true,

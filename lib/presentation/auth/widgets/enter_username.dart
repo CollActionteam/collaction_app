@@ -54,7 +54,7 @@ class EnterUserNameState extends State<EnterUserName> {
                   children: const [
                     Expanded(
                       child: Text(
-                        'How should we call\r\n you?',
+                        'How should we call you?',
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 32.0,
@@ -117,7 +117,7 @@ class EnterUserNameState extends State<EnterUserName> {
                           ),
                         ),
                         validator: (value) => _validateName(value),
-                        inputFormatters: <TextInputFormatter>[
+                        inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp("[a-zA-ZæÆøØåÅ]"),
                           ),
@@ -159,7 +159,7 @@ class EnterUserNameState extends State<EnterUserName> {
                           firstName: false,
                           minLength: 4,
                         ),
-                        inputFormatters: <TextInputFormatter>[
+                        inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp("[a-zA-ZæÆøØåÅ]"),
                           ),

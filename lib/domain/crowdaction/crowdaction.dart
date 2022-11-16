@@ -1,7 +1,7 @@
-import 'package:collaction_app/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../core/core.dart';
 import '../../presentation/shared_widgets/secondary_chip.dart';
 import 'utils.dart';
 

@@ -13,6 +13,16 @@ class PhotoSelector extends StatefulWidget {
 
   @override
   PhotoSelectorState createState() => PhotoSelectorState();
+
+  static void showPhotoSelector(
+    BuildContext context, {
+    void Function(File)? onSelected,
+  }) =>
+      showModalBottomSheet(
+        context: context,
+        routeSettings: RouteSettings(name: 'photoSelector'),
+        builder: (context) => PhotoSelector(onSelected: onSelected),
+      );
 }
 
 class PhotoSelectorState extends State<PhotoSelector> {
@@ -29,7 +39,7 @@ class PhotoSelectorState extends State<PhotoSelector> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Profile Photo",
+              "Upload a profile photo",
               style: Theme.of(context).textTheme.headline6,
             ),
             const SizedBox(
@@ -147,6 +157,9 @@ class PhotoSelectorState extends State<PhotoSelector> {
     if (widget.onSelected != null && croppedFile != null) {
       widget.onSelected!(File(croppedFile.path));
     }
+
+    Navigator.of(context)
+        .popUntil((route) => route.settings.name != 'photoSelector');
   }
 
   /// Validates MimeType if mimetype is present
