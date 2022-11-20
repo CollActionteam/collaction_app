@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:collaction_app/infrastructure/participation/participation_dto.dart';
 import 'package:collaction_app/domain/participation/participation.dart';
 
