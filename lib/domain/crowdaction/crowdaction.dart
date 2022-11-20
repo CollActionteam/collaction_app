@@ -107,12 +107,3 @@ class CommitmentOption with _$CommitmentOption {
 
   IconData get icon => mapIcon(iconId);
 }
-
-@freezed
-class TopParticipant with _$TopParticipant {
-  factory TopParticipant({
-    required String userId,
-    required String name,
-    String? imageUrl,
-  }) = _TopParticipant;
-}
