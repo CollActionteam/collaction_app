@@ -7,9 +7,9 @@ final tParticipation = Participation(
   fullName: 'fullName',
   avatar: 'avatar',
   userId: 'userId',
-  commitmentOptions: 'commitmentOptions' as List<String>,
-  joinDate: 'joinDate' as DateTime,
-  dailyCheckIns: 'dailyCheckIns' as int,
+  commitmentOptions: ['commitmentOptions'],
+  joinDate: DateTime.parse('20221120'),
+  dailyCheckIns: 0,
 );
 
 final tParticipationDto = ParticipationDto(
@@ -18,9 +18,9 @@ final tParticipationDto = ParticipationDto(
   fullName: 'fullName',
   avatar: 'avatar',
   userId: 'userId',
-  commitmentOptions: 'commitmentOptions' as List<String>,
-  joinDate: 'joinDate',
-  dailyCheckIns: 'dailyCheckIns' as int,
+  commitmentOptions: ['commitmentOptions'],
+  joinDate: '20221120',
+  dailyCheckIns: 0,
 );
 
 const tParticipationJson = {
@@ -29,7 +29,7 @@ const tParticipationJson = {
   'fullName': 'fullName',
   'avatar': 'avatar',
   'userId': 'userId',
-  'commitmentOptions': 'commitmentOptions',
-  'joinDate': 'joinDate',
-  'dailyCheckIns': 'dailyCheckIns',
+  'commitmentOptions': ['commitmentOptions'],
+  'joinDate': '20221120',
+  'dailyCheckIns': 0,
 };
