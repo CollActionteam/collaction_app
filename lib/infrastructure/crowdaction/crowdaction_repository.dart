@@ -9,12 +9,12 @@ import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 import '../../domain/crowdaction/crowdaction_failures.dart';
-import '../../domain/crowdaction/crowdaction_status.dart';
+
 import '../../domain/crowdaction/i_crowdaction_repository.dart';
 import '../../domain/crowdaction/paginated_crowdactions.dart';
 import '../core/page_info_dto.dart';
 import 'crowdaction_dto.dart';
-import 'crowdaction_status_dto.dart';
+
 import 'paginated_crowdactions_dto.dart';
 
 @LazySingleton(as: ICrowdActionRepository)
@@ -182,48 +182,6 @@ class CrowdActionRepository implements ICrowdActionRepository {
             )
             .toList() as List<CrowdAction>,
       );
-    } catch (e) {
-      return left(const CrowdActionFailure.networkRequestFailed());
-    }
-  }
-
-  @override
-  Future<Either<CrowdActionFailure, CrowdActionStatus>>
-      checkCrowdActionSubscriptionStatus(CrowdAction crowdAction) async {
-    try {
-      final user = (await _authRepository.getSignedInUser())
-          .getOrElse(() => throw NotAuthenticatedError());
-      final tokenId = await user.getIdToken();
-
-      final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/v1/participations/${Uri.encodeComponent(crowdAction.id)}',
-      );
-
-      final response = await _client.get(
-        uri,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $tokenId'
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final status = jsonDecode(response.body) as Map<String, dynamic>;
-        final statusData = CrowdActionStatusDto.fromJson(status);
-        if (statusData.userId == user.id &&
-            statusData.crowdActionId == crowdAction.id &&
-            statusData.commitments.isNotEmpty) {
-          return right(
-            CrowdActionStatus.subscribed(
-              statusData.commitments.toSet().toList(),
-            ),
-          );
-        } else {
-          throw Exception("Invalid Status");
-        }
-      }
-
-      return right(const CrowdActionStatus.notSubscribed());
     } catch (e) {
       return left(const CrowdActionFailure.networkRequestFailed());
     }
