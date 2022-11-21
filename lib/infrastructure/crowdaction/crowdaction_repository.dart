@@ -188,48 +188,6 @@ class CrowdActionRepository implements ICrowdActionRepository {
   }
 
   @override
-  Future<Either<CrowdActionFailure, CrowdActionStatus>>
-      checkCrowdActionSubscriptionStatus(CrowdAction crowdAction) async {
-    try {
-      final user = (await _authRepository.getSignedInUser())
-          .getOrElse(() => throw NotAuthenticatedError());
-      final tokenId = await user.getIdToken();
-
-      final uri = Uri.parse(
-        '${await _settingsRepository.baseApiEndpointUrl}/v1/participations/${Uri.encodeComponent(crowdAction.id)}',
-      );
-
-      final response = await _client.get(
-        uri,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $tokenId'
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final status = jsonDecode(response.body) as Map<String, dynamic>;
-        final statusData = CrowdActionStatusDto.fromJson(status);
-        if (statusData.userId == user.id &&
-            statusData.crowdActionId == crowdAction.id &&
-            statusData.commitments.isNotEmpty) {
-          return right(
-            CrowdActionStatus.subscribed(
-              statusData.commitments.toSet().toList(),
-            ),
-          );
-        } else {
-          throw Exception("Invalid Status");
-        }
-      }
-
-      return right(const CrowdActionStatus.notSubscribed());
-    } catch (e) {
-      return left(const CrowdActionFailure.networkRequestFailed());
-    }
-  }
-
-  @override
   Future<Either<CrowdActionFailure, List<CrowdAction>>>
       getCrowdActionsForUser() async {
     // TODO: Implement Pagination
