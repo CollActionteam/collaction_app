@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
-import 'commitmentOption_dto_fixtures.dart';
+import 'commitment_option_dto_fixtures.dart';
 
 void main() {
   group('unit tests for CommitmentOptionDto', () {
