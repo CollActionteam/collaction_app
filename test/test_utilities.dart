@@ -5,7 +5,6 @@ import 'package:collaction_app/domain/contact_form/contact_failures.dart';
 import 'package:collaction_app/domain/contact_form/i_contact_form_repository.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction_status.dart';
 import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
 import 'package:collaction_app/domain/user/i_avatar_repository.dart';
 import 'package:collaction_app/domain/user/i_profile_repository.dart';
@@ -83,15 +82,6 @@ class TestUtilities {
 
     when(() => crowdActionRepo.unsubscribeFromCrowdAction(any()))
         .thenAnswer((_) async => right(unit));
-
-    when(() => crowdActionRepo.checkCrowdActionSubscriptionStatus(any()))
-        .thenAnswer(
-      (_) async => right(
-        CrowdActionStatus.subscribed(
-          crowdActions.first.commitmentOptions.map((e) => e.id).toList(),
-        ),
-      ),
-    );
 
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
   }
