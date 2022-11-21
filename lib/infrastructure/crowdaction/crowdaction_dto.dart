@@ -122,25 +122,3 @@ class CommitmentOptionDto with _$CommitmentOptionDto {
   factory CommitmentOptionDto.fromJson(Map<String, dynamic> json) =>
       _$CommitmentOptionDtoFromJson(json);
 }
-
-@freezed
-class TopParticipantDto with _$TopParticipantDto {
-  const TopParticipantDto._();
-
-  factory TopParticipantDto({
-    required String userID,
-    required String name,
-    String? imageUrl,
-  }) = _TopParticipantDto;
-
-  TopParticipant toDomain() {
-    return TopParticipant(
-      userId: userID,
-      name: name,
-      imageUrl: imageUrl,
-    );
-  }
-
-  factory TopParticipantDto.fromJson(Map<String, dynamic> json) =>
-      _$TopParticipantDtoFromJson(json);
-}
