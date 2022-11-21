@@ -9,12 +9,12 @@ import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 import '../../domain/crowdaction/crowdaction_failures.dart';
-import '../../domain/crowdaction/crowdaction_status.dart';
+
 import '../../domain/crowdaction/i_crowdaction_repository.dart';
 import '../../domain/crowdaction/paginated_crowdactions.dart';
 import '../core/page_info_dto.dart';
 import 'crowdaction_dto.dart';
-import 'crowdaction_status_dto.dart';
+
 import 'paginated_crowdactions_dto.dart';
 
 @LazySingleton(as: ICrowdActionRepository)
