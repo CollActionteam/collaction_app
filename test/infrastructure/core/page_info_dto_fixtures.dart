@@ -16,8 +16,8 @@ final tPageInfoDto = PageInfoDto(
 );
 
 final tPageInfoJson = {
-  'page': '0',
-  'pageSize': '0',
-  'totalPages': '0',
-  'totalItems': '0',
+  'page': 0,
+  'pageSize': 0,
+  'totalPages': 0,
+  'totalItems': 0,
 };
