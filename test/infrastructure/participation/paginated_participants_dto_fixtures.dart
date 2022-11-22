@@ -25,11 +25,11 @@ final tPaginatedParticipantsDto = PaginatedParticipationsDto(
 );
 
 final tPaginatedParticipantsJson = {
-  'participants': [],
-  'pageInfo': PageInfo(
-    page: 0,
-    pageSize: 0,
-    totalPages: 0,
-    totalItems: 0,
-  ),
+  "participations": [],
+  "pageInfo": {
+    "page": 0,
+    "pageSize": 0,
+    "totalPages": 0,
+    "totalItems": 0,
+  },
 };
