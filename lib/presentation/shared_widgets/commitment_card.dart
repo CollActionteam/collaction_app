@@ -28,9 +28,9 @@ class CommitmentCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Build Commitment cards from the provided list of commitments
-    final List<CommitmentCard> cards = commitments
+    final List<_CommitmentCard> cards = commitments
         .map(
-          (commitment) => CommitmentCard(
+          (commitment) => _CommitmentCard(
             commitment: commitment,
             onSelected: onSelected,
           ),
@@ -56,21 +56,20 @@ class CommitmentCardList extends StatelessWidget {
 ///
 /// [onSelected] Callback function for when the card is selected,
 /// returns the id of the selected commitment
-class CommitmentCard extends StatefulWidget {
-  const CommitmentCard({
+class _CommitmentCard extends StatefulWidget {
+  const _CommitmentCard({
     required this.commitment,
     required this.onSelected,
-    super.key,
   });
 
   final Commitment commitment;
   final Function(int) onSelected;
 
   @override
-  CommitmentCardState createState() => CommitmentCardState();
+  _CommitmentCardState createState() => _CommitmentCardState();
 }
 
-class CommitmentCardState extends State<CommitmentCard> {
+class _CommitmentCardState extends State<_CommitmentCard> {
   late bool active;
 
   @override

@@ -2,7 +2,7 @@ import 'package:collaction_app/presentation/settings/widgets/settings_list_tile.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../test_helper.dart';
+import '../../test_helper.dart';
 
 void main() {
   group('SettingsListTile tests', () {

@@ -87,6 +87,14 @@ class TestUtilities {
   }
 }
 
+final tDotEnv = """
+ENV = development
+
+# Full base URL including protocol (http or https), host and optionally the port and the base api path without trailing forward slash
+BASE_API_ENDPOINT_URL = http://collaction.org
+BASE_STATIC_ENDPOINT_URL = http://collaction.org
+""";
+
 final tCrowdaction = CrowdAction(
   id: 'tID',
   type: '',
