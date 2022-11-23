@@ -24,7 +24,7 @@ final tPaginatedCrowdActionsDto = PaginatedCrowdActionsDto(
 );
 
 final tPaginatedCrowdActionsJson = {
-  "crowdActions": ["crowdActions"],
+  "crowdActions": [],
   "pageInfo": {
     "page": 0,
     "pageSize": 0,
