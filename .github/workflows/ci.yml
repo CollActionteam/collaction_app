@@ -72,16 +72,12 @@ jobs:
         run: flutter pub get .
       - name: Build generated code
         run: flutter pub run build_runner build --delete-conflicting-outputs
-
-      - name: Generate test file covering all dart code
+      - name: Generate test file
         run: ./.github/scripts/coverage_gen.sh
-
-      - name: Run unit and widget tests.
+      - name: Run tests and generate coverage
         run: |
           echo ${{ secrets.ENV }} | base64 -d > .env
-          flutter test -r expanded .
-      - name: Generate test coverage file
-        run: flutter test --coverage
+          flutter test --coverage -r expanded .
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
         with:
