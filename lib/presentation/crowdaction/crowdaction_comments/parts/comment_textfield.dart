@@ -12,14 +12,14 @@ class CommentTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Theme.of(context).scaffoldBackgroundColor,
       child: TextFormField(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: _border,
           focusedBorder: _border,
           enabledBorder: _border,
           errorBorder: _border,
           hintText: 'Write a comment',
           hintStyle: body,
-          suffixIcon: const Padding(
+          suffixIcon: Padding(
             padding: EdgeInsets.all(8.0),
             child: Icon(
               CollactionIcons.arrow_up_circled,
@@ -32,8 +32,13 @@ class CommentTextField extends StatelessWidget {
   }
 }
 
-final _border = OutlineInputBorder(
-  borderRadius: BorderRadius.circular(20),
+const _border = OutlineInputBorder(
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(20),
+    topRight: Radius.circular(20),
+    bottomLeft: Radius.circular(20),
+    bottomRight: Radius.circular(20),
+  ),
   gapPadding: 0,
   borderSide: BorderSide.none,
 );

@@ -20,7 +20,7 @@ part of '../crowdaction_comments_page.dart';
 ///
 /// [Design](https://www.figma.com/file/dYFW0QF7Fg10dpSIxA3wQb/CollAction-App?node-id=2788%3A18234&t=ITOiY5y6u515JDor-4)
 class CommentActions extends StatelessWidget {
-  final CrowdactionCommentDto comment;
+  final CrowdactionComment comment;
 
   const CommentActions({super.key, required this.comment});
 
@@ -31,15 +31,15 @@ class CommentActions extends StatelessWidget {
         const SizedBox(width: 15),
         Text('Today', style: _textStyle),
         if (comment.likes > 0) ...[
-          ..._dot,
+          ..._horizontalSpacer,
           Text(
             '${comment.likes} like${comment.likes > 1 ? 's' : ''}',
             style: _textStyle,
           )
         ],
-        ..._dot,
+        ..._horizontalSpacer,
         Text('Reply', style: _textStyle),
-        ..._dot,
+        ..._horizontalSpacer,
         Icon(
           comment.flagged == true
               ? CollactionIcons.flag_filled
@@ -61,7 +61,7 @@ class CommentActions extends StatelessWidget {
 }
 
 final _textStyle = const TextStyle(fontSize: 11).withLineHeight(13);
-final List<Widget> _dot = [
+final List<Widget> _horizontalSpacer = [
   const SizedBox(width: 10),
   Text("⋅", style: _textStyle),
   const SizedBox(width: 10),

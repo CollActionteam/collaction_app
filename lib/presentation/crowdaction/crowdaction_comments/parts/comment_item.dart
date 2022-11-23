@@ -13,8 +13,7 @@ part of '../crowdaction_comments_page.dart';
 ///
 /// [Design](https://www.figma.com/file/dYFW0QF7Fg10dpSIxA3wQb/CollAction-App?node-id=2788%3A18392&t=ITOiY5y6u515JDor-4)
 class CommentItem extends StatelessWidget {
-  /// The comment to display
-  final CrowdactionCommentDto comment;
+  final CrowdactionComment comment;
 
   const CommentItem({super.key, required this.comment});
 
