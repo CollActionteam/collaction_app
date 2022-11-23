@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/core/core.dart';
-import 'package:collaction_app/infrastructure/crowdaction/crowdaction_comment_dto.dart';
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
+import '../../../domain/crowdaction/crowdaction_comment.dart';
+import '../../../infrastructure/crowdaction/crowdaction_comment_dto.dart';
+import '../../core/collaction_icons.dart';
 import '../../shared_widgets/expandable_text.dart';
+import '../../themes/constants.dart';
 
 part 'parts/comment_actions.dart';
 part 'parts/comment_appbar_delegate.dart';
@@ -20,7 +21,6 @@ class CrowdActionCommentsPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // const CommentPageHeader(),
           SliverPersistentHeader(
             delegate: CommentAppBarDelegate(
               expandedHeight: 156,
@@ -46,17 +46,14 @@ class CrowdActionCommentsPage extends StatelessWidget {
           )
         ],
       ),
-      floatingActionButton: Theme(
-        data: context.themeFromPrimaryColor(kAccentColor),
-        child: const CommentTextField(),
-      ),
+      floatingActionButton: const CommentTextField(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
 
 const _dummyComment = 'This is my comment for this crowdaction.';
-final List<CrowdactionCommentDto> _comments = [
+final List<CrowdactionComment> _comments = [
   CrowdactionCommentDto(
     crowdactionId: '',
     content: _dummyComment,
@@ -125,4 +122,4 @@ final List<CrowdactionCommentDto> _comments = [
     likedByMe: false,
     flagged: true,
   )
-];
+].map((e) => e.toDomain()).toList();

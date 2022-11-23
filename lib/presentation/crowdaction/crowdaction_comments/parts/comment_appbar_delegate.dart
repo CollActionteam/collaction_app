@@ -18,7 +18,7 @@ class CommentAppBarDelegate extends SliverPersistentHeaderDelegate {
       children: [
         ColoredBox(color: color),
         if (shrinkOffset < 100) ...[
-          _buildHeaderContent(),
+          const _HeaderContent(),
           Positioned(
             top: kToolbarHeight,
             child: IconButton(
@@ -29,12 +29,30 @@ class CommentAppBarDelegate extends SliverPersistentHeaderDelegate {
             ),
           )
         ] else
-          _buildAppBar(),
+          AppBar(
+            elevation: 0,
+            backgroundColor: color,
+          ),
       ],
     );
   }
 
-  Widget _buildHeaderContent() {
+  @override
+  double get maxExtent => expandedHeight + kToolbarHeight;
+
+  @override
+  double get minExtent => kToolbarHeight + 30;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      true;
+}
+
+class _HeaderContent extends StatelessWidget {
+  const _HeaderContent();
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -58,21 +76,4 @@ class CommentAppBarDelegate extends SliverPersistentHeaderDelegate {
       ),
     );
   }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: color,
-    );
-  }
-
-  @override
-  double get maxExtent => expandedHeight + kToolbarHeight;
-
-  @override
-  double get minExtent => kToolbarHeight + 30;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      true;
 }
