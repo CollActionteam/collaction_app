@@ -111,6 +111,21 @@ final tCrowdaction = CrowdAction(
   password: 'testPwd',
 );
 
+final tCrowdactionNoPassword = CrowdAction(
+  id: 'tID',
+  type: '',
+  title: 'tTitle',
+  description: 'tDescription',
+  category: 'tCategory',
+  location: tLocation,
+  commitmentOptions: [tCommitmentOption],
+  endAt: DateTime(2022, 1, 31),
+  images: const Images(card: 'tCard', banner: 'tBanner'),
+  participantCount: 10,
+  status: Status.ended,
+  joinStatus: JoinStatus.closed,
+);
+
 final tCommitmentOption = CommitmentOption(
   id: 'no-beef',
   type: 'food',
