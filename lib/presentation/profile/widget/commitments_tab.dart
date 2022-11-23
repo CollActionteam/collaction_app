@@ -25,7 +25,7 @@ class CommitmentsTab extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            if (crowdActions?.isEmpty ?? false) ...[
+            if (crowdActions?.isEmpty ?? true) ...[
               const SizedBox(height: 40),
               Image.asset('assets/images/commitments_tab_empty.png'),
               const SizedBox(height: 40),
@@ -70,12 +70,12 @@ class CommitmentsTab extends StatelessWidget {
                       ),
                     ),
                   ),
-            ],
-            if (user == null || (crowdActions?.isEmpty ?? false)) ...[
-              SignUpCTA(
-                user: user,
-                title: 'View your amazing commitments here',
-              ),
+              if (user == null || (crowdActions?.isEmpty ?? false)) ...[
+                SignUpCTA(
+                  user: user,
+                  title: 'View your amazing commitments here',
+                ),
+              ],
             ],
           ],
         ),

@@ -26,7 +26,6 @@ class PinTextField extends StatelessWidget {
         height: MediaQuery.of(context).size.width * 0.12,
         width: MediaQuery.of(context).size.width * 0.12,
         child: GestureDetector(
-          onTap: () => focusNode.requestFocus(),
           child: TextFormField(
             readOnly: readOnly,
             controller: controller,

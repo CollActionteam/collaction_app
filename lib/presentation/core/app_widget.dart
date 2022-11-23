@@ -33,7 +33,7 @@ class AppWidget extends StatelessWidget {
         child: MaterialApp.router(
           color: Colors.white,
           title: 'CollAction',
-          theme: lightTheme(context),
+          theme: lightTheme(),
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
         ),

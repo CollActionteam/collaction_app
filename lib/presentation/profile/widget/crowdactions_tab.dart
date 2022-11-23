@@ -24,7 +24,7 @@ class CrowdActionsTab extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (crowdActions?.isEmpty ?? false) ...[
+            if (crowdActions?.isEmpty ?? true) ...[
               const SizedBox(height: 40),
               Image.asset('assets/images/crowdactions_tab_empty.png'),
               const SizedBox(height: 40),
