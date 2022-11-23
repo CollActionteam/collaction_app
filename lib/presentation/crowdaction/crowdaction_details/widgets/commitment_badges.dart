@@ -1,13 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/collaction_icons.dart';
 import '../../../themes/constants.dart';
 
-class BadgesWidget extends StatelessWidget {
+class CommitmentBadges extends StatelessWidget {
   static const String _heroBadgesTag = 'display-badges';
 
-  const BadgesWidget({super.key});
+  const CommitmentBadges({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +259,7 @@ class _BadgesPopupCard extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: kSecondaryColor,
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => Navigator.of(context).pop(),
                       icon: const Icon(CollactionIcons.cross),
                       color: Colors.red,
                     ),
