@@ -23,8 +23,6 @@ void main() {
   late TopParticipantsBloc topParticipantsBloc;
   late CrowdActionDetailsBloc crowdActionDetailsBloc;
 
-  const baseStaticUrl = 'https://staticurl.com/';
-
   setUpAll(() {
     stackRouter = RouteHelpers.setUpRouterStubs();
 
@@ -42,11 +40,7 @@ void main() {
     GetIt.I.registerSingleton<CrowdActionDetailsBloc>(crowdActionDetailsBloc);
 
     // dot env
-    dotenv.testLoad(
-      fileInput: '''
-                BASE_STATIC_ENDPOINT_URL=$baseStaticUrl\t
-                ''',
-    );
+    dotenv.testLoad(fileInput: tDotEnv);
   });
 
   tearDownAll(() {
