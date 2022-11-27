@@ -10,6 +10,7 @@ import '../../shared_widgets/custom_fab.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../shared_widgets/rectangle_button.dart';
 import '../../shared_widgets/secondary_chip.dart';
+import '../../crowdaction/crowdaction_comments/widgets/crowdaction_comment_like_button.dart';
 
 class ComponentsDemoPage extends StatefulWidget {
   const ComponentsDemoPage({super.key});
@@ -19,6 +20,13 @@ class ComponentsDemoPage extends StatefulWidget {
 }
 
 class ComponentsDemoPageState extends State<ComponentsDemoPage> {
+  bool likedByMe = true;
+  void likeCallback() {
+    setState(() {
+      likedByMe = !likedByMe;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -252,6 +260,16 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   const CustomFAB(
                     heroTag: 'fab4',
                     child: Icon(Icons.add),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24.0),
+              Wrap(
+                spacing: 12.0,
+                children: [
+                  CrowdActionCommentLikeButton(
+                    likedByMe: likedByMe,
+                    onTap: likeCallback,
                   ),
                 ],
               ),
