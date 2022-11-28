@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../core/collaction_icons.dart';
@@ -10,7 +12,11 @@ import '../../shared_widgets/custom_fab.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../shared_widgets/rectangle_button.dart';
 import '../../shared_widgets/secondary_chip.dart';
-import '../../crowdaction/crowdaction_comments/widgets/crowdaction_comment_like_button.dart';
+import '../../crowdaction/crowdaction_comments/widgets/comment_delete_button.dart';
+import '../../crowdaction/crowdaction_comments/widgets/comment_like_button.dart';
+import '../../crowdaction/crowdaction_comments/widgets/comment_flag_button.dart';
+import '../../crowdaction/crowdaction_comments/widgets/flag_comment.dart';
+import '../../themes/constants.dart';
 
 class ComponentsDemoPage extends StatefulWidget {
   const ComponentsDemoPage({super.key});
@@ -20,10 +26,18 @@ class ComponentsDemoPage extends StatefulWidget {
 }
 
 class ComponentsDemoPageState extends State<ComponentsDemoPage> {
-  bool likedByMe = true;
+  bool likedByMe = false;
   void likeCallback() {
     setState(() {
       likedByMe = !likedByMe;
+    });
+  }
+
+  bool flagged = false;
+  void flagCallback(List<bool>? flags) {
+    setState(() {
+      flagged = true;
+      debugPrint(flags?.toString());
     });
   }
 
@@ -264,12 +278,23 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
                 ],
               ),
               const SizedBox(height: 24.0),
+
+              /// TEMP: delete once #304 is approved
               Wrap(
                 spacing: 12.0,
                 children: [
-                  CrowdActionCommentLikeButton(
+                  CommentLikeButton(
                     likedByMe: likedByMe,
                     onTap: likeCallback,
+                  ),
+                  CommentFlagButton(
+                    flagged: flagged,
+                    onTap: () => {
+                      if (!flagged) _flagModal(context) else flagged = !flagged
+                    },
+                  ),
+                  CommentDeleteButton(
+                    onTap: () => _deleteModal(context),
                   ),
                 ],
               ),
@@ -278,6 +303,85 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
           ),
         ),
       ),
+    );
+  }
+
+  /// TEMP: move modals to CrowdActionCommentPage once #304 is approved
+  void _deleteModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        builder: (context) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 15),
+                Container(
+                  width: 60.0,
+                  height: 5.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: kSecondaryTransparent,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Delete comment",
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 30),
+                PillButton(
+                  text: "Delete my comment",
+                  onTap: () => {},
+                  margin: EdgeInsets.zero,
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: TextButton(
+                    onPressed: () {
+                      context.router.pop();
+                    },
+                    child: const Text("Cancel"),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  void _flagModal(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return FlagComment(
+          flagged: false,
+        );
+      },
     );
   }
 }
