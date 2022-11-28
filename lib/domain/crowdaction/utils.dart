@@ -15,4 +15,4 @@ const crowdActionCommitmentIcons = {
 };
 
 IconData mapIcon(String? icon) =>
-    crowdActionCommitmentIcons[icon] ?? CollactionIcons.no_beef;
+    crowdActionCommitmentIcons[icon] ?? CollactionIcons.collaction;

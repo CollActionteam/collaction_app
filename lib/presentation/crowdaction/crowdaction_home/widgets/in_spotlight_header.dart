@@ -1,11 +1,10 @@
-import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../infrastructure/core/injection.dart';
+import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../shared_widgets/content_placeholder.dart';
 import '../../../shared_widgets/crowdaction_card.dart';
 import '../../../themes/constants.dart';
@@ -34,9 +33,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SpotlightBloc>()
-        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+    return BlocProvider.value(
+      value: BlocProvider.of<SpotlightBloc>(context),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Container(

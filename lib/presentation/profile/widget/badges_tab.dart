@@ -1,6 +1,7 @@
-import 'package:collaction_app/domain/user/user.dart';
-import 'package:collaction_app/presentation/profile/widget/signup_cta.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/user/user.dart';
+import 'signup_cta.dart';
 
 class BadgesTab extends StatelessWidget {
   final User? user;

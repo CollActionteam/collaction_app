@@ -16,11 +16,18 @@ class ShareCollactionButton extends StatefulWidget {
   final String? _shareEmailSubject;
 
   @override
-  State<ShareCollactionButton> createState() => _ShareCollactionButtonState();
+  State<ShareCollactionButton> createState() => ShareCollactionButtonState();
 }
 
-class _ShareCollactionButtonState extends State<ShareCollactionButton> {
+class ShareCollactionButtonState extends State<ShareCollactionButton> {
   late bool _isClicked;
+
+  void onFocusChange(bool focused) {
+    setState(() {
+      _isClicked = focused == false;
+    });
+  }
+
   Future<void> _clickCallback() async {
     setState(() {
       _isClicked = true;
@@ -30,7 +37,8 @@ class _ShareCollactionButtonState extends State<ShareCollactionButton> {
       widget._shareText ?? defaultShareText,
       subject: widget._shareEmailSubject ?? defaultShareEmailSubject,
     );
-    await Future.delayed(const Duration(seconds: 1));
+
+    await Future.delayed(const Duration(milliseconds: 500));
 
     setState(() {
       _isClicked = false;
@@ -46,11 +54,7 @@ class _ShareCollactionButtonState extends State<ShareCollactionButton> {
   @override
   Widget build(BuildContext context) {
     return Focus(
-      onFocusChange: (bool focused) {
-        setState(() {
-          _isClicked = focused == false;
-        });
-      },
+      onFocusChange: onFocusChange,
       child: PillButton(
         text: "Share CollAction",
         isEnabled: !_isClicked,

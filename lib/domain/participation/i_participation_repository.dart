@@ -1,6 +1,6 @@
-import 'package:collaction_app/domain/participation/paginated_participations.dart';
-import 'package:collaction_app/domain/participation/participation.dart';
-import 'package:collaction_app/domain/participation/participation_failures.dart';
+import 'paginated_participations.dart';
+import 'participation.dart';
+import 'participation_failures.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class IParticipationRepository {
@@ -17,5 +17,9 @@ abstract class IParticipationRepository {
       getParticipations({
     required String crowdActionId,
     int pageNumber = 1,
+  });
+
+  Future<Either<ParticipationFailure, List<Participation>>> getTopParticipants({
+    required String crowdActionId,
   });
 }

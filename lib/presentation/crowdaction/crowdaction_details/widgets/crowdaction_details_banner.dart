@@ -1,13 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/presentation/core/collaction_icons.dart';
-import 'package:collaction_app/presentation/shared_widgets/custom_fab.dart';
-import 'package:collaction_app/presentation/shared_widgets/image_skeleton_loader.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../../core/core.dart';
+import '../../../../domain/crowdaction/crowdaction.dart';
+import '../../../core/collaction_icons.dart';
+import '../../../shared_widgets/custom_fab.dart';
+import '../../../shared_widgets/image_skeleton_loader.dart';
+import '../../../themes/constants.dart';
 
 class CrowdActionDetailsBanner extends StatelessWidget {
   const CrowdActionDetailsBanner({
@@ -54,8 +55,7 @@ class CrowdActionDetailsBanner extends StatelessWidget {
             Positioned.fill(
               child: crowdAction != null
                   ? CachedNetworkImage(
-                      imageUrl:
-                          '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction!.images.banner}',
+                      imageUrl: crowdAction?.bannerUrl ?? nullStaticUrl,
                       placeholder: (context, url) => const ImageSkeletonLoader(
                         height: 310,
                       ),

@@ -1,6 +1,7 @@
-import 'package:collaction_app/presentation/shared_widgets/shimmers/title_shimmer_line.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../shared_widgets/shimmers/title_shimmer_line.dart';
 
 class CrowdActionTitle extends StatelessWidget {
   const CrowdActionTitle({

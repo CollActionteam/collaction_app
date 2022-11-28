@@ -15,10 +15,10 @@ class ComponentsDemoPage extends StatefulWidget {
   const ComponentsDemoPage({super.key});
 
   @override
-  _ComponentsDemoPageState createState() => _ComponentsDemoPageState();
+  ComponentsDemoPageState createState() => ComponentsDemoPageState();
 }
 
-class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
+class ComponentsDemoPageState extends State<ComponentsDemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

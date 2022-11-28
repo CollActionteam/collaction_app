@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import '../../domain/auth/auth_failures.dart';
 import '../../domain/auth/auth_success.dart';
 import '../../domain/auth/i_auth_repository.dart';
+import '../../domain/user/i_avatar_repository.dart';
 import '../../domain/user/i_user_repository.dart';
 import '../../domain/user/user.dart';
 
@@ -19,12 +20,17 @@ part 'auth_state.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository _authRepository;
+  final IAvatarRepository _avatarRepository;
+
   Credential? _credential;
   String? _phone;
   StreamSubscription<Either<AuthFailure, AuthSuccess>>?
       _verifyStreamSubscription;
 
-  AuthBloc(this._authRepository) : super(const AuthState.initial()) {
+  AuthBloc(
+    this._authRepository,
+    this._avatarRepository,
+  ) : super(const AuthState.initial()) {
     on<AuthEvent>(
       (event, emit) async {
         await event.map(
@@ -64,12 +70,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthState.awaitingPhotoUpdate());
 
-    final failureOrSuccess =
-        await _authRepository.updatePhoto(photo: event.photo);
+    final failureOrSuccess = await _avatarRepository.uploadAvatar(event.photo);
 
     emit(
       failureOrSuccess.fold(
-        (failure) => AuthState.authError(failure),
+        (failure) => AuthState.authError(AuthFailure.networkRequestFailed()),
         (_) => const AuthState.photoUpdateDone(),
       ),
     );
@@ -79,9 +84,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
     _SignedOut event,
   ) async {
-    emit(const AuthState.signingOut());
     await _authRepository.signOut();
-    emit(const AuthState.unAuthenticated());
+    emit(const AuthState.unauthenticated());
   }
 
   FutureOr<void> _mapAuthCheckRequestToState(
@@ -92,7 +96,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     emit(
       userOption.fold(
-        () => const AuthState.unAuthenticated(),
+        () => const AuthState.unauthenticated(),
         (user) => AuthState.authenticated(user),
       ),
     );

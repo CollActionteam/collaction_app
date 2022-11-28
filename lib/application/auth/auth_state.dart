@@ -42,7 +42,5 @@ class AuthState with _$AuthState {
   /// Splash Auth states
   const factory AuthState.authenticated(User user) = _Authenticated;
 
-  const factory AuthState.signingOut() = _SigningOut;
-
-  const factory AuthState.unAuthenticated() = _UnAuthenticated;
+  const factory AuthState.unauthenticated() = _UnAuthenticated;
 }

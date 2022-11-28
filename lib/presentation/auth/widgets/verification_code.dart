@@ -11,10 +11,10 @@ class EnterVerificationCode extends StatefulWidget {
   const EnterVerificationCode({super.key, this.pinLength = 6});
 
   @override
-  _EnterVerificationCodeState createState() => _EnterVerificationCodeState();
+  EnterVerificationCodeState createState() => EnterVerificationCodeState();
 }
 
-class _EnterVerificationCodeState extends State<EnterVerificationCode> {
+class EnterVerificationCodeState extends State<EnterVerificationCode> {
   final _pinKey = GlobalKey<PinInputState>();
 
   @override

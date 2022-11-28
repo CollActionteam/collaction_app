@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
+import '../../../infrastructure/core/injection.dart';
 import '../../home/widgets/current_upcoming_layout.dart';
 import '../../themes/constants.dart';
 import 'widgets/in_spotlight_header.dart';
@@ -12,24 +13,30 @@ class CrowdActionHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async => BlocProvider.of<SpotlightBloc>(context)
-              .add(const SpotlightEvent.getSpotLightCrowdActions()),
-          color: kAccentColor,
-          child: SingleChildScrollView(
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                children: const [
-                  InSpotLightHeader(),
-                  CurrentAndUpcomingLayout(),
-                  SizedBox(height: 20),
-                  ShareCollActionCard(),
-                  SizedBox(height: 20),
-                  CurrentAndUpcomingLayout(isCurrent: false)
-                ],
+    return BlocProvider(
+      create: (context) => getIt<SpotlightBloc>()
+        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+      child: Builder(
+        builder: (context) => Scaffold(
+          body: SafeArea(
+            child: RefreshIndicator(
+              onRefresh: () async => BlocProvider.of<SpotlightBloc>(context)
+                  .add(const SpotlightEvent.getSpotLightCrowdActions()),
+              color: kAccentColor,
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    children: const [
+                      InSpotLightHeader(),
+                      CurrentAndUpcomingLayout(),
+                      SizedBox(height: 20),
+                      ShareCollActionCard(),
+                      SizedBox(height: 20),
+                      CurrentAndUpcomingLayout(isCurrent: false)
+                    ],
+                  ),
+                ),
               ),
             ),
           ),

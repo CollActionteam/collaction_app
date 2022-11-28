@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
 import '../../domain/auth/i_auth_repository.dart';
+import '../../domain/core/i_settings_repository.dart';
 import '../../domain/profile/user_profile.dart';
 import '../../domain/user/i_profile_repository.dart';
 import '../../domain/user/profile_failure.dart';

@@ -72,10 +72,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () =>
-                      context.router.push(const SettingsRoute()).then((_) {
-                    context.read<ProfileBloc>().add(GetUserProfile());
-                  }),
+                  onPressed: () => context.router.push(const SettingsRoute()),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: kPrimaryColor0,
                     backgroundColor: Colors.white,
@@ -138,14 +135,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     right: 0,
                                     child: FloatingActionButton(
                                       onPressed: () {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) => PhotoSelector(
-                                            onSelected: (image) {
-                                              setState(() => _image = image);
-                                              context.router.pop("dialog");
-                                            },
-                                          ),
+                                        PhotoSelector.showPhotoSelector(
+                                          context,
+                                          onSelected: (image) {
+                                            setState(() => _image = image);
+                                          },
                                         );
                                         context
                                             .read<ProfileBloc>()
@@ -356,7 +350,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             // TODO only for MVP (remove later)
                             const SizedBox(height: 40),
                             PillButton(
-                              text: 'Create account or sign in',
+                              text: 'Sign in',
                               onTap: () => context.router
                                   .push(const AuthRoute())
                                   .then((_) {

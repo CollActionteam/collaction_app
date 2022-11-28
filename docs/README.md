@@ -23,14 +23,16 @@ command to run when you need to build or re-build these files:
 _The watch command keeps re-building generated files. It is generally not recommended to use._
 
 ```bash
-  flutter pub run build_runner watch --delete-conflicting-outputs
+  flutter pub run build_runner watch -d
 ```
 
 _If you want to build generated files once run this command, it's preferred._
 
 ```bash
-  flutter pub run build_runner build --delete-conflicting-outputs
+  flutter pub run build_runner build -d
 ```
+
+Note: The argument `-d` is shorthand for `--delete-conflicting-outputs` introduced in build_runner 2.3.0
 
 ## Imutable app settings
 
@@ -70,14 +72,15 @@ To update the icons font with a new svg, go to [FlutterIcons](https://www.flutte
 
 To generate the OpenSource licenses dart file via [flutter_oss_licenses](https://pub.dev/packages/flutter_oss_licenses), run the command `flutter pub run flutter_oss_licenses:generate.dart lib/presentation/licenses/oss_licenses.dart` from the project root.
 
->Note: Run `flutter format .` once  [oss_licenses.dart](../lib/presentation/licenses/oss_licenses.dart) is created.
+> Note: Run `flutter format .` once [oss_licenses.dart](../lib/presentation/licenses/oss_licenses.dart) is created.
 
 ## Running tests and generating Test Report
 
-- Step 1: Just for the 1st time, to make sure that all files are included, run ```./.github/scripts/coverage_gen.sh``` to generate a report for the whole project.
-- Step 2: Run ```flutter test --coverage```. This will generate the report locally.
-- Step 3: Run ```genhtml coverage/lcov.info -o coverage```.
-- Step 4: Run ``` firefox coverage/index.html``` (or run ```coverage/index.html``` to any of your web browser).
+- Step 1: Just for the 1st time, to make sure that all files are included, run `./.github/scripts/coverage_gen.sh` to generate a report for the whole project.
+- Step 2: Run `flutter test --coverage`. This will generate the report locally.
+- Step 3: Run `genhtml coverage/lcov.info -o coverage`.
+- Step 4: Run ` firefox coverage/index.html` (or run `coverage/index.html` to any of your web browser).
+
 #### You should see the coverage of your tests line-wise in Codecov.
 
 ## Getting Started with Flutter
@@ -94,6 +97,7 @@ mobile development, and a full API reference.
 ## Pre-push checks
 
 We have set up Git hooks to prevent extra whitespace and other possible mistakes before pushing the code to your branch. Run the below command in the project root directory to copy the pre-push hooks to your local `.git` directory.
+
 ```bash
   cp ./hooks/* ./.git/hooks/
 ```

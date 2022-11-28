@@ -1,18 +1,20 @@
-import 'package:collaction_app/application/participation/participation_bloc.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/presentation/shared_widgets/shimmers/commitment_card_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/participation/participation_bloc.dart';
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../shimmers/commitment_card_shimmer.dart';
 import 'commitment_card.dart';
 
 class CommitmentCardList extends StatefulWidget {
+  final bool isEnded;
   final List<CommitmentOption>? commitmentOptions;
   final List<CommitmentOption> selectedCommitments;
 
   /// Widget for easily creating a list of CommitmentCard(s)
   const CommitmentCardList({
     super.key,
+    this.isEnded = false,
     required this.commitmentOptions,
     required this.selectedCommitments,
   });
@@ -57,6 +59,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
               onDeSelected: isParticipating ? null : deselectCommitment,
               active: widget.selectedCommitments.contains(option),
               deactivated: isParticipating || isBlocked(option),
+              viewOnly: widget.isEnded,
             );
           },
           itemCount: widget.commitmentOptions!.length,

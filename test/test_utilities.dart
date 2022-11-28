@@ -2,16 +2,15 @@ import 'dart:io';
 
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/domain/contact_form/contact_failures.dart';
-import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
-import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
+import 'package:collaction_app/domain/contact_form/i_contact_form_repository.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction_status.dart';
 import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
 import 'package:collaction_app/domain/user/i_avatar_repository.dart';
 import 'package:collaction_app/domain/user/i_profile_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/domain/user/user.dart';
+import 'package:collaction_app/infrastructure/contact_form/contact_form_dto.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -74,10 +73,6 @@ class TestUtilities {
 
     final crowdActionRepo = MockCrowdActionRepository();
 
-    when(() => crowdActionRepo.getCrowdActions()).thenAnswer(
-      (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
-    );
-
     when(() => crowdActionRepo.getSpotlightCrowdActions()).thenAnswer(
       (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
     );
@@ -88,18 +83,17 @@ class TestUtilities {
     when(() => crowdActionRepo.unsubscribeFromCrowdAction(any()))
         .thenAnswer((_) async => right(unit));
 
-    when(() => crowdActionRepo.checkCrowdActionSubscriptionStatus(any()))
-        .thenAnswer(
-      (_) async => right(
-        CrowdActionStatus.subscribed(
-          crowdActions.first.commitmentOptions.map((e) => e.id).toList(),
-        ),
-      ),
-    );
-
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
   }
 }
+
+final tDotEnv = """
+ENV = development
+
+# Full base URL including protocol (http or https), host and optionally the port and the base api path without trailing forward slash
+BASE_API_ENDPOINT_URL = http://collaction.org
+BASE_STATIC_ENDPOINT_URL = http://collaction.org
+""";
 
 final tCrowdaction = CrowdAction(
   id: 'tID',

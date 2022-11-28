@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../core/core.dart';
 import '../user/user.dart';
 import 'profile.dart';
 
@@ -13,4 +14,7 @@ class UserProfile with _$UserProfile {
     required User user,
     required Profile profile,
   }) = _UserProfile;
+
+  // User profile avatar url
+  String? get avatarUrl => '$baseStaticUrl/${profile.avatar}';
 }

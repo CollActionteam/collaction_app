@@ -18,11 +18,18 @@ class ShareCollactionListTile extends StatefulWidget {
 
   @override
   State<ShareCollactionListTile> createState() =>
-      _ShareCollactionListTileState();
+      ShareCollactionListTileState();
 }
 
-class _ShareCollactionListTileState extends State<ShareCollactionListTile> {
+class ShareCollactionListTileState extends State<ShareCollactionListTile> {
   late bool _isClicked;
+
+  void onFocusChange(bool focused) {
+    setState(() {
+      _isClicked = focused == false;
+    });
+  }
+
   Future<void> _clickCallback() async {
     setState(() {
       _isClicked = true;
@@ -48,11 +55,7 @@ class _ShareCollactionListTileState extends State<ShareCollactionListTile> {
   @override
   Widget build(BuildContext context) {
     return Focus(
-      onFocusChange: (bool focused) {
-        setState(() {
-          _isClicked = focused == false;
-        });
-      },
+      onFocusChange: onFocusChange,
       child: ListTile(
         enabled: !_isClicked,
         onTap: _clickCallback,

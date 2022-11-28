@@ -28,10 +28,10 @@ class PhoneInput extends StatefulWidget {
   });
 
   @override
-  _PhoneInputState createState() => _PhoneInputState();
+  PhoneInputState createState() => PhoneInputState();
 }
 
-class _PhoneInputState extends State<PhoneInput> {
+class PhoneInputState extends State<PhoneInput> {
   CountryDetails? _selected;
   final _countryCodes =
       CountryCodes.countryCodes().whereType<CountryDetails>().toList();

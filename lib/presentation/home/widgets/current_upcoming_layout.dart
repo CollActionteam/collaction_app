@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,9 +24,8 @@ class CurrentAndUpcomingLayout extends StatefulWidget {
 class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SpotlightBloc>(
-      create: (context) => getIt<SpotlightBloc>()
-        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+    return BlocProvider.value(
+      value: BlocProvider.of<SpotlightBloc>(context),
       child: BlocBuilder<SpotlightBloc, SpotlightState>(
         builder: (ctx, state) => LayoutBuilder(
           builder: (context, constraints) {
@@ -53,11 +51,8 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                                   ),
                         ),
                         TextButton(
-                          onPressed: () => context.router.push(
-                            widget.isCurrent
-                                ? const CrowdActionBrowseRoute()
-                                : const CrowdActionBrowseRoute(),
-                          ),
+                          onPressed: () =>
+                              context.router.push(CrowdActionBrowseRoute()),
                           child: const Text(
                             'View all',
                             textAlign: TextAlign.center,
@@ -81,8 +76,13 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                       children: [
                         ...fetchedData.crowdActions
                             .map(
-                              (crowdAction) =>
-                                  MicroCrowdActionCard(crowdAction),
+                              (crowdAction) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 10,
+                                ),
+                                child: MicroCrowdActionCard(crowdAction),
+                              ),
                             )
                             .toList(),
                       ],

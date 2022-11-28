@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../domain/crowdaction/crowdaction.dart';
+import '../../../domain/crowdaction/i_crowdaction_repository.dart';
 
 part 'profile_tab_event.dart';
 part 'profile_tab_state.dart';
