@@ -194,6 +194,19 @@ jobs:
           rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
 
   deploy_widgetbook:
+    needs: [build]
+    runs-on: ubuntu-latest
+    env:
+      WIDGETBOOK_API_KEY: ${{ secrets.WIDGETBOOK_API_KEY }}
+    steps:
+      - name: Build generated code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Build web
+        run: flutter build web -t widgetbook/main.dart
+
+      - name: Publish to Widgetbook
+        run: widgetbook publish --api-key $WIDGETBOOK_API_KEY
 
   distribute_android:
     needs: [build]

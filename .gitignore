@@ -63,3 +63,6 @@ app.*.map.json
 
 # Secret config files
 **/*.env
+
+# Widgetbook
+web.zip
