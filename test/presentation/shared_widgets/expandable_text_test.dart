@@ -42,7 +42,7 @@ void main() {
       await buildAndPump(
           tester: tester,
           widget: ExpandableText(
-            text + '$text' * 10,
+            text * 10,
             trimLines: trimLines,
             clickableTextColor: clickableTextColor,
             readMoreText: readMoreText,
@@ -63,7 +63,7 @@ void main() {
       await buildAndPump(
           tester: tester,
           widget: ExpandableText(
-            text + '$text' * 10,
+            text * 10,
             trimLines: trimLines,
             clickableTextColor: clickableTextColor,
             readMoreText: readMoreText,
