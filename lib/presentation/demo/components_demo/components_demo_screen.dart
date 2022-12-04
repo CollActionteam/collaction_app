@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
-import '../../core/collaction_icons.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/crowdaction_card.dart';
 import '../../shared_widgets/custom_app_bars/clean_app_bar.dart';
