@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:collaction_app/presentation/shared_widgets/micro_crowdaction_card.dart';
 import 'package:flutter/material.dart';
