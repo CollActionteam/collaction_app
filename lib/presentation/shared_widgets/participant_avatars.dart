@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-// ignore: depend_on_referenced_packages
-import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/participation/top_participants/top_participants_bloc.dart';
@@ -78,8 +75,7 @@ class TopParticipantAvatars extends StatelessWidget {
           radius: 18,
           backgroundColor: Colors.grey[300],
           foregroundImage: CachedNetworkImageProvider(
-            '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${participant.avatar}',
-            imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
+            participant.avatarUrl,
             errorListener: () {},
           ),
           backgroundImage: const AssetImage('assets/images/default_avatar.png'),

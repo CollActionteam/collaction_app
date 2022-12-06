@@ -234,6 +234,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                               commitmentOptions: crowdAction?.commitmentOptions,
                               selectedCommitments: selectedCommitments,
                             ),
+                            const SizedBox(height: 80),
 
                             /// TODO: Implement after MVP
                             // const BadgesWidget(),
@@ -253,7 +254,6 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                       false,
                                 ),
                               ),
-                              const SizedBox(height: 70),
                             ]
                           ],
                         ),

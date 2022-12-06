@@ -173,8 +173,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     _verifyStreamSubscription =
         _authRepository.verifyPhone(phoneNumber: event.phoneNumber).listen(
-              (failureOrCredential) =>
-                  add(AuthEvent.updated(failureOrCredential)),
+              (failureOrCredential) => add(
+                AuthEvent.updated(failureOrCredential),
+              ),
             );
   }
 

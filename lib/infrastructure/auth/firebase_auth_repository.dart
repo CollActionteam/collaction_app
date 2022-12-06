@@ -44,15 +44,15 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
     firebaseAuth.verifyPhoneNumber(
       phoneNumber: "+$phoneNumber",
-      codeSent: (String verificationId, int? forceResendingToken) {
+      codeSent: (verificationId, _) {
         credential = credential.copyWith(
           verificationId: verificationId,
-          forceResendToken: forceResendingToken,
         );
 
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
       verificationFailed: (firebase_auth.FirebaseAuthException error) {
+        print(error.toString());
         result.add(left(error.toFailure()));
         result.close();
       },
@@ -135,11 +135,9 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
     firebaseAuth.verifyPhoneNumber(
       phoneNumber: "+$phoneNumber",
-      forceResendingToken: authCredentials.forceResendToken,
-      codeSent: (String verificationId, int? forceResendingToken) async {
+      codeSent: (String verificationId, _) async {
         credential = credential.copyWith(
           verificationId: verificationId,
-          forceResendToken: forceResendingToken,
         );
 
         result.add(right(AuthSuccess.codeSent(credential: credential)));
@@ -148,7 +146,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         result.add(left(error.toFailure()));
         result.close();
       },
-      codeAutoRetrievalTimeout: (String verificationId) async {
+      codeAutoRetrievalTimeout: (verificationId) async {
         credential = credential.copyWith(verificationId: verificationId);
 
         result.add(

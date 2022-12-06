@@ -103,7 +103,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                         child: Text(
                           crowdAction.description,
                           softWrap: false,
-                          maxLines: 1,
+                          maxLines: 2,
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
