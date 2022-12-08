@@ -59,23 +59,23 @@ void main() {
 
     testWidgets('callbacks called when text changed',
         (WidgetTester tester) async {
-      bool _isValid = false;
-      bool _onChange = false;
+      bool isValid = false;
+      bool onChange = false;
       await buildAndPump(
           tester: tester,
           widget: PhoneInput(
             TextEditingController(),
             isValid: (_) {
-              _isValid = true;
+              isValid = true;
             },
             onChange: (_) {
-              _onChange = true;
+              onChange = true;
             },
           ));
       await tester.enterText(find.byType(TextFormField), '0612345678');
       await tester.pumpAndSettle();
-      expect(_isValid, true);
-      expect(_onChange, true);
+      expect(isValid, true);
+      expect(onChange, true);
     });
   });
 }
