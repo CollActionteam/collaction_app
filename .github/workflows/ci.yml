@@ -24,7 +24,7 @@ env:
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Fetch code from repository
         uses: actions/checkout@v2
@@ -54,7 +54,7 @@ jobs:
   test:
     needs: [analyze]
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Fetch code from repository
         uses: actions/checkout@v2
