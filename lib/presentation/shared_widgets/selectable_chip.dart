@@ -17,38 +17,38 @@ class SelectableChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-        duration: Duration(
-          milliseconds: 200,
-        ),
-        child: SizedBox(
-          key: ValueKey<bool>(selected),
-          child: TextButton(
-            onPressed: onTap,
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets?>(
-                const EdgeInsets.symmetric(horizontal: 10.0),
-              ),
-              shape: MaterialStateProperty.all<OutlinedBorder>(
-                StadiumBorder(
-                    side: BorderSide(
-                        color:
-                            selected ? kPrimaryColor400 : kAlmostTransparent)),
-              ),
-              overlayColor: MaterialStateColor.resolveWith(
-                (states) => kSecondaryColor.withOpacity(0.1),
-              ),
-              backgroundColor: MaterialStateProperty.all(
-                  selected ? kPrimaryColor400 : kSecondaryColor),
+      duration: Duration(
+        milliseconds: 200,
+      ),
+      child: SizedBox(
+        key: ValueKey<bool>(selected),
+        child: TextButton(
+          onPressed: onTap,
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets?>(
+              const EdgeInsets.symmetric(horizontal: 10.0),
             ),
-            child: Text(
-              text,
-              style: Theme.of(context).textTheme.caption?.copyWith(
-                    fontSize: 11,
-                    color: selected ? kSecondaryColor : kPrimaryColor400,
-                    fontWeight: FontWeight.w700,
-                  ),
+            shape: MaterialStateProperty.all<OutlinedBorder>(
+              StadiumBorder(
+                  side: BorderSide(
+                      color: selected ? kPrimaryColor400 : kAlmostTransparent)),
             ),
+            overlayColor: MaterialStateColor.resolveWith(
+              (states) => kSecondaryColor.withOpacity(0.1),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+                selected ? kPrimaryColor400 : kSecondaryColor),
           ),
-        ));
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.caption?.copyWith(
+                  fontSize: 11,
+                  color: selected ? kSecondaryColor : kPrimaryColor400,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+        ),
+      ),
+    );
   }
 }

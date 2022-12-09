@@ -109,20 +109,21 @@ class FlagDialogState extends State<FlagDialog> {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 50),
                 child: Wrap(
-                    alignment: WrapAlignment.center,
-                    direction: Axis.horizontal,
-                    children: List.generate(_flags.length, (index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        child: SelectableChip(
-                          onTap: () => setState(() {
-                            _selectedFlags[index] = !_selectedFlags[index];
-                          }),
-                          selected: _selectedFlags[index],
-                          text: _flags[index],
-                        ),
-                      );
-                    })),
+                  alignment: WrapAlignment.center,
+                  direction: Axis.horizontal,
+                  children: List.generate(_flags.length, (index) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      child: SelectableChip(
+                        onTap: () => setState(() {
+                          _selectedFlags[index] = !_selectedFlags[index];
+                        }),
+                        selected: _selectedFlags[index],
+                        text: _flags[index],
+                      ),
+                    );
+                  }),
+                ),
               ),
             ],
           ),
