@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-///import '../../../core/collaction_icons.dart';
+import 'package:ionicons/ionicons.dart';
 
 class CommentLikeButton extends StatelessWidget {
   final bool likedByMe;
@@ -15,10 +14,9 @@ class CommentLikeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      /// TODO: replace icons with variants from CollactionIcons
       icon: likedByMe
-          ? const Icon(Icons.favorite)
-          : const Icon(Icons.favorite_border),
+          ? const Icon(Ionicons.heart)
+          : const Icon(Ionicons.heart_outline),
       onPressed: onTap,
       iconSize: 14,
       splashRadius: 14,

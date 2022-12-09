@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-///import '../../../core/collaction_icons.dart';
+import 'package:ionicons/ionicons.dart';
 
 class CommentDeleteButton extends StatelessWidget {
   final Function()? onTap;
@@ -13,8 +12,7 @@ class CommentDeleteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      /// TODO: replace icons with variants from CollactionIcons
-      icon: const Icon(Icons.delete),
+      icon: const Icon(Ionicons.trash_outline),
       onPressed: onTap,
       iconSize: 14,
       splashRadius: 14,
