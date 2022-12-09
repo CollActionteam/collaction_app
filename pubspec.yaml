@@ -74,6 +74,7 @@ dev_dependencies:
   injectable_generator: ^1.5.4
   json_serializable: ^6.5.3
   lint: ^1.10.0
+  widgetbook: ^2.4.1
 
 flutter_icons:
   android: true

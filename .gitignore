@@ -35,7 +35,6 @@ ci.sh
 ios/build
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -61,7 +60,9 @@ app.*.map.json
 **/*.config.dart
 **/*.g.dart
 **/*.gr.dart
-lib/generated_plugin_registrant.dart
 
 # Secret config files
 **/*.env
+
+# Widgetbook
+web.zip
