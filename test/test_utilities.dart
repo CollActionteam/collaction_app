@@ -139,14 +139,15 @@ final tCommitmentOption = CommitmentOption(
 final List<String> tCommitment = ['tCommitment'];
 
 final Participation tParticipation = Participation(
-    id: 'tID',
-    crowdActionId: 'tID',
-    fullName: 'John Doe',
-    avatar: 'tAvatar',
-    userId: 'tID',
-    commitmentOptions: tCommitment,
-    joinDate: DateTime.now(),
-    dailyCheckIns: 5);
+  id: 'tID',
+  crowdActionId: 'tID',
+  fullName: 'John Doe',
+  avatar: 'tAvatar',
+  userId: 'tID',
+  commitmentOptions: tCommitment,
+  joinDate: DateTime.now(),
+  dailyCheckIns: 5,
+);
 
 final List<Participation> tTopParticipants = [
   tParticipation,
