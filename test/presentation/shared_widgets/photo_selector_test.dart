@@ -112,7 +112,5 @@ Future<XFile?> getFileFromAssets(String filename) async {
     byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes),
   );
 
-  XFile? xFile = XFile(file.path);
-
-  return xFile;
+  return XFile(file.path);
 }
