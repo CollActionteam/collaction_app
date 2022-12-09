@@ -19,15 +19,16 @@ void main() {
     testWidgets('renders correctly when text is short',
         (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester,
-          widget: ExpandableText(
-            text,
-            trimLines: trimLines,
-            clickableTextColor: clickableTextColor,
-            readMoreText: readMoreText,
-            readLessText: readLessText,
-            style: style,
-          ));
+        tester: tester,
+        widget: ExpandableText(
+          text,
+          trimLines: trimLines,
+          clickableTextColor: clickableTextColor,
+          readMoreText: readMoreText,
+          readLessText: readLessText,
+          style: style,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(ExpandableText), findsOneWidget);
@@ -40,36 +41,40 @@ void main() {
     testWidgets('renders correctly when text is long',
         (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester,
-          widget: ExpandableText(
-            text * 10,
-            trimLines: trimLines,
-            clickableTextColor: clickableTextColor,
-            readMoreText: readMoreText,
-            readLessText: readLessText,
-            style: style,
-          ));
+        tester: tester,
+        widget: ExpandableText(
+          text * 10,
+          trimLines: trimLines,
+          clickableTextColor: clickableTextColor,
+          readMoreText: readMoreText,
+          readLessText: readLessText,
+          style: style,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(ExpandableText), findsOneWidget);
       expect(find.byType(RichText), findsOneWidget);
       var textWidget = tester.firstWidget<RichText>(find.byType(RichText));
       expect(textWidget.text.toPlainText(), contains(readMoreText));
-      expect(textWidget.text.toPlainText().length,
-          equals(trimLines * 30 + readMoreText.length + 4));
+      expect(
+        textWidget.text.toPlainText().length,
+        equals(trimLines * 30 + readMoreText.length + 4),
+      );
     });
 
     testWidgets('expands and minimizes correctly', (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester,
-          widget: ExpandableText(
-            text * 10,
-            trimLines: trimLines,
-            clickableTextColor: clickableTextColor,
-            readMoreText: readMoreText,
-            readLessText: readLessText,
-            style: style,
-          ));
+        tester: tester,
+        widget: ExpandableText(
+          text * 10,
+          trimLines: trimLines,
+          clickableTextColor: clickableTextColor,
+          readMoreText: readMoreText,
+          readLessText: readLessText,
+          style: style,
+        ),
+      );
       await tester.pumpAndSettle();
 
       fireOnTap(find.byType(RichText), readMoreText);
@@ -82,8 +87,10 @@ void main() {
       await tester.pumpAndSettle();
       textWidget = tester.firstWidget<RichText>(find.byType(RichText));
       expect(textWidget.text.toPlainText(), contains(readMoreText));
-      expect(textWidget.text.toPlainText().length,
-          equals(trimLines * 30 + readMoreText.length + 4));
+      expect(
+        textWidget.text.toPlainText().length,
+        equals(trimLines * 30 + readMoreText.length + 4),
+      );
     });
   });
 }

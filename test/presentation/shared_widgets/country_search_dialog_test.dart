@@ -13,20 +13,22 @@ void main() {
     testWidgets('render correctly with empty [TextField]',
         (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester,
-          widget: CountrySearch(
-            onCountrySelected: onCountrySelected,
-          ));
+        tester: tester,
+        widget: CountrySearch(
+          onCountrySelected: onCountrySelected,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(CountrySearch), findsOneWidget);
       expect(find.byType(TextField), findsOneWidget);
       expect(find.byType(InkWell), findsAtLeastNWidgets(1));
       expect(
-          (tester.firstWidget(find.byType(EditableText)) as EditableText)
-              .controller
-              .text,
-          '');
+        (tester.firstWidget(find.byType(EditableText)) as EditableText)
+            .controller
+            .text,
+        '',
+      );
     });
 
     testWidgets(
@@ -34,10 +36,11 @@ void main() {
         'and call onCountrySelected with the correct [CountryDetails]',
         (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester,
-          widget: CountrySearch(
-            onCountrySelected: onCountrySelected,
-          ));
+        tester: tester,
+        widget: CountrySearch(
+          onCountrySelected: onCountrySelected,
+        ),
+      );
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField), 'Nederland');
       await tester.pumpAndSettle();

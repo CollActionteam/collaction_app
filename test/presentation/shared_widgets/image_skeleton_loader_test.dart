@@ -7,34 +7,37 @@ void main() {
   group('ImageSkeletonLoader test:', () {
     testWidgets('can render rectangular', (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester, widget: ImageSkeletonLoader(height: 100));
+        tester: tester,
+        widget: ImageSkeletonLoader(height: 100),
+      );
       await tester.pump();
 
       expect(find.byType(ImageSkeletonLoader), findsOneWidget);
       expect(
-          tester
-              .firstWidget<ImageSkeletonLoader>(
-                  find.byType(ImageSkeletonLoader))
-              .isCircle,
-          false);
+        tester
+            .firstWidget<ImageSkeletonLoader>(find.byType(ImageSkeletonLoader))
+            .isCircle,
+        false,
+      );
     });
 
     testWidgets('can render circular', (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester,
-          widget: ImageSkeletonLoader(
-            height: 100,
-            isCircle: true,
-          ));
+        tester: tester,
+        widget: ImageSkeletonLoader(
+          height: 100,
+          isCircle: true,
+        ),
+      );
       await tester.pump();
 
       expect(find.byType(ImageSkeletonLoader), findsOneWidget);
       expect(
-          tester
-              .firstWidget<ImageSkeletonLoader>(
-                  find.byType(ImageSkeletonLoader))
-              .isCircle,
-          true);
+        tester
+            .firstWidget<ImageSkeletonLoader>(find.byType(ImageSkeletonLoader))
+            .isCircle,
+        true,
+      );
     });
   });
 }

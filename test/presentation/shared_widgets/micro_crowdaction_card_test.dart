@@ -57,7 +57,6 @@ void main() {
     expect(capturedRoutes.first, isA<CrowdActionDetailsRoute>());
 
     final route = capturedRoutes.first as CrowdActionDetailsRoute;
-    debugPrint(route.args?.toString());
     expect(route.args?.crowdAction, null);
     expect(route.args?.crowdActionId, tCrowdactionNoPassword.id);
   });

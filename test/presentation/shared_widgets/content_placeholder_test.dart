@@ -30,37 +30,50 @@ void main() {
     testWidgets('can render', (WidgetTester tester) async {
       when(() => authBloc.state).thenAnswer((_) => AuthState.unauthenticated());
       await buildAndPump(
-          tester: tester,
-          widget: const ContentPlaceholder(
-              textColor: textColor, description: text));
+        tester: tester,
+        widget: const ContentPlaceholder(
+          textColor: textColor,
+          description: text,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(ContentPlaceholder), findsOneWidget);
       expect(find.text(text), findsOneWidget);
-      expect((tester.firstWidget(find.text(text)) as Text).style!.color,
-          textColor);
+      expect(
+        (tester.firstWidget(find.text(text)) as Text).style!.color,
+        textColor,
+      );
     });
 
     testWidgets('can render unauthenticated', (WidgetTester tester) async {
       when(() => authBloc.state).thenAnswer((_) => AuthState.unauthenticated());
       await buildAndPump(
-          tester: tester,
-          widget: const ContentPlaceholder(
-              textColor: textColor, description: text));
+        tester: tester,
+        widget: const ContentPlaceholder(
+          textColor: textColor,
+          description: text,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.text(extraText), findsOneWidget);
-      expect((tester.firstWidget(find.text(extraText)) as Text).style!.color,
-          textColor);
+      expect(
+        (tester.firstWidget(find.text(extraText)) as Text).style!.color,
+        textColor,
+      );
     });
 
     testWidgets('can render authenticated', (WidgetTester tester) async {
       when(() => authBloc.state)
           .thenAnswer((_) => AuthState.authenticated(User.anonymous));
       await buildAndPump(
-          tester: tester,
-          widget: const ContentPlaceholder(
-              textColor: textColor, description: text));
+        tester: tester,
+        widget: const ContentPlaceholder(
+          textColor: textColor,
+          description: text,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.text(extraText), findsNothing);
