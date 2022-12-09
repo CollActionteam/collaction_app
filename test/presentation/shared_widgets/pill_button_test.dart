@@ -15,12 +15,12 @@ void main() {
     testWidgets('callback calls when enabled', (WidgetTester tester) async {
       bool onTapResult = false;
       await buildAndPump(
-          tester: tester,
-          widget: PillButton(
-              text: 'text',
-              onTap: () {
-                onTapResult = true;
-              }));
+        tester: tester,
+        widget: PillButton(
+          text: 'text',
+          onTap: () => onTapResult = true,
+        ),
+      );
       await tester.pumpAndSettle();
       await tester.tap(find.byType(PillButton));
       await tester.pumpAndSettle();
@@ -31,14 +31,13 @@ void main() {
         (WidgetTester tester) async {
       bool onTapResult = false;
       await buildAndPump(
-          tester: tester,
-          widget: PillButton(
-            text: 'text',
-            onTap: () {
-              onTapResult = true;
-            },
-            isEnabled: false,
-          ));
+        tester: tester,
+        widget: PillButton(
+          text: 'text',
+          onTap: () => onTapResult = true,
+          isEnabled: false,
+        ),
+      );
       await tester.pumpAndSettle();
       await tester.tap(find.byType(PillButton));
       await tester.pumpAndSettle();
@@ -48,14 +47,13 @@ void main() {
     testWidgets('loading state behaves correctly', (WidgetTester tester) async {
       bool onTapResult = false;
       await buildAndPump(
-          tester: tester,
-          widget: PillButton(
-            text: 'text',
-            onTap: () {
-              onTapResult = true;
-            },
-            isLoading: true,
-          ));
+        tester: tester,
+        widget: PillButton(
+          text: 'text',
+          onTap: () => onTapResult = true,
+          isLoading: true,
+        ),
+      );
       await tester.pump();
       expect(find.text('text'), findsNothing);
       await tester.tap(find.byType(PillButton));

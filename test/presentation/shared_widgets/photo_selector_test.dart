@@ -29,7 +29,7 @@ void main() {
 
     cropImageChannel.setMockMethodCallHandler((MethodCall call) async {
       cropImageCalled = true;
-      return null;
+      return call.arguments['source_path'];
     });
   });
 
@@ -81,6 +81,26 @@ void main() {
         expect(cropImageCalled, true);
       });
     });
+
+    testWidgets('onSelected triggers after image selected',
+        (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        bool onSelectedCalled = false;
+        await buildAndPump(
+          tester: tester,
+          widget: PhotoSelector(
+            onSelected: (_) => onSelectedCalled = true,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byType(FloatingActionButton).last);
+        await tester.pumpAndSettle();
+        await Future.delayed(Duration(seconds: 1));
+
+        expect(onSelectedCalled, true);
+      });
+    });
   });
 }
 
@@ -88,8 +108,9 @@ Future<XFile?> getFileFromAssets(String filename) async {
   final byteData = await rootBundle.load('assets/images/$filename');
 
   final file = File('${Directory.systemTemp.path}/$filename');
-  await file.writeAsBytes(byteData.buffer
-      .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+  await file.writeAsBytes(
+    byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes),
+  );
 
   XFile? xFile = XFile(file.path);
 

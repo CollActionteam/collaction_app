@@ -17,12 +17,12 @@ void main() {
         (WidgetTester tester) async {
       bool onTapResponse = false;
       await buildAndPump(
-          tester: tester,
-          widget: RectangleButton(
-              text: 'text',
-              onTap: () {
-                onTapResponse = true;
-              }));
+        tester: tester,
+        widget: RectangleButton(
+          text: 'text',
+          onTap: () => onTapResponse = true,
+        ),
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(RectangleButton));
@@ -34,14 +34,13 @@ void main() {
         (WidgetTester tester) async {
       bool onTapResponse = false;
       await buildAndPump(
-          tester: tester,
-          widget: RectangleButton(
-            text: 'text',
-            onTap: () {
-              onTapResponse = true;
-            },
-            enabled: false,
-          ));
+        tester: tester,
+        widget: RectangleButton(
+          text: 'text',
+          onTap: () => onTapResponse = true,
+          enabled: false,
+        ),
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(RectangleButton));

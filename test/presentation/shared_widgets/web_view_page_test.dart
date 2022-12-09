@@ -8,8 +8,12 @@ void main() {
   group('WebViewPage tests:', () {
     testWidgets('can render', (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester,
-          widget: WebViewPage(url: 'https://collaction.org', title: 'title'));
+        tester: tester,
+        widget: WebViewPage(
+          url: 'https://collaction.org',
+          title: 'title',
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(WebViewPage), findsOneWidget);
@@ -18,13 +22,19 @@ void main() {
 
     testWidgets('links the correct webpage', (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester,
-          widget: WebViewPage(url: 'https://collaction.org', title: 'title'));
+        tester: tester,
+        widget: WebViewPage(
+          url: 'https://collaction.org',
+          title: 'title',
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(WebView), findsOneWidget);
-      expect(tester.firstWidget<WebView>(find.byType(WebView)).initialUrl,
-          equals('https://collaction.org'));
+      expect(
+        tester.firstWidget<WebView>(find.byType(WebView)).initialUrl,
+        equals('https://collaction.org'),
+      );
     });
   });
 }

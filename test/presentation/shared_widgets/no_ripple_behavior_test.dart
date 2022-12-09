@@ -11,19 +11,21 @@ void main() {
       await buildAndPump(
         tester: tester,
         widget: ScrollConfiguration(
-            behavior: NoRippleBehavior(),
-            child: SizedBox(height: 1000),
-            key: key),
+          behavior: NoRippleBehavior(),
+          child: SizedBox(height: 1000),
+          key: key,
+        ),
       );
       await tester.pumpAndSettle();
 
       expect(find.byKey(key), findsOneWidget);
       expect(
-          tester
-              .firstWidget<ScrollConfiguration>(find.byKey(key))
-              .behavior
-              .runtimeType,
-          NoRippleBehavior);
+        tester
+            .firstWidget<ScrollConfiguration>(find.byKey(key))
+            .behavior
+            .runtimeType,
+        NoRippleBehavior,
+      );
     });
   });
 }

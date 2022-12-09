@@ -35,9 +35,11 @@ void main() {
           .thenAnswer((_) => TopParticipantsState.initial());
 
       await buildAndPump(
-          tester: tester,
-          widget:
-              TopParticipantAvatars(crowdActionId: tCrowdactionNoPassword.id));
+        tester: tester,
+        widget: TopParticipantAvatars(
+          crowdActionId: tCrowdactionNoPassword.id,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(TopParticipantAvatars), findsOneWidget);
@@ -48,22 +50,26 @@ void main() {
           .thenAnswer((_) => TopParticipantsState.fetching());
 
       await buildAndPump(
-          tester: tester,
-          widget:
-              TopParticipantAvatars(crowdActionId: tCrowdactionNoPassword.id));
+        tester: tester,
+        widget: TopParticipantAvatars(
+          crowdActionId: tCrowdactionNoPassword.id,
+        ),
+      );
       await tester.pump();
 
       expect(find.byType(TopParticipantsShimmer), findsOneWidget);
     });
 
     testWidgets('fetched 1 participants', (WidgetTester tester) async {
-      when(() => topParticipantsBloc.state).thenAnswer(
-          (_) => TopParticipantsState.fetched(List.filled(1, tParticipation)));
+      when(() => topParticipantsBloc.state)
+          .thenAnswer((_) => TopParticipantsState.fetched([tParticipation]));
 
       await buildAndPump(
-          tester: tester,
-          widget:
-              TopParticipantAvatars(crowdActionId: tCrowdactionNoPassword.id));
+        tester: tester,
+        widget: TopParticipantAvatars(
+          crowdActionId: tCrowdactionNoPassword.id,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(tester.firstWidget<SizedBox>(find.byType(SizedBox)).width, 40);
@@ -75,9 +81,11 @@ void main() {
           (_) => TopParticipantsState.fetched(List.filled(3, tParticipation)));
 
       await buildAndPump(
-          tester: tester,
-          widget:
-              TopParticipantAvatars(crowdActionId: tCrowdactionNoPassword.id));
+        tester: tester,
+        widget: TopParticipantAvatars(
+          crowdActionId: tCrowdactionNoPassword.id,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(tester.firstWidget<SizedBox>(find.byType(SizedBox)).width, 90);
@@ -90,9 +98,11 @@ void main() {
           (_) => TopParticipantsState.fetched(List.filled(10, tParticipation)));
 
       await buildAndPump(
-          tester: tester,
-          widget:
-              TopParticipantAvatars(crowdActionId: tCrowdactionNoPassword.id));
+        tester: tester,
+        widget: TopParticipantAvatars(
+          crowdActionId: tCrowdactionNoPassword.id,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(tester.firstWidget<SizedBox>(find.byType(SizedBox)).width, 65);
