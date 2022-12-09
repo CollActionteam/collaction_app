@@ -6,6 +6,7 @@ import 'package:collaction_app/domain/contact_form/i_contact_form_repository.dar
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
+import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:collaction_app/domain/user/i_avatar_repository.dart';
 import 'package:collaction_app/domain/user/i_profile_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
@@ -136,3 +137,20 @@ final tCommitmentOption = CommitmentOption(
 );
 
 final List<String> tCommitment = ['tCommitment'];
+
+final Participation tParticipation = Participation(
+  id: 'tID',
+  crowdActionId: 'tID',
+  fullName: 'John Doe',
+  avatar: 'tAvatar',
+  userId: 'tID',
+  commitmentOptions: tCommitment,
+  joinDate: DateTime.now(),
+  dailyCheckIns: 5,
+);
+
+final List<Participation> tTopParticipants = [
+  tParticipation,
+  tParticipation,
+  tParticipation
+];
