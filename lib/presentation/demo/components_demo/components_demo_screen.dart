@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
-import '../../core/collaction_icons.dart';
-import '../../shared_widgets/accent_action_chip.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/crowdaction_card.dart';
 import '../../shared_widgets/custom_app_bars/clean_app_bar.dart';
@@ -159,23 +157,6 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
               const TextButton(
                 onPressed: null,
                 child: Text("Skip for now"),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AccentActionChip(
-                    () {},
-                    text: 'Sign up now',
-                    leading: const Icon(
-                      CollactionIcons.plus,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: 10.0),
-                  AccentActionChip(() {}, text: 'Click me!'),
-                  const SizedBox(width: 10.0),
-                  AccentActionChip(() {}, text: 'I have material'),
-                ],
               ),
               Wrap(
                 spacing: 12.0,
