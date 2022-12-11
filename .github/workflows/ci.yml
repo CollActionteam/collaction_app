@@ -61,11 +61,10 @@ jobs:
 
       - name: Statically analyze the Dart code
         run: |
-          echo ${{ secrets.ENV }} | base64 -d > .env
+          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
           flutter analyze .
 
   test:
-    needs: [analyze]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -99,9 +98,7 @@ jobs:
         run: ./.github/scripts/coverage_gen.sh
 
       - name: Run tests and generate coverage
-        run: |
-          echo ${{ secrets.ENV }} | base64 -d > .env
-          flutter test --coverage -r expanded .
+        run: flutter test --coverage -r expanded .
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
@@ -111,7 +108,7 @@ jobs:
 
   build: # Dynamically build for dev or prod depending on the branch
     if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
-    needs: [test]
+    needs: [analyze, test]
     runs-on: macos-latest
     timeout-minutes: 60
     steps:
@@ -238,13 +235,44 @@ jobs:
           rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
 
   deploy_widgetbook:
-    needs: [build]
+    needs: [analyze, test]
     runs-on: ubuntu-latest
     env:
       WIDGETBOOK_API_KEY: ${{ secrets.WIDGETBOOK_API_KEY }}
     steps:
+      - name: Fetch code from cache
+        id: code-cache
+        uses: actions/cache@v3
+        with:
+          path: .
+          key: code-cache-${{ github.sha }}
+          restore-keys: |
+            code-cache-${{ github.sha }}
+            code-cache-
+            code-cache
+
+      - name: Cache Flutter install
+        uses: actions/cache@v3
+        with:
+          # Linux (deprecate):
+          # path: /opt/hostedtoolcache/flutter
+          # MacOS:
+          path: /Users/runner/hostedtoolcache/flutter
+          key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
+
+      - name: Setup the Flutter environment
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.flutter_channel }}
+          flutter-version: ${{ env.flutter_version }}
+
+      - name: Get Flutter dependencies
+        run: flutter pub get .
+
       - name: Build web
-        run: flutter build web -t widgetbook/main.dart
+        run: |
+          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          flutter build web -t widgetbook/main.dart
 
       - name: Publish to Widgetbook
         run: widgetbook publish --api-key $WIDGETBOOK_API_KEY
