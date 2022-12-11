@@ -106,7 +106,7 @@ jobs:
           verbose: true
           file: coverage/lcov.info
 
-  build: # Dynamically build for dev or prod depending on the branch
+  build_android:
     if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
     needs: [analyze, test]
     runs-on: macos-latest
@@ -185,6 +185,53 @@ jobs:
             build/app/outputs/release_notes.txt
       # Prerequisites for building iOS
       # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+
+  build_ios:
+    if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
+    needs: [analyze, test]
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - name: Fetch code from cache
+        id: code-cache
+        uses: actions/cache@v3
+        with:
+          path: .
+          key: code-cache-${{ github.sha }}
+          restore-keys: |
+            code-cache-${{ github.sha }}
+            code-cache-
+            code-cache
+
+      - name: Create release notes file
+        run: |
+          cat > release_notes.txt <<EOF
+          Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          Commit: $(git rev-parse --short HEAD)
+          Author: $(git log -1 --pretty=format:'%an')
+          Message: $(git log -1 --pretty=%B)
+          EOF
+
+      - name: Cache Flutter install
+        uses: actions/cache@v3
+        with:
+          # Linux (deprecate):
+          # path: /opt/hostedtoolcache/flutter
+          # MacOS:
+          path: /Users/runner/hostedtoolcache/flutter
+          key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
+
+      - name: Setup the Flutter environment
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.flutter_channel }}
+          flutter-version: ${{ env.flutter_version }}
+
+      - name: Get Flutter dependencies
+        run: flutter pub get .
+
+      - name: Generate app icons
+        run: flutter pub run flutter_launcher_icons:main
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -266,6 +313,9 @@ jobs:
           channel: ${{ env.flutter_channel }}
           flutter-version: ${{ env.flutter_version }}
 
+      - name: Install Widgetbook CLI
+        run: dart pub global activate widgetbook_cli 3.0.0-beta.13
+
       - name: Get Flutter dependencies
         run: flutter pub get .
 
@@ -278,7 +328,7 @@ jobs:
         run: widgetbook publish --api-key $WIDGETBOOK_API_KEY
 
   distribute_android:
-    needs: [build]
+    needs: [build_android]
     runs-on: ubuntu-latest
     steps:
       - name: Download generated apk from the artifacts
@@ -296,7 +346,7 @@ jobs:
           releaseNotesFile: release_notes.txt
 
   distribute_ios:
-    needs: [build]
+    needs: [build_ios]
     runs-on: macos-latest
     steps:
       - name: Download generated ipa from the artifacts
