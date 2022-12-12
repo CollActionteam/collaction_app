@@ -24,3 +24,5 @@ analyzer:
     - "lib/generated_plugin_registrant.dart"
     - "**/*.gr.dart"
     - "lib/presentation/licenses/oss_licenses.dart"
+    # Widgetbook
+    - "**/*.widgetbook.dart"
