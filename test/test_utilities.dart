@@ -136,6 +136,15 @@ final tCommitmentOption = CommitmentOption(
   blocks: [],
 );
 
+final tBlockingCommitmentOption = CommitmentOption(
+  id: 'no-meat',
+  type: 'food',
+  label: 'tLabel',
+  description: 'tDescription',
+  points: 0,
+  blocks: ['no-beef'],
+);
+
 final List<String> tCommitment = ['tCommitment'];
 
 final Participation tParticipation = Participation(
