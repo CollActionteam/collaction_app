@@ -263,8 +263,10 @@ jobs:
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Build iOS app
+        env:
+          IOS_GOOGLESERVICE_INFO_PLIST: ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }}
         run: |
-          echo ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }} | base64 -d > ios/Runner/GoogleService-Info.plist
+          echo $IOS_GOOGLESERVICE_INFO_PLIST | base64 --decode > ios/Runner/GoogleService-Info.plist
           flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER
           cp release_notes.txt build/ios/ipa/
 
@@ -327,10 +329,6 @@ jobs:
       - name: Publish to Widgetbook
         if: github.event_name != 'pull_request'
         run: widgetbook publish --api-key $WIDGETBOOK_API_KEY
-
-      - name: Publish to Widgetbook w. PR
-        if: github.event_name == 'pull_request'
-        run: widgetbook publish --api-key $WIDGETBOOK_API_KEY --pr ${{ github.event.pull_request.number }}
 
   distribute_android:
     needs: [build_android]
