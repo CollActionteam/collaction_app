@@ -10,7 +10,6 @@ import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../application/participation/participation_bloc.mock.dart';
-import '../../test_helper.dart';
 import '../../test_utilities.dart';
 
 part 'commitment_card_list_test.ext.dart';
