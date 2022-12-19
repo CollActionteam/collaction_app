@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/application/settings/build_information/build_information_bloc.dart';
@@ -30,7 +32,13 @@ void main() {
   late ProfileBloc profileBloc;
   late BuildInformationBloc buildInformationBloc;
 
-  const channel = MethodChannel('plugins.flutter.io/url_launcher_windows');
+  final channel = MethodChannel(
+    Platform.isLinux
+        ? 'plugins.flutter.io/url_launcher_linux'
+        : Platform.isWindows
+            ? 'plugins.flutter.io/url_launcher_windows'
+            : 'plugins.flutter.io/url_launcher_macos',
+  );
 
   setUp(() async {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
