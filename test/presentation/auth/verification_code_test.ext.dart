@@ -8,7 +8,9 @@ extension WidgetX on WidgetTester {
         create: (context) => authBloc,
         child: MaterialApp(
           home: Scaffold(
-            body: EnterVerificationCode(),
+            body: EnterVerificationCode(
+              pinLength: pinLength,
+            ),
           ),
         ),
       ),
