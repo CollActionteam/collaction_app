@@ -68,16 +68,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Fetch code from cache
-        id: code-cache
-        uses: actions/cache@v3
-        with:
-          path: .
-          key: code-cache-${{ github.sha }}
-          restore-keys: |
-            code-cache-${{ github.sha }}
-            code-cache-
-            code-cache
+      - name: Fetch code from repository
+        uses: actions/checkout@v2
 
       - name: Cache Flutter install
         uses: actions/cache@v3
@@ -97,8 +89,15 @@ jobs:
       - name: Generate test file
         run: ./.github/scripts/coverage_gen.sh
 
+      - name: Build generated code
+        run: |
+          flutter pub run flutter_oss_licenses:generate.dart lib/presentation/licenses/oss_licenses.dart
+          flutter pub run build_runner build --delete-conflicting-outputs
+
       - name: Run tests and generate coverage
-        run: flutter test --coverage -r expanded .
+        run: |
+          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          flutter test --coverage -r expanded .
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
@@ -343,7 +342,7 @@ jobs:
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: internal
           file: bundle/release/app-release.aab
           releaseNotesFile: release_notes.txt
