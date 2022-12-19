@@ -158,9 +158,11 @@ jobs:
         run: flutter pub run flutter_launcher_icons:main
 
       - name: Build appbundle
+        env:
+          GOOGLE_SERVICES_JSON: ${{ github.ref == 'refs/heads/master' && secrets.ANDROID_GOOGLE_SERVICES_JSON || secrets.ANDROID_GOOGLE_SERVICES_JSON_DEV }}
         run: |
           echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
-          echo ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON }} | base64 -d > android/app/google-services.json
+          echo $GOOGLE_SERVICES_JSON | base64 -d > android/app/google-services.json
           flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER
           cp release_notes.txt build/app/outputs/
 
