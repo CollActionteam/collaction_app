@@ -21,7 +21,12 @@ void main() {
 
     testWidgets('can render selected', (WidgetTester tester) async {
       await buildAndPump(
-          tester: tester, widget: SelectableChip(text: 'text', selected: true));
+        tester: tester,
+        widget: SelectableChip(
+          text: 'text',
+          selected: true,
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(

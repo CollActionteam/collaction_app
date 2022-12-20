@@ -77,8 +77,9 @@ void main() {
       await tester.tap(find.byType(PillButton));
       await tester.pumpAndSettle();
 
-      verify(() => authBloc.add(AuthEvent.verifyPhone('31 0612345678')))
-          .called(1);
+      verify(
+        () => authBloc.add(AuthEvent.verifyPhone('31 0612345678')),
+      ).called(1);
     });
   });
 }

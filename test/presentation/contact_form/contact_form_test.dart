@@ -166,8 +166,10 @@ void main() {
       await buildAndPump(tester: tester, widget: ContactForm());
       await tester.pump();
 
-      expect(find.text('Success! Thank you for contacting us \ud83d\ude42'),
-          findsOneWidget);
+      expect(
+        find.text('Success! Thank you for contacting us \ud83d\ude42'),
+        findsOneWidget,
+      );
     });
   });
 }

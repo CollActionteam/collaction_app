@@ -11,7 +11,6 @@ import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:collaction_app/presentation/settings/widgets/build_information_tile.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -20,7 +19,6 @@ import 'package:mocktail/mocktail.dart';
 import '../../application/auth/auth_bloc.mocks.dart';
 import '../../application/settings/build_information_bloc.mocks.dart';
 import '../../application/user/profile/profile_bloc.mocks.dart';
-import '../../test_utilities.dart';
 import '../../utils/user.fixtures.dart';
 import '../router.mocks.dart';
 
@@ -75,8 +73,6 @@ void main() {
       ),
     );
     GetIt.I.registerSingleton<BuildInformationBloc>(buildInformationBloc);
-
-    dotenv.testLoad(fileInput: tDotEnv);
   });
 
   tearDownAll(() {
@@ -99,8 +95,9 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Contact us'));
-      final capturedRoutes =
-          verify(() => stackRouter.push(captureAny())).captured;
+      final capturedRoutes = verify(
+        () => stackRouter.push(captureAny()),
+      ).captured;
 
       expect(capturedRoutes.length, 1);
       expect(capturedRoutes.first, isA<ContactFormRoute>());
@@ -112,8 +109,9 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Onboarding'));
-      final capturedRoutes =
-          verify(() => stackRouter.push(captureAny())).captured;
+      final capturedRoutes = verify(
+        () => stackRouter.push(captureAny()),
+      ).captured;
 
       expect(capturedRoutes.length, 1);
       expect(capturedRoutes.first, isA<OnboardingRoute>());
@@ -125,8 +123,9 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Open source libraries'));
-      final capturedRoutes =
-          verify(() => stackRouter.push(captureAny())).captured;
+      final capturedRoutes = verify(
+        () => stackRouter.push(captureAny()),
+      ).captured;
 
       expect(capturedRoutes.length, 1);
       expect(capturedRoutes.first, isA<LicensesRoute>());
@@ -142,8 +141,9 @@ void main() {
         await tester.pumpAndSettle();
       });
 
-      final capturedRoutes =
-          verify(() => stackRouter.push(captureAny())).captured;
+      final capturedRoutes = verify(
+        () => stackRouter.push(captureAny()),
+      ).captured;
 
       expect(capturedRoutes.length, 1);
       expect(capturedRoutes.first, isA<WebViewRoute>());
@@ -169,8 +169,9 @@ void main() {
         await tester.pumpAndSettle();
       });
 
-      final capturedRoutes =
-          verify(() => stackRouter.push(captureAny())).captured;
+      final capturedRoutes = verify(
+        () => stackRouter.push(captureAny()),
+      ).captured;
 
       expect(capturedRoutes.length, 1);
       expect(capturedRoutes.first, isA<WebViewRoute>());

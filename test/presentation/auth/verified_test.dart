@@ -21,8 +21,9 @@ void main() {
 
   setUpAll(() {
     stackRouter = RouteHelpers.setUpRouterStubs();
-    when(() => stackRouter.replaceAll([const HomeRoute()]))
-        .thenAnswer((_) async {});
+    when(() => stackRouter.replaceAll([const HomeRoute()])).thenAnswer(
+      (_) async {},
+    );
 
     // Profile Bloc
     profileBloc = MockProfileBloc();
@@ -43,8 +44,9 @@ void main() {
     });
 
     testWidgets('can render with name', (WidgetTester tester) async {
-      when(() => profileBloc.state)
-          .thenAnswer((_) => ProfileState(userProfile: testUserProfile));
+      when(() => profileBloc.state).thenAnswer(
+        (_) => ProfileState(userProfile: testUserProfile),
+      );
       await tester.pumpVerifiedPage(stackRouter);
       await tester.pump();
 

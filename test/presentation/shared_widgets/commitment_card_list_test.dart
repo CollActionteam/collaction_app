@@ -20,8 +20,9 @@ void main() {
   setUpAll(() {
     // Participation Bloc
     participationBloc = MockParticipationBloc();
-    when(() => participationBloc.state)
-        .thenAnswer((_) => ParticipationState.notParticipating());
+    when(() => participationBloc.state).thenAnswer(
+      (_) => ParticipationState.notParticipating(),
+    );
     GetIt.I.registerSingleton<ParticipationBloc>(participationBloc);
   });
 
@@ -53,7 +54,11 @@ void main() {
     testWidgets('can render with 1 commitmentOptions',
         (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(
-          false, [tCommitmentOption], [], participationBloc);
+        false,
+        [tCommitmentOption],
+        [],
+        participationBloc,
+      );
       await tester.pumpAndSettle();
 
       expect(
@@ -66,7 +71,11 @@ void main() {
     testWidgets('can render with 5 commitmentOptions',
         (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(
-          false, List.filled(5, tCommitmentOption), [], participationBloc);
+        false,
+        List.filled(5, tCommitmentOption),
+        [],
+        participationBloc,
+      );
       await tester.pumpAndSettle();
 
       expect(
@@ -163,8 +172,9 @@ void main() {
 
     testWidgets('select while already participating',
         (WidgetTester tester) async {
-      when(() => participationBloc.state)
-          .thenAnswer((_) => ParticipationState.participating(tParticipation));
+      when(() => participationBloc.state).thenAnswer(
+        (_) => ParticipationState.participating(tParticipation),
+      );
 
       await tester.pumpCommitmentCardList(
         true,
@@ -187,8 +197,9 @@ void main() {
 
     testWidgets('deselect while already participating',
         (WidgetTester tester) async {
-      when(() => participationBloc.state)
-          .thenAnswer((_) => ParticipationState.participating(tParticipation));
+      when(() => participationBloc.state).thenAnswer(
+        (_) => ParticipationState.participating(tParticipation),
+      );
 
       await tester.pumpCommitmentCardList(
         true,

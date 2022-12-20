@@ -6,6 +6,8 @@ import 'package:mocktail/mocktail.dart';
 
 import '../router.mocks.dart';
 
+part 'settings_layout_test.ext.dart';
+
 void main() {
   late StackRouter stackRouter;
 
@@ -15,26 +17,14 @@ void main() {
 
   group('SettingsLayout tests:', () {
     testWidgets('can render', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SettingsLayout(),
-          ),
-        ).withRouterScope(stackRouter),
-      );
+      await tester.pumpSettingsLayout(stackRouter);
       await tester.pumpAndSettle();
 
       expect(find.byType(SettingsLayout), findsOneWidget);
     });
 
     testWidgets('back ElevatedButton works', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SettingsLayout(),
-          ),
-        ).withRouterScope(stackRouter),
-      );
+      await tester.pumpSettingsLayout(stackRouter);
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(ElevatedButton));
@@ -44,13 +34,7 @@ void main() {
     });
 
     testWidgets('back RawMaterialButton works', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SettingsLayout(),
-          ),
-        ).withRouterScope(stackRouter),
-      );
+      await tester.pumpSettingsLayout(stackRouter);
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(RawMaterialButton));
