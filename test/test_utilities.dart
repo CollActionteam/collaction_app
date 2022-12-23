@@ -86,6 +86,24 @@ class TestUtilities {
 
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
   }
+
+  static CrowdAction crowdActionWithNParticipants(int participantCount) {
+    return CrowdAction(
+      id: 'tID',
+      type: '',
+      title: 'tTitle',
+      description: 'tDescription',
+      category: 'tCategory',
+      location: tLocation,
+      commitmentOptions: [tCommitmentOption],
+      endAt: DateTime(2022, 1, 31),
+      images: const Images(card: 'tCard', banner: 'tBanner'),
+      participantCount: participantCount,
+      status: Status.ended,
+      joinStatus: JoinStatus.closed,
+      password: 'testPwd',
+    );
+  }
 }
 
 final tDotEnv = """
