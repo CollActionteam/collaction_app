@@ -3,7 +3,6 @@ import 'package:collaction_app/application/participation/participation_bloc.dart
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/withdraw_participation.dart';
 import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
