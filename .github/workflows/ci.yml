@@ -265,7 +265,7 @@ jobs:
 
       - name: Build iOS app
         env:
-          IOS_GOOGLESERVICE_INFO_PLIST: ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }}
+          IOS_GOOGLESERVICE_INFO_PLIST: ${{ github.ref == 'refs/heads/master' && secrets.IOS_GOOGLESERVICE_INFO_PLIST || secrets.IOS_GOOGLESERVICE_INFO_PLIST_DEV }}
         run: |
           echo $IOS_GOOGLESERVICE_INFO_PLIST | base64 --decode > ios/Runner/GoogleService-Info.plist
           flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER
