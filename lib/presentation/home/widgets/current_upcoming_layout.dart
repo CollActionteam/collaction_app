@@ -6,6 +6,7 @@ import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/content_placeholder.dart';
 import '../../shared_widgets/micro_crowdaction_card.dart';
+import '../../shared_widgets/micro_crowdaction_card_loading.dart';
 import '../../themes/constants.dart';
 
 class CurrentAndUpcomingLayout extends StatefulWidget {
@@ -67,26 +68,28 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                     ),
                   ),
                   state.maybeMap(
-                    fetchingCrowdSpotLightActions: (_) => const Center(
-                      child: CircularProgressIndicator(
-                        color: kAccentColor,
-                      ),
-                    ),
-                    spotLightCrowdActions: (fetchedData) => Column(
-                      children: [
-                        ...fetchedData.crowdActions
-                            .map(
-                              (crowdAction) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                  horizontal: 10,
+                    fetchingCrowdSpotLightActions: (_) => _loading(),
+                    spotLightCrowdActions: (fetchedData) {
+                      if (fetchedData.crowdActions.isEmpty) {
+                        return _loading();
+                      }
+
+                      return Column(
+                        children: [
+                          ...fetchedData.crowdActions
+                              .map(
+                                (crowdAction) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 10,
+                                  ),
+                                  child: MicroCrowdActionCard(crowdAction),
                                 ),
-                                child: MicroCrowdActionCard(crowdAction),
-                              ),
-                            )
-                            .toList(),
-                      ],
-                    ),
+                              )
+                              .toList(),
+                        ],
+                      );
+                    },
                     spotLightCrowdActionsError: (failure) =>
                         const ContentPlaceholder(
                       textColor: Colors.black,
@@ -99,6 +102,27 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
           },
         ),
       ),
+    );
+  }
+
+  Widget _loading() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 10,
+          ),
+          child: MicroCrowdActionCardLoading(),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 10,
+          ),
+          child: MicroCrowdActionCardLoading(),
+        ),
+      ],
     );
   }
 }
