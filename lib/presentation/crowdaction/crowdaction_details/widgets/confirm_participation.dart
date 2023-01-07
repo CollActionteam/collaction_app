@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/application/participation/participation_bloc.dart';
-import 'package:collaction_app/presentation/shared_widgets/commitments/commitment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/crowdaction/crowdaction.dart';
+import '../../../../application/participation/participation_bloc.dart';
+import '../../../shared_widgets/commitments/commitment_card.dart';
 import '../../../shared_widgets/pill_button.dart';
 import '../../../themes/constants.dart';
 
@@ -13,10 +13,10 @@ class ConfirmParticipation extends StatelessWidget {
   final List<CommitmentOption> selectedCommitments;
 
   const ConfirmParticipation({
-    Key? key,
+    super.key,
     required this.crowdAction,
     required this.selectedCommitments,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -120,11 +120,11 @@ class ParticipationDialog extends StatelessWidget {
   final bool isLoading;
 
   const ParticipationDialog({
-    Key? key,
+    super.key,
     required this.crowdAction,
     required this.selectedCommitments,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

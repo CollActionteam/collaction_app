@@ -5,11 +5,13 @@ import '../themes/constants.dart';
 
 class ImageSkeletonLoader extends StatelessWidget {
   final double height;
+  final bool isCircle;
 
   const ImageSkeletonLoader({
-    Key? key,
+    super.key,
     required this.height,
-  }) : super(key: key);
+    this.isCircle = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,11 @@ class ImageSkeletonLoader extends StatelessWidget {
       highlightColor: kAlmostTransparent,
       child: Container(
         height: height,
-        color: kSecondaryTransparent,
         width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: kSecondaryTransparent,
+          shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+        ),
       ),
     );
   }

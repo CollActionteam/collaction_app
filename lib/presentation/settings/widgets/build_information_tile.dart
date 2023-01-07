@@ -1,12 +1,12 @@
-import 'package:collaction_app/domain/settings/build_information.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/settings/build_information.dart';
+import '../../themes/constants.dart';
 
 class BuildInformationTile extends StatelessWidget {
   final BuildInformation information;
 
-  const BuildInformationTile({Key? key, required this.information})
-      : super(key: key);
+  const BuildInformationTile({super.key, required this.information});
 
   @override
   Widget build(BuildContext context) {

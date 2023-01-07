@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import 'constants.dart';
 
-ThemeData lightTheme(BuildContext context) {
+@WidgetbookTheme(name: 'Light')
+ThemeData lightTheme() {
   final theme = ThemeData.light();
 
   return theme.copyWith(
@@ -20,7 +22,7 @@ ThemeData lightTheme(BuildContext context) {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: kAccentColor,
+        foregroundColor: kAccentColor,
       ),
     ),
     inputDecorationTheme: const InputDecorationTheme(

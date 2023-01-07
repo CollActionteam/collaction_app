@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'pin_text_field.dart';
+import '../../themes/constants.dart';
 
 class PinInput extends StatefulWidget {
   final int pinLength;
@@ -8,98 +9,85 @@ class PinInput extends StatefulWidget {
   final Function(String) submit;
 
   const PinInput({
-    Key? key,
+    super.key,
     this.pinLength = 6,
     this.readOnly = false,
     required this.submit,
-  }) : super(key: key);
+  });
 
   @override
   PinInputState createState() => PinInputState();
 }
 
 class PinInputState extends State<PinInput> {
-  late List<int> size;
-  late List<FocusNode> focusNodes;
-  late List<TextEditingController> controllers;
+  static const int backspace = 0x100000008;
+
+  late FocusNode focusNode;
+  late TextEditingController controller;
 
   @override
   void initState() {
     super.initState();
-
-    size = List<int>.generate(widget.pinLength, (i) => i);
-    focusNodes = size.map((_) => FocusNode()).toList(growable: false);
-    controllers =
-        size.map((_) => TextEditingController()).toList(growable: false);
+    focusNode = FocusNode();
+    controller = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: size
-          .map(
-            (index) => PinTextField(
-              controller: controllers[index],
-              focusNode: focusNodes[index],
-              onChanged: (value) {
-                _onChanged(value, index);
-              },
-              readOnly: widget.readOnly,
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: controller,
+            focusNode: focusNode,
+            textAlign: TextAlign.center,
+            maxLength: 6,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+            ],
+            style: const TextStyle(fontSize: 28, letterSpacing: 4),
+            cursorColor: kAccentColor,
+            decoration: InputDecoration(
+              contentPadding:
+                  EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+              counterText: "",
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide:
+                    const BorderSide(width: 0, color: Colors.transparent),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: const BorderSide(color: kAccentColor),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: const BorderSide(color: kAccentColor),
+              ),
             ),
-          )
-          .toList(growable: false),
+            onChanged: (value) {
+              if (value.length == widget.pinLength) {
+                widget.submit(value);
+              }
+            },
+          ),
+        ),
+      ],
     );
-  }
-
-  void _onChanged(String value, int index) {
-    if (_pin.length == widget.pinLength) {
-      widget.submit(_pin);
-    }
-
-    FocusNode? next;
-    FocusNode? previous;
-
-    if (index != 0) {
-      previous = focusNodes[index - 1];
-    }
-
-    if (index != size.length - 1) {
-      next = focusNodes[index + 1];
-    }
-
-    if (value.isNotEmpty && next != null) {
-      next.requestFocus();
-      return;
-    }
-
-    if (value.isEmpty && previous != null) {
-      previous.requestFocus();
-      return;
-    }
   }
 
   void autoComplete(String code) {
     if (code.length == widget.pinLength) {
-      final digits = code.split("");
-      digits.asMap().forEach((index, value) => controllers[index].text = value);
-
-      widget.submit(_pin);
+      widget.submit(code);
     }
   }
 
-  String get _pin => controllers.map((c) => c.text).join();
-
   @override
   void dispose() {
-    for (final node in focusNodes) {
-      node.dispose();
-    }
-
-    for (final controller in controllers) {
-      controller.dispose();
-    }
-
+    focusNode.dispose();
+    controller.dispose();
     super.dispose();
   }
 }

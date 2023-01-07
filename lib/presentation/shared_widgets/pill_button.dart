@@ -12,7 +12,7 @@ class PillButton extends StatelessWidget {
   final bool isLoading;
 
   const PillButton({
-    Key? key,
+    super.key,
     required this.text,
     this.leading,
     this.onTap,
@@ -20,10 +20,10 @@ class PillButton extends StatelessWidget {
     this.margin,
     this.width,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   const PillButton.icon({
-    Key? key,
+    super.key,
     required this.text,
     required this.leading,
     this.onTap,
@@ -31,7 +31,7 @@ class PillButton extends StatelessWidget {
     this.margin,
     this.width,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class PillButton extends StatelessWidget {
             ? ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  primary: kAccentColor,
+                  backgroundColor: kAccentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),

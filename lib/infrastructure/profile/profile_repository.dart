@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
 import '../../domain/auth/i_auth_repository.dart';
+import '../../domain/core/i_settings_repository.dart';
 import '../../domain/profile/user_profile.dart';
 import '../../domain/user/i_profile_repository.dart';
 import '../../domain/user/profile_failure.dart';
@@ -77,8 +77,8 @@ class ProfileRepository implements IProfileRepository {
 
             /// TODO: Refactor to include actual country and city
             body: jsonEncode({
-              "firstName": user.displayName,
-              "lastName": "",
+              "firstName": "John",
+              "lastName": "Doe",
               "country": "NL",
               "bio": "My bio is currently empty",
             }),
@@ -158,5 +158,44 @@ class ProfileRepository implements IProfileRepository {
     }
 
     return null;
+  }
+
+  @override
+  Future<Either<ProfileFailure, Unit>> updateUsername({
+    String? firstName,
+    String? lastName,
+  }) async {
+    try {
+      final userOption = await _authRepository.getSignedInUser();
+
+      return await userOption.fold(
+        () => left(const ProfileFailure.noUser()),
+        (user) async {
+          final token = await user.getIdToken();
+
+          final response = await _client.put(
+            Uri.parse(
+              '${await _settingsRepository.baseApiEndpointUrl}/v1/profiles',
+            ),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode({
+              "firstName": firstName,
+              "lastName": lastName,
+            }),
+          );
+
+          if (response.statusCode == 200) {
+            return right(unit);
+          }
+
+          return left(const ProfileFailure.unexpected());
+        },
+      );
+    } catch (_) {
+      return left(const ProfileFailure.unexpected());
+    }
   }
 }

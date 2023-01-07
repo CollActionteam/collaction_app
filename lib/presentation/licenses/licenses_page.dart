@@ -8,7 +8,7 @@ import '../utils/launch_url.dart';
 import 'oss_licenses.dart';
 
 class LicensesPage extends StatelessWidget {
-  const LicensesPage({Key? key}) : super(key: key);
+  const LicensesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class LicensesPage extends StatelessWidget {
             'https://github.com/CollActionteam/collaction_app',
           ),
           style: ElevatedButton.styleFrom(
-            primary: kAccentColor,
+            backgroundColor: kAccentColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(52),
             ),

@@ -1,8 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
-import '../../core/collaction_icons.dart';
-import '../../shared_widgets/accent_action_chip.dart';
 import '../../shared_widgets/accent_chip.dart';
 import '../../shared_widgets/crowdaction_card.dart';
 import '../../shared_widgets/custom_app_bars/clean_app_bar.dart';
@@ -10,15 +9,35 @@ import '../../shared_widgets/custom_fab.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../shared_widgets/rectangle_button.dart';
 import '../../shared_widgets/secondary_chip.dart';
+import '../../crowdaction/crowdaction_comments/widgets/comment_delete_button.dart';
+import '../../crowdaction/crowdaction_comments/widgets/comment_like_button.dart';
+import '../../crowdaction/crowdaction_comments/widgets/comment_flag_button.dart';
+import '../../crowdaction/crowdaction_comments/widgets/flag_comment.dart';
+import '../../themes/constants.dart';
 
 class ComponentsDemoPage extends StatefulWidget {
-  const ComponentsDemoPage({Key? key}) : super(key: key);
+  const ComponentsDemoPage({super.key});
 
   @override
-  _ComponentsDemoPageState createState() => _ComponentsDemoPageState();
+  ComponentsDemoPageState createState() => ComponentsDemoPageState();
 }
 
-class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
+class ComponentsDemoPageState extends State<ComponentsDemoPage> {
+  bool likedByMe = false;
+  void likeCallback() {
+    setState(() {
+      likedByMe = !likedByMe;
+    });
+  }
+
+  bool flagged = false;
+  void flagCallback(List<bool>? flags) {
+    setState(() {
+      flagged = true;
+      debugPrint(flags?.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +54,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
-                    card:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
-                    banner:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+                    card: "",
+                    banner: "",
                   ),
                   category: "Sustainability",
                   subcategory: "Community",
@@ -79,10 +96,8 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
-                    card:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
-                    banner:
-                        "https://i.postimg.cc/fLp5kBVQ/fruits-and-vegetables.jpg",
+                    card: "",
+                    banner: "",
                   ),
                   category: "Sustainability",
                   subcategory: "Community",
@@ -164,23 +179,6 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                 onPressed: null,
                 child: Text("Skip for now"),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AccentActionChip(
-                    () {},
-                    text: 'Sign up now',
-                    leading: const Icon(
-                      CollactionIcons.plus,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: 10.0),
-                  AccentActionChip(() {}, text: 'Click me!'),
-                  const SizedBox(width: 10.0),
-                  AccentActionChip(() {}, text: 'I have material'),
-                ],
-              ),
               Wrap(
                 spacing: 12.0,
                 children: [
@@ -260,10 +258,110 @@ class _ComponentsDemoPageState extends State<ComponentsDemoPage> {
                 ],
               ),
               const SizedBox(height: 24.0),
+
+              /// TEMP: delete once #304 is approved
+              Wrap(
+                spacing: 12.0,
+                children: [
+                  CommentLikeButton(
+                    likedByMe: likedByMe,
+                    onTap: likeCallback,
+                  ),
+                  CommentFlagButton(
+                    flagged: flagged,
+                    onTap: () => {
+                      if (!flagged) _flagModal(context) else flagged = !flagged
+                    },
+                  ),
+                  CommentDeleteButton(
+                    onTap: () => _deleteModal(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24.0),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// TEMP: move modals to CrowdActionCommentPage once #304 is approved
+  void _deleteModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        builder: (context) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 15),
+                Container(
+                  width: 60.0,
+                  height: 5.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: kSecondaryTransparent,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Delete comment",
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 30),
+                PillButton(
+                  text: "Delete my comment",
+                  onTap: () => {},
+                  margin: EdgeInsets.zero,
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: TextButton(
+                    onPressed: () {
+                      context.router.pop();
+                    },
+                    child: const Text("Cancel"),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  void _flagModal(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return FlagComment(
+          flagged: false,
+        );
+      },
     );
   }
 }

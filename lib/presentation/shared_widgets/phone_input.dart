@@ -20,18 +20,18 @@ class PhoneInput extends StatefulWidget {
 
   const PhoneInput(
     this.phoneNumberController, {
-    Key? key,
+    super.key,
     this.isValid,
     this.onChange,
     this.phone,
     this.readOnly = false,
-  }) : super(key: key);
+  });
 
   @override
-  _PhoneInputState createState() => _PhoneInputState();
+  PhoneInputState createState() => PhoneInputState();
 }
 
-class _PhoneInputState extends State<PhoneInput> {
+class PhoneInputState extends State<PhoneInput> {
   CountryDetails? _selected;
   final _countryCodes =
       CountryCodes.countryCodes().whereType<CountryDetails>().toList();
@@ -210,7 +210,10 @@ class _PhoneInputState extends State<PhoneInput> {
   Future<bool> _validatePhone(CountryDetails country, String number) async {
     final dialCode = country.dialCode?.toCode();
     final phoneNumber = "$dialCode ${number.trim()}";
-    validatedNumber = await plugin.validate(phoneNumber, country.alpha2Code!);
+    validatedNumber = await plugin.validate(
+      phoneNumber,
+      regionCode: country.alpha2Code,
+    );
 
     _triggerPhoneReturn(PhoneResponse(country.alpha2Code!, phoneNumber));
     _triggerValidReturn(validatedNumber);

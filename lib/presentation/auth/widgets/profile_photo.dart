@@ -14,13 +14,13 @@ import '../../themes/constants.dart';
 class SelectProfilePhoto extends StatefulWidget {
   final Function() onSkip;
 
-  const SelectProfilePhoto({Key? key, required this.onSkip}) : super(key: key);
+  const SelectProfilePhoto({super.key, required this.onSkip});
 
   @override
-  _SelectProfilePhotoState createState() => _SelectProfilePhotoState();
+  SelectProfilePhotoState createState() => SelectProfilePhotoState();
 }
 
-class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
+class SelectProfilePhotoState extends State<SelectProfilePhoto> {
   bool _isPhotoValid = false;
   File? _photo;
   late final AvatarBloc avatarBloc;
@@ -74,18 +74,14 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                         bottom: 0,
                         right: 0,
                         child: FloatingActionButton(
-                          onPressed: () => showModalBottomSheet(
-                            context: context,
-                            builder: (context) => PhotoSelector(
-                              onSelected: (File photo) {
-                                setState(() {
-                                  _photo = photo;
-                                  _isPhotoValid = true;
-                                });
-
-                                avatarBloc.add(AvatarEvent.uploadAvatar(photo));
-                              },
-                            ),
+                          onPressed: () => PhotoSelector.showPhotoSelector(
+                            context,
+                            onSelected: (File photo) {
+                              setState(() {
+                                _photo = photo;
+                                _isPhotoValid = true;
+                              });
+                            },
                           ),
                           backgroundColor: kAccentColor,
                           mini: true,
@@ -149,7 +145,7 @@ class _SelectProfilePhotoState extends State<SelectProfilePhoto> {
                     children: [
                       Expanded(
                         child: TextButton(
-                          onPressed: () => context.router.pop(),
+                          onPressed: () => widget.onSkip.call(),
                           child: const Text(
                             'Maybe later',
                             style: TextStyle(

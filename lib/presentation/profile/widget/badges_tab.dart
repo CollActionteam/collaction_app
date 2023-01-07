@@ -1,10 +1,11 @@
-import 'package:collaction_app/domain/user/user.dart';
-import 'package:collaction_app/presentation/profile/widget/signup_cta.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/user/user.dart';
+import 'signup_cta.dart';
 
 class BadgesTab extends StatelessWidget {
   final User? user;
-  const BadgesTab({Key? key, this.user}) : super(key: key);
+  const BadgesTab({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
-import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../domain/participation/participation.dart';
 
 part 'participation_dto.freezed.dart';
 part 'participation_dto.g.dart';
@@ -12,6 +13,8 @@ class ParticipationDto with _$ParticipationDto {
     required String id,
     required String crowdActionId,
     required String userId,
+    required String fullName,
+    required String avatar,
     required List<String> commitmentOptions,
     required String joinDate,
     required int dailyCheckIns,
@@ -22,6 +25,8 @@ class ParticipationDto with _$ParticipationDto {
       id: id,
       crowdActionId: crowdActionId,
       userId: userId,
+      fullName: fullName,
+      avatar: avatar,
       commitmentOptions: commitmentOptions,
       joinDate: DateTime.parse(joinDate),
       dailyCheckIns: dailyCheckIns,

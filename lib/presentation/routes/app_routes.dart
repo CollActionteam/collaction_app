@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_route/empty_router_widgets.dart';
 
 import '../../../presentation/profile/profile_screen.dart';
-import '../../presentation/home/captive_screen.dart';
 import '../auth/auth_screen.dart';
 import '../auth/widgets/verified.dart';
 import '../contact_form/contact_form_screen.dart';
@@ -65,7 +65,6 @@ import '../shared_widgets/web_view_page.dart';
       ],
     ),
     AutoRoute(path: 'onboarding', page: OnboardingPage),
-    AutoRoute(path: 'captive', page: CaptivePage),
     AutoRoute(path: 'auth', page: AuthPage),
     AutoRoute(path: 'verified', page: VerifiedPage),
     AutoRoute(path: 'settings-page', page: SettingsPage),

@@ -12,6 +12,7 @@ class ProfileDto with _$ProfileDto {
   const factory ProfileDto({
     required String userId,
     required String firstName,
+    required String lastName,
     required String avatar,
     String? bio,
   }) = _ProfileDto;
@@ -20,6 +21,7 @@ class ProfileDto with _$ProfileDto {
     return Profile(
       userId: userId,
       firstName: firstName,
+      lastName: lastName,
       avatar: avatar,
       bio: bio,
     );

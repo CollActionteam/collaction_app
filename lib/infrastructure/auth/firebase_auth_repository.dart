@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
@@ -126,22 +125,6 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> updatePhoto({required File photo}) async {
-    try {
-      // TODO Upload photo to storage
-      // final String profileUrl = throw UnimplementedError("Upload photo to storage");
-
-      // final user = firebaseAuth.currentUser!;
-      // await user.updatePhotoURL(profileUrl);
-      return right(unit);
-    } on firebase_auth.FirebaseAuthException catch (error) {
-      return left(error.toFailure());
-    } catch (_) {
-      return left(const AuthFailure.serverError());
-    }
-  }
-
-  @override
   Stream<Either<AuthFailure, AuthSuccess>> resendOTP({
     required String phoneNumber,
     required Credential authCredentials,
@@ -196,12 +179,10 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
     } else {
       return User(
         id: firebaseUser.uid,
-        displayName: firebaseUser.displayName,
         phoneNumber: firebaseUser.phoneNumber,
         isPhoneNumberVerified: firebaseUser.phoneNumber != null,
         email: firebaseUser.email,
         isEmailVerified: firebaseUser.emailVerified,
-        photoURL: firebaseUser.photoURL,
         getIdToken: firebaseUser.getIdToken,
       );
     }

@@ -1,19 +1,20 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:collaction_app/domain/user/user.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
-import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/user/user.dart';
+import '../../routes/app_routes.gr.dart';
+import '../../shared_widgets/pill_button.dart';
+import '../../themes/constants.dart';
 
 class SignUpCTA extends StatelessWidget {
   final User? user;
   final String? title;
 
   const SignUpCTA({
-    Key? key,
+    super.key,
     this.user,
     this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class SignUpCTA extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             PillButton(
-              text: 'Create account or sign in',
+              text: 'Sign in',
               onTap: () {
                 context.router.push(const AuthRoute());
               },

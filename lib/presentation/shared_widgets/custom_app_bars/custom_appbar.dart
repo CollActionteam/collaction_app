@@ -9,10 +9,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool closable;
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     this.title = "",
     this.closable = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +24,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: !closable
           ? Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () => context.router.pop(),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(const CircleBorder()),
-                  backgroundColor: MaterialStateProperty.all(kSecondaryColor),
-                  elevation: MaterialStateProperty.all<double>(4.0),
-                  padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.all(8.0),
+              child: Material(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () => context.router.pop(),
+                  child: const Icon(
+                    CollactionIcons.left,
+                    color: kPrimaryColor400,
                   ),
-                ),
-                child: const Icon(
-                  CollactionIcons.left,
-                  color: kPrimaryColor300,
                 ),
               ),
             )
@@ -48,9 +45,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: ElevatedButton(
               onPressed: () => context.router.pop(),
               style: ElevatedButton.styleFrom(
+                foregroundColor: kPrimaryColor0,
+                backgroundColor: Colors.white,
                 shape: const CircleBorder(),
-                primary: Colors.white,
-                onPrimary: kPrimaryColor0,
                 tapTargetSize: MaterialTapTargetSize.padded,
               ).merge(
                 ButtonStyle(

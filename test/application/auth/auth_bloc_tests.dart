@@ -3,6 +3,7 @@ import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/domain/auth/auth_failures.dart';
 import 'package:collaction_app/domain/auth/auth_success.dart';
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
+import 'package:collaction_app/domain/user/i_avatar_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mocktail/mocktail.dart';
@@ -11,10 +12,12 @@ import 'package:test/test.dart';
 
 class MockAuthRepository extends Mock implements IAuthRepository {}
 
+class MockAvatarRepository extends Mock implements IAvatarRepository {}
+
 void main() {
   group('Authentication BLoC', () {
     test('Initial auth state', () {
-      final bloc = AuthBloc(MockAuthRepository());
+      final bloc = AuthBloc(MockAuthRepository(), MockAvatarRepository());
       expect(bloc.state, const AuthState.initial());
     });
 
@@ -26,6 +29,7 @@ void main() {
     );
 
     final userRepository = MockAuthRepository();
+    final avatarRepository = MockAvatarRepository();
 
     {
       when(
@@ -52,7 +56,7 @@ void main() {
 
       blocTest(
         '"Happy path" transition coverage',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(userRepository, avatarRepository),
         act: (AuthBloc bloc) {
           bloc.add(const AuthEvent.verifyPhone('+1234567890'));
         },
@@ -64,7 +68,7 @@ void main() {
 
       blocTest(
         'SMS Submission',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(userRepository, avatarRepository),
         act: (AuthBloc bloc) async {
           bloc.add(const AuthEvent.verifyPhone('+1234567890'));
           await Future.delayed(const Duration(seconds: 2));
@@ -90,7 +94,7 @@ void main() {
 
       blocTest(
         'Error auth states',
-        build: () => AuthBloc(userRepository),
+        build: () => AuthBloc(userRepository, avatarRepository),
         act: (AuthBloc bloc) {
           bloc.add(const AuthEvent.verifyPhone('+1234567890'));
         },
@@ -103,7 +107,7 @@ void main() {
 
     blocTest(
       'Reset to initial auth state',
-      build: () => AuthBloc(MockAuthRepository()),
+      build: () => AuthBloc(MockAuthRepository(), MockAvatarRepository()),
       act: (AuthBloc bloc) {
         bloc.add(const AuthEvent.reset());
       },

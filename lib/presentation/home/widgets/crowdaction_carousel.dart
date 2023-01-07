@@ -1,21 +1,22 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/crowdaction_card.dart';
 import '../../shared_widgets/no_ripple_behavior.dart';
 import '../../themes/constants.dart';
 
 class CrowdActionCarousel extends StatefulWidget {
-  const CrowdActionCarousel({Key? key}) : super(key: key);
+  const CrowdActionCarousel({super.key});
 
   @override
-  _CrowdActionCarouselState createState() => _CrowdActionCarouselState();
+  CrowdActionCarouselState createState() => CrowdActionCarouselState();
 }
 
-class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
+class CrowdActionCarouselState extends State<CrowdActionCarousel> {
   final _pageController = PageController();
   double _currentPage = 0;
 
@@ -31,47 +32,42 @@ class _CrowdActionCarouselState extends State<CrowdActionCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final scaleFactor = height < 700
-        ? height < 600
-            ? 0.8
-            : 0.9
-        : 1.0;
-
-    return BlocProvider<CrowdActionGetterBloc>(
-      create: (context) => getIt<CrowdActionGetterBloc>()
-        ..add(const CrowdActionGetterEvent.getMore(3)),
-      child: BlocBuilder<CrowdActionGetterBloc, CrowdActionGetterState>(
+    return BlocProvider<SpotlightBloc>(
+      create: (context) => getIt<SpotlightBloc>()
+        ..add(const SpotlightEvent.getSpotLightCrowdActions()),
+      child: BlocBuilder<SpotlightBloc, SpotlightState>(
         builder: (context, state) => state.when(
           initial: () => const CircularProgressIndicator(),
-          noCrowdActions: () => const Text('No CrowdActions'),
-          fetchingCrowdActions: () => const CircularProgressIndicator(),
-          fetched: (crowdActions) => Column(
+          fetchingCrowdSpotLightActions: () {
+            // TODO: Shimmer
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+          spotLightCrowdActionsError: (failure) {
+            return const Text('Something went wrong!');
+          },
+          spotLightCrowdActions: (crowdActions) => Column(
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 400.0 * scaleFactor,
-                child: ScrollConfiguration(
-                  behavior: NoRippleBehavior(),
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: 3,
-                    itemBuilder: (context, index) => CrowdActionCard(
-                      scaleFactor: scaleFactor,
-                      crowdAction: crowdActions[index],
-                    ),
+              ScrollConfiguration(
+                behavior: NoRippleBehavior(),
+                child: ExpandablePageView.builder(
+                  controller: _pageController,
+                  itemCount: 3,
+                  itemBuilder: (context, index) => CrowdActionCard(
+                    crowdAction: crowdActions[index],
                   ),
                 ),
               ),
-              SizedBox(height: 10 * scaleFactor),
+              const SizedBox(height: 10),
               DotsIndicator(
                 dotsCount: crowdActions.length,
                 position: _currentPage,
-                decorator: DotsDecorator(
+                decorator: const DotsDecorator(
                   color: kShadowColor,
-                  size: Size(12.0 * scaleFactor, 12.0 * scaleFactor),
+                  size: Size(12.0, 12.0),
                   activeColor: kAccentColor,
-                  activeSize: Size(12.0 * scaleFactor, 12.0 * scaleFactor),
+                  activeSize: Size(12.0, 12.0),
                 ),
                 onTap: (position) {
                   _currentPage = position;

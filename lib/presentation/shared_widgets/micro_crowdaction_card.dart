@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../home/widgets/password_modal.dart';
@@ -12,38 +11,34 @@ import 'micro_lock.dart';
 
 class MicroCrowdActionCard extends StatelessWidget {
   final CrowdAction crowdAction;
-  final bool viewOnly;
 
   const MicroCrowdActionCard(
     this.crowdAction, {
-    Key? key,
-    this.viewOnly = false,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (crowdAction.hasPassword) {
-          showPasswordModal(context, crowdAction, viewOnly: viewOnly);
-        } else {
-          context.router.push(
-            CrowdActionDetailsRoute(
-              crowdAction: crowdAction,
-              viewOnly: viewOnly,
-            ),
-          );
-        }
-      },
-      child: Container(
-        height: 148,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 4,
+    return Material(
+      borderRadius: BorderRadius.circular(20),
+      color: Colors.white,
+      elevation: 4,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () {
+          if (crowdAction.hasPassword) {
+            showPasswordModal(context, crowdAction);
+          } else {
+            context.router.push(
+              CrowdActionDetailsRoute(
+                crowdActionId: crowdAction.id,
+              ),
+            );
+          }
+        },
+        child: SizedBox(
+          height: 148,
+          width: MediaQuery.of(context).size.width,
           child: Row(
             children: [
               Container(
@@ -52,7 +47,8 @@ class MicroCrowdActionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
                     image: CachedNetworkImageProvider(
-                      '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${crowdAction.images.card}',
+                      crowdAction.cardUrl,
+                      errorListener: () {},
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -63,21 +59,25 @@ class MicroCrowdActionCard extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           AccentChip(
-                            text: crowdAction.isOpen ? "Open" : "Closed",
-                            color: crowdAction.isOpen
+                            text: crowdAction.statusChipLabel,
+                            color: crowdAction.isOpen || crowdAction.isWaiting
                                 ? kAccentColor
                                 : kPrimaryColor200,
                             leading: Icon(
-                              crowdAction.isOpen ? Icons.check : Icons.close,
+                              crowdAction.isOpen || crowdAction.isWaiting
+                                  ? Icons.check
+                                  : Icons.close,
                               color: Colors.white,
                             ),
+                            noMaterialTapTargetSize: true,
                           ),
                           if (crowdAction.hasPassword) ...[
                             const SizedBox(width: 10),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/contact_form/contact_form_bloc.dart';
-import '../../../domain/contact_form/contact_form_dto.dart';
+import '../../../infrastructure/contact_form/contact_form_dto.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/shared_widgets/pill_button.dart';
 import '../../../presentation/themes/constants.dart';
@@ -11,7 +11,7 @@ import '../../../presentation/themes/constants.dart';
 class ContactForm extends StatefulWidget {
   final bool centerTitle;
 
-  const ContactForm({Key? key, this.centerTitle = false}) : super(key: key);
+  const ContactForm({super.key, this.centerTitle = false});
 
   @override
   State<ContactForm> createState() => _ContactFormState();

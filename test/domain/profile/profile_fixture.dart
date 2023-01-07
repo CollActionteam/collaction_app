@@ -3,7 +3,8 @@ import 'package:collaction_app/infrastructure/profile/profile_dto.dart';
 
 const cProfileDtoJson = {
   'userId': '123456',
-  'firstName': 'Jack',
+  'firstName': 'John',
+  'lastName': 'Doe',
   'bio': "I am Jack!",
   'avatar': 'avatar',
   'phone': '+31612345678',
@@ -11,14 +12,16 @@ const cProfileDtoJson = {
 
 const cProfileDtoFromJson = ProfileDto(
   userId: "123456",
-  firstName: "Jack",
+  firstName: 'John',
+  lastName: 'Doe',
   bio: "I am Jack!",
   avatar: 'avatar',
 );
 
 const cProfileFromJson = Profile(
   userId: "123456",
-  firstName: "Jack",
+  firstName: 'John',
+  lastName: 'Doe',
   bio: "I am Jack!",
   avatar: 'avatar',
 );

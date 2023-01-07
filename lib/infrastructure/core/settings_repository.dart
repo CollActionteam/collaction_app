@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collaction_app/domain/settings/build_information.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -8,6 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/core/i_settings_repository.dart';
+import '../../domain/settings/build_information.dart';
 
 const _envKey = 'ENV';
 const _envKeyBaseApiEndpointUrl = 'BASE_API_ENDPOINT_URL';
@@ -65,12 +65,12 @@ class SettingsRepository implements ISettingsRepository, Disposable {
   @override
   Future<void> addCrowdActionAccess({required String crowdActionId}) async {
     await _initCompleter.future;
-    final _crowdActionAccessList =
+    final crowdActionAccessList =
         _prefs.getStringList(_prefsKeyCrowdActionAccessList) ?? [];
-    _crowdActionAccessList.add(crowdActionId);
+    crowdActionAccessList.add(crowdActionId);
     _prefs.setStringList(
       _prefsKeyCrowdActionAccessList,
-      _crowdActionAccessList,
+      crowdActionAccessList,
     );
   }
 

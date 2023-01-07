@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../core/core.dart';
 import '../../presentation/shared_widgets/secondary_chip.dart';
 import 'utils.dart';
 
@@ -39,6 +40,23 @@ class CrowdAction with _$CrowdAction {
   }
 
   bool get isOpen => joinStatus == JoinStatus.open;
+  bool get isRunning => status == Status.started;
+  bool get isClosed => status == Status.ended;
+  bool get isWaiting => status == Status.waiting;
+
+  String get statusChipLabel => isOpen
+      ? 'Now open'
+      : isRunning
+          ? 'Currently running'
+          : isWaiting
+              ? 'Starting soon'
+              : 'Finished';
+
+  // Crowdaction banner url
+  String get bannerUrl => '$baseStaticUrl/${images.banner}';
+
+  // Crowdaction card url
+  String get cardUrl => '$baseStaticUrl/${images.card}';
 }
 
 @freezed
@@ -88,13 +106,4 @@ class CommitmentOption with _$CommitmentOption {
   }) = _CommitmentOption;
 
   IconData get icon => mapIcon(iconId);
-}
-
-@freezed
-class TopParticipant with _$TopParticipant {
-  factory TopParticipant({
-    required String userId,
-    required String name,
-    String? imageUrl,
-  }) = _TopParticipant;
 }

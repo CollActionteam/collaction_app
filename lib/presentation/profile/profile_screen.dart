@@ -52,7 +52,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   onPressed: share,
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
-                    primary: kEnabledButtonColor,
+                    backgroundColor: kEnabledButtonColor,
                   ).merge(
                     ButtonStyle(
                       elevation: MaterialStateProperty.resolveWith<double?>(
@@ -72,14 +72,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () =>
-                      context.router.push(const SettingsRoute()).then((_) {
-                    context.read<ProfileBloc>().add(GetUserProfile());
-                  }),
+                  onPressed: () => context.router.push(const SettingsRoute()),
                   style: ElevatedButton.styleFrom(
+                    foregroundColor: kPrimaryColor0,
+                    backgroundColor: Colors.white,
                     shape: const CircleBorder(),
-                    primary: Colors.white,
-                    onPrimary: kPrimaryColor0,
                     tapTargetSize: MaterialTapTargetSize.padded,
                   ).merge(
                     ButtonStyle(
@@ -137,17 +134,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     bottom: 0,
                                     right: 0,
                                     child: FloatingActionButton(
-                                      onPressed: () {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) => PhotoSelector(
-                                            onSelected: (image) {
-                                              setState(() => _image = image);
-                                              context.router.pop("dialog");
-                                            },
-                                          ),
-                                        );
-                                      },
+                                      onPressed: () =>
+                                          PhotoSelector.showPhotoSelector(
+                                        context,
+                                        onSelected: (image) {
+                                          setState(() => _image = image);
+                                        },
+                                      ),
                                       backgroundColor: kAccentColor,
                                       mini: true,
                                       child: const Icon(Icons.add),
@@ -282,7 +275,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                       : kAccentColor.withOpacity(0.1),
                                 ),
                                 backgroundColor: state.isEditing == true
-                                    ? MaterialStateProperty.all(kAccentColor)
+                                    ? MaterialStateProperty.all(
+                                        kAccentColor,
+                                      )
                                     : null,
                                 minimumSize: MaterialStateProperty.all(
                                   const Size(double.infinity * 0.75, 52),
@@ -298,7 +293,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ),
                               onPressed: () {
                                 if (state.isEditing == true) {
-                                  /// TODO: Implement save profile image
                                   BlocProvider.of<ProfileBloc>(context).add(
                                     SaveProfile(
                                       bio: bioController.text,
@@ -359,7 +353,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             // TODO only for MVP (remove later)
                             const SizedBox(height: 40),
                             PillButton(
-                              text: 'Create account or sign in',
+                              text: 'Sign in',
                               onTap: () => context.router
                                   .push(const AuthRoute())
                                   .then((_) {

@@ -9,7 +9,7 @@
         <key>provisioningProfiles</key>
         <dict>
             <key>org.collaction.collactionApp</key>
-            <string>Collaction Release</string>
+            <string>CollAction Release 2</string>
         </dict>
         <key>signingCertificate</key>
         <string>iOS Distribution</string>

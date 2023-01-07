@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import '../../domain/auth/auth_failures.dart';
 import '../../domain/auth/auth_success.dart';
 import '../../domain/auth/i_auth_repository.dart';
+import '../../domain/user/i_avatar_repository.dart';
 import '../../domain/user/i_user_repository.dart';
 import '../../domain/user/user.dart';
 
@@ -19,12 +20,17 @@ part 'auth_state.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository _authRepository;
+  final IAvatarRepository _avatarRepository;
+
   Credential? _credential;
   String? _phone;
   StreamSubscription<Either<AuthFailure, AuthSuccess>>?
       _verifyStreamSubscription;
 
-  AuthBloc(this._authRepository) : super(const AuthState.initial()) {
+  AuthBloc(
+    this._authRepository,
+    this._avatarRepository,
+  ) : super(const AuthState.initial()) {
     on<AuthEvent>(
       (event, emit) async {
         await event.map(
@@ -32,8 +38,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               await _mapVerifyPhoneToState(emit, event),
           signInWithPhone: (event) async =>
               await _mapSignInWithPhoneToState(emit, event),
-          updateUsername: (event) async =>
-              await _mapUpdateUsernameToState(emit, event),
           updated: (event) async => await _mapUpdatedToState(emit, event),
           reset: (event) async => await _mapResetToState(emit, event),
           authCheckRequested: (event) async =>
@@ -66,12 +70,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthState.awaitingPhotoUpdate());
 
-    final failureOrSuccess =
-        await _authRepository.updatePhoto(photo: event.photo);
+    final failureOrSuccess = await _avatarRepository.uploadAvatar(event.photo);
 
     emit(
       failureOrSuccess.fold(
-        (failure) => AuthState.authError(failure),
+        (failure) => AuthState.authError(AuthFailure.networkRequestFailed()),
         (_) => const AuthState.photoUpdateDone(),
       ),
     );
@@ -82,7 +85,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _SignedOut event,
   ) async {
     await _authRepository.signOut();
-    emit(const AuthState.unAuthenticated());
+    emit(const AuthState.unauthenticated());
   }
 
   FutureOr<void> _mapAuthCheckRequestToState(
@@ -93,7 +96,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     emit(
       userOption.fold(
-        () => const AuthState.unAuthenticated(),
+        () => const AuthState.unauthenticated(),
         (user) => AuthState.authenticated(user),
       ),
     );
@@ -139,24 +142,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  /// Update username in user profile [_UpdateUsername]
-  FutureOr<void> _mapUpdateUsernameToState(
-    Emitter<AuthState> emit,
-    _UpdateUsername event,
-  ) async {
-    emit(const AuthState.awaitingUsernameUpdate());
-
-    final failureOrSuccess =
-        await _authRepository.updateUsername(username: event.username);
-
-    emit(
-      failureOrSuccess.fold(
-        (failure) => AuthState.authError(failure),
-        (_) => const AuthState.usernameUpdateDone(),
-      ),
-    );
-  }
-
   /// Submit phone for validation [_SignInWithPhone]
   FutureOr<void> _mapSignInWithPhoneToState(
     Emitter<AuthState> emit,
@@ -184,6 +169,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _VerifyPhone event,
   ) async {
     emit(const AuthState.awaitingVerification());
+    _phone = event.phoneNumber;
 
     _verifyStreamSubscription =
         _authRepository.verifyPhone(phoneNumber: event.phoneNumber).listen(

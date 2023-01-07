@@ -1,13 +1,15 @@
-include: package:lint/analysis_options.yaml
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    - avoid_dynamic_calls
+    - prefer_relative_imports
+    - sort_unnamed_constructors_first
+    - use_late_for_private_fields_and_variables
 
 analyzer:
   errors:
-    always_use_package_imports: ignore
     avoid_dynamic_calls: ignore
-    invalid_annotation_target: ignore
-    missing_return: error
-    missing_required_param: error
-    must_be_immutable: error
     prefer_relative_imports: error
     sort_unnamed_constructors_first: ignore
     use_late_for_private_fields_and_variables: ignore
@@ -22,3 +24,5 @@ analyzer:
     - "lib/generated_plugin_registrant.dart"
     - "**/*.gr.dart"
     - "lib/presentation/licenses/oss_licenses.dart"
+    # Widgetbook
+    - "**/*.widgetbook.dart"

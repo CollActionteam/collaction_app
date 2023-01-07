@@ -7,18 +7,23 @@ class AccentChip extends StatelessWidget {
   final Widget? leading;
   final VoidCallback? onDeleted;
   final Color color;
+  final bool noMaterialTapTargetSize;
 
   const AccentChip({
-    Key? key,
+    super.key,
     required this.text,
     this.leading,
     this.onDeleted,
     this.color = kAccentColor,
-  }) : super(key: key);
+    this.noMaterialTapTargetSize = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Chip(
+      materialTapTargetSize: noMaterialTapTargetSize
+          ? MaterialTapTargetSize.shrinkWrap
+          : MaterialTapTargetSize.padded,
       avatar: leading,
       backgroundColor: color,
       shape: StadiumBorder(side: BorderSide(color: color)),

@@ -8,24 +8,22 @@ import '../../themes/constants.dart';
 class EnterVerificationCode extends StatefulWidget {
   final int pinLength;
 
-  const EnterVerificationCode({Key? key, this.pinLength = 6}) : super(key: key);
+  const EnterVerificationCode({super.key, this.pinLength = 6});
 
   @override
-  _EnterVerificationCodeState createState() => _EnterVerificationCodeState();
+  EnterVerificationCodeState createState() => EnterVerificationCodeState();
 }
 
-class _EnterVerificationCodeState extends State<EnterVerificationCode> {
+class EnterVerificationCodeState extends State<EnterVerificationCode> {
   final _pinKey = GlobalKey<PinInputState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        state.maybeMap(
-          authError: (_) {},
+        state.mapOrNull(
           verificationCompleted: (verificationState) =>
               _pinKey.currentState?.autoComplete(verificationState.smsCode),
-          orElse: () {},
         );
       },
       builder: (context, state) {

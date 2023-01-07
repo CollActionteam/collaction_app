@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ProfilePicture extends StatelessWidget {
   final File? image;
@@ -18,14 +16,20 @@ class ProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ImageProvider? imageProvider;
+
     if (image != null) {
-      // ignore: unnecessary_cast
-      imageProvider = FileImage(image!) as ImageProvider<Object>;
-    } else if (profileImage != null) {
+      imageProvider = FileImage(image!);
+    }
+
+    if (profileImage != null && imageProvider == null) {
       imageProvider = NetworkImage(
         profileImage!,
       );
     }
+
+    imageProvider ??= const AssetImage(
+      'assets/images/default_avatar.png',
+    );
 
     return CircleAvatar(
       maxRadius: maxRadius,
@@ -33,12 +37,7 @@ class ProfilePicture extends StatelessWidget {
       backgroundImage: const AssetImage(
         'assets/images/default_avatar.png',
       ),
-      backgroundColor: Colors.transparent,
-      child: Shimmer.fromColors(
-        baseColor: kSecondaryTransparent,
-        highlightColor: kAlmostTransparent,
-        child: const CircleAvatar(radius: 50),
-      ),
+      onForegroundImageError: (_, __) {},
     );
   }
 }

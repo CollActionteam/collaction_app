@@ -21,23 +21,25 @@ class CommitmentCard extends StatelessWidget {
     required this.commitment,
     this.onSelected,
     this.onDeSelected,
-    Key? key,
+    super.key,
     this.active = false,
     this.deactivated = false,
     this.viewOnly = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
-      onTap: () {
-        if (!active && !deactivated) {
-          onSelected?.call(commitment);
-        } else {
-          onDeSelected?.call(commitment);
-        }
-      },
+      onTap: viewOnly
+          ? null
+          : () {
+              if (!active && !deactivated) {
+                onSelected?.call(commitment);
+              } else {
+                onDeSelected?.call(commitment);
+              }
+            },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),

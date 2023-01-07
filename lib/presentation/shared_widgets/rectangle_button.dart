@@ -8,12 +8,12 @@ class RectangleButton extends StatelessWidget {
   final bool enabled;
   final Widget? leading;
   const RectangleButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onTap,
     this.enabled = true,
     this.leading,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

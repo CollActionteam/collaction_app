@@ -1,16 +1,17 @@
 import 'dart:io';
 
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
-import 'package:collaction_app/domain/contact_form/contact_form_dto.dart';
-import 'package:collaction_app/domain/contact_form/i_contact_form_api.dart';
+import 'package:collaction_app/domain/contact_form/contact_failures.dart';
+import 'package:collaction_app/domain/contact_form/i_contact_form_repository.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/domain/crowdaction/crowdaction_status.dart';
 import 'package:collaction_app/domain/crowdaction/i_crowdaction_repository.dart';
+import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:collaction_app/domain/user/i_avatar_repository.dart';
 import 'package:collaction_app/domain/user/i_profile_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/domain/user/user.dart';
+import 'package:collaction_app/infrastructure/contact_form/contact_form_dto.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +29,7 @@ class MockUserRepository extends Mock implements IUserRepository {}
 
 class MockSettingsRepository extends Mock implements ISettingsRepository {}
 
-class MockContactFormApi extends Mock implements IContactFormApi {}
+class MockContactFormApi extends Mock implements IContactRepository {}
 
 class MockAvatarRepository extends Mock implements IAvatarRepository {}
 
@@ -51,23 +52,27 @@ class TestUtilities {
     GetIt.I.registerSingleton<IUserRepository>(mockUserRepository);
   }
 
-  static void mockContactFormApi({required bool doesSubmissionSucceed}) {
+  static void mockContactFormApi({
+    required bool doesSubmissionSucceed,
+  }) {
     registerFallbackValue(ContactFormDto(email: '', message: ''));
+
     final mockContactFormApi = MockContactFormApi();
-    when(() => mockContactFormApi.sendContactFormContents(any()))
-        .thenAnswer((_) async => doesSubmissionSucceed);
+
+    when(() => mockContactFormApi.sendContactFormContents(any())).thenAnswer(
+      (_) async => doesSubmissionSucceed
+          ? right(unit)
+          : left(const ContactFailure.serverError()),
+    );
+
     GetIt.I.allowReassignment = true;
-    GetIt.I.registerSingleton<IContactFormApi>(mockContactFormApi);
+    GetIt.I.registerSingleton<IContactRepository>(mockContactFormApi);
   }
 
   static void mockCrowdActionApi() {
     registerFallbackValue(crowdActions.first.toDomain());
 
     final crowdActionRepo = MockCrowdActionRepository();
-
-    when(() => crowdActionRepo.getCrowdActions()).thenAnswer(
-      (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
-    );
 
     when(() => crowdActionRepo.getSpotlightCrowdActions()).thenAnswer(
       (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
@@ -79,18 +84,17 @@ class TestUtilities {
     when(() => crowdActionRepo.unsubscribeFromCrowdAction(any()))
         .thenAnswer((_) async => right(unit));
 
-    when(() => crowdActionRepo.checkCrowdActionSubscriptionStatus(any()))
-        .thenAnswer(
-      (_) async => right(
-        CrowdActionStatus.subscribed(
-          crowdActions.first.commitmentOptions.map((e) => e.id).toList(),
-        ),
-      ),
-    );
-
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
   }
 }
+
+final tDotEnv = """
+ENV = development
+
+# Full base URL including protocol (http or https), host and optionally the port and the base api path without trailing forward slash
+BASE_API_ENDPOINT_URL = http://collaction.org
+BASE_STATIC_ENDPOINT_URL = http://collaction.org
+""";
 
 final tCrowdaction = CrowdAction(
   id: 'tID',
@@ -108,6 +112,21 @@ final tCrowdaction = CrowdAction(
   password: 'testPwd',
 );
 
+final tCrowdactionNoPassword = CrowdAction(
+  id: 'tID',
+  type: '',
+  title: 'tTitle',
+  description: 'tDescription',
+  category: 'tCategory',
+  location: tLocation,
+  commitmentOptions: [tCommitmentOption],
+  endAt: DateTime(2022, 1, 31),
+  images: const Images(card: 'tCard', banner: 'tBanner'),
+  participantCount: 10,
+  status: Status.ended,
+  joinStatus: JoinStatus.closed,
+);
+
 final tCommitmentOption = CommitmentOption(
   id: 'no-beef',
   type: 'food',
@@ -118,3 +137,20 @@ final tCommitmentOption = CommitmentOption(
 );
 
 final List<String> tCommitment = ['tCommitment'];
+
+final Participation tParticipation = Participation(
+  id: 'tID',
+  crowdActionId: 'tID',
+  fullName: 'John Doe',
+  avatar: 'tAvatar',
+  userId: 'tID',
+  commitmentOptions: tCommitment,
+  joinDate: DateTime.now(),
+  dailyCheckIns: 5,
+);
+
+final List<Participation> tTopParticipants = [
+  tParticipation,
+  tParticipation,
+  tParticipation
+];

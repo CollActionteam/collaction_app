@@ -8,10 +8,10 @@ class ContentPlaceholder extends StatelessWidget {
   final Color textColor;
   final String? description;
   const ContentPlaceholder({
-    Key? key,
+    super.key,
     required this.textColor,
     this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +24,13 @@ class ContentPlaceholder extends StatelessWidget {
             final signedIn = state.maybeWhen(
               orElse: () => false,
               authenticated: (_) => true,
-              unAuthenticated: () => false,
+              unauthenticated: () => false,
             );
 
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  // TODO use giphy.com API or custom service for more variety and smaller builds
                   Image.asset(
                     'assets/images/content_placeholder.gif',
                     width: 125,
