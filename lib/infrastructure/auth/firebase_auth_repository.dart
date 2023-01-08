@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
 
+import '../../core/utils/ifrebase_crashlytics_extension.dart';
 import '../../domain/auth/auth_failures.dart';
 import '../../domain/auth/auth_success.dart';
 import '../../domain/auth/i_auth_repository.dart';
@@ -101,9 +102,19 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
       // Check if is new user
       return right(authResult.additionalUserInfo?.isNewUser == true);
-    } on firebase_auth.FirebaseAuthException catch (error) {
+    } on firebase_auth.FirebaseAuthException catch (error, stackTrace) {
+      await FirebaseCrashlyticsLogger.warn(
+        error,
+        stackTrace,
+        message: '[FirebaseAuthRepository] signInWithPhone()',
+      );
       return left(error.toFailure());
-    } catch (_) {
+    } catch (error, stackTrace) {
+      await FirebaseCrashlyticsLogger.warn(
+        Exception(error.toString()),
+        stackTrace,
+        message: '[FirebaseAuthRepository] signInWithPhone():ServerError',
+      );
       return left(const AuthFailure.serverError());
     }
   }
@@ -117,9 +128,19 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       await user.updateDisplayName(username);
 
       return right(unit);
-    } on firebase_auth.FirebaseAuthException catch (error) {
+    } on firebase_auth.FirebaseAuthException catch (error, stackTrace) {
+      await FirebaseCrashlyticsLogger.warn(
+        error,
+        stackTrace,
+        message: '[FirebaseAuthRepository] updateUsername()',
+      );
       return left(error.toFailure());
-    } catch (_) {
+    } catch (error, stackTrace) {
+      await FirebaseCrashlyticsLogger.warn(
+        Exception(error.toString()),
+        stackTrace,
+        message: '[FirebaseAuthRepository] updateUsername():ServerError',
+      );
       return left(const AuthFailure.serverError());
     }
   }
