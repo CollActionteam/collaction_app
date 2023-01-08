@@ -163,7 +163,7 @@ jobs:
         run: |
           echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
           echo $GOOGLE_SERVICES_JSON | base64 -d > android/app/google-services.json
-          flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER
+          flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons
           cp release_notes.txt build/app/outputs/
 
       - name: Sign appbundle
@@ -268,7 +268,7 @@ jobs:
           IOS_GOOGLESERVICE_INFO_PLIST: ${{ github.ref == 'refs/heads/master' && secrets.IOS_GOOGLESERVICE_INFO_PLIST || secrets.IOS_GOOGLESERVICE_INFO_PLIST_DEV }}
         run: |
           echo $IOS_GOOGLESERVICE_INFO_PLIST | base64 --decode > ios/Runner/GoogleService-Info.plist
-          flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER
+          flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons
           cp release_notes.txt build/ios/ipa/
 
       - name: Upload iOS build artifacts

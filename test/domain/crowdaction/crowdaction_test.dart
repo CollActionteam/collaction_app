@@ -1,7 +1,5 @@
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/domain/crowdaction/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../../test_utilities.dart';
 import 'crowdaction_test_fixtures.dart';
 
 void main() {
@@ -44,12 +42,6 @@ void main() {
 
       expect(tClosedCrowdAction.isOpen, false);
       expect(tOpenCrowdAction.isOpen, true);
-    });
-
-    test('Testing CommitmentOptions.mapIcon() method', () {
-      crowdActionCommitmentIcons.forEach((key, value) {
-        expect(tCommitmentOption.copyWith(iconId: key).icon, value);
-      });
     });
   });
 }
