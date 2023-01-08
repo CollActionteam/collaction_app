@@ -1,9 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/commitment/commitment.dart';
 import '../../presentation/themes/constants.dart';
 import '../core/collaction_icons.dart';
+import '../core/ionicons_utils.dart';
 
 class CommitmentCardList extends StatelessWidget {
   final List<Commitment> commitments;
@@ -80,6 +80,9 @@ class _CommitmentCardState extends State<_CommitmentCard> {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        'Commitment: ${widget.commitment.title} - Icon: ${widget.commitment.icon}');
+
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
@@ -108,19 +111,10 @@ class _CommitmentCardState extends State<_CommitmentCard> {
               ),
               alignment: Alignment.center,
               child: widget.commitment.icon != null
-                  ? CachedNetworkImage(
-                      imageUrl: widget.commitment.icon!,
-                      placeholder: (context, url) => const Icon(
-                        CollactionIcons.collaction,
-                        color: kAccentColor,
-                        size: 30,
-                      ),
-                      errorWidget: (context, url, error) => const Icon(
-                        CollactionIcons.collaction,
-                        color: kAccentColor,
-                        size: 30,
-                      ),
-                      height: 30,
+                  ? Icon(
+                      IconUtil.fromString(widget.commitment.icon!),
+                      color: kAccentColor,
+                      size: 30,
                     )
                   : const Icon(
                       CollactionIcons.collaction,

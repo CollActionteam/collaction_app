@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../core/core.dart';
+import '../../presentation/core/collaction_icons.dart';
+import '../../presentation/core/ionicons_utils.dart';
 import '../../presentation/shared_widgets/secondary_chip.dart';
-import 'utils.dart';
 
 part 'crowdaction.freezed.dart';
 
@@ -105,5 +106,7 @@ class CommitmentOption with _$CommitmentOption {
     String? iconId,
   }) = _CommitmentOption;
 
-  IconData get icon => mapIcon(iconId);
+  IconData get icon => iconId != null
+      ? IconUtil.fromString(iconId!)
+      : CollactionIcons.collaction;
 }
