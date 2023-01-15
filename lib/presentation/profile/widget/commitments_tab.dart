@@ -22,7 +22,7 @@ class CommitmentsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             if (crowdActions?.isEmpty ?? true) ...[
@@ -65,17 +65,17 @@ class CommitmentsTab extends StatelessWidget {
                               viewOnly: true,
                             ),
                           ),
-                          const SizedBox(height: 15)
+                          const SizedBox(height: 15),
                         ],
                       ),
                     ),
                   ),
-              if (user == null || (crowdActions?.isEmpty ?? false)) ...[
-                SignUpCTA(
-                  user: user,
-                  title: 'View your amazing commitments here',
-                ),
-              ],
+            ],
+            if (user == null || (crowdActions?.isEmpty ?? false)) ...[
+              SignUpCTA(
+                user: user,
+                title: 'View your amazing commitments here',
+              ),
             ],
           ],
         ),

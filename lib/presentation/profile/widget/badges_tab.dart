@@ -11,7 +11,7 @@ class BadgesTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             const SizedBox(height: 40),
