@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../domain/core/i_settings_repository.mocks.dart';
 import '../../test_helper.dart';
-
-class SettingsRepositoryMock extends Mock implements ISettingsRepository {}
 
 void main() {
   late final ISettingsRepository settingsRepositoryMock;

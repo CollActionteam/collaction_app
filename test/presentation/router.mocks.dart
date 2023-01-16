@@ -42,6 +42,7 @@ class RouteHelpers {
 
     final StackRouter stackRouter = MockStackRouter();
     when(() => stackRouter.push(any())).thenAnswer((_) async => null);
+    when(() => stackRouter.replace(any())).thenAnswer((_) async => null);
     when(() => stackRouter.replaceNamed(any())).thenAnswer((_) async => null);
     when(() => stackRouter.pop()).thenAnswer((_) async => true);
 
