@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/presentation/home/widgets/password_modal.dart';
 import 'package:collaction_app/presentation/themes/constants.dart';
+import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -101,7 +102,7 @@ void main() {
     );
 
     testWidgets(
-      'correct password calls router.replace',
+      'correct password calls router.replace, redirects to CrowdActionDetailsRoute',
       (WidgetTester tester) async {
         await buildAndPump(
           tester: tester,
@@ -118,7 +119,15 @@ void main() {
           () => iSettingsRepository.addCrowdActionAccess(
               crowdActionId: tCrowdaction.id),
         ).called(1);
-        verify(() => stackRouter.replace(captureAny())).called(1);
+
+        final capturedRoutes =
+            verify(() => stackRouter.replace(captureAny())).captured;
+        expect(capturedRoutes.length, 1);
+        expect(capturedRoutes.first, isA<CrowdActionDetailsRoute>());
+
+        final route = capturedRoutes.first as CrowdActionDetailsRoute;
+        expect(route.args?.crowdAction, tCrowdaction);
+        expect(route.args?.crowdActionId, null);
       },
     );
 
@@ -160,7 +169,14 @@ void main() {
         showPasswordModal(tester.element(find.byType(Container)), tCrowdaction);
         await tester.pumpAndSettle();
 
-        verify(() => stackRouter.push(captureAny())).called(1);
+        final capturedRoutes =
+            verify(() => stackRouter.push(captureAny())).captured;
+        expect(capturedRoutes.length, 1);
+        expect(capturedRoutes.first, isA<CrowdActionDetailsRoute>());
+
+        final route = capturedRoutes.first as CrowdActionDetailsRoute;
+        expect(route.args?.crowdAction, tCrowdaction);
+        expect(route.args?.crowdActionId, null);
       },
     );
   });
