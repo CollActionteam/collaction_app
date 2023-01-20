@@ -27,9 +27,7 @@ void main() {
     ).thenAnswer((_) async {});
     when(
       () => iSettingsRepository.getCrowdActionAccessList(),
-    ).thenAnswer((_) async {
-      return [];
-    });
+    ).thenAnswer((_) async => []);
     GetIt.I.registerSingleton<ISettingsRepository>(iSettingsRepository);
   });
 
