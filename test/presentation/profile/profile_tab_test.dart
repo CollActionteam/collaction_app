@@ -39,8 +39,8 @@ void main() {
 
         expect(find.byType(UserProfileTab), findsOneWidget);
         TabBar tabBar = tester.firstWidget<TabBar>(find.byType(TabBar));
-        expect(tabBar.controller!.length, 3);
-        expect(tabBar.controller!.index, 1);
+        expect(tabBar.controller?.length, 3);
+        expect(tabBar.controller?.index, 1);
 
         await tester.tap(find.text('Badges'));
         await tester.pumpAndSettle();
