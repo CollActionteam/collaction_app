@@ -28,7 +28,7 @@ class CrowdActionDetailsPage extends StatefulWidget {
   const CrowdActionDetailsPage({
     super.key,
     this.crowdAction,
-    this.crowdActionId,
+    @PathParam("id") this.crowdActionId,
   }) : assert(crowdAction != null || crowdActionId != null);
 
   @override

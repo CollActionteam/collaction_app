@@ -33,7 +33,7 @@ import '../shared_widgets/web_view_page.dart';
           page: EmptyRouterPage,
           children: [
             AutoRoute(path: '', page: CrowdActionHomeScreen),
-            AutoRoute(path: 'details', page: CrowdActionDetailsPage),
+            AutoRoute(path: 'details/:id', page: CrowdActionDetailsPage),
             AutoRoute(path: 'participants', page: CrowdActionParticipantsPage),
             AutoRoute(path: 'view-all', page: CrowdActionBrowsePage),
           ],
@@ -48,7 +48,7 @@ import '../shared_widgets/web_view_page.dart';
               page: UserProfilePage,
             ),
             AutoRoute(
-              path: 'details',
+              path: 'details/:id',
               page: CrowdActionDetailsPage,
             ),
           ],
