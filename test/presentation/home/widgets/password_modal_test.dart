@@ -152,9 +152,7 @@ void main() {
       (WidgetTester tester) async {
         when(
           () => iSettingsRepository.getCrowdActionAccessList(),
-        ).thenAnswer((_) async {
-          return [tCrowdaction.id];
-        });
+        ).thenAnswer((_) async => [tCrowdaction.id]);
 
         await buildAndPump(
           tester: tester,
