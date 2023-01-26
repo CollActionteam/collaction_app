@@ -185,6 +185,7 @@ Future<void> showPasswordModal(
   } else {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       constraints: const BoxConstraints(maxHeight: 350),
       builder: (context) => PasswordModal(crowdAction: crowdAction),
