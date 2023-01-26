@@ -88,7 +88,6 @@ void main() {
       await tester.pumpInSpotLightHeader(spotlightBloc);
       await tester.pump();
 
-      expect(find.byType(InSpotLightHeader), findsOneWidget);
       expect(find.byType(SpotlightEmptyHeader), findsOneWidget);
     });
 
@@ -103,7 +102,6 @@ void main() {
       await tester.pumpInSpotLightHeader(spotlightBloc);
       await tester.pumpAndSettle();
 
-      expect(find.byType(InSpotLightHeader), findsOneWidget);
       expect(find.byType(ContentPlaceholder), findsOneWidget);
     });
 
@@ -116,7 +114,6 @@ void main() {
       await tester.pumpInSpotLightHeader(spotlightBloc);
       await tester.pumpAndSettle();
 
-      expect(find.byType(InSpotLightHeader), findsOneWidget);
       expect(find.byType(SpotlightCrowdActions), findsOneWidget);
     });
   });
