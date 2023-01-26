@@ -13,6 +13,7 @@ CrowdAction generateDummyCrowdaction({
   bool password = false,
   DateTime? endDate,
   JoinStatus? joinStatus,
+  Status? status,
 }) {
   return CrowdAction(
     id: 'tID',
@@ -25,9 +26,10 @@ CrowdAction generateDummyCrowdaction({
     endAt: endDate ?? DateTime(2022, 1, 31),
     images: tImage,
     participantCount: participantCnt,
-    status: Status.started,
+    status: status ?? Status.started,
     joinStatus: joinStatus ?? JoinStatus.open,
     password: password ? 'testPwd' : null,
+    badges: tBadges,
   );
 }
 

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
+import 'package:collaction_app/domain/badge/badge.dart';
 import 'package:collaction_app/domain/contact_form/contact_failures.dart';
 import 'package:collaction_app/domain/contact_form/i_contact_form_repository.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
@@ -181,3 +182,11 @@ final List<Participation> tTopParticipants = [
   tParticipation,
   tParticipation
 ];
+
+final Badge tBadge = Badge(
+  awardType: AwardTypeEnum.all,
+  tier: BadgeTierEnum.diamond,
+  minimumCheckIns: 0,
+);
+
+final List<Badge> tBadges = [tBadge];
