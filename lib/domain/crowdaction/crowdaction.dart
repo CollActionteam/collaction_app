@@ -5,6 +5,7 @@ import '../../core/core.dart';
 import '../../presentation/core/collaction_icons.dart';
 import '../../presentation/core/ionicons_utils.dart';
 import '../../presentation/shared_widgets/secondary_chip.dart';
+import '../badge/badge.dart';
 
 part 'crowdaction.freezed.dart';
 
@@ -27,6 +28,7 @@ class CrowdAction with _$CrowdAction {
     required DateTime endAt,
     String? password,
     String? subcategory,
+    List<Badge>? badges,
   }) = _CrowdAction;
 
   bool get hasParticipants => participantCount > 0;
