@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/profile/profile.dart';
+import '../badge/badge_dto.dart';
 
 part 'profile_dto.freezed.dart';
 part 'profile_dto.g.dart';
@@ -15,6 +16,7 @@ class ProfileDto with _$ProfileDto {
     required String lastName,
     required String avatar,
     String? bio,
+    List<BadgeDto>? badges,
   }) = _ProfileDto;
 
   Profile toDomain() {
@@ -24,6 +26,7 @@ class ProfileDto with _$ProfileDto {
       lastName: lastName,
       avatar: avatar,
       bio: bio,
+      badges: badges?.map((option) => option.toDomain()).toList(),
     );
   }
 
