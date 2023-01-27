@@ -2,15 +2,11 @@ import 'dart:convert';
 import 'package:collaction_app/domain/contact_form/i_contact_form_repository.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/contact_form/contact_failures.dart';
-import 'package:collaction_app/infrastructure/contact_form/contact_form_dto.dart';
-import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:collaction_app/infrastructure/contact_form/contact_form_repository.dart';
-import '../../application/contact_form/contact_form_fixture.dart';
 import './contact_form_dto_fixtures.dart';
 
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../test_utilities.dart';
