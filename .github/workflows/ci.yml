@@ -236,6 +236,12 @@ jobs:
       - name: Generate app icons
         run: flutter pub run flutter_launcher_icons:main
 
+      - name: Prepare deeplink configuration file
+        run: |
+          echo "$DEEPLINK_XCCONFIG_CONTENTS" > ios/Flutter/Deeplink.xcconfig
+        env:
+          DEEPLINK_XCCONFIG_CONTENTS: ${{ secrets.IOS_DEEPLINK_CONFIG }}
+
       - name: Install the Apple certificate and provisioning profile
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_CERT_P12 }}
