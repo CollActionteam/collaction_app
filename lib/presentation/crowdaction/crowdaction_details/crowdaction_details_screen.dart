@@ -9,6 +9,7 @@ import '../../../application/auth/auth_bloc.dart';
 import '../../../application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
 import '../../../application/participation/participation_bloc.dart';
 import '../../../application/user/profile_tab/profile_tab_bloc.dart';
+import '../../home/widgets/password_modal.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../shared_widgets/expandable_text.dart';
@@ -117,6 +118,15 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               state.maybeMap(
                 loadSuccess: (state) {
                   crowdAction = state.crowdAction;
+                  showPasswordModal(
+                    context,
+                    state.crowdAction,
+                    onPasswordValid: (isValidated) {
+                      if (isValidated) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  );
                 },
                 orElse: () {},
               );

@@ -10,10 +10,12 @@ import '../../../presentation/themes/constants.dart';
 
 class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
+  final Function(bool)? onPasswordValid;
 
   const PasswordModal({
     super.key,
     required this.crowdAction,
+    this.onPasswordValid,
   });
 
   @override
@@ -147,6 +149,11 @@ class _PasswordModalState extends State<PasswordModal> {
 
       addCrowdActionAccess();
 
+      if (widget.onPasswordValid != null) {
+        widget.onPasswordValid?.call(true);
+        return;
+      }
+
       context.router.replace(
         CrowdActionDetailsRoute(
           crowdAction: widget.crowdAction,
@@ -173,14 +180,22 @@ class _PasswordModalState extends State<PasswordModal> {
 
 Future<void> showPasswordModal(
   BuildContext context,
-  CrowdAction crowdAction,
-) async {
+  CrowdAction crowdAction, {
+  Function(bool)? onPasswordValid,
+}) async {
   final settingsRepository = getIt<ISettingsRepository>();
   final accessList = await settingsRepository.getCrowdActionAccessList();
 
   if (accessList.contains(crowdAction.id)) {
-    context.router.push(
-      CrowdActionDetailsRoute(crowdAction: crowdAction),
+    if (onPasswordValid != null) {
+      onPasswordValid(false);
+      return;
+    }
+
+    context.router.replace(
+      CrowdActionDetailsRoute(
+        crowdAction: crowdAction,
+      ),
     );
   } else {
     showModalBottomSheet(
@@ -188,7 +203,10 @@ Future<void> showPasswordModal(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       constraints: const BoxConstraints(maxHeight: 350),
-      builder: (context) => PasswordModal(crowdAction: crowdAction),
+      builder: (context) => PasswordModal(
+        crowdAction: crowdAction,
+        onPasswordValid: onPasswordValid,
+      ),
     );
   }
 }
