@@ -1,16 +1,5 @@
 # collaction_app
 
-A new Flutter project.
+Welcome to [CollAction](https://collaction.org), the first CrowdActing platform in the world!
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The CollAction app is written in Flutter and fully opensource. Would you like to contribute to this project? Send an email to hello@collaction.org and we'll get in touch :)
