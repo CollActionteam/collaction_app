@@ -4,8 +4,8 @@ import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.
 import 'package:collaction_app/application/participation/top_participants/top_participants_bloc.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_home/widgets/in_spotlight_header.dart';
+import 'package:collaction_app/presentation/crowdaction/crowdaction_home/widgets/spotlight_crowdactions/spotlight_crowdactions.dart';
 import 'package:collaction_app/presentation/shared_widgets/content_placeholder.dart';
-import 'package:collaction_app/presentation/shared_widgets/crowdaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -89,7 +89,7 @@ void main() {
       await tester.pump();
 
       expect(find.byType(InSpotLightHeader), findsOneWidget);
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(SpotlightEmptyHeader), findsOneWidget);
     });
 
     testWidgets('can render spotLightCrowdActionsError state',
@@ -117,7 +117,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(InSpotLightHeader), findsOneWidget);
-      expect(find.byType(CrowdActionCard), findsOneWidget);
+      expect(find.byType(SpotlightCrowdActions), findsOneWidget);
     });
   });
 }
