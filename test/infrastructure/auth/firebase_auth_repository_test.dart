@@ -15,58 +15,57 @@ import 'package:mocktail/mocktail.dart';
 class CustomMockFirebaseAuth extends Mock
     implements firebase_auth.FirebaseAuth {}
 
-Map<String, dynamic> setUpFirebaseAuth({signedIn = true}) {
-  MockUser mockFirebaseUser = MockUser();
-  firebase_auth.FirebaseAuth mockFirebaseAuth = signedIn
-      ? MockFirebaseAuth(signedIn: true, mockUser: mockFirebaseUser)
-      : MockFirebaseAuth();
-
-  return {
-    "mockFirebaseUser": mockFirebaseUser,
-    "mockFirebaseAuth": mockFirebaseAuth
-  };
+class FirebaseAuthSetup {
+  late MockUser mockFirebaseUser;
+  late firebase_auth.FirebaseAuth mockFirebaseAuth;
+  FirebaseAuthSetup({bool signedIn = true}) {
+    mockFirebaseUser = MockUser();
+    mockFirebaseAuth = signedIn
+        ? MockFirebaseAuth(signedIn: true, mockUser: mockFirebaseUser)
+        : MockFirebaseAuth();
+  }
 }
 
-Map<String, dynamic> setUpCustomFirebaseAuth() {
-  firebase_auth.FirebaseAuth mockFirebaseAuth = CustomMockFirebaseAuth();
+class CustomFirebaseAuthSetup {
+  late firebase_auth.FirebaseAuth mockFirebaseAuth;
+  late When mockVerifyPhoneNumber;
+  CustomFirebaseAuthSetup() {
+    mockFirebaseAuth = CustomMockFirebaseAuth();
 
-  when(() => mockFirebaseAuth.authStateChanges())
-      .thenAnswer((_) => const Stream.empty());
+    when(() => mockFirebaseAuth.authStateChanges())
+        .thenAnswer((_) => const Stream.empty());
 
-  When mockVerifyPhoneNumber = when(() => mockFirebaseAuth.verifyPhoneNumber(
-      phoneNumber: any(named: 'phoneNumber'),
-      verificationCompleted: any(named: 'verificationCompleted'),
-      verificationFailed: any(named: 'verificationFailed'),
-      codeSent: any(named: 'codeSent'),
-      codeAutoRetrievalTimeout: any(named: 'codeAutoRetrievalTimeout')));
-
-  return {
-    "mockFirebaseAuth": mockFirebaseAuth,
-    "mockVerifyPhoneNumber": mockVerifyPhoneNumber
-  };
+    mockVerifyPhoneNumber = when(() => mockFirebaseAuth.verifyPhoneNumber(
+        phoneNumber: any(named: 'phoneNumber'),
+        verificationCompleted: any(named: 'verificationCompleted'),
+        verificationFailed: any(named: 'verificationFailed'),
+        codeSent: any(named: 'codeSent'),
+        codeAutoRetrievalTimeout: any(named: 'codeAutoRetrievalTimeout')));
+  }
 }
 
 void main() {
   group('testing getSignedInUser: ', () {
     test("signed in user exists", () async {
       // mock
-      var mocks = setUpFirebaseAuth(signedIn: true);
+      FirebaseAuthSetup mocks = FirebaseAuthSetup(signedIn: true);
+
       IAuthRepository firebaseAuthRepository =
-          FirebaseAuthRepository(firebaseAuth: mocks["mockFirebaseAuth"]);
+          FirebaseAuthRepository(firebaseAuth: mocks.mockFirebaseAuth);
 
       // perform test
       var result = await firebaseAuthRepository.getSignedInUser();
       var user = result.getOrElse(() => User.anonymous);
 
       // verify
-      expect(user.id, equals(mocks["mockFirebaseUser"].uid));
+      expect(user.id, equals(mocks.mockFirebaseUser.uid));
     });
 
     test("no signed in user", () async {
       // mock
-      var mocks = setUpFirebaseAuth(signedIn: false);
+      FirebaseAuthSetup mocks = FirebaseAuthSetup(signedIn: false);
       IAuthRepository firebaseAuthRepository =
-          FirebaseAuthRepository(firebaseAuth: mocks["mockFirebaseAuth"]);
+          FirebaseAuthRepository(firebaseAuth: mocks.mockFirebaseAuth);
 
       // perform test
       var result = await firebaseAuthRepository.getSignedInUser();
@@ -79,13 +78,13 @@ void main() {
 
   test("testing signOut -- remove user reference", () async {
     // mock
-    var mocks = setUpFirebaseAuth(signedIn: true);
-    firebase_auth.FirebaseAuth mockFirebaseAuth = mocks["mockFirebaseAuth"];
+    FirebaseAuthSetup mocks = FirebaseAuthSetup(signedIn: true);
+    firebase_auth.FirebaseAuth mockFirebaseAuth = mocks.mockFirebaseAuth;
     IAuthRepository firebaseAuthRepository =
         FirebaseAuthRepository(firebaseAuth: mockFirebaseAuth);
 
     // perform test
-    expect(mockFirebaseAuth.currentUser, equals(mocks['mockFirebaseUser']));
+    expect(mockFirebaseAuth.currentUser, equals(mocks.mockFirebaseUser));
     await firebaseAuthRepository.signOut();
 
     // verify
@@ -95,14 +94,14 @@ void main() {
   group('testing verifyPhone function: ', () {
     test('codeSent callback', () async {
       // mock
-      var mocks = setUpCustomFirebaseAuth();
-      (mocks["mockVerifyPhoneNumber"] as When).thenAnswer((invocation) async {
+      CustomFirebaseAuthSetup mocks = CustomFirebaseAuthSetup();
+      mocks.mockVerifyPhoneNumber.thenAnswer((invocation) async {
         Function codeSent = invocation.namedArguments[Symbol('codeSent')];
         await codeSent("verify id", 123);
       });
 
       IAuthRepository firebaseAuthRepository =
-          FirebaseAuthRepository(firebaseAuth: mocks["mockFirebaseAuth"]);
+          FirebaseAuthRepository(firebaseAuth: mocks.mockFirebaseAuth);
 
       // perform test
       Stream result = firebaseAuthRepository.verifyPhone(phoneNumber: '');
@@ -118,8 +117,8 @@ void main() {
 
     test('verificationFailed callback', () async {
       // mock
-      var mocks = setUpCustomFirebaseAuth();
-      (mocks["mockVerifyPhoneNumber"] as When).thenAnswer((invocation) async {
+      CustomFirebaseAuthSetup mocks = CustomFirebaseAuthSetup();
+      mocks.mockVerifyPhoneNumber.thenAnswer((invocation) async {
         Function verificationFailed =
             invocation.namedArguments[Symbol('verificationFailed')];
         await verificationFailed(
@@ -127,7 +126,7 @@ void main() {
       });
 
       IAuthRepository firebaseAuthRepository =
-          FirebaseAuthRepository(firebaseAuth: mocks["mockFirebaseAuth"]);
+          FirebaseAuthRepository(firebaseAuth: mocks.mockFirebaseAuth);
 
       // perform test
       Stream result = firebaseAuthRepository.verifyPhone(phoneNumber: '');
@@ -141,15 +140,15 @@ void main() {
 
     test('codeAutoRetrievalTimeout callback', () async {
       // mock
-      var mocks = setUpCustomFirebaseAuth();
-      (mocks["mockVerifyPhoneNumber"] as When).thenAnswer((invocation) async {
+      CustomFirebaseAuthSetup mocks = CustomFirebaseAuthSetup();
+      mocks.mockVerifyPhoneNumber.thenAnswer((invocation) async {
         Function codeAutoRetrievalTimeout =
             invocation.namedArguments[Symbol('codeAutoRetrievalTimeout')];
         await codeAutoRetrievalTimeout("verify id");
       });
 
       IAuthRepository firebaseAuthRepository =
-          FirebaseAuthRepository(firebaseAuth: mocks["mockFirebaseAuth"]);
+          FirebaseAuthRepository(firebaseAuth: mocks.mockFirebaseAuth);
 
       // perform test
       Stream result = firebaseAuthRepository.verifyPhone(phoneNumber: '');
@@ -164,8 +163,8 @@ void main() {
 
     test('verificationCompleted callback', () async {
       // mock
-      var mocks = setUpCustomFirebaseAuth();
-      (mocks["mockVerifyPhoneNumber"] as When).thenAnswer((invocation) async {
+      CustomFirebaseAuthSetup mocks = CustomFirebaseAuthSetup();
+      mocks.mockVerifyPhoneNumber.thenAnswer((invocation) async {
         Function verificationCompleted =
             invocation.namedArguments[Symbol('verificationCompleted')];
 
@@ -174,7 +173,7 @@ void main() {
       });
 
       IAuthRepository firebaseAuthRepository =
-          FirebaseAuthRepository(firebaseAuth: mocks["mockFirebaseAuth"]);
+          FirebaseAuthRepository(firebaseAuth: mocks.mockFirebaseAuth);
 
       // perform test
       Stream result = firebaseAuthRepository.verifyPhone(phoneNumber: '');
