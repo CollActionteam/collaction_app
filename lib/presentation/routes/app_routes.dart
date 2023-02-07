@@ -74,6 +74,7 @@ import '../shared_widgets/web_view_page.dart';
     AutoRoute(path: 'settings-layout', page: SettingsLayout),
     AutoRoute(path: 'contact-form', page: ContactFormPage),
     AutoRoute(path: 'webview', page: WebViewPage),
+
   ],
 )
 class $AppRouter {}

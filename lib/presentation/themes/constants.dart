@@ -24,6 +24,7 @@ const Color kPrimaryColor200 = Color(0xFF999999);
 const Color kPrimaryColor300 = Color(0xFF666666);
 const Color kPrimaryColor400 = Color(0xFF333333);
 const Color kPrimaryColor500 = Color(0xFF000000);
+const Color kPrimaryColor600 = Color(0xFF2EB494);
 
 const TextStyle kCaption1 = TextStyle(
   fontSize: 12,
@@ -40,4 +41,23 @@ const TextStyle kTitle1 = TextStyle(
   fontSize: 28,
   height: 34 / 28,
   fontWeight: FontWeight.w700,
+);
+
+const TextStyle nameTextStyle = TextStyle(
+  fontSize:   17 ,
+  fontWeight: FontWeight.w500 ,
+  color: kPrimaryColor400 ,
+);
+
+const TextStyle phoneNumberTextStyle = TextStyle(
+  fontSize: 17,
+  fontWeight: FontWeight.w300,
+  color: kPrimaryColor300 ,
+);
+
+
+
+const BoxDecoration avatarInfoDecorationBox = BoxDecoration(
+  color: kAlmostTransparent ,
+  borderRadius: BorderRadius.all(Radius.circular(20),)
 );
