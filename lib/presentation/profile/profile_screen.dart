@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../application/user/profile/profile_bloc.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
+import '../settings/menu_tab.dart';
 import '../shared_widgets/photo_selector.dart';
 import '../shared_widgets/pill_button.dart';
 import '../themes/constants.dart';
@@ -72,7 +73,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () => context.router.push(const SettingsRoute()),
+                  // onPressed: () => context.router.push(const SettingsRoute()),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MenuTab())),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: kPrimaryColor0,
                     backgroundColor: Colors.white,

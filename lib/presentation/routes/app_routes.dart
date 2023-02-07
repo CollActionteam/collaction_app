@@ -75,7 +75,11 @@ import '../shared_widgets/web_view_page.dart';
     AutoRoute(path: 'settings-layout', page: SettingsLayout),
     AutoRoute(path: 'contact-form', page: ContactFormPage),
     AutoRoute(path: 'webview', page: WebViewPage),
+<<<<<<< HEAD
     AutoRoute(path: 'unauthenticated', page: UnauthenticatedPage)
+=======
+
+>>>>>>> ada75b8 (Finishing half of the UI of the menu tab)
   ],
 )
 class $AppRouter {}
