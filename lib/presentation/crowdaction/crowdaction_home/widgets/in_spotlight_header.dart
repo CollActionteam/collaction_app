@@ -37,7 +37,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                   padding: const EdgeInsets.only(left: 12, top: 8),
                   child: Text(
                     sectionHeadingText(),
-                    style: Theme.of(context).textTheme.headline5?.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: kPrimaryColor400,
                         ),

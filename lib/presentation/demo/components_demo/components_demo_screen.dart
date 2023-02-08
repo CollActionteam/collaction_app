@@ -318,7 +318,7 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   "Delete comment",
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle1
+                      .titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 30),

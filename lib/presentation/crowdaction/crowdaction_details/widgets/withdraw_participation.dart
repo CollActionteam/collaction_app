@@ -28,7 +28,7 @@ class WithdrawParticipation extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
                 'Cancel my participation',
-                style: Theme.of(context).textTheme.headline3!.copyWith(
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: kSuccessColor,
@@ -78,7 +78,7 @@ class WithdrawParticipation extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
@@ -87,10 +87,11 @@ class WithdrawParticipation extends StatelessWidget {
                       Text(
                         "We are sad to see you withdraw!",
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 28,
+                                ),
                       ),
 
                       const SizedBox(
@@ -137,7 +138,7 @@ class WithdrawParticipation extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle1
+                            .titleMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
@@ -145,7 +146,7 @@ class WithdrawParticipation extends StatelessWidget {
                       ),
                       Text(
                         "You are about to cancel your participation. You are free to sign up for this CrowdAction again any time before it starts.",
-                        style: Theme.of(context).textTheme.caption?.copyWith(
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: kPrimaryColor400,
                             ),
                       ),

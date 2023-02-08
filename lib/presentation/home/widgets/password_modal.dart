@@ -51,7 +51,7 @@ class _PasswordModalState extends State<PasswordModal> {
             children: [
               Text(
                 'Enter password',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       color: kPrimaryColor400,
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
@@ -60,7 +60,7 @@ class _PasswordModalState extends State<PasswordModal> {
               const SizedBox(height: 10),
               Text(
                 'This crowdaction is private. Please enter the password to see it.',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       color: kPrimaryColor300,
                       fontSize: 12,
                     ),

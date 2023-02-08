@@ -135,11 +135,13 @@ class _BadgesPopupCard extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           'Badges',
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 28,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 28,
+                              ),
                         ),
                       ),
                       Container(
@@ -148,11 +150,12 @@ class _BadgesPopupCard extends StatelessWidget {
                         ),
                         child: Text(
                           'Different commitments give you a different set of points. These points correspond with badges.\nWhich one will you attain this month?',
-                          style: Theme.of(context).textTheme.caption!.copyWith(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: kPrimaryColor300,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: kPrimaryColor300,
+                                  ),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -172,7 +175,7 @@ class _BadgesPopupCard extends StatelessWidget {
                                   'Gold',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .caption!
+                                      .bodySmall!
                                       .copyWith(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
@@ -206,7 +209,7 @@ class _BadgesPopupCard extends StatelessWidget {
                                   'Silver',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .caption!
+                                      .bodySmall!
                                       .copyWith(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
@@ -239,7 +242,7 @@ class _BadgesPopupCard extends StatelessWidget {
                                   'Bronze',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .caption!
+                                      .bodySmall!
                                       .copyWith(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
