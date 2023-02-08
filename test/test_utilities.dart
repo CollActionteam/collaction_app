@@ -20,8 +20,8 @@ import 'package:mocktail/mocktail.dart';
 import 'domain/crowdaction/crowdaction_test_fixtures.dart';
 import 'utils/crowdactions.dart';
 
-class MockCrowdActionRepository extends Mock implements ICrowdActionRepository {
-}
+class MockCrowdActionRepository extends Mock
+    implements ICrowdActionRepository {}
 
 class MockAuthRepository extends Mock implements IAuthRepository {}
 
