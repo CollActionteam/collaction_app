@@ -70,5 +70,7 @@
 		<false />
 		<key>com.apple.developer.associated-domains</key>
 		<array />
-	</dict>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+</dict>
 </plist>
