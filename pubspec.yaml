@@ -31,9 +31,9 @@ dependencies:
   email_validator: ^2.0.1
   equatable: ^2.0.3
   expandable_page_view: ^1.0.10
-  firebase_auth: ^3.11.2
-  firebase_core: ^1.24.0
-  firebase_crashlytics: ^2.9.0
+  firebase_auth: ^4.2.2
+  firebase_core: ^2.4.1
+  firebase_crashlytics: ^3.0.11
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
@@ -45,36 +45,36 @@ dependencies:
   image_cropper: ^3.0.0
   image_picker: ^0.8.6
   infinite_scroll_pagination: ^3.2.0
-  injectable: ^1.5.3
-  intl: ^0.17.0
+  injectable: ^2.1.0
+  intl: ^0.18.0
   ionicons: ^0.2.1
   json_annotation: ^4.7.0
   mocktail: ^0.3.0
   package_info_plus: ^3.0.0
   phone_number: ^1.0.0
-  rive: ^0.9.1
+  rive: ^0.10.1
   rxdart: ^0.27.5
   share_plus: ^6.0.0
   shared_preferences: ^2.0.15
   shimmer: ^2.0.0
   url_launcher: ^6.1.6
-  webview_flutter: ^3.0.4
+  webview_flutter: ^4.0.2
   widgetbook_annotation: ^2.1.0
 
 dev_dependencies:
   auto_route_generator: ^5.0.2
   bloc_test: ^9.1.0
   build_runner: ^2.3.0
-  firebase_auth_mocks: ^0.8.6
-  flutter_launcher_icons: ^0.10.0
+  firebase_auth_mocks: ^0.10.3
+  flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1
   flutter_oss_licenses: ^2.0.1
   flutter_test:
     sdk: flutter
   freezed: ^2.2.0
-  injectable_generator: ^1.5.4
+  injectable_generator: ^2.1.3
   json_serializable: ^6.5.3
-  lint: ^1.10.0
+  lint: ^2.0.1
   widgetbook: ^2.4.1
   widgetbook_generator: ^2.4.1
 
