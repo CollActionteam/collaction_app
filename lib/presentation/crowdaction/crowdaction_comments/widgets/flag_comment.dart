@@ -83,7 +83,7 @@ class FlagDialogState extends State<FlagDialog> {
           textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme
-              .subtitle1
+              .titleMedium
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(
@@ -99,7 +99,7 @@ class FlagDialogState extends State<FlagDialog> {
                 child: Text(
                   "Modal description. Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio uma, tempus molestie, porttitor ut, iaculis quis.",
                   overflow: TextOverflow.fade,
-                  style: Theme.of(context).textTheme.caption?.copyWith(
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: kPrimaryColor400,
                       ),
                   textAlign: TextAlign.center,
@@ -184,7 +184,7 @@ class FlagSuccess extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
-                .subtitle1
+                .titleMedium
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(
@@ -193,7 +193,7 @@ class FlagSuccess extends StatelessWidget {
           Text(
             "Successfully reported",
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.subtitle1?.copyWith(
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
                 ),
@@ -204,7 +204,7 @@ class FlagSuccess extends StatelessWidget {
           Container(
             child: Text(
               "Thank you for letting us know. We will look into it and dlete the comment if necessary.",
-              style: Theme.of(context).textTheme.caption?.copyWith(
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: kPrimaryColor400,
                   ),
               textAlign: TextAlign.center,

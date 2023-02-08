@@ -45,11 +45,13 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                       children: [
                         Text(
                           widget.isCurrent ? 'Currently running' : 'Upcoming',
-                          style:
-                              Theme.of(context).textTheme.headline5?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: kPrimaryColor400,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor400,
+                              ),
                         ),
                         TextButton(
                           onPressed: () =>
