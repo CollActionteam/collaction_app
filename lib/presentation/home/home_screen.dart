@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
         if (!kReleaseMode) ...[
           DemoScreenRouter(),
         ],
+        MenuScreenRouter()
       ],
       bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
     );
@@ -47,6 +48,10 @@ class HomePage extends StatelessWidget {
             label: '',
           ),
         ],
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu_outlined),
+          label: '',
+        ),
       ],
       currentIndex: tabsRouter.activeIndex,
       onTap: tabsRouter.setActiveIndex,

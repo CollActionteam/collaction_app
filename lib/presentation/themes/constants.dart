@@ -55,6 +55,11 @@ const TextStyle phoneNumberTextStyle = TextStyle(
   color: kPrimaryColor300 ,
 );
 
+const TextStyle appInfo = TextStyle(
+fontSize: 17,
+fontWeight: FontWeight.w300,
+  color: kPrimaryColor200 ,
+);
 
 
 const BoxDecoration avatarInfoDecorationBox = BoxDecoration(
