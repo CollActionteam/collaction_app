@@ -14,6 +14,7 @@ import '../demo/components_demo/components_demo_screen.dart';
 import '../demo/demo_screen.dart';
 import '../home/home_screen.dart';
 import '../licenses/licenses_page.dart';
+import '../menu/menu_screen.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../settings/settings_layout.dart';
 import '../settings/settings_screen.dart';
@@ -64,6 +65,16 @@ import '../shared_widgets/web_view_page.dart';
             AutoRoute(path: 'comments', page: CrowdActionCommentsPage),
           ],
         ),
+        AutoRoute(
+          path: 'menu',
+          name: 'MenuScreenRouter',
+          page: EmptyRouterPage,
+          children: [
+            AutoRoute(
+              path: '' , page: MenuPage
+            )
+          ],
+        ),
       ],
     ),
     AutoRoute(path: 'onboarding', page: OnboardingPage),
@@ -74,7 +85,6 @@ import '../shared_widgets/web_view_page.dart';
     AutoRoute(path: 'settings-layout', page: SettingsLayout),
     AutoRoute(path: 'contact-form', page: ContactFormPage),
     AutoRoute(path: 'webview', page: WebViewPage),
-
   ],
 )
 class $AppRouter {}

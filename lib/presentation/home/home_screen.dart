@@ -33,6 +33,7 @@ class HomePageState extends State<HomePage> {
         if (!kReleaseMode) ...[
           DemoScreenRouter(),
         ],
+        MenuScreenRouter()
       ],
       bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
     );
@@ -72,6 +73,10 @@ class HomePageState extends State<HomePage> {
             label: '',
           ),
         ],
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu_outlined),
+          label: '',
+        ),
       ],
       currentIndex: tabsRouter.activeIndex,
       onTap: tabsRouter.setActiveIndex,
