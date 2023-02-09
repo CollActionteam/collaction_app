@@ -31,9 +31,9 @@ dependencies:
   email_validator: ^2.0.1
   equatable: ^2.0.3
   expandable_page_view: ^1.0.10
-  firebase_auth: ^3.11.2
-  firebase_core: ^1.24.0
-  firebase_crashlytics: ^2.9.0
+  firebase_auth: ^4.2.5
+  firebase_core: ^2.4.1
+  firebase_crashlytics: ^3.0.11
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
@@ -65,7 +65,7 @@ dev_dependencies:
   auto_route_generator: ^5.0.2
   bloc_test: ^9.1.0
   build_runner: ^2.3.0
-  firebase_auth_mocks: ^0.8.6
+  firebase_auth_mocks: ^0.10.3
   flutter_launcher_icons: ^0.10.0
   flutter_lints: ^2.0.1
   flutter_oss_licenses: ^2.0.1
