@@ -144,7 +144,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText2
+                            .bodyMedium
                             ?.copyWith(color: kInactiveColor),
                       ),
                     ),

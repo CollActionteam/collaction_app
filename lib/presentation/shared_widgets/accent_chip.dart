@@ -29,7 +29,7 @@ class AccentChip extends StatelessWidget {
       shape: StadiumBorder(side: BorderSide(color: color)),
       label: Text(
         text,
-        style: Theme.of(context).textTheme.caption?.copyWith(
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Colors.white,
             ),
       ),

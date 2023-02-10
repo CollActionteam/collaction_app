@@ -201,7 +201,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                     'My commitments',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline1!
+                                        .displayLarge!
                                         .copyWith(
                                           fontWeight: FontWeight.w700,
                                           fontSize: 28,
@@ -218,7 +218,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                       'Your challenge, your rules.\nChoose which commitment(s) you want to make for this CrowdAction.',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .caption!
+                                          .bodySmall!
                                           .copyWith(
                                             color: kPrimaryColor300,
                                             fontWeight: FontWeight.w400,
@@ -322,13 +322,13 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 "Register",
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1
+                    .titleMedium
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
               Text(
                 "You need to create an account in order to participate in a crowdaction. If you have an account already, please log in.",
-                style: Theme.of(context).textTheme.caption?.copyWith(
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: kPrimaryColor400,
                     ),
               ),
@@ -384,7 +384,7 @@ class CrowdActionDescription extends StatelessWidget {
     return ExpandableText(
       crowdAction!.description,
       trimLines: 5,
-      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontSize: 17,
             fontWeight: FontWeight.w300,
             height: 1.5,
