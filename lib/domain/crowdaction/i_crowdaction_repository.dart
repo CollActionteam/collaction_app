@@ -16,16 +16,6 @@ abstract class ICrowdActionRepository {
   Future<Either<CrowdActionFailure, List<CrowdAction>>>
       getSpotlightCrowdActions();
 
-  Future<Either<CrowdActionFailure, Unit>> subscribeToCrowdAction(
-    CrowdAction crowdAction,
-    List<String> commitments,
-    String? password,
-  );
-
-  Future<Either<CrowdActionFailure, Unit>> unsubscribeFromCrowdAction(
-    CrowdAction crowdAction,
-  );
-
   Future<Either<CrowdActionFailure, List<CrowdAction>>>
       getCrowdActionsForUser();
 }
