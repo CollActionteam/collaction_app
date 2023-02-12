@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
       unselectedItemColor: kDisabledButtonColor,
       type: BottomNavigationBarType.fixed,
       elevation: 0,
-      items: const [
+      items:  [
         BottomNavigationBarItem(
           icon: Icon(CollactionIcons.collaction),
           label: '',
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
         BottomNavigationBarItem(
-          icon: Icon(Icons.menu_outlined),
+          icon: Icon(Icons.grid_view,),
           label: '',
         ),
       ],

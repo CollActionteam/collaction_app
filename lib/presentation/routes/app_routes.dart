@@ -17,8 +17,6 @@ import '../home/home_screen.dart';
 import '../licenses/licenses_page.dart';
 import '../menu/menu_screen.dart';
 import '../onboarding/onboarding_screen.dart';
-import '../settings/settings_layout.dart';
-import '../settings/settings_screen.dart';
 import '../shared_widgets/web_view_page.dart';
 
 @MaterialAutoRouter(
@@ -77,9 +75,7 @@ import '../shared_widgets/web_view_page.dart';
     AutoRoute(path: 'onboarding', page: OnboardingPage),
     AutoRoute(path: 'auth', page: AuthPage),
     AutoRoute(path: 'verified', page: VerifiedPage),
-    AutoRoute(path: 'settings-page', page: SettingsPage),
     AutoRoute(path: 'licenses-page', page: LicensesPage),
-    AutoRoute(path: 'settings-layout', page: SettingsLayout),
     AutoRoute(path: 'contact-form', page: ContactFormPage),
     AutoRoute(path: 'webview', page: WebViewPage),
     AutoRoute(path: 'unauthenticated', page: UnauthenticatedPage),

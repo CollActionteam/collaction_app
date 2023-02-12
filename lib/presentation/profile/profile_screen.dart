@@ -71,33 +71,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () => context.router.push(const SettingsRoute()),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: kPrimaryColor0,
-                    backgroundColor: Colors.white,
-                    shape: const CircleBorder(),
-                    tapTargetSize: MaterialTapTargetSize.padded,
-                  ).merge(
-                    ButtonStyle(
-                      elevation: MaterialStateProperty.resolveWith<double?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return 5;
-                          }
-                          return 4;
-                        },
-                      ),
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-                    child: Icon(
-                      CollactionIcons.settings,
-                      color: kPrimaryColor300,
-                    ),
-                  ),
-                ),
               ],
             ),
             body: SafeArea(
