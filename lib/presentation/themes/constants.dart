@@ -25,7 +25,6 @@ const Color kPrimaryColor300 = Color(0xFF666666);
 const Color kPrimaryColor400 = Color(0xFF333333);
 const Color kPrimaryColor500 = Color(0xFF000000);
 const Color kPrimaryColor600 = Color(0xFF2EB494);
-
 const TextStyle kCaption1 = TextStyle(
   fontSize: 12,
   height: 16 / 12,
@@ -55,11 +54,6 @@ const TextStyle phoneNumberTextStyle = TextStyle(
   color: kPrimaryColor300 ,
 );
 
-const TextStyle appInfo = TextStyle(
-fontSize: 17,
-fontWeight: FontWeight.w300,
-  color: kPrimaryColor200 ,
-);
 
 
 const BoxDecoration avatarInfoDecorationBox = BoxDecoration(

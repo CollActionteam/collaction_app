@@ -56,7 +56,7 @@ class HomePageState extends State<HomePage> {
       unselectedItemColor: kDisabledButtonColor,
       type: BottomNavigationBarType.fixed,
       elevation: 0,
-      items: const [
+      items:  [
         BottomNavigationBarItem(
           icon: Icon(CollactionIcons.collaction),
           label: '',
@@ -74,7 +74,7 @@ class HomePageState extends State<HomePage> {
           ),
         ],
         BottomNavigationBarItem(
-          icon: Icon(Icons.menu_outlined),
+          icon: Icon(Icons.grid_view,),
           label: '',
         ),
       ],
