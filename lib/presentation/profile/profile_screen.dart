@@ -350,7 +350,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ),
                             ],
                           ] else ...[
-                            // TODO only for MVP (remove later)
                             const SizedBox(height: 40),
                             PillButton(
                               text: 'Sign in',

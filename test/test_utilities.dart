@@ -78,12 +78,6 @@ class TestUtilities {
       (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
     );
 
-    when(() => crowdActionRepo.subscribeToCrowdAction(any(), any(), any()))
-        .thenAnswer((_) async => right(unit));
-
-    when(() => crowdActionRepo.unsubscribeFromCrowdAction(any()))
-        .thenAnswer((_) async => right(unit));
-
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
   }
 

@@ -93,7 +93,6 @@ class WithdrawParticipation extends StatelessWidget {
                                   fontSize: 28,
                                 ),
                       ),
-
                       const SizedBox(
                         height: 20,
                       ),
@@ -105,10 +104,6 @@ class WithdrawParticipation extends StatelessWidget {
                         margin: EdgeInsets.zero,
                       ),
                       const SizedBox(height: 20),
-                      //TODO - Add message to change commitments const Divider(),
-                      // const SizedBox(
-                      //   height: 15,
-                      // ),
                     ],
                   ),
                 );

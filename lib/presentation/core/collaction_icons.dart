@@ -17,8 +17,6 @@
 import 'package:flutter/widgets.dart';
 
 class CollactionIcons {
-  const CollactionIcons._();
-
   static const _kFontFam = 'CollactionIcons';
 
   static const IconData eye = IconData(0xe800, fontFamily: _kFontFam);
