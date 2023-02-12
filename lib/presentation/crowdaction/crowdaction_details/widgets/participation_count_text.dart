@@ -81,7 +81,7 @@ class ParticipationCountText extends StatelessWidget {
 
   Text participantCountText(BuildContext context, int participantCount) => Text(
         "${!isEnded ? 'Join ' : ''}$participantCount ${participantCount > 1 ? 'people' : 'person'} ${!isEnded ? 'participating' : 'participated'}",
-        style: Theme.of(context).textTheme.caption?.copyWith(
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 14,
               color: kPrimaryColor300,
               height: 1.2,

@@ -6,13 +6,13 @@ import 'package:collaction_app/application/settings/build_information/build_info
 import 'package:collaction_app/application/user/profile/profile_bloc.dart';
 import 'package:collaction_app/domain/settings/build_information.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
-import 'package:collaction_app/presentation/settings/settings_screen.dart';
 import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
+import 'package:collaction_app/presentation/settings/settings_screen.dart';
 import 'package:collaction_app/presentation/settings/widgets/build_information_tile.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -30,22 +30,29 @@ void main() {
   late ProfileBloc profileBloc;
   late BuildInformationBloc buildInformationBloc;
 
-  final channel = MethodChannel(
-    Platform.isLinux
-        ? 'plugins.flutter.io/url_launcher_linux'
-        : Platform.isWindows
-            ? 'plugins.flutter.io/url_launcher_windows'
-            : 'plugins.flutter.io/url_launcher_macos',
-  );
+  final channels = [
+    MethodChannel(
+      Platform.isLinux
+          ? 'plugins.flutter.io/url_launcher_linux'
+          : Platform.isWindows
+              ? 'plugins.flutter.io/url_launcher_windows'
+              : 'plugins.flutter.io/url_launcher_macos',
+    ),
+    MethodChannel('plugins.flutter.io/url_launcher')
+  ];
 
   setUp(() async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return methodCall.method == 'canLaunch' ? true : null;
-    });
+    for (final channel in channels) {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        return methodCall.method == 'canLaunch' ? true : null;
+      });
+    }
   });
 
   tearDown(() {
-    channel.setMockMethodCallHandler(null);
+    for (final channel in channels) {
+      channel.setMockMethodCallHandler(null);
+    }
   });
 
   setUpAll(() {

@@ -102,7 +102,7 @@ class CrowdActionParticipantsPage extends StatelessWidget {
                     participation.fullName,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText2
+                        .bodyMedium
                         ?.copyWith(fontSize: 17, fontWeight: FontWeight.w300),
                   ),
                 ),

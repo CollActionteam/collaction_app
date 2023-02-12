@@ -176,7 +176,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                       maxLines: 5,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyMedium!
                                           .copyWith(
                                             fontWeight: FontWeight.w300,
                                             fontSize: 17,
@@ -194,7 +194,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     'Maximum 150 characters',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyText2!
+                                        .bodyMedium!
                                         .copyWith(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
@@ -208,7 +208,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 state.userProfile?.profile.bio ?? '',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 17,
