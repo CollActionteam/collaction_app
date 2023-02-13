@@ -26,11 +26,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   String? _phone;
   StreamSubscription<Either<AuthFailure, AuthSuccess>>?
       _verifyStreamSubscription;
+  StreamSubscription? _authenticationStateSubscription;
 
   AuthBloc(
     this._authRepository,
     this._avatarRepository,
   ) : super(const AuthState.initial()) {
+    _subscribeToAuthStateChanges();
+
     on<AuthEvent>(
       (event, emit) async {
         await event.map(
@@ -49,6 +52,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       },
     );
+  }
+
+  Future<void> _subscribeToAuthStateChanges() async {
+    _authenticationStateSubscription = _authRepository.observeUser().listen((event) {
+      if (event.isAnonymous) {
+        emit(const AuthState.unauthenticated());
+      }
+    });
   }
 
   FutureOr<void> _mapResendCodeToState(
@@ -181,6 +192,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
   Future<void> close() async {
     _verifyStreamSubscription?.cancel();
+    _authenticationStateSubscription?.cancel();
     super.close();
   }
 }
