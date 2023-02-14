@@ -10,7 +10,7 @@ class PillButton extends StatelessWidget {
   final EdgeInsets? margin;
   final double? width;
   final bool isLoading;
-  final bool darkText;
+  final bool lightBackground;
 
   const PillButton({
     super.key,
@@ -21,7 +21,7 @@ class PillButton extends StatelessWidget {
     this.margin,
     this.width,
     this.isLoading = false,
-    this.darkText = false
+    this.lightBackground = false
   });
 
   const PillButton.icon({
@@ -33,7 +33,7 @@ class PillButton extends StatelessWidget {
     this.margin,
     this.width,
     this.isLoading = false,
-    this.darkText = false
+    this.lightBackground = false
   });
 
   @override
@@ -51,19 +51,19 @@ class PillButton extends StatelessWidget {
             ? ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: darkText ? Colors.white : kAccentColor,
+                  backgroundColor: lightBackground ? Colors.white : kAccentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),
                 ),
                 child: CircularProgressIndicator(
-                  color: darkText ? kAccentColor : Colors.white,
+                  color: lightBackground ? kAccentColor : Colors.white,
                 ),
               )
             : ElevatedButton.icon(
                 icon: leading ?? const SizedBox(),
                 label: Text(text, style: TextStyle(
-                  color: darkText ? kAccentColor : Colors.white,
+                  color: lightBackground ? kAccentColor : Colors.white,
                 )),
                 onPressed: isEnabled ? onTap : null,
                 style: ButtonStyle(
@@ -72,7 +72,7 @@ class PillButton extends StatelessWidget {
                       if (states.contains(MaterialState.disabled)) {
                         return kAlmostTransparent;
                       }
-                      return darkText ? Colors.white : kAccentColor;
+                      return lightBackground ? Colors.white : kAccentColor;
                     },
                   ),
                   elevation: MaterialStateProperty.all<double>(0),

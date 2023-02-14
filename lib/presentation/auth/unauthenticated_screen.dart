@@ -15,7 +15,6 @@ class UnauthenticatedPage extends StatefulWidget {
 }
 
 class UnauthenticatedPageState extends State<UnauthenticatedPage> {
-
   @override
   void initState() {
     super.initState();
@@ -26,7 +25,6 @@ class UnauthenticatedPageState extends State<UnauthenticatedPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('in UnauthenticatedPage');
     return Scaffold(
       backgroundColor: kAccentColor,
       body: Stack(
@@ -64,7 +62,7 @@ class UnauthenticatedPageState extends State<UnauthenticatedPage> {
                     color: Colors.white,
                   ),),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 64.0, left: 16, right: 16),
+                    padding: const EdgeInsets.only(bottom: 64.0, left: 16, right: 16, top: 8),
                     child: Text(
                       "We are ready, join us and others in taking action for a better life, by doing good and having fun!",
                       textAlign: TextAlign.center,
@@ -77,13 +75,13 @@ class UnauthenticatedPageState extends State<UnauthenticatedPage> {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 100.0),
+                          padding: const EdgeInsets.only(bottom: 100.0, left: 20, right: 20),
                           child: PillButton(
                             text: 'Log In',
                             isEnabled: true,
                             isLoading: false,
                             onTap: () => context.router.push(const AuthRoute()),
-                            darkText: true,
+                            lightBackground: true,
                           ),
                         ),
                       ),
