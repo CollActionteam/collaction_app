@@ -1,7 +1,7 @@
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 
 /// Dialog to search and select country for phone input
 class CountrySearch extends StatefulWidget {
@@ -40,8 +40,11 @@ class CountrySearchState extends State<CountrySearch> {
             children: [
               Expanded(
                 child: TextField(
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: kAccentColor),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: context.colors.accentColor,
+                    ),
                   ),
                   onChanged: _searchCountry,
                 ),

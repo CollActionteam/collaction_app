@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../core/core.dart';
 import '../../core/collaction_icons.dart';
-import '../../themes/constants.dart';
 import 'title_shimmer_line.dart';
 
 class CommitmentCardShimmer extends StatelessWidget {
@@ -13,8 +13,8 @@ class CommitmentCardShimmer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: kSecondaryColor,
-        border: Border.all(color: kPrimaryColor0),
+        color: context.colors.secondaryColor,
+        border: Border.all(color: context.colors.primaryColor0!),
       ),
       margin: const EdgeInsets.symmetric(vertical: 5.0),
       padding: const EdgeInsets.all(10.0),
@@ -22,17 +22,17 @@ class CommitmentCardShimmer extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(15.0),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: kSecondaryColor,
+              color: context.colors.secondaryColor,
             ),
             alignment: Alignment.center,
             child: Shimmer.fromColors(
-              baseColor: kSecondaryTransparent,
-              highlightColor: kAlmostTransparent,
-              child: const Icon(
+              baseColor: context.colors.secondaryTransparent!,
+              highlightColor: context.colors.almostTransparent!,
+              child: Icon(
                 CollactionIcons.commitment,
-                color: kPrimaryColor0,
+                color: context.colors.primaryColor0,
                 size: 30,
               ),
             ),

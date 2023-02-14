@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../application/participation/participation_bloc.dart';
+import '../../../../core/core.dart';
 import '../../../shared_widgets/commitments/commitment_card.dart';
 import '../../../shared_widgets/pill_button.dart';
-import '../../../themes/constants.dart';
 
 class ConfirmParticipation extends StatelessWidget {
   final CrowdAction crowdAction;
@@ -52,7 +52,7 @@ class ParticipationSuccess extends StatelessWidget {
             height: 5.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: kSecondaryTransparent,
+              color: context.colors.secondaryTransparent,
             ),
           ),
           const SizedBox(
@@ -83,7 +83,7 @@ class ParticipationSuccess extends StatelessWidget {
           Text(
             "You have successfully registered for this CrowdAction",
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: kPrimaryColor400,
+                  color: context.colors.primaryColor400,
                 ),
           ),
           const SizedBox(
@@ -103,7 +103,7 @@ class ParticipationSuccess extends StatelessWidget {
             child: Text(
               "You can change your commitment until the CrowdAction starts",
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: kPrimaryColor200,
+                    color: context.colors.primaryColor200,
                   ),
               textAlign: TextAlign.center,
             ),
@@ -141,7 +141,7 @@ class ParticipationDialog extends StatelessWidget {
             height: 5.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: kSecondaryTransparent,
+              color: context.colors.secondaryTransparent,
             ),
           ),
           const SizedBox(
@@ -170,7 +170,7 @@ class ParticipationDialog extends StatelessWidget {
                     "You’re almost there! You’ve selected the displayed commitment${selectedCommitments.length > 1 ? 's' : ''} to stick to through this CrowdAction. By clicking “Confirm” you will officially commit to this CrowdAction.",
                     overflow: TextOverflow.fade,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: kPrimaryColor400,
+                          color: context.colors.primaryColor400,
                         ),
                   ),
                 ),
@@ -178,10 +178,8 @@ class ParticipationDialog extends StatelessWidget {
                 Text(
                   "Your commitment${selectedCommitments.length > 1 ? 's' : ''}",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: kPrimaryColor300, fontSize: 12),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: context.colors.primaryColor300, fontSize: 12),
                 ),
                 const SizedBox(height: 20),
                 ListView.builder(

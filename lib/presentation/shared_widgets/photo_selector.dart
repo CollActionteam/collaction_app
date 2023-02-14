@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 
 class PhotoSelector extends StatefulWidget {
   final Function(File)? onSelected;
@@ -142,7 +142,7 @@ class PhotoSelectorState extends State<PhotoSelector> {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Profile Photo',
-          toolbarColor: kAccentColor,
+          toolbarColor: context.colors.accentColor,
           toolbarWidgetColor: Colors.white,
           lockAspectRatio: true,
         ),

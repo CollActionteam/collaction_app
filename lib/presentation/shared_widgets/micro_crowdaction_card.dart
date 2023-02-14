@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
-import '../themes/constants.dart';
 import 'accent_chip.dart';
 import 'country_icon.dart';
 import 'micro_lock.dart';
@@ -70,8 +70,8 @@ class MicroCrowdActionCard extends StatelessWidget {
                           AccentChip(
                             text: crowdAction.statusChipLabel,
                             color: crowdAction.isOpen || crowdAction.isWaiting
-                                ? kAccentColor
-                                : kPrimaryColor200,
+                                ? context.colors.accentColor
+                                : context.colors.primaryColor200,
                             leading: Icon(
                               crowdAction.isOpen || crowdAction.isWaiting
                                   ? Icons.check
@@ -111,10 +111,10 @@ class MicroCrowdActionCard extends StatelessWidget {
                           crowdAction.description,
                           softWrap: false,
                           maxLines: 1,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: kInactiveColor,
+                            color: context.colors.inactiveColor,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),

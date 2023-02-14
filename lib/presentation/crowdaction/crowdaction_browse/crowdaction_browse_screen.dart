@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../application/crowdaction/crowdaction_getter/crowdaction_getter_bloc.dart';
+import '../../../core/core.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../../shared_widgets/micro_crowdaction_card.dart';
-import '../../themes/constants.dart';
 
 class CrowdActionBrowsePage extends StatelessWidget {
   CrowdActionBrowsePage({super.key});
@@ -56,7 +56,7 @@ class CrowdActionBrowsePage extends StatelessWidget {
             title: "Browse CrowdActions",
           ),
           body: RefreshIndicator(
-            color: kAccentColor,
+            color: context.colors.accentColor,
             onRefresh: () async {
               pagingController.refresh();
             },
@@ -70,11 +70,15 @@ class CrowdActionBrowsePage extends StatelessWidget {
                       MicroCrowdActionCard(
                     crowdAction,
                   ),
-                  firstPageProgressIndicatorBuilder: (context) => const Center(
-                    child: CircularProgressIndicator(color: kAccentColor),
+                  firstPageProgressIndicatorBuilder: (context) => Center(
+                    child: CircularProgressIndicator(
+                      color: context.colors.accentColor,
+                    ),
                   ),
-                  newPageProgressIndicatorBuilder: (context) => const Center(
-                    child: CircularProgressIndicator(color: kAccentColor),
+                  newPageProgressIndicatorBuilder: (context) => Center(
+                    child: CircularProgressIndicator(
+                      color: context.colors.accentColor,
+                    ),
                   ),
                   firstPageErrorIndicatorBuilder: (context) => const Text(
                     'Something went wrong, try to refresh by dragging down',

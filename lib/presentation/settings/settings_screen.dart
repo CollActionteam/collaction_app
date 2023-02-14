@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/core.dart';
 import '/application/settings/build_information/build_information_bloc.dart';
 import '../../../presentation/utils/launch_url.dart';
 import '../../application/auth/auth_bloc.dart';
@@ -10,7 +11,6 @@ import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
-import '../themes/constants.dart';
 import 'widgets/build_information_tile.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/share_collaction_list_tile.dart';
@@ -93,7 +93,7 @@ class SettingsPage extends StatelessWidget {
                                     SettingsListTile(
                                       title: 'Log out',
                                       icon: CollactionIcons.logout,
-                                      iconColor: kErrorColor,
+                                      iconColor: context.colors.errorColor,
                                       onTap: () async {
                                         BlocProvider.of<AuthBloc>(context)
                                             .add(const AuthEvent.signedOut());

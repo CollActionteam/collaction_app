@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 
 class PillButton extends StatelessWidget {
   final String text;
@@ -12,16 +12,17 @@ class PillButton extends StatelessWidget {
   final bool isLoading;
   final bool lightBackground;
 
-  const PillButton(
-      {super.key,
-      required this.text,
-      this.leading,
-      this.onTap,
-      this.isEnabled = true,
-      this.margin,
-      this.width,
-      this.isLoading = false,
-      this.lightBackground = false});
+  const PillButton({
+    super.key,
+    required this.text,
+    this.leading,
+    this.onTap,
+    this.isEnabled = true,
+    this.margin,
+    this.width,
+    this.isLoading = false,
+    this.lightBackground = false,
+  });
 
   const PillButton.icon(
       {super.key,
@@ -49,14 +50,17 @@ class PillButton extends StatelessWidget {
             ? ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      lightBackground ? Colors.white : kAccentColor,
+                  backgroundColor: lightBackground
+                      ? Colors.white
+                      : context.colors.accentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),
                 ),
                 child: CircularProgressIndicator(
-                  color: lightBackground ? kAccentColor : Colors.white,
+                  color: lightBackground
+                      ? context.colors.accentColor
+                      : Colors.white,
                 ),
               )
             : ElevatedButton.icon(
@@ -66,7 +70,9 @@ class PillButton extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
-                    color: lightBackground ? kAccentColor : Colors.white,
+                    color: lightBackground
+                        ? context.colors.accentColor
+                        : Colors.white,
                   ),
                 ),
                 onPressed: isEnabled ? onTap : null,
@@ -74,9 +80,11 @@ class PillButton extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                     (states) {
                       if (states.contains(MaterialState.disabled)) {
-                        return kAlmostTransparent;
+                        return context.colors.almostTransparent;
                       }
-                      return lightBackground ? Colors.white : kAccentColor;
+                      return lightBackground
+                          ? Colors.white
+                          : context.colors.accentColor;
                     },
                   ),
                   elevation: MaterialStateProperty.all<double>(0),

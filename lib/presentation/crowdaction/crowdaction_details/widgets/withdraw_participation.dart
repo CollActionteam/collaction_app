@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../application/participation/participation_bloc.dart';
+import '../../../../core/core.dart';
 import '../../../shared_widgets/pill_button.dart';
-import '../../../themes/constants.dart';
 
 class WithdrawParticipation extends StatelessWidget {
   final ParticipationBloc participationBloc;
@@ -31,7 +31,7 @@ class WithdrawParticipation extends StatelessWidget {
                 style: Theme.of(context).textTheme.displaySmall!.copyWith(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: kSuccessColor,
+                      color: context.colors.successColor,
                     ),
               ),
             ),
@@ -67,7 +67,7 @@ class WithdrawParticipation extends StatelessWidget {
                         height: 5.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: kSecondaryTransparent,
+                          color: context.colors.secondaryTransparent,
                         ),
                       ),
                       const SizedBox(
@@ -122,7 +122,7 @@ class WithdrawParticipation extends StatelessWidget {
                         height: 5.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: kSecondaryTransparent,
+                          color: context.colors.secondaryTransparent,
                         ),
                       ),
                       const SizedBox(
@@ -142,7 +142,7 @@ class WithdrawParticipation extends StatelessWidget {
                       Text(
                         "You are about to cancel your participation. You are free to sign up for this CrowdAction again any time before it starts.",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: kPrimaryColor400,
+                              color: context.colors.primaryColor400,
                             ),
                       ),
                       const SizedBox(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
 import '../themes/constants.dart';
 
 class SecondaryChip extends StatelessWidget {
@@ -17,8 +18,10 @@ class SecondaryChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Chip(
       avatar: leading,
-      backgroundColor: kSecondaryColor,
-      shape: const StadiumBorder(side: BorderSide(color: kAlmostTransparent)),
+      backgroundColor: context.colors.secondaryColor,
+      shape: StadiumBorder(
+        side: BorderSide(color: context.colors.almostTransparent!),
+      ),
       label: Text(
         text,
         style: Theme.of(context).textTheme.bodySmall,

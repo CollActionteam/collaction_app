@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
 import '../core/collaction_icons.dart';
-import '../themes/constants.dart';
 
 class MicroLock extends StatelessWidget {
   const MicroLock({super.key});
@@ -13,11 +13,11 @@ class MicroLock extends StatelessWidget {
       height: 32,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: kPrimaryColor0),
+        border: Border.all(color: context.colors.primaryColor0!),
       ),
-      child: const Icon(
+      child: Icon(
         CollactionIcons.lock,
-        color: kPrimaryColor300,
+        color: context.colors.primaryColor300,
         size: 15.0,
       ),
     );

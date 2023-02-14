@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../presentation/themes/constants.dart';
+import '../../core/core.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 
@@ -17,17 +17,20 @@ class HomePage extends StatelessWidget {
           DemoScreenRouter(),
         ],
       ],
-      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
+      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(
+        tabsRouter,
+        context,
+      ),
     );
   }
 
-  Widget bottomNavbar(TabsRouter tabsRouter) {
+  Widget bottomNavbar(TabsRouter tabsRouter, BuildContext context) {
     return BottomNavigationBar(
       backgroundColor: Colors.white,
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      selectedItemColor: kEnabledButtonColor,
-      unselectedItemColor: kDisabledButtonColor,
+      selectedItemColor: context.colors.enabledButtonColor,
+      unselectedItemColor: context.colors.disabledButtonColor,
       type: BottomNavigationBarType.fixed,
       elevation: 0,
       items: const [

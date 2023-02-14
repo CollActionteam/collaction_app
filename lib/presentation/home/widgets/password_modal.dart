@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
 import '../../../domain/core/i_settings_repository.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/core/collaction_icons.dart';
 import '../../../presentation/routes/app_routes.gr.dart';
-import '../../../presentation/themes/constants.dart';
 
 class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
@@ -61,8 +61,8 @@ class _PasswordModalState extends State<PasswordModal> {
       constraints: const BoxConstraints(minWidth: 380),
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: kSecondaryColor,
+      decoration: BoxDecoration(
+        color: context.colors.secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       child: Column(
@@ -74,7 +74,7 @@ class _PasswordModalState extends State<PasswordModal> {
               Text(
                 'Enter password',
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      color: kPrimaryColor400,
+                      color: context.colors.primaryColor400,
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
                     ),
@@ -83,7 +83,7 @@ class _PasswordModalState extends State<PasswordModal> {
               Text(
                 'This crowdaction is private. Please enter the password to see it.',
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      color: kPrimaryColor300,
+                      color: context.colors.primaryColor300,
                       fontSize: 12,
                     ),
                 textAlign: TextAlign.center,
@@ -121,13 +121,13 @@ class _PasswordModalState extends State<PasswordModal> {
               ),
               suffixIcon: IconButton(
                 icon: _showInput
-                    ? const Icon(
+                    ? Icon(
                         CollactionIcons.eye,
-                        color: kPrimaryColor300,
+                        color: context.colors.primaryColor300,
                       )
-                    : const Icon(
+                    : Icon(
                         CollactionIcons.eye_off,
-                        color: kPrimaryColor300,
+                        color: context.colors.primaryColor300,
                       ),
                 onPressed: () {
                   setState(() {
@@ -137,11 +137,12 @@ class _PasswordModalState extends State<PasswordModal> {
                 splashRadius: 2,
               ),
             ),
-            cursorColor: kAccentColor,
+            cursorColor: context.colors.accentColor,
           ),
           CircleAvatar(
-            backgroundColor:
-                _disableButton ? kDisabledButtonColor : kAccentColor,
+            backgroundColor: _disableButton
+                ? context.colors.disabledButtonColor
+                : context.colors.accentColor,
             minRadius: 30,
             child: IconButton(
               onPressed: !_disableButton ? () => _validatePassword() : null,

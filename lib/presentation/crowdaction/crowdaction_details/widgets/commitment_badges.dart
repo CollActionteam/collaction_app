@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/core.dart';
 import '../../../core/collaction_icons.dart';
-import '../../../themes/constants.dart';
 
 class CommitmentBadges extends StatelessWidget {
   static const String _heroBadgesTag = 'display-badges';
@@ -12,7 +12,7 @@ class CommitmentBadges extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      color: kAlmostTransparent,
+      color: context.colors.almostTransparent,
       child: Column(
         children: [
           Container(
@@ -21,12 +21,13 @@ class CommitmentBadges extends StatelessWidget {
               tag: _heroBadgesTag,
               child: Center(
                 child: Material(
-                  color: kAlmostTransparent,
+                  color: context.colors.almostTransparent,
                   borderRadius: BorderRadius.circular(20),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         HeroBadgesDialogRoute(
+                          context: context,
                           builder: (context) {
                             return _BadgesPopupCard(key: key);
                           },
@@ -37,8 +38,8 @@ class CommitmentBadges extends StatelessWidget {
                       margin: const EdgeInsets.all(8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'My badge',
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
@@ -48,7 +49,7 @@ class CommitmentBadges extends StatelessWidget {
                           SizedBox(width: 10),
                           Icon(
                             CollactionIcons.question,
-                            color: kAccentColor,
+                            color: context.colors.accentColor,
                           ),
                         ],
                       ),
@@ -59,11 +60,11 @@ class CommitmentBadges extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
+          Text(
             'The commitments you’ve chosen will give you the following badge',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: kPrimaryColor300,
+              color: context.colors.primaryColor300,
             ),
           ),
           const SizedBox(height: 30),
@@ -74,10 +75,10 @@ class CommitmentBadges extends StatelessWidget {
                 height: 100,
               ),
               const SizedBox(height: 5),
-              const Text(
+              Text(
                 'Jan, 2021',
                 style: TextStyle(
-                  color: kPrimaryColor300,
+                  color: context.colors.primaryColor300,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -91,10 +92,10 @@ class CommitmentBadges extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 5),
-              const Text(
+              Text(
                 'Gold',
                 style: TextStyle(
-                  color: kPrimaryColor300,
+                  color: context.colors.primaryColor300,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -120,7 +121,7 @@ class _BadgesPopupCard extends StatelessWidget {
       child: Hero(
         tag: _heroTag,
         child: Material(
-          color: kAlmostTransparent,
+          color: context.colors.almostTransparent,
           borderRadius: BorderRadius.circular(10),
           elevation: 4.0,
           child: Padding(
@@ -154,7 +155,7 @@ class _BadgesPopupCard extends StatelessWidget {
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
-                                    color: kPrimaryColor300,
+                                    color: context.colors.primaryColor300,
                                   ),
                           textAlign: TextAlign.center,
                         ),
@@ -179,7 +180,7 @@ class _BadgesPopupCard extends StatelessWidget {
                                       .copyWith(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
-                                        color: kPrimaryColor300,
+                                        color: context.colors.primaryColor300,
                                       ),
                                 ),
                               ],
@@ -213,7 +214,7 @@ class _BadgesPopupCard extends StatelessWidget {
                                       .copyWith(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
-                                        color: kPrimaryColor300,
+                                        color: context.colors.primaryColor300,
                                       ),
                                 ),
                               ],
@@ -246,7 +247,7 @@ class _BadgesPopupCard extends StatelessWidget {
                                       .copyWith(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
-                                        color: kPrimaryColor300,
+                                        color: context.colors.primaryColor300,
                                       ),
                                 ),
                               ],
@@ -260,7 +261,7 @@ class _BadgesPopupCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: CircleAvatar(
-                    backgroundColor: kSecondaryColor,
+                    backgroundColor: context.colors.secondaryColor,
                     child: IconButton(
                       onPressed: () => Navigator.of(context).pop(),
                       icon: const Icon(CollactionIcons.cross),
@@ -278,13 +279,15 @@ class _BadgesPopupCard extends StatelessWidget {
 }
 
 class HeroBadgesDialogRoute<T> extends PageRoute<T> {
-  HeroBadgesDialogRoute({
+  HeroBadgesDialogRoute( {
     required WidgetBuilder builder,
+    required this.context,
     super.settings,
     super.fullscreenDialog = true,
   }) : _builder = builder;
 
   final WidgetBuilder _builder;
+  final BuildContext context;
 
   @override
   bool get opaque => false;
@@ -299,7 +302,7 @@ class HeroBadgesDialogRoute<T> extends PageRoute<T> {
   bool get maintainState => true;
 
   @override
-  Color get barrierColor => kPrimaryColor.withOpacity(0.25);
+  Color get barrierColor => context.colors.primaryColor!.withOpacity(0.25);
 
   @override
   Widget buildTransitions(

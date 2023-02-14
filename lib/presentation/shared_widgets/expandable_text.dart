@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
 import '../themes/constants.dart';
 
 /// Text widget to show read more and read less
@@ -9,7 +10,7 @@ class ExpandableText extends StatefulWidget {
     this.text, {
     super.key,
     this.trimLines = 3,
-    this.clickableTextColor = kAccentColor,
+    this.clickableTextColor,
     this.readMoreText = "more",
     this.readLessText = "less",
     this.style = const TextStyle(color: Colors.black),
@@ -22,7 +23,7 @@ class ExpandableText extends StatefulWidget {
   final int trimLines;
 
   /// Read More & Read Less text color
-  final Color clickableTextColor;
+  final Color? clickableTextColor;
 
   /// Read More text
   final String readMoreText;
@@ -91,8 +92,9 @@ class ExpandableTextState extends State<ExpandableText>
             TextSpan(
               text: readMore ? widget.readMoreText : widget.readLessText,
               style: TextStyle(
-                color: widget.clickableTextColor,
-                decorationColor: widget.clickableTextColor,
+                color: widget.clickableTextColor ?? context.colors.accentColor,
+                decorationColor:
+                    widget.clickableTextColor ?? context.colors.accentColor,
                 decorationStyle: TextDecorationStyle.solid,
               ),
               recognizer: TapGestureRecognizer()..onTap = onTapLink,

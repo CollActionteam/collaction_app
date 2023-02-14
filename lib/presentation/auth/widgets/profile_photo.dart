@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_bloc.dart';
 import '../../../application/user/avatar/avatar_bloc.dart';
+import '../../../core/core.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/photo_selector.dart';
 import '../../shared_widgets/pill_button.dart';
-import '../../themes/constants.dart';
 
 class SelectProfilePhoto extends StatefulWidget {
   final Function() onSkip;
@@ -83,7 +83,7 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
                               });
                             },
                           ),
-                          backgroundColor: kAccentColor,
+                          backgroundColor: context.colors.accentColor,
                           mini: true,
                           child: const Icon(Icons.add),
                         ),
@@ -108,12 +108,12 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
                   ),
                   const SizedBox(height: 10.0),
                   Row(
-                    children: const [
+                    children: [
                       Expanded(
                         child: Text(
                           'We love to see happy faces',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: kInactiveColor),
+                          style: TextStyle(color: context.colors.inactiveColor),
                         ),
                       ),
                     ],
@@ -146,10 +146,10 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
                       Expanded(
                         child: TextButton(
                           onPressed: () => widget.onSkip.call(),
-                          child: const Text(
+                          child: Text(
                             'Maybe later',
                             style: TextStyle(
-                              color: kAccentColor,
+                              color: context.colors.accentColor,
                               fontWeight: FontWeight.w700,
                               fontSize: 14.0,
                             ),

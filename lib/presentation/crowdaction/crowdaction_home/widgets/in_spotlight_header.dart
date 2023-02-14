@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../application/crowdaction/spotlight/spotlight_bloc.dart';
+import '../../../../core/core.dart';
 import '../../../shared_widgets/content_placeholder.dart';
-import '../../../themes/constants.dart';
 import 'spotlight_crowdactions/spotlight_crowdactions.dart';
 
 class InSpotLightHeader extends StatefulWidget {
@@ -39,7 +39,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                     sectionHeadingText(),
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: kPrimaryColor400,
+                          color: context.colors.primaryColor400,
                         ),
                   ),
                 ),

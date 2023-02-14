@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 
 class RectangleButton extends StatelessWidget {
   final String text;
@@ -21,14 +21,16 @@ class RectangleButton extends StatelessWidget {
       onPressed: enabled ? onTap : null,
       style: ButtonStyle(
         overlayColor: MaterialStateProperty.all<Color?>(
-          kSecondaryColor.withOpacity(0.1),
+          context.colors.secondaryColor?.withOpacity(0.1),
         ),
         padding: MaterialStateProperty.all<EdgeInsets?>(
           const EdgeInsets.symmetric(vertical: 16.0),
         ),
         backgroundColor: enabled
-            ? MaterialStateProperty.all<Color?>(kEnabledButtonColor)
-            : MaterialStateProperty.all<Color?>(kDisabledButtonColor),
+            ? MaterialStateProperty.all<Color?>(
+                context.colors.enabledButtonColor)
+            : MaterialStateProperty.all<Color?>(
+                context.colors.disabledButtonColor),
         shape: MaterialStateProperty.all<OutlinedBorder?>(
           const RoundedRectangleBorder(),
         ),
@@ -42,8 +44,8 @@ class RectangleButton extends StatelessWidget {
           ],
           Text(
             text,
-            style: const TextStyle(
-              color: kSecondaryColor,
+            style: TextStyle(
+              color: context.colors.secondaryColor,
               fontWeight: FontWeight.w700,
             ),
           ),

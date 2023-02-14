@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
 import '../../../presentation/utils/launch_url.dart';
-import '../../themes/constants.dart';
 
 class LegalNotice extends StatelessWidget {
   const LegalNotice({
@@ -11,12 +11,12 @@ class LegalNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(color: kPrimaryColor300);
+    final textStyle = TextStyle(color: context.colors.primaryColor300);
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
         children: [
-          const TextSpan(
+          TextSpan(
             text: "By clicking the button, you agree to CollAction’s ",
             style: textStyle,
           ),
@@ -30,7 +30,7 @@ class LegalNotice extends StatelessWidget {
                     context: context,
                   ),
           ),
-          const TextSpan(
+          TextSpan(
             style: textStyle,
             text: " and ",
           ),
@@ -44,7 +44,7 @@ class LegalNotice extends StatelessWidget {
                     context: context,
                   ),
           ),
-          const TextSpan(
+          TextSpan(
             style: textStyle,
             text: ".",
           ),

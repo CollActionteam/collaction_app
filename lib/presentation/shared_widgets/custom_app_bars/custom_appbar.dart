@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
 import '../../core/collaction_icons.dart';
-import '../../themes/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -30,9 +30,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(20),
                   onTap: () => context.router.pop(),
-                  child: const Icon(
+                  child: Icon(
                     CollactionIcons.left,
-                    color: kPrimaryColor400,
+                    color: context.colors.primaryColor400,
                   ),
                 ),
               ),
@@ -45,7 +45,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: ElevatedButton(
               onPressed: () => context.router.pop(),
               style: ElevatedButton.styleFrom(
-                foregroundColor: kPrimaryColor0,
+                foregroundColor: context.colors.primaryColor0,
                 backgroundColor: Colors.white,
                 shape: const CircleBorder(),
                 tapTargetSize: MaterialTapTargetSize.padded,
@@ -61,16 +61,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
               ),
-              child: const Icon(
+              child: Icon(
                 CollactionIcons.cross,
-                color: kPrimaryColor300,
+                color: context.colors.primaryColor300,
               ),
             ),
           ),
       ],
       title: Text(
         title,
-        style: const TextStyle(color: kPrimaryColor),
+        style: TextStyle(color: context.colors.primaryColor),
       ),
     );
   }

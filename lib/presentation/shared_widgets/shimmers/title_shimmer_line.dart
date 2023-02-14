@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../themes/constants.dart';
+import '../../../core/core.dart';
 
 class TitleShimmerLine extends StatelessWidget {
   final double width;
@@ -17,7 +17,7 @@ class TitleShimmerLine extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: kSecondaryTransparent,
+        color: context.colors.secondaryTransparent,
         borderRadius: BorderRadius.circular(10),
       ),
     );

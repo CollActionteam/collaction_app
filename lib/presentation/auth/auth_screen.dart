@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
+import '../../core/core.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
-import '../themes/constants.dart';
 import '../utils/context.ext.dart';
 import 'widgets/enter_username.dart';
 import 'widgets/profile_photo.dart';
@@ -99,8 +99,8 @@ class AuthPageState extends State<AuthPage> {
                     DotsIndicator(
                       position: _currentPage % 3,
                       dotsCount: 3,
-                      decorator: const DotsDecorator(
-                        activeColor: kAccentColor,
+                      decorator: DotsDecorator(
+                        activeColor: context.colors.accentColor,
                         color: Color(0xFFCCCCCC),
                         size: Size(12.0, 12.0),
                         activeSize: Size(12.0, 12.0),

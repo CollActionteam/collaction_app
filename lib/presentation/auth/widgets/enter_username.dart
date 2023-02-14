@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/username/username_bloc.dart';
+import '../../../core/core.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
@@ -67,12 +68,12 @@ class EnterUserNameState extends State<EnterUserName> {
                 ),
                 const SizedBox(height: 10.0),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text(
                         'Enter your first name or use a recognizable name that others can identify you by',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: kInactiveColor),
+                        style: TextStyle(color: context.colors.inactiveColor),
                       ),
                     ),
                   ],
@@ -93,7 +94,7 @@ class EnterUserNameState extends State<EnterUserName> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Your First Name',
-                          focusColor: kAccentColor,
+                          focusColor: context.colors.accentColor,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
                             borderSide: const BorderSide(
@@ -131,7 +132,7 @@ class EnterUserNameState extends State<EnterUserName> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Your Last Name',
-                          focusColor: kAccentColor,
+                          focusColor: context.colors.accentColor,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
                             borderSide: const BorderSide(

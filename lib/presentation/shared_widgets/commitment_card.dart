@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
 import '../../domain/commitment/commitment.dart';
-import '../../presentation/themes/constants.dart';
 import '../core/collaction_icons.dart';
 import '../core/ionicons_utils.dart';
 
@@ -91,7 +91,9 @@ class _CommitmentCardState extends State<_CommitmentCard> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
-          color: active ? kSecondaryTransparent : kAlmostTransparent,
+          color: active
+              ? context.colors.secondaryTransparent
+              : context.colors.almostTransparent,
         ),
         margin: const EdgeInsets.symmetric(
           vertical: 5.0,
@@ -102,20 +104,20 @@ class _CommitmentCardState extends State<_CommitmentCard> {
           children: [
             Container(
               padding: const EdgeInsets.all(15.0),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: kAlmostTransparent,
+                color: context.colors.almostTransparent,
               ),
               alignment: Alignment.center,
               child: widget.commitment.icon != null
                   ? Icon(
                       IconUtil.fromString(widget.commitment.icon!),
-                      color: kAccentColor,
+                      color: context.colors.accentColor,
                       size: 30,
                     )
-                  : const Icon(
+                  : Icon(
                       CollactionIcons.collaction,
-                      color: kAccentColor,
+                      color: context.colors.accentColor,
                       size: 30,
                     ),
             ),
@@ -153,10 +155,14 @@ class _CommitmentCardState extends State<_CommitmentCard> {
                 minWidth: 40,
               ),
               decoration: BoxDecoration(
-                color: active ? kPrimaryColor400 : Colors.transparent,
+                color: active
+                    ? context.colors.primaryColor400
+                    : Colors.transparent,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: active ? kPrimaryColor400 : kPrimaryColor200,
+                  color: active
+                      ? context.colors.primaryColor400!
+                      : context.colors.primaryColor200!,
                   width: 3,
                 ),
               ),

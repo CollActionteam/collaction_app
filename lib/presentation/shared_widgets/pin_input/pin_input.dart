@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../themes/constants.dart';
+import '../../../core/core.dart';
 
 class PinInput extends StatefulWidget {
   final int pinLength;
@@ -48,7 +48,7 @@ class PinInputState extends State<PinInput> {
               FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             ],
             style: const TextStyle(fontSize: 28, letterSpacing: 4),
-            cursorColor: kAccentColor,
+            cursorColor: context.colors.accentColor,
             decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
@@ -60,11 +60,11 @@ class PinInputState extends State<PinInput> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
-                borderSide: const BorderSide(color: kAccentColor),
+                borderSide: BorderSide(color: context.colors.accentColor!),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
-                borderSide: const BorderSide(color: kAccentColor),
+                borderSide: BorderSide(color: context.colors.accentColor!),
               ),
             ),
             onChanged: (value) {

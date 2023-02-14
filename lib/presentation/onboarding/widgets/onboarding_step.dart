@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
 import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 
@@ -32,7 +33,7 @@ class OnboardingStep extends StatelessWidget {
         Expanded(
           child: Icon(
             icon,
-            color: kAccentColor,
+            color: context.colors.accentColor,
             size: icon == CollactionIcons.goal ? 40 : 180 * scaleFactor,
           ),
         ),
@@ -44,7 +45,7 @@ class OnboardingStep extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 34.0 * scaleFactor,
-            color: kPrimaryColor400,
+            color: context.colors.primaryColor400,
           ),
         ),
         SizedBox(height: 25.0 * scaleFactor),
@@ -56,7 +57,7 @@ class OnboardingStep extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w300,
               fontSize: 16.0 * scaleFactor,
-              color: kPrimaryColor300,
+              color: context.colors.primaryColor300,
             ),
           ),
         ),
