@@ -1,18 +1,17 @@
-
 import 'package:flutter/material.dart';
 
 import '../../themes/constants.dart';
 
 class LegalInfoAndPoliciesWidget extends StatefulWidget {
-  final onTap;
+  final Function onTap;
   final IconData iconWidget;
   final String label;
 
   const LegalInfoAndPoliciesWidget(
       {Key? key,
-        required this.onTap,
-        required this.iconWidget,
-        required this.label})
+      required this.onTap,
+      required this.iconWidget,
+      required this.label})
       : super(key: key);
 
   @override
@@ -27,9 +26,7 @@ class _LegalInfoAndPoliciesWidgetState
     return Padding(
       padding: const EdgeInsets.only(left: 20, bottom: 27.6),
       child: InkWell(
-        onTap:(){
-          widget.onTap();
-        },
+        onTap: () => widget.onTap(),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
