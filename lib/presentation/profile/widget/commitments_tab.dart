@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/user/user.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/commitments/commitment_card.dart';
-import '../../themes/constants.dart';
 import 'signup_cta.dart';
 
 class CommitmentsTab extends StatelessWidget {
@@ -33,12 +33,12 @@ class CommitmentsTab extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10) +
                     const EdgeInsets.only(top: 20),
-                child: const Text(
+                child: Text(
                   'My commitments',
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 28.0,
-                    color: kPrimaryColor400,
+                    color: context.colors.primaryColor400,
                   ),
                 ),
               ),

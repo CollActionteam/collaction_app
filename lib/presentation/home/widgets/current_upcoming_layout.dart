@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
+import '../../../core/core.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/content_placeholder.dart';
 import '../../shared_widgets/micro_crowdaction_card.dart';
 import '../../shared_widgets/micro_crowdaction_card_loading.dart';
-import '../../themes/constants.dart';
 
 class CurrentAndUpcomingLayout extends StatefulWidget {
   final bool isCurrent;
@@ -50,19 +50,19 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                               .headlineSmall
                               ?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: kPrimaryColor400,
+                                color: context.colors.primaryColor400,
                               ),
                         ),
                         TextButton(
                           onPressed: () =>
                               context.router.push(CrowdActionBrowseRoute()),
-                          child: const Text(
+                          child: Text(
                             'View all',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 15.0,
-                              color: kAccentColor,
+                              color: context.colors.accentColor,
                             ),
                           ),
                         ),

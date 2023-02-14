@@ -5,11 +5,11 @@ import 'package:rive/rive.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../application/user/profile/profile_bloc.dart';
+import '../../../core/core.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../shared_widgets/shimmers/title_shimmer_line.dart';
-import '../../themes/constants.dart';
 
 class VerifiedPage extends StatelessWidget {
   const VerifiedPage({super.key});
@@ -87,10 +87,10 @@ class VerifiedPage extends StatelessWidget {
                     TextButton(
                       onPressed: () =>
                           context.router.replaceAll([const HomeRoute()]),
-                      child: const Text(
+                      child: Text(
                         'Show me all CrowdActions',
                         style: TextStyle(
-                          color: kAccentColor,
+                          color: context.colors.accentColor,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.0,
                         ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../themes/constants.dart';
+import '../../../../core/core.dart';
 import 'share_collaction_button.dart';
 
 class ShareCollActionCard extends StatelessWidget {
@@ -14,9 +14,9 @@ class ShareCollActionCard extends StatelessWidget {
       margin: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: kShadowColor,
+            color: context.colors.shadowColor!,
             blurRadius: 4.0,
             offset: Offset(0, 4),
           ),
@@ -25,7 +25,7 @@ class ShareCollActionCard extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: kPrimaryColor400,
+          color: context.colors.primaryColor400,
         ),
         child: Column(
           children: [
@@ -37,7 +37,7 @@ class ShareCollActionCard extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: kSecondaryColor,
+                    color: context.colors.secondaryColor,
                   ),
             ),
             const SizedBox(
@@ -51,7 +51,7 @@ class ShareCollActionCard extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
-                    ?.copyWith(color: kSecondaryColor),
+                    ?.copyWith(color: context.colors.secondaryColor),
               ),
             ),
             const SizedBox(

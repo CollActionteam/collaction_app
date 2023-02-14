@@ -8,7 +8,6 @@ import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../core/collaction_icons.dart';
 import '../../../shared_widgets/custom_fab.dart';
 import '../../../shared_widgets/image_skeleton_loader.dart';
-import '../../../themes/constants.dart';
 
 class CrowdActionDetailsBanner extends StatelessWidget {
   const CrowdActionDetailsBanner({
@@ -39,9 +38,9 @@ class CrowdActionDetailsBanner extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
                 onTap: () => context.router.pop(),
-                child: const Icon(
+                child: Icon(
                   CollactionIcons.left,
-                  color: kPrimaryColor400,
+                  color: context.colors.primaryColor400,
                 ),
               ),
             ),
@@ -74,16 +73,16 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                     ),
             ),
             if (crowdAction?.hasPassword ?? false) ...[
-              const Positioned(
+              Positioned(
                 bottom: 10,
                 right: 10,
                 child: CustomFAB(
                   heroTag: 'locked',
                   isMini: true,
-                  color: kSecondaryColor,
+                  color: context.colors.secondaryColor,
                   child: Icon(
                     CollactionIcons.lock,
-                    color: kPrimaryColor300,
+                    color: context.colors.primaryColor300,
                   ),
                 ),
               ),

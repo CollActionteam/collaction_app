@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../themes/constants.dart';
+import '../../../core/core.dart';
 
 class PinTextField extends StatelessWidget {
   final bool readOnly;
@@ -46,11 +46,11 @@ class PinTextField extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
-                borderSide: const BorderSide(color: kAccentColor),
+                borderSide: BorderSide(color: context.colors.accentColor!),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
-                borderSide: const BorderSide(color: kAccentColor),
+                borderSide: BorderSide(color: context.colors.accentColor!),
               ),
             ),
             focusNode: focusNode,

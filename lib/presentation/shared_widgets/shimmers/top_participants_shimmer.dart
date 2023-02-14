@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../themes/constants.dart';
+import '../../../core/core.dart';
 
 class TopParticipantsShimmer extends StatelessWidget {
   const TopParticipantsShimmer();
@@ -17,7 +17,7 @@ class TopParticipantsShimmer extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: kSecondaryTransparent,
+                color: context.colors.secondaryTransparent,
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -28,7 +28,7 @@ class TopParticipantsShimmer extends StatelessWidget {
               height: 40,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
-                color: kSecondaryTransparent,
+                color: context.colors.secondaryTransparent,
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -39,7 +39,7 @@ class TopParticipantsShimmer extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: kSecondaryTransparent,
+                color: context.colors.secondaryTransparent,
                 borderRadius: BorderRadius.circular(20),
               ),
             ),

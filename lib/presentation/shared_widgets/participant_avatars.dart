@@ -7,9 +7,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/participation/top_participants/top_participants_bloc.dart';
+import '../../core/core.dart';
 import '../../domain/participation/participation.dart';
 import '../../infrastructure/core/injection.dart';
-import '../themes/constants.dart';
 import 'shimmers/top_participants_shimmer.dart';
 
 class TopParticipantAvatars extends StatelessWidget {
@@ -34,8 +34,8 @@ class TopParticipantAvatars extends StatelessWidget {
           return state.map(
             initial: (_) => const SizedBox.shrink(),
             fetching: (_) => Shimmer.fromColors(
-              baseColor: kPrimaryColor100,
-              highlightColor: kPrimaryColor200,
+              baseColor: context.colors.primaryColor100!,
+              highlightColor: context.colors.primaryColor200!,
               child: const TopParticipantsShimmer(),
             ),
             fetched: (state) => SizedBox(

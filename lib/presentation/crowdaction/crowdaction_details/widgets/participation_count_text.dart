@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
+import '../../../../core/core.dart';
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../infrastructure/core/injection.dart';
-import '../../../../presentation/themes/constants.dart';
 import '../../../shared_widgets/shimmers/title_shimmer_line.dart';
 
 class ParticipationCountText extends StatelessWidget {
@@ -83,7 +83,7 @@ class ParticipationCountText extends StatelessWidget {
         "${!isEnded ? 'Join ' : ''}$participantCount ${participantCount > 1 ? 'people' : 'person'} ${!isEnded ? 'participating' : 'participated'}",
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 14,
-              color: kPrimaryColor300,
+              color: context.colors.primaryColor300,
               height: 1.2,
             ),
       );

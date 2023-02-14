@@ -27,7 +27,7 @@ class CommentItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.fromLTRB(16, 12, 14, 14),
           decoration: BoxDecoration(
-            color: kPrimaryColor0,
+            color: context.colors.primaryColor0,
             borderRadius: BorderRadius.circular(20),
           ),
           child: ExpandableText(

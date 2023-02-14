@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/user/profile_tab/profile_tab_bloc.dart';
+import '../../../core/core.dart';
 import '../../../domain/user/user.dart';
-import '../../themes/constants.dart';
 import 'badges_tab.dart';
 import 'commitments_tab.dart';
 import 'crowdactions_tab.dart';
@@ -46,7 +46,7 @@ class _UserProfileTabState extends State<UserProfileTab>
                   margin: const EdgeInsets.only(bottom: 5.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
-                    color: kAlmostTransparent,
+                    color: context.colors.almostTransparent,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.2),
@@ -93,7 +93,7 @@ class _UserProfileTabState extends State<UserProfileTab>
                     ],
                     unselectedLabelColor: const Color(0xffacb3bf),
                     indicatorColor: Colors.transparent,
-                    labelColor: kAccentColor,
+                    labelColor: context.colors.accentColor,
                     controller: _tabController,
                   ),
                 ),

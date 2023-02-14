@@ -2,7 +2,7 @@ import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_number/phone_number.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 import 'country_search_dialog.dart';
 
 /// Phone input with country search and selection
@@ -160,10 +160,10 @@ class PhoneInputState extends State<PhoneInput> {
                           : 'Your phone number is not valid'),
                   style: TextStyle(
                     color: validatedNumber
-                        ? kInactiveColor
+                        ? context.colors.inactiveColor
                         : widget.phoneNumberController.value.text.isEmpty
-                            ? kInactiveColor
-                            : kErrorColor,
+                            ? context.colors.inactiveColor
+                            : context.colors.errorColor,
                   ),
                 ),
               ),

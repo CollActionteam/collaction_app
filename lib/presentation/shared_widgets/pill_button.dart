@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
 import '../themes/constants.dart';
 
 class PillButton extends StatelessWidget {
@@ -48,7 +49,7 @@ class PillButton extends StatelessWidget {
             ? ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: kAccentColor,
+                  backgroundColor: context.colors.accentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),
@@ -65,9 +66,9 @@ class PillButton extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                     (states) {
                       if (states.contains(MaterialState.disabled)) {
-                        return kAlmostTransparent;
+                        return context.colors.almostTransparent;
                       }
-                      return kAccentColor;
+                      return context.colors.accentColor;
                     },
                   ),
                   elevation: MaterialStateProperty.all<double>(0),

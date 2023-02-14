@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../application/crowdaction/crowdaction_participants/crowdaction_participants_bloc.dart';
+import '../../../core/core.dart';
 import '../../../domain/participation/participation.dart';
 import '../../../infrastructure/core/injection.dart';
-import '../../themes/constants.dart';
 
 class CrowdActionParticipantsPage extends StatelessWidget {
   final String crowdActionId;
@@ -63,22 +63,22 @@ class CrowdActionParticipantsPage extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.transparent,
             leading: IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.chevron_left,
-                color: kPrimaryColor200,
+                color: context.colors.primaryColor200,
               ),
               onPressed: () => context.router.pop(),
             ),
-            title: const Text(
+            title: Text(
               "Participants",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: kPrimaryColor400,
+                color: context.colors.primaryColor400,
               ),
             ),
           ),
           body: RefreshIndicator(
-            color: kAccentColor,
+            color: context.colors.accentColor,
             onRefresh: () async {
               pagingController.refresh();
             },
@@ -106,11 +106,15 @@ class CrowdActionParticipantsPage extends StatelessWidget {
                         ?.copyWith(fontSize: 17, fontWeight: FontWeight.w300),
                   ),
                 ),
-                firstPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(color: kAccentColor),
+                firstPageProgressIndicatorBuilder: (context) => Center(
+                  child: CircularProgressIndicator(
+                    color: context.colors.accentColor,
+                  ),
                 ),
-                newPageProgressIndicatorBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(color: kAccentColor),
+                newPageProgressIndicatorBuilder: (context) => Center(
+                  child: CircularProgressIndicator(
+                    color: context.colors.accentColor,
+                  ),
                 ),
                 firstPageErrorIndicatorBuilder: (context) => const Text(
                   'Something went wrong, try to refresh by dragging down',

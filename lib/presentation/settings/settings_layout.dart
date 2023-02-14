@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 
 class SettingsLayout extends StatelessWidget {
   const SettingsLayout({super.key});
@@ -11,15 +11,15 @@ class SettingsLayout extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: kSecondaryColor,
+        backgroundColor: context.colors.secondaryColor,
         leading: RawMaterialButton(
           elevation: 5,
           onPressed: () => context.router.pop(),
-          child: const CircleAvatar(
-            backgroundColor: kSecondaryColor,
+          child: CircleAvatar(
+            backgroundColor: context.colors.secondaryColor,
             child: Icon(
               Icons.arrow_back_ios_new_outlined,
-              color: kPrimaryColor300,
+              color: context.colors.primaryColor300,
             ),
           ),
         ),
@@ -27,15 +27,16 @@ class SettingsLayout extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
-              backgroundColor: MaterialStateProperty.all(kSecondaryColor),
+              backgroundColor:
+                  MaterialStateProperty.all(context.colors.secondaryColor),
               elevation: MaterialStateProperty.all(2),
             ),
             onPressed: () => context.router.pop(),
-            child: const CircleAvatar(
-              backgroundColor: kSecondaryColor,
+            child: CircleAvatar(
+              backgroundColor: context.colors.secondaryColor,
               child: Icon(
                 Icons.close_outlined,
-                color: kPrimaryColor300,
+                color: context.colors.primaryColor300,
               ),
             ),
           )

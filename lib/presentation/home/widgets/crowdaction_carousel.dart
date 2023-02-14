@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
+import '../../../core/core.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/crowdaction_card.dart';
 import '../../shared_widgets/no_ripple_behavior.dart';
-import '../../themes/constants.dart';
 
 class CrowdActionCarousel extends StatefulWidget {
   const CrowdActionCarousel({super.key});
@@ -63,10 +63,10 @@ class CrowdActionCarouselState extends State<CrowdActionCarousel> {
               DotsIndicator(
                 dotsCount: crowdActions.length,
                 position: _currentPage,
-                decorator: const DotsDecorator(
-                  color: kShadowColor,
+                decorator:  DotsDecorator(
+                  color: context.colors.shadowColor!,
                   size: Size(12.0, 12.0),
-                  activeColor: kAccentColor,
+                  activeColor: context.colors.accentColor,
                   activeSize: Size(12.0, 12.0),
                 ),
                 onTap: (position) {

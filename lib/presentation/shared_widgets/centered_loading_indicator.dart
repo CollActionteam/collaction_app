@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 
 class CenteredLoadingIndicator extends StatelessWidget {
   final String label;
@@ -17,11 +17,11 @@ class CenteredLoadingIndicator extends StatelessWidget {
         Center(
           child: Column(
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 60,
                 width: 60,
                 child: CircularProgressIndicator(
-                  color: kAccentColor,
+                  color: context.colors.accentColor,
                   strokeWidth: 5.0,
                 ),
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 
 class SelectableChip extends StatelessWidget {
   final String text;
@@ -30,20 +30,27 @@ class SelectableChip extends StatelessWidget {
             ),
             shape: MaterialStateProperty.all<OutlinedBorder>(
               StadiumBorder(
-                  side: BorderSide(
-                      color: selected ? kPrimaryColor400 : kAlmostTransparent)),
+                side: BorderSide(
+                  color: selected
+                      ? context.colors.primaryColor400!
+                      : context.colors.almostTransparent!,
+                ),
+              ),
             ),
             overlayColor: MaterialStateColor.resolveWith(
-              (states) => kSecondaryColor.withOpacity(0.1),
+              (states) => context.colors.secondaryColor!.withOpacity(0.1),
             ),
-            backgroundColor: MaterialStateProperty.all(
-                selected ? kPrimaryColor400 : kSecondaryColor),
+            backgroundColor: MaterialStateProperty.all(selected
+                ? context.colors.primaryColor400
+                : context.colors.secondaryColor),
           ),
           child: Text(
             text,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontSize: 11,
-                  color: selected ? kSecondaryColor : kPrimaryColor400,
+                  color: selected
+                      ? context.colors.secondaryColor
+                      : context.colors.primaryColor400,
                   fontWeight: FontWeight.w700,
                 ),
           ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/auth_bloc.dart';
+import '../../../core/core.dart';
 import '../../shared_widgets/pin_input/pin_input.dart';
-import '../../themes/constants.dart';
 
 class EnterVerificationCode extends StatefulWidget {
   final int pinLength;
@@ -45,12 +45,12 @@ class EnterVerificationCodeState extends State<EnterVerificationCode> {
             ),
             const SizedBox(height: 10.0),
             Row(
-              children: const [
+              children: [
                 Expanded(
                   child: Text(
                     'We just sent you a text message with a 6-digit code to verify your account',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: kInactiveColor),
+                    style: TextStyle(color: context.colors.inactiveColor),
                   ),
                 ),
               ],
@@ -71,11 +71,11 @@ class EnterVerificationCodeState extends State<EnterVerificationCode> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (state is SigningInUser || state is AwaitingCodeResend) ...[
-                  const SizedBox(
+                  SizedBox(
                     width: 25,
                     height: 25,
                     child: CircularProgressIndicator(
-                      color: kAccentColor,
+                      color: context.colors.accentColor,
                       strokeWidth: 2,
                     ),
                   ),
@@ -85,10 +85,10 @@ class EnterVerificationCodeState extends State<EnterVerificationCode> {
                       onPressed: () => context
                           .read<AuthBloc>()
                           .add(const AuthEvent.resendCode()),
-                      child: const Text(
+                      child: Text(
                         'No code? Click here and we will send a new one',
                         style: TextStyle(
-                          color: kAccentColor,
+                          color: context.colors.accentColor,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.0,
                         ),

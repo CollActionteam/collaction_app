@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../themes/constants.dart';
+import '../../../core/core.dart';
 
 class ScrollableAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final bool centerTitle;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final ElevatedButton? leading;
   final List<ElevatedButton>? actions;
   final TextStyle? titleTextStyle;
@@ -18,7 +18,7 @@ class ScrollableAppBar extends StatefulWidget implements PreferredSizeWidget {
     super.key,
     this.title = '',
     this.centerTitle = true,
-    this.backgroundColor = kSecondaryColor,
+    this.backgroundColor,
     this.titleTextStyle,
     this.leading,
     this.actions,
@@ -75,7 +75,7 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.resolveWith(
-              (states) => kAlmostTransparent,
+              (states) => context.colors.almostTransparent,
             ),
             elevation: MaterialStateProperty.all<double>(0.0),
             shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -86,7 +86,7 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
         ),
       ),
       child: AppBar(
-        backgroundColor: widget.backgroundColor,
+        backgroundColor: widget.backgroundColor ?? context.colors.secondaryColor,
         elevation: currentElevation,
         centerTitle: widget.centerTitle,
         leading: widget.leading,
@@ -106,7 +106,7 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
             Theme.of(context)
                 .textTheme
                 .titleLarge
-                ?.copyWith(color: kPrimaryColor),
+                ?.copyWith(color: context.colors.primaryColor),
       ),
     );
   }

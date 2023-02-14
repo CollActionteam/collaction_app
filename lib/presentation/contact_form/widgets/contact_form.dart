@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/contact_form/contact_form_bloc.dart';
+import '../../../core/core.dart';
 import '../../../infrastructure/contact_form/contact_form_dto.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/shared_widgets/pill_button.dart';
-import '../../../presentation/themes/constants.dart';
 
 class ContactForm extends StatefulWidget {
   final bool centerTitle;
@@ -112,7 +112,7 @@ class _ContactFormState extends State<ContactForm> {
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
-                          .copyWith(color: kPrimaryColor300),
+                          .copyWith(color: context.colors.primaryColor300),
                       maxLines: 2,
                       textAlign: TextAlign.left,
                     ),

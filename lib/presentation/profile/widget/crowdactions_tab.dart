@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/user/user.dart';
 import '../../shared_widgets/micro_crowdaction_card.dart';
-import '../../themes/constants.dart';
 import 'signup_cta.dart';
 
 class CrowdActionsTab extends StatelessWidget {
@@ -32,12 +32,12 @@ class CrowdActionsTab extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10) +
                     const EdgeInsets.only(top: 20),
-                child: const Text(
+                child: Text(
                   'My crowdactions',
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 28.0,
-                    color: kPrimaryColor400,
+                    color: context.colors.primaryColor400,
                   ),
                 ),
               ),

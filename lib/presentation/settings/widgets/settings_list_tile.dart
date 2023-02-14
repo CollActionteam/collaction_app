@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../themes/constants.dart';
+
+import '../../../core/core.dart';
 
 class SettingsListTile extends StatelessWidget {
   final String title;
   final IconData icon;
-  final Color iconColor;
+  final Color? iconColor;
   final Function() onTap;
   final IconData? trailingIcon;
 
@@ -13,7 +14,7 @@ class SettingsListTile extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.onTap,
-    this.iconColor = kPrimaryColor300,
+    this.iconColor,
     this.trailingIcon,
   });
 
@@ -25,16 +26,16 @@ class SettingsListTile extends StatelessWidget {
         vertical: 15,
         horizontal: 20,
       ),
-      tileColor: kAlmostTransparent,
+      tileColor: context.colors.almostTransparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       leading: CircleAvatar(
         radius: 32.5,
-        backgroundColor: kSecondaryColor,
+        backgroundColor: context.colors.secondaryColor,
         child: Icon(
           icon,
-          color: iconColor,
+          color: iconColor ?? context.colors.primaryColor300,
         ),
       ),
       title: Text(title),

@@ -24,7 +24,7 @@ class CrowdActionCommentsPage extends StatelessWidget {
           SliverPersistentHeader(
             delegate: CommentAppBarDelegate(
               expandedHeight: 156,
-              color: kPrimaryColor400,
+              color: context.colors.primaryColor400!,
             ),
             pinned: true,
           ),

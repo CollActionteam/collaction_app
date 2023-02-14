@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/core.dart';
 import '../../../shared_widgets/accent_chip.dart';
 import '../../../shared_widgets/secondary_chip.dart';
-import '../../../themes/constants.dart';
 
 class CrowdActionChips extends StatelessWidget {
   const CrowdActionChips({
@@ -26,7 +26,9 @@ class CrowdActionChips extends StatelessWidget {
           ...[
             AccentChip(
               text: isOpen ? "Open" : "Closed",
-              color: isOpen ? kAccentColor : kPrimaryColor200,
+              color: isOpen
+                  ? context.colors.accentColor!
+                  : context.colors.primaryColor200!,
             ),
             SecondaryChip(text: category!),
             if (subCategory != null) ...[SecondaryChip(text: subCategory!)],

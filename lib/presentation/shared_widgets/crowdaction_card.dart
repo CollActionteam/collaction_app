@@ -5,12 +5,12 @@ import 'package:cached_network_image_platform_interface/cached_network_image_pla
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import '../../core/core.dart';
 import '../../domain/crowdaction/crowdaction.dart';
 import '../core/collaction_icons.dart';
 import '../crowdaction/crowdaction_details/widgets/participants.dart';
 import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
-import '../themes/constants.dart';
 import 'custom_fab.dart';
 
 class CrowdActionCard extends StatefulWidget {
@@ -37,7 +37,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
       margin: const EdgeInsets.all(12.0),
       child: Material(
         borderRadius: BorderRadius.circular(20.0),
-        color: kSecondaryColor,
+        color: context.colors.secondaryColor,
         elevation: 4,
         child: InkWell(
           borderRadius: BorderRadius.circular(20.0),
@@ -78,17 +78,17 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                   ),
                   child: widget.crowdAction.hasPassword
                       ? Stack(
-                          children: const [
+                          children: [
                             Positioned(
                               bottom: 10,
                               right: 10,
                               child: CustomFAB(
                                 heroTag: 'locked',
                                 isMini: true,
-                                color: kSecondaryColor,
+                                color: context.colors.secondaryColor,
                                 child: Icon(
                                   CollactionIcons.lock,
-                                  color: kPrimaryColor300,
+                                  color: context.colors.primaryColor300,
                                 ),
                               ),
                             )
@@ -121,10 +121,10 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                             widget.crowdAction.title,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold,
-                              color: kPrimaryColor400,
+                              color: context.colors.primaryColor400,
                             ),
                           ),
                         ],
@@ -140,7 +140,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium
-                            ?.copyWith(color: kInactiveColor),
+                            ?.copyWith(color: context.colors.inactiveColor),
                       ),
                     ),
                     if (widget.crowdAction.participantCount > 0) ...[

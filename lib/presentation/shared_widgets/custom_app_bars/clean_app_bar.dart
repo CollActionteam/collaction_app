@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../themes/constants.dart';
+import '../../../core/core.dart';
 
 class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool centerTitle;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final ElevatedButton? leading;
   final List<ElevatedButton>? actions;
   final double elevation;
@@ -17,7 +17,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.centerTitle = true,
     this.leading,
     this.actions,
-    this.backgroundColor = kSecondaryColor,
+    this.backgroundColor,
     this.titleTextStyle,
     this.elevation = 0.0,
   });
@@ -29,7 +29,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.resolveWith(
-              (states) => kAlmostTransparent,
+              (states) => context.colors.almostTransparent,
             ),
             elevation: MaterialStateProperty.all<double>(0.0),
             shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -41,7 +41,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor ?? context.colors.secondaryColor,
         elevation: elevation,
         centerTitle: centerTitle,
         leading: leading,
@@ -51,7 +51,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
             Theme.of(context)
                 .textTheme
                 .titleLarge
-                ?.copyWith(color: kPrimaryColor),
+                ?.copyWith(color: context.colors.primaryColor),
       ),
     );
   }

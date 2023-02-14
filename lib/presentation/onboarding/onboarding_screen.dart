@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../../presentation/shared_widgets/no_ripple_behavior.dart';
@@ -79,20 +80,20 @@ class OnboardingPageState extends State<OnboardingPage> {
             DotsIndicator(
               position: currentPage,
               dotsCount: 3,
-              decorator: const DotsDecorator(
-                activeColor: kAccentColor,
-                color: kSecondaryTransparent,
+              decorator: DotsDecorator(
+                activeColor: context.colors.accentColor,
+                color: context.colors.secondaryTransparent!,
                 size: Size(12, 12),
                 activeSize: Size(12, 12),
               ),
             ),
             const SizedBox(height: 25.0),
             FloatingActionButton(
-              backgroundColor: kAccentColor,
+              backgroundColor: context.colors.accentColor,
               onPressed: () => currentPage == 2.0 ? getStarted() : nextPage(),
-              child: const Icon(
+              child: Icon(
                 CollactionIcons.arrow_right,
-                color: kSecondaryColor,
+                color: context.colors.secondaryColor,
               ),
             ),
             const SizedBox(height: 25.0),
@@ -101,11 +102,11 @@ class OnboardingPageState extends State<OnboardingPage> {
                 onPressed: () => settingsRepository
                     .setWasUserOnboarded(wasOnboarded: true)
                     .then((_) => context.router.pop()),
-                child: const Text(
+                child: Text(
                   "Skip",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    color: kAccentColor,
+                    color: context.colors.accentColor,
                   ),
                 ),
               ),

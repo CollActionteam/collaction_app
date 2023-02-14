@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
 import '../themes/constants.dart';
 
 class AccentChip extends StatelessWidget {
   final String text;
   final Widget? leading;
   final VoidCallback? onDeleted;
-  final Color color;
+  final Color? color;
   final bool noMaterialTapTargetSize;
 
   const AccentChip({
@@ -14,7 +15,7 @@ class AccentChip extends StatelessWidget {
     required this.text,
     this.leading,
     this.onDeleted,
-    this.color = kAccentColor,
+    this.color,
     this.noMaterialTapTargetSize = false,
   });
 
@@ -25,8 +26,12 @@ class AccentChip extends StatelessWidget {
           ? MaterialTapTargetSize.shrinkWrap
           : MaterialTapTargetSize.padded,
       avatar: leading,
-      backgroundColor: color,
-      shape: StadiumBorder(side: BorderSide(color: color)),
+      backgroundColor: color ?? context.colors.accentColor,
+      shape: StadiumBorder(
+        side: BorderSide(
+          color: color ?? context.colors.accentColor!,
+        ),
+      ),
       label: Text(
         text,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(

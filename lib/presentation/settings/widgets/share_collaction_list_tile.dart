@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../core/core.dart';
 import '../../core/collaction_icons.dart';
-import '../../themes/constants.dart';
 import '../../utils/strings.dart';
 
 class ShareCollactionListTile extends StatefulWidget {
@@ -63,16 +63,16 @@ class ShareCollactionListTileState extends State<ShareCollactionListTile> {
           vertical: 15,
           horizontal: 20,
         ),
-        tileColor: kAlmostTransparent,
+        tileColor: context.colors.almostTransparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        leading: const CircleAvatar(
+        leading: CircleAvatar(
           radius: 32.5,
-          backgroundColor: kSecondaryColor,
+          backgroundColor: context.colors.secondaryColor,
           child: Icon(
             CollactionIcons.share,
-            color: kPrimaryColor300,
+            color: context.colors.primaryColor300,
           ),
         ),
         title: const Text(

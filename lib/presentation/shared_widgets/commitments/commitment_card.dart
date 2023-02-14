@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
-import '../../themes/constants.dart';
 
 /// Creates a new CommitmentCard
 ///
@@ -43,10 +43,12 @@ class CommitmentCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: active ? kAlmostTransparent : kSecondaryColor,
+          color: active
+              ? context.colors.almostTransparent
+              : context.colors.secondaryColor,
           border: active
               ? Border.all(color: Colors.transparent)
-              : Border.all(color: kPrimaryColor0),
+              : Border.all(color: context.colors.primaryColor0!),
         ),
         margin: const EdgeInsets.symmetric(vertical: 5.0),
         padding: const EdgeInsets.all(10.0),
@@ -54,14 +56,14 @@ class CommitmentCard extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(15.0),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: kSecondaryColor,
+                color: context.colors.secondaryColor,
               ),
               alignment: Alignment.center,
               child: Icon(
                 commitment.icon,
-                color: kAccentColor,
+                color: context.colors.accentColor,
                 size: 30,
               ),
             ),
@@ -80,7 +82,9 @@ class CommitmentCard extends StatelessWidget {
                     style: textTheme.bodySmall!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: deactivated ? kPrimaryColor300 : kPrimaryColor400,
+                      color: deactivated
+                          ? context.colors.primaryColor300
+                          : context.colors.primaryColor400,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -91,8 +95,9 @@ class CommitmentCard extends StatelessWidget {
                       commitment.description!,
                       style: textTheme.bodySmall!.copyWith(
                         fontSize: 13,
-                        color:
-                            deactivated ? kPrimaryColor200 : kPrimaryColor300,
+                        color: deactivated
+                            ? context.colors.primaryColor200
+                            : context.colors.primaryColor300,
                       ),
                       softWrap: true,
                       maxLines: 3,
@@ -113,13 +118,15 @@ class CommitmentCard extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: active
-                      ? kPrimaryColor400.withAlpha(deactivated ? 50 : 255)
+                      ? context.colors.primaryColor400
+                          ?.withAlpha(deactivated ? 50 : 255)
                       : Colors.transparent,
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: active
-                        ? kPrimaryColor400.withAlpha(deactivated ? 0 : 255)
-                        : kPrimaryColor200,
+                        ? context.colors.primaryColor400!
+                            .withAlpha(deactivated ? 0 : 255)
+                        : context.colors.primaryColor200!,
                     width: 3,
                   ),
                 ),

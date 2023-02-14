@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 
 class CustomFAB extends StatelessWidget {
   final Widget child;
@@ -23,8 +23,10 @@ class CustomFAB extends StatelessWidget {
     return FloatingActionButton(
       onPressed: onPressed,
       heroTag: heroTag,
-      backgroundColor:
-          color ?? (onPressed != null ? kAccentColor : kDisabledButtonColor),
+      backgroundColor: color ??
+          (onPressed != null
+              ? context.colors.accentColor
+              : context.colors.disabledButtonColor),
       mini: isMini,
       child: child,
     );

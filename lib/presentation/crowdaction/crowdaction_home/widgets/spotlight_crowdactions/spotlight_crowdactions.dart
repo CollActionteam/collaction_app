@@ -3,10 +3,10 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../core/core.dart';
 import '../../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../shared_widgets/crowdaction_card.dart';
 import '../../../../shared_widgets/secondary_chip.dart';
-import '../../../../themes/constants.dart';
 
 part 'in_spotlight_header_empty.dart';
 
@@ -59,8 +59,8 @@ class _SpotlightCrowdActionsState extends State<SpotlightCrowdActions> {
             DotsIndicator(
               position: _currentPage,
               dotsCount: widget.pages.length,
-              decorator: const DotsDecorator(
-                activeColor: kAccentColor,
+              decorator: DotsDecorator(
+                activeColor: context.colors.accentColor,
                 color: Color(0xFFCCCCCC),
                 size: Size(12.0, 12.0),
                 activeSize: Size(12.0, 12.0),

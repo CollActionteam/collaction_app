@@ -7,11 +7,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
+import '../../core/core.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/photo_selector.dart';
 import '../shared_widgets/pill_button.dart';
-import '../themes/constants.dart';
 import 'widget/profile_picture.dart';
 import 'widget/profile_tab.dart';
 
@@ -42,7 +42,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
           final scaffold = Scaffold(
             extendBodyBehindAppBar: true,
-            backgroundColor: kAlmostTransparent,
+            backgroundColor: context.colors.almostTransparent,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.miniEndTop,
             floatingActionButton: Column(
@@ -52,7 +52,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   onPressed: share,
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
-                    backgroundColor: kEnabledButtonColor,
+                    backgroundColor: context.colors.enabledButtonColor,
                   ).merge(
                     ButtonStyle(
                       elevation: MaterialStateProperty.resolveWith<double?>(
@@ -74,7 +74,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ElevatedButton(
                   onPressed: () => context.router.push(const SettingsRoute()),
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: kPrimaryColor0,
+                    foregroundColor: context.colors.primaryColor0,
                     backgroundColor: Colors.white,
                     shape: const CircleBorder(),
                     tapTargetSize: MaterialTapTargetSize.padded,
@@ -90,11 +90,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       ),
                     ),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 4),
                     child: Icon(
                       CollactionIcons.settings,
-                      color: kPrimaryColor300,
+                      color: context.colors.primaryColor300,
                     ),
                   ),
                 ),
@@ -141,7 +142,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                           setState(() => _image = image);
                                         },
                                       ),
-                                      backgroundColor: kAccentColor,
+                                      backgroundColor:
+                                          context.colors.accentColor,
                                       mini: true,
                                       child: const Icon(Icons.add),
                                     ),
@@ -178,7 +180,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   Expanded(
                                     child: TextFormField(
                                       controller: bioController,
-                                      cursorColor: kAccentColor,
+                                      cursorColor: context.colors.accentColor,
                                       maxLength: 150,
                                       decoration: InputDecoration(
                                         counterText: '',
@@ -207,7 +209,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                           .copyWith(
                                             fontWeight: FontWeight.w300,
                                             fontSize: 17,
-                                            color: kPrimaryColor400,
+                                            color:
+                                                context.colors.primaryColor400,
                                           ),
                                     ),
                                   ),
@@ -225,7 +228,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                         .copyWith(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
-                                          color: kPrimaryColor300,
+                                          color: context.colors.primaryColor300,
                                         ),
                                   ),
                                 ],
@@ -239,7 +242,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     .copyWith(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 17,
-                                      color: kPrimaryColor400,
+                                      color: context.colors.primaryColor400,
                                     ),
                               ),
                             ],
@@ -247,8 +250,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             RichText(
                               text: TextSpan(
                                 text: 'Joined ',
-                                style: const TextStyle(
-                                  color: kPrimaryColor200,
+                                style: TextStyle(
+                                  color: context.colors.primaryColor200,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 11,
                                 ),
@@ -256,8 +259,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   TextSpan(
                                     text: state
                                         .userProfile?.user.formattedJoinDate,
-                                    style: const TextStyle(
-                                      color: kPrimaryColor300,
+                                    style: TextStyle(
+                                      color: context.colors.primaryColor300,
                                       fontWeight: FontWeight.w700,
                                       fontSize: 11,
                                     ),
@@ -272,11 +275,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 overlayColor: MaterialStateColor.resolveWith(
                                   (states) => state.isEditing == true
                                       ? Colors.white.withOpacity(0.1)
-                                      : kAccentColor.withOpacity(0.1),
+                                      : context.colors.accentColor!
+                                          .withOpacity(0.1),
                                 ),
                                 backgroundColor: state.isEditing == true
                                     ? MaterialStateProperty.all(
-                                        kAccentColor,
+                                        context.colors.accentColor,
                                       )
                                     : null,
                                 minimumSize: MaterialStateProperty.all(
@@ -285,8 +289,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(200),
-                                    side: const BorderSide(
-                                      color: kAccentColor,
+                                    side: BorderSide(
+                                      color: context.colors.accentColor!,
                                     ),
                                   ),
                                 ),
@@ -312,7 +316,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 style: TextStyle(
                                   color: state.isEditing == true
                                       ? Colors.white
-                                      : kAccentColor,
+                                      : context.colors.accentColor,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -340,10 +344,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                     text: state.userProfile?.profile.bio ?? '',
                                   );
                                 },
-                                child: const Text(
+                                child: Text(
                                   'Cancel',
                                   style: TextStyle(
-                                    color: kAccentColor,
+                                    color: context.colors.accentColor,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),

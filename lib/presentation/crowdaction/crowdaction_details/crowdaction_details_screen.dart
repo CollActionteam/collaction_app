@@ -9,6 +9,7 @@ import '../../../application/auth/auth_bloc.dart';
 import '../../../application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
 import '../../../application/participation/participation_bloc.dart';
 import '../../../application/user/profile_tab/profile_tab_bloc.dart';
+import '../../../core/core.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../shared_widgets/expandable_text.dart';
@@ -158,13 +159,13 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                           BlocProvider.of<CrowdActionDetailsBloc>(context).add(
                         CrowdActionDetailsEvent.fetchCrowdAction(id: id),
                       ),
-                      color: kAccentColor,
+                      color: context.colors.accentColor,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             Container(
                               width: double.infinity,
-                              color: kAlmostTransparent,
+                              color: context.colors.almostTransparent,
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 30,
@@ -220,7 +221,8 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                           .textTheme
                                           .bodySmall!
                                           .copyWith(
-                                            color: kPrimaryColor300,
+                                            color:
+                                                context.colors.primaryColor300,
                                             fontWeight: FontWeight.w400,
                                           ),
                                       textAlign: TextAlign.center,
@@ -312,7 +314,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 5.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: kSecondaryTransparent,
+                  color: context.colors.secondaryTransparent,
                 ),
               ),
               const SizedBox(
@@ -329,7 +331,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               Text(
                 "You need to create an account in order to participate in a crowdaction. If you have an account already, please log in.",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: kPrimaryColor400,
+                      color: context.colors.primaryColor400,
                     ),
               ),
               const SizedBox(
@@ -368,13 +370,13 @@ class CrowdActionDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     if (crowdAction == null) {
       return Shimmer.fromColors(
-        baseColor: kPrimaryColor100,
-        highlightColor: kPrimaryColor200,
+        baseColor: context.colors.primaryColor100!,
+        highlightColor: context.colors.primaryColor200!,
         child: Container(
           height: 150,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: kPrimaryColor100,
+            color: context.colors.primaryColor100,
             borderRadius: BorderRadius.circular(10),
           ),
         ),

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../presentation/themes/constants.dart';
+import '../../core/core.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
@@ -51,8 +51,8 @@ class HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      selectedItemColor: kEnabledButtonColor,
-      unselectedItemColor: kDisabledButtonColor,
+      selectedItemColor: context.colors.enabledButtonColor,
+      unselectedItemColor: context.colors.disabledButtonColor,
       type: BottomNavigationBarType.fixed,
       elevation: 0,
       items: const [

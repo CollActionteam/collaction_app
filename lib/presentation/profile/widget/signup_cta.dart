@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
 import '../../../domain/user/user.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/pill_button.dart';
-import '../../themes/constants.dart';
 
 class SignUpCTA extends StatelessWidget {
   final User? user;
@@ -28,21 +28,21 @@ class SignUpCTA extends StatelessWidget {
                     ? title!
                     : 'Unique content based on your activity')
                 : 'Become part of the CollAction crowd',
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 34,
-              color: kPrimaryColor400,
+              color: context.colors.primaryColor400,
             ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
           if (user == null) ...[
-            const Text(
+            Text(
               'Create an account to participate in \nCrowdActions and make waves with other \nlikeminded people!',
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 17,
-                color: kPrimaryColor300,
+                color: context.colors.primaryColor300,
               ),
               textAlign: TextAlign.center,
             ),
