@@ -3,6 +3,7 @@ import 'package:collaction_app/application/user/profile/profile_bloc.dart';
 import 'package:collaction_app/presentation/auth/widgets/verified.dart';
 import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';

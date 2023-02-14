@@ -75,7 +75,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   onPressed: () => context.router.push(const SettingsRoute()),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: context.colors.primaryColor0,
-                    backgroundColor: Colors.white,
+                    backgroundColor: context.background,
                     shape: const CircleBorder(),
                     tapTargetSize: MaterialTapTargetSize.padded,
                   ).merge(

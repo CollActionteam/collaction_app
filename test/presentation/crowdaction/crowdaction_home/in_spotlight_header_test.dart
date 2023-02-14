@@ -6,6 +6,7 @@ import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_home/widgets/in_spotlight_header.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_home/widgets/spotlight_crowdactions/spotlight_crowdactions.dart';
 import 'package:collaction_app/presentation/shared_widgets/content_placeholder.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

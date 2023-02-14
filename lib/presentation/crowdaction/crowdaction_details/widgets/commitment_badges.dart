@@ -279,7 +279,7 @@ class _BadgesPopupCard extends StatelessWidget {
 }
 
 class HeroBadgesDialogRoute<T> extends PageRoute<T> {
-  HeroBadgesDialogRoute( {
+  HeroBadgesDialogRoute({
     required WidgetBuilder builder,
     required this.context,
     super.settings,

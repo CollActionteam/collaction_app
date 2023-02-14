@@ -4,6 +4,7 @@ import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
 import 'package:collaction_app/presentation/home/home_screen.dart';
 import 'package:collaction_app/presentation/onboarding/onboarding_screen.dart';
 import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -52,6 +53,7 @@ void main() {
       widget: MaterialApp.router(
         color: Colors.white,
         title: 'CollAction',
+        theme: lightTheme(),
         routerDelegate: appRouter.delegate(),
         routeInformationParser: appRouter.defaultRouteParser(),
       ),
@@ -70,6 +72,7 @@ void main() {
       widget: MaterialApp.router(
         color: Colors.white,
         title: 'CollAction',
+        theme: lightTheme(),
         routerDelegate: appRouter.delegate(),
         routeInformationParser: appRouter.defaultRouteParser(),
       ),

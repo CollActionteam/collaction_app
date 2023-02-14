@@ -86,7 +86,8 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
         ),
       ),
       child: AppBar(
-        backgroundColor: widget.backgroundColor ?? context.colors.secondaryColor,
+        backgroundColor:
+            widget.backgroundColor ?? context.colors.secondaryColor,
         elevation: currentElevation,
         centerTitle: widget.centerTitle,
         leading: widget.leading,

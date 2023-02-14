@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
 import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:collaction_app/presentation/shared_widgets/micro_crowdaction_card.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -39,6 +40,7 @@ void main() {
       'and [MicroCrowdActionCard] is tapped', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
+        theme: lightTheme(),
         home: Scaffold(
           body: MicroCrowdActionCard(
             tCrowdactionNoPassword,

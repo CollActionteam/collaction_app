@@ -15,6 +15,7 @@ extension WidgetX on WidgetTester {
           )
         ],
         child: MaterialApp(
+          theme: lightTheme(),
           home: Scaffold(
             body: CommitmentCardList(
               isEnded: isEnded,

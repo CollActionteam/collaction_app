@@ -1,6 +1,7 @@
 import 'package:collaction_app/application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participation_count_text.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,6 +34,7 @@ void main() {
         BlocProvider<CrowdActionDetailsBloc>(
           create: (_) => crowdActionDetailsBloc,
           child: MaterialApp(
+            theme: lightTheme(),
             home: Scaffold(
               body: ParticipationCountText(
                 crowdAction: null,
@@ -131,6 +133,7 @@ void main() {
         BlocProvider<CrowdActionDetailsBloc>(
           create: (_) => crowdActionDetailsBloc,
           child: MaterialApp(
+            theme: lightTheme(),
             home: Scaffold(
               body: ParticipationCountText(
                 crowdAction: null,

@@ -10,6 +10,7 @@ extension WidgetX on WidgetTester {
       BlocProvider(
         create: (_) => participationBloc,
         child: MaterialApp(
+          theme: lightTheme(),
           home: Scaffold(
             body: ConfirmParticipation(
                 crowdAction: crowdAction,

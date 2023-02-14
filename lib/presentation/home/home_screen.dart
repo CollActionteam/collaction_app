@@ -34,7 +34,10 @@ class HomePageState extends State<HomePage> {
           DemoScreenRouter(),
         ],
       ],
-      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(tabsRouter),
+      bottomNavigationBuilder: (_, tabsRouter) => bottomNavbar(
+        context,
+        tabsRouter,
+      ),
     );
   }
 
@@ -46,9 +49,9 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  Widget bottomNavbar(TabsRouter tabsRouter) {
+  Widget bottomNavbar(BuildContext context, TabsRouter tabsRouter) {
     return BottomNavigationBar(
-      backgroundColor: Colors.white,
+      backgroundColor: context.background,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       selectedItemColor: context.colors.enabledButtonColor,

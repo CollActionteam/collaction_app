@@ -53,8 +53,8 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                         return const SpotlightEmptyHeader();
                       },
                       spotLightCrowdActionsError: (_) {
-                        return const ContentPlaceholder(
-                          textColor: Colors.white,
+                        return ContentPlaceholder(
+                          textColor: context.onBackground,
                         );
                       },
                       spotLightCrowdActions: (pages) {

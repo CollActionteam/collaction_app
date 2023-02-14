@@ -4,6 +4,7 @@ import 'package:collaction_app/application/participation/top_participants/top_pa
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participants.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/participation_count_text.dart';
 import 'package:collaction_app/presentation/shared_widgets/participant_avatars.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -58,6 +59,7 @@ void main() {
         BlocProvider<CrowdActionDetailsBloc>(
           create: (_) => crowdActionDetailsBloc,
           child: MaterialApp(
+            theme: lightTheme(),
             home: Scaffold(
               body: Participants(
                 crowdAction: null,
@@ -102,6 +104,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
+          theme: lightTheme(),
           home: Scaffold(
             body: Participants(
               crowdAction: tCrowdaction,

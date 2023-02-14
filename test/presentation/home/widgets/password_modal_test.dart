@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collaction_app/core/core.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/presentation/home/widgets/password_modal.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -51,9 +52,18 @@ void main() {
     testWidgets(
       'button enabled after text input',
       (WidgetTester tester) async {
+        late BuildContext ctx;
         await buildAndPump(
           tester: tester,
-          widget: PasswordModal(crowdAction: tCrowdaction),
+          widget: MaterialApp(
+            theme: lightTheme(),
+            home: Builder(
+              builder: (context) {
+                ctx = context;
+                return PasswordModal(crowdAction: tCrowdaction);
+              },
+            ),
+          ),
         );
         await tester.pumpAndSettle();
 
@@ -61,7 +71,7 @@ void main() {
           tester
               .widget<CircleAvatar>(find.byType(CircleAvatar))
               .backgroundColor,
-          kDisabledButtonColor,
+          ctx.colors.disabledButtonColor,
         );
 
         await tester.enterText(find.byType(TextField), 't');
@@ -71,7 +81,7 @@ void main() {
           tester
               .widget<CircleAvatar>(find.byType(CircleAvatar))
               .backgroundColor,
-          kAccentColor,
+          ctx.colors.accentColor,
         );
       },
     );
@@ -135,6 +145,7 @@ void main() {
         await buildAndPump(
           tester: tester,
           widget: MaterialApp(
+            theme: lightTheme(),
             home: Scaffold(
               body: Container(),
             ),

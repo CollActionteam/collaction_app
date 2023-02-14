@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/core.dart';
-import '../themes/constants.dart';
 
 /// Text widget to show read more and read less
 class ExpandableText extends StatefulWidget {

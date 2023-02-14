@@ -1,5 +1,6 @@
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/crowdaction_title.dart';
 import 'package:collaction_app/presentation/shared_widgets/shimmers/title_shimmer_line.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -23,6 +24,7 @@ void main() {
     testWidgets('shimmers', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
+          theme: lightTheme(),
           home: CrowdActionTitle(
             title: null,
           ),

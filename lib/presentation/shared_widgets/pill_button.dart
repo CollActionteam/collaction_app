@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../core/core.dart';
-import '../themes/constants.dart';
 
 class PillButton extends StatelessWidget {
   final String text;

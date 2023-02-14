@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/participation/participation_bloc.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/withdraw_participation.dart';
 import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -88,6 +89,7 @@ void main() {
     testWidgets('modal can be closed', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
+          theme: lightTheme(),
           home: Scaffold(
             body: WithdrawParticipation(
               participationBloc: participationBloc,

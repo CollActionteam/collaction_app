@@ -1,4 +1,5 @@
 import 'package:collaction_app/presentation/shared_widgets/custom_app_bars/custom_appbar.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -22,7 +23,8 @@ void main() {
 
     testWidgets('preferredSize', (WidgetTester tester) async {
       final appbar = CustomAppBar();
-      await tester.pumpWidget(MaterialApp(home: Scaffold(appBar: appbar)));
+      await tester.pumpWidget(
+          MaterialApp(theme: lightTheme(), home: Scaffold(appBar: appbar)));
       await tester.pump();
 
       expect(find.byType(CustomAppBar), findsOneWidget);

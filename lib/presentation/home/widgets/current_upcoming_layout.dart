@@ -92,9 +92,8 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                         ],
                       );
                     },
-                    spotLightCrowdActionsError: (failure) =>
-                        const ContentPlaceholder(
-                      textColor: Colors.black,
+                    spotLightCrowdActionsError: (failure) => ContentPlaceholder(
+                      textColor: context.onBackground,
                     ),
                     orElse: () => const SizedBox(),
                   ),

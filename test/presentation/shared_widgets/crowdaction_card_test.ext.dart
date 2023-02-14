@@ -7,6 +7,7 @@ extension WidgetX on WidgetTester {
   ]) async {
     await pumpWidget(
       MaterialApp(
+        theme: lightTheme(),
         home: Scaffold(
           body: CrowdActionCard(
             crowdAction: crowdAction,

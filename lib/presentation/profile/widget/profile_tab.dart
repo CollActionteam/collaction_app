@@ -34,7 +34,7 @@ class _UserProfileTabState extends State<UserProfileTab>
       child: DefaultTabController(
         length: 3,
         child: Container(
-          color: Colors.white,
+          color: context.background,
           constraints: const BoxConstraints(maxHeight: 600),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -49,7 +49,7 @@ class _UserProfileTabState extends State<UserProfileTab>
                     color: context.colors.almostTransparent,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: context.onBackground.withOpacity(0.2),
                         offset: const Offset(0, 2),
                         blurRadius: 5.0,
                       ),
@@ -102,7 +102,7 @@ class _UserProfileTabState extends State<UserProfileTab>
                 builder: (context, state) {
                   return Expanded(
                     child: ColoredBox(
-                      color: Colors.white,
+                      color: context.background,
                       child: TabBarView(
                         controller: _tabController,
                         children: [

@@ -39,7 +39,7 @@ ThemeData darkTheme() {
           CollactionColors.dark,
         ],
         colorScheme: theme.colorScheme.copyWith(
-          background: Colors.black,
+          background: theme.scaffoldBackgroundColor,
           onBackground: Colors.white,
         ),
       )

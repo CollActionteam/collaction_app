@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
 import '../../../domain/settings/build_information.dart';
-import '../../themes/constants.dart';
 
 class BuildInformationTile extends StatelessWidget {
   final BuildInformation information;

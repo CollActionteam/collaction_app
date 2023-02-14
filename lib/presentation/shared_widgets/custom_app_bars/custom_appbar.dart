@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.all(8.0),
               child: Material(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
+                color: context.background,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(20),
                   onTap: () => context.router.pop(),
@@ -46,7 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () => context.router.pop(),
               style: ElevatedButton.styleFrom(
                 foregroundColor: context.colors.primaryColor0,
-                backgroundColor: Colors.white,
+                backgroundColor: context.background,
                 shape: const CircleBorder(),
                 tapTargetSize: MaterialTapTargetSize.padded,
               ).merge(

@@ -7,6 +7,7 @@ import 'package:collaction_app/application/user/avatar/avatar_bloc.dart';
 import 'package:collaction_app/presentation/auth/widgets/profile_photo.dart';
 import 'package:collaction_app/presentation/shared_widgets/photo_selector.dart';
 import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
