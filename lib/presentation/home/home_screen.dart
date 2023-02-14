@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
 
   Widget bottomNavbar(TabsRouter tabsRouter, BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: Colors.white,
+      backgroundColor: context.background,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       selectedItemColor: context.colors.enabledButtonColor,

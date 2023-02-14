@@ -1,5 +1,6 @@
+import 'package:collaction_app/core/core.dart';
 import 'package:collaction_app/presentation/shared_widgets/custom_app_bars/scrollable_app_bar.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,6 +13,7 @@ void main() {
         (WidgetTester tester) async {
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: ScrollableAppBar(
                   pageScrollController: ScrollController(),
@@ -29,6 +31,7 @@ void main() {
         (WidgetTester tester) async {
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: ScrollableAppBar(
                   pageScrollController: ScrollController(),
@@ -50,6 +53,7 @@ void main() {
         (WidgetTester tester) async {
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: ScrollableAppBar(
                   backgroundColor: Colors.red,
@@ -72,19 +76,26 @@ void main() {
       testWidgets(
         'kSecondaryColor should be used as backgroundColor if backgroundColor is not provided',
         (WidgetTester tester) async {
+          late BuildContext ctx;
+
           await tester.pumpWidget(
             MaterialApp(
-              home: Scaffold(
-                appBar: ScrollableAppBar(
-                  pageScrollController: ScrollController(),
-                ),
-              ),
+              theme: lightTheme(),
+              home: Builder(builder: (context) {
+                ctx = context;
+                return Scaffold(
+                  appBar: ScrollableAppBar(
+                    pageScrollController: ScrollController(),
+                  ),
+                );
+              }),
             ),
           );
           expect(
             find.byWidgetPredicate(
               (widget) =>
-                  widget is AppBar && widget.backgroundColor == kSecondaryColor,
+                  widget is AppBar &&
+                  widget.backgroundColor == ctx.colors.secondaryColor,
             ),
             findsOneWidget,
           );
@@ -101,6 +112,7 @@ void main() {
         (WidgetTester tester) async {
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: ScrollableAppBar(
                   pageScrollController: ScrollController(),
@@ -124,6 +136,7 @@ void main() {
         (WidgetTester tester) async {
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: ScrollableAppBar(
                   pageScrollController: ScrollController(),
@@ -165,6 +178,7 @@ void main() {
         (WidgetTester tester) async {
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: ScrollableAppBar(
                   pageScrollController: scrollController,
@@ -222,6 +236,7 @@ void main() {
 
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: scrollableAppBar,
                 body: ListView.builder(
@@ -271,6 +286,7 @@ void main() {
 
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: scrollableAppBar,
                 body: ListView.builder(
@@ -328,6 +344,7 @@ void main() {
         (WidgetTester tester) async {
           await tester.pumpWidget(
             MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 appBar: ScrollableAppBar(
                   pageScrollController: ScrollController(),
@@ -359,14 +376,20 @@ void main() {
       testWidgets(
         'ScrollableAppBar should use headline6 colored with kPrimaryColor as default value of property titleTextStyle',
         (WidgetTester tester) async {
+          late BuildContext ctx;
+
           await tester.pumpWidget(
             MaterialApp(
-              home: Scaffold(
-                appBar: ScrollableAppBar(
-                  pageScrollController: ScrollController(),
-                  title: 'Home',
-                ),
-              ),
+              theme: lightTheme(),
+              home: Builder(builder: (context) {
+                ctx = context;
+                return Scaffold(
+                  appBar: ScrollableAppBar(
+                    pageScrollController: ScrollController(),
+                    title: 'Home',
+                  ),
+                );
+              }),
             ),
           );
 
@@ -375,7 +398,7 @@ void main() {
             matching: find.byWidgetPredicate(
               (widget) =>
                   widget is AppBar &&
-                  widget.titleTextStyle?.color == kPrimaryColor,
+                  widget.titleTextStyle?.color == ctx.colors.primaryColor,
             ),
           );
         },

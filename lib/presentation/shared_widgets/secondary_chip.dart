@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../core/core.dart';
-import '../themes/constants.dart';
 
 class SecondaryChip extends StatelessWidget {
   final String text;

@@ -7,7 +7,6 @@ import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../../presentation/shared_widgets/no_ripple_behavior.dart';
 import '../core/collaction_icons.dart';
-import '../themes/constants.dart';
 import 'widgets/onboarding_step.dart';
 
 class OnboardingPage extends StatefulWidget {

@@ -9,6 +9,7 @@ import 'package:collaction_app/infrastructure/core/injection.dart';
 import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:collaction_app/presentation/settings/settings_screen.dart';
 import 'package:collaction_app/presentation/settings/widgets/build_information_tile.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

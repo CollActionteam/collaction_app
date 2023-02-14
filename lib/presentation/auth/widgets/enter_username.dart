@@ -6,7 +6,6 @@ import '../../../application/username/username_bloc.dart';
 import '../../../core/core.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../shared_widgets/pill_button.dart';
-import '../../themes/constants.dart';
 
 class EnterUserName extends StatefulWidget {
   final void Function(String fullname) onDone;

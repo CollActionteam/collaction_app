@@ -1,9 +1,8 @@
 import 'package:collaction_app/presentation/shared_widgets/expandable_text.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
-import 'package:collaction_app/presentation/themes/constants.dart';
 
 import '../../test_helper.dart';
 
@@ -11,7 +10,7 @@ void main() {
   group('AccentActionChip test:', () {
     final String text = 'this is a sample text. ';
     final int trimLines = 3;
-    final Color clickableTextColor = kAccentColor;
+    final Color clickableTextColor = Colors.black;
     final String readMoreText = 'more';
     final String readLessText = 'less';
     final TextStyle style = const TextStyle(color: Colors.black);

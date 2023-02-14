@@ -4,7 +4,6 @@ import '../../core/core.dart';
 import '../core/collaction_icons.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../shared_widgets/no_ripple_behavior.dart';
-import '../themes/constants.dart';
 import '../utils/launch_url.dart';
 import 'oss_licenses.dart';
 

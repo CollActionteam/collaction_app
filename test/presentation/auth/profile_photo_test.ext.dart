@@ -8,6 +8,7 @@ extension WidgetX on WidgetTester {
       BlocProvider<AuthBloc>(
         create: (context) => authBloc,
         child: MaterialApp(
+          theme: lightTheme(),
           home: Scaffold(
             body: SelectProfilePhoto(
               onSkip: onSkip,

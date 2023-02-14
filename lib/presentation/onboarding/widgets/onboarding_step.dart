@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
 import '../../core/collaction_icons.dart';
-import '../../themes/constants.dart';
 
 /// Single onboarding slate
 class OnboardingStep extends StatelessWidget {

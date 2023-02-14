@@ -11,7 +11,7 @@ extension InputX on ThemeData {
         labelStyle: TextStyle(color: colors.inactiveColor),
         filled: true,
         fillColor: colors.almostTransparent,
-        focusColor:colors.inactiveColor,
+        focusColor: colors.inactiveColor,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.zero,

@@ -63,7 +63,7 @@ class CrowdActionCarouselState extends State<CrowdActionCarousel> {
               DotsIndicator(
                 dotsCount: crowdActions.length,
                 position: _currentPage,
-                decorator:  DotsDecorator(
+                decorator: DotsDecorator(
                   color: context.colors.shadowColor!,
                   size: Size(12.0, 12.0),
                   activeColor: context.colors.accentColor,

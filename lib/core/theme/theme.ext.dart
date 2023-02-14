@@ -15,6 +15,9 @@ extension ThemeBuildContextX on BuildContext {
   // Background Color
   Color get background => theme.colorScheme.background;
 
+  // Scaffold color
+  Color get scaffoldColor => theme.scaffoldBackgroundColor;
+
   // Foreground color
   Color get onBackground => theme.onBackground;
 
@@ -30,7 +33,9 @@ extension ThemeX on ThemeData {
   // Primary Color
   Color get primary => colorScheme.primary;
 
-    // Foreground color
+  // Foreground color
   Color get onBackground => colorScheme.onBackground;
 
+  // Scaffold color
+  Color get scaffoldColor => scaffoldBackgroundColor;
 }

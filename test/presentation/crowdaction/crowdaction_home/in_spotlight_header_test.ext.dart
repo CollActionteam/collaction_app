@@ -4,6 +4,7 @@ extension WidgetX on WidgetTester {
   Future<void> pumpInSpotLightHeader(SpotlightBloc spotlightBloc) async {
     await pumpWidget(
       MaterialApp(
+        theme: lightTheme(),
         home: BlocProvider(
           create: (_) => spotlightBloc,
           child: Scaffold(

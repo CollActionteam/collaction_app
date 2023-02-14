@@ -2,6 +2,7 @@ import 'package:collaction_app/application/crowdaction/crowdaction_details/crowd
 import 'package:collaction_app/application/participation/top_participants/top_participants_bloc.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_home/widgets/spotlight_crowdactions/spotlight_crowdactions.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,7 @@ extension WidgetTesterX on WidgetTester {
       {List<CrowdAction>? crowdActions}) async {
     await pumpWidget(
       MaterialApp(
+        theme: lightTheme(),
         home: Scaffold(
           body: SpotlightCrowdActions(
             pages: crowdActions ?? [],

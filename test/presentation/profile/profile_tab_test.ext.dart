@@ -7,6 +7,7 @@ extension WidgetX on WidgetTester {
       BlocProvider(
         create: (context) => profileTabBloc,
         child: MaterialApp(
+          theme: lightTheme(),
           home: Scaffold(
             body: UserProfileTab(user: user),
           ),

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/presentation/settings/settings_layout.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

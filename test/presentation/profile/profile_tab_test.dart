@@ -4,6 +4,7 @@ import 'package:collaction_app/presentation/profile/widget/badges_tab.dart';
 import 'package:collaction_app/presentation/profile/widget/commitments_tab.dart';
 import 'package:collaction_app/presentation/profile/widget/crowdactions_tab.dart';
 import 'package:collaction_app/presentation/profile/widget/profile_tab.dart';
+import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';

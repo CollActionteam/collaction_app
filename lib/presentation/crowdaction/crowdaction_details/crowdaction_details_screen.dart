@@ -12,7 +12,6 @@ import '../../../core/core.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../shared_widgets/pill_button.dart';
-import '../../themes/constants.dart';
 import 'widgets/confirm_participation.dart';
 import 'widgets/crowdaction_chips.dart';
 import 'widgets/crowdaction_description.dart';
