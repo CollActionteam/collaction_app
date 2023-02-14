@@ -9,19 +9,16 @@ import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../utils/launch_url.dart';
 import 'widgets/avatar_info.dart';
+import 'widgets/header_bar.dart';
 import 'widgets/legal_info_policy_widget.dart';
 import 'package:flutter/material.dart';
 import '../themes/constants.dart';
 import '../core/collaction_icons.dart';
+import 'widgets/user_info_and_avatar.dart';
 
-class MenuPage extends StatefulWidget {
+class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
 
-  @override
-  State<MenuPage> createState() => _MenuTabState();
-}
-
-class _MenuTabState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,68 +36,13 @@ class _MenuTabState extends State<MenuPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Menu",
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontFamily: "Rubik",
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.search,
-                                color: kPrimaryColor600,
-                                size: 21.08,
-                              ),
-                            ),
-                          ],
+                        HeaderBar(),
+                        UserInfoAndAvatar(
+                          pictureUrl: state.userProfile?.profile.avatar,
+                          name: state.userProfile?.profile.firstName,
                         ),
                         SizedBox(
                           height: 30,
-                        ),
-                        Container(
-                          height: 85,
-                          decoration: avatarInfoDecorationBox,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: 20,
-                              top: 10,
-                              bottom: 10,
-                              right: 25.5,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AvatarAndInfo(
-                                  pictureUrl: state.userProfile?.profile.avatar,
-                                  name: state.userProfile?.profile.firstName,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                  },
-                                  child: Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: Icon(
-                                        Icons.settings,
-                                        color: kPrimaryColor600,
-                                        size: 21,
-                                      ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                         SizedBox(
                           height: 18,
@@ -127,7 +69,6 @@ class _MenuTabState extends State<MenuPage> {
                                 "Log out",
                                 style: TextStyle(
                                   color: kErrorColor,
-                                  fontFamily: "Rubik",
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -139,7 +80,10 @@ class _MenuTabState extends State<MenuPage> {
                     ),
                   ),
                   _buildSubTitle(
-                      subTitle: "Account", paddingTop: 38.5, paddingBottom: 20),
+                    subTitle: "Account",
+                    paddingTop: 38.5,
+                    paddingBottom: 20,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 22.25),
                     child: GestureDetector(
@@ -261,8 +205,7 @@ class _MenuTabState extends State<MenuPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      BlocBuilder<BuildInformationBloc,
-                          BuildInformationState>(
+                      BlocBuilder<BuildInformationBloc, BuildInformationState>(
                         bloc: getIt<BuildInformationBloc>()
                           ..add(const BuildInformationEvent.fetch()),
                         builder: (context, state) {
@@ -273,7 +216,6 @@ class _MenuTabState extends State<MenuPage> {
                           );
                         },
                       ),
-
                     ],
                   )
                 ],
@@ -285,10 +227,11 @@ class _MenuTabState extends State<MenuPage> {
     );
   }
 
-  Widget _buildSubTitle(
-      {required String subTitle,
-      double paddingTop = 0.0,
-      double paddingBottom = 0.0}) {
+  Widget _buildSubTitle({
+    required String subTitle,
+    double paddingTop = 0.0,
+    double paddingBottom = 0.0,
+  }) {
     return Padding(
       padding:
           EdgeInsets.only(left: 20, top: paddingTop, bottom: paddingBottom),

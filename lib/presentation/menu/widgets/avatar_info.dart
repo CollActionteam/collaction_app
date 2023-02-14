@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -14,12 +13,11 @@ class AvatarAndInfo extends StatefulWidget {
   final String? pictureUrl;
   final String? name;
 
-  const AvatarAndInfo(
-      {Key? key,
-      required this.pictureUrl,
-      required this.name,
-      })
-      : super(key: key);
+  const AvatarAndInfo({
+    Key? key,
+    required this.pictureUrl,
+    required this.name,
+  }) : super(key: key);
 
   @override
   State<AvatarAndInfo> createState() => _AvatarAndInfoState();
@@ -28,25 +26,22 @@ class AvatarAndInfo extends StatefulWidget {
 class _AvatarAndInfoState extends State<AvatarAndInfo> {
   late final IUserRepository _userRepository;
   File? _image;
+  late String number;
+
   @override
   void initState() {
     super.initState();
     _userRepository = getIt<IUserRepository>();
   }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // ProfilePicture(
-        //   maxRadius: 40,
-        //   profileImage:
-        //       '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.pictureUrl}',
-        // ),
         ProfilePicture(
           image: _image,
-          profileImage: widget.pictureUrl !=
-              null
+          profileImage: widget.pictureUrl != null
               ? '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.pictureUrl}'
               : null,
           maxRadius: 50,
@@ -62,19 +57,18 @@ class _AvatarAndInfoState extends State<AvatarAndInfo> {
               widget.name ?? "",
               style: nameTextStyle,
             ),
-            StreamBuilder(builder: (context, AsyncSnapshot<User> snapshot) {
-              if (snapshot.hasData) {
-                final number = snapshot.data!.phoneNumber ?? 'no phone number';
+            StreamBuilder(
+              builder: (context, AsyncSnapshot<User> snapshot) {
+                if (snapshot.hasData) {
+                  number = snapshot.data!.phoneNumber ?? 'no phone number';
+                }
                 return Text(
                   number,
                   style: phoneNumberTextStyle,
                 );
-              } else {
-                return const Text('...');
-              }
-
-            },stream:     _userRepository.observeUser()
-    ,),
+              },
+              stream: _userRepository.observeUser(),
+            ),
           ],
         )
       ],

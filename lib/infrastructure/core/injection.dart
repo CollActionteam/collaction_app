@@ -8,4 +8,5 @@ final GetIt getIt = GetIt.instance;
 @injectableInit
 void configureInjection() {
   getIt.init();
+
 }
