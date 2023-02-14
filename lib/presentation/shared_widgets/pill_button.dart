@@ -10,6 +10,7 @@ class PillButton extends StatelessWidget {
   final EdgeInsets? margin;
   final double? width;
   final bool isLoading;
+  final bool darkText;
 
   const PillButton({
     super.key,
@@ -20,6 +21,7 @@ class PillButton extends StatelessWidget {
     this.margin,
     this.width,
     this.isLoading = false,
+    this.darkText = false
   });
 
   const PillButton.icon({
@@ -31,6 +33,7 @@ class PillButton extends StatelessWidget {
     this.margin,
     this.width,
     this.isLoading = false,
+    this.darkText = false
   });
 
   @override
@@ -48,18 +51,20 @@ class PillButton extends StatelessWidget {
             ? ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: kAccentColor,
+                  backgroundColor: darkText ? Colors.white : kAccentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),
                 ),
-                child: const CircularProgressIndicator(
-                  color: Colors.white,
+                child: CircularProgressIndicator(
+                  color: darkText ? kAccentColor : Colors.white,
                 ),
               )
             : ElevatedButton.icon(
                 icon: leading ?? const SizedBox(),
-                label: Text(text),
+                label: Text(text, style: TextStyle(
+                  color: darkText ? kAccentColor : Colors.white,
+                )),
                 onPressed: isEnabled ? onTap : null,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
@@ -67,7 +72,7 @@ class PillButton extends StatelessWidget {
                       if (states.contains(MaterialState.disabled)) {
                         return kAlmostTransparent;
                       }
-                      return kAccentColor;
+                      return darkText ? Colors.white : kAccentColor;
                     },
                   ),
                   elevation: MaterialStateProperty.all<double>(0),
