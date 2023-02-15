@@ -56,7 +56,7 @@ class CrowdActionBrowsePage extends StatelessWidget {
             title: "Browse CrowdActions",
           ),
           body: RefreshIndicator(
-            color: context.colors.accentColor,
+            color: context.kTheme.accentColor,
             onRefresh: () async {
               pagingController.refresh();
             },
@@ -72,12 +72,12 @@ class CrowdActionBrowsePage extends StatelessWidget {
                   ),
                   firstPageProgressIndicatorBuilder: (context) => Center(
                     child: CircularProgressIndicator(
-                      color: context.colors.accentColor,
+                      color: context.kTheme.accentColor,
                     ),
                   ),
                   newPageProgressIndicatorBuilder: (context) => Center(
                     child: CircularProgressIndicator(
-                      color: context.colors.accentColor,
+                      color: context.kTheme.accentColor,
                     ),
                   ),
                   firstPageErrorIndicatorBuilder: (context) => const Text(

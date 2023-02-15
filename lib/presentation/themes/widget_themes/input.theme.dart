@@ -8,31 +8,31 @@ extension InputX on ThemeData {
           fontSize: 15,
           fontWeight: FontWeight.w300,
         ),
-        labelStyle: TextStyle(color: colors.inactiveColor),
+        labelStyle: TextStyle(color: kTheme.inactiveColor),
         filled: true,
-        fillColor: colors.almostTransparent,
-        focusColor: colors.inactiveColor,
+        fillColor: kTheme.almostTransparent,
+        focusColor: kTheme.inactiveColor,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.zero,
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: colors.accentColor!,
+            color: kTheme.accentColor!,
             width: 1.5,
           ),
           borderRadius: BorderRadius.zero,
         ),
         focusedErrorBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: colors.errorColor!,
+            color: kTheme.errorColor!,
             width: 1.5,
           ),
           borderRadius: BorderRadius.zero,
         ),
         errorBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: colors.errorColor!,
+            color: kTheme.errorColor!,
             width: 1.5,
           ),
           borderRadius: BorderRadius.zero,

@@ -72,7 +72,7 @@ class FlagDialogState extends State<FlagDialog> {
           height: 5.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color: context.colors.secondaryTransparent,
+            color: context.kTheme.secondaryTransparent,
           ),
         ),
         const SizedBox(
@@ -100,7 +100,7 @@ class FlagDialogState extends State<FlagDialog> {
                   "Modal description. Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio uma, tempus molestie, porttitor ut, iaculis quis.",
                   overflow: TextOverflow.fade,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: context.colors.primaryColor400,
+                        color: context.kTheme.primaryColor400,
                       ),
                   textAlign: TextAlign.center,
                 ),
@@ -173,7 +173,7 @@ class FlagSuccess extends StatelessWidget {
             height: 5.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: context.colors.secondaryTransparent,
+              color: context.kTheme.secondaryTransparent,
             ),
           ),
           const SizedBox(
@@ -205,7 +205,7 @@ class FlagSuccess extends StatelessWidget {
             child: Text(
               "Thank you for letting us know. We will look into it and dlete the comment if necessary.",
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: context.colors.primaryColor400,
+                    color: context.kTheme.primaryColor400,
                   ),
               textAlign: TextAlign.center,
             ),

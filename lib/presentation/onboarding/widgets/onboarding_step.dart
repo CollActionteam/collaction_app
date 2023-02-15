@@ -32,7 +32,7 @@ class OnboardingStep extends StatelessWidget {
         Expanded(
           child: Icon(
             icon,
-            color: context.colors.accentColor,
+            color: context.kTheme.accentColor,
             size: icon == CollactionIcons.goal ? 40 : 180 * scaleFactor,
           ),
         ),
@@ -44,7 +44,7 @@ class OnboardingStep extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 34.0 * scaleFactor,
-            color: context.colors.primaryColor400,
+            color: context.kTheme.primaryColor400,
           ),
         ),
         SizedBox(height: 25.0 * scaleFactor),
@@ -56,7 +56,7 @@ class OnboardingStep extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w300,
               fontSize: 16.0 * scaleFactor,
-              color: context.colors.primaryColor300,
+              color: context.kTheme.primaryColor300,
             ),
           ),
         ),

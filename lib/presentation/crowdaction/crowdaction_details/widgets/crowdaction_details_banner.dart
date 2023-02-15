@@ -40,7 +40,7 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                 onTap: () => context.router.pop(),
                 child: Icon(
                   CollactionIcons.left,
-                  color: context.colors.primaryColor400,
+                  color: context.kTheme.primaryColor400,
                 ),
               ),
             ),
@@ -79,10 +79,10 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                 child: CustomFAB(
                   heroTag: 'locked',
                   isMini: true,
-                  color: context.colors.secondaryColor,
+                  color: context.kTheme.secondaryColor,
                   child: Icon(
                     CollactionIcons.lock,
-                    color: context.colors.primaryColor300,
+                    color: context.kTheme.primaryColor300,
                   ),
                 ),
               ),

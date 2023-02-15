@@ -72,7 +72,7 @@ class EnterUserNameState extends State<EnterUserName> {
                       child: Text(
                         'Enter your first name or use a recognizable name that others can identify you by',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: context.colors.inactiveColor),
+                        style: TextStyle(color: context.kTheme.inactiveColor),
                       ),
                     ),
                   ],
@@ -93,7 +93,7 @@ class EnterUserNameState extends State<EnterUserName> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Your First Name',
-                          focusColor: context.colors.accentColor,
+                          focusColor: context.kTheme.accentColor,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
                             borderSide: const BorderSide(
@@ -131,7 +131,7 @@ class EnterUserNameState extends State<EnterUserName> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Your Last Name',
-                          focusColor: context.colors.accentColor,
+                          focusColor: context.kTheme.accentColor,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
                             borderSide: const BorderSide(

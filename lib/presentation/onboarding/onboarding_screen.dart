@@ -80,19 +80,19 @@ class OnboardingPageState extends State<OnboardingPage> {
               position: currentPage,
               dotsCount: 3,
               decorator: DotsDecorator(
-                activeColor: context.colors.accentColor,
-                color: context.colors.secondaryTransparent!,
+                activeColor: context.kTheme.accentColor,
+                color: context.kTheme.secondaryTransparent!,
                 size: Size(12, 12),
                 activeSize: Size(12, 12),
               ),
             ),
             const SizedBox(height: 25.0),
             FloatingActionButton(
-              backgroundColor: context.colors.accentColor,
+              backgroundColor: context.kTheme.accentColor,
               onPressed: () => currentPage == 2.0 ? getStarted() : nextPage(),
               child: Icon(
                 CollactionIcons.arrow_right,
-                color: context.colors.secondaryColor,
+                color: context.kTheme.secondaryColor,
               ),
             ),
             const SizedBox(height: 25.0),
@@ -105,7 +105,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                   "Skip",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    color: context.colors.accentColor,
+                    color: context.kTheme.accentColor,
                   ),
                 ),
               ),

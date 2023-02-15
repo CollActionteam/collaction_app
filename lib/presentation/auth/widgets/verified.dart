@@ -90,7 +90,7 @@ class VerifiedPage extends StatelessWidget {
                       child: Text(
                         'Show me all CrowdActions',
                         style: TextStyle(
-                          color: context.colors.accentColor,
+                          color: context.kTheme.accentColor,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.0,
                         ),

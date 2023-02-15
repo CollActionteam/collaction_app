@@ -95,7 +95,7 @@ void main() {
             find.byWidgetPredicate(
               (widget) =>
                   widget is AppBar &&
-                  widget.backgroundColor == ctx.colors.secondaryColor,
+                  widget.backgroundColor == ctx.kTheme.secondaryColor,
             ),
             findsOneWidget,
           );
@@ -398,7 +398,7 @@ void main() {
             matching: find.byWidgetPredicate(
               (widget) =>
                   widget is AppBar &&
-                  widget.titleTextStyle?.color == ctx.colors.primaryColor,
+                  widget.titleTextStyle?.color == ctx.kTheme.primaryColor,
             ),
           );
         },

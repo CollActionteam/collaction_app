@@ -48,7 +48,7 @@ class PillButton extends StatelessWidget {
             ? ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: context.colors.accentColor,
+                  backgroundColor: context.kTheme.accentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),
@@ -65,9 +65,9 @@ class PillButton extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                     (states) {
                       if (states.contains(MaterialState.disabled)) {
-                        return context.colors.almostTransparent;
+                        return context.kTheme.almostTransparent;
                       }
-                      return context.colors.accentColor;
+                      return context.kTheme.accentColor;
                     },
                   ),
                   elevation: MaterialStateProperty.all<double>(0),

@@ -31,7 +31,7 @@ class SignUpCTA extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 34,
-              color: context.colors.primaryColor400,
+              color: context.kTheme.primaryColor400,
             ),
             textAlign: TextAlign.center,
           ),
@@ -42,7 +42,7 @@ class SignUpCTA extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 17,
-                color: context.colors.primaryColor300,
+                color: context.kTheme.primaryColor300,
               ),
               textAlign: TextAlign.center,
             ),

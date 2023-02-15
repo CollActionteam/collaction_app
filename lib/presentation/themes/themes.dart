@@ -15,7 +15,7 @@ ThemeData lightTheme() {
   return theme
       .copyWith(
         extensions: <ThemeExtension<dynamic>>[
-          CollactionColors.light,
+          CollactionTheme.light,
         ],
         colorScheme: theme.colorScheme.copyWith(
           background: Colors.white,
@@ -36,7 +36,7 @@ ThemeData darkTheme() {
   return theme
       .copyWith(
         extensions: <ThemeExtension<dynamic>>[
-          CollactionColors.dark,
+          CollactionTheme.dark,
         ],
         colorScheme: theme.colorScheme.copyWith(
           background: theme.scaffoldBackgroundColor,

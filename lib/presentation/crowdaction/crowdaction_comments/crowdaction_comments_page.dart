@@ -6,7 +6,6 @@ import '../../../domain/crowdaction/crowdaction_comment.dart';
 import '../../../infrastructure/crowdaction/crowdaction_comment_dto.dart';
 import '../../core/collaction_icons.dart';
 import '../../shared_widgets/expandable_text.dart';
-import '../../themes/constants.dart';
 
 part 'parts/comment_actions.dart';
 part 'parts/comment_appbar_delegate.dart';
@@ -24,7 +23,7 @@ class CrowdActionCommentsPage extends StatelessWidget {
           SliverPersistentHeader(
             delegate: CommentAppBarDelegate(
               expandedHeight: 156,
-              color: context.colors.primaryColor400!,
+              color: context.kTheme.primaryColor400!,
             ),
             pinned: true,
           ),

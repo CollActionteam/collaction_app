@@ -64,9 +64,9 @@ class CrowdActionCarouselState extends State<CrowdActionCarousel> {
                 dotsCount: crowdActions.length,
                 position: _currentPage,
                 decorator: DotsDecorator(
-                  color: context.colors.shadowColor!,
+                  color: context.kTheme.shadowColor!,
                   size: Size(12.0, 12.0),
-                  activeColor: context.colors.accentColor,
+                  activeColor: context.kTheme.accentColor,
                   activeSize: Size(12.0, 12.0),
                 ),
                 onTap: (position) {

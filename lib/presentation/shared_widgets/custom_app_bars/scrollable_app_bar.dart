@@ -75,7 +75,7 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.resolveWith(
-              (states) => context.colors.almostTransparent,
+              (states) => context.kTheme.almostTransparent,
             ),
             elevation: MaterialStateProperty.all<double>(0.0),
             shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -87,7 +87,7 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
       ),
       child: AppBar(
         backgroundColor:
-            widget.backgroundColor ?? context.colors.secondaryColor,
+            widget.backgroundColor ?? context.kTheme.secondaryColor,
         elevation: currentElevation,
         centerTitle: widget.centerTitle,
         leading: widget.leading,
@@ -107,7 +107,7 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
             Theme.of(context)
                 .textTheme
                 .titleLarge
-                ?.copyWith(color: context.colors.primaryColor),
+                ?.copyWith(color: context.kTheme.primaryColor),
       ),
     );
   }

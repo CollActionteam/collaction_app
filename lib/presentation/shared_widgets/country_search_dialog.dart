@@ -43,7 +43,7 @@ class CountrySearchState extends State<CountrySearch> {
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.search,
-                      color: context.colors.accentColor,
+                      color: context.kTheme.accentColor,
                     ),
                   ),
                   onChanged: _searchCountry,

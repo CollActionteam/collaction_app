@@ -46,7 +46,7 @@ class _UserProfileTabState extends State<UserProfileTab>
                   margin: const EdgeInsets.only(bottom: 5.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
-                    color: context.colors.almostTransparent,
+                    color: context.kTheme.almostTransparent,
                     boxShadow: [
                       BoxShadow(
                         color: context.onBackground.withOpacity(0.2),
@@ -93,7 +93,7 @@ class _UserProfileTabState extends State<UserProfileTab>
                     ],
                     unselectedLabelColor: const Color(0xffacb3bf),
                     indicatorColor: Colors.transparent,
-                    labelColor: context.colors.accentColor,
+                    labelColor: context.kTheme.accentColor,
                     controller: _tabController,
                   ),
                 ),

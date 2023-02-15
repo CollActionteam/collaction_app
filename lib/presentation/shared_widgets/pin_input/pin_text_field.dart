@@ -46,11 +46,11 @@ class PinTextField extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: context.colors.accentColor!),
+                borderSide: BorderSide(color: context.kTheme.accentColor!),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: context.colors.accentColor!),
+                borderSide: BorderSide(color: context.kTheme.accentColor!),
               ),
             ),
             focusNode: focusNode,

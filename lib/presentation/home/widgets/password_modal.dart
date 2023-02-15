@@ -40,7 +40,7 @@ class _PasswordModalState extends State<PasswordModal> {
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: context.colors.secondaryColor,
+        color: context.kTheme.secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       child: Column(
@@ -52,7 +52,7 @@ class _PasswordModalState extends State<PasswordModal> {
               Text(
                 'Enter password',
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      color: context.colors.primaryColor400,
+                      color: context.kTheme.primaryColor400,
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
                     ),
@@ -61,7 +61,7 @@ class _PasswordModalState extends State<PasswordModal> {
               Text(
                 'This crowdaction is private. Please enter the password to see it.',
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      color: context.colors.primaryColor300,
+                      color: context.kTheme.primaryColor300,
                       fontSize: 12,
                     ),
                 textAlign: TextAlign.center,
@@ -103,11 +103,11 @@ class _PasswordModalState extends State<PasswordModal> {
                 icon: _showInput
                     ? Icon(
                         CollactionIcons.eye,
-                        color: context.colors.primaryColor300,
+                        color: context.kTheme.primaryColor300,
                       )
                     : Icon(
                         CollactionIcons.eye_off,
-                        color: context.colors.primaryColor300,
+                        color: context.kTheme.primaryColor300,
                       ),
                 onPressed: () {
                   setState(() {
@@ -117,12 +117,12 @@ class _PasswordModalState extends State<PasswordModal> {
                 splashRadius: 2,
               ),
             ),
-            cursorColor: context.colors.accentColor,
+            cursorColor: context.kTheme.accentColor,
           ),
           CircleAvatar(
             backgroundColor: _disableButton
-                ? context.colors.disabledButtonColor
-                : context.colors.accentColor,
+                ? context.kTheme.disabledButtonColor
+                : context.kTheme.accentColor,
             minRadius: 30,
             child: IconButton(
               onPressed: !_disableButton ? () => _validatePassword() : null,

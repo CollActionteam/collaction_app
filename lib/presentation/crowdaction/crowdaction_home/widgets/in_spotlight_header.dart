@@ -39,7 +39,7 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                     sectionHeadingText(),
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: context.colors.primaryColor400,
+                          color: context.kTheme.primaryColor400,
                         ),
                   ),
                 ),

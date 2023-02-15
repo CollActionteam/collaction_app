@@ -142,7 +142,7 @@ class PhotoSelectorState extends State<PhotoSelector> {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Profile Photo',
-          toolbarColor: context.colors.accentColor,
+          toolbarColor: context.kTheme.accentColor,
           toolbarWidgetColor: Colors.white,
           lockAspectRatio: true,
         ),

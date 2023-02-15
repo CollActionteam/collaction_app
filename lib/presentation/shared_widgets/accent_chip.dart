@@ -25,10 +25,10 @@ class AccentChip extends StatelessWidget {
           ? MaterialTapTargetSize.shrinkWrap
           : MaterialTapTargetSize.padded,
       avatar: leading,
-      backgroundColor: color ?? context.colors.accentColor,
+      backgroundColor: color ?? context.kTheme.accentColor,
       shape: StadiumBorder(
         side: BorderSide(
-          color: color ?? context.colors.accentColor!,
+          color: color ?? context.kTheme.accentColor!,
         ),
       ),
       label: Text(

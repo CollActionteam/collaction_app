@@ -26,16 +26,16 @@ class SettingsListTile extends StatelessWidget {
         vertical: 15,
         horizontal: 20,
       ),
-      tileColor: context.colors.almostTransparent,
+      tileColor: context.kTheme.almostTransparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       leading: CircleAvatar(
         radius: 32.5,
-        backgroundColor: context.colors.secondaryColor,
+        backgroundColor: context.kTheme.secondaryColor,
         child: Icon(
           icon,
-          color: iconColor ?? context.colors.primaryColor300,
+          color: iconColor ?? context.kTheme.primaryColor300,
         ),
       ),
       title: Text(title),

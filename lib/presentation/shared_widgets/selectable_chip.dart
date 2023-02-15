@@ -32,25 +32,25 @@ class SelectableChip extends StatelessWidget {
               StadiumBorder(
                 side: BorderSide(
                   color: selected
-                      ? context.colors.primaryColor400!
-                      : context.colors.almostTransparent!,
+                      ? context.kTheme.primaryColor400!
+                      : context.kTheme.almostTransparent!,
                 ),
               ),
             ),
             overlayColor: MaterialStateColor.resolveWith(
-              (states) => context.colors.secondaryColor!.withOpacity(0.1),
+              (states) => context.kTheme.secondaryColor!.withOpacity(0.1),
             ),
             backgroundColor: MaterialStateProperty.all(selected
-                ? context.colors.primaryColor400
-                : context.colors.secondaryColor),
+                ? context.kTheme.primaryColor400
+                : context.kTheme.secondaryColor),
           ),
           child: Text(
             text,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontSize: 11,
                   color: selected
-                      ? context.colors.secondaryColor
-                      : context.colors.primaryColor400,
+                      ? context.kTheme.secondaryColor
+                      : context.kTheme.primaryColor400,
                   fontWeight: FontWeight.w700,
                 ),
           ),

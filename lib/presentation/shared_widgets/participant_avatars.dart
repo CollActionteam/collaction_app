@@ -34,8 +34,8 @@ class TopParticipantAvatars extends StatelessWidget {
           return state.map(
             initial: (_) => const SizedBox.shrink(),
             fetching: (_) => Shimmer.fromColors(
-              baseColor: context.colors.primaryColor100!,
-              highlightColor: context.colors.primaryColor200!,
+              baseColor: context.kTheme.primaryColor100!,
+              highlightColor: context.kTheme.primaryColor200!,
               child: const TopParticipantsShimmer(),
             ),
             fetched: (state) => SizedBox(

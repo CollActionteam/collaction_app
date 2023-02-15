@@ -35,7 +35,7 @@ class AppWidget extends StatelessWidget {
           title: 'CollAction',
           theme: lightTheme(),
           darkTheme: darkTheme(),
-          themeMode: ThemeMode.dark,
+          themeMode: ThemeMode.system,
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
         ),

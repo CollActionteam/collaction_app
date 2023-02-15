@@ -44,11 +44,11 @@ class CommitmentCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: active
-              ? context.colors.almostTransparent
-              : context.colors.secondaryColor,
+              ? context.kTheme.almostTransparent
+              : context.kTheme.secondaryColor,
           border: active
               ? Border.all(color: Colors.transparent)
-              : Border.all(color: context.colors.primaryColor0!),
+              : Border.all(color: context.kTheme.primaryColor0!),
         ),
         margin: const EdgeInsets.symmetric(vertical: 5.0),
         padding: const EdgeInsets.all(10.0),
@@ -58,12 +58,12 @@ class CommitmentCard extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: context.colors.secondaryColor,
+                color: context.kTheme.secondaryColor,
               ),
               alignment: Alignment.center,
               child: Icon(
                 commitment.icon,
-                color: context.colors.accentColor,
+                color: context.kTheme.accentColor,
                 size: 30,
               ),
             ),
@@ -83,8 +83,8 @@ class CommitmentCard extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: deactivated
-                          ? context.colors.primaryColor300
-                          : context.colors.primaryColor400,
+                          ? context.kTheme.primaryColor300
+                          : context.kTheme.primaryColor400,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -96,8 +96,8 @@ class CommitmentCard extends StatelessWidget {
                       style: textTheme.bodySmall!.copyWith(
                         fontSize: 13,
                         color: deactivated
-                            ? context.colors.primaryColor200
-                            : context.colors.primaryColor300,
+                            ? context.kTheme.primaryColor200
+                            : context.kTheme.primaryColor300,
                       ),
                       softWrap: true,
                       maxLines: 3,
@@ -118,15 +118,15 @@ class CommitmentCard extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: active
-                      ? context.colors.primaryColor400
+                      ? context.kTheme.primaryColor400
                           ?.withAlpha(deactivated ? 50 : 255)
                       : Colors.transparent,
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: active
-                        ? context.colors.primaryColor400!
+                        ? context.kTheme.primaryColor400!
                             .withAlpha(deactivated ? 0 : 255)
-                        : context.colors.primaryColor200!,
+                        : context.kTheme.primaryColor200!,
                     width: 3,
                   ),
                 ),

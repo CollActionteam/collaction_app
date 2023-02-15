@@ -50,7 +50,7 @@ class EnterVerificationCodeState extends State<EnterVerificationCode> {
                   child: Text(
                     'We just sent you a text message with a 6-digit code to verify your account',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: context.colors.inactiveColor),
+                    style: TextStyle(color: context.kTheme.inactiveColor),
                   ),
                 ),
               ],
@@ -75,7 +75,7 @@ class EnterVerificationCodeState extends State<EnterVerificationCode> {
                     width: 25,
                     height: 25,
                     child: CircularProgressIndicator(
-                      color: context.colors.accentColor,
+                      color: context.kTheme.accentColor,
                       strokeWidth: 2,
                     ),
                   ),
@@ -88,7 +88,7 @@ class EnterVerificationCodeState extends State<EnterVerificationCode> {
                       child: Text(
                         'No code? Click here and we will send a new one',
                         style: TextStyle(
-                          color: context.colors.accentColor,
+                          color: context.kTheme.accentColor,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.0,
                         ),

@@ -37,7 +37,7 @@ class CrowdActionsTab extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 28.0,
-                    color: context.colors.primaryColor400,
+                    color: context.kTheme.primaryColor400,
                   ),
                 ),
               ),

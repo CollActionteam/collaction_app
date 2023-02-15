@@ -95,8 +95,8 @@ class _CommitmentCardState extends State<_CommitmentCard> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
           color: active
-              ? context.colors.secondaryTransparent
-              : context.colors.almostTransparent,
+              ? context.kTheme.secondaryTransparent
+              : context.kTheme.almostTransparent,
         ),
         margin: const EdgeInsets.symmetric(
           vertical: 5.0,
@@ -109,18 +109,18 @@ class _CommitmentCardState extends State<_CommitmentCard> {
               padding: const EdgeInsets.all(15.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: context.colors.almostTransparent,
+                color: context.kTheme.almostTransparent,
               ),
               alignment: Alignment.center,
               child: widget.commitment.icon != null
                   ? Icon(
                       IconUtil.fromString(widget.commitment.icon!),
-                      color: context.colors.accentColor,
+                      color: context.kTheme.accentColor,
                       size: 30,
                     )
                   : Icon(
                       CollactionIcons.collaction,
-                      color: context.colors.accentColor,
+                      color: context.kTheme.accentColor,
                       size: 30,
                     ),
             ),
@@ -159,13 +159,13 @@ class _CommitmentCardState extends State<_CommitmentCard> {
               ),
               decoration: BoxDecoration(
                 color: active
-                    ? context.colors.primaryColor400
+                    ? context.kTheme.primaryColor400
                     : Colors.transparent,
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: active
-                      ? context.colors.primaryColor400!
-                      : context.colors.primaryColor200!,
+                      ? context.kTheme.primaryColor400!
+                      : context.kTheme.primaryColor200!,
                   width: 3,
                 ),
               ),

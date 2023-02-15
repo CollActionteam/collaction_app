@@ -11,15 +11,15 @@ class SettingsLayout extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: context.colors.secondaryColor,
+        backgroundColor: context.kTheme.secondaryColor,
         leading: RawMaterialButton(
           elevation: 5,
           onPressed: () => context.router.pop(),
           child: CircleAvatar(
-            backgroundColor: context.colors.secondaryColor,
+            backgroundColor: context.kTheme.secondaryColor,
             child: Icon(
               Icons.arrow_back_ios_new_outlined,
-              color: context.colors.primaryColor300,
+              color: context.kTheme.primaryColor300,
             ),
           ),
         ),
@@ -28,15 +28,15 @@ class SettingsLayout extends StatelessWidget {
             style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
               backgroundColor:
-                  MaterialStateProperty.all(context.colors.secondaryColor),
+                  MaterialStateProperty.all(context.kTheme.secondaryColor),
               elevation: MaterialStateProperty.all(2),
             ),
             onPressed: () => context.router.pop(),
             child: CircleAvatar(
-              backgroundColor: context.colors.secondaryColor,
+              backgroundColor: context.kTheme.secondaryColor,
               child: Icon(
                 Icons.close_outlined,
-                color: context.colors.primaryColor300,
+                color: context.kTheme.primaryColor300,
               ),
             ),
           )

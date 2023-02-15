@@ -71,7 +71,7 @@ void main() {
           tester
               .widget<CircleAvatar>(find.byType(CircleAvatar))
               .backgroundColor,
-          ctx.colors.disabledButtonColor,
+          ctx.kTheme.disabledButtonColor,
         );
 
         await tester.enterText(find.byType(TextField), 't');
@@ -81,7 +81,7 @@ void main() {
           tester
               .widget<CircleAvatar>(find.byType(CircleAvatar))
               .backgroundColor,
-          ctx.colors.accentColor,
+          ctx.kTheme.accentColor,
         );
       },
     );

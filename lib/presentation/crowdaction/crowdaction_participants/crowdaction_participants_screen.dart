@@ -65,7 +65,7 @@ class CrowdActionParticipantsPage extends StatelessWidget {
             leading: IconButton(
               icon: Icon(
                 Icons.chevron_left,
-                color: context.colors.primaryColor200,
+                color: context.kTheme.primaryColor200,
               ),
               onPressed: () => context.router.pop(),
             ),
@@ -73,12 +73,12 @@ class CrowdActionParticipantsPage extends StatelessWidget {
               "Participants",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: context.colors.primaryColor400,
+                color: context.kTheme.primaryColor400,
               ),
             ),
           ),
           body: RefreshIndicator(
-            color: context.colors.accentColor,
+            color: context.kTheme.accentColor,
             onRefresh: () async {
               pagingController.refresh();
             },
@@ -108,12 +108,12 @@ class CrowdActionParticipantsPage extends StatelessWidget {
                 ),
                 firstPageProgressIndicatorBuilder: (context) => Center(
                   child: CircularProgressIndicator(
-                    color: context.colors.accentColor,
+                    color: context.kTheme.accentColor,
                   ),
                 ),
                 newPageProgressIndicatorBuilder: (context) => Center(
                   child: CircularProgressIndicator(
-                    color: context.colors.accentColor,
+                    color: context.kTheme.accentColor,
                   ),
                 ),
                 firstPageErrorIndicatorBuilder: (context) => const Text(

@@ -37,7 +37,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
       margin: const EdgeInsets.all(12.0),
       child: Material(
         borderRadius: BorderRadius.circular(20.0),
-        color: context.colors.secondaryColor,
+        color: context.kTheme.secondaryColor,
         elevation: 4,
         child: InkWell(
           borderRadius: BorderRadius.circular(20.0),
@@ -85,10 +85,10 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                               child: CustomFAB(
                                 heroTag: 'locked',
                                 isMini: true,
-                                color: context.colors.secondaryColor,
+                                color: context.kTheme.secondaryColor,
                                 child: Icon(
                                   CollactionIcons.lock,
-                                  color: context.colors.primaryColor300,
+                                  color: context.kTheme.primaryColor300,
                                 ),
                               ),
                             )
@@ -124,7 +124,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                             style: TextStyle(
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold,
-                              color: context.colors.primaryColor400,
+                              color: context.kTheme.primaryColor400,
                             ),
                           ),
                         ],
@@ -140,7 +140,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium
-                            ?.copyWith(color: context.colors.inactiveColor),
+                            ?.copyWith(color: context.kTheme.inactiveColor),
                       ),
                     ),
                     if (widget.crowdAction.participantCount > 0) ...[

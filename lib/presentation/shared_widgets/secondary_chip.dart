@@ -17,9 +17,9 @@ class SecondaryChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Chip(
       avatar: leading,
-      backgroundColor: context.colors.secondaryColor,
+      backgroundColor: context.kTheme.secondaryColor,
       shape: StadiumBorder(
-        side: BorderSide(color: context.colors.almostTransparent!),
+        side: BorderSide(color: context.kTheme.almostTransparent!),
       ),
       label: Text(
         text,

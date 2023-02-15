@@ -16,7 +16,7 @@ class ShareCollActionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
         boxShadow: [
           BoxShadow(
-            color: context.colors.shadowColor!,
+            color: context.kTheme.shadowColor!,
             blurRadius: 4.0,
             offset: Offset(0, 4),
           ),
@@ -25,7 +25,7 @@ class ShareCollActionCard extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: context.colors.primaryColor400,
+          color: context.kTheme.primaryColor400,
         ),
         child: Column(
           children: [
@@ -37,7 +37,7 @@ class ShareCollActionCard extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: context.colors.secondaryColor,
+                    color: context.kTheme.secondaryColor,
                   ),
             ),
             const SizedBox(
@@ -51,7 +51,7 @@ class ShareCollActionCard extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
-                    ?.copyWith(color: context.colors.secondaryColor),
+                    ?.copyWith(color: context.kTheme.secondaryColor),
               ),
             ),
             const SizedBox(
