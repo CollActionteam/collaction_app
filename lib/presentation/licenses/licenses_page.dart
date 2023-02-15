@@ -24,7 +24,7 @@ class LicensesPage extends StatelessWidget {
             'https://github.com/CollActionteam/collaction_app',
           ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: context.colors.accentColor,
+            backgroundColor: context.kTheme.accentColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(52),
             ),
@@ -41,7 +41,7 @@ class LicensesPage extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: context.colors.secondaryColor,
+      backgroundColor: context.kTheme.secondaryColor,
       body: ScrollConfiguration(
         behavior: NoRippleBehavior(),
         child: SingleChildScrollView(

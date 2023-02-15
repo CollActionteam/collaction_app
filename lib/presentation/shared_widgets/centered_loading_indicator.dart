@@ -21,7 +21,7 @@ class CenteredLoadingIndicator extends StatelessWidget {
                 height: 60,
                 width: 60,
                 child: CircularProgressIndicator(
-                  color: context.colors.accentColor,
+                  color: context.kTheme.accentColor,
                   strokeWidth: 5.0,
                 ),
               ),

@@ -12,13 +12,13 @@ class CommentTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Theme.of(context).scaffoldBackgroundColor,
       child: TextFormField(
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: _border,
           focusedBorder: _border,
           enabledBorder: _border,
           errorBorder: _border,
           hintText: 'Write a comment',
-          hintStyle: body,
+          hintStyle: context.kTheme.body,
           suffixIcon: Padding(
             padding: EdgeInsets.all(8.0),
             child: Icon(

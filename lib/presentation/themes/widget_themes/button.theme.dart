@@ -4,11 +4,11 @@ extension ButtonX on ThemeData {
   ThemeData themeButtons() {
     return copyWith(
       buttonTheme: ButtonThemeData(
-        buttonColor: colors.primaryColor,
+        buttonColor: kTheme.primaryColor,
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: colors.accentColor,
+          foregroundColor: kTheme.accentColor,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -28,9 +28,9 @@ extension ButtonX on ThemeData {
             (states) {
               if (states.contains(MaterialState.disabled)) {
                 // TODO: Replace with theme color
-                return colors.almostTransparent;
+                return kTheme.almostTransparent;
               }
-              return colors.accentColor;
+              return kTheme.accentColor;
             },
           ),
           elevation: MaterialStateProperty.all(0),
@@ -39,7 +39,7 @@ extension ButtonX on ThemeData {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all(
-            colors.primaryColor,
+            kTheme.primaryColor,
           ),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
@@ -47,7 +47,7 @@ extension ButtonX on ThemeData {
             ),
           ),
           side: MaterialStateProperty.all(
-            BorderSide(color: colors.primaryColor!),
+            BorderSide(color: kTheme.primaryColor!),
           ),
           padding: MaterialStateProperty.all(
             const EdgeInsets.symmetric(vertical: 12, horizontal: 15),

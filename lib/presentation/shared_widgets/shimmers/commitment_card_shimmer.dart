@@ -13,8 +13,8 @@ class CommitmentCardShimmer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: context.colors.secondaryColor,
-        border: Border.all(color: context.colors.primaryColor0!),
+        color: context.kTheme.secondaryColor,
+        border: Border.all(color: context.kTheme.primaryColor0!),
       ),
       margin: const EdgeInsets.symmetric(vertical: 5.0),
       padding: const EdgeInsets.all(10.0),
@@ -24,15 +24,15 @@ class CommitmentCardShimmer extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: context.colors.secondaryColor,
+              color: context.kTheme.secondaryColor,
             ),
             alignment: Alignment.center,
             child: Shimmer.fromColors(
-              baseColor: context.colors.secondaryTransparent!,
-              highlightColor: context.colors.almostTransparent!,
+              baseColor: context.kTheme.secondaryTransparent!,
+              highlightColor: context.kTheme.almostTransparent!,
               child: Icon(
                 CollactionIcons.commitment,
-                color: context.colors.primaryColor0,
+                color: context.kTheme.primaryColor0,
                 size: 30,
               ),
             ),

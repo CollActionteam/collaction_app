@@ -21,7 +21,7 @@ class BuildInformationTile extends StatelessWidget {
         Text(
           'Build ${information.buildNumber}',
           style: TextStyle(
-            color: context.colors.primaryColor100,
+            color: context.kTheme.primaryColor100,
             fontSize: 17,
             fontWeight: FontWeight.w300,
           ),
@@ -30,7 +30,7 @@ class BuildInformationTile extends StatelessWidget {
         Text(
           'Version ${information.version}',
           style: TextStyle(
-            color: context.colors.primaryColor100,
+            color: context.kTheme.primaryColor100,
             fontSize: 17,
             fontWeight: FontWeight.w300,
           ),
@@ -39,7 +39,7 @@ class BuildInformationTile extends StatelessWidget {
         Text(
           'Stichting CollAction',
           style: TextStyle(
-            color: context.colors.primaryColor100,
+            color: context.kTheme.primaryColor100,
             fontSize: 17,
             fontWeight: FontWeight.w300,
           ),
@@ -49,7 +49,7 @@ class BuildInformationTile extends StatelessWidget {
           Text(
             'Environment ${information.environment!.toUpperCase()}',
             style: TextStyle(
-              color: context.colors.primaryColor100,
+              color: context.kTheme.primaryColor100,
               fontSize: 17,
               fontWeight: FontWeight.w300,
             ),

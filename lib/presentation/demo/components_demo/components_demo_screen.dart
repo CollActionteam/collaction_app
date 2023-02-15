@@ -302,7 +302,7 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   height: 5.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    color: context.colors.secondaryTransparent,
+                    color: context.kTheme.secondaryTransparent,
                   ),
                 ),
                 const SizedBox(

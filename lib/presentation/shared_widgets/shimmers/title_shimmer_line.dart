@@ -17,7 +17,7 @@ class TitleShimmerLine extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: context.colors.secondaryTransparent,
+        color: context.kTheme.secondaryTransparent,
         borderRadius: BorderRadius.circular(10),
       ),
     );

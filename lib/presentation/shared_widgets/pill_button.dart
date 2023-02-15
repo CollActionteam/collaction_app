@@ -24,16 +24,17 @@ class PillButton extends StatelessWidget {
     this.lightBackground = false,
   });
 
-  const PillButton.icon(
-      {super.key,
-      required this.text,
-      required this.leading,
-      this.onTap,
-      this.isEnabled = true,
-      this.margin,
-      this.width,
-      this.isLoading = false,
-      this.lightBackground = false});
+  const PillButton.icon({
+    super.key,
+    required this.text,
+    required this.leading,
+    this.onTap,
+    this.isEnabled = true,
+    this.margin,
+    this.width,
+    this.isLoading = false,
+    this.lightBackground = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ class PillButton extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                     (states) {
                       if (states.contains(MaterialState.disabled)) {
-                        return context.colors.almostTransparent;
+                        return context.kTheme.almostTransparent;
                       }
                       return lightBackground
                           ? Colors.white

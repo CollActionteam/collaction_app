@@ -32,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onTap: () => context.router.pop(),
                   child: Icon(
                     CollactionIcons.left,
-                    color: context.colors.primaryColor400,
+                    color: context.kTheme.primaryColor400,
                   ),
                 ),
               ),
@@ -45,7 +45,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: ElevatedButton(
               onPressed: () => context.router.pop(),
               style: ElevatedButton.styleFrom(
-                foregroundColor: context.colors.primaryColor0,
+                foregroundColor: context.kTheme.primaryColor0,
                 backgroundColor: context.background,
                 shape: const CircleBorder(),
                 tapTargetSize: MaterialTapTargetSize.padded,
@@ -63,14 +63,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               child: Icon(
                 CollactionIcons.cross,
-                color: context.colors.primaryColor300,
+                color: context.kTheme.primaryColor300,
               ),
             ),
           ),
       ],
       title: Text(
         title,
-        style: TextStyle(color: context.colors.primaryColor),
+        style: TextStyle(color: context.kTheme.primaryColor),
       ),
     );
   }

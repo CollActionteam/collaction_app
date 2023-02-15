@@ -1,7 +1,7 @@
 part of '../core.dart';
 
 @immutable
-class CollactionColors extends ThemeExtension<CollactionColors> {
+class CollactionTheme extends ThemeExtension<CollactionTheme> {
   final Color? primaryColor;
   final Color? secondaryColor;
   final Color? accentColor;
@@ -27,7 +27,11 @@ class CollactionColors extends ThemeExtension<CollactionColors> {
   final Color? primaryColor400;
   final Color? primaryColor500;
 
-  const CollactionColors({
+  final TextStyle? caption1;
+  final TextStyle? body;
+  final TextStyle? title1;
+
+  const CollactionTheme({
     required this.primaryColor,
     required this.secondaryColor,
     required this.accentColor,
@@ -46,10 +50,13 @@ class CollactionColors extends ThemeExtension<CollactionColors> {
     required this.primaryColor300,
     required this.primaryColor400,
     required this.primaryColor500,
+    required this.caption1,
+    required this.body,
+    required this.title1,
   });
 
   @override
-  ThemeExtension<CollactionColors> copyWith({
+  ThemeExtension<CollactionTheme> copyWith({
     Color? primaryColor,
     Color? secondaryColor,
     Color? accentColor,
@@ -68,8 +75,11 @@ class CollactionColors extends ThemeExtension<CollactionColors> {
     Color? primaryColor300,
     Color? primaryColor400,
     Color? primaryColor500,
+    TextStyle? caption1,
+    TextStyle? body,
+    TextStyle? title1,
   }) {
-    return CollactionColors(
+    return CollactionTheme(
       primaryColor: primaryColor ?? this.primaryColor,
       secondaryColor: secondaryColor ?? this.secondaryColor,
       accentColor: accentColor ?? this.accentColor,
@@ -88,17 +98,20 @@ class CollactionColors extends ThemeExtension<CollactionColors> {
       primaryColor300: primaryColor300 ?? this.primaryColor300,
       primaryColor400: primaryColor400 ?? this.primaryColor400,
       primaryColor500: primaryColor500 ?? this.primaryColor500,
+      caption1: caption1 ?? this.caption1,
+      body: body ?? this.body,
+      title1: title1 ?? this.title1,
     );
   }
 
   @override
-  ThemeExtension<CollactionColors> lerp(
-      covariant ThemeExtension<CollactionColors>? other, double t) {
-    if (other is! CollactionColors) {
+  ThemeExtension<CollactionTheme> lerp(
+      covariant ThemeExtension<CollactionTheme>? other, double t) {
+    if (other is! CollactionTheme) {
       return this;
     }
 
-    return CollactionColors(
+    return CollactionTheme(
       primaryColor: Color.lerp(primaryColor, other.primaryColor, t),
       secondaryColor: Color.lerp(secondaryColor, other.secondaryColor, t),
       accentColor: Color.lerp(accentColor, other.accentColor, t),
@@ -133,11 +146,14 @@ class CollactionColors extends ThemeExtension<CollactionColors> {
       primaryColor300: Color.lerp(primaryColor300, other.primaryColor300, t),
       primaryColor400: Color.lerp(primaryColor400, other.primaryColor400, t),
       primaryColor500: Color.lerp(primaryColor500, other.primaryColor500, t),
+      caption1: TextStyle.lerp(caption1, other.caption1, t),
+      body: TextStyle.lerp(body, other.body, t),
+      title1: TextStyle.lerp(title1, other.title1, t),
     );
   }
 
   // the light theme
-  static const light = CollactionColors(
+  static const light = CollactionTheme(
     primaryColor: Colors.black,
     secondaryColor: Color(0xFFF9F9F9),
     accentColor: Color(0xFF2EB494),
@@ -156,10 +172,24 @@ class CollactionColors extends ThemeExtension<CollactionColors> {
     primaryColor300: Color(0xFF666666),
     primaryColor400: Color(0xFF333333),
     primaryColor500: Color(0xFF000000),
+    caption1: TextStyle(
+      fontSize: 12,
+      height: 16 / 12,
+    ),
+    body: TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w300,
+      height: 26 / 17,
+    ),
+    title1: TextStyle(
+      fontSize: 28,
+      height: 34 / 28,
+      fontWeight: FontWeight.w700,
+    ),
   );
 
   // the dark theme
-  static const dark = CollactionColors(
+  static const dark = CollactionTheme(
     primaryColor: Colors.white,
     secondaryColor: Color(0xFF060606),
     accentColor: Color(0xFF2EB494),
@@ -178,5 +208,19 @@ class CollactionColors extends ThemeExtension<CollactionColors> {
     primaryColor300: Color(0xFF999999),
     primaryColor400: Color(0xFFCCCCCC),
     primaryColor500: Colors.white,
+    caption1: TextStyle(
+      fontSize: 12,
+      height: 16 / 12,
+    ),
+    body: TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w300,
+      height: 26 / 17,
+    ),
+    title1: TextStyle(
+      fontSize: 28,
+      height: 34 / 28,
+      fontWeight: FontWeight.w700,
+    ),
   );
 }

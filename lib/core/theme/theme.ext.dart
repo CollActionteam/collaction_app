@@ -24,11 +24,11 @@ extension ThemeBuildContextX on BuildContext {
   // If brightness dark
   bool get isDark => theme.brightness == Brightness.dark;
 
-  CollactionColors get colors => theme.colors;
+  CollactionTheme get kTheme => theme.kTheme;
 }
 
 extension ThemeX on ThemeData {
-  CollactionColors get colors => extension<CollactionColors>()!;
+  CollactionTheme get kTheme => extension<CollactionTheme>()!;
 
   // Primary Color
   Color get primary => colorScheme.primary;

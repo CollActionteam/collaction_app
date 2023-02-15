@@ -41,7 +41,7 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                 onTap: () => context.router.pop(),
                 child: Icon(
                   CollactionIcons.left,
-                  color: context.colors.primaryColor400,
+                  color: context.kTheme.primaryColor400,
                 ),
               ),
             ),

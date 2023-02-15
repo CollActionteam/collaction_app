@@ -83,7 +83,7 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
                               });
                             },
                           ),
-                          backgroundColor: context.colors.accentColor,
+                          backgroundColor: context.kTheme.accentColor,
                           mini: true,
                           child: const Icon(Icons.add),
                         ),
@@ -113,7 +113,7 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
                         child: Text(
                           'We love to see happy faces',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: context.colors.inactiveColor),
+                          style: TextStyle(color: context.kTheme.inactiveColor),
                         ),
                       ),
                     ],
@@ -149,7 +149,7 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
                           child: Text(
                             'Maybe later',
                             style: TextStyle(
-                              color: context.colors.accentColor,
+                              color: context.kTheme.accentColor,
                               fontWeight: FontWeight.w700,
                               fontSize: 14.0,
                             ),

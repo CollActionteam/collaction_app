@@ -91,9 +91,9 @@ class ExpandableTextState extends State<ExpandableText>
             TextSpan(
               text: readMore ? widget.readMoreText : widget.readLessText,
               style: TextStyle(
-                color: widget.clickableTextColor ?? context.colors.accentColor,
+                color: widget.clickableTextColor ?? context.kTheme.accentColor,
                 decorationColor:
-                    widget.clickableTextColor ?? context.colors.accentColor,
+                    widget.clickableTextColor ?? context.kTheme.accentColor,
                 decorationStyle: TextDecorationStyle.solid,
               ),
               recognizer: TapGestureRecognizer()..onTap = onTapLink,

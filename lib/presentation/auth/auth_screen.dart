@@ -100,7 +100,7 @@ class AuthPageState extends State<AuthPage> {
                       position: _currentPage % 3,
                       dotsCount: 3,
                       decorator: DotsDecorator(
-                        activeColor: context.colors.accentColor,
+                        activeColor: context.kTheme.accentColor,
                         color: Color(0xFFCCCCCC),
                         size: Size(12.0, 12.0),
                         activeSize: Size(12.0, 12.0),

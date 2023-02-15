@@ -25,7 +25,7 @@ class CommentAppBarDelegate extends SliverPersistentHeaderDelegate {
               icon: const Icon(CollactionIcons.left),
               iconSize: 24,
               onPressed: () => context.router.pop(),
-              color: Colors.white,
+              color: context.background,
             ),
           )
         ] else
@@ -61,13 +61,14 @@ class _HeaderContent extends StatelessWidget {
           children: [
             Text(
               'Comments',
-              style: kTitle1.copyWith(color: Colors.white),
+              style: context.kTheme.title1?.copyWith(color: context.background),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
             Text(
               'See what others are saying about this crowdaction and join in on the conversation',
-              style: kCaption1.copyWith(color: Colors.white),
+              style:
+                  context.kTheme.caption1?.copyWith(color: context.background),
               textAlign: TextAlign.center,
               maxLines: 2,
             )

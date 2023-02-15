@@ -29,7 +29,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.resolveWith(
-              (states) => context.colors.almostTransparent,
+              (states) => context.kTheme.almostTransparent,
             ),
             elevation: MaterialStateProperty.all<double>(0.0),
             shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -41,7 +41,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: backgroundColor ?? context.colors.secondaryColor,
+        backgroundColor: backgroundColor ?? context.kTheme.secondaryColor,
         elevation: elevation,
         centerTitle: centerTitle,
         leading: leading,
@@ -51,7 +51,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
             Theme.of(context)
                 .textTheme
                 .titleLarge
-                ?.copyWith(color: context.colors.primaryColor),
+                ?.copyWith(color: context.kTheme.primaryColor),
       ),
     );
   }

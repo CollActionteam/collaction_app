@@ -27,8 +27,8 @@ class CrowdActionChips extends StatelessWidget {
             AccentChip(
               text: isOpen ? "Open" : "Closed",
               color: isOpen
-                  ? context.colors.accentColor!
-                  : context.colors.primaryColor200!,
+                  ? context.kTheme.accentColor!
+                  : context.kTheme.primaryColor200!,
             ),
             SecondaryChip(text: category!),
             if (subCategory != null) ...[SecondaryChip(text: subCategory!)],

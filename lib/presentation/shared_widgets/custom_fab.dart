@@ -25,8 +25,8 @@ class CustomFAB extends StatelessWidget {
       heroTag: heroTag,
       backgroundColor: color ??
           (onPressed != null
-              ? context.colors.accentColor
-              : context.colors.disabledButtonColor),
+              ? context.kTheme.accentColor
+              : context.kTheme.disabledButtonColor),
       mini: isMini,
       child: child,
     );

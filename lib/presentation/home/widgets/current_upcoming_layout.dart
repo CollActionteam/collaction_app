@@ -50,7 +50,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                               .headlineSmall
                               ?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: context.colors.primaryColor400,
+                                color: context.kTheme.primaryColor400,
                               ),
                         ),
                         TextButton(
@@ -62,7 +62,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 15.0,
-                              color: context.colors.accentColor,
+                              color: context.kTheme.accentColor,
                             ),
                           ),
                         ),

@@ -160,10 +160,10 @@ class PhoneInputState extends State<PhoneInput> {
                           : 'Your phone number is not valid'),
                   style: TextStyle(
                     color: validatedNumber
-                        ? context.colors.inactiveColor
+                        ? context.kTheme.inactiveColor
                         : widget.phoneNumberController.value.text.isEmpty
-                            ? context.colors.inactiveColor
-                            : context.colors.errorColor,
+                            ? context.kTheme.inactiveColor
+                            : context.kTheme.errorColor,
                   ),
                 ),
               ),

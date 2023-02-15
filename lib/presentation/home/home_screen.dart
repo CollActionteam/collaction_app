@@ -29,8 +29,8 @@ class HomePage extends StatelessWidget {
       backgroundColor: context.background,
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      selectedItemColor: context.colors.enabledButtonColor,
-      unselectedItemColor: context.colors.disabledButtonColor,
+      selectedItemColor: context.kTheme.enabledButtonColor,
+      unselectedItemColor: context.kTheme.disabledButtonColor,
       type: BottomNavigationBarType.fixed,
       elevation: 0,
       items: const [

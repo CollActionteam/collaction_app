@@ -31,7 +31,7 @@ class WithdrawParticipation extends StatelessWidget {
                 style: Theme.of(context).textTheme.displaySmall!.copyWith(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: context.colors.successColor,
+                      color: context.kTheme.successColor,
                     ),
               ),
             ),
@@ -67,7 +67,7 @@ class WithdrawParticipation extends StatelessWidget {
                         height: 5.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: context.colors.secondaryTransparent,
+                          color: context.kTheme.secondaryTransparent,
                         ),
                       ),
                       const SizedBox(
@@ -122,7 +122,7 @@ class WithdrawParticipation extends StatelessWidget {
                         height: 5.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: context.colors.secondaryTransparent,
+                          color: context.kTheme.secondaryTransparent,
                         ),
                       ),
                       const SizedBox(
@@ -142,7 +142,7 @@ class WithdrawParticipation extends StatelessWidget {
                       Text(
                         "You are about to cancel your participation. You are free to sign up for this CrowdAction again any time before it starts.",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: context.colors.primaryColor400,
+                              color: context.kTheme.primaryColor400,
                             ),
                       ),
                       const SizedBox(

@@ -22,7 +22,7 @@ class CrowdActionHomeScreen extends StatelessWidget {
             child: RefreshIndicator(
               onRefresh: () async => BlocProvider.of<SpotlightBloc>(context)
                   .add(const SpotlightEvent.getSpotLightCrowdActions()),
-              color: context.colors.accentColor,
+              color: context.kTheme.accentColor,
               child: SingleChildScrollView(
                 child: SizedBox(
                   width: double.infinity,

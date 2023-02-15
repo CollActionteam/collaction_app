@@ -11,7 +11,7 @@ class LegalNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(color: context.colors.primaryColor300);
+    final textStyle = TextStyle(color: context.kTheme.primaryColor300);
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(

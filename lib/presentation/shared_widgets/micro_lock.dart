@@ -13,11 +13,11 @@ class MicroLock extends StatelessWidget {
       height: 32,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: context.colors.primaryColor0!),
+        border: Border.all(color: context.kTheme.primaryColor0!),
       ),
       child: Icon(
         CollactionIcons.lock,
-        color: context.colors.primaryColor300,
+        color: context.kTheme.primaryColor300,
         size: 15.0,
       ),
     );

@@ -60,7 +60,7 @@ class _SpotlightCrowdActionsState extends State<SpotlightCrowdActions> {
               position: _currentPage,
               dotsCount: widget.pages.length,
               decorator: DotsDecorator(
-                activeColor: context.colors.accentColor,
+                activeColor: context.kTheme.accentColor,
                 color: Color(0xFFCCCCCC),
                 size: Size(12.0, 12.0),
                 activeSize: Size(12.0, 12.0),

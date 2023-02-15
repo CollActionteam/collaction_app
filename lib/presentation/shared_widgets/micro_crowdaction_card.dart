@@ -70,8 +70,8 @@ class MicroCrowdActionCard extends StatelessWidget {
                           AccentChip(
                             text: crowdAction.statusChipLabel,
                             color: crowdAction.isOpen || crowdAction.isWaiting
-                                ? context.colors.accentColor
-                                : context.colors.primaryColor200,
+                                ? context.kTheme.accentColor
+                                : context.kTheme.primaryColor200,
                             leading: Icon(
                               crowdAction.isOpen || crowdAction.isWaiting
                                   ? Icons.check
@@ -114,7 +114,7 @@ class MicroCrowdActionCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: context.colors.inactiveColor,
+                            color: context.kTheme.inactiveColor,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),

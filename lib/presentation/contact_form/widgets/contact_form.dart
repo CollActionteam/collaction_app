@@ -112,7 +112,7 @@ class _ContactFormState extends State<ContactForm> {
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
-                          .copyWith(color: context.colors.primaryColor300),
+                          .copyWith(color: context.kTheme.primaryColor300),
                       maxLines: 2,
                       textAlign: TextAlign.left,
                     ),

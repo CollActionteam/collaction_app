@@ -93,7 +93,7 @@ class SettingsPage extends StatelessWidget {
                                     SettingsListTile(
                                       title: 'Log out',
                                       icon: CollactionIcons.logout,
-                                      iconColor: context.colors.errorColor,
+                                      iconColor: context.kTheme.errorColor,
                                       onTap: () async {
                                         BlocProvider.of<AuthBloc>(context)
                                             .add(const AuthEvent.signedOut());

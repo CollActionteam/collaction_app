@@ -16,13 +16,13 @@ class ImageSkeletonLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: context.colors.secondaryTransparent!,
-      highlightColor: context.colors.almostTransparent!,
+      baseColor: context.kTheme.secondaryTransparent!,
+      highlightColor: context.kTheme.almostTransparent!,
       child: Container(
         height: height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: context.colors.secondaryTransparent,
+          color: context.kTheme.secondaryTransparent,
           shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
         ),
       ),

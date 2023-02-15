@@ -155,13 +155,13 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                           BlocProvider.of<CrowdActionDetailsBloc>(context).add(
                         CrowdActionDetailsEvent.fetchCrowdAction(id: id),
                       ),
-                      color: context.colors.accentColor,
+                      color: context.kTheme.accentColor,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             Container(
                               width: double.infinity,
-                              color: context.colors.almostTransparent,
+                              color: context.kTheme.almostTransparent,
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 30,
@@ -218,7 +218,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                           .bodySmall!
                                           .copyWith(
                                             color:
-                                                context.colors.primaryColor300,
+                                                context.kTheme.primaryColor300,
                                             fontWeight: FontWeight.w400,
                                           ),
                                       textAlign: TextAlign.center,
@@ -310,7 +310,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 height: 5.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: context.colors.secondaryTransparent,
+                  color: context.kTheme.secondaryTransparent,
                 ),
               ),
               const SizedBox(
@@ -327,7 +327,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
               Text(
                 "You need to create an account in order to participate in a crowdaction. If you have an account already, please log in.",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: context.colors.primaryColor400,
+                      color: context.kTheme.primaryColor400,
                     ),
               ),
               const SizedBox(
