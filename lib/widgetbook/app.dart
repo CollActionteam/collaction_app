@@ -1,3 +1,4 @@
+import '../presentation/menu_tabbar/widgets/account_info_screen/account_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
@@ -7,6 +8,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return MaterialApp(
+      home: AccountInfoScreen(),
+    );
   }
 }
