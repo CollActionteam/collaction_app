@@ -36,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (event, emit) async {
         await event.map(
           observeUser: (event) async =>
-            await _mapObserveUserToState(emit, event),
+              await _mapObserveUserToState(emit, event),
           verifyPhone: (event) async =>
               await _mapVerifyPhoneToState(emit, event),
           signInWithPhone: (event) async =>
@@ -55,8 +55,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _mapObserveUserToState(
-      Emitter<AuthState> emit,
-      _ObserveUser event,) async {
+    Emitter<AuthState> emit,
+    _ObserveUser event,
+  ) async {
     _authenticationStateSubscription =
         _authRepository.observeUser().listen((event) {
       if (event is User && event.isAnonymous) {
