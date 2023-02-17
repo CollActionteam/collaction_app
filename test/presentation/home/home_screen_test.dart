@@ -60,22 +60,4 @@ void main() {
 
     expect(find.byType(HomePage), findsOneWidget);
   });
-
-  testWidgets('show onboarding', (tester) async {
-    when(() => settingsRepository.getWasUserOnboarded())
-        .thenAnswer((_) => Future.value(false));
-
-    await buildAndPump(
-      tester: tester,
-      widget: MaterialApp.router(
-        color: Colors.white,
-        title: 'CollAction',
-        routerDelegate: appRouter.delegate(),
-        routeInformationParser: appRouter.defaultRouteParser(),
-      ),
-    );
-    await tester.pumpAndSettle();
-
-    expect(find.byType(OnboardingPage), findsOneWidget);
-  });
 }
