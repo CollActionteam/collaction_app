@@ -2,6 +2,8 @@ part of 'auth_bloc.dart';
 
 @freezed
 class AuthEvent with _$AuthEvent {
+  const factory AuthEvent.observeUser() = _ObserveUser;
+
   const factory AuthEvent.verifyPhone(String phoneNumber) = _VerifyPhone;
 
   const factory AuthEvent.updated(

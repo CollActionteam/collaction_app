@@ -32,11 +32,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._authRepository,
     this._avatarRepository,
   ) : super(const AuthState.initial()) {
-    _subscribeToAuthStateChanges();
-
     on<AuthEvent>(
       (event, emit) async {
         await event.map(
+          observeUser: (event) async =>
+            await _mapObserveUserToState(emit, event),
           verifyPhone: (event) async =>
               await _mapVerifyPhoneToState(emit, event),
           signInWithPhone: (event) async =>
@@ -54,10 +54,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  Future<void> _subscribeToAuthStateChanges() async {
+  Future<void> _mapObserveUserToState(
+      Emitter<AuthState> emit,
+      _ObserveUser event,) async {
     _authenticationStateSubscription =
         _authRepository.observeUser().listen((event) {
-      if (event is User && event!.isAnonymous) {
+      if (event is User && event.isAnonymous) {
         emit(const AuthState.unauthenticated());
       }
     });

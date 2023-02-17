@@ -5,7 +5,6 @@ import 'package:collaction_app/domain/auth/auth_success.dart';
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/domain/user/i_avatar_repository.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
-import 'package:collaction_app/domain/user/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
