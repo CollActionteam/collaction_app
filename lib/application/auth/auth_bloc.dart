@@ -55,7 +55,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _subscribeToAuthStateChanges() async {
-    _authenticationStateSubscription = _authRepository.observeUser().listen((event) {
+    _authenticationStateSubscription =
+        _authRepository.observeUser().listen((event) {
       if (event is User && event!.isAnonymous) {
         emit(const AuthState.unauthenticated());
       }

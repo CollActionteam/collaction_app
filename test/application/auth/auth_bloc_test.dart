@@ -16,15 +16,11 @@ class MockAvatarRepository extends Mock implements IAvatarRepository {}
 
 void main() {
   group('Authentication BLoC', () {
-
     test('Initial auth state', () {
       final userRepository = MockAuthRepository();
 
-      when(
-        () => userRepository.observeUser()
-      ).thenAnswer(
-        (_) => Stream.empty()
-      );
+      when(() => userRepository.observeUser())
+          .thenAnswer((_) => Stream.empty());
 
       final bloc = AuthBloc(userRepository, MockAvatarRepository());
       expect(bloc.state, const AuthState.initial());
@@ -41,11 +37,8 @@ void main() {
     final avatarRepository = MockAvatarRepository();
 
     {
-      when(
-        () => userRepository.observeUser()
-      ).thenAnswer(
-        (_) => Stream.empty()
-      );
+      when(() => userRepository.observeUser())
+          .thenAnswer((_) => Stream.empty());
 
       when(
         () => userRepository.verifyPhone(
@@ -101,11 +94,8 @@ void main() {
     {
       final userRepository = MockAuthRepository();
 
-      when(
-        () => userRepository.observeUser()
-      ).thenAnswer(
-        (_) => Stream.empty()
-      );
+      when(() => userRepository.observeUser())
+          .thenAnswer((_) => Stream.empty());
 
       const error = AuthFailure.verificationFailed();
       when(

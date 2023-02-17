@@ -30,7 +30,7 @@ class UnauthenticatedPageState extends State<UnauthenticatedPage> {
       body: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height*.8,
+            height: MediaQuery.of(context).size.height * .8,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -38,13 +38,18 @@ class UnauthenticatedPageState extends State<UnauthenticatedPage> {
                   top: 0,
                   right: 0,
                   left: 23,
-                  child: Image.asset("assets/images/unauthenticated_bg.png",
+                  child: Image.asset(
+                    "assets/images/unauthenticated_bg.png",
                     fit: BoxFit.contain,
                   ),
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Image.asset("assets/images/logo.png", width: 200,))
+                  child: Image.asset(
+                    "assets/images/logo.png",
+                    width: 200,
+                  ),
+                ),
               ],
             ),
           ),
@@ -56,26 +61,31 @@ class UnauthenticatedPageState extends State<UnauthenticatedPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Start acting", style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 28.0,
-                    color: Colors.white,
-                  ),),
+                  Text(
+                    "Start acting",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 28.0,
+                      color: Colors.white,
+                    ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 64.0, left: 16, right: 16, top: 8),
+                    padding: const EdgeInsets.only(
+                        bottom: 64.0, left: 16, right: 16, top: 8),
                     child: Text(
                       "We are ready, join us and others in taking action for a better life, by doing good and having fun!",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                      )
+                      ),
                     ),
                   ),
                   Row(
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 100.0, left: 20, right: 20),
+                          padding: const EdgeInsets.only(
+                              bottom: 100.0, left: 20, right: 20),
                           child: PillButton(
                             text: 'Log In',
                             isEnabled: true,
