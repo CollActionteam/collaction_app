@@ -1,14 +1,14 @@
 import '../../../../../themes/constants.dart';
 import 'package:flutter/material.dart';
 
-class ChangeNameButton extends StatefulWidget {
-  const ChangeNameButton({super.key});
+class ChangeNameDialog extends StatefulWidget {
+  const ChangeNameDialog({super.key});
 
   @override
-  State<ChangeNameButton> createState() => _ChangeNameButtonState();
+  State<ChangeNameDialog> createState() => _ChangeNameDialogState();
 }
 
-class _ChangeNameButtonState extends State<ChangeNameButton> {
+class _ChangeNameDialogState extends State<ChangeNameDialog> {
   late GlobalKey<FormState> _formKey;
   late GlobalKey<FormFieldState> _firstNameKey;
   late GlobalKey<FormFieldState> _lastNameKey;

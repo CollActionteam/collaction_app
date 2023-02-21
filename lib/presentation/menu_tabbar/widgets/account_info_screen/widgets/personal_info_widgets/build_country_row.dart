@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../themes/constants.dart';
+import 'change_country_dialog.dart';
 
 class BuildCountryRow extends StatelessWidget {
   final String countryName;
@@ -24,27 +25,7 @@ class BuildCountryRow extends StatelessWidget {
                     ),
               ),
               const Spacer(),
-              countryName.isNotEmpty
-                  ? TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Change",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: kAccentColor,
-                              fontFamily: 'Rubik',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ))
-                  : TextButton(
-                      onPressed: () {},
-                      child: Text("Add",
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: kAccentColor,
-                                    fontFamily: 'Rubik',
-                                    fontSize: 14,
-                                  ))),
+              ChangeCountryDialog(countryName: countryName),
             ],
           ),
         ),

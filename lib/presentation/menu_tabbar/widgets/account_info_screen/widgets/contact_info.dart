@@ -46,7 +46,7 @@ class BuildEmailRow extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                email,
+                email.isNotEmpty ? email : "No email",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: kPrimaryColor300,
                       fontFamily: 'Rubik',

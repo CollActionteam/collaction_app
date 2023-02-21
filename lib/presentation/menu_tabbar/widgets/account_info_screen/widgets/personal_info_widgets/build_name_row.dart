@@ -1,7 +1,7 @@
 import '../../../../../themes/constants.dart';
 import 'package:flutter/material.dart';
 
-import 'change_name_button.dart';
+import 'change_name_dialog.dart';
 
 class BuildNameRow extends StatelessWidget {
   final String name;
@@ -25,7 +25,7 @@ class BuildNameRow extends StatelessWidget {
                     ),
               ),
               const Spacer(),
-              ChangeNameButton(),
+              ChangeNameDialog(),
             ],
           ),
         ),
