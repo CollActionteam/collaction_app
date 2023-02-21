@@ -4,9 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
 import '../../application/user/profile_tab/profile_tab_bloc.dart';
+import '../../generated/l10n.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppWidget extends StatelessWidget {
   final _appRouter = AppRouter();
@@ -32,6 +35,14 @@ class AppWidget extends StatelessWidget {
         },
         child: MaterialApp.router(
           color: Colors.white,
+          localizationsDelegates: [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          locale: Locale("nl", "NL"),
           title: 'CollAction',
           theme: lightTheme(),
           routerDelegate: _appRouter.delegate(),

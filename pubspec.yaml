@@ -36,6 +36,8 @@ dependencies:
   firebase_crashlytics: ^2.9.0
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_bloc: ^8.1.1
   flutter_dotenv: ^5.0.2
   freezed_annotation: ^2.2.0
@@ -88,6 +90,7 @@ flutter_icons:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
     - .env
@@ -111,3 +114,5 @@ flutter:
           weight: 400
         - asset: assets/fonts/Rubik/Rubik-Light.ttf
           weight: 300
+flutter_intl:
+  enabled: true
