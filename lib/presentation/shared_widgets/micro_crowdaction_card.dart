@@ -7,6 +7,7 @@ import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
 import 'accent_chip.dart';
+import 'country_icon.dart';
 import 'micro_lock.dart';
 
 class MicroCrowdActionCard extends StatelessWidget {
@@ -79,6 +80,12 @@ class MicroCrowdActionCard extends StatelessWidget {
                             ),
                             noMaterialTapTargetSize: true,
                           ),
+                          ...[
+                            const SizedBox(width: 10),
+                            CountryIcon(
+                                countryCode: crowdAction.location.code,
+                                radius: 15),
+                          ],
                           if (crowdAction.hasPassword) ...[
                             const SizedBox(width: 10),
                             const MicroLock(),
