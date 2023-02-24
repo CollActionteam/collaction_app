@@ -7,24 +7,13 @@ import '../themes/constants.dart';
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 
-class UnauthenticatedPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return UnauthenticatedPageState();
-  }
-}
-
-class UnauthenticatedPageState extends State<UnauthenticatedPage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkAndMaybeShowOnboarding();
-    });
-  }
-
+class UnauthenticatedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkAndMaybeShowOnboarding(context);
+    });
+
     return Scaffold(
       backgroundColor: kAccentColor,
       body: Stack(
@@ -106,7 +95,7 @@ class UnauthenticatedPageState extends State<UnauthenticatedPage> {
     );
   }
 
-  Future<void> checkAndMaybeShowOnboarding() async {
+  Future<void> checkAndMaybeShowOnboarding(BuildContext context) async {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
     if (!(await settingsRepository.getWasUserOnboarded())) {

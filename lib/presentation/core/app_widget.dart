@@ -16,7 +16,7 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (_) => getIt<AuthBloc>()..add(AuthEvent.observeUser()),
+          create: (_) => getIt<AuthBloc>()..add(AuthEvent.initial()),
         ),
         BlocProvider<ProfileBloc>(
           create: (_) => getIt<ProfileBloc>()..add(GetUserProfile()),
