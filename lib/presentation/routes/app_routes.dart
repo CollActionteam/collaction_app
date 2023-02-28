@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 
 import '../../../presentation/profile/profile_screen.dart';
+import '../auth/unauthenticated_screen.dart';
 import '../auth/auth_screen.dart';
 import '../auth/widgets/verified.dart';
 import '../contact_form/contact_form_screen.dart';
@@ -74,6 +75,7 @@ import '../shared_widgets/web_view_page.dart';
     AutoRoute(path: 'settings-layout', page: SettingsLayout),
     AutoRoute(path: 'contact-form', page: ContactFormPage),
     AutoRoute(path: 'webview', page: WebViewPage),
+    AutoRoute(path: 'unauthenticated', page: UnauthenticatedPage)
   ],
 )
 class $AppRouter {}
