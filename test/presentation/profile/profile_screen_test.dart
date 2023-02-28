@@ -156,9 +156,9 @@ void main() {
 
     expect(find.byType(UserProfilePage), findsOneWidget);
 
-    profileBloc.add(EditProfile());
+    profileBloc.add(EditBio());
     await tester.pumpAndSettle();
 
-    expect(profileBloc.state.isEditing, true);
+    expect(profileBloc.state.isBioEditing, true);
   });
 }
