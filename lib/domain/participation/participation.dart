@@ -14,7 +14,7 @@ class Participation with _$Participation {
     required String fullName,
     required String avatar,
     required String userId,
-    required List<String> commitmentOptions,
+    required List<String> commitments,
     required DateTime joinDate,
     required int dailyCheckIns,
   }) = _Participation;

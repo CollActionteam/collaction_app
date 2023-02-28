@@ -10,9 +10,9 @@ import '../../themes/constants.dart';
 /// [onSelected] Callback function for when the card is selected,
 /// returns the id of the selected commitment
 class CommitmentCard extends StatelessWidget {
-  final CommitmentOption commitment;
-  final Function(CommitmentOption)? onSelected;
-  final Function(CommitmentOption)? onDeSelected;
+  final Commitment commitment;
+  final Function(Commitment)? onSelected;
+  final Function(Commitment)? onDeSelected;
   final bool active;
   final bool deactivated;
   final bool viewOnly;

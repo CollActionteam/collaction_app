@@ -4,7 +4,7 @@ final participationRaw = """{
   "fullName": "John Doe",
   "avatar": "/avatar/123456.png",
   "userId": "1234-1234-1234-1234",
-  "commitmentOptions": ["1234"],
+  "commitments": ["1234"],
   "joinDate": "2024-01-01T00:00:00.000+00:00",
   "dailyCheckIns": 10
 }""";
@@ -23,7 +23,7 @@ final participationsRaw = """{
       "fullName": "John Doe",
       "avatar": "/avatar/123456.png",
       "userId": "1234-1234-1234-1234",
-      "commitmentOptions": ["1234"],
+      "commitments": ["1234"],
       "joinDate": "2024-01-01T00:00:00.000+00:00",
       "dailyCheckIns": 10
     },
@@ -33,7 +33,7 @@ final participationsRaw = """{
       "fullName": "John Doe",
       "avatar": "/avatar/123456.png",
       "userId": "1234-1234-1234-1234",
-      "commitmentOptions": ["1234"],
+      "commitments": ["1234"],
       "joinDate": "2024-01-01T00:00:00.000+00:00",
       "dailyCheckIns": 10
     }

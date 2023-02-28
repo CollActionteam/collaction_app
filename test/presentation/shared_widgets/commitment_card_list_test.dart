@@ -31,7 +31,7 @@ void main() {
   });
 
   group('CommitmentCardList tests:', () {
-    testWidgets('can render with commitmentOptions = null',
+    testWidgets('can render with commitments = null',
         (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(false, null, [], participationBloc);
       await tester.pump();
@@ -41,8 +41,7 @@ void main() {
       expect(find.byType(CommitmentCardShimmer), findsNWidgets(3));
     });
 
-    testWidgets('can render with 0 commitmentOptions',
-        (WidgetTester tester) async {
+    testWidgets('can render with 0 commitments', (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(false, [], [], participationBloc);
       await tester.pumpAndSettle();
 
@@ -51,11 +50,10 @@ void main() {
       expect(find.byType(CommitmentCardShimmer), findsNothing);
     });
 
-    testWidgets('can render with 1 commitmentOptions',
-        (WidgetTester tester) async {
+    testWidgets('can render with 1 commitments', (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(
         false,
-        [tCommitmentOption],
+        [tCommitment],
         [],
         participationBloc,
       );
@@ -68,11 +66,10 @@ void main() {
       expect(find.byType(CommitmentCardShimmer), findsNothing);
     });
 
-    testWidgets('can render with 5 commitmentOptions',
-        (WidgetTester tester) async {
+    testWidgets('can render with 5 commitments', (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(
         false,
-        List.filled(5, tCommitmentOption),
+        List.filled(5, tCommitment),
         [],
         participationBloc,
       );
@@ -88,7 +85,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(
         false,
-        [tCommitmentOption],
+        [tCommitment],
         [],
         participationBloc,
       );
@@ -118,7 +115,7 @@ void main() {
     testWidgets('blocking commitments', (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(
         false,
-        [tCommitmentOption, tBlockingCommitmentOption],
+        [tCommitment, tBlockingCommitment],
         [],
         participationBloc,
       );
@@ -138,8 +135,8 @@ void main() {
     testWidgets('preselected commitments', (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(
         false,
-        [tCommitmentOption],
-        [tCommitmentOption],
+        [tCommitment],
+        [tCommitment],
         participationBloc,
       );
       await tester.pumpAndSettle();
@@ -156,8 +153,8 @@ void main() {
     testWidgets('commitment is over', (WidgetTester tester) async {
       await tester.pumpCommitmentCardList(
         true,
-        [tCommitmentOption],
-        [tCommitmentOption],
+        [tCommitment],
+        [tCommitment],
         participationBloc,
       );
       await tester.pumpAndSettle();
@@ -178,7 +175,7 @@ void main() {
 
       await tester.pumpCommitmentCardList(
         true,
-        [tCommitmentOption],
+        [tCommitment],
         [],
         participationBloc,
       );
@@ -203,8 +200,8 @@ void main() {
 
       await tester.pumpCommitmentCardList(
         true,
-        [tCommitmentOption],
-        [tCommitmentOption],
+        [tCommitment],
+        [tCommitment],
         participationBloc,
       );
       await tester.pumpAndSettle();

@@ -5,7 +5,7 @@ extension WidgetX on WidgetTester {
       StackRouter stackRouter,
       ParticipationBloc participationBloc,
       CrowdAction crowdAction,
-      List<CommitmentOption> selectedCommitments) async {
+      List<Commitment> selectedCommitments) async {
     await pumpWidget(
       BlocProvider(
         create: (_) => participationBloc,
