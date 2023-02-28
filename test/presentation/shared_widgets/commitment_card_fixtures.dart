@@ -1,8 +1,7 @@
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 
-final commitmentOption = CommitmentOption(
+final commitment = Commitment(
   id: 'id',
-  type: 'type',
   description: 'description',
   label: 'label',
   points: 10,

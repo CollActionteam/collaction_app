@@ -10,7 +10,7 @@ import '../../../themes/constants.dart';
 
 class ConfirmParticipation extends StatelessWidget {
   final CrowdAction crowdAction;
-  final List<CommitmentOption> selectedCommitments;
+  final List<Commitment> selectedCommitments;
 
   const ConfirmParticipation({
     super.key,
@@ -116,7 +116,7 @@ class ParticipationSuccess extends StatelessWidget {
 
 class ParticipationDialog extends StatelessWidget {
   final CrowdAction crowdAction;
-  final List<CommitmentOption> selectedCommitments;
+  final List<Commitment> selectedCommitments;
   final bool isLoading;
 
   const ParticipationDialog({
@@ -213,8 +213,7 @@ class ParticipationDialog extends StatelessWidget {
               BlocProvider.of<ParticipationBloc>(context).add(
                 ParticipationEvent.toggleParticipation(
                   crowdActionId: crowdAction.id,
-                  commitmentOptions:
-                      selectedCommitments.map((c) => c.id).toList(),
+                  commitments: selectedCommitments.map((c) => c.id).toList(),
                 ),
               );
             },

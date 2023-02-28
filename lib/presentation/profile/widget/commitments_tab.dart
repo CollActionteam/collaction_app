@@ -59,7 +59,7 @@ class CommitmentsTab extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          ...crowdAction.commitmentOptions.map(
+                          ...crowdAction.commitments.map(
                             (co) => CommitmentCard(
                               commitment: co,
                               viewOnly: true,

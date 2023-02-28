@@ -67,7 +67,7 @@ class ParticipationRepository implements IParticipationRepository {
   @override
   Future<Either<ParticipationFailure, Unit>> toggleParticipation({
     required String crowdActionId,
-    List<String>? commitmentOptions,
+    List<String>? commitments,
   }) async {
     try {
       final user = (await authRepository.getSignedInUser())
@@ -82,7 +82,7 @@ class ParticipationRepository implements IParticipationRepository {
         uri,
         body: json.encode({
           'crowdActionId': crowdActionId,
-          'commitmentOptions': commitmentOptions,
+          'commitments': commitments,
         }),
         headers: {
           'Content-Type': 'application/json',

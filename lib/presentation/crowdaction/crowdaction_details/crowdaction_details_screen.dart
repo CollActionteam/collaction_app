@@ -36,7 +36,7 @@ class CrowdActionDetailsPage extends StatefulWidget {
 }
 
 class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
-  final List<CommitmentOption> selectedCommitments = [];
+  final List<Commitment> selectedCommitments = [];
   CrowdAction? crowdAction;
   late final ParticipationBloc participationBloc;
   late Function(BuildContext) participate;
@@ -86,10 +86,9 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 participating: (p) {
                   setState(() {
                     selectedCommitments.clear();
-                    for (final id in p.commitmentOptions) {
+                    for (final id in p.commitments) {
                       selectedCommitments.add(
-                        crowdAction!.commitmentOptions
-                            .firstWhere((c) => c.id == id),
+                        crowdAction!.commitments.firstWhere((c) => c.id == id),
                       );
                     }
                   });
@@ -231,7 +230,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                             ),
                             CommitmentCardList(
                               isEnded: crowdAction?.isClosed ?? true,
-                              commitmentOptions: crowdAction?.commitmentOptions,
+                              commitments: crowdAction?.commitments,
                               selectedCommitments: selectedCommitments,
                             ),
 

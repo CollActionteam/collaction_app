@@ -1,6 +1,5 @@
 final crowdActionRaw = """{
   "id": "12345678",
-  "type": "TYPE",
   "title": "Veganuary",
   "description": "description...",
   "category": "CATEGORY",
@@ -8,10 +7,9 @@ final crowdActionRaw = """{
     "code": "NL",
     "name": "Netherlands"
   },
-  "commitmentOptions": [
+  "commitments": [
     {
-      "id": "12345678",
-      "type": "TYPE",
+      "_id": "12345678",
       "label": "label",
       "points": 50,
       "blocks": [
@@ -20,8 +18,7 @@ final crowdActionRaw = """{
       "description": "description..."
     },
     {
-      "id": "123456789",
-      "type": "TYPE",
+      "_id": "123456789",
       "label": "label",
       "points": 50,
       "blocks": [],
@@ -49,7 +46,6 @@ final crowdActionsRaw = """{
   "items": [
     {
       "id": "123456789",
-      "type": "TYPE",
       "title": "Veganuary",
       "description": "description...",
       "category": "CATEGORY",
@@ -57,10 +53,9 @@ final crowdActionsRaw = """{
         "code": "NL",
         "name": "Netherlands"
       },
-      "commitmentOptions": [
+      "commitments": [
         {
-          "id": "12345678",
-          "type": "TYPE",
+          "_id": "12345678",
           "label": "label",
           "points": 50,
           "blocks": [
@@ -69,8 +64,7 @@ final crowdActionsRaw = """{
           "description": "description..."
         },
         {
-          "id": "123456789",
-          "type": "TYPE",
+          "_id": "123456789",
           "label": "label",
           "points": 50,
           "blocks": [],
@@ -89,7 +83,6 @@ final crowdActionsRaw = """{
     },
     {
       "id": "123456789",
-      "type": "TYPE",
       "title": "Veganuary",
       "description": "description...",
       "category": "CATEGORY",
@@ -97,10 +90,9 @@ final crowdActionsRaw = """{
         "code": "NL",
         "name": "Netherlands"
       },
-      "commitmentOptions": [
+      "commitments": [
         {
-          "id": "12345678",
-          "type": "TYPE",
+          "_id": "12345678",
           "label": "label",
           "points": 50,
           "blocks": [
@@ -109,8 +101,7 @@ final crowdActionsRaw = """{
           "description": "description..."
         },
         {
-          "id": "123456789",
-          "type": "TYPE",
+          "_id": "123456789",
           "label": "label",
           "points": 50,
           "blocks": [],
