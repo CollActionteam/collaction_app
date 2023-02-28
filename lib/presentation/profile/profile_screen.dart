@@ -4,7 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
@@ -153,21 +152,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                       ),
                                     ),
                                   ),
-                                  // Positioned(
-                                  //   bottom: 0,
-                                  //   left: 0,
-                                  //   child: FloatingActionButton(
-                                  //     onPressed: () {
-                                  //       BlocProvider.of<ProfileBloc>(context)
-                                  //           .add(CancelEditProfilePic());
-
-                                  //       _image = null;
-                                  //     },
-                                  //     backgroundColor: kErrorColor,
-                                  //     mini: true,
-                                  //     child: const Icon(Icons.close),
-                                  //   ),
-                                  // ),
                                 ]
                               ],
                             ),
@@ -209,7 +193,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   onPressed: () {
                                     if (state.isBioEditing == true) {
                                       /// TODO: Implement save profile image
-
                                       BlocProvider.of<ProfileBloc>(context).add(
                                         SaveBio(
                                           bio: bioController.text,
