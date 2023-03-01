@@ -28,6 +28,7 @@ class _CurrentUserStatusTextState extends State<CurrentUserStatusText> {
         if (snapshot.hasData) {
           final name = snapshot.data!.id;
           final number = snapshot.data!.phoneNumber ?? 'no phone number';
+
           return Text('Current user: $name ($number)');
         } else {
           return const Text('...');

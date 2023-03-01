@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
 import '../../application/user/profile_tab/profile_tab_bloc.dart';
+import '../../application/username/username_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
@@ -23,7 +24,8 @@ class AppWidget extends StatelessWidget {
         ),
         BlocProvider<ProfileTabBloc>(
           create: (_) => getIt<ProfileTabBloc>()..add(FetchProfileTabInfo()),
-        )
+        ),
+        BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>())
       ],
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
