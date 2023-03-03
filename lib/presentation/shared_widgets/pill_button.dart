@@ -61,10 +61,14 @@ class PillButton extends StatelessWidget {
               )
             : ElevatedButton.icon(
                 icon: leading ?? const SizedBox(),
-                label: Text(text,
-                    style: TextStyle(
-                      color: lightBackground ? kAccentColor : Colors.white,
-                    )),
+                label: Text(
+                  text,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                    color: lightBackground ? kAccentColor : Colors.white,
+                  ),
+                ),
                 onPressed: isEnabled ? onTap : null,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
