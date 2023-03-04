@@ -61,7 +61,7 @@ jobs:
 
       - name: Statically analyze the Dart code
         run: |
-          echo ${{ secrets.ENV }} | base64 -d > .env
+          echo "" | base64 -d > .env
           flutter analyze .
 
   test:
@@ -96,7 +96,7 @@ jobs:
 
       - name: Run tests and generate coverage
         run: |
-          echo ${{ secrets.ENV }} | base64 -d > .env
+          echo "" | base64 -d > .env
           flutter test --coverage -r expanded .
 
       - name: Upload coverage to codecov
@@ -107,6 +107,7 @@ jobs:
 
   build_android:
     if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [analyze, test]
     runs-on: macos-latest
     timeout-minutes: 60
@@ -189,6 +190,7 @@ jobs:
 
   build_ios:
     if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [analyze, test]
     runs-on: macos-latest
     timeout-minutes: 60
@@ -332,6 +334,7 @@ jobs:
         run: widgetbook publish --api-key $WIDGETBOOK_API_KEY
 
   distribute_android:
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [build_android]
     runs-on: ubuntu-latest
     steps:
@@ -350,6 +353,7 @@ jobs:
           releaseNotesFile: release_notes.txt
 
   distribute_ios:
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [build_ios]
     runs-on: macos-latest
     steps:
