@@ -54,6 +54,13 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
       verificationFailed: (firebase_auth.FirebaseAuthException error) {
+        FirebaseCrashlyticsLogger.warn(
+          error,
+          null,
+          message:
+              '[FirebaseAuthRepository] verifyPhoneNumber().verificationFailed',
+        );
+
         result.add(left(error.toFailure()));
         result.close();
       },
@@ -166,6 +173,12 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
       verificationFailed: (firebase_auth.FirebaseAuthException error) {
+        FirebaseCrashlyticsLogger.warn(
+          error,
+          null,
+          message: '[FirebaseAuthRepository] resendOTP().verificationFailed',
+        );
+
         result.add(left(error.toFailure()));
         result.close();
       },
