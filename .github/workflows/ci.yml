@@ -61,7 +61,7 @@ jobs:
 
       - name: Statically analyze the Dart code
         run: |
-          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          echo ${{ secrets.ENV }} | base64 -d > .env
           flutter analyze .
 
   test:
@@ -96,7 +96,7 @@ jobs:
 
       - name: Run tests and generate coverage
         run: |
-          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          echo ${{ secrets.ENV }} | base64 -d > .env
           flutter test --coverage -r expanded .
 
       - name: Upload coverage to codecov
@@ -159,9 +159,9 @@ jobs:
 
       - name: Build appbundle
         env:
-          GOOGLE_SERVICES_JSON: ${{ github.ref == 'refs/heads/master' && secrets.ANDROID_GOOGLE_SERVICES_JSON || secrets.ANDROID_GOOGLE_SERVICES_JSON_DEV }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: |
-          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          echo ${{ secrets.ENV }} | base64 -d > .env
           echo $GOOGLE_SERVICES_JSON | base64 -d > android/app/google-services.json
           flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons
           cp release_notes.txt build/app/outputs/
@@ -324,7 +324,7 @@ jobs:
 
       - name: Build web
         run: |
-          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          echo ${{ secrets.ENV }} | base64 -d > .env
           flutter build web -t lib/widgetbook/app.widgetbook.dart
 
       - name: Publish to Widgetbook
