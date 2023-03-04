@@ -14,7 +14,9 @@ import '../../domain/user/i_user_repository.dart';
 import '../../domain/user/user.dart';
 
 part 'auth_bloc.freezed.dart';
+
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 @injectable

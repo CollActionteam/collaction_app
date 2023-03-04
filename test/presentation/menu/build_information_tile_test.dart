@@ -1,5 +1,5 @@
 import 'package:collaction_app/domain/settings/build_information.dart';
-import 'package:collaction_app/presentation/settings/widgets/build_information_tile.dart';
+import 'package:collaction_app/presentation/menu/widgets/build_information_tile.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../test_helper.dart';
