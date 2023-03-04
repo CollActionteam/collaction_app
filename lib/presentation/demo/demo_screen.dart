@@ -9,6 +9,7 @@ import 'components_demo/current_user_status_text.dart';
 
 class DemoPage extends StatelessWidget {
   DemoPage({super.key});
+
   final settingsRepository = getIt<ISettingsRepository>();
   final _pageScrollController = ScrollController();
 

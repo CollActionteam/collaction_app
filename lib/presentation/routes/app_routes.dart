@@ -67,11 +67,7 @@ import '../shared_widgets/web_view_page.dart';
           path: 'menu',
           name: 'MenuScreenRouter',
           page: EmptyRouterPage,
-          children: [
-            AutoRoute(
-              path: '' , page: MenuPage
-            )
-          ],
+          children: [AutoRoute(path: '', page: MenuPage)],
         ),
       ],
     ),
