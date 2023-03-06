@@ -48,7 +48,7 @@ class CrowdActionParticipantsPage extends StatelessWidget {
               state.participants,
               state.pageInfo.page + 1,
             );
-          }else if(state is Finished){
+          } else if (state is Finished) {
             pagingController.appendLastPage(state.participants);
           }
         },

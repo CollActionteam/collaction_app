@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../domain/profile/profile.dart';
 
 class ProfileDto extends Equatable {
-    const ProfileDto({
+  const ProfileDto({
     required this.userId,
     required this.firstName,
     required this.lastName,
@@ -21,7 +21,7 @@ class ProfileDto extends Equatable {
     );
   }
 
-    factory ProfileDto.fromJson(Map<String, dynamic> json) => ProfileDto(
+  factory ProfileDto.fromJson(Map<String, dynamic> json) => ProfileDto(
         userId: json['userId'] as String,
         firstName: json['firstName'] as String,
         lastName: json['lastName'] as String,
@@ -29,17 +29,17 @@ class ProfileDto extends Equatable {
         bio: json['bio'] as String?,
       );
 
-    final String userId;
+  final String userId;
 
-    final String firstName;
+  final String firstName;
 
-    final String lastName;
+  final String lastName;
 
-    final String avatar;
+  final String avatar;
 
-    final String? bio;
+  final String? bio;
 
-    ProfileDto copyWith({
+  ProfileDto copyWith({
     String? userId,
     String? firstName,
     String? lastName,
@@ -64,7 +64,7 @@ class ProfileDto extends Equatable {
         bio,
       ];
 
-    Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'userId': userId,
         'firstName': firstName,
         'lastName': lastName,

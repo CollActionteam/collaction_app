@@ -37,7 +37,7 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
       create: (context) => avatarBloc,
       child: BlocListener<AvatarBloc, AvatarState>(
         listener: (context, state) {
-          if(state.isUploadSuccess){
+          if (state.isUploadSuccess) {
             context.router.pop();
           }
         },

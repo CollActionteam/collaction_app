@@ -17,15 +17,15 @@ class Commitment extends Equatable {
         icon: json['icon'] as String?,
       );
 
-    final int id;
+  final int id;
 
-    final String title;
+  final String title;
 
-    final String? description;
+  final String? description;
 
-    final bool checked;
+  final bool checked;
 
-    final String? icon;
+  final String? icon;
 
   Commitment copyWith({
     int? id,

@@ -11,7 +11,7 @@ abstract class CrowdActionDetailsState extends Equatable {
     CrowdActionFailure crowdactionFailure,
   ) = LoadFailure;
 
-    @override
+  @override
   List<Object?> get props => [];
 }
 
@@ -28,7 +28,7 @@ class LoadSuccess extends CrowdActionDetailsState {
 
   const LoadSuccess(this.crowdAction);
 
-    @override
+  @override
   List<Object?> get props => [crowdAction];
 }
 
@@ -37,6 +37,6 @@ class LoadFailure extends CrowdActionDetailsState {
 
   const LoadFailure(this.crowdactionFailure);
 
-    @override
+  @override
   List<Object?> get props => [crowdactionFailure];
 }
