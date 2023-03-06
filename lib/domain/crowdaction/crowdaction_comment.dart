@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class CrowdactionComment extends Equatable {
-
-  const CrowdactionComment({ 
+  const CrowdactionComment({
     required this.crowdactionId,
     required this.content,
     required this.userId,
@@ -14,16 +13,21 @@ class CrowdactionComment extends Equatable {
     this.flags,
   });
 
-  factory CrowdactionComment.fromJson(Map<String, dynamic> json) => CrowdactionComment(
+  factory CrowdactionComment.fromJson(Map<String, dynamic> json) =>
+      CrowdactionComment(
         crowdactionId: json['crowdactionId'] as String,
         content: json['content'] as String,
         userId: json['userId'] as String,
         createdAt: DateTime.tryParse(json['createdAt'] as String? ?? '')!,
-        comments: json['comments'] as List<String>?,
+        comments: (json['comments'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList(),
         likes: json['likes'] as int,
         likedByMe: json['likedByMe'] as bool,
         flagged: json['flagged'] as bool?,
-        flags: json['flags'] as List<String>?,
+        flags: (json['flags'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList(),
       );
 
   /// A description for crowdactionId
@@ -53,7 +57,7 @@ class CrowdactionComment extends Equatable {
   /// A description for flags
   final List<String>? flags;
 
-  CrowdactionComment copyWith({ 
+  CrowdactionComment copyWith({
     String? crowdactionId,
     String? content,
     String? userId,
@@ -77,8 +81,7 @@ class CrowdactionComment extends Equatable {
     );
   }
 
-
-    @override
+  @override
   List<Object?> get props => [
         crowdactionId,
         content,
@@ -91,7 +94,7 @@ class CrowdactionComment extends Equatable {
         flags,
       ];
 
-  Map<String, dynamic> toJson() => <String, dynamic>{ 
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'crowdactionId': crowdactionId,
         'content': content,
         'userId': userId,

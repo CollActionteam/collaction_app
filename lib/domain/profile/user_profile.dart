@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../../core/core.dart';
 import '../user/user.dart';
 import 'profile.dart';
 
@@ -8,11 +9,6 @@ class UserProfile extends Equatable {
     required this.user,
     required this.profile,
   });
-
-  // factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
-  //       user: BaseUser.fromJson(json['user'] as Map<String, dynamic>),
-  //       profile: Profile.fromJson(json['profile'] as Map<String, dynamic>),
-  //     );
 
   final User user;
 
@@ -34,8 +30,6 @@ class UserProfile extends Equatable {
         profile,
       ];
 
-  // Map<String, dynamic> toJson() => <String, dynamic>{
-  //       'user': user.toJson(),
-  //       'profile': profile.toJson(),
-  //     };
+  // User profile avatar url
+  String? get avatarUrl => '$baseStaticUrl/${profile.avatar}';
 }

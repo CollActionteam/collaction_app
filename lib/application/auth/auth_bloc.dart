@@ -7,7 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/auth/auth_failures.dart';
-import '../../domain/auth/auth_success.dart';
+import '../../domain/auth/auth_success.dart' as $auth_success;
 import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/user/i_avatar_repository.dart';
 import '../../domain/user/i_user_repository.dart';
@@ -23,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Credential? _credential;
   String? _phone;
-  StreamSubscription<Either<AuthFailure, AuthSuccess>>?
+  StreamSubscription<Either<AuthFailure, $auth_success.AuthSuccess>>?
       _verifyStreamSubscription;
   StreamSubscription? _authenticationStateSubscription;
 
@@ -140,11 +140,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (r) {
           _credential = r.credential;
 
-          if (r is SmsCodeSent) {
+          if (r is $auth_success.SmsCodeSent) {
             return const AuthState.smsCodeSent();
-          } else if (r is _CodeRetrievalTimedOut) {
+          } else if (r is $auth_success.CodeRetrievalTimedOut) {
             return const AuthState.codeRetrievalTimedOut();
-          } else if (r is VerificationCompleted) {
+          } else if (r is $auth_success.VerificationCompleted) {
             return AuthState.verificationCompleted(
               _credential?.smsCode ?? '',
             );

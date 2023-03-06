@@ -20,7 +20,9 @@ class Participation extends Equatable {
         fullName: json['fullName'] as String,
         avatar: json['avatar'] as String,
         userId: json['userId'] as String,
-        commitments: json['commitments'] as List<String>,
+        commitments: (json['commitments'] as List<dynamic>)
+            .map((e) => e.toString())
+            .toList(),
         joinDate: DateTime.parse(json['joinDate'] as String),
         dailyCheckIns: json['dailyCheckIns'] as int,
       );

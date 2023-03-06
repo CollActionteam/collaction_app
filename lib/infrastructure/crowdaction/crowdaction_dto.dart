@@ -21,7 +21,6 @@ class CrowdActionDto extends Equatable {
     required this.status,
     required this.joinStatus,
     required this.endAt,
-    required this.startAt,
   });
 
   CrowdAction toDomain() {
@@ -60,7 +59,6 @@ class CrowdActionDto extends Equatable {
         status: (json['status'] as String).fromStatusJson,
         joinStatus: (json['joinStatus'] as String).fromJoinStatusJson,
         endAt: json['endAt'] as String,
-        startAt: json['startAt'] as String,
       );
 
   final String id;
@@ -88,8 +86,6 @@ class CrowdActionDto extends Equatable {
   final JoinStatus joinStatus;
 
   final String endAt;
-
-  final String startAt;
 
   CrowdActionDto copyWith({
     String? id,
@@ -121,7 +117,6 @@ class CrowdActionDto extends Equatable {
       status: status ?? this.status,
       joinStatus: joinStatus ?? this.joinStatus,
       endAt: endAt ?? this.endAt,
-      startAt: startAt ?? this.startAt,
     );
   }
 

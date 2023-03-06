@@ -25,7 +25,9 @@ class CommitmentDto extends Equatable {
         label: json['label'] as String,
         description: json['description'] as String?,
         points: json['points'] as int,
-        blocks: json['blocks'] as List<String>,
+        blocks: (json['blocks'] as List<dynamic>)
+            .map((block) => block.toString())
+            .toList(),
         id: json['_id'] as String,
         icon: json['icon'] as String?,
       );

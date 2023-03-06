@@ -8,7 +8,7 @@ abstract class AuthEvent extends Equatable {
   const factory AuthEvent.verifyPhone(String phoneNumber) = _VerifyPhone;
 
   const factory AuthEvent.updated(
-    Either<AuthFailure, AuthSuccess> failureOrCredential,
+    Either<AuthFailure, $auth_success.AuthSuccess> failureOrCredential,
   ) = _Updated;
 
   const factory AuthEvent.signInWithPhone(String smsCode) = _SignInWithPhone;
@@ -43,7 +43,7 @@ class _VerifyPhone extends AuthEvent {
 }
 
 class _Updated extends AuthEvent {
-  final Either<AuthFailure, AuthSuccess> failureOrCredential;
+  final Either<AuthFailure, $auth_success.AuthSuccess> failureOrCredential;
 
   const _Updated(this.failureOrCredential);
 

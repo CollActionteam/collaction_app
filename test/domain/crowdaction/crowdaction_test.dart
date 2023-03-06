@@ -25,7 +25,7 @@ void main() {
       expect(participantCA.subcategory, null);
 
       // tests for CrowdActions with SubCategory
-      final tCA = participantCA.copyWith(subcategory: 'tSubCategory');
+      final tCA = participantCA.copyWith(subcategory: () => 'tSubCategory');
       expect(tCA.toChips().length, 2);
       expect(tCA.category, 'tCategory');
       expect(tCA.subcategory, 'tSubCategory');

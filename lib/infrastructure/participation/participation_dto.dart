@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../domain/participation/participation.dart';
 
 class ParticipationDto extends Equatable {
-    const ParticipationDto({
+  const ParticipationDto({
     required this.id,
     required this.crowdActionId,
     required this.fullName,
@@ -27,35 +27,37 @@ class ParticipationDto extends Equatable {
     );
   }
 
-    factory ParticipationDto.fromJson(Map<String, dynamic> json) =>
+  factory ParticipationDto.fromJson(Map<String, dynamic> json) =>
       ParticipationDto(
         id: json['id'] as String,
         crowdActionId: json['crowdActionId'] as String,
         fullName: json['fullName'] as String,
         avatar: json['avatar'] as String,
         userId: json['userId'] as String,
-        commitments: json['commitments'] as List<String>,
+        commitments: (json['commitments'] as List<dynamic>)
+            .map((e) => e.toString())
+            .toList(),
         joinDate: json['joinDate'] as String,
         dailyCheckIns: json['dailyCheckIns'] as int,
       );
 
-    final String id;
+  final String id;
 
-    final String crowdActionId;
+  final String crowdActionId;
 
-    final String fullName;
+  final String fullName;
 
-    final String avatar;
+  final String avatar;
 
-    final String userId;
+  final String userId;
 
-    final List<String> commitments;
+  final List<String> commitments;
 
-    final String joinDate;
+  final String joinDate;
 
-    final int dailyCheckIns;
+  final int dailyCheckIns;
 
-    ParticipationDto copyWith({
+  ParticipationDto copyWith({
     String? id,
     String? crowdActionId,
     String? fullName,
@@ -89,7 +91,7 @@ class ParticipationDto extends Equatable {
         dailyCheckIns,
       ];
 
-    Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'crowdActionId': crowdActionId,
         'fullName': fullName,

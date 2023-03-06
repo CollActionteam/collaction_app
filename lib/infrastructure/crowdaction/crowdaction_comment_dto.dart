@@ -21,11 +21,15 @@ class CrowdactionCommentDto extends Equatable {
         userId: json['user_id'] as String,
         createdAt: json['created_at'] as DateTime,
         content: json['content'] as String,
-        comments: json['comments'] as List<String>?,
+        comments: (json['comments'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList(),
         likes: json['likes'] as int,
         likedByMe: json['liked_by_me'] as bool,
         flagged: json['flagged'] as bool?,
-        flags: json['flags'] as List<String>?,
+        flags: (json['flags'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList(),
       );
 
   final String crowdactionId;
