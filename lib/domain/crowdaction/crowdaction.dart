@@ -1,32 +1,157 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../core/core.dart';
 import '../../presentation/core/collaction_icons.dart';
 import '../../presentation/core/ionicons_utils.dart';
 import '../../presentation/shared_widgets/secondary_chip.dart';
 
-part 'crowdaction.freezed.dart';
+part 'models/commitment.dart';
+part 'models/images.dart';
+part 'models/location.dart';
+part 'models/statuses.dart';
 
-@freezed
-class CrowdAction with _$CrowdAction {
-  const CrowdAction._();
+class CrowdAction extends Equatable {
+  const CrowdAction({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.category,
+    this.subcategory,
+    required this.location,
+    required this.slug,
+    this.password,
+    required this.participantCount,
+    required this.images,
+    required this.commitments,
+    required this.status,
+    required this.joinStatus,
+    required this.startAt,
+    required this.endAt,
+  });
 
-  const factory CrowdAction({
-    required String id,
-    required String title,
-    required String description,
-    required String category,
-    required Location location,
-    required List<Commitment> commitments,
-    required Images images,
-    required int participantCount,
-    required Status status,
-    required JoinStatus joinStatus,
-    required DateTime endAt,
-    String? password,
-    String? subcategory,
-  }) = _CrowdAction;
+  factory CrowdAction.fromJson(Map<String, dynamic> json) => CrowdAction(
+        id: json['id'] as String,
+        title: json['title'] as String,
+        description: json['description'] as String,
+        category: json['category'] as String,
+        subcategory: json['subcategory'] as String?,
+        location: Location.fromJson(json['location'] as Map<String, dynamic>),
+        slug: json['slug'] as String,
+        password: json['password'] as String?,
+        participantCount: json['participantCount'] as int,
+        images: Images.fromJson(json['images'] as Map<String, dynamic>),
+        commitments: (json['commitments'] as List<dynamic>)
+            .map((dynamic e) => Commitment.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        status: (json['status'] as String).fromStatusJson,
+        joinStatus: (json['joinStatus'] as String).fromJoinStatusJson,
+        startAt: json['startAt'] as DateTime,
+        endAt: json['endAt'] as DateTime,
+      );
+
+  final String id;
+
+  final String title;
+
+  final String description;
+
+  final String category;
+
+  final String? subcategory;
+
+  final Location location;
+
+  final String slug;
+
+  final String? password;
+
+  final int participantCount;
+
+  final Images images;
+
+  final List<Commitment> commitments;
+
+  final Status status;
+
+  final JoinStatus joinStatus;
+
+  final DateTime startAt;
+
+  final DateTime endAt;
+
+  CrowdAction copyWith({
+    String? id,
+    String? title,
+    String? description,
+    String? category,
+    String? Function()? subcategory,
+    Location? location,
+    String? slug,
+    String? Function()? password,
+    int? participantCount,
+    Images? images,
+    List<Commitment>? commitments,
+    Status? status,
+    JoinStatus? joinStatus,
+    DateTime? startAt,
+    DateTime? endAt,
+  }) {
+    return CrowdAction(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      subcategory: subcategory != null ? subcategory() : this.subcategory,
+      location: location ?? this.location,
+      slug: slug ?? this.slug,
+      password: password != null ? password() : this.password,
+      participantCount: participantCount ?? this.participantCount,
+      images: images ?? this.images,
+      commitments: commitments ?? this.commitments,
+      status: status ?? this.status,
+      joinStatus: joinStatus ?? this.joinStatus,
+      startAt: startAt ?? this.startAt,
+      endAt: endAt ?? this.endAt,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        category,
+        subcategory,
+        location,
+        slug,
+        password,
+        participantCount,
+        images,
+        commitments,
+        status,
+        joinStatus,
+        startAt,
+        endAt,
+      ];
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'title': title,
+        'description': description,
+        'category': category,
+        'subcategory': subcategory,
+        'location': location.toJson(),
+        'slug': slug,
+        'password': password,
+        'participantCount': participantCount,
+        'images': images.toJson(),
+        'commitments': commitments.map((e) => e.toJson()),
+        'status': status.toJson,
+        'joinStatus': joinStatus.toJson,
+        'startAt': startAt,
+        'endAt': endAt,
+      };
 
   bool get hasParticipants => participantCount > 0;
 
@@ -57,54 +182,4 @@ class CrowdAction with _$CrowdAction {
 
   // Crowdaction card url
   String get cardUrl => '$baseStaticUrl/${images.card}';
-}
-
-@freezed
-class Images with _$Images {
-  const factory Images({
-    required String card,
-    required String banner,
-  }) = _Images;
-}
-
-@freezed
-class Location with _$Location {
-  const factory Location({
-    required String code,
-    required String name,
-  }) = _Location;
-}
-
-enum Status {
-  @JsonValue('STARTED')
-  started,
-  @JsonValue('WAITING')
-  waiting,
-  @JsonValue('ENDED')
-  ended,
-}
-
-enum JoinStatus {
-  @JsonValue('OPEN')
-  open,
-  @JsonValue('CLOSED')
-  closed,
-}
-
-@freezed
-class Commitment with _$Commitment {
-  const Commitment._();
-
-  factory Commitment({
-    required String id,
-    required String label,
-    required int points,
-    required List<String> blocks,
-    String? description,
-    String? iconId,
-  }) = _Commitment;
-
-  IconData get icon => iconId != null
-      ? IconUtil.fromString(iconId!)
-      : CollactionIcons.collaction;
 }

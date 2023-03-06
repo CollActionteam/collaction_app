@@ -1,0 +1,23 @@
+{
+  "model_name": "user_profile",
+  "properties": [
+    {
+      "name": "user",
+      "type": "User"
+    },
+    {
+      "name": "profile",
+      "type": "Profile"
+    }
+  ],
+  "style": "basic",
+  "relations": [
+    {
+      "name": "User"
+    },
+    {
+      "name": "Profile"
+    }
+  ],
+  "additionals": ["json", "equatable", "copyWith"]
+}

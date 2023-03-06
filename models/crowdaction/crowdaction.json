@@ -1,0 +1,78 @@
+{
+  "model_name": "crowd_action",
+  "properties": [
+    {
+      "name": "id",
+      "type": "String"
+    },
+    {
+      "name": "title",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "type": "String"
+    },
+    {
+      "name": "category",
+      "type": "String"
+    },
+    {
+      "name": "subcategory",
+      "type": "String?"
+    },
+    {
+      "name": "location",
+      "type": "Location"
+    },
+    {
+      "name": "slug",
+      "type": "String"
+    },
+    {
+      "name": "password",
+      "type": "String?"
+    },
+    {
+      "name": "participantCount",
+      "type": "int"
+    },
+    {
+      "name": "images",
+      "type": "Images"
+    },
+    {
+      "name": "commitments",
+      "type": "List<Commitment>"
+    },
+    {
+      "name": "status",
+      "type": "Status"
+    },
+    {
+      "name": "joinStatus",
+      "type": "JoinStatus"
+    },
+    {
+      "name": "startAt",
+      "type": "DateTime"
+    },
+    {
+      "name": "endAt",
+      "type": "DateTime"
+    }
+  ],
+  "style": "basic",
+  "relations": [
+    {
+      "name": "Location"
+    },
+    {
+      "name": "Images"
+    },
+    {
+      "name": "Commitment"
+    }
+  ],
+  "additionals": ["json", "equatable", "copyWith"]
+}

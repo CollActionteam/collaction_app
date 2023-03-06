@@ -1,13 +1,19 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+abstract class UploadPathFailure {
+  const UploadPathFailure();
 
-part 'upload_failures.freezed.dart';
-
-@freezed
-class UploadPathFailure with _$UploadPathFailure {
   const factory UploadPathFailure.unexpected() = Unexpected;
 }
 
-@freezed
-class UploadFailure with _$UploadFailure {
+class Unexpected extends UploadPathFailure {
+  const Unexpected();
+}
+
+abstract class UploadFailure {
+  const UploadFailure();
+
   const factory UploadFailure.uploadFailed() = UploadFailed;
+}
+
+class UploadFailed extends UploadFailure {
+  const UploadFailed();
 }
