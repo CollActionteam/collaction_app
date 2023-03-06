@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/auth/auth_failures.dart';
@@ -13,7 +13,6 @@ import '../../domain/user/i_avatar_repository.dart';
 import '../../domain/user/i_user_repository.dart';
 import '../../domain/user/user.dart';
 
-part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -34,21 +33,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) : super(const AuthState.initial()) {
     on<AuthEvent>(
       (event, emit) async {
-        await event.map(
-          initial: (event) async => await _mapObserveUserToState(emit, event),
-          verifyPhone: (event) async =>
-              await _mapVerifyPhoneToState(emit, event),
-          signInWithPhone: (event) async =>
-              await _mapSignInWithPhoneToState(emit, event),
-          updated: (event) async => await _mapUpdatedToState(emit, event),
-          reset: (event) async => await _mapResetToState(emit, event),
-          authCheckRequested: (event) async =>
-              await _mapAuthCheckRequestToState(emit, event),
-          signedOut: (event) async => await _mapSignOutToState(emit, event),
-          updateProfilePhoto: (event) async =>
-              await _mapUpdateProfilePhotoToState(emit, event),
-          resendCode: (event) async => await _mapResendCodeToState(emit, event),
-        );
+        if (event is _InitialEvent) {
+          await _mapObserveUserToState(emit, event);
+        } else if (event is _VerifyPhone) {
+          await _mapVerifyPhoneToState(emit, event);
+        } else if (event is _SignInWithPhone) {
+          await _mapSignInWithPhoneToState(emit, event);
+        } else if (event is _Updated) {
+          await _mapUpdatedToState(emit, event);
+        } else if (event is _Reset) {
+          await _mapResetToState(emit, event);
+        } else if (event is _AuthCheckRequested) {
+          await _mapAuthCheckRequestToState(emit, event);
+        } else if (event is _SignedOut) {
+          await _mapSignOutToState(emit, event);
+        } else if (event is _UpdateProfilePhoto) {
+          await _mapUpdateProfilePhotoToState(emit, event);
+        } else if (event is _ResendCode) {
+          await _mapResendCodeToState(emit, event);
+        }
       },
     );
   }
@@ -135,22 +138,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.failureOrCredential.fold(
         (failure) => AuthState.authError(failure),
         (r) {
-          return r.map(
-            codeSent: (event) {
-              _credential = event.credential;
-              return const AuthState.smsCodeSent();
-            },
-            codeRetrievalTimedOut: (event) {
-              _credential = event.credential;
-              return const AuthState.codeRetrievalTimedOut();
-            },
-            verificationCompleted: (event) {
-              _credential = event.credential;
-              return AuthState.verificationCompleted(
-                _credential?.smsCode ?? '',
-              );
-            },
-          );
+          _credential = r.credential;
+
+          if (r is _SmsCodeSent) {
+            return const AuthState.smsCodeSent();
+          } else if (r is _CodeRetrievalTimedOut) {
+            return const AuthState.codeRetrievalTimedOut();
+          } else if (r is _VerificationCompleted) {
+            return AuthState.verificationCompleted(
+              _credential?.smsCode ?? '',
+            );
+          }
+
+          throw Exception();
         },
       ),
     );

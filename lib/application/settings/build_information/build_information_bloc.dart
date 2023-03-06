@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/core/i_settings_repository.dart';
 import '../../../domain/settings/build_information.dart';
 
-part 'build_information_bloc.freezed.dart';
 part 'build_information_event.dart';
 part 'build_information_state.dart';
 
@@ -17,14 +16,12 @@ class BuildInformationBloc
   BuildInformationBloc(this._settingsRepository)
       : super(const BuildInformationState.loading()) {
     on<BuildInformationEvent>((event, emit) async {
-      await event.when(
-        fetch: () async {
-          emit(const BuildInformationState.loading());
+      if (event is _Fetch) {
+        emit(const BuildInformationState.loading());
 
-          final buildInfo = await _settingsRepository.getBuildInformation();
-          emit(BuildInformationState.fetched(buildInfo));
-        },
-      );
+        final buildInfo = await _settingsRepository.getBuildInformation();
+        emit(BuildInformationState.fetched(buildInfo));
+      }
     });
   }
 }

@@ -1,9 +1,26 @@
 part of 'crowdaction_getter_bloc.dart';
 
-@freezed
-class CrowdActionGetterEvent with _$CrowdActionGetterEvent {
+abstract class CrowdActionGetterEvent extends Equatable {
+  const CrowdActionGetterEvent();
+
   const factory CrowdActionGetterEvent.init() = _Init;
   const factory CrowdActionGetterEvent.getCrowdActions({
-    @Default(1) int pageNumber,
+    int pageNumber,
   }) = _GetCrowdActions;
+
+  @override
+  List<Object?> get props => [];
+}
+
+class _Init extends CrowdActionGetterEvent {
+  const _Init();
+}
+
+class _GetCrowdActions extends CrowdActionGetterEvent {
+  final int pageNumber;
+
+  const _GetCrowdActions({this.pageNumber = 1});
+
+  @override
+  List<Object?> get props => [pageNumber];
 }

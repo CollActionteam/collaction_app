@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/crowdaction/crowdaction_failures.dart';
 import '../../../domain/crowdaction/i_crowdaction_repository.dart';
 
-part 'spotlight_bloc.freezed.dart';
 part 'spotlight_event.dart';
 part 'spotlight_state.dart';
 
@@ -20,10 +19,9 @@ class SpotlightBloc extends Bloc<SpotlightEvent, SpotlightState> {
       : super(const SpotlightState.initial()) {
     on<SpotlightEvent>(
       (event, emit) async {
-        await event.map(
-          getSpotLightCrowdActions: (event) async =>
-              await _mapGetSpotLightCrowdActionsToState(emit, event),
-        );
+        if (event is _GetSpotlightCrowdActions) {
+          await _mapGetSpotLightCrowdActionsToState(emit, event);
+        }
       },
     );
   }

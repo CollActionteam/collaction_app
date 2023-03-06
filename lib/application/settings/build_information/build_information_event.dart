@@ -1,6 +1,11 @@
 part of 'build_information_bloc.dart';
 
-@freezed
-class BuildInformationEvent with _$BuildInformationEvent {
+abstract class BuildInformationEvent {
+  const BuildInformationEvent();
+
   const factory BuildInformationEvent.fetch() = _Fetch;
+}
+
+class _Fetch extends BuildInformationEvent {
+  const _Fetch();
 }
