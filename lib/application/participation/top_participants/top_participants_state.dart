@@ -4,10 +4,10 @@ abstract class TopParticipantsState extends Equatable {
   const TopParticipantsState();
 
   const factory TopParticipantsState.initial() = _Initial;
-  const factory TopParticipantsState.fetching() = _Fetching;
+  const factory TopParticipantsState.fetching() = Fetching;
   const factory TopParticipantsState.fetched(
     List<Participation> topParticipants,
-  ) = _Fetched;
+  ) = Fetched;
   const factory TopParticipantsState.failure() = _Failure;
 
   @override
@@ -18,14 +18,14 @@ class _Initial extends TopParticipantsState {
   const _Initial();
 }
 
-class _Fetching extends TopParticipantsState {
-  const _Fetching();
+class Fetching extends TopParticipantsState {
+  const Fetching();
 }
 
-class _Fetched extends TopParticipantsState {
+class Fetched extends TopParticipantsState {
   final List<Participation> topParticipants;
 
-  const _Fetched(this.topParticipants);
+  const Fetched(this.topParticipants);
 
   @override
   List<Object?> get props => [topParticipants];

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
+import '../../domain/auth/auth_failures.dart' as $auth_failure;
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
@@ -40,29 +41,35 @@ class AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        state.maybeMap(
-          smsCodeSent: (_) => _toPage(1),
-          loggedIn: (loggedInState) {
-            if (loggedInState.isNewUser) {
-              // TODO: We need to improve this flow on the backend - this makes sure profile is created
-              BlocProvider.of<ProfileBloc>(context).add(GetUserProfile());
-              _toPage(2);
-            } else {
-              _authDone(context);
-            }
-          },
-          authError: (authError) => context.showErrorSnack(
-            authError.failure.map(
-              serverError: (_) => "Server Error",
-              invalidPhone: (_) => "Invalid Phone",
-              verificationFailed: (_) => "Verification Failed",
-              networkRequestFailed: (_) => "No Internet connection",
-              invalidSmsCode: (_) => "Invalid SMS Code",
-            ),
-          ),
-          photoUpdateDone: (_) => _authDone(context),
-          orElse: () {},
-        );
+        if (state is SmsCodeSent) {
+          _toPage(1);
+        } else if (state is LoggedIn) {
+          if (state.isNewUser) {
+            // TODO: We need to improve this flow on the backend - this makes sure profile is created
+            BlocProvider.of<ProfileBloc>(context).add(GetUserProfile());
+            _toPage(2);
+          } else {
+            _authDone(context);
+          }
+        } else if (state is AuthError) {
+          String message = 'Error';
+
+          if (state.failure is $auth_failure.ServerError) {
+            message = "Server Error";
+          } else if (state.failure is $auth_failure.NetworkRequestFailed) {
+            message = "No Internet connection";
+          } else if (state.failure is $auth_failure.InvalidPhone) {
+            message = "Invalid Phone";
+          } else if (state.failure is $auth_failure.InvalidSmsCode) {
+            message = "Invalid SMS Code";
+          } else if (state.failure is $auth_failure.VerificationFailed) {
+            message = "Verification Failed";
+          }
+
+          context.showErrorSnack(message);
+        } else if (state is ProfilePhotoUpdateDone) {
+          _authDone(context);
+        }
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,

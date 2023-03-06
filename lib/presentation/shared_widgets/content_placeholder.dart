@@ -21,11 +21,7 @@ class ContentPlaceholder extends StatelessWidget {
             getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            final signedIn = state.maybeWhen(
-              orElse: () => false,
-              authenticated: (_) => true,
-              unauthenticated: () => false,
-            );
+            final signedIn = state is Authenticated;
 
             return Padding(
               padding: const EdgeInsets.all(8.0),

@@ -52,130 +52,125 @@ class WithdrawParticipation extends StatelessWidget {
         return BlocBuilder<ParticipationBloc, ParticipationState>(
           bloc: participationBloc,
           builder: (context, state) {
-            return state.maybeWhen(
-              notParticipating: () {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        height: 15,
+            if (state is NotParticipating) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      width: 60.0,
+                      height: 5.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: kSecondaryTransparent,
                       ),
-                      Container(
-                        width: 60.0,
-                        height: 5.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: kSecondaryTransparent,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        crowdAction.title,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 28,
-                      ),
-                      Text(
-                        "We are sad to see you withdraw!",
-                        textAlign: TextAlign.center,
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 28,
-                                ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      PillButton(
-                        text: "Got It",
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        margin: EdgeInsets.zero,
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
-                );
-              },
-              orElse: () {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Container(
-                        width: 60.0,
-                        height: 5.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: kSecondaryTransparent,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "We’d love to keep you",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        "You are about to cancel your participation. You are free to sign up for this CrowdAction again any time before it starts.",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: kPrimaryColor400,
-                            ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      PillButton(
-                        text: "Cancel my participation",
-                        isLoading:
-                            state.mapOrNull(loading: (_) => true) ?? false,
-                        onTap: () => participationBloc.add(
-                          ParticipationEvent.toggleParticipation(
-                            crowdActionId: crowdAction.id,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      crowdAction.title,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 28,
+                    ),
+                    Text(
+                      "We are sad to see you withdraw!",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
                           ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    PillButton(
+                      text: "Got It",
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      margin: EdgeInsets.zero,
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              );
+            } else {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      width: 60.0,
+                      height: 5.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: kSecondaryTransparent,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "We’d love to keep you",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "You are about to cancel your participation. You are free to sign up for this CrowdAction again any time before it starts.",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: kPrimaryColor400,
+                          ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    PillButton(
+                      text: "Cancel my participation",
+                      isLoading: state is Loading,
+                      onTap: () => participationBloc.add(
+                        ParticipationEvent.toggleParticipation(
+                          crowdActionId: crowdAction.id,
                         ),
-                        margin: EdgeInsets.zero,
                       ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 52,
-                        child: TextButton(
-                          onPressed: () => context.router.pop(),
-                          child: const Text("Cancel"),
-                        ),
+                      margin: EdgeInsets.zero,
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: TextButton(
+                        onPressed: () => context.router.pop(),
+                        child: const Text("Cancel"),
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                  ],
+                ),
+              );
+            }
           },
         );
       },

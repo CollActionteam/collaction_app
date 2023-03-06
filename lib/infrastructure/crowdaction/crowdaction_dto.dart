@@ -37,7 +37,6 @@ class CrowdActionDto extends Equatable {
       status: status,
       joinStatus: joinStatus,
       endAt: DateTime.parse(endAt),
-      startAt: DateTime.parse(startAt),
       password: password,
       subcategory: subcategory,
     );

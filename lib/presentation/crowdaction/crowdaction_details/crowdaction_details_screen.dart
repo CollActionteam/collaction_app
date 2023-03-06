@@ -82,18 +82,16 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
         listeners: [
           BlocListener<ParticipationBloc, ParticipationState>(
             listener: (context, state) {
-              state.whenOrNull(
-                participating: (p) {
-                  setState(() {
-                    selectedCommitments.clear();
-                    for (final id in p.commitments) {
-                      selectedCommitments.add(
-                        crowdAction!.commitments.firstWhere((c) => c.id == id),
-                      );
-                    }
-                  });
-                },
-              );
+              if (state is Participating) {
+                setState(() {
+                  selectedCommitments.clear();
+                  for (final id in state.participation.commitments) {
+                    selectedCommitments.add(
+                      crowdAction!.commitments.firstWhere((c) => c.id == id),
+                    );
+                  }
+                });
+              }
 
               BlocProvider.of<CrowdActionDetailsBloc>(context).add(
                 CrowdActionDetailsEvent.fetchCrowdAction(id: id),
@@ -106,20 +104,18 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
           ),
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
-              state.maybeWhen(
-                authenticated: (_) => participate = _participateModal,
-                orElse: () => participate = _signUpModal,
-              );
+              if (state is Authenticated) {
+                participate = _participateModal;
+              } else {
+                participate = _signUpModal;
+              }
             },
           ),
           BlocListener<CrowdActionDetailsBloc, CrowdActionDetailsState>(
             listener: (context, state) {
-              state.maybeMap(
-                loadSuccess: (state) {
-                  crowdAction = state.crowdAction;
-                },
-                orElse: () {},
-              );
+              if (state is LoadSuccess) {
+                crowdAction = state.crowdAction;
+              }
             },
           ),
         ],
@@ -132,18 +128,18 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
             return BlocBuilder<ParticipationBloc, ParticipationState>(
               builder: (context, state) {
                 return Scaffold(
-                  floatingActionButton: state.when(
-                    loading: () => const PillButton(
-                      text: "Participate",
-                      isEnabled: false,
-                      isLoading: true,
-                    ),
-                    notParticipating: () => PillButton(
-                      text: "Participate",
-                      onTap: () => participate.call(context),
-                    ),
-                    participating: (_) => const SizedBox.shrink(),
-                  ),
+                  floatingActionButton: state is Loading
+                      ? const PillButton(
+                          text: "Participate",
+                          isEnabled: false,
+                          isLoading: true,
+                        )
+                      : state is NotParticipating
+                          ? PillButton(
+                              text: "Participate",
+                              onTap: () => participate.call(context),
+                            )
+                          : const SizedBox.shrink(),
                   floatingActionButtonLocation:
                       FloatingActionButtonLocation.centerFloat,
                   body: NestedScrollView(
@@ -246,10 +242,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                 child: WithdrawParticipation(
                                   participationBloc: participationBloc,
                                   crowdAction: crowdAction!,
-                                  isParticipating: state.whenOrNull(
-                                        participating: (_) => true,
-                                      ) ??
-                                      false,
+                                  isParticipating: state is Participating,
                                 ),
                               ),
                               const SizedBox(height: 70),

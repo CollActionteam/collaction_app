@@ -2,11 +2,13 @@ part of 'avatar_bloc.dart';
 
 abstract class AvatarState {
   const AvatarState();
-  
+
   const factory AvatarState.initial() = _Initial;
   const factory AvatarState.uploading() = _Uploading;
   const factory AvatarState.uploadSuccess() = _UploadSuccess;
   const factory AvatarState.uploadFailed() = _UploadFailed;
+
+  bool get isUploadSuccess => this is _UploadSuccess;
 }
 
 class _Initial extends AvatarState {

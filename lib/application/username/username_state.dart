@@ -10,6 +10,12 @@ abstract class UsernameState extends Equatable {
 
   @override
   List<Object?> get props => [];
+
+  bool get isUpdateInProgress => this is _UpdateInProgress;
+
+  bool get isUpdateSuccess => this is _UpdateSuccess;
+
+  String get userFullname => (this as _UpdateSuccess).fullname;
 }
 
 class _Initial extends UsernameState {

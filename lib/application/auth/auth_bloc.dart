@@ -140,11 +140,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (r) {
           _credential = r.credential;
 
-          if (r is _SmsCodeSent) {
+          if (r is SmsCodeSent) {
             return const AuthState.smsCodeSent();
           } else if (r is _CodeRetrievalTimedOut) {
             return const AuthState.codeRetrievalTimedOut();
-          } else if (r is _VerificationCompleted) {
+          } else if (r is VerificationCompleted) {
             return AuthState.verificationCompleted(
               _credential?.smsCode ?? '',
             );

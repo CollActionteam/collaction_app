@@ -31,14 +31,16 @@ class TopParticipantAvatars extends StatelessWidget {
         ),
       child: BlocBuilder<TopParticipantsBloc, TopParticipantsState>(
         builder: (context, state) {
-          return state.map(
-            initial: (_) => const SizedBox.shrink(),
-            fetching: (_) => Shimmer.fromColors(
+          if (state is Fetching) {
+            return Shimmer.fromColors(
               baseColor: kPrimaryColor100,
               highlightColor: kPrimaryColor200,
               child: const TopParticipantsShimmer(),
-            ),
-            fetched: (state) => SizedBox(
+            );
+          }
+
+          if (state is Fetched) {
+            return SizedBox(
               width: state.topParticipants.length == 1
                   ? 40.0
                   : state.topParticipants.length == 3
@@ -57,9 +59,10 @@ class TopParticipantAvatars extends StatelessWidget {
                     )
                     .toList(),
               ),
-            ),
-            failure: (_) => const SizedBox.shrink(),
-          );
+            );
+          }
+
+          return const SizedBox.shrink();
         },
       ),
     );

@@ -10,17 +10,17 @@ abstract class AuthState extends Equatable {
   const factory AuthState.signingInUser() = SigningInUser;
 
   /// SMS Code has been sent, wait for autocomplete or user to enter code
-  const factory AuthState.smsCodeSent() = _SmsCodeSent;
+  const factory AuthState.smsCodeSent() = SmsCodeSent;
 
   /// SMS Code verification has been completed, sign in user with credentials
   const factory AuthState.verificationCompleted(String smsCode) =
-      _VerificationCompleted;
+      VerificationCompleted;
 
   /// SMS Code autocomplete has timed out, allow user to resend code
   const factory AuthState.codeRetrievalTimedOut() = _CodeRetrievalTimedOut;
 
   /// An error has occurred during authentication
-  const factory AuthState.authError(AuthFailure failure) = _AuthError;
+  const factory AuthState.authError(AuthFailure failure) = AuthError;
 
   /// Authentication may be completed with verification code
   const factory AuthState.awaitingVerification() = AwaitingVerification;
@@ -29,7 +29,7 @@ abstract class AuthState extends Equatable {
   const factory AuthState.verifying(String smsCode) = _Verifying;
 
   /// Authentication has been completed
-  const factory AuthState.loggedIn({required bool isNewUser}) = _LoggedIn;
+  const factory AuthState.loggedIn({required bool isNewUser}) = LoggedIn;
 
   /// Code is being resent
   const factory AuthState.awaitingCodeResend() = AwaitingCodeResend;
@@ -38,10 +38,10 @@ abstract class AuthState extends Equatable {
   const factory AuthState.awaitingPhotoUpdate() = AwaitingProfilePhotoUpdate;
 
   /// Profile photo update done
-  const factory AuthState.photoUpdateDone() = _ProfilePhotoUpdateDone;
+  const factory AuthState.photoUpdateDone() = ProfilePhotoUpdateDone;
 
   /// Splash Auth states
-  const factory AuthState.authenticated(User user) = _Authenticated;
+  const factory AuthState.authenticated(User user) = Authenticated;
 
   const factory AuthState.unauthenticated() = _UnAuthenticated;
 
@@ -60,15 +60,15 @@ class SigningInUser extends AuthState {
 }
 
 /// SMS Code has been sent, wait for autocomplete or user to enter code
-class _SmsCodeSent extends AuthState {
-  const _SmsCodeSent();
+class SmsCodeSent extends AuthState {
+  const SmsCodeSent();
 }
 
 /// SMS Code verification has been completed, sign in user with credentials
-class _VerificationCompleted extends AuthState {
+class VerificationCompleted extends AuthState {
   final String smsCode;
 
-  const _VerificationCompleted(this.smsCode);
+  const VerificationCompleted(this.smsCode);
 
   @override
   List<Object?> get props => [smsCode];
@@ -80,10 +80,10 @@ class _CodeRetrievalTimedOut extends AuthState {
 }
 
 /// An error has occurred during authentication
-class _AuthError extends AuthState {
+class AuthError extends AuthState {
   final AuthFailure failure;
 
-  const _AuthError(this.failure);
+  const AuthError(this.failure);
 
   @override
   List<Object?> get props => [failure];
@@ -105,10 +105,10 @@ class _Verifying extends AuthState {
 }
 
 /// Authentication has been completed
-class _LoggedIn extends AuthState {
+class LoggedIn extends AuthState {
   final bool isNewUser;
 
-  const _LoggedIn({required this.isNewUser});
+  const LoggedIn({required this.isNewUser});
 
   @override
   List<Object?> get props => [isNewUser];
@@ -125,15 +125,15 @@ class AwaitingProfilePhotoUpdate extends AuthState {
 }
 
 /// Profile photo update done
-class _ProfilePhotoUpdateDone extends AuthState {
-  const _ProfilePhotoUpdateDone();
+class ProfilePhotoUpdateDone extends AuthState {
+  const ProfilePhotoUpdateDone();
 }
 
 /// Splash Auth states
-class _Authenticated extends AuthState {
+class Authenticated extends AuthState {
   final User user;
 
-  const _Authenticated(this.user);
+  const Authenticated(this.user);
 
   @override
   List<Object?> get props => [user];

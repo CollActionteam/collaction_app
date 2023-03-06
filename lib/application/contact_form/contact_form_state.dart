@@ -3,34 +3,34 @@ part of 'contact_form_bloc.dart';
 abstract class ContactFormState extends Equatable {
   const ContactFormState();
 
-  const factory ContactFormState.initial() = _Initial;
+  const factory ContactFormState.initial() = Initial;
 
   const factory ContactFormState.submitting() = Submitting;
 
-  const factory ContactFormState.submissionSuccessful() = _SubmissionSuccessful;
+  const factory ContactFormState.submissionSuccessful() = SubmissionSuccessful;
 
-  const factory ContactFormState.failed(String failureMessage) = _Failed;
+  const factory ContactFormState.failed(String failureMessage) = Failed;
 
   @override
   List<Object?> get props => [];
 }
 
-class _Initial extends ContactFormState {
-  const _Initial();
+class Initial extends ContactFormState {
+  const Initial();
 }
 
 class Submitting extends ContactFormState {
   const Submitting();
 }
 
-class _SubmissionSuccessful extends ContactFormState {
-  const _SubmissionSuccessful();
+class SubmissionSuccessful extends ContactFormState {
+  const SubmissionSuccessful();
 }
 
-class _Failed extends ContactFormState {
+class Failed extends ContactFormState {
   final String failureMessage;
 
-  const _Failed(this.failureMessage);
+  const Failed(this.failureMessage);
 
   @override
   List<Object?> get props => [failureMessage];

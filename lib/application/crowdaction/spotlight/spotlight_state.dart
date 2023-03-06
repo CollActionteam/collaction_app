@@ -3,46 +3,46 @@ part of 'spotlight_bloc.dart';
 abstract class SpotlightState extends Equatable {
   const SpotlightState();
 
-  const factory SpotlightState.initial() = _Initial;
+  const factory SpotlightState.initial() = Initial;
 
   // Spot light crowd actions
   const factory SpotlightState.fetchingCrowdSpotLightActions() =
-      _FetchingSpotLightCrowdActions;
+      FetchingSpotLightCrowdActions;
 
   const factory SpotlightState.spotLightCrowdActionsError(
     CrowdActionFailure error,
-  ) = _SpotLightCrowdActionsError;
+  ) = SpotLightCrowdActionsError;
 
   const factory SpotlightState.spotLightCrowdActions(
     List<CrowdAction> crowdActions,
-  ) = _SpotLightCrowdActions;
+  ) = SpotLightCrowdActions;
 
   @override
   List<Object?> get props => [];
 }
 
-class _Initial extends SpotlightState {
-  const _Initial();
+class Initial extends SpotlightState {
+  const Initial();
 }
 
 // Spot light crowd actions
-class _FetchingSpotLightCrowdActions extends SpotlightState {
-  const _FetchingSpotLightCrowdActions();
+class FetchingSpotLightCrowdActions extends SpotlightState {
+  const FetchingSpotLightCrowdActions();
 }
 
-class _SpotLightCrowdActionsError extends SpotlightState {
+class SpotLightCrowdActionsError extends SpotlightState {
   final CrowdActionFailure error;
 
-  const _SpotLightCrowdActionsError(this.error);
+  const SpotLightCrowdActionsError(this.error);
 
   @override
   List<Object?> get props => [error];
 }
 
-class _SpotLightCrowdActions extends SpotlightState {
+class SpotLightCrowdActions extends SpotlightState {
   final List<CrowdAction> crowdActions;
 
-  const _SpotLightCrowdActions(this.crowdActions);
+  const SpotLightCrowdActions(this.crowdActions);
 
   @override
   List<Object?> get props => [crowdActions];

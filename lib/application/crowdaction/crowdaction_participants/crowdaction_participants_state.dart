@@ -3,15 +3,15 @@ part of 'crowdaction_participants_bloc.dart';
 abstract class CrowdActionParticipantsState extends Equatable {
   const CrowdActionParticipantsState();
 
-  const factory CrowdActionParticipantsState.initial() = _Initial;
+  const factory CrowdActionParticipantsState.initial() = Initial;
   const factory CrowdActionParticipantsState.loading() = _Loading;
   const factory CrowdActionParticipantsState.success({
     required List<Participation> participants,
     required PageInfo pageInfo,
-  }) = _Success;
+  }) = Success;
   const factory CrowdActionParticipantsState.finished({
     required List<Participation> participants,
-  }) = _Finished;
+  }) = Finished;
   const factory CrowdActionParticipantsState.failure(
     ParticipationFailure failure,
   ) = _Failure;
@@ -20,25 +20,25 @@ abstract class CrowdActionParticipantsState extends Equatable {
   List<Object?> get props => [];
 }
 
-class _Initial extends CrowdActionParticipantsState {
-  const _Initial();
+class Initial extends CrowdActionParticipantsState {
+  const Initial();
 }
 
 class _Loading extends CrowdActionParticipantsState {
   const _Loading();
 }
 
-class _Success extends CrowdActionParticipantsState {
+class Success extends CrowdActionParticipantsState {
   final List<Participation> participants;
   final PageInfo pageInfo;
 
-  const _Success({required this.participants, required this.pageInfo});
+  const Success({required this.participants, required this.pageInfo});
 }
 
-class _Finished extends CrowdActionParticipantsState {
+class Finished extends CrowdActionParticipantsState {
   final List<Participation> participants;
 
-  const _Finished({required this.participants});
+  const Finished({required this.participants});
 }
 
 class _Failure extends CrowdActionParticipantsState {

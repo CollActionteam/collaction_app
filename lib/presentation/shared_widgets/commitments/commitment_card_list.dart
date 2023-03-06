@@ -41,11 +41,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
           );
         }
 
-        bool isParticipating = false;
-
-        state.mapOrNull(
-          participating: (_) => isParticipating = true,
-        );
+        bool isParticipating = state is Participating;
 
         return ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -37,18 +37,9 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
       create: (context) => avatarBloc,
       child: BlocListener<AvatarBloc, AvatarState>(
         listener: (context, state) {
-          state.when(
-            initial: () {},
-            uploading: () {
-              /// TODO: Loading indication
-            },
-            uploadSuccess: () {
-              context.router.pop();
-            },
-            uploadFailed: () {
-              /// TODO: Show error snackbar | Implement failures
-            },
-          );
+          if(state.isUploadSuccess){
+            context.router.pop();
+          }
         },
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {

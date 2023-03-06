@@ -12,7 +12,7 @@ part 'participation_state.dart';
 class ParticipationBloc extends Bloc<ParticipationEvent, ParticipationState> {
   final IParticipationRepository participationRepository;
 
-  ParticipationBloc(this.participationRepository) : super(const _Loading()) {
+  ParticipationBloc(this.participationRepository) : super(const Loading()) {
     on<ParticipationEvent>((event, emit) async {
       if (event is _GetParticipation) {
         final failureOrParticipation = await participationRepository

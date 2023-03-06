@@ -25,7 +25,6 @@ class CrowdAction extends Equatable {
     required this.commitments,
     required this.status,
     required this.joinStatus,
-    required this.startAt,
     required this.endAt,
   });
 
@@ -44,7 +43,6 @@ class CrowdAction extends Equatable {
             .toList(),
         status: (json['status'] as String).fromStatusJson,
         joinStatus: (json['joinStatus'] as String).fromJoinStatusJson,
-        startAt: json['startAt'] as DateTime,
         endAt: json['endAt'] as DateTime,
       );
 
@@ -72,8 +70,6 @@ class CrowdAction extends Equatable {
 
   final JoinStatus joinStatus;
 
-  final DateTime startAt;
-
   final DateTime endAt;
 
   CrowdAction copyWith({
@@ -89,7 +85,6 @@ class CrowdAction extends Equatable {
     List<Commitment>? commitments,
     Status? status,
     JoinStatus? joinStatus,
-    DateTime? startAt,
     DateTime? endAt,
   }) {
     return CrowdAction(
@@ -105,7 +100,6 @@ class CrowdAction extends Equatable {
       commitments: commitments ?? this.commitments,
       status: status ?? this.status,
       joinStatus: joinStatus ?? this.joinStatus,
-      startAt: startAt ?? this.startAt,
       endAt: endAt ?? this.endAt,
     );
   }
@@ -124,7 +118,6 @@ class CrowdAction extends Equatable {
         commitments,
         status,
         joinStatus,
-        startAt,
         endAt,
       ];
 
@@ -141,7 +134,6 @@ class CrowdAction extends Equatable {
         'commitments': commitments.map((e) => e.toJson()),
         'status': status.toJson,
         'joinStatus': joinStatus.toJson,
-        'startAt': startAt,
         'endAt': endAt,
       };
 

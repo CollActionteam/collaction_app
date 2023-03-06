@@ -5,7 +5,7 @@ abstract class BuildInformationState extends Equatable {
 
   const factory BuildInformationState.loading() = _Loading;
   const factory BuildInformationState.fetched(BuildInformation buildInfo) =
-      _Fetched;
+      Fetched;
 
   @override
   List<Object?> get props => [];
@@ -15,10 +15,10 @@ class _Loading extends BuildInformationState {
   const _Loading();
 }
 
-class _Fetched extends BuildInformationState {
+class Fetched extends BuildInformationState {
   final BuildInformation buildInfo;
 
-  const _Fetched(this.buildInfo);
+  const Fetched(this.buildInfo);
 
   @override
   List<Object?> get props => [buildInfo];

@@ -35,19 +35,14 @@ class CrowdActionCarouselState extends State<CrowdActionCarousel> {
     return BlocProvider<SpotlightBloc>(
       create: (context) => getIt<SpotlightBloc>()
         ..add(const SpotlightEvent.getSpotLightCrowdActions()),
-      child: BlocBuilder<SpotlightBloc, SpotlightState>(
-        builder: (context, state) => state.when(
-          initial: () => const CircularProgressIndicator(),
-          fetchingCrowdSpotLightActions: () {
-            // TODO: Shimmer
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-          spotLightCrowdActionsError: (failure) {
-            return const Text('Something went wrong!');
-          },
-          spotLightCrowdActions: (crowdActions) => Column(
+      child:
+          BlocBuilder<SpotlightBloc, SpotlightState>(builder: (context, state) {
+        if (state is SpotLightCrowdActionsError) {
+          return const Text('Something went wrong!');
+        } else if (state is SpotLightCrowdActions) {
+          final crowdActions = state.crowdActions;
+
+          return Column(
             children: [
               ScrollConfiguration(
                 behavior: NoRippleBehavior(),
@@ -79,9 +74,13 @@ class CrowdActionCarouselState extends State<CrowdActionCarousel> {
                 },
               )
             ],
-          ),
-        ),
-      ),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }),
     );
   }
 }

@@ -110,11 +110,13 @@ class SettingsPage extends StatelessWidget {
                           bloc: getIt<BuildInformationBloc>()
                             ..add(const BuildInformationEvent.fetch()),
                           builder: (context, state) {
-                            return state.when(
-                              loading: () => const SizedBox(),
-                              fetched: (buildInfo) =>
-                                  BuildInformationTile(information: buildInfo),
-                            );
+                            if (state is Fetched) {
+                              return BuildInformationTile(
+                                information: state.buildInfo,
+                              );
+                            }
+
+                            return const SizedBox();
                           },
                         ),
                       ],
