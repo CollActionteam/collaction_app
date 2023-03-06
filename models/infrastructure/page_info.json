@@ -1,0 +1,27 @@
+{
+ "model_name": "page_info_dto",
+ "properties": [
+  {
+   "name": "page",
+   "type": "int"
+  },
+  {
+   "name": "pageSize",
+   "type": "int"
+  },
+  {
+   "name": "totalPages",
+   "type": "int"
+  },
+  {
+   "name": "totalItems",
+   "type": "int"
+  }
+ ],
+ "style": "basic",
+ "additionals": [
+  "json",
+  "equatable",
+  "copyWith"
+ ]
+}

@@ -1,0 +1,23 @@
+{
+  "model_name": "paginated_participations_dto",
+  "properties": [
+    {
+      "name": "participations",
+      "type": "List<ParticipationDto>"
+    },
+    {
+      "name": "pageInfo",
+      "type": "PageInfoDto"
+    }
+  ],
+  "style": "basic",
+  "relations": [
+    {
+      "name": "ParticipationDto"
+    },
+    {
+      "name": "PageInfoDto"
+    }
+  ],
+  "additionals": ["json", "equatable", "copyWith"]
+}

@@ -1,0 +1,31 @@
+{
+  "model_name": "commitment_dto",
+  "properties": [
+    {
+      "name": "label",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "type": "String?"
+    },
+    {
+      "name": "points",
+      "type": "int"
+    },
+    {
+      "name": "blocks",
+      "type": "List<String>"
+    },
+    {
+      "name": "_id",
+      "type": "String"
+    },
+    {
+      "name": "icon",
+      "type": "String?"
+    }
+  ],
+  "style": "basic",
+  "additionals": ["json", "equatable", "copyWith"]
+}

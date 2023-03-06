@@ -22,7 +22,7 @@ class Participation extends Equatable {
         userId: json['userId'] as String,
         commitments: json['commitments'] as List<String>,
         joinDate: DateTime.parse(json['joinDate'] as String),
-        dailyCheckIns: json['dailyCheckIns'] as String,
+        dailyCheckIns: json['dailyCheckIns'] as int,
       );
 
   final String id;
@@ -39,7 +39,7 @@ class Participation extends Equatable {
 
   final DateTime joinDate;
 
-  final String dailyCheckIns;
+  final int dailyCheckIns;
 
   Participation copyWith({
     String? id,
@@ -49,7 +49,7 @@ class Participation extends Equatable {
     String? userId,
     List<String>? commitments,
     DateTime? joinDate,
-    String? dailyCheckIns,
+    int? dailyCheckIns,
   }) {
     return Participation(
       id: id ?? this.id,

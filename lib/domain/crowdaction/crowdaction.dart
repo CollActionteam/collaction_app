@@ -19,7 +19,6 @@ class CrowdAction extends Equatable {
     required this.category,
     this.subcategory,
     required this.location,
-    required this.slug,
     this.password,
     required this.participantCount,
     required this.images,
@@ -37,7 +36,6 @@ class CrowdAction extends Equatable {
         category: json['category'] as String,
         subcategory: json['subcategory'] as String?,
         location: Location.fromJson(json['location'] as Map<String, dynamic>),
-        slug: json['slug'] as String,
         password: json['password'] as String?,
         participantCount: json['participantCount'] as int,
         images: Images.fromJson(json['images'] as Map<String, dynamic>),
@@ -62,8 +60,6 @@ class CrowdAction extends Equatable {
 
   final Location location;
 
-  final String slug;
-
   final String? password;
 
   final int participantCount;
@@ -87,7 +83,6 @@ class CrowdAction extends Equatable {
     String? category,
     String? Function()? subcategory,
     Location? location,
-    String? slug,
     String? Function()? password,
     int? participantCount,
     Images? images,
@@ -104,7 +99,6 @@ class CrowdAction extends Equatable {
       category: category ?? this.category,
       subcategory: subcategory != null ? subcategory() : this.subcategory,
       location: location ?? this.location,
-      slug: slug ?? this.slug,
       password: password != null ? password() : this.password,
       participantCount: participantCount ?? this.participantCount,
       images: images ?? this.images,
@@ -124,7 +118,6 @@ class CrowdAction extends Equatable {
         category,
         subcategory,
         location,
-        slug,
         password,
         participantCount,
         images,
@@ -142,7 +135,6 @@ class CrowdAction extends Equatable {
         'category': category,
         'subcategory': subcategory,
         'location': location.toJson(),
-        'slug': slug,
         'password': password,
         'participantCount': participantCount,
         'images': images.toJson(),

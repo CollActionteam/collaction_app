@@ -1,0 +1,23 @@
+{
+  "model_name": "paginated_crowd_actions_dto",
+  "properties": [
+    {
+      "name": "crowdActions",
+      "type": "List<CrowdActionDto>"
+    },
+    {
+      "name": "pageInfo",
+      "type": "PageInfoDto"
+    }
+  ],
+  "style": "basic",
+  "relations": [
+    {
+      "name": "CrowdActionDto"
+    },
+    {
+      "name": "PageInfoDto"
+    }
+  ],
+  "additionals": ["json", "equatable", "copyWith"]
+}

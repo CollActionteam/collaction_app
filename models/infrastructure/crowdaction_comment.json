@@ -1,0 +1,43 @@
+{
+  "model_name": "crowdaction_comment_dto",
+  "properties": [
+    {
+      "name": "crowdaction_id",
+      "type": "String"
+    },
+    {
+      "name": "user_id",
+      "type": "String"
+    },
+    {
+      "name": "created_at",
+      "type": "DateTime"
+    },
+    {
+      "name": "content",
+      "type": "String"
+    },
+    {
+      "name": "comments",
+      "type": "List<String>?"
+    },
+    {
+      "name": "likes",
+      "type": "int"
+    },
+    {
+      "name": "liked_by_me",
+      "type": "bool"
+    },
+    {
+      "name": "flagged",
+      "type": "bool?"
+    },
+    {
+      "name": "flags",
+      "type": "List<String>?"
+    }
+  ],
+  "style": "basic",
+  "additionals": ["json", "equatable", "copyWith"]
+}
