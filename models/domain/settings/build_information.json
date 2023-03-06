@@ -1,0 +1,23 @@
+{
+    "model_name": "build_information",
+    "properties": [
+     {
+      "name": "buildNumber",
+      "type": "String"
+     },
+     {
+      "name": "version",
+      "type": "String"
+     },
+     {
+      "name": "environment",
+      "type": "String?"
+     }
+    ],
+    "style": "basic",
+    "additionals": [
+     "json",
+     "equatable",
+     "copyWith"
+    ]
+   }

@@ -69,16 +69,17 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                       ],
                     ),
                   ),
-                  state.maybeMap(
-                    fetchingCrowdSpotLightActions: (_) => _loading(),
-                    spotLightCrowdActions: (fetchedData) {
-                      if (fetchedData.crowdActions.isEmpty) {
+                  Builder(builder: (context) {
+                    if (state is FetchingSpotLightCrowdActions) {
+                      return _loading();
+                    } else if (state is SpotLightCrowdActions) {
+                      if (state.crowdActions.isEmpty) {
                         return _loading();
                       }
 
                       return Column(
                         children: [
-                          ...fetchedData.crowdActions
+                          ...state.crowdActions
                               .map(
                                 (crowdAction) => Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -91,13 +92,14 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                               .toList(),
                         ],
                       );
-                    },
-                    spotLightCrowdActionsError: (failure) =>
-                        const ContentPlaceholder(
-                      textColor: Colors.black,
-                    ),
-                    orElse: () => const SizedBox(),
-                  ),
+                    } else if (state is SpotLightCrowdActionsError) {
+                      return const ContentPlaceholder(
+                        textColor: Colors.black,
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  })
                 ],
               ),
             );

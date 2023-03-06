@@ -1,19 +1,35 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
 import '../user/i_user_repository.dart';
 
-part 'auth_success.freezed.dart';
+abstract class AuthSuccess extends Equatable {
+  final Credential credential;
 
-@freezed
-class AuthSuccess with _$AuthSuccess {
+  const AuthSuccess({required this.credential});
+
   const factory AuthSuccess.codeSent({required Credential credential}) =
-      _SmsCodeSent;
+      SmsCodeSent;
 
   const factory AuthSuccess.codeRetrievalTimedOut({
     required Credential credential,
-  }) = _CodeRetrievalTimedOut;
+  }) = CodeRetrievalTimedOut;
 
   const factory AuthSuccess.verificationCompleted({
     required Credential credential,
-  }) = _VerificationCompleted;
+  }) = VerificationCompleted;
+
+  @override
+  List<Object?> get props => [credential];
+}
+
+class SmsCodeSent extends AuthSuccess {
+  const SmsCodeSent({required super.credential});
+}
+
+class CodeRetrievalTimedOut extends AuthSuccess {
+  const CodeRetrievalTimedOut({required super.credential});
+}
+
+class VerificationCompleted extends AuthSuccess {
+  const VerificationCompleted({required super.credential});
 }

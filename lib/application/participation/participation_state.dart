@@ -1,9 +1,30 @@
 part of 'participation_bloc.dart';
 
-@freezed
-class ParticipationState with _$ParticipationState {
-  const factory ParticipationState.loading() = _Loading;
+abstract class ParticipationState extends Equatable {
+  const ParticipationState();
+
+  const factory ParticipationState.loading() = Loading;
   const factory ParticipationState.participating(Participation participation) =
-      _Participating;
-  const factory ParticipationState.notParticipating() = _NotParticipating;
+      Participating;
+  const factory ParticipationState.notParticipating() = NotParticipating;
+
+  @override
+  List<Object?> get props => [];
+}
+
+class Loading extends ParticipationState {
+  const Loading();
+}
+
+class Participating extends ParticipationState {
+  final Participation participation;
+
+  const Participating(this.participation);
+
+  @override
+  List<Object?> get props => [participation];
+}
+
+class NotParticipating extends ParticipationState {
+  const NotParticipating();
 }

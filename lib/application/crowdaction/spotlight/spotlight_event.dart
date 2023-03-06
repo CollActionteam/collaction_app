@@ -1,7 +1,12 @@
 part of 'spotlight_bloc.dart';
 
-@freezed
-class SpotlightEvent with _$SpotlightEvent {
+abstract class SpotlightEvent {
+  const SpotlightEvent();
+
   const factory SpotlightEvent.getSpotLightCrowdActions() =
       _GetSpotlightCrowdActions;
+}
+
+class _GetSpotlightCrowdActions extends SpotlightEvent {
+  const _GetSpotlightCrowdActions();
 }

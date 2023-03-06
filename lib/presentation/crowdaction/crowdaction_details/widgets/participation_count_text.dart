@@ -37,35 +37,32 @@ class ParticipationCountText extends StatelessWidget {
       value: getDetailsBloc(context),
       child: BlocBuilder<CrowdActionDetailsBloc, CrowdActionDetailsState>(
         builder: (context, state) {
-          return state.when(
-            initial: () {
-              if (crowdAction != null) {
-                return participantCountText(
-                  context,
-                  crowdAction!.participantCount,
-                );
-              }
-
-              return shimmer(context);
-            },
-            loadInProgress: () {
-              if (crowdAction == null) {
-                return shimmer(context);
-              }
-
+          if (state is Initial) {
+            if (crowdAction != null) {
               return participantCountText(
                 context,
                 crowdAction!.participantCount,
               );
-            },
-            loadSuccess: (crowdAction) {
-              return participantCountText(
-                context,
-                crowdAction.participantCount,
-              );
-            },
-            loadFailure: (_) => shimmer(context),
-          );
+            }
+
+            return shimmer(context);
+          } else if (state is LoadInProgress) {
+            if (crowdAction == null) {
+              return shimmer(context);
+            }
+
+            return participantCountText(
+              context,
+              crowdAction!.participantCount,
+            );
+          } else if (state is LoadSuccess) {
+            return participantCountText(
+              context,
+              state.crowdAction.participantCount,
+            );
+          } else {
+            return shimmer(context);
+          }
         },
       ),
     );

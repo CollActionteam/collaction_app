@@ -1,0 +1,39 @@
+{
+  "model_name": "participation_dto",
+  "properties": [
+    {
+      "name": "id",
+      "type": "String"
+    },
+    {
+      "name": "crowdActionId",
+      "type": "String"
+    },
+    {
+      "name": "fullName",
+      "type": "String"
+    },
+    {
+      "name": "avatar",
+      "type": "String"
+    },
+    {
+      "name": "userId",
+      "type": "String"
+    },
+    {
+      "name": "commitments",
+      "type": "List<String>"
+    },
+    {
+      "name": "joinDate",
+      "type": "String"
+    },
+    {
+      "name": "dailyCheckIns",
+      "type": "int"
+    }
+  ],
+  "style": "basic",
+  "additionals": ["json", "equatable", "copyWith"]
+}

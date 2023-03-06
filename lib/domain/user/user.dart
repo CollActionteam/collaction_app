@@ -1,11 +1,25 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-part 'user.freezed.dart';
+class User extends Equatable {
+  final String id;
+  final Future<String?> Function([bool forceRefresh]) getIdToken;
+  final DateTime? joinDate;
+  final String? email;
+  final String? phoneNumber;
+  final bool isEmailVerified;
+  final bool isPhoneNumberVerified;
 
-@freezed
-class User with _$User {
-  const User._();
+  const User({
+    required this.id,
+    required this.getIdToken,
+    this.joinDate,
+    this.email,
+    this.phoneNumber,
+    this.isEmailVerified = false,
+    this.isPhoneNumberVerified = false,
+  });
 
   @visibleForTesting
   // ignore: avoid_positional_boolean_parameters
@@ -19,17 +33,18 @@ class User with _$User {
 
   bool get isAnonymous => this == anonymous;
 
-  const factory User({
-    required String id,
-    required Future<String?> Function([bool forceRefresh]) getIdToken,
-    DateTime? joinDate,
-    String? email,
-    String? phoneNumber,
-    @Default(false) bool isEmailVerified,
-    @Default(false) bool isPhoneNumberVerified,
-  }) = _User;
-
   String get formattedJoinDate {
     return DateFormat('MMMM yyyy').format(joinDate!);
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        getIdToken,
+        joinDate,
+        email,
+        phoneNumber,
+        isEmailVerified,
+        isPhoneNumberVerified,
+      ];
 }

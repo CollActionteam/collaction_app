@@ -32,18 +32,9 @@ class EnterUserNameState extends State<EnterUserName> {
       create: (context) => getIt<UsernameBloc>(),
       child: BlocListener<UsernameBloc, UsernameState>(
         listener: (context, state) {
-          state.when(
-            initial: () {},
-            updateInProgress: () {
-              /// TODO: Loading indication
-            },
-            updateSuccess: (fullname) {
-              widget.onDone(fullname);
-            },
-            updateFailure: () {
-              /// TODO: Show error snackbar | Implement failures
-            },
-          );
+          if (state.isUpdateSuccess) {
+            widget.onDone(state.userFullname);
+          }
         },
         child: BlocBuilder<UsernameBloc, UsernameState>(
           builder: (context, state) {
@@ -175,21 +166,10 @@ class EnterUserNameState extends State<EnterUserName> {
                     Expanded(
                       child: PillButton(
                         text: 'Next',
-                        isLoading: state.maybeWhen(
-                          orElse: () => false,
-                          updateInProgress: () => true,
-                        ),
-                        isEnabled: state.maybeWhen(
-                              orElse: () => true,
-                              updateInProgress: () => false,
-                            ) &&
-                            _isNameValid,
+                        isLoading: state.isUpdateInProgress,
+                        isEnabled: !state.isUpdateInProgress && _isNameValid,
                         onTap: () {
-                          if (_isNameValid &&
-                              state.maybeWhen(
-                                orElse: () => true,
-                                updateInProgress: () => false,
-                              )) {
+                          if (_isNameValid && !state.isUpdateInProgress) {
                             FocusScope.of(context).unfocus();
                             context.read<UsernameBloc>().add(
                                   UsernameEvent.updateUsername(

@@ -1,0 +1,19 @@
+{
+  "model_name": "contact_form_dto",
+  "properties": [
+    {
+      "name": "email",
+      "type": "String"
+    },
+    {
+      "name": "subject",
+      "type": "String?"
+    },
+    {
+      "name": "message",
+      "type": "String"
+    }
+  ],
+  "style": "basic",
+  "additionals": ["json", "equatable", "copyWith"]
+}

@@ -1,9 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+abstract class ProfileFailure {
+  const ProfileFailure();
 
-part 'profile_failure.freezed.dart';
-
-@freezed
-class ProfileFailure with _$ProfileFailure {
   const factory ProfileFailure.unexpected() = Unexpected;
   const factory ProfileFailure.noUser() = NoUser;
+}
+
+class Unexpected extends ProfileFailure {
+  const Unexpected();
+}
+
+class NoUser extends ProfileFailure {
+  const NoUser();
 }

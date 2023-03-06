@@ -1,32 +1,27 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 
-part 'crowdaction_dto.freezed.dart';
+part 'models/commitment_dto.dart';
+part 'models/images_dto.dart';
+part 'models/location_dto.dart';
 
-part 'crowdaction_dto.g.dart';
-
-@freezed
-class CrowdActionDto with _$CrowdActionDto {
-  const CrowdActionDto._();
-
-  const factory CrowdActionDto({
-    required String id,
-    required String title,
-    required String description,
-    required String category,
-    required LocationDto location,
-    required List<CommitmentDto> commitments,
-    required ImagesDto images,
-    required int participantCount,
-    required Status status,
-    required JoinStatus joinStatus,
-    required String endAt,
-    String? password,
-    String? subcategory,
-  }) = _CrowdActionDto;
+class CrowdActionDto extends Equatable {
+  const CrowdActionDto({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.category,
+    this.subcategory,
+    required this.location,
+    this.password,
+    required this.participantCount,
+    required this.images,
+    required this.commitments,
+    required this.status,
+    required this.joinStatus,
+    required this.endAt,
+  });
 
   CrowdAction toDomain() {
     return CrowdAction(
@@ -46,75 +41,115 @@ class CrowdActionDto with _$CrowdActionDto {
     );
   }
 
-  factory CrowdActionDto.fromJson(Map<String, dynamic> json) =>
-      _$CrowdActionDtoFromJson(json);
-}
+  factory CrowdActionDto.fromJson(Map<String, dynamic> json) => CrowdActionDto(
+        id: json['id'] as String,
+        title: json['title'] as String,
+        description: json['description'] as String,
+        category: json['category'] as String,
+        subcategory: json['subcategory'] as String?,
+        location:
+            LocationDto.fromJson(json['location'] as Map<String, dynamic>),
+        password: json['password'] as String?,
+        participantCount: json['participantCount'] as int,
+        images: ImagesDto.fromJson(json['images'] as Map<String, dynamic>),
+        commitments: (json['commitments'] as List<dynamic>)
+            .map((dynamic e) =>
+                CommitmentDto.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        status: (json['status'] as String).fromStatusJson,
+        joinStatus: (json['joinStatus'] as String).fromJoinStatusJson,
+        endAt: json['endAt'] as String,
+      );
 
-@freezed
-class ImagesDto with _$ImagesDto {
-  const ImagesDto._();
+  final String id;
 
-  factory ImagesDto({
-    required String card,
-    required String banner,
-  }) = _ImagesDto;
+  final String title;
 
-  Images toDomain() {
-    return Images(
-      card: card,
-      banner: banner,
-    );
-  }
+  final String description;
 
-  factory ImagesDto.fromJson(Map<String, dynamic> json) =>
-      _$ImagesDtoFromJson(json);
-}
+  final String category;
 
-@freezed
-class LocationDto with _$LocationDto {
-  const LocationDto._();
+  final String? subcategory;
 
-  factory LocationDto({
-    required String code,
-    required String name,
-  }) = _LocationDto;
+  final LocationDto location;
 
-  Location toDomain() {
-    return Location(
-      code: code,
-      name: name,
-    );
-  }
+  final String? password;
 
-  factory LocationDto.fromJson(Map<String, dynamic> json) =>
-      _$LocationDtoFromJson(json);
-}
+  final int participantCount;
 
-@freezed
-class CommitmentDto with _$CommitmentDto {
-  const CommitmentDto._();
+  final ImagesDto images;
 
-  factory CommitmentDto({
-    // ignore: invalid_annotation_target
-    @JsonKey(name: '_id') required String id,
-    required String label,
-    required int points,
-    required List<String> blocks,
+  final List<CommitmentDto> commitments;
+
+  final Status status;
+
+  final JoinStatus joinStatus;
+
+  final String endAt;
+
+  CrowdActionDto copyWith({
+    String? id,
+    String? title,
     String? description,
-    String? icon,
-  }) = _CommitmentDto;
-
-  Commitment toDomain() {
-    return Commitment(
-      id: id,
-      label: label,
-      points: points,
-      blocks: blocks,
-      description: description,
-      iconId: icon,
+    String? category,
+    String? Function()? subcategory,
+    LocationDto? location,
+    String? Function()? password,
+    int? participantCount,
+    ImagesDto? images,
+    List<CommitmentDto>? commitments,
+    Status? status,
+    JoinStatus? joinStatus,
+    String? endAt,
+    String? startAt,
+  }) {
+    return CrowdActionDto(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      subcategory: subcategory != null ? subcategory() : this.subcategory,
+      location: location ?? this.location,
+      password: password != null ? password() : this.password,
+      participantCount: participantCount ?? this.participantCount,
+      images: images ?? this.images,
+      commitments: commitments ?? this.commitments,
+      status: status ?? this.status,
+      joinStatus: joinStatus ?? this.joinStatus,
+      endAt: endAt ?? this.endAt,
     );
   }
 
-  factory CommitmentDto.fromJson(Map<String, dynamic> json) =>
-      _$CommitmentDtoFromJson(json);
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        category,
+        subcategory,
+        location,
+        password,
+        participantCount,
+        images,
+        commitments,
+        status,
+        joinStatus,
+        endAt,
+      ];
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'title': title,
+        'description': description,
+        'category': category,
+        'subcategory': subcategory,
+        'location': location.toJson(),
+        'password': password,
+        'participantCount': participantCount,
+        'images': images.toJson(),
+        'commitments': commitments.map((e) => e.toJson()),
+        'status': status.toJson,
+        'joinStatus': joinStatus.toJson,
+        'endAt': endAt,
+      };
 }

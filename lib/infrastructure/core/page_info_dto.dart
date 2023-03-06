@@ -1,23 +1,58 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../domain/core/page_info.dart';
 
-part 'page_info_dto.g.dart';
-part 'page_info_dto.freezed.dart';
+class PageInfoDto extends Equatable {
+  const PageInfoDto({
+    required this.page,
+    required this.pageSize,
+    required this.totalPages,
+    required this.totalItems,
+  });
 
-@freezed
-class PageInfoDto with _$PageInfoDto {
-  const PageInfoDto._();
+  factory PageInfoDto.fromJson(Map<String, dynamic> json) => PageInfoDto(
+        page: json['page'] as int,
+        pageSize: json['pageSize'] as int,
+        totalPages: json['totalPages'] as int,
+        totalItems: json['totalItems'] as int,
+      );
 
-  const factory PageInfoDto({
-    required int page,
-    required int pageSize,
-    required int totalPages,
-    required int totalItems,
-  }) = _PageInfoDto;
+  final int page;
 
-  factory PageInfoDto.fromJson(Map<String, dynamic> json) =>
-      _$PageInfoDtoFromJson(json);
+  final int pageSize;
+
+  final int totalPages;
+
+  final int totalItems;
+
+  PageInfoDto copyWith({
+    int? page,
+    int? pageSize,
+    int? totalPages,
+    int? totalItems,
+  }) {
+    return PageInfoDto(
+      page: page ?? this.page,
+      pageSize: pageSize ?? this.pageSize,
+      totalPages: totalPages ?? this.totalPages,
+      totalItems: totalItems ?? this.totalItems,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        page,
+        pageSize,
+        totalPages,
+        totalItems,
+      ];
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'page': page,
+        'pageSize': pageSize,
+        'totalPages': totalPages,
+        'totalItems': totalItems,
+      };
 
   PageInfo toDomain() => PageInfo(
         page: page,

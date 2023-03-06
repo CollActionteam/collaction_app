@@ -48,20 +48,17 @@ class _InSpotLightHeaderState extends State<InSpotLightHeader> {
                 ),
                 BlocBuilder<SpotlightBloc, SpotlightState>(
                   builder: (context, state) {
-                    return state.maybeWhen(
-                      fetchingCrowdSpotLightActions: () {
-                        return const SpotlightEmptyHeader();
-                      },
-                      spotLightCrowdActionsError: (_) {
-                        return const ContentPlaceholder(
-                          textColor: Colors.white,
-                        );
-                      },
-                      spotLightCrowdActions: (pages) {
-                        return SpotlightCrowdActions(pages: pages);
-                      },
-                      orElse: () => const SizedBox(),
-                    );
+                    if (state is FetchingSpotLightCrowdActions) {
+                      return const SpotlightEmptyHeader();
+                    } else if (state is SpotLightCrowdActionsError) {
+                      return const ContentPlaceholder(
+                        textColor: Colors.white,
+                      );
+                    } else if (state is SpotLightCrowdActions) {
+                      return SpotlightCrowdActions(pages: state.crowdActions);
+                    } else {
+                      return const SizedBox();
+                    }
                   },
                 ),
                 const SizedBox(

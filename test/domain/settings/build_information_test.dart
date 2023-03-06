@@ -10,7 +10,7 @@ void main() {
     expect(tBuildInfo.environment, null);
 
     final BuildInformation tBuildInfoWEnv =
-        tBuildInfo.copyWith(environment: 'tEnv');
+        tBuildInfo.copyWith(environment: () => 'tEnv');
     expect(tBuildInfoWEnv.environment, 'tEnv');
     expect(tBuildInfoWEnv.buildNumber, 'tBuildNo');
     expect(tBuildInfoWEnv.version, 'tVersion');

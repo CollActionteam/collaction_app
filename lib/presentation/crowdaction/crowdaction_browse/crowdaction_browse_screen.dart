@@ -22,34 +22,28 @@ class CrowdActionBrowsePage extends StatelessWidget {
         ..add(const CrowdActionGetterEvent.init()),
       child: BlocListener<CrowdActionGetterBloc, CrowdActionGetterState>(
         listener: (context, state) {
-          state.map(
-            initial: (_) {
-              pagingController.addPageRequestListener((pageKey) {
-                BlocProvider.of<CrowdActionGetterBloc>(context).add(
-                  CrowdActionGetterEvent.getCrowdActions(
-                    pageNumber: pageKey,
-                  ),
-                );
-              });
-
+          if (state is Initial) {
+            pagingController.addPageRequestListener((pageKey) {
               BlocProvider.of<CrowdActionGetterBloc>(context).add(
-                const CrowdActionGetterEvent.getCrowdActions(
-                  pageNumber: 1,
+                CrowdActionGetterEvent.getCrowdActions(
+                  pageNumber: pageKey,
                 ),
               );
-            },
-            loading: (_) {},
-            success: (state) {
-              pagingController.appendPage(
-                state.crowdActions,
-                state.pageInfo.page + 1,
-              );
-            },
-            finished: (state) {
-              pagingController.appendLastPage(state.crowdActions);
-            },
-            failure: (_) {},
-          );
+            });
+
+            BlocProvider.of<CrowdActionGetterBloc>(context).add(
+              const CrowdActionGetterEvent.getCrowdActions(
+                pageNumber: 1,
+              ),
+            );
+          } else if (state is Success) {
+            pagingController.appendPage(
+              state.crowdActions,
+              state.pageInfo.page + 1,
+            );
+          } else if (state is Finished) {
+            pagingController.appendLastPage(state.crowdActions);
+          }
         },
         child: Scaffold(
           appBar: const CustomAppBar(

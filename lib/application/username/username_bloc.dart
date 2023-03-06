@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/user/i_profile_repository.dart';
 
-part 'username_bloc.freezed.dart';
 part 'username_event.dart';
 part 'username_state.dart';
 
@@ -14,23 +13,22 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
 
   UsernameBloc(this.profileRepository) : super(const _Initial()) {
     on<UsernameEvent>((event, emit) async {
-      await event.when(
-        updateUsername: (firstName, lastName) async {
-          emit(const UsernameState.updateInProgress());
+      if (event is _UpdateUsername) {
+        emit(const UsernameState.updateInProgress());
 
-          final unitOrFailure = await profileRepository.updateUsername(
-            firstName: firstName,
-            lastName: lastName,
-          );
+        final unitOrFailure = await profileRepository.updateUsername(
+          firstName: event.firstName,
+          lastName: event.lastName,
+        );
 
-          emit(
-            unitOrFailure.fold(
-              (failure) => const UsernameState.updateFailure(),
-              (_) => UsernameState.updateSuccess("$firstName $lastName"),
-            ),
-          );
-        },
-      );
+        emit(
+          unitOrFailure.fold(
+            (failure) => const UsernameState.updateFailure(),
+            (_) => UsernameState.updateSuccess(
+                "${event.firstName} ${event.lastName}"),
+          ),
+        );
+      }
     });
   }
 }

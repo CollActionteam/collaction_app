@@ -27,36 +27,30 @@ class CrowdActionParticipantsPage extends StatelessWidget {
       child: BlocListener<CrowdActionParticipantsBloc,
           CrowdActionParticipantsState>(
         listener: (context, state) {
-          state.map(
-            initial: (_) {
-              pagingController.addPageRequestListener((pageKey) {
-                BlocProvider.of<CrowdActionParticipantsBloc>(context).add(
-                  CrowdActionParticipantsEvent.getParticipants(
-                    crowdActionId: crowdActionId,
-                    pageNumber: pageKey,
-                  ),
-                );
-              });
-
+          if (state is Initial) {
+            pagingController.addPageRequestListener((pageKey) {
               BlocProvider.of<CrowdActionParticipantsBloc>(context).add(
                 CrowdActionParticipantsEvent.getParticipants(
                   crowdActionId: crowdActionId,
-                  pageNumber: 1,
+                  pageNumber: pageKey,
                 ),
               );
-            },
-            loading: (_) {},
-            success: (state) {
-              pagingController.appendPage(
-                state.participants,
-                state.pageInfo.page + 1,
-              );
-            },
-            finished: (state) {
-              pagingController.appendLastPage(state.participants);
-            },
-            failure: (_) {},
-          );
+            });
+
+            BlocProvider.of<CrowdActionParticipantsBloc>(context).add(
+              CrowdActionParticipantsEvent.getParticipants(
+                crowdActionId: crowdActionId,
+                pageNumber: 1,
+              ),
+            );
+          } else if (state is Success) {
+            pagingController.appendPage(
+              state.participants,
+              state.pageInfo.page + 1,
+            );
+          } else if (state is Finished) {
+            pagingController.appendLastPage(state.participants);
+          }
         },
         child: Scaffold(
           appBar: AppBar(

@@ -23,14 +23,15 @@ class ConfirmParticipation extends StatelessWidget {
     return BlocBuilder<ParticipationBloc, ParticipationState>(
       bloc: BlocProvider.of<ParticipationBloc>(context),
       builder: (context, state) {
-        return state.maybeWhen(
-          orElse: () => ParticipationDialog(
+        if (state is Participating) {
+          return ParticipationSuccess();
+        } else {
+          return ParticipationDialog(
             crowdAction: crowdAction,
             selectedCommitments: selectedCommitments,
-            isLoading: state.mapOrNull(loading: (_) => true) ?? false,
-          ),
-          participating: (_) => ParticipationSuccess(),
-        );
+            isLoading: state is Loading,
+          );
+        }
       },
     );
   }

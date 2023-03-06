@@ -1,0 +1,39 @@
+{
+  "model_name": "participation",
+  "properties": [
+    {
+      "name": "id",
+      "type": "String"
+    },
+    {
+      "name": "crowdActionId",
+      "type": "String"
+    },
+    {
+      "name": "fullName",
+      "type": "String"
+    },
+    {
+      "name": "avatar",
+      "type": "String"
+    },
+    {
+      "name": "userId",
+      "type": "String"
+    },
+    {
+      "name": "commitments",
+      "type": "List<String>"
+    },
+    {
+      "name": "joinDate",
+      "type": "DateTime"
+    },
+    {
+      "name": "dailyCheckIns",
+      "type": "String"
+    }
+  ],
+  "style": "basic",
+  "additionals": ["json", "equatable", "copyWith"]
+}

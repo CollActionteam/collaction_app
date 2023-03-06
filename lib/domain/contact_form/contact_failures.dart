@@ -1,9 +1,19 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'contact_failures.freezed.dart';
+abstract class ContactFailure extends Equatable {
+  const ContactFailure();
 
-@freezed
-class ContactFailure with _$ContactFailure {
   const factory ContactFailure.serverError() = ServerError;
   const factory ContactFailure.unexpectedError() = UnexpectedError;
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ServerError extends ContactFailure {
+  const ServerError();
+}
+
+class UnexpectedError extends ContactFailure {
+  const UnexpectedError();
 }

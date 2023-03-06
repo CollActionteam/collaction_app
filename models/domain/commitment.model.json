@@ -1,0 +1,27 @@
+{
+  "model_name": "commitment",
+  "properties": [
+    {
+      "name": "id",
+      "type": "int"
+    },
+    {
+      "name": "title",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "type": "String?"
+    },
+    {
+      "name": "checked",
+      "type": "bool"
+    },
+    {
+      "name": "icon",
+      "type": "String?"
+    }
+  ],
+  "style": "basic",
+  "additionals": ["json", "equatable", "copyWith"]
+}

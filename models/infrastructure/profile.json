@@ -1,0 +1,28 @@
+{
+    "model_name": "profile_dto",
+    "properties": [
+      {
+        "name": "userId",
+        "type": "String"
+      },
+      {
+        "name": "firstName",
+        "type": "String"
+      },
+      {
+        "name": "lastName",
+        "type": "String"
+      },
+      {
+        "name": "avatar",
+        "type": "String"
+      },
+      {
+        "name": "bio",
+        "type": "String?"
+      }
+    ],
+    "style": "basic",
+    "additionals": ["json", "equatable", "copyWith"]
+  }
+  

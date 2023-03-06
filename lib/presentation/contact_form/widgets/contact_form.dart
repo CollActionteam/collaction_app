@@ -39,11 +39,8 @@ class _ContactFormState extends State<ContactForm> {
       listener: _contactFormBlocListener,
       bloc: _contactFormBloc,
       builder: (context, state) {
-        final isEnabled = state.maybeMap(
-          initial: (_) => true,
-          failed: (_) => true,
-          orElse: () => false,
-        );
+        final isEnabled = state is Initial || state is Failed;
+
         return Form(
           key: _formKey,
           child: Column(
@@ -177,30 +174,26 @@ class _ContactFormState extends State<ContactForm> {
 
   void _contactFormBlocListener(BuildContext context, ContactFormState state) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    state.map(
-      initial: (_) {},
-      submitting: (_) {},
-      submissionSuccessful: (_) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(
-              const SnackBar(
-                content:
-                    Text('Success! Thank you for contacting us \ud83d\ude42'),
-                behavior: SnackBarBehavior.floating,
-              ),
-            )
-            .closed
-            .then((value) => Navigator.pop(context));
-      },
-      failed: (_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Error! Failed to submit form.'),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      },
-    );
+
+    if (state is SubmissionSuccessful) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+            const SnackBar(
+              content:
+                  Text('Success! Thank you for contacting us \ud83d\ude42'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          )
+          .closed
+          .then((value) => Navigator.pop(context));
+    } else if (state is Failed) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error! Failed to submit form.'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   String? _validateEmail(String? value) {

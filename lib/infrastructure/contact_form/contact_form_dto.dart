@@ -1,18 +1,46 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'contact_form_dto.freezed.dart';
-part 'contact_form_dto.g.dart';
+class ContactFormDto extends Equatable {
+  const ContactFormDto({
+    required this.email,
+    this.subject = 'Hello CollAction!',
+    required this.message,
+  });
 
-@freezed
-class ContactFormDto with _$ContactFormDto {
-  const ContactFormDto._();
+  factory ContactFormDto.fromJson(Map<String, dynamic> json) => ContactFormDto(
+        email: json['email'] as String,
+        subject: json['subject'] as String?,
+        message: json['message'] as String,
+      );
 
-  factory ContactFormDto({
-    required String email,
-    @Default('Hello CollAction!') String? subject,
-    required String message,
-  }) = _ContactFormDto;
+  final String email;
 
-  factory ContactFormDto.fromJson(Map<String, dynamic> json) =>
-      _$ContactFormDtoFromJson(json);
+  final String? subject;
+
+  final String message;
+
+  ContactFormDto copyWith({
+    String? email,
+    String? Function()? subject,
+    String? message,
+  }) {
+    return ContactFormDto(
+      email: email ?? this.email,
+      subject: subject != null ? subject() : this.subject,
+      message: message ?? this.message,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        email,
+        subject,
+        message,
+      ];
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'email': email,
+        'subject': subject,
+        'message': message,
+      };
 }

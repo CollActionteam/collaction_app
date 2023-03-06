@@ -21,10 +21,9 @@ class EnterVerificationCodeState extends State<EnterVerificationCode> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        state.mapOrNull(
-          verificationCompleted: (verificationState) =>
-              _pinKey.currentState?.autoComplete(verificationState.smsCode),
-        );
+        if (state is VerificationCompleted) {
+          _pinKey.currentState?.autoComplete(state.smsCode);
+        }
       },
       builder: (context, state) {
         return Column(

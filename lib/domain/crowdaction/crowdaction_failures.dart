@@ -1,11 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+abstract class CrowdActionFailure {
+  const CrowdActionFailure();
 
-part 'crowdaction_failures.freezed.dart';
-
-@freezed
-class CrowdActionFailure with _$CrowdActionFailure {
   const factory CrowdActionFailure.serverError() = ServerError;
 
   const factory CrowdActionFailure.networkRequestFailed() =
       NetworkRequestFailed;
+}
+
+class ServerError extends CrowdActionFailure {
+  const ServerError();
+}
+
+class NetworkRequestFailed extends CrowdActionFailure {
+  const NetworkRequestFailed();
 }

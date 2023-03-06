@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/contact_form/i_contact_form_repository.dart';
 import '../../infrastructure/contact_form/contact_form_dto.dart';
 
-part 'contact_form_bloc.freezed.dart';
 part 'contact_form_event.dart';
 part 'contact_form_state.dart';
 
@@ -13,23 +12,23 @@ part 'contact_form_state.dart';
 class ContactFormBloc extends Bloc<ContactFormEvent, ContactFormState> {
   final IContactRepository _contactFormApi;
 
-  ContactFormBloc(this._contactFormApi) : super(const _Initial()) {
+  ContactFormBloc(this._contactFormApi)
+      : super(const ContactFormState.initial()) {
     on<ContactFormEvent>(
       (event, emit) async {
-        await event.when(
-          submitted: (event) async {
-            emit(const ContactFormState.submitting());
+        if (event is _Submitted) {
+          emit(const ContactFormState.submitting());
 
-            final unitOrFailure =
-                await _contactFormApi.sendContactFormContents(event);
+          final unitOrFailure = await _contactFormApi.sendContactFormContents(
+            event.contents,
+          );
 
-            if (unitOrFailure.isRight()) {
-              emit(const ContactFormState.submissionSuccessful());
-            } else {
-              emit(const ContactFormState.failed('Submission failed'));
-            }
-          },
-        );
+          if (unitOrFailure.isRight()) {
+            emit(const ContactFormState.submissionSuccessful());
+          } else {
+            emit(const ContactFormState.failed('Submission failed'));
+          }
+        }
       },
     );
   }
