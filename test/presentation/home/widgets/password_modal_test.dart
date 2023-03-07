@@ -166,7 +166,7 @@ void main() {
         await tester.pumpAndSettle();
 
         final capturedRoutes =
-            verify(() => stackRouter.push(captureAny())).captured;
+            verify(() => stackRouter.replace(captureAny())).captured;
         expect(capturedRoutes.length, 1);
         expect(capturedRoutes.first, isA<CrowdActionDetailsRoute>());
 
