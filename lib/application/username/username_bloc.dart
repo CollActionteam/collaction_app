@@ -17,12 +17,10 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
       await event.when(
         updateUsername: (firstName, lastName) async {
           emit(const UsernameState.updateInProgress());
-
           final unitOrFailure = await profileRepository.updateUsername(
             firstName: firstName,
             lastName: lastName,
           );
-
           emit(
             unitOrFailure.fold(
               (failure) => const UsernameState.updateFailure(),

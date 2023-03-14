@@ -29,8 +29,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       backgroundColor: kSecondaryColor,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: ListView(
           children: [
             PersonalInformation(),
             ContactInformation(),

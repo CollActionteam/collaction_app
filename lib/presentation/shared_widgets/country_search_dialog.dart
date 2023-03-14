@@ -31,66 +31,71 @@ class CountrySearchState extends State<CountrySearch> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: kAccentColor),
-                  ),
-                  onChanged: _searchCountry,
-                ),
-              )
-            ],
-          ),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                final country = _countries[index];
-
-                return InkWell(
-                  onTap: () {
-                    if (widget.onCountrySelected != null) {
-                      widget.onCountrySelected!(country);
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: SizedBox(
-                    height: 50,
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'icons/flags/png/${country.alpha2Code!.toLowerCase()}.png',
-                          package: 'country_icons',
-                          width: 28.0,
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          country.dialCode!,
-                          style: const TextStyle(fontSize: 16.0),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            country.name!,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
+    return Material(
+      child: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              flex: 1,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.search, color: kAccentColor),
+                      ),
+                      onChanged: _searchCountry,
                     ),
-                  ),
-                );
-              },
-              itemCount: _countries.length,
+                  )
+                ],
+              ),
             ),
-          )
-        ],
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final country = _countries[index];
+
+                  return InkWell(
+                    onTap: () {
+                      if (widget.onCountrySelected != null) {
+                        widget.onCountrySelected!(country);
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: SizedBox(
+                      height: 50,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'icons/flags/png/${country.alpha2Code!.toLowerCase()}.png',
+                            package: 'country_icons',
+                            width: 28.0,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            country.dialCode!,
+                            style: const TextStyle(fontSize: 16.0),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              country.name!,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                itemCount: _countries.length,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

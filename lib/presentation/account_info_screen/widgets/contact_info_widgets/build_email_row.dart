@@ -13,7 +13,7 @@ class BuildEmailRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-        String? email = state.userProfile!.user.email;
+        String? email = "jane.alfred98@gmail.com";
         return Column(
           children: [
             SizedBox(

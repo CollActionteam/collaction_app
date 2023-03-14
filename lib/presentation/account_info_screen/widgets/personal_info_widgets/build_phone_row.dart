@@ -13,7 +13,7 @@ class BuildPhoneRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-        String phoneNumber = state.userProfile!.user.phoneNumber.toString();
+        String phoneNumber = "+31 612345678";
         return Column(
           children: [
             SizedBox(
@@ -21,7 +21,7 @@ class BuildPhoneRow extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    phoneNumber,
+                    phoneNumber ?? "No Phone",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: kPrimaryColor300,
                           fontFamily: 'Rubik',
