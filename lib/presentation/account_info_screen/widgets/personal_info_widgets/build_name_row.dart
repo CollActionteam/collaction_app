@@ -22,7 +22,8 @@ class _BuildNameRowState extends State<BuildNameRow> {
     return BlocListener<UsernameBloc, UsernameState>(
       listener: (context, state) {
         if (state == UsernameState.updateSuccess("fullname")) {
-          print("success");
+          print("success!!!");
+          context.read<ProfileBloc>().add(GetUserProfile());
         }
       },
       child: BlocBuilder<ProfileBloc, ProfileState>(
