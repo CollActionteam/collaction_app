@@ -47,11 +47,13 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
                 return inital();
               }
               if (state == UsernameState.updateInProgress()) {
+                print("in Progress");
                 //_userNameUpdating(context);
                 return inital();
               }
               if (state == UsernameState.updateSuccess("fullname")) {
-                print("updateSuccess");
+                print("success!!");
+
                 return inital();
               }
               if (state == UsernameState.updateFailure()) {
@@ -93,7 +95,7 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
     return null;
   }
 
-  void updateName(String firstName, String lastName) {
+  updateName(String firstName, String lastName) async {
     UsernameBloc usernameBloc = BlocProvider.of<UsernameBloc>(context);
     usernameBloc.add(
         UsernameEvent.updateUsername(firstName: firstName, lastName: lastName));
@@ -252,12 +254,10 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
               ),
               TextButton(
                   onPressed: _isButtonEnabled
-                      ? () {
-                          setState(() {
-                            updateName(_firstNameController.text,
-                                _lastNameController.text);
-                            Navigator.of(context).pop();
-                          });
+                      ? () async {
+                          await updateName(_firstNameController.text,
+                              _lastNameController.text);
+                          Navigator.of(context).pop();
                         }
                       : null,
                   child: Text(
