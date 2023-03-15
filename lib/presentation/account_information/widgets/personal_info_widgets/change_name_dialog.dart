@@ -36,49 +36,48 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> showChangeNameDialog() async {
-      return showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return BlocBuilder<UsernameBloc, UsernameState>(
-            builder: (context, state) {
-              if (state == UsernameState.initial()) {
-                print("Intial");
-                return inital();
-              }
-              if (state == UsernameState.updateInProgress()) {
-                print("in Progress");
-                //_userNameUpdating(context);
-                return inital();
-              }
-              if (state == UsernameState.updateSuccess("fullname")) {
-                print("success!!");
-
-                return inital();
-              }
-              if (state == UsernameState.updateFailure()) {
-                print("updateFailure");
-                return inital();
-              } else {
-                return inital();
-              }
-            },
-          );
-        },
-      );
-    }
-
-    return TextButton(
-        onPressed: () => showChangeNameDialog(),
+    return GestureDetector(
+        onTap: _showChangeNameDialog,
         child: Text(
           "Change",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: kAccentColor,
-                fontFamily: 'Rubik',
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
         ));
+  }
+
+  Future<void> _showChangeNameDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BlocBuilder<UsernameBloc, UsernameState>(
+          builder: (context, state) {
+            if (state == UsernameState.initial()) {
+              print("Intial");
+              return inital();
+            }
+            if (state == UsernameState.updateInProgress()) {
+              print("in Progress");
+              //_userNameUpdating(context);
+              return inital();
+            }
+            if (state == UsernameState.updateSuccess("fullname")) {
+              print("success!!");
+
+              return inital();
+            }
+            if (state == UsernameState.updateFailure()) {
+              print("updateFailure");
+              return inital();
+            } else {
+              return inital();
+            }
+          },
+        );
+      },
+    );
   }
 
   String? _validateFirstName(String? value) {
@@ -278,14 +277,15 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
     );
   }
 
-  void _userNameUpdating(BuildContext context) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: const Text('User name is updating'),
-        action: SnackBarAction(
-            label: 'DONE', onPressed: scaffold.hideCurrentSnackBar),
-      ),
-    );
-  }
+  // TODO: Use this or remove
+  // void _usernameUpdating(BuildContext context) {
+  //   final scaffold = ScaffoldMessenger.of(context);
+  //   scaffold.showSnackBar(
+  //     SnackBar(
+  //       content: const Text('User name is updating'),
+  //       action: SnackBarAction(
+  //           label: 'DONE', onPressed: scaffold.hideCurrentSnackBar),
+  //     ),
+  //   );
+  // }
 }

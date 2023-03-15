@@ -5,6 +5,7 @@ import '../../core/core.dart';
 import '../../presentation/core/collaction_icons.dart';
 import '../../presentation/core/ionicons_utils.dart';
 import '../../presentation/shared_widgets/secondary_chip.dart';
+import '../core/location.dart';
 
 part 'crowdaction.freezed.dart';
 
@@ -66,14 +67,6 @@ class Images with _$Images {
     required String card,
     required String banner,
   }) = _Images;
-}
-
-@freezed
-class Location with _$Location {
-  const factory Location({
-    required String code,
-    required String name,
-  }) = _Location;
 }
 
 enum Status {

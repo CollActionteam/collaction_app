@@ -1,4 +1,4 @@
-import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
+import 'package:collaction_app/infrastructure/core/location_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'location_dto_fixtures.dart';
 

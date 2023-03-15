@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/profile/profile.dart';
+import '../core/location_dto.dart';
 
 part 'profile_dto.freezed.dart';
 part 'profile_dto.g.dart';
@@ -14,6 +15,7 @@ class ProfileDto with _$ProfileDto {
     required String firstName,
     required String lastName,
     required String avatar,
+    required LocationDto location,
     String? bio,
   }) = _ProfileDto;
 
@@ -24,6 +26,7 @@ class ProfileDto with _$ProfileDto {
       lastName: lastName,
       avatar: avatar,
       bio: bio,
+      location: location.toDomain(),
     );
   }
 

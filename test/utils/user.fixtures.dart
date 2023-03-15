@@ -1,3 +1,4 @@
+import 'package:collaction_app/domain/core/location.dart';
 import 'package:collaction_app/domain/profile/profile.dart';
 import 'package:collaction_app/domain/profile/user_profile.dart';
 import 'package:collaction_app/domain/user/user.dart';
@@ -15,6 +16,10 @@ final testProfile = Profile(
   firstName: 'John',
   lastName: 'Doe',
   avatar: 'profiles/${testUser.id}.png',
+  location: Location(
+    code: 'NL',
+    name: 'The Netherlands',
+  ),
 );
 
 final testUserProfile = UserProfile(user: testUser, profile: testProfile);

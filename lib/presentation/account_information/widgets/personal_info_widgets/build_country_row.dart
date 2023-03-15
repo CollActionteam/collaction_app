@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
 
+import '../../../../domain/core/location.dart';
 import '../../../themes/constants.dart';
 import 'change_country_dialog.dart';
 
 class BuildCountryRow extends StatelessWidget {
-  final String countryName;
-  const BuildCountryRow({super.key, required this.countryName});
+  final Location location;
+
+  const BuildCountryRow({
+    super.key,
+    required this.location,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 33,
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                countryName.isNotEmpty ? countryName : "No country",
+                '${location.name}, ${location.code}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: kPrimaryColor300,
-                      fontFamily: 'Rubik',
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
               ),
-              const Spacer(),
-              ChangeCountryDialog(countryName: countryName),
+              ChangeCountryDialog(location: location),
             ],
           ),
-        ),
-        SizedBox(
-          child: Row(
+          const SizedBox(height: 5),
+          Row(
             children: [
               Flexible(
                 child: Text(
@@ -45,9 +48,9 @@ class BuildCountryRow extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

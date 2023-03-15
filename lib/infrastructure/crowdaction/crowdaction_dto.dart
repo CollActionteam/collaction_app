@@ -3,6 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
+import '../core/location_dto.dart';
 
 part 'crowdaction_dto.freezed.dart';
 
@@ -71,26 +72,6 @@ class ImagesDto with _$ImagesDto {
 
   factory ImagesDto.fromJson(Map<String, dynamic> json) =>
       _$ImagesDtoFromJson(json);
-}
-
-@freezed
-class LocationDto with _$LocationDto {
-  const LocationDto._();
-
-  factory LocationDto({
-    required String code,
-    required String name,
-  }) = _LocationDto;
-
-  Location toDomain() {
-    return Location(
-      code: code,
-      name: name,
-    );
-  }
-
-  factory LocationDto.fromJson(Map<String, dynamic> json) =>
-      _$LocationDtoFromJson(json);
 }
 
 @freezed

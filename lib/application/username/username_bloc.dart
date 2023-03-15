@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/user/i_profile_repository.dart';
-import '../../domain/user/profile_failure.dart';
 
 part 'username_bloc.freezed.dart';
 part 'username_event.dart';

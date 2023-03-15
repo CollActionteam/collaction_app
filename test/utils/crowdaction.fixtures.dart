@@ -1,3 +1,4 @@
+import 'package:collaction_app/domain/core/location.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 
 /// Reusable crowdaction fixtures
