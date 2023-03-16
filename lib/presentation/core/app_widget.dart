@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/auth/auth_bloc.dart';
+import '../../application/personal_information/personal_information_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
 import '../../application/user/profile_tab/profile_tab_bloc.dart';
 import '../../application/username/username_bloc.dart';
@@ -25,7 +26,9 @@ class AppWidget extends StatelessWidget {
         BlocProvider<ProfileTabBloc>(
           create: (_) => getIt<ProfileTabBloc>()..add(FetchProfileTabInfo()),
         ),
-        BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>())
+        BlocProvider<UsernameBloc>(create: (_) => getIt<UsernameBloc>()),
+        BlocProvider<PersonalInformationBloc>(
+            create: (_) => getIt<PersonalInformationBloc>()),
       ],
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {

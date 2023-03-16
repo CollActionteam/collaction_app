@@ -4,14 +4,9 @@ import '../themes/constants.dart';
 import 'widgets/contact_info.dart';
 import 'widgets/personal_info.dart';
 
-class AccountInfoScreen extends StatefulWidget {
+class AccountInfoScreen extends StatelessWidget {
   const AccountInfoScreen({super.key});
 
-  @override
-  State<AccountInfoScreen> createState() => _AccountInfoScreenState();
-}
-
-class _AccountInfoScreenState extends State<AccountInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,18 +15,23 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Text(
-                  'Account information',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
-                    color: kPrimaryColor400,
+              Row(
+                children: [
+                  // TO DO: need to find proper back button icon
+                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: const Text(
+                      'Account information',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                        color: kPrimaryColor400,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(

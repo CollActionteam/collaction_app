@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../themes/constants.dart';
 
 class BuildPhoneRow extends StatelessWidget {
+  final String? phoneNumber;
   const BuildPhoneRow({
     super.key,
+    required this.phoneNumber,
   });
 
   @override
@@ -17,7 +19,7 @@ class BuildPhoneRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "No Phone",
+                phoneNumber ?? "No Phone",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: kPrimaryColor300,
                       fontSize: 14,

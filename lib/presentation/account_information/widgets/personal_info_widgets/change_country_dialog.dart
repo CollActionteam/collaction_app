@@ -4,7 +4,7 @@ import '../../../../domain/core/location.dart';
 import '../../../themes/constants.dart';
 
 class ChangeCountryDialog extends StatefulWidget {
-  final Location location;
+  final Location? location;
 
   ChangeCountryDialog({
     super.key,
@@ -26,7 +26,7 @@ class _ChangeCountryDialogState extends State<ChangeCountryDialog> {
     super.initState();
     _formKey = GlobalKey<FormState>();
     _countryNameKey = GlobalKey<FormFieldState>();
-    _countryNameController = TextEditingController(text: widget.location.code);
+    _countryNameController = TextEditingController(text: widget.location?.code);
   }
 
   @override
@@ -45,6 +45,7 @@ class _ChangeCountryDialogState extends State<ChangeCountryDialog> {
     );
   }
 
+// TO DO: refactor after recived a design for change country dialog
   Future<void> _showChangeCountryDialog() async {
     return showDialog<void>(
       context: context,
@@ -164,7 +165,7 @@ class _ChangeCountryDialogState extends State<ChangeCountryDialog> {
   }
 
   String? _validateCountry(String? value) {
-    if (value == widget.location.code) {
+    if (value == widget.location?.code) {
       return "To save you need to make a change";
     }
 

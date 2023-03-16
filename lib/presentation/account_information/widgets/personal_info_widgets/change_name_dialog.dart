@@ -54,26 +54,7 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
       builder: (BuildContext context) {
         return BlocBuilder<UsernameBloc, UsernameState>(
           builder: (context, state) {
-            if (state == UsernameState.initial()) {
-              print("Intial");
-              return inital();
-            }
-            if (state == UsernameState.updateInProgress()) {
-              print("in Progress");
-              //_userNameUpdating(context);
-              return inital();
-            }
-            if (state == UsernameState.updateSuccess("fullname")) {
-              print("success!!");
-
-              return inital();
-            }
-            if (state == UsernameState.updateFailure()) {
-              print("updateFailure");
-              return inital();
-            } else {
-              return inital();
-            }
+            return inital();
           },
         );
       },
@@ -95,12 +76,14 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
   }
 
   updateName(String firstName, String lastName) async {
-    UsernameBloc usernameBloc = BlocProvider.of<UsernameBloc>(context);
-    usernameBloc.add(
-        UsernameEvent.updateUsername(firstName: firstName, lastName: lastName));
-    // Refresh profile
-    Future.delayed(const Duration(milliseconds: 500), () {
-      context.read<ProfileBloc>().add(GetUserProfile());
+    setState(() {
+      UsernameBloc usernameBloc = BlocProvider.of<UsernameBloc>(context);
+      usernameBloc.add(UsernameEvent.updateUsername(
+          firstName: firstName, lastName: lastName));
+      // Refresh profile
+      Future.delayed(const Duration(milliseconds: 500), () {
+        context.read<ProfileBloc>().add(GetUserProfile());
+      });
     });
   }
 
@@ -256,6 +239,7 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
                       ? () async {
                           await updateName(_firstNameController.text,
                               _lastNameController.text);
+
                           Navigator.of(context).pop();
                         }
                       : null,
@@ -276,16 +260,4 @@ class _ChangeNameDialogState extends State<ChangeNameDialog> {
       },
     );
   }
-
-  // TODO: Use this or remove
-  // void _usernameUpdating(BuildContext context) {
-  //   final scaffold = ScaffoldMessenger.of(context);
-  //   scaffold.showSnackBar(
-  //     SnackBar(
-  //       content: const Text('User name is updating'),
-  //       action: SnackBarAction(
-  //           label: 'DONE', onPressed: scaffold.hideCurrentSnackBar),
-  //     ),
-  //   );
-  // }
 }

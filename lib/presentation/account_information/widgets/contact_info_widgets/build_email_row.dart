@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../themes/constants.dart';
 
 class BuildEmailRow extends StatelessWidget {
+  final String? email;
   const BuildEmailRow({
     super.key,
+    required this.email,
   });
 
   @override
@@ -17,39 +19,35 @@ class BuildEmailRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                // TODO: Email
-                "No email",
+                email!.isNotEmpty ? email! : "No email",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: kPrimaryColor300,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
               ),
-              // TODO: Add/Change email
-              // email != null
-              //     ? GestureDetector(
-              //         onTap: () {},
-              //         child: Text(
-              //           "Change",
-              //           style:
-              //               Theme.of(context).textTheme.bodySmall?.copyWith(
-              //                     color: kAccentColor,
-              //                     fontSize: 14,
-              //                     fontWeight: FontWeight.w500,
-              //                   ),
-              //         ))
-              //     : GestureDetecotr(
-              //         onTap: () {},
-              //         child: Text(
-              //           "Add",
-              //           style:
-              //               Theme.of(context).textTheme.bodySmall?.copyWith(
-              //                     color: kAccentColor,
-              //                     fontSize: 14,
-              //                     fontWeight: FontWeight.w500,
-              //                   ),
-              //         ),
-              //       ),
+              email!.isNotEmpty
+                  ? GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        "Change",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: kAccentColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ))
+                  : GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        "Add",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: kAccentColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
             ],
           ),
           const SizedBox(height: 5),
