@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/core/i_settings_repository.dart';
+import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/pill_button.dart';
 import '../themes/constants.dart';
-import '../../domain/core/i_settings_repository.dart';
-import '../../infrastructure/core/injection.dart';
 
 class UnauthenticatedPage extends StatelessWidget {
   @override

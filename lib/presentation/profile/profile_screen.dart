@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
@@ -94,11 +93,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: ProfilePicture(
                                     image: _image,
-                                    profileImage: state
-                                                .userProfile?.profile.avatar !=
-                                            null
-                                        ? '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${state.userProfile?.profile.avatar}'
-                                        : null,
+                                    profileImage:
+                                        state.userProfile?.profile.avatar,
                                     maxRadius: 50,
                                   ),
                                 ),

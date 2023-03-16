@@ -1,7 +1,8 @@
+import 'package:dartz/dartz.dart';
+
 import 'paginated_participations.dart';
 import 'participation.dart';
 import 'participation_failures.dart';
-import 'package:dartz/dartz.dart';
 
 abstract class IParticipationRepository {
   Future<Either<ParticipationFailure, Participation>> getParticipation({

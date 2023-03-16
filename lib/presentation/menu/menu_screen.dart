@@ -1,19 +1,18 @@
 import 'package:auto_route/auto_route.dart';
-import 'widgets/build_information_tile.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../../application/auth/auth_bloc.dart';
-import '../../application/settings/build_information/build_information_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
-import '../../infrastructure/core/injection.dart';
-import '../routes/app_routes.gr.dart';
-import '../utils/launch_url.dart';
-import 'widgets/avatar_info.dart';
-import 'widgets/header_bar.dart';
-import 'widgets/legal_info_policy_widget.dart';
-import 'package:flutter/material.dart';
-import '../themes/constants.dart';
 import '../core/collaction_icons.dart';
+import '../routes/app_routes.gr.dart';
+import '../themes/constants.dart';
+import '../utils/launch_url.dart';
+import 'widgets/build_information_tile.dart';
+import 'widgets/ca_menu_item.dart';
+import 'widgets/header_bar.dart';
+import 'widgets/menu_category.dart';
 import 'widgets/user_info_and_avatar.dart';
 
 class MenuPage extends StatelessWidget {
@@ -24,223 +23,144 @@ class MenuPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          // TODO: Have it's own BLoC
           child: BlocProvider<ProfileBloc>.value(
             value: BlocProvider.of<ProfileBloc>(context),
             child: BlocBuilder<ProfileBloc, ProfileState>(
-              builder: (context, state) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, top: 10, right: 22.5),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        HeaderBar(),
-                        UserInfoAndAvatar(
-                          pictureUrl: state.userProfile?.profile.avatar,
-                          name: state.userProfile?.profile.firstName,
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        SizedBox(
-                          height: 18,
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            BlocProvider.of<AuthBloc>(context)
-                                .add(const AuthEvent.signedOut());
-                            BlocProvider.of<ProfileBloc>(context)
-                                .add(GetUserProfile());
-                            await context.router.pop();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.logout,
-                                color: kErrorColor,
-                              ),
-                              SizedBox(
-                                width: 2.5,
-                              ),
-                              Text(
-                                "Log out",
-                                style: TextStyle(
-                                  color: kErrorColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )
-                            ],
+              builder: (context, state) {
+                if (state.userProfile == null) {
+                  // TODO: Loading state
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20) +
+                          const EdgeInsets.only(top: 10, bottom: 6),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          HeaderBar(),
+                          const SizedBox(height: 30),
+                          UserInfoAndAvatar(
+                            avatar: state.userProfile!.profile.avatar,
+                            fullName: state.userProfile!.profile.fullName,
                           ),
+                          SizedBox(height: 16),
+                          // TODO: Extract Logout button to widget
+                          GestureDetector(
+                            onTap: () async {
+                              BlocProvider.of<AuthBloc>(context)
+                                  .add(const AuthEvent.signedOut());
+                              BlocProvider.of<ProfileBloc>(context)
+                                  .add(GetUserProfile());
+                              await context.router.pop();
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.logout,
+                                    color: kErrorColor, size: 20),
+                                SizedBox(width: 10),
+                                Text(
+                                  "Log out",
+                                  style: TextStyle(
+                                    color: kErrorColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    MenuCategory(
+                      label: 'Account',
+                      items: [
+                        CAMenuItem(
+                          icon: Icon(
+                            Ionicons.person_circle_outline,
+                            color: kPrimaryColor300,
+                          ),
+                          label: "Account Information",
+                          description:
+                              "View and update your account and contact information that is associated with your CollAction account.",
+                          onTap: () {
+                            // TODO: Open Account Information Page
+                          },
                         ),
                       ],
                     ),
-                  ),
-                  _buildSubTitle(
-                    subTitle: "Account",
-                    paddingTop: 38.5,
-                    paddingBottom: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 22.25),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.account_circle,
-                            color: kPrimaryColor300,
-                            size: 19.5,
-                          ),
-                          SizedBox(
-                            width: 12.25,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Account Information",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: kPrimaryColor300),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              SizedBox(
-                                width: 306,
-                                child: Text(
-                                  "View and update your account  and contact information that is associated with your CollAction account.",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: kPrimaryColor300,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  _buildSubTitle(
-                      subTitle: "Feedback", paddingTop: 30, paddingBottom: 20),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 22.5,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
+                    MenuCategory(
+                      label: 'Feedback',
+                      items: [
+                        CAMenuItem(
+                          icon: Icon(
                             CollactionIcons.message,
+                            size: 20,
                             color: kPrimaryColor300,
-                            size: 15,
                           ),
-                          SizedBox(
-                            width: 16.25,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Contact us",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: kPrimaryColor300),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              SizedBox(
-                                width: 305,
-                                child: Text(
-                                  "Have a general enquiry, business proposal, or simply want us to send your feedback or regards? Get in contact with us through our form.",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: kPrimaryColor300,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                          label: "Contact us",
+                          description:
+                              "Have a general enquiry, business proposal, or simply want us to send your feedback or regards? Get in contact with us through our form.",
+                          onTap: () {
+                            // TODO: Open Contact Us Full-screen Dialog
+                          },
+                        ),
+                      ],
                     ),
-                  ),
-                  _buildSubTitle(
-                      subTitle: "Legal information and policies",
-                      paddingBottom: 24,
-                      paddingTop: 30),
-                  LegalInfoAndPoliciesWidget(
-                      onTap: () async {
-                        launchUrl(
-                          'https://www.collaction.org/privacy',
-                          useWebView: true,
-                          context: context,
-                        );
-                      },
-                      iconWidget: CollactionIcons.lock,
-                      label: "Privacy Policy"),
-                  LegalInfoAndPoliciesWidget(
-                      onTap: () => launchUrl(
+                    MenuCategory(
+                      label: 'Legal information and policies',
+                      items: [
+                        CAMenuItem(
+                          icon: Icon(
+                            CollactionIcons.lock,
+                            size: 20,
+                            color: kPrimaryColor300,
+                          ),
+                          label: "Privacy Policy",
+                          onTap: () => launchUrl(
+                            'https://www.collaction.org/privacy',
+                            useWebView: true,
+                            context: context,
+                          ),
+                        ),
+                        CAMenuItem(
+                          icon: Icon(
+                            CollactionIcons.file,
+                            size: 20,
+                            color: kPrimaryColor300,
+                          ),
+                          label: "Terms & conditions",
+                          onTap: () => launchUrl(
                             'https://www.collaction.org/terms',
                             useWebView: true,
                             context: context,
                           ),
-                      iconWidget: CollactionIcons.file,
-                      label: "Terms & conditions"),
-                  LegalInfoAndPoliciesWidget(
-                      onTap: () => context.router.push(const LicensesRoute()),
-                      iconWidget: CollactionIcons.opensource,
-                      label: "Open-source libraries"),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      BlocBuilder<BuildInformationBloc, BuildInformationState>(
-                        bloc: getIt<BuildInformationBloc>()
-                          ..add(const BuildInformationEvent.fetch()),
-                        builder: (context, state) {
-                          return state.when(
-                            loading: () => const SizedBox(),
-                            fetched: (buildInfo) =>
-                                BuildInformationTile(information: buildInfo),
-                          );
-                        },
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                        ),
+                        CAMenuItem(
+                          icon: Icon(
+                            CollactionIcons.opensource,
+                            size: 20,
+                            color: kPrimaryColor300,
+                          ),
+                          label: "Open-source libraries",
+                          onTap: () =>
+                              context.router.push(const LicensesRoute()),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Center(child: BuildInformationTile()),
+                  ],
+                );
+              },
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSubTitle({
-    required String subTitle,
-    double paddingTop = 0.0,
-    double paddingBottom = 0.0,
-  }) {
-    return Padding(
-      padding:
-          EdgeInsets.only(left: 20, top: paddingTop, bottom: paddingBottom),
-      child: Text(
-        subTitle,
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w700,
-          color: kPrimaryColor300,
         ),
       ),
     );

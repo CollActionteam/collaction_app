@@ -4,42 +4,43 @@ import '../../themes/constants.dart';
 import 'avatar_info.dart';
 
 class UserInfoAndAvatar extends StatelessWidget {
-  final String? pictureUrl;
+  final String? avatar;
+  final String fullName;
 
-  final String? name;
-
-  const UserInfoAndAvatar({Key? key, this.pictureUrl, this.name})
-      : super(key: key);
+  const UserInfoAndAvatar({
+    Key? key,
+    this.avatar,
+    required this.fullName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 85,
-      decoration: avatarInfoDecorationBox,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: kAlmostTransparent,
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
       child: Padding(
-        padding: EdgeInsets.only(
-          left: 20,
-          top: 10,
-          bottom: 10,
-          right: 25.5,
-        ),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AvatarAndInfo(
-              pictureUrl: pictureUrl,
-              name: name,
+              avatar: avatar,
+              phoneNumber: '+31 612345678',
+              fullName: fullName,
             ),
+            const Spacer(),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                // TODO: Open Settings Page
+              },
               child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Icon(
-                    Icons.settings,
-                    color: kPrimaryColor600,
-                    size: 21,
-                  ),
+                height: 36,
+                width: 36,
+                child: Icon(
+                  Icons.settings,
+                  color: kPrimaryColor600,
+                  size: 24,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,

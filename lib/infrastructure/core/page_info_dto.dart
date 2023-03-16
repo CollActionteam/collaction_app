@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/core/page_info.dart';
 
-part 'page_info_dto.g.dart';
 part 'page_info_dto.freezed.dart';
+part 'page_info_dto.g.dart';
 
 @freezed
 class PageInfoDto with _$PageInfoDto {

@@ -1,38 +1,18 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../../domain/user/i_user_repository.dart';
-import '../../../domain/user/user.dart';
-import '../../../infrastructure/core/injection.dart';
 import '../../profile/widget/profile_picture.dart';
 import '../../themes/constants.dart';
 
-class AvatarAndInfo extends StatefulWidget {
-  final String? pictureUrl;
-  final String? name;
+class AvatarAndInfo extends StatelessWidget {
+  final String fullName;
+  final String phoneNumber;
+  final String? avatar;
 
   const AvatarAndInfo({
-    Key? key,
-    required this.pictureUrl,
-    required this.name,
-  }) : super(key: key);
-
-  @override
-  State<AvatarAndInfo> createState() => _AvatarAndInfoState();
-}
-
-class _AvatarAndInfoState extends State<AvatarAndInfo> {
-  late final IUserRepository _userRepository;
-  File? _image;
-  late String number;
-
-  @override
-  void initState() {
-    super.initState();
-    _userRepository = getIt<IUserRepository>();
-  }
+    required this.fullName,
+    required this.phoneNumber,
+    this.avatar,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,34 +20,30 @@ class _AvatarAndInfoState extends State<AvatarAndInfo> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ProfilePicture(
-          image: _image,
-          profileImage: widget.pictureUrl != null
-              ? '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.pictureUrl}'
-              : null,
-          maxRadius: 50,
+          profileImage: avatar,
+          maxRadius: 32.5,
         ),
-        SizedBox(
-          width: 10,
-        ),
+        SizedBox(width: 10),
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.name ?? "",
-              style: nameTextStyle,
+              fullName,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: kPrimaryColor400,
+              ),
             ),
-            StreamBuilder(
-              builder: (context, AsyncSnapshot<User> snapshot) {
-                if (snapshot.hasData) {
-                  number = snapshot.data!.phoneNumber ?? 'no phone number';
-                }
-                return Text(
-                  number,
-                  style: phoneNumberTextStyle,
-                );
-              },
-              stream: _userRepository.observeUser(),
+            const SizedBox(height: 5),
+            // TODO: Use Profile, not firebase?
+            Text(
+              phoneNumber,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w300,
+                color: kPrimaryColor300,
+              ),
             ),
           ],
         )

@@ -19,8 +19,6 @@ class BuildInformationBloc
     on<BuildInformationEvent>((event, emit) async {
       await event.when(
         fetch: () async {
-          emit(const BuildInformationState.loading());
-
           final buildInfo = await _settingsRepository.getBuildInformation();
           emit(BuildInformationState.fetched(buildInfo));
         },

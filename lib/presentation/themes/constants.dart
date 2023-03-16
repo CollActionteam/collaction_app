@@ -42,22 +42,3 @@ const TextStyle kTitle1 = TextStyle(
   height: 34 / 28,
   fontWeight: FontWeight.w700,
 );
-
-const TextStyle nameTextStyle = TextStyle(
-  fontSize: 17,
-  fontWeight: FontWeight.w500,
-  color: kPrimaryColor400,
-);
-
-const TextStyle phoneNumberTextStyle = TextStyle(
-  fontSize: 17,
-  fontWeight: FontWeight.w300,
-  color: kPrimaryColor300,
-);
-
-const BoxDecoration avatarInfoDecorationBox = BoxDecoration(
-  color: kAlmostTransparent,
-  borderRadius: BorderRadius.all(
-    Radius.circular(20),
-  ),
-);

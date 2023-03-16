@@ -1,61 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/settings/build_information.dart';
+import '../../../application/settings/build_information/build_information_bloc.dart';
+import '../../../infrastructure/core/injection.dart';
 import '../../themes/constants.dart';
 
 class BuildInformationTile extends StatelessWidget {
-  final BuildInformation information;
-
-  const BuildInformationTile({super.key, required this.information});
+  const BuildInformationTile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 50),
-        const SizedBox(
-          width: 56,
-          child: Image(image: AssetImage('assets/images/collaction.png')),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          'Build ${information.buildNumber}',
-          style: const TextStyle(
-            color: kPrimaryColor100,
-            fontSize: 17,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          'Version ${information.version}',
-          style: const TextStyle(
-            color: kPrimaryColor100,
-            fontSize: 17,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-        const SizedBox(height: 5),
-        const Text(
-          'Stichting CollAction',
-          style: TextStyle(
-            color: kPrimaryColor100,
-            fontSize: 17,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-        if (information.environment == 'development') ...[
-          const SizedBox(height: 5),
-          Text(
-            'Environment ${information.environment!.toUpperCase()}',
-            style: const TextStyle(
-              color: kPrimaryColor100,
-              fontSize: 17,
-              fontWeight: FontWeight.w300,
+    return BlocProvider<BuildInformationBloc>(
+      create: (context) => getIt<BuildInformationBloc>()
+        ..add(const BuildInformationEvent.fetch()),
+      child: BlocBuilder<BuildInformationBloc, BuildInformationState>(
+        builder: (context, state) {
+          return state.when(
+            loading: () => const SizedBox.shrink(),
+            fetched: (buildInfo) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    width: 120,
+                    child: Image(
+                        image: AssetImage('assets/images/collaction.png')),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    'Build ${buildInfo.buildNumber}',
+                    style: const TextStyle(
+                      color: kPrimaryColor100,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                  Text(
+                    'Version ${buildInfo.version}',
+                    style: const TextStyle(
+                      color: kPrimaryColor100,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                  const Text(
+                    'Stichting CollAction',
+                    style: TextStyle(
+                      color: kPrimaryColor100,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                  if (buildInfo.environment == 'development') ...[
+                    Text(
+                      'Environment ${buildInfo.environment!.toUpperCase()}',
+                      style: const TextStyle(
+                        color: kPrimaryColor100,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ]
+                ],
+              ),
             ),
-          ),
-        ]
-      ],
+          );
+        },
+      ),
     );
   }
 }

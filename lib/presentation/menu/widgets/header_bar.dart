@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../../themes/constants.dart';
 
@@ -16,14 +17,17 @@ class HeaderBar extends StatelessWidget {
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w700,
+            color: kPrimaryColor400,
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // TODO: Search bar functionality
+          },
           icon: Icon(
-            Icons.search,
+            Ionicons.search,
             color: kPrimaryColor600,
-            size: 21.08,
+            size: 26,
           ),
         ),
       ],

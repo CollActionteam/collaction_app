@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ProfilePicture extends StatelessWidget {
   final File? image;
@@ -23,7 +24,7 @@ class ProfilePicture extends StatelessWidget {
 
     if (profileImage != null && imageProvider == null) {
       imageProvider = NetworkImage(
-        profileImage!,
+        "${dotenv.env['BASE_STATIC_ENDPOINT_URL']}/$profileImage",
       );
     }
 
