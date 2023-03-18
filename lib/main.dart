@@ -7,7 +7,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'domain/core/i_settings_repository.dart';
 import 'infrastructure/core/injection.dart';
-import 'infrastructure/core/settings_repository.dart';
 import 'presentation/core/app_widget.dart';
 
 Future<void> main() async {
