@@ -12,12 +12,12 @@ import '../../../shared_widgets/image_skeleton_loader.dart';
 import '../../../themes/constants.dart';
 
 class CrowdActionDetailsBanner extends StatelessWidget {
+  final CrowdAction? crowdAction;
+
   const CrowdActionDetailsBanner({
     super.key,
     required this.crowdAction,
   });
-
-  final CrowdAction? crowdAction;
 
   @override
   Widget build(BuildContext context) {
