@@ -10,9 +10,9 @@ import '../../themes/constants.dart';
 /// [onSelected] Callback function for when the card is selected,
 /// returns the id of the selected commitment
 class CommitmentCard extends StatelessWidget {
-  final CommitmentOption commitment;
-  final Function(CommitmentOption)? onSelected;
-  final Function(CommitmentOption)? onDeSelected;
+  final Commitment commitment;
+  final Function(Commitment)? onSelected;
+  final Function(Commitment)? onDeSelected;
   final bool active;
   final bool deactivated;
   final bool viewOnly;
@@ -77,7 +77,7 @@ class CommitmentCard extends StatelessWidget {
                 children: [
                   Text(
                     commitment.label,
-                    style: textTheme.caption!.copyWith(
+                    style: textTheme.bodySmall!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: deactivated ? kPrimaryColor300 : kPrimaryColor400,
@@ -89,7 +89,7 @@ class CommitmentCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       commitment.description!,
-                      style: textTheme.caption!.copyWith(
+                      style: textTheme.bodySmall!.copyWith(
                         fontSize: 13,
                         color:
                             deactivated ? kPrimaryColor200 : kPrimaryColor300,

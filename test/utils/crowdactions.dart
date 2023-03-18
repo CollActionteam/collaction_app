@@ -3,7 +3,6 @@ import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
 final _crowdActionsRawData = [
   {
     "id": "62ceb7110b5e88ce294628a1",
-    "type": "FOOD",
     "title": "Veganuary",
     "description":
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam varius ac ligula quis aliquet. Donec nisi leo, rhoncus ac nulla quis, egestas ornare quam. Nunc nibh ex, venenatis quis maximus vitae, elementum sed urna. Morbi sagittis metus nibh, non lacinia ipsum faucibus eu. Nulla vehicula purus eget congue auctor.",
@@ -17,17 +16,15 @@ final _crowdActionsRawData = [
       "card": "crowdaction-cards/628a7fa741b5aa3af6582a07.png",
       "banner": "crowdaction-banners/628a7fa741b5aa3af6582a07.png"
     },
-    "commitmentOptions": [
+    "commitments": [
       {
-        "type": "FOOD",
         "label": "5/7 Days a week",
         "description": "In case you prefer to exclude weekends",
         "points": -10,
         "blocks": [],
-        "id": "62b637e0c5d78b613a3cc6d2"
+        "_id": "62b637e0c5d78b613a3cc6d2"
       },
       {
-        "type": "FOOD",
         "label": "Vegan",
         "description":
             "Commit to eating no product or by-product from any and all animals",
@@ -38,42 +35,38 @@ final _crowdActionsRawData = [
           "62b638c8c5d78b613a3cc6da",
           "62b638d9c5d78b613a3cc6dc"
         ],
-        "id": "62b6381fc5d78b613a3cc6d4"
+        "_id": "62b6381fc5d78b613a3cc6d4"
       },
       {
-        "type": "FOOD",
         "label": "Vegetarian",
         "description":
             "Commit to eating no meat product or by-product of any and all animals",
         "points": 40,
         "blocks": ["62b638a6c5d78b613a3cc6d8", "62b638c8c5d78b613a3cc6da"],
-        "id": "62b63863c5d78b613a3cc6d6"
+        "_id": "62b63863c5d78b613a3cc6d6"
       },
       {
-        "type": "FOOD",
         "label": "Pescatarian",
         "description":
             "Commit to eating no meat or poultry from animals, except fish and other seafood",
         "points": 30,
         "blocks": ["62b638c8c5d78b613a3cc6da"],
-        "id": "62b638a6c5d78b613a3cc6d8"
+        "_id": "62b638a6c5d78b613a3cc6d8"
       },
       {
-        "type": "FOOD",
         "label": "No Beef",
         "description": "Commit to eating no beef",
         "points": 20,
         "blocks": [],
-        "id": "62b638c8c5d78b613a3cc6da"
+        "_id": "62b638c8c5d78b613a3cc6da"
       },
       {
-        "type": "FOOD",
         "label": "No Dairy",
         "description":
             "Commit to eating no dairy products such as cheese and milk",
         "points": 10,
         "blocks": [],
-        "id": "62b638d9c5d78b613a3cc6dc"
+        "_id": "62b638d9c5d78b613a3cc6dc"
       }
     ],
     "status": "STARTED",
@@ -87,7 +80,6 @@ final _crowdActionsRawData = [
   },
   {
     "id": "6364ca939d4f5dffc3fe8e25",
-    "type": "ENERGY",
     "title": "Steun je School",
     "description":
         "Tijdens deze campagne staat het thema energiebesparing centraal, in het bijzonder op scholen. We bevinden ons in een energiecrisis en alleen samen komen we eruit! Voor meer informatie, neem een kijkje op collaction.org/steunschool.",
@@ -101,14 +93,13 @@ final _crowdActionsRawData = [
       "card": "crowdaction-cards/education_january.jpg",
       "banner": "crowdaction-banners/education_january.jpg"
     },
-    "commitmentOptions": [
+    "commitments": [
       {
-        "type": "ENERGY",
         "label": "SUSTAINABILITY",
         "description": "",
         "points": 10,
         "blocks": [],
-        "id": "6364bcbf9d4f5dffc3fe8e19"
+        "_id": "6364bcbf9d4f5dffc3fe8e19"
       }
     ],
     "status": "STARTED",
@@ -122,7 +113,6 @@ final _crowdActionsRawData = [
   },
   {
     "id": "6364d440187f67b3798ca86e",
-    "type": "FOOD",
     "title": "The Food Initiative",
     "description":
         "Improve your eating habits, and downscale your CO2 footprint!",
@@ -135,18 +125,16 @@ final _crowdActionsRawData = [
       "card": "crowdaction-cards/placeholder.png",
       "banner": "crowdaction-banners/placeholder.png"
     },
-    "commitmentOptions": [
+    "commitments": [
       {
-        "type": "FOOD",
         "label": "5/7 Days a week",
         "description": "In case you prefer to exclude weekends",
         "points": -10,
         "blocks": [],
         "icon": "working-days-only",
-        "id": "62b637e0c5d78b613a3cc6d2"
+        "_id": "62b637e0c5d78b613a3cc6d2"
       },
       {
-        "type": "FOOD",
         "label": "Vegan",
         "description": "Commit to eating no product or by-product from animals",
         "points": 50,
@@ -157,46 +145,42 @@ final _crowdActionsRawData = [
           "62b638d9c5d78b613a3cc6dc"
         ],
         "icon": "vegan",
-        "id": "62b6381fc5d78b613a3cc6d4"
+        "_id": "62b6381fc5d78b613a3cc6d4"
       },
       {
-        "type": "FOOD",
         "label": "Vegetarian",
         "description":
             "Commit to eating no meat product or by-product from animals",
         "points": 40,
         "blocks": ["62b638a6c5d78b613a3cc6d8", "62b638c8c5d78b613a3cc6da"],
         "icon": "vegetarian",
-        "id": "62b63863c5d78b613a3cc6d6"
+        "_id": "62b63863c5d78b613a3cc6d6"
       },
       {
-        "type": "FOOD",
         "label": "Pescatarian",
         "description":
             "Commit to eating no meat or poultry from animals, except fish and other seafood",
         "points": 30,
         "blocks": ["62b638c8c5d78b613a3cc6da"],
         "icon": "pescatarian",
-        "id": "62b638a6c5d78b613a3cc6d8"
+        "_id": "62b638a6c5d78b613a3cc6d8"
       },
       {
-        "type": "FOOD",
         "label": "No Beef",
         "description": "Commit to eating no beef",
         "points": 20,
         "blocks": [],
         "icon": "no-beef",
-        "id": "62b638c8c5d78b613a3cc6da"
+        "_id": "62b638c8c5d78b613a3cc6da"
       },
       {
-        "type": "FOOD",
         "label": "No Dairy",
         "description":
             "Commit to eating no dairy products such as cheese and milk",
         "points": 10,
         "blocks": [],
         "icon": "no-dairy",
-        "id": "62b638d9c5d78b613a3cc6dc"
+        "_id": "62b638d9c5d78b613a3cc6dc"
       }
     ],
     "status": "WAITING",

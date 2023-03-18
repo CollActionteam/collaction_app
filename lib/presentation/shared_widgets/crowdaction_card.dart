@@ -11,6 +11,7 @@ import '../crowdaction/crowdaction_details/widgets/participants.dart';
 import '../home/widgets/password_modal.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/constants.dart';
+import 'country_icon.dart';
 import 'custom_fab.dart';
 
 class CrowdActionCard extends StatefulWidget {
@@ -59,30 +60,31 @@ class _CrowdActionCardState extends State<CrowdActionCard>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 215,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0),
-                    ),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: CachedNetworkImageProvider(
-                        '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.crowdAction.images.card}',
-                        imageRenderMethodForWeb:
-                            ImageRenderMethodForWeb.HttpGet,
-                        errorListener: () {},
+                    height: 215,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: CachedNetworkImageProvider(
+                          '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.crowdAction.images.card}',
+                          imageRenderMethodForWeb:
+                              ImageRenderMethodForWeb.HttpGet,
+                          errorListener: () {},
+                        ),
                       ),
                     ),
-                  ),
-                  child: widget.crowdAction.hasPassword
-                      ? Stack(
-                          children: const [
-                            Positioned(
-                              bottom: 10,
-                              right: 10,
-                              child: CustomFAB(
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: Wrap(spacing: 10, children: [
+                            if (widget.crowdAction.hasPassword)
+                              CustomFAB(
                                 heroTag: 'locked',
                                 isMini: true,
                                 color: kSecondaryColor,
@@ -91,11 +93,14 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                                   color: kPrimaryColor300,
                                 ),
                               ),
+                            CountryIcon(
+                              countryCode: widget.crowdAction.location.code,
+                              radius: 20,
                             )
-                          ],
+                          ]),
                         )
-                      : null,
-                ),
+                      ],
+                    )),
                 const SizedBox(height: 5.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +144,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText2
+                            .bodyMedium
                             ?.copyWith(color: kInactiveColor),
                       ),
                     ),

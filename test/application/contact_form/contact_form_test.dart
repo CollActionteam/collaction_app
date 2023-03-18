@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:collaction_app/application/contact_form/contact_form_bloc.dart';
+import 'package:collaction_app/domain/contact_form/contact_failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -11,20 +12,38 @@ void main() {
       expect(tContactFormBloc.state, const ContactFormState.initial());
     });
 
-    {
-      when(() => tContactFormApi.sendContactFormContents(tContactFormDtoS))
-          .thenAnswer((_) => Future.value(right(unit)));
-      blocTest(
-        'Testing submit event success',
-        build: () => ContactFormBloc(tContactFormApi),
-        act: (ContactFormBloc bloc) {
-          bloc.add(ContactFormEvent.submitted(tContactFormDtoS));
-        },
-        expect: () => [
-          const ContactFormState.submitting(),
-          const ContactFormState.submissionSuccessful(),
-        ],
-      );
-    }
+    blocTest(
+      'Testing submit event success',
+      build: () => ContactFormBloc(tContactFormApi),
+      act: (ContactFormBloc bloc) {
+        when(() => tContactFormApi.sendContactFormContents(tContactFormDtoS))
+            .thenAnswer((_) => Future.value(right(unit)));
+
+        bloc.add(ContactFormEvent.submitted(tContactFormDtoS));
+      },
+      expect: () => [
+        const ContactFormState.submitting(),
+        const ContactFormState.submissionSuccessful(),
+      ],
+    );
+
+    blocTest(
+      'Testing submit event failure',
+      build: () => ContactFormBloc(tContactFormApi),
+      act: (ContactFormBloc bloc) {
+        when(() => tContactFormApi.sendContactFormContents(tContactFormDtoS))
+            .thenAnswer(
+          (_) => Future.value(
+            left(ContactFailure.serverError()),
+          ),
+        );
+
+        bloc.add(ContactFormEvent.submitted(tContactFormDtoS));
+      },
+      expect: () => [
+        const ContactFormState.submitting(),
+        const ContactFormState.failed('Submission failed'),
+      ],
+    );
   });
 }

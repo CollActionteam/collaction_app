@@ -6,17 +6,18 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../core/core.dart';
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../core/collaction_icons.dart';
+import '../../../shared_widgets/country_icon.dart';
 import '../../../shared_widgets/custom_fab.dart';
 import '../../../shared_widgets/image_skeleton_loader.dart';
 import '../../../themes/constants.dart';
 
 class CrowdActionDetailsBanner extends StatelessWidget {
+  final CrowdAction? crowdAction;
+
   const CrowdActionDetailsBanner({
     super.key,
     required this.crowdAction,
   });
-
-  final CrowdAction? crowdAction;
 
   @override
   Widget build(BuildContext context) {
@@ -73,21 +74,28 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                       ),
                     ),
             ),
-            if (crowdAction?.hasPassword ?? false) ...[
-              const Positioned(
+            Positioned(
                 bottom: 10,
                 right: 10,
-                child: CustomFAB(
-                  heroTag: 'locked',
-                  isMini: true,
-                  color: kSecondaryColor,
-                  child: Icon(
-                    CollactionIcons.lock,
-                    color: kPrimaryColor300,
-                  ),
-                ),
-              ),
-            ],
+                child: Row(
+                  children: [
+                    if (crowdAction?.hasPassword ?? false)
+                      CustomFAB(
+                        heroTag: 'locked',
+                        isMini: true,
+                        color: kSecondaryColor,
+                        child: Icon(
+                          CollactionIcons.lock,
+                          color: kPrimaryColor300,
+                        ),
+                      ),
+                    if (crowdAction?.location != null)
+                      CountryIcon(
+                        countryCode: crowdAction?.location.code ?? 'nl',
+                        radius: 20,
+                      )
+                  ],
+                )),
           ],
         ),
       ),

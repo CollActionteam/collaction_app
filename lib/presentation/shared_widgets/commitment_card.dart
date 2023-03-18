@@ -80,9 +80,6 @@ class _CommitmentCardState extends State<_CommitmentCard> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'Commitment: ${widget.commitment.title} - Icon: ${widget.commitment.icon}');
-
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
@@ -134,14 +131,14 @@ class _CommitmentCardState extends State<_CommitmentCard> {
                 children: [
                   Text(
                     widget.commitment.title,
-                    style: textTheme.headline6!.copyWith(fontSize: 16),
+                    style: textTheme.titleLarge!.copyWith(fontSize: 16),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   if (widget.commitment.description != null)
                     Text(
                       widget.commitment.description!,
-                      style: textTheme.bodyText2!.copyWith(fontSize: 13),
+                      style: textTheme.bodyMedium!.copyWith(fontSize: 13),
                       softWrap: true,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,

@@ -21,8 +21,8 @@ import 'package:mocktail/mocktail.dart';
 import 'domain/crowdaction/crowdaction_test_fixtures.dart';
 import 'utils/crowdactions.dart';
 
-class MockCrowdActionRepository extends Mock implements ICrowdActionRepository {
-}
+class MockCrowdActionRepository extends Mock
+    implements ICrowdActionRepository {}
 
 class MockAuthRepository extends Mock implements IAuthRepository {}
 
@@ -79,24 +79,17 @@ class TestUtilities {
       (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
     );
 
-    when(() => crowdActionRepo.subscribeToCrowdAction(any(), any(), any()))
-        .thenAnswer((_) async => right(unit));
-
-    when(() => crowdActionRepo.unsubscribeFromCrowdAction(any()))
-        .thenAnswer((_) async => right(unit));
-
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
   }
 
   static CrowdAction crowdActionWithNParticipants(int participantCount) {
     return CrowdAction(
       id: 'tID',
-      type: '',
       title: 'tTitle',
       description: 'tDescription',
       category: 'tCategory',
       location: tLocation,
-      commitmentOptions: [tCommitmentOption],
+      commitments: [tCommitment],
       endAt: DateTime(2022, 1, 31),
       images: const Images(card: 'tCard', banner: 'tBanner'),
       participantCount: participantCount,
@@ -117,12 +110,11 @@ BASE_STATIC_ENDPOINT_URL = http://collaction.org
 
 final tCrowdaction = CrowdAction(
   id: 'tID',
-  type: '',
   title: 'tTitle',
   description: 'tDescription',
   category: 'tCategory',
   location: tLocation,
-  commitmentOptions: [tCommitmentOption],
+  commitments: [tCommitment],
   endAt: DateTime(2022, 1, 31),
   images: const Images(card: 'tCard', banner: 'tBanner'),
   participantCount: 10,
@@ -133,12 +125,11 @@ final tCrowdaction = CrowdAction(
 
 final tCrowdactionNoPassword = CrowdAction(
   id: 'tID',
-  type: '',
   title: 'tTitle',
   description: 'tDescription',
   category: 'tCategory',
   location: tLocation,
-  commitmentOptions: [tCommitmentOption],
+  commitments: [tCommitment],
   endAt: DateTime(2022, 1, 31),
   images: const Images(card: 'tCard', banner: 'tBanner'),
   participantCount: 10,
@@ -146,25 +137,23 @@ final tCrowdactionNoPassword = CrowdAction(
   joinStatus: JoinStatus.closed,
 );
 
-final tCommitmentOption = CommitmentOption(
+final tCommitment = Commitment(
   id: 'no-beef',
-  type: 'food',
   label: 'tLabel',
   description: 'tDescription',
   points: 0,
   blocks: [],
 );
 
-final tBlockingCommitmentOption = CommitmentOption(
+final tBlockingCommitment = Commitment(
   id: 'no-meat',
-  type: 'food',
   label: 'tLabel',
   description: 'tDescription',
   points: 0,
   blocks: ['no-beef'],
 );
 
-final List<String> tCommitment = ['tCommitment'];
+final List<String> tCommitments = ['tCommitment'];
 
 final Participation tParticipation = Participation(
   id: 'tID',
@@ -172,7 +161,7 @@ final Participation tParticipation = Participation(
   fullName: 'John Doe',
   avatar: 'tAvatar',
   userId: 'tID',
-  commitmentOptions: tCommitment,
+  commitments: tCommitments,
   joinDate: DateTime.now(),
   dailyCheckIns: 5,
 );

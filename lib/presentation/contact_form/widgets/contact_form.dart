@@ -111,7 +111,7 @@ class _ContactFormState extends State<ContactForm> {
                       "We’ll get back to you by email",
                       style: Theme.of(context)
                           .textTheme
-                          .caption!
+                          .bodySmall!
                           .copyWith(color: kPrimaryColor300),
                       maxLines: 2,
                       textAlign: TextAlign.left,

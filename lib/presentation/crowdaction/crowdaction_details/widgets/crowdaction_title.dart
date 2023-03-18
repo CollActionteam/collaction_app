@@ -16,7 +16,7 @@ class CrowdActionTitle extends StatelessWidget {
     return title != null
         ? Text(
             title!,
-            style: Theme.of(context).textTheme.headline4?.copyWith(
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
                 ),

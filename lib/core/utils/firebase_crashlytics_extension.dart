@@ -9,7 +9,7 @@ extension FirebaseCrashlyticsLogger on FirebaseCrashlytics {
     Exception exception,
     StackTrace? stackTrace, {
     String? message,
-    bool fatal = false,
+    bool fatal = true,
   }) async {
     FirebaseCrashlytics.instance.recordError(
       exception,

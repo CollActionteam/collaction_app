@@ -59,7 +59,7 @@ class CommitmentsTab extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          ...crowdAction.commitmentOptions.map(
+                          ...crowdAction.commitments.map(
                             (co) => CommitmentCard(
                               commitment: co,
                               viewOnly: true,
@@ -70,12 +70,12 @@ class CommitmentsTab extends StatelessWidget {
                       ),
                     ),
                   ),
-              if (user == null || (crowdActions?.isEmpty ?? false)) ...[
-                SignUpCTA(
-                  user: user,
-                  title: 'View your amazing commitments here',
-                ),
-              ],
+            ],
+            if (user == null || (crowdActions?.isEmpty ?? false)) ...[
+              SignUpCTA(
+                user: user,
+                title: 'View your amazing commitments here',
+              ),
             ],
           ],
         ),
