@@ -147,7 +147,7 @@ class _PasswordModalState extends State<PasswordModal> {
 
       addCrowdActionAccess();
 
-      context.router.replace(
+      context.router.popAndPush(
         CrowdActionDetailsRoute(
           crowdAction: widget.crowdAction,
         ),
