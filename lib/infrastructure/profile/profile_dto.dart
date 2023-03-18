@@ -16,7 +16,7 @@ class ProfileDto with _$ProfileDto {
     required String lastName,
     required String avatar,
     String? bio,
-    List<BadgeDto>? badges,
+    List<CollActionBadgeDto>? badges,
   }) = _ProfileDto;
 
   Profile toDomain() {

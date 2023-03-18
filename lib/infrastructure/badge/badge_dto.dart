@@ -7,23 +7,23 @@ part 'badge_dto.freezed.dart';
 part 'badge_dto.g.dart';
 
 @freezed
-class BadgeDto with _$BadgeDto {
-  const BadgeDto._();
+class CollActionBadgeDto with _$CollActionBadgeDto {
+  const CollActionBadgeDto._();
 
-  factory BadgeDto({
+  factory CollActionBadgeDto({
     required BadgeTierEnum tier,
     required AwardTypeEnum awardType,
     required int minimumCheckIns,
-  }) = _BadgeDto;
+  }) = _CollActionBadgeDto;
 
-  Badge toDomain() {
-    return Badge(
+  CollActionBadge toDomain() {
+    return CollActionBadge(
       tier: tier,
       awardType: awardType,
       minimumCheckIns: minimumCheckIns,
     );
   }
 
-  factory BadgeDto.fromJson(Map<String, dynamic> json) =>
-      _$BadgeDtoFromJson(json);
+  factory CollActionBadgeDto.fromJson(Map<String, dynamic> json) =>
+      _$CollActionBadgeDtoFromJson(json);
 }

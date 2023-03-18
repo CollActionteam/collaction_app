@@ -10,12 +10,12 @@ final tProfile = Profile(
     avatar: 'avatar',
     bio: 'bio',
     badges: [
-      Badge(
+      CollActionBadge(
         tier: BadgeTierEnum.diamond,
         awardType: AwardTypeEnum.all,
         minimumCheckIns: 0,
       ),
-      Badge(
+      CollActionBadge(
         tier: BadgeTierEnum.gold,
         awardType: AwardTypeEnum.tier,
         minimumCheckIns: 1,
@@ -29,12 +29,12 @@ final tProfileDto = ProfileDto(
     avatar: 'avatar',
     bio: 'bio',
     badges: [
-      BadgeDto(
+      CollActionBadgeDto(
         tier: BadgeTierEnum.diamond,
         awardType: AwardTypeEnum.all,
         minimumCheckIns: 0,
       ),
-      BadgeDto(
+      CollActionBadgeDto(
         tier: BadgeTierEnum.gold,
         awardType: AwardTypeEnum.tier,
         minimumCheckIns: 1,

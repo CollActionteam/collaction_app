@@ -27,7 +27,7 @@ class CrowdAction with _$CrowdAction {
     required DateTime endAt,
     String? password,
     String? subcategory,
-    List<Badge>? badges,
+    List<CollActionBadge>? badges,
   }) = _CrowdAction;
 
   bool get hasParticipants => participantCount > 0;

@@ -172,10 +172,10 @@ final List<Participation> tTopParticipants = [
   tParticipation
 ];
 
-final Badge tBadge = Badge(
+final CollActionBadge tBadge = CollActionBadge(
   awardType: AwardTypeEnum.all,
   tier: BadgeTierEnum.diamond,
   minimumCheckIns: 0,
 );
 
-final List<Badge> tBadges = [tBadge];
+final List<CollActionBadge> tBadges = [tBadge];

@@ -27,7 +27,7 @@ class CrowdActionDto with _$CrowdActionDto {
     required String endAt,
     String? password,
     String? subcategory,
-    List<BadgeDto>? badges,
+    List<CollActionBadgeDto>? badges,
   }) = _CrowdActionDto;
 
   CrowdAction toDomain() {

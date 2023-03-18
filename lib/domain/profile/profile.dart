@@ -14,7 +14,7 @@ class Profile with _$Profile {
     required String lastName,
     required String avatar,
     String? bio,
-    List<Badge>? badges,
+    List<CollActionBadge>? badges,
   }) = _Profile;
 
   String get fullName => '$firstName $lastName';

@@ -18,12 +18,12 @@ final crowdActionDto = CrowdActionDto(
     password: 'crowdaction-password',
     subcategory: 'crowdaction-subcategory',
     badges: [
-      BadgeDto(
+      CollActionBadgeDto(
         tier: BadgeTierEnum.diamond,
         awardType: AwardTypeEnum.all,
         minimumCheckIns: 0,
       ),
-      BadgeDto(
+      CollActionBadgeDto(
         tier: BadgeTierEnum.gold,
         awardType: AwardTypeEnum.tier,
         minimumCheckIns: 1,
@@ -46,12 +46,12 @@ final crowdActionDomain = CrowdAction(
     endAt: DateTime.parse("2024-01-01T00:00:00.000+00:00"),
     commitments: [],
     badges: [
-      Badge(
+      CollActionBadge(
         tier: BadgeTierEnum.diamond,
         awardType: AwardTypeEnum.all,
         minimumCheckIns: 0,
       ),
-      Badge(
+      CollActionBadge(
         tier: BadgeTierEnum.gold,
         awardType: AwardTypeEnum.tier,
         minimumCheckIns: 1,
