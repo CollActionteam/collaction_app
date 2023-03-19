@@ -141,7 +141,8 @@ void main() {
             ),
           ),
         );
-        showPasswordModal(tester.element(find.byType(Container)), tCrowdaction);
+        PasswordModal.show(
+            tester.element(find.byType(Container)), tCrowdaction);
         await tester.pumpAndSettle();
 
         expect(find.byType(PasswordModal), findsOneWidget);
@@ -163,7 +164,12 @@ void main() {
             ),
           ).withRouterScope(stackRouter),
         );
-        showPasswordModal(tester.element(find.byType(Container)), tCrowdaction);
+
+        PasswordModal.show(
+          tester.element(find.byType(Container)),
+          tCrowdaction,
+        );
+
         await tester.pumpAndSettle();
 
         final capturedRoutes =
