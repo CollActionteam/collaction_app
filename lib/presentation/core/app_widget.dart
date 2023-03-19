@@ -7,6 +7,7 @@ import '../../application/user/profile_tab/profile_tab_bloc.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
+import 'error_widget.dart';
 
 class AppWidget extends StatelessWidget {
   final _appRouter = AppRouter();
@@ -42,6 +43,12 @@ class AppWidget extends StatelessWidget {
           theme: lightTheme(),
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
+          builder: (context, child) {
+            ErrorWidget.builder =
+                (FlutterErrorDetails details) => ErrorScreen(details: details);
+
+            return child ?? const SizedBox.shrink();
+          },
         ),
       ),
     );
