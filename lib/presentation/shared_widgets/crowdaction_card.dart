@@ -45,7 +45,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
           onTap: widget.onTap ??
               () {
                 if (widget.crowdAction.hasPassword) {
-                  showPasswordModal(context, widget.crowdAction);
+                  PasswordModal.show(context, widget.crowdAction);
                 } else {
                   context.router.push(
                     CrowdActionDetailsRoute(crowdAction: widget.crowdAction),
