@@ -7,7 +7,6 @@ import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../shared_widgets/rectangle_button.dart';
 import 'components_demo/current_user_status_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DemoPage extends StatelessWidget {
   DemoPage({super.key});

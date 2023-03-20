@@ -10,7 +10,6 @@ import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
 import 'error_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppWidget extends StatelessWidget {
   final _appRouter = AppRouter();
