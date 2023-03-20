@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 env:
-  flutter_version: "3.3.4"
+  flutter_version: "3.7.1"
   flutter_channel: "stable"
   java_version: "12.x"
 
@@ -61,7 +61,7 @@ jobs:
 
       - name: Statically analyze the Dart code
         run: |
-          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          echo "" | base64 -d > .env
           flutter analyze .
 
   test:
@@ -96,7 +96,7 @@ jobs:
 
       - name: Run tests and generate coverage
         run: |
-          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          echo "" | base64 -d > .env
           flutter test --coverage -r expanded .
 
       - name: Upload coverage to codecov
@@ -107,6 +107,7 @@ jobs:
 
   build_android:
     if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [analyze, test]
     runs-on: macos-latest
     timeout-minutes: 60
@@ -159,9 +160,9 @@ jobs:
 
       - name: Build appbundle
         env:
-          GOOGLE_SERVICES_JSON: ${{ github.ref == 'refs/heads/master' && secrets.ANDROID_GOOGLE_SERVICES_JSON || secrets.ANDROID_GOOGLE_SERVICES_JSON_DEV }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: |
-          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          echo ${{ secrets.ENV }} | base64 -d > .env
           echo $GOOGLE_SERVICES_JSON | base64 -d > android/app/google-services.json
           flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons
           cp release_notes.txt build/app/outputs/
@@ -189,6 +190,7 @@ jobs:
 
   build_ios:
     if: ${{ github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master' }}
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [analyze, test]
     runs-on: macos-latest
     timeout-minutes: 60
@@ -265,7 +267,7 @@ jobs:
 
       - name: Build iOS app
         env:
-          IOS_GOOGLESERVICE_INFO_PLIST: ${{ github.ref == 'refs/heads/master' && secrets.IOS_GOOGLESERVICE_INFO_PLIST || secrets.IOS_GOOGLESERVICE_INFO_PLIST_DEV }}
+          IOS_GOOGLESERVICE_INFO_PLIST: ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }}
         run: |
           echo $IOS_GOOGLESERVICE_INFO_PLIST | base64 --decode > ios/Runner/GoogleService-Info.plist
           flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons
@@ -324,7 +326,7 @@ jobs:
 
       - name: Build web
         run: |
-          echo ${{ github.ref == 'refs/heads/master' && secrets.ENV_PROD || secrets.ENV_DEV }} | base64 -d > .env
+          echo ${{ secrets.ENV }} | base64 -d > .env
           flutter build web -t lib/widgetbook/app.widgetbook.dart
 
       - name: Publish to Widgetbook
@@ -332,6 +334,7 @@ jobs:
         run: widgetbook publish --api-key $WIDGETBOOK_API_KEY
 
   distribute_android:
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [build_android]
     runs-on: ubuntu-latest
     steps:
@@ -350,6 +353,7 @@ jobs:
           releaseNotesFile: release_notes.txt
 
   distribute_ios:
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [build_ios]
     runs-on: macos-latest
     steps:

@@ -50,7 +50,6 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
               CrowdActionCard(
                 crowdAction: CrowdAction(
                   id: "",
-                  type: "",
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
@@ -59,18 +58,16 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   ),
                   category: "Sustainability",
                   subcategory: "Community",
-                  commitmentOptions: [
-                    CommitmentOption(
+                  commitments: [
+                    Commitment(
                       id: "",
-                      type: "food",
                       label: "no-beef",
                       description: "Don't eat beef for 30 days!",
                       points: 0,
                       blocks: [],
                     ),
-                    CommitmentOption(
+                    Commitment(
                       id: "",
-                      type: "food",
                       label: "vegetarian",
                       description: "Don't eat meat for 30 days!",
                       points: 0,
@@ -92,7 +89,6 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
               CrowdActionCard(
                 crowdAction: CrowdAction(
                   id: "",
-                  type: "",
                   title:
                       "This is the headline for a crowdaction with three lines",
                   images: const Images(
@@ -101,18 +97,16 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   ),
                   category: "Sustainability",
                   subcategory: "Community",
-                  commitmentOptions: [
-                    CommitmentOption(
+                  commitments: [
+                    Commitment(
                       id: "",
-                      type: "food",
                       label: "no-beef",
                       description: "Don't eat beef for 30 days!",
                       points: 0,
                       blocks: [],
                     ),
-                    CommitmentOption(
+                    Commitment(
                       id: "",
-                      type: "food",
                       label: "vegetarian",
                       description: "Don't eat meat for 30 days!",
                       points: 0,
@@ -318,7 +312,7 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   "Delete comment",
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle1
+                      .titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 30),

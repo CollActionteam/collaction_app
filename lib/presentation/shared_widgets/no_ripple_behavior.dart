@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class NoRippleBehavior extends ScrollBehavior {
   @override
-  Widget buildViewportChrome(
+  Widget buildOverscrollIndicator(
     BuildContext context,
     Widget child,
-    AxisDirection axisDirection,
+    ScrollableDetails details,
   ) {
     return child;
   }

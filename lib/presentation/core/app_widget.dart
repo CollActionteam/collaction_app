@@ -8,6 +8,7 @@ import '../../generated/l10n.dart';
 import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.gr.dart';
 import '../themes/themes.dart';
+import 'error_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -19,7 +20,7 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (_) => getIt<AuthBloc>(),
+          create: (_) => getIt<AuthBloc>()..add(AuthEvent.initial()),
         ),
         BlocProvider<ProfileBloc>(
           create: (_) => getIt<ProfileBloc>()..add(GetUserProfile()),
@@ -32,6 +33,12 @@ class AppWidget extends StatelessWidget {
         listener: (context, state) {
           BlocProvider.of<ProfileBloc>(context).add(GetUserProfile());
           BlocProvider.of<ProfileTabBloc>(context).add(FetchProfileTabInfo());
+
+          state.whenOrNull(
+            unauthenticated: () {
+              _appRouter.replaceAll([const UnauthenticatedRoute()]);
+            },
+          );
         },
         child: MaterialApp.router(
           color: Colors.white,
@@ -47,6 +54,12 @@ class AppWidget extends StatelessWidget {
           theme: lightTheme(),
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
+          builder: (context, child) {
+            ErrorWidget.builder =
+                (FlutterErrorDetails details) => ErrorScreen(details: details);
+
+            return child ?? const SizedBox.shrink();
+          },
         ),
       ),
     );

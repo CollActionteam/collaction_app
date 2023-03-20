@@ -105,7 +105,7 @@ class ScrollableAppBarState extends State<ScrollableAppBar> {
         titleTextStyle: widget.titleTextStyle ??
             Theme.of(context)
                 .textTheme
-                .headline6
+                .titleLarge
                 ?.copyWith(color: kPrimaryColor),
       ),
     );

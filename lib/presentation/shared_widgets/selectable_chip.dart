@@ -41,7 +41,7 @@ class SelectableChip extends StatelessWidget {
           ),
           child: Text(
             text,
-            style: Theme.of(context).textTheme.caption?.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontSize: 11,
                   color: selected ? kSecondaryColor : kPrimaryColor400,
                   fontWeight: FontWeight.w700,

@@ -3,17 +3,17 @@ import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
 import 'commitment_option_dto_fixtures.dart';
 
 void main() {
-  group('unit tests for CommitmentOptionDto', () {
+  group('unit tests for CommitmentDto', () {
     test('toDomain() test', () {
-      final commitmentOption = tCommitmentOptionDto.toDomain();
+      final commitment = tCommitmentDto.toDomain();
 
-      expect(commitmentOption, tCommitmentOption);
+      expect(commitment, tCommitment);
     });
-    test('fromJson() test', () {
-      final commitmentOptionDto =
-          CommitmentOptionDto.fromJson(tCommitmentOptionJson);
 
-      expect(commitmentOptionDto, tCommitmentOptionDto);
+    test('fromJson() test', () {
+      final commitmentDto = CommitmentDto.fromJson(tCommitmentJson);
+
+      expect(commitmentDto, tCommitmentDto);
     });
   });
 }

@@ -66,9 +66,7 @@ class AuthPageState extends State<AuthPage> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: _currentPage == 0
-            ? const CustomAppBar(closable: true)
-            : AppBar(backgroundColor: Colors.transparent, elevation: 0.0),
+        appBar: CustomAppBar(closable: _currentPage == 0),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(

@@ -21,7 +21,7 @@ class SecondaryChip extends StatelessWidget {
       shape: const StadiumBorder(side: BorderSide(color: kAlmostTransparent)),
       label: Text(
         text,
-        style: Theme.of(context).textTheme.caption,
+        style: Theme.of(context).textTheme.bodySmall,
       ),
       deleteIcon: onDeleted != null ? const Icon(Icons.cancel) : null,
       onDeleted: onDeleted,

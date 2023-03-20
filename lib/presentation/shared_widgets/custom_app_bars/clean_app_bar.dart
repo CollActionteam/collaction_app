@@ -50,7 +50,7 @@ class CleanAppBar extends StatelessWidget implements PreferredSizeWidget {
         titleTextStyle: titleTextStyle ??
             Theme.of(context)
                 .textTheme
-                .headline6
+                .titleLarge
                 ?.copyWith(color: kPrimaryColor),
       ),
     );

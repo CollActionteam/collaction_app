@@ -7,5 +7,5 @@ final GetIt getIt = GetIt.instance;
 
 @injectableInit
 void configureInjection() {
-  $initGetIt(getIt);
+  getIt.init();
 }

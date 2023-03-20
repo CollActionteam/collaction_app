@@ -4,16 +4,25 @@ abstract class ProfileEvent {}
 
 class GetUserProfile extends ProfileEvent {}
 
-class EditProfile extends ProfileEvent {}
+class EditBio extends ProfileEvent {}
 
-class SaveProfile extends ProfileEvent {
+class SaveBio extends ProfileEvent {
   final String? bio;
+  SaveBio({
+    this.bio,
+  });
+}
+
+class CancelBio extends ProfileEvent {}
+
+class EditProfilePic extends ProfileEvent {}
+
+class SaveProfilePic extends ProfileEvent {
   final File? image;
 
-  SaveProfile({
-    this.bio,
+  SaveProfilePic({
     this.image,
   });
 }
 
-class CancelEditProfile extends ProfileEvent {}
+class CancelEditProfilePic extends ProfileEvent {}

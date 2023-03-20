@@ -35,7 +35,7 @@ class CommentItem extends StatelessWidget {
             trimLines: 6,
             style: Theme.of(context)
                 .textTheme
-                .bodyText2
+                .bodyMedium
                 ?.copyWith(
                   fontSize: 15,
                   fontWeight: FontWeight.w300,

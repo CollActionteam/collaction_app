@@ -40,7 +40,7 @@ class PhotoSelectorState extends State<PhotoSelector> {
           children: [
             Text(
               "Upload a profile photo",
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
               height: 20,
