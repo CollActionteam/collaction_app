@@ -15,6 +15,6 @@ abstract class IProfileRepository {
     String? lastName,
   });
   Future<Either<ProfileFailure, Unit>> updateCountry({
-    Location? location,
+    String? countryCode,
   });
 }

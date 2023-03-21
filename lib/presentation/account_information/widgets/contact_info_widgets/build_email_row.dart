@@ -19,35 +19,23 @@ class BuildEmailRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                email!.isNotEmpty ? email! : "No email",
+                (email != null && email!.isNotEmpty) ? email! : "No email",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: kPrimaryColor300,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
               ),
-              email!.isNotEmpty
-                  ? GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "Change",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: kAccentColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ))
-                  : GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "Add",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: kAccentColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                    ),
+              GestureDetector(
+                  onTap: () {},
+                  child: Text(
+                    (email != null && email!.isNotEmpty) ? "Change" : "Add",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: kAccentColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  )),
             ],
           ),
           const SizedBox(height: 5),

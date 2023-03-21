@@ -22,7 +22,7 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
             lastName: lastName,
           );
           emit(
-            await unitOrFailure.fold(
+            unitOrFailure.fold(
               (failure) => const UsernameState.updateFailure(),
               (_) => UsernameState.updateSuccess("$firstName $lastName"),
             ),
