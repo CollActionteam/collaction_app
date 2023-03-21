@@ -16,6 +16,10 @@ import 'widget/profile_picture.dart';
 import 'widget/profile_tab.dart';
 
 class UserProfilePage extends StatefulWidget {
+  final String? userId;
+  const UserProfilePage({
+    this.userId,
+  });
   @override
   State<UserProfilePage> createState() => _UserProfilePageState();
 }
@@ -45,61 +49,68 @@ class _UserProfilePageState extends State<UserProfilePage> {
             backgroundColor: kAlmostTransparent,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.miniEndTop,
-            floatingActionButton: Column(
-              children: [
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: share,
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    backgroundColor: kEnabledButtonColor,
-                  ).merge(
-                    ButtonStyle(
-                      elevation: MaterialStateProperty.resolveWith<double?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return 5;
-                          }
-                          return 4;
-                        },
+            floatingActionButton: widget.userId == null
+                ? Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: share,
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          backgroundColor: kEnabledButtonColor,
+                        ).merge(
+                          ButtonStyle(
+                            elevation:
+                                MaterialStateProperty.resolveWith<double?>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed)) {
+                                  return 5;
+                                }
+                                return 4;
+                              },
+                            ),
+                          ),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 4),
+                          child: Icon(CollactionIcons.share),
+                        ),
                       ),
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-                    child: Icon(CollactionIcons.share),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () => context.router.push(const SettingsRoute()),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: kPrimaryColor0,
-                    backgroundColor: Colors.white,
-                    shape: const CircleBorder(),
-                    tapTargetSize: MaterialTapTargetSize.padded,
-                  ).merge(
-                    ButtonStyle(
-                      elevation: MaterialStateProperty.resolveWith<double?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return 5;
-                          }
-                          return 4;
-                        },
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () =>
+                            context.router.push(const SettingsRoute()),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: kPrimaryColor0,
+                          backgroundColor: Colors.white,
+                          shape: const CircleBorder(),
+                          tapTargetSize: MaterialTapTargetSize.padded,
+                        ).merge(
+                          ButtonStyle(
+                            elevation:
+                                MaterialStateProperty.resolveWith<double?>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed)) {
+                                  return 5;
+                                }
+                                return 4;
+                              },
+                            ),
+                          ),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 4),
+                          child: Icon(
+                            CollactionIcons.settings,
+                            color: kPrimaryColor300,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-                    child: Icon(
-                      CollactionIcons.settings,
-                      color: kPrimaryColor300,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                    ],
+                  )
+                : null,
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(

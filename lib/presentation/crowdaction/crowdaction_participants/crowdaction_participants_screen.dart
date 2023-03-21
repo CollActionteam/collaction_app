@@ -6,6 +6,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../application/crowdaction/crowdaction_participants/crowdaction_participants_bloc.dart';
 import '../../../domain/participation/participation.dart';
 import '../../../infrastructure/core/injection.dart';
+import '../../routes/app_routes.gr.dart';
 import '../../themes/constants.dart';
 
 class CrowdActionParticipantsPage extends StatelessWidget {
@@ -89,6 +90,11 @@ class CrowdActionParticipantsPage extends StatelessWidget {
               ),
               builderDelegate: PagedChildBuilderDelegate<Participation>(
                 itemBuilder: (context, participation, index) => ListTile(
+                  onTap: () {
+                    context.router.push(
+                      UserProfileRoute(userId: participation.userId),
+                    );
+                  },
                   leading: CircleAvatar(
                     foregroundImage: NetworkImage(
                       participation.avatarUrl,
