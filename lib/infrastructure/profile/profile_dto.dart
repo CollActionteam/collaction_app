@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../domain/crowdaction/crowdaction.dart';
 import '../../domain/profile/profile.dart';
 
 part 'profile_dto.freezed.dart';
@@ -14,6 +15,7 @@ class ProfileDto with _$ProfileDto {
     required String firstName,
     required String lastName,
     required String avatar,
+    required Location location,
     String? bio,
   }) = _ProfileDto;
 
@@ -24,6 +26,7 @@ class ProfileDto with _$ProfileDto {
       lastName: lastName,
       avatar: avatar,
       bio: bio,
+      location: location,
     );
   }
 

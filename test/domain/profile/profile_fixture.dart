@@ -1,3 +1,4 @@
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/profile/profile.dart';
 import 'package:collaction_app/infrastructure/profile/profile_dto.dart';
 
@@ -16,6 +17,7 @@ const cProfileDtoFromJson = ProfileDto(
   lastName: 'Doe',
   bio: "I am Jack!",
   avatar: 'avatar',
+  location: Location(code: "NL", name: "Netherlands"),
 );
 
 const cProfileFromJson = Profile(
@@ -24,4 +26,5 @@ const cProfileFromJson = Profile(
   lastName: 'Doe',
   bio: "I am Jack!",
   avatar: 'avatar',
+  location: Location(code: "NL", name: "Netherlands"),
 );

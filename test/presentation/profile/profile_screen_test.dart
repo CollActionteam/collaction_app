@@ -3,6 +3,7 @@ import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.
 import 'package:collaction_app/application/user/profile/profile_bloc.dart';
 import 'package:collaction_app/application/user/profile_tab/profile_tab_bloc.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
+import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
 import 'package:collaction_app/domain/profile/profile.dart';
 import 'package:collaction_app/domain/profile/user_profile.dart';
@@ -136,6 +137,7 @@ void main() {
               lastName: 'lastName',
               avatar: 'avatar',
               bio: 'bio',
+              location: Location(code: "NL", name: "Netherlands"),
             ),
           ),
         ),

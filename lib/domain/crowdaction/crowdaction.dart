@@ -7,6 +7,7 @@ import '../../presentation/core/ionicons_utils.dart';
 import '../../presentation/shared_widgets/secondary_chip.dart';
 
 part 'crowdaction.freezed.dart';
+part 'crowdaction.g.dart';
 
 @freezed
 class CrowdAction with _$CrowdAction {
@@ -74,6 +75,9 @@ class Location with _$Location {
     required String code,
     required String name,
   }) = _Location;
+
+  factory Location.fromJson(Map<String, dynamic> source) =>
+      _$LocationFromJson(source);
 }
 
 enum Status {
