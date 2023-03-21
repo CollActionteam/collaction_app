@@ -13,4 +13,6 @@ abstract class IProfileRepository {
     String? firstName,
     String? lastName,
   });
+  Future<Either<ProfileFailure, UserProfile>> getOtherUserProfile(
+      {required String userId});
 }

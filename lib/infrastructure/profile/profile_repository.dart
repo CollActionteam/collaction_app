@@ -198,4 +198,38 @@ class ProfileRepository implements IProfileRepository {
       return left(const ProfileFailure.unexpected());
     }
   }
+
+  @override
+  Future<Either<ProfileFailure, UserProfile>> getOtherUserProfile(
+      {required String userId}) async {
+    try {
+      final userOption = await _authRepository.getSignedInUser();
+      return await userOption
+          .fold(() => left(const ProfileFailure.unexpected()), (user) async {
+        final token = await user.getIdToken();
+        final response = await _client.get(
+          Uri.parse(
+              "${await _settingsRepository.baseApiEndpointUrl}/v1/profiles/$userId"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          },
+        );
+
+        /// Return profile if request is successful
+        if (response.statusCode == 200) {
+          final json = jsonDecode(response.body);
+
+          final profile =
+              ProfileDto.fromJson(json as Map<String, dynamic>).toDomain();
+
+          return right(UserProfile(user: user, profile: profile));
+        }
+
+        return left(const ProfileFailure.unexpected());
+      });
+    } catch (_) {
+      return left(const ProfileFailure.unexpected());
+    }
+  }
 }

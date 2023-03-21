@@ -17,3 +17,10 @@ class SaveProfile extends ProfileEvent {
 }
 
 class CancelEditProfile extends ProfileEvent {}
+
+class GetOtherParticipantProfile extends ProfileEvent {
+  final String userId;
+  GetOtherParticipantProfile({
+    required this.userId,
+  });
+}

@@ -66,5 +66,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<CancelEditProfile>((event, emit) {
       emit(state.copyWith(isEditing: false));
     });
+
+    on<GetOtherParticipantProfile>(
+      (event, emit) async {
+        final userProfileOrFailure = await _profileRepository.getUserProfile();
+        emit(
+          userProfileOrFailure.fold(
+            (l) => state.copyWith(otherParticipantProfile: null),
+            (participantProfile) =>
+                state.copyWith(otherParticipantProfile: participantProfile),
+          ),
+        );
+      },
+    );
   }
 }
