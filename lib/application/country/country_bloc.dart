@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/core/location.dart';
 import '../../domain/user/i_profile_repository.dart';
 
 part 'country_event.dart';
@@ -13,10 +12,10 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
   CountryBloc(this.profileRepository) : super(_Initial()) {
     on<CountryEvent>((event, emit) async {
       await event.when(
-        updateCountry: (countryName, countryCode) async {
+        updateCountry: (countryCode) async {
           emit(const CountryState.updateInProgress());
           final unitOrFailure = await profileRepository.updateCountry(
-            location: Location(code: countryCode, name: countryName),
+            countryCode: countryCode,
           );
           emit(
             await unitOrFailure.fold(

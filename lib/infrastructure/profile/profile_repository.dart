@@ -7,7 +7,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../domain/auth/i_auth_repository.dart';
 import '../../domain/core/i_settings_repository.dart';
-import '../../domain/core/location.dart';
 import '../../domain/profile/user_profile.dart';
 import '../../domain/user/i_profile_repository.dart';
 import '../../domain/user/profile_failure.dart';
@@ -202,7 +201,7 @@ class ProfileRepository implements IProfileRepository {
 
   @override
   Future<Either<ProfileFailure, Unit>> updateCountry({
-    Location? location,
+    String? countryCode,
   }) async {
     try {
       final userOption = await _authRepository.getSignedInUser();
@@ -221,7 +220,7 @@ class ProfileRepository implements IProfileRepository {
               'Authorization': 'Bearer $token',
             },
             body: jsonEncode({
-              "location": location,
+              "country": countryCode,
             }),
           );
 
