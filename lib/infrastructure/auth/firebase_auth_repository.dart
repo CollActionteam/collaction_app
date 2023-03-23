@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
 
-import '../../core/utils/firebase_crashlytics_extension.dart';
 import '../../domain/auth/auth_failures.dart';
 import '../../domain/auth/auth_success.dart';
 import '../../domain/auth/i_auth_repository.dart';
@@ -53,14 +52,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
-      verificationFailed: (firebase_auth.FirebaseAuthException error) async {
-        await FirebaseCrashlyticsLogger.warn(
-          error,
-          error.stackTrace,
-          message:
-              '[FirebaseAuthRepository] verifyPhoneNumber().verificationFailed',
-        );
-
+      verificationFailed: (firebase_auth.FirebaseAuthException error) {
         result.add(left(error.toFailure()));
         result.close();
       },
@@ -109,19 +101,9 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
       // Check if is new user
       return right(authResult.additionalUserInfo?.isNewUser == true);
-    } on firebase_auth.FirebaseAuthException catch (error, stackTrace) {
-      await FirebaseCrashlyticsLogger.warn(
-        error,
-        stackTrace,
-        message: '[FirebaseAuthRepository] signInWithPhone()',
-      );
+    } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
-    } catch (error, stackTrace) {
-      await FirebaseCrashlyticsLogger.warn(
-        Exception(error.toString()),
-        stackTrace,
-        message: '[FirebaseAuthRepository] signInWithPhone():ServerError',
-      );
+    } catch (error) {
       return left(const AuthFailure.serverError());
     }
   }
@@ -135,19 +117,9 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
       await user.updateDisplayName(username);
 
       return right(unit);
-    } on firebase_auth.FirebaseAuthException catch (error, stackTrace) {
-      await FirebaseCrashlyticsLogger.warn(
-        error,
-        stackTrace,
-        message: '[FirebaseAuthRepository] updateUsername()',
-      );
+    } on firebase_auth.FirebaseAuthException catch (error) {
       return left(error.toFailure());
-    } catch (error, stackTrace) {
-      await FirebaseCrashlyticsLogger.warn(
-        Exception(error.toString()),
-        stackTrace,
-        message: '[FirebaseAuthRepository] updateUsername():ServerError',
-      );
+    } catch (error) {
       return left(const AuthFailure.serverError());
     }
   }
@@ -164,7 +136,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
     firebaseAuth.verifyPhoneNumber(
       phoneNumber: "+$phoneNumber",
       forceResendingToken: authCredentials.forceResendToken,
-      codeSent: (String verificationId, int? forceResendingToken) async {
+      codeSent: (String verificationId, int? forceResendingToken) {
         credential = credential.copyWith(
           verificationId: verificationId,
           forceResendToken: forceResendingToken,
@@ -172,17 +144,11 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
-      verificationFailed: (firebase_auth.FirebaseAuthException error) async {
-        await FirebaseCrashlyticsLogger.warn(
-          error,
-          error.stackTrace,
-          message: '[FirebaseAuthRepository] resendOTP().verificationFailed',
-        );
-
+      verificationFailed: (firebase_auth.FirebaseAuthException error) {
         result.add(left(error.toFailure()));
         result.close();
       },
-      codeAutoRetrievalTimeout: (String verificationId) async {
+      codeAutoRetrievalTimeout: (String verificationId) {
         credential = credential.copyWith(verificationId: verificationId);
 
         result.add(
@@ -191,7 +157,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
         result.close();
       },
       verificationCompleted:
-          (firebase_auth.PhoneAuthCredential phoneAuthCredential) async {
+          (firebase_auth.PhoneAuthCredential phoneAuthCredential) {
         credential = credential.copyWith(
           verificationId: phoneAuthCredential.verificationId,
           smsCode: phoneAuthCredential.smsCode,

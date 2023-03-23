@@ -1,3 +1,4 @@
+import 'package:collaction_app/domain/auth/auth_failures.dart';
 import 'package:collaction_app/domain/auth/auth_success.dart';
 import 'package:collaction_app/domain/user/i_user_repository.dart';
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
@@ -114,30 +115,28 @@ void main() {
       }, count: 1));
     });
 
-    /// TODO: Fix test failing as a result of using FirebaseCrashlytics
-    ///  for logging which requires a firbase app instance
-    // test('verificationFailed callback', () async {
-    //   CustomFirebaseAuthSetup mocks = CustomFirebaseAuthSetup();
-    //   mocks.mockVerifyPhoneNumber.thenAnswer((invocation) async {
-    //     Function verificationFailed =
-    //         invocation.namedArguments[Symbol('verificationFailed')];
-    //     await verificationFailed(
-    //         firebase_auth.FirebaseAuthException(code: 'unknown-server-error'));
-    //   });
+    test('verificationFailed callback', () async {
+      CustomFirebaseAuthSetup mocks = CustomFirebaseAuthSetup();
+      mocks.mockVerifyPhoneNumber.thenAnswer((invocation) async {
+        Function verificationFailed =
+            invocation.namedArguments[Symbol('verificationFailed')];
+        await verificationFailed(
+            firebase_auth.FirebaseAuthException(code: 'unknown-server-error'));
+      });
 
-    //   IAuthRepository firebaseAuthRepository = FirebaseAuthRepository(
-    //     firebaseAuth: mocks.mockFirebaseAuth,
-    //   );
+      IAuthRepository firebaseAuthRepository = FirebaseAuthRepository(
+        firebaseAuth: mocks.mockFirebaseAuth,
+      );
 
-    //   // perform test
-    //   Stream result = firebaseAuthRepository.verifyPhone(phoneNumber: '');
+      // perform test
+      Stream result = firebaseAuthRepository.verifyPhone(phoneNumber: '');
 
-    //   // verify
-    //   result.listen(expectAsync1((value) {
-    //     AuthFailure failure = value.value;
-    //     expect(failure == ServerError(), true);
-    //   }, count: 1));
-    // });
+      // verify
+      result.listen(expectAsync1((value) {
+        AuthFailure failure = value.value;
+        expect(failure == ServerError(), true);
+      }, count: 1));
+    });
 
     test('codeAutoRetrievalTimeout callback', () async {
       // mock
