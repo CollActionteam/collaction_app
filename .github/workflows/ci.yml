@@ -61,6 +61,7 @@ jobs:
 
       - name: Statically analyze the Dart code
         run: |
+          echo "" | base64 -d > .env
           flutter analyze .
 
   test:
