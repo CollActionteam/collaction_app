@@ -9,7 +9,7 @@ final crowdActionRaw = """{
   },
   "commitments": [
     {
-      "_id": "12345678",
+      "id": "12345678",
       "label": "label",
       "points": 50,
       "blocks": [
@@ -18,7 +18,7 @@ final crowdActionRaw = """{
       "description": "description..."
     },
     {
-      "_id": "123456789",
+      "id": "123456789",
       "label": "label",
       "points": 50,
       "blocks": [],
@@ -55,7 +55,7 @@ final crowdActionsRaw = """{
       },
       "commitments": [
         {
-          "_id": "12345678",
+          "id": "12345678",
           "label": "label",
           "points": 50,
           "blocks": [
@@ -64,7 +64,7 @@ final crowdActionsRaw = """{
           "description": "description..."
         },
         {
-          "_id": "123456789",
+          "id": "123456789",
           "label": "label",
           "points": 50,
           "blocks": [],
@@ -92,7 +92,7 @@ final crowdActionsRaw = """{
       },
       "commitments": [
         {
-          "_id": "12345678",
+          "id": "12345678",
           "label": "label",
           "points": 50,
           "blocks": [
@@ -101,7 +101,7 @@ final crowdActionsRaw = """{
           "description": "description..."
         },
         {
-          "_id": "123456789",
+          "id": "123456789",
           "label": "label",
           "points": 50,
           "blocks": [],
