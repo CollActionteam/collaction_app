@@ -22,7 +22,7 @@ final _crowdActionsRawData = [
         "description": "In case you prefer to exclude weekends",
         "points": -10,
         "blocks": [],
-        "_id": "62b637e0c5d78b613a3cc6d2"
+        "id": "62b637e0c5d78b613a3cc6d2"
       },
       {
         "label": "Vegan",
@@ -35,7 +35,7 @@ final _crowdActionsRawData = [
           "62b638c8c5d78b613a3cc6da",
           "62b638d9c5d78b613a3cc6dc"
         ],
-        "_id": "62b6381fc5d78b613a3cc6d4"
+        "id": "62b6381fc5d78b613a3cc6d4"
       },
       {
         "label": "Vegetarian",
@@ -43,7 +43,7 @@ final _crowdActionsRawData = [
             "Commit to eating no meat product or by-product of any and all animals",
         "points": 40,
         "blocks": ["62b638a6c5d78b613a3cc6d8", "62b638c8c5d78b613a3cc6da"],
-        "_id": "62b63863c5d78b613a3cc6d6"
+        "id": "62b63863c5d78b613a3cc6d6"
       },
       {
         "label": "Pescatarian",
@@ -51,14 +51,14 @@ final _crowdActionsRawData = [
             "Commit to eating no meat or poultry from animals, except fish and other seafood",
         "points": 30,
         "blocks": ["62b638c8c5d78b613a3cc6da"],
-        "_id": "62b638a6c5d78b613a3cc6d8"
+        "id": "62b638a6c5d78b613a3cc6d8"
       },
       {
         "label": "No Beef",
         "description": "Commit to eating no beef",
         "points": 20,
         "blocks": [],
-        "_id": "62b638c8c5d78b613a3cc6da"
+        "id": "62b638c8c5d78b613a3cc6da"
       },
       {
         "label": "No Dairy",
@@ -66,7 +66,7 @@ final _crowdActionsRawData = [
             "Commit to eating no dairy products such as cheese and milk",
         "points": 10,
         "blocks": [],
-        "_id": "62b638d9c5d78b613a3cc6dc"
+        "id": "62b638d9c5d78b613a3cc6dc"
       }
     ],
     "status": "STARTED",
@@ -99,7 +99,7 @@ final _crowdActionsRawData = [
         "description": "",
         "points": 10,
         "blocks": [],
-        "_id": "6364bcbf9d4f5dffc3fe8e19"
+        "id": "6364bcbf9d4f5dffc3fe8e19"
       }
     ],
     "status": "STARTED",
@@ -132,7 +132,7 @@ final _crowdActionsRawData = [
         "points": -10,
         "blocks": [],
         "icon": "working-days-only",
-        "_id": "62b637e0c5d78b613a3cc6d2"
+        "id": "62b637e0c5d78b613a3cc6d2"
       },
       {
         "label": "Vegan",
@@ -145,7 +145,7 @@ final _crowdActionsRawData = [
           "62b638d9c5d78b613a3cc6dc"
         ],
         "icon": "vegan",
-        "_id": "62b6381fc5d78b613a3cc6d4"
+        "id": "62b6381fc5d78b613a3cc6d4"
       },
       {
         "label": "Vegetarian",
@@ -154,7 +154,7 @@ final _crowdActionsRawData = [
         "points": 40,
         "blocks": ["62b638a6c5d78b613a3cc6d8", "62b638c8c5d78b613a3cc6da"],
         "icon": "vegetarian",
-        "_id": "62b63863c5d78b613a3cc6d6"
+        "id": "62b63863c5d78b613a3cc6d6"
       },
       {
         "label": "Pescatarian",
@@ -163,7 +163,7 @@ final _crowdActionsRawData = [
         "points": 30,
         "blocks": ["62b638c8c5d78b613a3cc6da"],
         "icon": "pescatarian",
-        "_id": "62b638a6c5d78b613a3cc6d8"
+        "id": "62b638a6c5d78b613a3cc6d8"
       },
       {
         "label": "No Beef",
@@ -171,7 +171,7 @@ final _crowdActionsRawData = [
         "points": 20,
         "blocks": [],
         "icon": "no-beef",
-        "_id": "62b638c8c5d78b613a3cc6da"
+        "id": "62b638c8c5d78b613a3cc6da"
       },
       {
         "label": "No Dairy",
@@ -180,7 +180,7 @@ final _crowdActionsRawData = [
         "points": 10,
         "blocks": [],
         "icon": "no-dairy",
-        "_id": "62b638d9c5d78b613a3cc6dc"
+        "id": "62b638d9c5d78b613a3cc6dc"
       }
     ],
     "status": "WAITING",
