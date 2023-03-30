@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/core.dart';
 import '../../../shared_widgets/expandable_markdown_text.dart';
-import '../../../themes/constants.dart';
 
 class CrowdActionDescription extends StatefulWidget {
   final String? description;
@@ -21,13 +21,13 @@ class _CrowdActionDescriptionState extends State<CrowdActionDescription> {
   Widget build(BuildContext context) {
     if (widget.description == null) {
       return Shimmer.fromColors(
-        baseColor: kPrimaryColor100,
-        highlightColor: kPrimaryColor200,
+        baseColor: context.kTheme.primaryColor100!,
+        highlightColor: context.kTheme.primaryColor200!,
         child: Container(
           height: 150,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: kPrimaryColor100,
+            color: context.kTheme.primaryColor100,
             borderRadius: BorderRadius.circular(10),
           ),
         ),

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-import '../themes/constants.dart';
+import '../../core/core.dart';
 import '../themes/markdown_stylesheet.dart';
 import '../utils/launch_url.dart';
 
@@ -86,7 +86,7 @@ class _ExpandableMarkdownState extends State<ExpandableMarkdown>
                 text: TextSpan(
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w300,
-                        color: kAccentColor,
+                        color: context.kTheme.accentColor,
                         fontSize: 17,
                         height: 1.5,
                       ),

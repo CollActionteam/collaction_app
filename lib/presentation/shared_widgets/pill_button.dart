@@ -53,14 +53,14 @@ class PillButton extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: lightBackground
                       ? Colors.white
-                      : context.colors.accentColor,
+                      : context.kTheme.accentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(52),
                   ),
                 ),
                 child: CircularProgressIndicator(
                   color: lightBackground
-                      ? context.colors.accentColor
+                      ? context.kTheme.accentColor
                       : Colors.white,
                 ),
               )
@@ -72,7 +72,7 @@ class PillButton extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
                     color: lightBackground
-                        ? context.colors.accentColor
+                        ? context.kTheme.accentColor
                         : Colors.white,
                   ),
                 ),
@@ -85,7 +85,7 @@ class PillButton extends StatelessWidget {
                       }
                       return lightBackground
                           ? Colors.white
-                          : context.colors.accentColor;
+                          : context.kTheme.accentColor;
                     },
                   ),
                   elevation: MaterialStateProperty.all<double>(0),

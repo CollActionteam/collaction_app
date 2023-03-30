@@ -5,7 +5,7 @@
 // **************************************************************************
 
 import 'dart:core';
-import 'package:collaction_app/presentation/themes/constants.dart';
+import 'package:collaction_app/core/core.dart';
 import 'package:collaction_app/presentation/themes/themes.dart';
 import 'package:collaction_app/widgetbook/usecases/expandable_text/expandable_text.dart';
 import 'package:flutter/gestures.dart';
@@ -29,6 +29,10 @@ class HotReload extends StatelessWidget {
         WidgetbookTheme(
           name: 'Light',
           data: lightTheme(),
+        ),
+        WidgetbookTheme(
+          name: 'Dark',
+          data: darkTheme(),
         ),
       ],
       categories: [

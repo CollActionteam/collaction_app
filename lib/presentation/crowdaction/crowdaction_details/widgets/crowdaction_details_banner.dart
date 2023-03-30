@@ -82,10 +82,10 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                     CustomFAB(
                       heroTag: 'locked',
                       isMini: true,
-                      color: context.colors.secondaryColor,
+                      color: context.kTheme.secondaryColor,
                       child: Icon(
                         CollactionIcons.lock,
-                        color: context.colors.primaryColor300,
+                        color: context.kTheme.primaryColor300,
                       ),
                     ),
                   ],
