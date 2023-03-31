@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
       elevation: 0,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(CollactionIcons.collaction),
+          icon: Icon(CollactionIcons.logo),
           label: '',
         ),
         BottomNavigationBarItem(
