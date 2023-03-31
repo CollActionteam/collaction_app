@@ -95,9 +95,12 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                                 ),
                                 elevation: 0,
                               ),
-                            CountryIcon(
-                              countryCode: widget.crowdAction.location.code,
-                              radius: 20,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 3.0),
+                              child: CountryIcon(
+                                countryCode: widget.crowdAction.location.code,
+                                radius: 20,
+                              ),
                             )
                           ]),
                         )
