@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +93,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                                   CollactionIcons.lock,
                                   color: kPrimaryColor300,
                                 ),
+                                elevation: 0,
                               ),
                             CountryIcon(
                               countryCode: widget.crowdAction.location.code,
