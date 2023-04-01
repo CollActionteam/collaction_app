@@ -79,7 +79,7 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                 right: 10,
                 child: Row(
                   children: [
-                    if (crowdAction?.hasPassword ?? false)
+                    if (crowdAction?.hasPassword ?? false) ...[
                       CustomFAB(
                         heroTag: 'locked',
                         isMini: true,
@@ -89,11 +89,17 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                           color: kPrimaryColor300,
                         ),
                       ),
-                    if (crowdAction?.location != null)
+                    ],
+                    if ((crowdAction?.hasPassword ?? false) &&
+                        (crowdAction?.location != null)) ...[
+                      const SizedBox(width: 6),
+                    ],
+                    if (crowdAction?.location != null) ...[
                       CountryIcon(
                         countryCode: crowdAction?.location.code ?? 'nl',
                         radius: 20,
-                      )
+                      ),
+                    ],
                   ],
                 )),
           ],

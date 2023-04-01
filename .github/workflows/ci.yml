@@ -269,6 +269,7 @@ jobs:
         env:
           IOS_GOOGLESERVICE_INFO_PLIST: ${{ secrets.IOS_GOOGLESERVICE_INFO_PLIST }}
         run: |
+          echo ${{ secrets.ENV }} | base64 -d > .env
           echo $IOS_GOOGLESERVICE_INFO_PLIST | base64 --decode > ios/Runner/GoogleService-Info.plist
           flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons
           cp release_notes.txt build/ios/ipa/
