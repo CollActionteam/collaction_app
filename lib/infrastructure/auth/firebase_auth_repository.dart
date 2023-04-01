@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
 
-import '../../core/utils/ifrebase_crashlytics_extension.dart';
+import '../../core/utils/firebase_crashlytics_extension.dart';
 import '../../domain/auth/auth_failures.dart';
 import '../../domain/auth/auth_success.dart';
 import '../../domain/auth/i_auth_repository.dart';
@@ -53,7 +53,14 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
-      verificationFailed: (firebase_auth.FirebaseAuthException error) {
+      verificationFailed: (firebase_auth.FirebaseAuthException error) async {
+        await FirebaseCrashlyticsLogger.warn(
+          error,
+          error.stackTrace,
+          message:
+              '[FirebaseAuthRepository] verifyPhoneNumber().verificationFailed',
+        );
+
         result.add(left(error.toFailure()));
         result.close();
       },
@@ -165,7 +172,13 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
 
         result.add(right(AuthSuccess.codeSent(credential: credential)));
       },
-      verificationFailed: (firebase_auth.FirebaseAuthException error) {
+      verificationFailed: (firebase_auth.FirebaseAuthException error) async {
+        await FirebaseCrashlyticsLogger.warn(
+          error,
+          error.stackTrace,
+          message: '[FirebaseAuthRepository] resendOTP().verificationFailed',
+        );
+
         result.add(left(error.toFailure()));
         result.close();
       },

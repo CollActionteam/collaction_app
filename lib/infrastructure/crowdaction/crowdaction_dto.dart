@@ -3,6 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
+import '../badge/badge_dto.dart';
 
 part 'crowdaction_dto.freezed.dart';
 
@@ -26,6 +27,7 @@ class CrowdActionDto with _$CrowdActionDto {
     required String endAt,
     String? password,
     String? subcategory,
+    List<CollActionBadgeDto>? badges,
   }) = _CrowdActionDto;
 
   CrowdAction toDomain() {
@@ -43,6 +45,7 @@ class CrowdActionDto with _$CrowdActionDto {
       endAt: DateTime.parse(endAt),
       password: password,
       subcategory: subcategory,
+      badges: badges?.map((option) => option.toDomain()).toList(),
     );
   }
 
