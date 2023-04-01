@@ -44,7 +44,7 @@ class CommitmentsTab extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ...crowdActions!
-                  .where((crowdAction) => crowdAction.isRunning)
+                  .where((crowdAction) => !crowdAction.isClosed)
                   .map(
                     (crowdAction) => GestureDetector(
                       onTap: () => context.router.push(

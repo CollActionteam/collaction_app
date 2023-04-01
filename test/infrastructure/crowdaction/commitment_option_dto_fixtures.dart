@@ -20,7 +20,7 @@ final tCommitmentDto = CommitmentDto(
 );
 
 final tCommitmentJson = {
-  '_id': 'id',
+  'id': 'id',
   'label': 'label',
   'points': 0,
   'blocks': ['blocks'],

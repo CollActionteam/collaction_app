@@ -98,8 +98,7 @@ class CommitmentDto with _$CommitmentDto {
   const CommitmentDto._();
 
   factory CommitmentDto({
-    // ignore: invalid_annotation_target
-    @JsonKey(name: '_id') required String id,
+    required String id,
     required String label,
     required int points,
     required List<String> blocks,

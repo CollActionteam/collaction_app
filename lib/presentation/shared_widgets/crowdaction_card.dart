@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
           onTap: widget.onTap ??
               () {
                 if (widget.crowdAction.hasPassword) {
-                  showPasswordModal(context, widget.crowdAction);
+                  PasswordModal.show(context, widget.crowdAction);
                 } else {
                   context.router.push(
                     CrowdActionDetailsRoute(crowdAction: widget.crowdAction),
@@ -92,10 +93,14 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                                   CollactionIcons.lock,
                                   color: kPrimaryColor300,
                                 ),
+                                elevation: 0,
                               ),
-                            CountryIcon(
-                              countryCode: widget.crowdAction.location.code,
-                              radius: 20,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 3.0),
+                              child: CountryIcon(
+                                countryCode: widget.crowdAction.location.code,
+                                radius: 20,
+                              ),
                             )
                           ]),
                         )
