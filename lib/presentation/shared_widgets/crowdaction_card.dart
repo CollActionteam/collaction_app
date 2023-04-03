@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../core/collaction_icons.dart';
@@ -71,7 +69,7 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: CachedNetworkImageProvider(
-                          '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${widget.crowdAction.images.card}',
+                          widget.crowdAction.cardUrl,
                           imageRenderMethodForWeb:
                               ImageRenderMethodForWeb.HttpGet,
                           errorListener: () {},

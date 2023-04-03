@@ -53,10 +53,10 @@ class CrowdAction with _$CrowdAction {
               : 'Finished';
 
   // Crowdaction banner url
-  String get bannerUrl => '$baseStaticUrl/${images.banner}';
+  String get bannerUrl => images.banner.imageUrl;
 
   // Crowdaction card url
-  String get cardUrl => '$baseStaticUrl/${images.card}';
+  String get cardUrl => images.card.imageUrl;
 }
 
 @freezed
