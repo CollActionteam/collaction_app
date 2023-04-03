@@ -82,6 +82,9 @@ jobs:
         with:
           channel: ${{ env.flutter_channel }}
           flutter-version: ${{ env.flutter_version }}
+      
+      - name: Disable Widgetbook Generator for test
+        run: sed -i 's|widgetbook_generator|#widgetbook_generator|g' pubspec.yaml
 
       - name: Get Flutter dependencies
         run: flutter pub get .
