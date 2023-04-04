@@ -18,6 +18,28 @@ class PasswordModal extends StatefulWidget {
 
   @override
   State<PasswordModal> createState() => _PasswordModalState();
+
+  static Future<void> show(
+    BuildContext context,
+    CrowdAction crowdAction,
+  ) async {
+    final settingsRepository = getIt<ISettingsRepository>();
+    final accessList = await settingsRepository.getCrowdActionAccessList();
+
+    if (accessList.contains(crowdAction.id)) {
+      context.router.push(
+        CrowdActionDetailsRoute(crowdAction: crowdAction),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        constraints: const BoxConstraints(maxHeight: 350),
+        builder: (context) => PasswordModal(crowdAction: crowdAction),
+      );
+    }
+  }
 }
 
 class _PasswordModalState extends State<PasswordModal> {
@@ -51,7 +73,7 @@ class _PasswordModalState extends State<PasswordModal> {
             children: [
               Text(
                 'Enter password',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       color: kPrimaryColor400,
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
@@ -60,7 +82,7 @@ class _PasswordModalState extends State<PasswordModal> {
               const SizedBox(height: 10),
               Text(
                 'This crowdaction is private. Please enter the password to see it.',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       color: kPrimaryColor300,
                       fontSize: 12,
                     ),
@@ -92,9 +114,7 @@ class _PasswordModalState extends State<PasswordModal> {
                 borderRadius: BorderRadius.circular(20.0),
                 borderSide: const BorderSide(width: 2, color: Colors.red),
               ),
-              errorText: _validated != null && _validated == false
-                  ? "Invalid password"
-                  : null,
+              errorText: _validated == false ? "Invalid password" : null,
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
                 borderSide: const BorderSide(width: 2, color: Colors.red),
@@ -147,7 +167,7 @@ class _PasswordModalState extends State<PasswordModal> {
 
       addCrowdActionAccess();
 
-      context.router.replace(
+      context.router.popAndPush(
         CrowdActionDetailsRoute(
           crowdAction: widget.crowdAction,
         ),
@@ -168,26 +188,5 @@ class _PasswordModalState extends State<PasswordModal> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-}
-
-Future<void> showPasswordModal(
-  BuildContext context,
-  CrowdAction crowdAction,
-) async {
-  final settingsRepository = getIt<ISettingsRepository>();
-  final accessList = await settingsRepository.getCrowdActionAccessList();
-
-  if (accessList.contains(crowdAction.id)) {
-    context.router.push(
-      CrowdActionDetailsRoute(crowdAction: crowdAction),
-    );
-  } else {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      constraints: const BoxConstraints(maxHeight: 350),
-      builder: (context) => PasswordModal(crowdAction: crowdAction),
-    );
   }
 }

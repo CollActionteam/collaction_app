@@ -10,7 +10,7 @@ import '../../../themes/constants.dart';
 
 class ConfirmParticipation extends StatelessWidget {
   final CrowdAction crowdAction;
-  final List<CommitmentOption> selectedCommitments;
+  final List<Commitment> selectedCommitments;
 
   const ConfirmParticipation({
     super.key,
@@ -63,7 +63,7 @@ class ParticipationSuccess extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
-                .subtitle1
+                .titleMedium
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(
@@ -72,7 +72,7 @@ class ParticipationSuccess extends StatelessWidget {
           Text(
             "All set!",
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.subtitle1?.copyWith(
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
                 ),
@@ -82,7 +82,7 @@ class ParticipationSuccess extends StatelessWidget {
           ),
           Text(
             "You have successfully registered for this CrowdAction",
-            style: Theme.of(context).textTheme.caption?.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: kPrimaryColor400,
                 ),
           ),
@@ -102,7 +102,7 @@ class ParticipationSuccess extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 250),
             child: Text(
               "You can change your commitment until the CrowdAction starts",
-              style: Theme.of(context).textTheme.caption?.copyWith(
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: kPrimaryColor200,
                   ),
               textAlign: TextAlign.center,
@@ -116,7 +116,7 @@ class ParticipationSuccess extends StatelessWidget {
 
 class ParticipationDialog extends StatelessWidget {
   final CrowdAction crowdAction;
-  final List<CommitmentOption> selectedCommitments;
+  final List<Commitment> selectedCommitments;
   final bool isLoading;
 
   const ParticipationDialog({
@@ -152,7 +152,7 @@ class ParticipationDialog extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
-                .subtitle1
+                .titleMedium
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(
@@ -169,7 +169,7 @@ class ParticipationDialog extends StatelessWidget {
                   child: Text(
                     "You’re almost there! You’ve selected the displayed commitment${selectedCommitments.length > 1 ? 's' : ''} to stick to through this CrowdAction. By clicking “Confirm” you will officially commit to this CrowdAction.",
                     overflow: TextOverflow.fade,
-                    style: Theme.of(context).textTheme.caption?.copyWith(
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: kPrimaryColor400,
                         ),
                   ),
@@ -180,7 +180,7 @@ class ParticipationDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
-                      .caption
+                      .bodySmall
                       ?.copyWith(color: kPrimaryColor300, fontSize: 12),
                 ),
                 const SizedBox(height: 20),
@@ -213,8 +213,7 @@ class ParticipationDialog extends StatelessWidget {
               BlocProvider.of<ParticipationBloc>(context).add(
                 ParticipationEvent.toggleParticipation(
                   crowdActionId: crowdAction.id,
-                  commitmentOptions:
-                      selectedCommitments.map((c) => c.id).toList(),
+                  commitments: selectedCommitments.map((c) => c.id).toList(),
                 ),
               );
             },

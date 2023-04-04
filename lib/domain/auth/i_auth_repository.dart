@@ -6,7 +6,7 @@ import 'auth_failures.dart';
 import 'auth_success.dart';
 
 abstract class IAuthRepository {
-  Stream<User> observeUser();
+  Stream<User?> observeUser();
 
   /// TODO - Choose to either observe or getSignedInUser
   /// Returns [User] if already authenticated

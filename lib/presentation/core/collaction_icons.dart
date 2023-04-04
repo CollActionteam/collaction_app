@@ -17,8 +17,6 @@
 import 'package:flutter/widgets.dart';
 
 class CollactionIcons {
-  const CollactionIcons._();
-
   static const _kFontFam = 'CollactionIcons';
 
   static const IconData eye = IconData(0xe800, fontFamily: _kFontFam);
@@ -65,4 +63,12 @@ class CollactionIcons {
   static const IconData rocket = IconData(0xe828, fontFamily: _kFontFam);
   static const IconData energy = IconData(0xe82a, fontFamily: _kFontFam);
   static const IconData bike = IconData(0xe829, fontFamily: _kFontFam);
+  static const IconData arrow_up_circled =
+      IconData(0xe82b, fontFamily: _kFontFam);
+  static const IconData flag_filled = IconData(0xe830, fontFamily: _kFontFam);
+  static const IconData flag = IconData(0xe831, fontFamily: _kFontFam);
+  static const IconData trash = IconData(0xe832, fontFamily: _kFontFam);
+  static const IconData heart_filled = IconData(0xe833, fontFamily: _kFontFam);
+  static const IconData heart = IconData(0xe834, fontFamily: _kFontFam);
+  static const IconData logo = IconData(0xe863, fontFamily: _kFontFam);
 }

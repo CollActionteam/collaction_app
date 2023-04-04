@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
@@ -121,15 +120,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: ProfilePicture(
                                     image: _image,
-                                    profileImage: state
-                                                .userProfile?.profile.avatar !=
-                                            null
-                                        ? '${dotenv.get('BASE_STATIC_ENDPOINT_URL')}/${state.userProfile?.profile.avatar}'
-                                        : null,
+                                    profileImage: state.userProfile?.avatarUrl,
                                     maxRadius: 50,
                                   ),
                                 ),
-                                if (state.isEditing == true) ...[
+                                if (state.userProfile != null) ...[
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
@@ -139,11 +134,17 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                         context,
                                         onSelected: (image) {
                                           setState(() => _image = image);
+                                          BlocProvider.of<ProfileBloc>(context)
+                                              .add(
+                                            SaveProfilePic(image: image),
+                                          );
                                         },
                                       ),
                                       backgroundColor: kAccentColor,
                                       mini: true,
-                                      child: const Icon(Icons.add),
+                                      child: const Icon(
+                                        Icons.drive_file_rename_outline,
+                                      ),
                                     ),
                                   ),
                                 ]
@@ -162,17 +163,58 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                           if (state.userProfile != null) ...[
                             const SizedBox(height: 40),
-                            const Text(
-                              'About me',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 11,
-                                color: Color(0xFF666666),
-                              ),
-                              textAlign: TextAlign.left,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'About me',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 11,
+                                    color: Color(0xFF666666),
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextButton(
+                                  key: const Key('save_edit_bio_button'),
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(200),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    if (state.isBioEditing == true) {
+                                      /// TODO: Implement save profile image
+                                      BlocProvider.of<ProfileBloc>(context).add(
+                                        SaveBio(
+                                          bio: bioController.text,
+                                        ),
+                                      );
+                                    } else {
+                                      context
+                                          .read<ProfileBloc>()
+                                          .add(EditBio());
+                                    }
+                                  },
+                                  child: Text(
+                                    state.isBioEditing == true
+                                        ? 'Save'
+                                        : 'Edit',
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      color: kAccentColor,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 10),
-                            if (state.isEditing == true) ...[
+                            if (state.isBioEditing == true) ...[
+                              //idhr bio editing start
                               Row(
                                 children: [
                                   Expanded(
@@ -203,7 +245,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                       maxLines: 5,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyMedium!
                                           .copyWith(
                                             fontWeight: FontWeight.w300,
                                             fontSize: 17,
@@ -215,13 +257,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ),
                               const SizedBox(height: 4),
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const SizedBox(width: 16),
                                   Text(
                                     'Maximum 150 characters',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyText2!
+                                        .bodyMedium!
                                         .copyWith(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
@@ -235,7 +278,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 state.userProfile?.profile.bio ?? '',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 17,
@@ -265,92 +308,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 40),
-                            TextButton(
-                              key: const Key('save_edit_button'),
-                              style: ButtonStyle(
-                                overlayColor: MaterialStateColor.resolveWith(
-                                  (states) => state.isEditing == true
-                                      ? Colors.white.withOpacity(0.1)
-                                      : kAccentColor.withOpacity(0.1),
-                                ),
-                                backgroundColor: state.isEditing == true
-                                    ? MaterialStateProperty.all(
-                                        kAccentColor,
-                                      )
-                                    : null,
-                                minimumSize: MaterialStateProperty.all(
-                                  const Size(double.infinity * 0.75, 52),
-                                ),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(200),
-                                    side: const BorderSide(
-                                      color: kAccentColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              onPressed: () {
-                                if (state.isEditing == true) {
-                                  BlocProvider.of<ProfileBloc>(context).add(
-                                    SaveProfile(
-                                      bio: bioController.text,
-                                      image: _image,
-                                    ),
-                                  );
-                                } else {
-                                  context
-                                      .read<ProfileBloc>()
-                                      .add(EditProfile());
-                                }
-                              },
-                              child: Text(
-                                state.isEditing == true
-                                    ? 'Save changes'
-                                    : 'Edit profile',
-                                style: TextStyle(
-                                  color: state.isEditing == true
-                                      ? Colors.white
-                                      : kAccentColor,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                            if (state.isEditing == true) ...[
-                              const SizedBox(height: 10),
-                              TextButton(
-                                key: const Key('cancel_edit_button'),
-                                style: ButtonStyle(
-                                  minimumSize: MaterialStateProperty.all(
-                                    const Size(double.infinity * 0.75, 52),
-                                  ),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(200),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  BlocProvider.of<ProfileBloc>(context)
-                                      .add(CancelEditProfile());
-
-                                  _image = null;
-                                  bioController.value = TextEditingValue(
-                                    text: state.userProfile?.profile.bio ?? '',
-                                  );
-                                },
-                                child: const Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                    color: kAccentColor,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ],
                           ] else ...[
-                            // TODO only for MVP (remove later)
                             const SizedBox(height: 40),
                             PillButton(
                               text: 'Sign in',

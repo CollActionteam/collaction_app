@@ -3,27 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../presentation/themes/constants.dart';
-import '../../domain/core/i_settings_repository.dart';
-import '../../infrastructure/core/injection.dart';
 import '../core/collaction_icons.dart';
 import '../routes/app_routes.gr.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  HomePageState createState() => HomePageState();
-}
-
-class HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkAndMaybeShowOnboarding();
-    });
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
@@ -38,14 +21,6 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> checkAndMaybeShowOnboarding() async {
-    // Push onboarding screen if first time launching application
-    final settingsRepository = getIt<ISettingsRepository>();
-    if (!(await settingsRepository.getWasUserOnboarded())) {
-      context.router.push(const OnboardingRoute());
-    }
-  }
-
   Widget bottomNavbar(TabsRouter tabsRouter) {
     return BottomNavigationBar(
       backgroundColor: Colors.white,
@@ -57,7 +32,7 @@ class HomePageState extends State<HomePage> {
       elevation: 0,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(CollactionIcons.collaction),
+          icon: Icon(CollactionIcons.logo),
           label: '',
         ),
         BottomNavigationBarItem(

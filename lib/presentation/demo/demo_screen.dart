@@ -28,40 +28,25 @@ class DemoPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30.0),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RectangleButton(
-                        text: "Reusable Components",
-                        onTap: () =>
-                            context.router.push(const ComponentsDemoRoute()),
-                      ),
-                    ),
-                  ],
+                RectangleButton(
+                  text: "Reusable Components",
+                  onTap: () => context.router.push(const ComponentsDemoRoute()),
                 ),
                 const SizedBox(height: 10.0),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RectangleButton(
-                        text: "Contact Form",
-                        onTap: () =>
-                            context.router.push(const ContactFormRoute()),
-                      ),
-                    ),
-                  ],
+                RectangleButton(
+                  text: "Crowdaction Comments",
+                  onTap: () =>
+                      context.router.push(const CrowdActionCommentsRoute()),
                 ),
                 const SizedBox(height: 10.0),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RectangleButton(
-                        text: "Onboarding",
-                        onTap: () =>
-                            context.router.push(const OnboardingRoute()),
-                      ),
-                    ),
-                  ],
+                RectangleButton(
+                  text: "Contact Form",
+                  onTap: () => context.router.push(const ContactFormRoute()),
+                ),
+                const SizedBox(height: 10.0),
+                RectangleButton(
+                  text: "Onboarding",
+                  onTap: () => context.router.push(const OnboardingRoute()),
                 ),
                 const SizedBox(
                   height: 15.0,
@@ -70,15 +55,9 @@ class DemoPage extends StatelessWidget {
                 const SizedBox(
                   height: 15.0,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RectangleButton(
-                        text: "Register",
-                        onTap: () => context.router.push(const AuthRoute()),
-                      ),
-                    ),
-                  ],
+                RectangleButton(
+                  text: "Register",
+                  onTap: () => context.router.push(const AuthRoute()),
                 ),
               ],
             ),
