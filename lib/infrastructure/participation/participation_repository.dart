@@ -130,29 +130,39 @@ class ParticipationRepository implements IParticipationRepository {
       // To display user as first participant,
       // Get user participation for first page
       if (pageNumber == 1) {
-        final participationResult =
-            await getParticipation(crowdActionId: crowdActionId);
+        int index = participations.indexWhere(
+          (p) => p.userId == authRepository.currentUser.id,
+        );
 
-        if (participationResult.isRight()) {
-          // Prepend current user as first participant
-          int index = participations.indexWhere(
-            (p) => p.userId == authRepository.currentUser.id,
-          );
-
+        // If user already among participants
+        // skip fetching user participation
+        if (index > -1) {
           // If user participation is in list,
-          // swap with first user orelse
-          // prepend user as first participant
+          // and not first, swap with first user
           if (index > 0) {
             final temp = participations[index];
             participations[index] = participations.first;
             participations[0] = temp;
-          } else if (index == -1) {
-            // Append participation
-            final participation =
-                participationResult.getOrElse(() => throw Exception());
-
-            participations.insert(0, participation);
           }
+
+          return right(
+            PaginatedParticipations(
+              participations: participations,
+              pageInfo: pageInfo.toDomain(),
+            ),
+          );
+        }
+
+        // Fetch user participation
+        final participationResult =
+            await getParticipation(crowdActionId: crowdActionId);
+
+        if (participationResult.isRight()) {
+          // prepend user as first participant
+          final participation =
+              participationResult.getOrElse(() => throw Exception());
+
+          participations.insert(0, participation);
         }
       } else {
         // Check if user exists among current participants and remove
