@@ -12,7 +12,6 @@ import '../../domain/participation/paginated_participations.dart';
 import '../../domain/participation/participation.dart';
 import '../../domain/participation/participation_failures.dart';
 import '../core/page_info_dto.dart';
-import 'paginated_participations_dto.dart';
 import 'participation_dto.dart';
 
 @LazySingleton(as: IParticipationRepository)
@@ -121,17 +120,66 @@ class ParticipationRepository implements IParticipationRepository {
 
       final participations = itemsJson
           .map(
-            (item) => ParticipationDto.fromJson(item as Map<String, dynamic>),
+            (item) => ParticipationDto.fromJson(item as Map<String, dynamic>)
+                .toDomain(),
           )
           .toList();
 
       final pageInfo = PageInfoDto.fromJson(pageInfoJson);
 
+      // To display user as first participant,
+      // Get user participation for first page
+      if (pageNumber == 1) {
+        int index = participations.indexWhere(
+          (p) => p.userId == authRepository.currentUser.id,
+        );
+
+        // If user already among participants
+        // skip fetching user participation
+        if (index > -1) {
+          // If user participation is in list,
+          // and not first, swap with first user
+          if (index > 0) {
+            final temp = participations[index];
+            participations[index] = participations.first;
+            participations[0] = temp;
+          }
+
+          return right(
+            PaginatedParticipations(
+              participations: participations,
+              pageInfo: pageInfo.toDomain(),
+            ),
+          );
+        }
+
+        // Fetch user participation
+        final participationResult =
+            await getParticipation(crowdActionId: crowdActionId);
+
+        if (participationResult.isRight()) {
+          // prepend user as first participant
+          final participation =
+              participationResult.getOrElse(() => throw Exception());
+
+          participations.insert(0, participation);
+        }
+      } else {
+        // Check if user exists among current participants and remove
+        int index = participations.indexWhere(
+          (p) => p.userId == authRepository.currentUser.id,
+        );
+
+        if (index > -1) {
+          participations.removeAt(index);
+        }
+      }
+
       return right(
-        PaginatedParticipationsDto(
+        PaginatedParticipations(
           participations: participations,
-          pageInfo: pageInfo,
-        ).toDomain(),
+          pageInfo: pageInfo.toDomain(),
+        ),
       );
     } catch (ex) {
       return left(const ParticipationFailure.networkRequestFailed());

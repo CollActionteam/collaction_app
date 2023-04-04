@@ -25,8 +25,7 @@ class Participants extends StatelessWidget {
       ),
       child: Row(
         children: [
-          if (crowdAction != null &&
-              (crowdAction?.participantCount ?? 0) > 0) ...[
+          if (crowdAction?.hasParticipants == true) ...[
             TopParticipantAvatars(
               crowdActionId: crowdAction!.id,
             ),
