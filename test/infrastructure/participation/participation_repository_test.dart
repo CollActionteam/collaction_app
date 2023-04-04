@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:collaction_app/domain/auth/i_auth_repository.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
-import 'package:collaction_app/domain/participation/participation.dart';
 import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/infrastructure/participation/participation_dto.dart';
 import 'package:collaction_app/infrastructure/participation/participation_repository.dart';
@@ -19,10 +18,9 @@ import 'participation_repository_fixtures.dart';
 void main() {
   late final IAuthRepository authRepository;
   late final ISettingsRepository settingsRepository;
-  late MockHttpClient client;
-  late ParticipationRepository participationRepository;
+  late final MockHttpClient client;
+  late final ParticipationRepository participationRepository;
   const baseUrl = 'https://example.com';
-  late final Participation userParticipation;
 
   setUpAll(() {
     registerFallbackValue(Uri());
@@ -33,20 +31,6 @@ void main() {
     when(() => settingsRepository.baseApiEndpointUrl)
         .thenAnswer((invocation) => Future.value(baseUrl));
 
-    userParticipation = ParticipationDto.fromJson(
-      jsonDecode(participation1) as Map<String, dynamic>,
-    ).toDomain();
-
-    // Setup Auth Repo
-    final user = cUser.copyWith(id: userParticipation.userId);
-
-    when(() => authRepository.getSignedInUser())
-        .thenAnswer((_) async => some(user));
-
-    when(() => authRepository.currentUser).thenAnswer((_) => user);
-  });
-
-  setUp(() {
     client = MockHttpClient();
 
     participationRepository = ParticipationRepository(
@@ -54,6 +38,11 @@ void main() {
       authRepository,
       settingsRepository,
     );
+  });
+
+  tearDown(() {
+    reset(client);
+    reset(authRepository);
   });
 
   group('[getParticipation]', () {
@@ -155,17 +144,30 @@ void main() {
   });
 
   group('[getParticipations]', () {
+    final userParticipation = ParticipationDto.fromJson(
+      jsonDecode(participation1) as Map<String, dynamic>,
+    ).toDomain();
+
+    final user = cUser.copyWith(id: userParticipation.userId);
+
     final Uri page1Uri = Uri.parse(
       '$baseUrl/v1/participations?crowdActionId=${userParticipation.crowdActionId}&page=1',
     );
-    
+
     final Uri page2Uri = Uri.parse(
       '$baseUrl/v1/participations?crowdActionId=${userParticipation.crowdActionId}&page=2',
     );
-    
+
     final Uri participationUri = Uri.parse(
       '$baseUrl/v1/participations/${userParticipation.crowdActionId}',
     );
+
+    setUp(() {
+      when(() => authRepository.getSignedInUser())
+          .thenAnswer((_) async => some(user));
+
+      when(() => authRepository.currentUser).thenAnswer((_) => user);
+    });
 
     test(
         'should prepend current user to top of participation list '
