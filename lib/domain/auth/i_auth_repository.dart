@@ -48,4 +48,7 @@ abstract class IAuthRepository {
 
   /// Sign out of the user's account
   Future<void> signOut();
+
+  /// Get current user
+  User get currentUser;
 }

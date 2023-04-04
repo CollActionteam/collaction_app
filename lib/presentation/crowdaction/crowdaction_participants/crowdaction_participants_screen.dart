@@ -8,7 +8,7 @@ import '../../../domain/participation/participation.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../themes/constants.dart';
 
-class CrowdActionParticipantsPage extends StatelessWidget {
+class CrowdActionParticipantsPage extends StatefulWidget {
   final String crowdActionId;
 
   CrowdActionParticipantsPage({
@@ -16,8 +16,26 @@ class CrowdActionParticipantsPage extends StatelessWidget {
     required this.crowdActionId,
   });
 
-  final PagingController<int, Participation> pagingController =
-      PagingController(firstPageKey: 1);
+  @override
+  State<CrowdActionParticipantsPage> createState() =>
+      _CrowdActionParticipantsPageState();
+}
+
+class _CrowdActionParticipantsPageState
+    extends State<CrowdActionParticipantsPage> {
+  late final PagingController<int, Participation> pagingController;
+
+  @override
+  void initState() {
+    super.initState();
+    pagingController = PagingController(firstPageKey: 1);
+  }
+
+  @override
+  void dispose() {
+    pagingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +50,7 @@ class CrowdActionParticipantsPage extends StatelessWidget {
               pagingController.addPageRequestListener((pageKey) {
                 BlocProvider.of<CrowdActionParticipantsBloc>(context).add(
                   CrowdActionParticipantsEvent.getParticipants(
-                    crowdActionId: crowdActionId,
+                    crowdActionId: widget.crowdActionId,
                     pageNumber: pageKey,
                   ),
                 );
@@ -40,7 +58,7 @@ class CrowdActionParticipantsPage extends StatelessWidget {
 
               BlocProvider.of<CrowdActionParticipantsBloc>(context).add(
                 CrowdActionParticipantsEvent.getParticipants(
-                  crowdActionId: crowdActionId,
+                  crowdActionId: widget.crowdActionId,
                   pageNumber: 1,
                 ),
               );
