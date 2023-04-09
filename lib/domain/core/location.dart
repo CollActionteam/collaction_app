@@ -1,11 +1,13 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'location.freezed.dart';
+class Location extends Equatable {
+  final String code;
+  final String name;
 
-@freezed
-class Location with _$Location {
-  const factory Location({
-    required String code,
-    required String name,
-  }) = _Location;
+  const Location({
+    required this.code,
+    required this.name,
+  });
+  @override
+  List<Object?> get props => [code ?? "Country", name ?? "No"];
 }

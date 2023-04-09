@@ -22,7 +22,7 @@ class BuildCountryRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${location?.name ?? "No"}, ${location?.code ?? "Country"}',
+                '${location?.name}, ${location?.code}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: kPrimaryColor300,
                       fontSize: 14,
