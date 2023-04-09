@@ -4,6 +4,7 @@ import '../../../themes/constants.dart';
 
 class BuildEmailRow extends StatelessWidget {
   final String? email;
+
   const BuildEmailRow({
     super.key,
     required this.email,
