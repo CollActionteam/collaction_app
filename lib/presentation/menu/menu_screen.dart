@@ -42,7 +42,31 @@ class MenuPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          HeaderBar(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: false,
+        title: Text(
+          "Menu",
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w700,
+            color: kPrimaryColor400,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // TODO: Search bar functionality
+            },
+            icon: Icon(
+              Ionicons.search,
+              color: kPrimaryColor600,
+              size: 26,
+            ),
+          ),
+        ],
+      ),
                           const SizedBox(height: 30),
                           UserInfoAndAvatar(
                             avatar: state.userProfile!.profile.avatar,
