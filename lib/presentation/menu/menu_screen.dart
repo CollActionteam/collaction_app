@@ -79,7 +79,7 @@ class MenuPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  _buildSubTitle(
+                  Subtitle(
                     subTitle: "Account",
                     paddingTop: 38.5,
                     paddingBottom: 20,
@@ -128,7 +128,7 @@ class MenuPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  _buildSubTitle(
+                  Subtitle(
                       subTitle: "Feedback", paddingTop: 30, paddingBottom: 20),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -176,7 +176,7 @@ class MenuPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  _buildSubTitle(
+                  Subtitle(
                       subTitle: "Legal information and policies",
                       paddingBottom: 24,
                       paddingTop: 30),
@@ -226,12 +226,24 @@ class MenuPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildSubTitle({
-    required String subTitle,
-    double paddingTop = 0.0,
-    double paddingBottom = 0.0,
-  }) {
+class Subtitle extends StatelessWidget {
+  final double paddingTop;
+
+  final double paddingBottom;
+
+  final String subTitle;
+
+  const Subtitle(
+      {Key? key,
+      required this.paddingTop,
+      required this.paddingBottom,
+      required this.subTitle})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding:
           EdgeInsets.only(left: 20, top: paddingTop, bottom: paddingBottom),
