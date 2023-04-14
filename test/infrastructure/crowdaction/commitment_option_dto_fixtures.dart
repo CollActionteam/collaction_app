@@ -1,8 +1,9 @@
 import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 
-final tCommitment = Commitment(
+final tCommitmentOption = CommitmentOption(
   id: 'id',
+  type: 'type',
   label: 'label',
   points: 0,
   blocks: ['blocks'],
@@ -10,8 +11,9 @@ final tCommitment = Commitment(
   iconId: 'iconId',
 );
 
-final tCommitmentDto = CommitmentDto(
+final tCommitmentOptionDto = CommitmentOptionDto(
   id: 'id',
+  type: 'type',
   label: 'label',
   points: 0,
   blocks: ['blocks'],
@@ -19,8 +21,9 @@ final tCommitmentDto = CommitmentDto(
   icon: 'iconId',
 );
 
-final tCommitmentJson = {
+final tCommitmentOptionJson = {
   'id': 'id',
+  'type': 'type',
   'label': 'label',
   'points': 0,
   'blocks': ['blocks'],

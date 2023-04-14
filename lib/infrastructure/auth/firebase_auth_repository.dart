@@ -17,7 +17,7 @@ import 'firebase_auth_mapper.dart';
 @LazySingleton(as: IAuthRepository)
 class FirebaseAuthRepository implements IAuthRepository, Disposable {
   final firebase_auth.FirebaseAuth firebaseAuth;
-  final _userSubject = BehaviorSubject<User?>();
+  final _userSubject = BehaviorSubject<User>.seeded(User.anonymous);
   late final StreamSubscription _userStreamSubscription;
 
   FirebaseAuthRepository({required this.firebaseAuth}) {
@@ -210,10 +210,7 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   }
 
   @override
-  Stream<User?> observeUser() => _userSubject.stream.distinct();
-
-  @override
-  User get currentUser => _firebaseUserToUser(firebaseAuth.currentUser);
+  Stream<User> observeUser() => _userSubject.stream.distinct();
 
   @override
   FutureOr onDispose() {

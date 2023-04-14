@@ -31,12 +31,12 @@ class ParticipationBloc extends Bloc<ParticipationEvent, ParticipationState> {
         checkIn: () {
           // TODO: Implement once the backend has implemented it
         },
-        toggleParticipation: (crowdActionId, commitments) async {
+        toggleParticipation: (crowdActionId, commitmentOptions) async {
           emit(const ParticipationState.loading());
 
           await participationRepository.toggleParticipation(
             crowdActionId: crowdActionId,
-            commitments: commitments,
+            commitmentOptions: commitmentOptions,
           );
 
           add(

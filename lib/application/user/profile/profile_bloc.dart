@@ -25,45 +25,24 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         await userOrFailure.fold(
           (failure) => const ProfileState(
             userProfile: null,
-            isPicEditing: false,
-            isBioEditing: false,
+            isEditing: false,
           ),
           (userProfile) => state.copyWith(
             userProfile: userProfile,
-            isPicEditing: false,
-            isBioEditing: false,
+            isEditing: false,
           ),
         ),
       );
     });
 
-    on<EditBio>((event, emit) {
-      emit(state.copyWith(isBioEditing: true));
+    on<EditProfile>((event, emit) {
+      emit(state.copyWith(isEditing: true));
     });
 
-    on<EditProfilePic>((event, emit) {
-      emit(state.copyWith(isPicEditing: true));
-    });
-
-    on<SaveBio>((event, emit) async {
+    on<SaveProfile>((event, emit) async {
       if (event.bio != null) {
         await _profileRepository.saveProfile(bio: event.bio);
       }
-
-      final userOrFailure = await _profileRepository.getUserProfile();
-
-      emit(
-        userOrFailure.fold(
-          (failure) => state.copyWith(isBioEditing: false),
-          (userProfile) => state.copyWith(
-            userProfile: userProfile,
-            isBioEditing: false,
-          ),
-        ),
-      );
-    });
-
-    on<SaveProfilePic>((event, emit) async {
       final wasImageUpdated = event.image != null;
       if (wasImageUpdated) {
         await _avatarRepository.uploadAvatar(event.image!);
@@ -74,18 +53,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
       emit(
         userOrFailure.fold(
-          (failure) => state.copyWith(isPicEditing: false),
+          (failure) => state.copyWith(isEditing: false),
           (userProfile) => state.copyWith(
             userProfile: userProfile,
-            isPicEditing: false,
+            isEditing: false,
             wasProfilePictureUpdated: wasImageUpdated,
           ),
         ),
       );
     });
 
-    on<CancelEditProfilePic>((event, emit) {
-      emit(state.copyWith(isPicEditing: false));
+    on<CancelEditProfile>((event, emit) {
+      emit(state.copyWith(isEditing: false));
     });
   }
 }

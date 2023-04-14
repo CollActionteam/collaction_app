@@ -15,7 +15,7 @@ class BuildInformationTile extends StatelessWidget {
         const SizedBox(height: 50),
         const SizedBox(
           width: 56,
-          child: Image(image: AssetImage('assets/images/build_info.png')),
+          child: Image(image: AssetImage('assets/images/collaction.png')),
         ),
         const SizedBox(height: 5),
         Text(

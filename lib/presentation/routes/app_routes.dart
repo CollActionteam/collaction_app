@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 
 import '../../../presentation/profile/profile_screen.dart';
-import '../auth/unauthenticated_screen.dart';
 import '../auth/auth_screen.dart';
 import '../auth/widgets/verified.dart';
 import '../contact_form/contact_form_screen.dart';
@@ -15,9 +14,8 @@ import '../demo/components_demo/components_demo_screen.dart';
 import '../demo/demo_screen.dart';
 import '../home/home_screen.dart';
 import '../licenses/licenses_page.dart';
+import '../menu/menu_screen.dart';
 import '../onboarding/onboarding_screen.dart';
-import '../settings/settings_layout.dart';
-import '../settings/settings_screen.dart';
 import '../shared_widgets/web_view_page.dart';
 
 @MaterialAutoRouter(
@@ -65,17 +63,20 @@ import '../shared_widgets/web_view_page.dart';
             AutoRoute(path: 'comments', page: CrowdActionCommentsPage),
           ],
         ),
+        AutoRoute(
+          path: 'menu',
+          name: 'MenuScreenRouter',
+          page: EmptyRouterPage,
+          children: [AutoRoute(path: '', page: MenuPage)],
+        ),
       ],
     ),
     AutoRoute(path: 'onboarding', page: OnboardingPage),
     AutoRoute(path: 'auth', page: AuthPage),
     AutoRoute(path: 'verified', page: VerifiedPage),
-    AutoRoute(path: 'settings-page', page: SettingsPage),
     AutoRoute(path: 'licenses-page', page: LicensesPage),
-    AutoRoute(path: 'settings-layout', page: SettingsLayout),
     AutoRoute(path: 'contact-form', page: ContactFormPage),
     AutoRoute(path: 'webview', page: WebViewPage),
-    AutoRoute(path: 'unauthenticated', page: UnauthenticatedPage)
   ],
 )
 class $AppRouter {}

@@ -88,7 +88,7 @@ void main() {
         stackRouter,
         participationBloc,
         tCrowdaction,
-        [tCommitment],
+        [tCommitmentOption],
       );
       await tester.pumpAndSettle();
 
@@ -111,7 +111,7 @@ void main() {
         stackRouter,
         participationBloc,
         tCrowdaction,
-        List.filled(3, tCommitment),
+        List.filled(3, tCommitmentOption),
       );
       await tester.pumpAndSettle();
 
@@ -128,7 +128,7 @@ void main() {
     testWidgets(
         'on Confirm, adds toggleParticipation event to Participation Bloc',
         (WidgetTester tester) async {
-      final selectedCommitments = List.filled(3, tCommitment);
+      final selectedCommitments = List.filled(3, tCommitmentOption);
 
       await tester.pumpConfirmParticipation(
         stackRouter,
@@ -142,7 +142,7 @@ void main() {
         () => participationBloc.add(
           ParticipationEvent.toggleParticipation(
             crowdActionId: tCrowdaction.id,
-            commitments: selectedCommitments.map((c) => c.id).toList(),
+            commitmentOptions: selectedCommitments.map((c) => c.id).toList(),
           ),
         ),
       );

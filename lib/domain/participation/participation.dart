@@ -14,11 +14,11 @@ class Participation with _$Participation {
     required String fullName,
     required String avatar,
     required String userId,
-    required List<String> commitments,
+    required List<String> commitmentOptions,
     required DateTime joinDate,
     required int dailyCheckIns,
   }) = _Participation;
 
   // Participation avatar url
-  String get avatarUrl => avatar.imageUrl;
+  String get avatarUrl => '$baseStaticUrl/$avatar';
 }

@@ -14,11 +14,12 @@ class CrowdActionDto with _$CrowdActionDto {
 
   const factory CrowdActionDto({
     required String id,
+    required String type,
     required String title,
     required String description,
     required String category,
     required LocationDto location,
-    required List<CommitmentDto> commitments,
+    required List<CommitmentOptionDto> commitmentOptions,
     required ImagesDto images,
     required int participantCount,
     required Status status,
@@ -31,11 +32,13 @@ class CrowdActionDto with _$CrowdActionDto {
   CrowdAction toDomain() {
     return CrowdAction(
       id: id,
+      type: type,
       title: title,
       description: description,
       category: category,
       location: location.toDomain(),
-      commitments: commitments.map((c) => c.toDomain()).toList(),
+      commitmentOptions:
+          commitmentOptions.map((option) => option.toDomain()).toList(),
       images: images.toDomain(),
       participantCount: participantCount,
       status: status,
@@ -91,21 +94,23 @@ class LocationDto with _$LocationDto {
 }
 
 @freezed
-class CommitmentDto with _$CommitmentDto {
-  const CommitmentDto._();
+class CommitmentOptionDto with _$CommitmentOptionDto {
+  const CommitmentOptionDto._();
 
-  factory CommitmentDto({
+  factory CommitmentOptionDto({
     required String id,
+    required String type,
     required String label,
     required int points,
     required List<String> blocks,
     String? description,
     String? icon,
-  }) = _CommitmentDto;
+  }) = _CommitmentOptionDto;
 
-  Commitment toDomain() {
-    return Commitment(
+  CommitmentOption toDomain() {
+    return CommitmentOption(
       id: id,
+      type: type,
       label: label,
       points: points,
       blocks: blocks,
@@ -114,6 +119,6 @@ class CommitmentDto with _$CommitmentDto {
     );
   }
 
-  factory CommitmentDto.fromJson(Map<String, dynamic> json) =>
-      _$CommitmentDtoFromJson(json);
+  factory CommitmentOptionDto.fromJson(Map<String, dynamic> json) =>
+      _$CommitmentOptionDtoFromJson(json);
 }

@@ -2,7 +2,7 @@ import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 
 import '../../test_utilities.dart';
 
-final List<Commitment> tListCommitments = [tCommitment];
+final List<CommitmentOption> tListCommitmentOptions = [tCommitmentOption];
 
 const Images tImage = Images(card: 'tCard', banner: 'tBanner');
 
@@ -16,11 +16,12 @@ CrowdAction generateDummyCrowdaction({
 }) {
   return CrowdAction(
     id: 'tID',
+    type: 'tType',
     title: 'tTitle',
     description: 'tDescription',
     category: 'tCategory',
     location: tLocation,
-    commitments: tListCommitments,
+    commitmentOptions: tListCommitmentOptions,
     endAt: endDate ?? DateTime(2022, 1, 31),
     images: tImage,
     participantCount: participantCnt,

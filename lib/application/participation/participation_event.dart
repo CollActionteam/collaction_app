@@ -8,6 +8,6 @@ class ParticipationEvent with _$ParticipationEvent {
   const factory ParticipationEvent.checkIn() = _CheckIn;
   const factory ParticipationEvent.toggleParticipation({
     required String crowdActionId,
-    List<String>? commitments,
+    List<String>? commitmentOptions,
   }) = _ToggleParticipation;
 }

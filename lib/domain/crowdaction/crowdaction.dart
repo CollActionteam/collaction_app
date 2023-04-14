@@ -14,11 +14,12 @@ class CrowdAction with _$CrowdAction {
 
   const factory CrowdAction({
     required String id,
+    required String type,
     required String title,
     required String description,
     required String category,
     required Location location,
-    required List<Commitment> commitments,
+    required List<CommitmentOption> commitmentOptions,
     required Images images,
     required int participantCount,
     required Status status,
@@ -53,10 +54,10 @@ class CrowdAction with _$CrowdAction {
               : 'Finished';
 
   // Crowdaction banner url
-  String get bannerUrl => images.banner.imageUrl;
+  String get bannerUrl => '$baseStaticUrl/${images.banner}';
 
   // Crowdaction card url
-  String get cardUrl => images.card.imageUrl;
+  String get cardUrl => '$baseStaticUrl/${images.card}';
 }
 
 @freezed
@@ -92,17 +93,18 @@ enum JoinStatus {
 }
 
 @freezed
-class Commitment with _$Commitment {
-  const Commitment._();
+class CommitmentOption with _$CommitmentOption {
+  const CommitmentOption._();
 
-  factory Commitment({
+  factory CommitmentOption({
     required String id,
+    required String type,
     required String label,
     required int points,
     required List<String> blocks,
     String? description,
     String? iconId,
-  }) = _Commitment;
+  }) = _CommitmentOption;
 
   IconData get icon => iconId != null
       ? IconUtil.fromString(iconId!)

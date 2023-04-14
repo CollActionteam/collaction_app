@@ -7,7 +7,7 @@ final crowdActionDto = CrowdActionDto(
   description: 'crowdaction-description',
   category: 'crowdaction-category',
   location: LocationDto(code: 'NL', name: 'Netherlands'),
-  commitments: [],
+  commitmentOptions: [],
   images: ImagesDto(card: 'crowdaction-card', banner: 'crowdaction-banner'),
   participantCount: 0,
   status: Status.waiting,
@@ -15,10 +15,12 @@ final crowdActionDto = CrowdActionDto(
   endAt: '2024-01-01T00:00:00.000+00:00',
   password: 'crowdaction-password',
   subcategory: 'crowdaction-subcategory',
+  type: 'crowdaction-type',
 );
 
 final crowdActionDomain = CrowdAction(
   id: 'crowdaction-id',
+  type: 'crowdaction-type',
   title: 'crowdaction-title',
   description: 'crowdaction-description',
   category: 'crowdaction-category',
@@ -30,7 +32,7 @@ final crowdActionDomain = CrowdAction(
   status: Status.waiting,
   joinStatus: JoinStatus.open,
   endAt: DateTime.parse("2024-01-01T00:00:00.000+00:00"),
-  commitments: [],
+  commitmentOptions: [],
 );
 
 final crowdActionJson = {
@@ -47,5 +49,5 @@ final crowdActionJson = {
   "status": "WAITING",
   "joinStatus": "OPEN",
   "endAt": "2024-01-01T00:00:00.000+00:00",
-  "commitments": [],
+  "commitmentOptions": [],
 };

@@ -8,14 +8,14 @@ import 'commitment_card.dart';
 
 class CommitmentCardList extends StatefulWidget {
   final bool isEnded;
-  final List<Commitment>? commitments;
-  final List<Commitment> selectedCommitments;
+  final List<CommitmentOption>? commitmentOptions;
+  final List<CommitmentOption> selectedCommitments;
 
   /// Widget for easily creating a list of CommitmentCard(s)
   const CommitmentCardList({
     super.key,
     this.isEnded = false,
-    required this.commitments,
+    required this.commitmentOptions,
     required this.selectedCommitments,
   });
 
@@ -28,7 +28,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
   Widget build(BuildContext context) {
     return BlocBuilder<ParticipationBloc, ParticipationState>(
       builder: (context, state) {
-        if (widget.commitments == null) {
+        if (widget.commitmentOptions == null) {
           return ListView(
             shrinkWrap: true,
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -51,7 +51,7 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           physics: const BouncingScrollPhysics(),
           itemBuilder: (ctx, index) {
-            final option = widget.commitments![index];
+            final option = widget.commitmentOptions![index];
             return CommitmentCard(
               key: Key(option.id),
               commitment: option,
@@ -62,14 +62,14 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
               viewOnly: widget.isEnded,
             );
           },
-          itemCount: widget.commitments!.length,
+          itemCount: widget.commitmentOptions!.length,
           shrinkWrap: true,
         );
       },
     );
   }
 
-  void selectCommitment(Commitment commitment) {
+  void selectCommitment(CommitmentOption commitment) {
     setState(() {
       widget.selectedCommitments.add(commitment);
       for (final id in commitment.blocks) {
@@ -78,13 +78,13 @@ class _CommitmentCardListState extends State<CommitmentCardList> {
     });
   }
 
-  void deselectCommitment(Commitment commitment) {
+  void deselectCommitment(CommitmentOption commitment) {
     setState(() {
       widget.selectedCommitments.removeWhere((c) => c.id == commitment.id);
     });
   }
 
-  bool isBlocked(Commitment commitment) {
+  bool isBlocked(CommitmentOption commitment) {
     return widget.selectedCommitments
         .any((c) => c.blocks.contains(commitment.id));
   }

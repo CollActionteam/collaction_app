@@ -3,8 +3,8 @@ part of 'commitment_card_list_test.dart';
 extension WidgetX on WidgetTester {
   Future<void> pumpCommitmentCardList(
     bool isEnded,
-    List<Commitment>? commitments,
-    List<Commitment> selectedCommitments,
+    List<CommitmentOption>? commitmentOptions,
+    List<CommitmentOption> selectedCommitments,
     ParticipationBloc participationBloc,
   ) async {
     await pumpWidget(
@@ -18,7 +18,7 @@ extension WidgetX on WidgetTester {
           home: Scaffold(
             body: CommitmentCardList(
               isEnded: isEnded,
-              commitments: commitments,
+              commitmentOptions: commitmentOptions,
               selectedCommitments: selectedCommitments,
             ),
           ),

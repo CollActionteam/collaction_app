@@ -80,6 +80,9 @@ class _CommitmentCardState extends State<_CommitmentCard> {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        'Commitment: ${widget.commitment.title} - Icon: ${widget.commitment.icon}');
+
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {

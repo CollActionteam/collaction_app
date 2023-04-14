@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../infrastructure/core/injection.dart';
@@ -10,11 +11,11 @@ import '../../../application/participation/participation_bloc.dart';
 import '../../../application/user/profile_tab/profile_tab_bloc.dart';
 import '../../routes/app_routes.gr.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
+import '../../shared_widgets/expandable_text.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 import 'widgets/confirm_participation.dart';
 import 'widgets/crowdaction_chips.dart';
-import 'widgets/crowdaction_description.dart';
 import 'widgets/crowdaction_details_banner.dart';
 import 'widgets/crowdaction_title.dart';
 import 'widgets/participants.dart';
@@ -35,18 +36,19 @@ class CrowdActionDetailsPage extends StatefulWidget {
 }
 
 class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
-  final List<Commitment> selectedCommitments = [];
-  late final ParticipationBloc participationBloc;
-  late final String id;
-  late Function(BuildContext) participate;
+  final List<CommitmentOption> selectedCommitments = [];
   CrowdAction? crowdAction;
+  late final ParticipationBloc participationBloc;
+  late Function(BuildContext) participate;
+
+  late final String id;
 
   @override
   void initState() {
     super.initState();
     participationBloc = getIt<ParticipationBloc>();
-    id = widget.crowdActionId ?? widget.crowdAction!.id;
     participate = _signUpModal;
+    id = widget.crowdActionId ?? widget.crowdAction!.id;
     crowdAction = widget.crowdAction;
   }
 
@@ -84,9 +86,10 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                 participating: (p) {
                   setState(() {
                     selectedCommitments.clear();
-                    for (final id in p.commitments) {
+                    for (final id in p.commitmentOptions) {
                       selectedCommitments.add(
-                        crowdAction!.commitments.firstWhere((c) => c.id == id),
+                        crowdAction!.commitmentOptions
+                            .firstWhere((c) => c.id == id),
                       );
                     }
                   });
@@ -182,7 +185,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                                   ),
                                   const SizedBox(height: 20),
                                   CrowdActionDescription(
-                                    description: crowdAction?.description,
+                                    crowdAction: crowdAction,
                                   ),
                                 ],
                               ),
@@ -228,7 +231,7 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
                             ),
                             CommitmentCardList(
                               isEnded: crowdAction?.isClosed ?? true,
-                              commitments: crowdAction?.commitments,
+                              commitmentOptions: crowdAction?.commitmentOptions,
                               selectedCommitments: selectedCommitments,
                             ),
 
@@ -350,5 +353,42 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   void _createAccount(BuildContext context) {
     context.router.pop();
     context.router.push(const AuthRoute());
+  }
+}
+
+class CrowdActionDescription extends StatelessWidget {
+  const CrowdActionDescription({
+    super.key,
+    required this.crowdAction,
+  });
+
+  final CrowdAction? crowdAction;
+
+  @override
+  Widget build(BuildContext context) {
+    if (crowdAction == null) {
+      return Shimmer.fromColors(
+        baseColor: kPrimaryColor100,
+        highlightColor: kPrimaryColor200,
+        child: Container(
+          height: 150,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: kPrimaryColor100,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+    }
+
+    return ExpandableText(
+      crowdAction!.description,
+      trimLines: 5,
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontSize: 17,
+            fontWeight: FontWeight.w300,
+            height: 1.5,
+          ),
+    );
   }
 }

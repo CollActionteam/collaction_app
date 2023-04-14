@@ -19,6 +19,7 @@ class User with _$User {
 
   bool get isAnonymous => this == anonymous;
 
+  /// TODO: Refactor after MVP to only neccessary fields (use profile microservice for details)
   const factory User({
     required String id,
     required Future<String?> Function([bool forceRefresh]) getIdToken,

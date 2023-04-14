@@ -3,6 +3,7 @@ import 'package:collaction_app/infrastructure/crowdaction/crowdaction_dto.dart';
 final _crowdActionsRawData = [
   {
     "id": "62ceb7110b5e88ce294628a1",
+    "type": "FOOD",
     "title": "Veganuary",
     "description":
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam varius ac ligula quis aliquet. Donec nisi leo, rhoncus ac nulla quis, egestas ornare quam. Nunc nibh ex, venenatis quis maximus vitae, elementum sed urna. Morbi sagittis metus nibh, non lacinia ipsum faucibus eu. Nulla vehicula purus eget congue auctor.",
@@ -16,8 +17,9 @@ final _crowdActionsRawData = [
       "card": "crowdaction-cards/628a7fa741b5aa3af6582a07.png",
       "banner": "crowdaction-banners/628a7fa741b5aa3af6582a07.png"
     },
-    "commitments": [
+    "commitmentOptions": [
       {
+        "type": "FOOD",
         "label": "5/7 Days a week",
         "description": "In case you prefer to exclude weekends",
         "points": -10,
@@ -25,6 +27,7 @@ final _crowdActionsRawData = [
         "id": "62b637e0c5d78b613a3cc6d2"
       },
       {
+        "type": "FOOD",
         "label": "Vegan",
         "description":
             "Commit to eating no product or by-product from any and all animals",
@@ -38,6 +41,7 @@ final _crowdActionsRawData = [
         "id": "62b6381fc5d78b613a3cc6d4"
       },
       {
+        "type": "FOOD",
         "label": "Vegetarian",
         "description":
             "Commit to eating no meat product or by-product of any and all animals",
@@ -46,6 +50,7 @@ final _crowdActionsRawData = [
         "id": "62b63863c5d78b613a3cc6d6"
       },
       {
+        "type": "FOOD",
         "label": "Pescatarian",
         "description":
             "Commit to eating no meat or poultry from animals, except fish and other seafood",
@@ -54,6 +59,7 @@ final _crowdActionsRawData = [
         "id": "62b638a6c5d78b613a3cc6d8"
       },
       {
+        "type": "FOOD",
         "label": "No Beef",
         "description": "Commit to eating no beef",
         "points": 20,
@@ -61,6 +67,7 @@ final _crowdActionsRawData = [
         "id": "62b638c8c5d78b613a3cc6da"
       },
       {
+        "type": "FOOD",
         "label": "No Dairy",
         "description":
             "Commit to eating no dairy products such as cheese and milk",
@@ -80,6 +87,7 @@ final _crowdActionsRawData = [
   },
   {
     "id": "6364ca939d4f5dffc3fe8e25",
+    "type": "ENERGY",
     "title": "Steun je School",
     "description":
         "Tijdens deze campagne staat het thema energiebesparing centraal, in het bijzonder op scholen. We bevinden ons in een energiecrisis en alleen samen komen we eruit! Voor meer informatie, neem een kijkje op collaction.org/steunschool.",
@@ -93,8 +101,9 @@ final _crowdActionsRawData = [
       "card": "crowdaction-cards/education_january.jpg",
       "banner": "crowdaction-banners/education_january.jpg"
     },
-    "commitments": [
+    "commitmentOptions": [
       {
+        "type": "ENERGY",
         "label": "SUSTAINABILITY",
         "description": "",
         "points": 10,
@@ -113,6 +122,7 @@ final _crowdActionsRawData = [
   },
   {
     "id": "6364d440187f67b3798ca86e",
+    "type": "FOOD",
     "title": "The Food Initiative",
     "description":
         "Improve your eating habits, and downscale your CO2 footprint!",
@@ -125,8 +135,9 @@ final _crowdActionsRawData = [
       "card": "crowdaction-cards/placeholder.png",
       "banner": "crowdaction-banners/placeholder.png"
     },
-    "commitments": [
+    "commitmentOptions": [
       {
+        "type": "FOOD",
         "label": "5/7 Days a week",
         "description": "In case you prefer to exclude weekends",
         "points": -10,
@@ -135,6 +146,7 @@ final _crowdActionsRawData = [
         "id": "62b637e0c5d78b613a3cc6d2"
       },
       {
+        "type": "FOOD",
         "label": "Vegan",
         "description": "Commit to eating no product or by-product from animals",
         "points": 50,
@@ -148,6 +160,7 @@ final _crowdActionsRawData = [
         "id": "62b6381fc5d78b613a3cc6d4"
       },
       {
+        "type": "FOOD",
         "label": "Vegetarian",
         "description":
             "Commit to eating no meat product or by-product from animals",
@@ -157,6 +170,7 @@ final _crowdActionsRawData = [
         "id": "62b63863c5d78b613a3cc6d6"
       },
       {
+        "type": "FOOD",
         "label": "Pescatarian",
         "description":
             "Commit to eating no meat or poultry from animals, except fish and other seafood",
@@ -166,6 +180,7 @@ final _crowdActionsRawData = [
         "id": "62b638a6c5d78b613a3cc6d8"
       },
       {
+        "type": "FOOD",
         "label": "No Beef",
         "description": "Commit to eating no beef",
         "points": 20,
@@ -174,6 +189,7 @@ final _crowdActionsRawData = [
         "id": "62b638c8c5d78b613a3cc6da"
       },
       {
+        "type": "FOOD",
         "label": "No Dairy",
         "description":
             "Commit to eating no dairy products such as cheese and milk",

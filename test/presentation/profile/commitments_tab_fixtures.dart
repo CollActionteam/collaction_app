@@ -8,13 +8,15 @@ final user = User(
 
 final crowdAction = CrowdAction(
   id: 'id',
+  type: 'type',
   title: 'title',
   description: 'description',
   category: 'category',
   location: Location(code: 'NL', name: 'The Netherlands'),
-  commitments: [
-    Commitment(
+  commitmentOptions: [
+    CommitmentOption(
       id: 'id',
+      type: 'type',
       label: 'label',
       points: 10,
       blocks: [],

@@ -15,7 +15,7 @@ class ParticipationDto with _$ParticipationDto {
     required String userId,
     required String fullName,
     required String avatar,
-    required List<String> commitments,
+    required List<String> commitmentOptions,
     required String joinDate,
     required int dailyCheckIns,
   }) = _ParticipationDto;
@@ -27,7 +27,7 @@ class ParticipationDto with _$ParticipationDto {
       userId: userId,
       fullName: fullName,
       avatar: avatar,
-      commitments: commitments,
+      commitmentOptions: commitmentOptions,
       joinDate: DateTime.parse(joinDate),
       dailyCheckIns: dailyCheckIns,
     );

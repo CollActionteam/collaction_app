@@ -5,7 +5,3 @@ part of '../core.dart';
 final baseStaticUrl = dotenv.get('BASE_STATIC_ENDPOINT_URL');
 
 final nullStaticUrl = '$baseStaticUrl/${null}';
-
-extension ImageExtension on String {
-  String get imageUrl => '$baseStaticUrl/$this';
-}

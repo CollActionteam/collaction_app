@@ -11,7 +11,7 @@ part 'profile_tab_state.dart';
 class ProfileTabBloc extends Bloc<ProfileTabEvent, ProfileTabState> {
   final ICrowdActionRepository crowdActionRepository;
 
-  ProfileTabBloc(this.crowdActionRepository)
+  ProfileTabBloc({required this.crowdActionRepository})
       : super(ProfileTabState.initial()) {
     on<FetchProfileTabInfo>((event, emit) async {
       final crowdActionsOrFailure =

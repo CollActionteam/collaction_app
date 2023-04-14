@@ -10,7 +10,7 @@ void main() {
       await buildAndPump(
         tester: tester,
         widget: CommitmentCard(
-          commitment: commitment,
+          commitment: commitmentOption,
         ),
       );
       await tester.pumpAndSettle();
@@ -22,7 +22,7 @@ void main() {
       await buildAndPump(
         tester: tester,
         widget: CommitmentCard(
-          commitment: commitment,
+          commitment: commitmentOption,
           deactivated: true,
         ),
       );
@@ -40,7 +40,7 @@ void main() {
           onSelected: (_) => counter++,
           onDeSelected: (_) => counter--,
           active: false,
-          commitment: commitment,
+          commitment: commitmentOption,
         ),
       );
       await tester.pumpAndSettle();
@@ -64,7 +64,7 @@ void main() {
           onSelected: (_) => counter++,
           onDeSelected: (_) => counter--,
           active: true,
-          commitment: commitment,
+          commitment: commitmentOption,
         ),
       );
       await tester.pumpAndSettle();
@@ -83,7 +83,7 @@ void main() {
       await buildAndPump(
         tester: tester,
         widget: CommitmentCard(
-          commitment: commitment,
+          commitment: commitmentOption,
           viewOnly: true,
         ),
       );

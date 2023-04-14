@@ -78,17 +78,24 @@ class TestUtilities {
       (_) async => right(crowdActions.map((u) => u.toDomain()).toList()),
     );
 
+    when(() => crowdActionRepo.subscribeToCrowdAction(any(), any(), any()))
+        .thenAnswer((_) async => right(unit));
+
+    when(() => crowdActionRepo.unsubscribeFromCrowdAction(any()))
+        .thenAnswer((_) async => right(unit));
+
     GetIt.instance.registerSingleton<ICrowdActionRepository>(crowdActionRepo);
   }
 
   static CrowdAction crowdActionWithNParticipants(int participantCount) {
     return CrowdAction(
       id: 'tID',
+      type: '',
       title: 'tTitle',
       description: 'tDescription',
       category: 'tCategory',
       location: tLocation,
-      commitments: [tCommitment],
+      commitmentOptions: [tCommitmentOption],
       endAt: DateTime(2022, 1, 31),
       images: const Images(card: 'tCard', banner: 'tBanner'),
       participantCount: participantCount,
@@ -109,11 +116,12 @@ BASE_STATIC_ENDPOINT_URL = http://collaction.org
 
 final tCrowdaction = CrowdAction(
   id: 'tID',
+  type: '',
   title: 'tTitle',
   description: 'tDescription',
   category: 'tCategory',
   location: tLocation,
-  commitments: [tCommitment],
+  commitmentOptions: [tCommitmentOption],
   endAt: DateTime(2022, 1, 31),
   images: const Images(card: 'tCard', banner: 'tBanner'),
   participantCount: 10,
@@ -124,11 +132,12 @@ final tCrowdaction = CrowdAction(
 
 final tCrowdactionNoPassword = CrowdAction(
   id: 'tID',
+  type: '',
   title: 'tTitle',
   description: 'tDescription',
   category: 'tCategory',
   location: tLocation,
-  commitments: [tCommitment],
+  commitmentOptions: [tCommitmentOption],
   endAt: DateTime(2022, 1, 31),
   images: const Images(card: 'tCard', banner: 'tBanner'),
   participantCount: 10,
@@ -136,23 +145,25 @@ final tCrowdactionNoPassword = CrowdAction(
   joinStatus: JoinStatus.closed,
 );
 
-final tCommitment = Commitment(
+final tCommitmentOption = CommitmentOption(
   id: 'no-beef',
+  type: 'food',
   label: 'tLabel',
   description: 'tDescription',
   points: 0,
   blocks: [],
 );
 
-final tBlockingCommitment = Commitment(
+final tBlockingCommitmentOption = CommitmentOption(
   id: 'no-meat',
+  type: 'food',
   label: 'tLabel',
   description: 'tDescription',
   points: 0,
   blocks: ['no-beef'],
 );
 
-final List<String> tCommitments = ['tCommitment'];
+final List<String> tCommitment = ['tCommitment'];
 
 final Participation tParticipation = Participation(
   id: 'tID',
@@ -160,7 +171,7 @@ final Participation tParticipation = Participation(
   fullName: 'John Doe',
   avatar: 'tAvatar',
   userId: 'tID',
-  commitments: tCommitments,
+  commitmentOptions: tCommitment,
   joinDate: DateTime.now(),
   dailyCheckIns: 5,
 );

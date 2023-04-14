@@ -10,7 +10,7 @@ abstract class IParticipationRepository {
 
   Future<Either<ParticipationFailure, Unit>> toggleParticipation({
     required String crowdActionId,
-    List<String>? commitments,
+    List<String>? commitmentOptions,
   });
 
   Future<Either<ParticipationFailure, PaginatedParticipations>>

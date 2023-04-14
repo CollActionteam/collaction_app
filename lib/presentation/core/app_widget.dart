@@ -16,7 +16,7 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (_) => getIt<AuthBloc>()..add(AuthEvent.initial()),
+          create: (_) => getIt<AuthBloc>(),
         ),
         BlocProvider<ProfileBloc>(
           create: (_) => getIt<ProfileBloc>()..add(GetUserProfile()),
@@ -29,12 +29,6 @@ class AppWidget extends StatelessWidget {
         listener: (context, state) {
           BlocProvider.of<ProfileBloc>(context).add(GetUserProfile());
           BlocProvider.of<ProfileTabBloc>(context).add(FetchProfileTabInfo());
-
-          state.whenOrNull(
-            unauthenticated: () {
-              _appRouter.replaceAll([const UnauthenticatedRoute()]);
-            },
-          );
         },
         child: MaterialApp.router(
           color: Colors.white,

@@ -10,7 +10,7 @@ final testParticipation = Participation(
   fullName: testProfile.fullName,
   avatar: testProfile.avatar,
   userId: testUser.id,
-  commitments: [],
+  commitmentOptions: [],
   joinDate: DateTime.now(),
   dailyCheckIns: 2,
 );
