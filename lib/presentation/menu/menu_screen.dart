@@ -37,8 +37,7 @@ class MenuPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20) +
-                          const EdgeInsets.only(top: 10, bottom: 6),
+padding: const EdgeInsets.fromLTRB(20, 10, 20, 6),```
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
