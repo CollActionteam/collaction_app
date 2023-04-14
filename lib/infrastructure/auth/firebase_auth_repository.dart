@@ -226,6 +226,9 @@ class FirebaseAuthRepository implements IAuthRepository, Disposable {
   Stream<User?> observeUser() => _userSubject.stream.distinct();
 
   @override
+  User get currentUser => _firebaseUserToUser(firebaseAuth.currentUser);
+
+  @override
   FutureOr onDispose() {
     _userStreamSubscription.cancel();
     _userSubject.close();

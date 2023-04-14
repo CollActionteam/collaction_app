@@ -93,8 +93,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: ProfilePicture(
                                     image: _image,
-                                    profileImage:
-                                        state.userProfile?.profile.avatar,
+
+                                    profileImage: state.userProfile?.avatarUrl,
+>>>>>>> development
                                     maxRadius: 50,
                                   ),
                                 ),

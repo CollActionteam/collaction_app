@@ -28,7 +28,7 @@ class MicroCrowdActionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         onTap: () {
           if (crowdAction.hasPassword) {
-            showPasswordModal(context, crowdAction);
+            PasswordModal.show(context, crowdAction);
           } else {
             context.router.push(
               CrowdActionDetailsRoute(

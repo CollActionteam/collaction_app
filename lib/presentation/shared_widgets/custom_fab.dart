@@ -8,15 +8,16 @@ class CustomFAB extends StatelessWidget {
   final String? heroTag;
   final GestureTapCallback? onPressed;
   final Color? color;
+  final double? elevation;
 
-  const CustomFAB({
-    super.key,
-    required this.child,
-    this.isMini = false,
-    this.heroTag = "fabBtn",
-    this.onPressed,
-    this.color,
-  });
+  const CustomFAB(
+      {super.key,
+      required this.child,
+      this.isMini = false,
+      this.heroTag = "fabBtn",
+      this.onPressed,
+      this.color,
+      this.elevation});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class CustomFAB extends StatelessWidget {
           color ?? (onPressed != null ? kAccentColor : kDisabledButtonColor),
       mini: isMini,
       child: child,
+      elevation: elevation ?? 6,
     );
   }
 }

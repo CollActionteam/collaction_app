@@ -12,12 +12,12 @@ import '../../../shared_widgets/image_skeleton_loader.dart';
 import '../../../themes/constants.dart';
 
 class CrowdActionDetailsBanner extends StatelessWidget {
+  final CrowdAction? crowdAction;
+
   const CrowdActionDetailsBanner({
     super.key,
     required this.crowdAction,
   });
-
-  final CrowdAction? crowdAction;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                 right: 10,
                 child: Row(
                   children: [
-                    if (crowdAction?.hasPassword ?? false)
+                    if (crowdAction?.hasPassword ?? false) ...[
                       CustomFAB(
                         heroTag: 'locked',
                         isMini: true,
@@ -89,11 +89,17 @@ class CrowdActionDetailsBanner extends StatelessWidget {
                           color: kPrimaryColor300,
                         ),
                       ),
-                    if (crowdAction?.location != null)
+                    ],
+                    if ((crowdAction?.hasPassword ?? false) &&
+                        (crowdAction?.location != null)) ...[
+                      const SizedBox(width: 6),
+                    ],
+                    if (crowdAction?.location != null) ...[
                       CountryIcon(
                         countryCode: crowdAction?.location.code ?? 'nl',
                         radius: 20,
-                      )
+                      ),
+                    ],
                   ],
                 )),
           ],

@@ -20,5 +20,5 @@ class Participation with _$Participation {
   }) = _Participation;
 
   // Participation avatar url
-  String get avatarUrl => '$baseStaticUrl/$avatar';
+  String get avatarUrl => avatar.imageUrl;
 }
