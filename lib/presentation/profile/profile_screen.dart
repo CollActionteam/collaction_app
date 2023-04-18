@@ -36,6 +36,16 @@ class _UserProfilePageState extends State<UserProfilePage> {
       value: BlocProvider.of<ProfileBloc>(context),
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
+          if (state.didPicSaveFail ?? false) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'Something went wrong trying to save profile picture, please try again or reach out to us',
+                ),
+              ),
+            );
+          }
+
           bioController.value =
               TextEditingValue(text: state.userProfile?.profile.bio ?? '');
 
@@ -55,12 +65,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   ).merge(
                     ButtonStyle(
                       elevation: MaterialStateProperty.resolveWith<double?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return 5;
-                          }
-                          return 4;
-                        },
+                        (states) =>
+                            states.contains(MaterialState.pressed) ? 5 : 4,
                       ),
                     ),
                   ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import 'constants.dart';
 
-@WidgetbookTheme(name: 'Light')
 ThemeData lightTheme() {
   final theme = ThemeData.light();
 
