@@ -287,53 +287,6 @@ jobs:
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
           rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
 
-  deploy_widgetbook:
-    needs: [analyze, test]
-    runs-on: ubuntu-latest
-    env:
-      WIDGETBOOK_API_KEY: ${{ secrets.WIDGETBOOK_API_KEY }}
-    steps:
-      - name: Fetch code from cache
-        id: code-cache
-        uses: actions/cache@v3
-        with:
-          path: .
-          key: code-cache-${{ github.sha }}
-          restore-keys: |
-            code-cache-${{ github.sha }}
-            code-cache-
-            code-cache
-
-      - name: Cache Flutter install
-        uses: actions/cache@v3
-        with:
-          # Linux (deprecate):
-          # path: /opt/hostedtoolcache/flutter
-          # MacOS:
-          path: /Users/runner/hostedtoolcache/flutter
-          key: cache-flutter-${{ env.flutter_channel }}-${{ env.flutter_version }}-${{ runner.os }}
-
-      - name: Setup the Flutter environment
-        uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ env.flutter_channel }}
-          flutter-version: ${{ env.flutter_version }}
-
-      - name: Install Widgetbook CLI
-        run: dart pub global activate widgetbook_cli 3.0.0-beta.13
-
-      - name: Get Flutter dependencies
-        run: flutter pub get .
-
-      - name: Build web
-        run: |
-          echo ${{ secrets.ENV }} | base64 -d > .env
-          flutter build web -t lib/widgetbook/app.widgetbook.dart
-
-      - name: Publish to Widgetbook
-        if: github.event_name != 'pull_request'
-        run: widgetbook publish --api-key $WIDGETBOOK_API_KEY
-
   distribute_android:
     environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
     needs: [build_android]
