@@ -16,7 +16,7 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (_) => getIt<AuthBloc>()..add(AuthEvent.initial()),
+          create: (_) => getIt<AuthBloc>()..add(AuthEvent.authCheckRequested()),
         ),
         BlocProvider<ProfileBloc>(create: (_) => getIt<ProfileBloc>()),
         BlocProvider<ProfileTabBloc>(create: (_) => getIt<ProfileTabBloc>())
@@ -34,8 +34,9 @@ class AppWidget extends StatelessWidget {
               BlocProvider.of<ProfileTabBloc>(context)
                   .add(FetchProfileTabInfo());
             },
-            unauthenticated: () =>
-                _appRouter.replaceAll([const UnauthenticatedRoute()]),
+            unauthenticated: () {
+              _appRouter.replaceAll([const UnauthenticatedRoute()]);
+            },
             orElse: () {},
           );
         },
