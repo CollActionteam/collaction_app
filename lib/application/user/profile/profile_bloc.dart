@@ -42,7 +42,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
 
     on<EditProfilePic>((event, emit) {
-      emit(state.copyWith(isPicEditing: true));
+      emit(state.copyWith(isPicEditing: true, didPicSaveFail: false));
     });
 
     on<SaveBio>((event, emit) async {
@@ -69,12 +69,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         await _avatarRepository.uploadAvatar(event.image!);
       }
 
-      // TODO handle could not upload profile picture!
       final userOrFailure = await _profileRepository.getUserProfile();
 
       emit(
         userOrFailure.fold(
-          (failure) => state.copyWith(isPicEditing: false),
+          (failure) => state.copyWith(
+            isPicEditing: false,
+            didPicSaveFail: true,
+          ),
           (userProfile) => state.copyWith(
             userProfile: userProfile,
             isPicEditing: false,
