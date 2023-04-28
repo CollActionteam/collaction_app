@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/user/user.dart';
 import '../../shared_widgets/micro_crowdaction_card.dart';
+import '../../shared_widgets/micro_crowdaction_card_loading.dart';
 import '../../themes/constants.dart';
 import 'signup_cta.dart';
 
@@ -26,7 +27,7 @@ class CrowdActionsTab extends StatelessWidget {
           children: [
             if (crowdActions?.isEmpty ?? true) ...[
               const SizedBox(height: 40),
-              Image.asset('assets/images/crowdactions_tab_empty.png'),
+              MicroCrowdActionCardLoading(),
               const SizedBox(height: 40),
             ] else ...[
               Padding(

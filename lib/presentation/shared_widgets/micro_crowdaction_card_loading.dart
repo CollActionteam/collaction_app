@@ -36,53 +36,33 @@ class MicroCrowdActionCardLoading extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        AccentChip(
-                          text: "Currently running",
-                        ),
-                        const SizedBox(width: 10),
-                        Container(
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 3),
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(24)),
+                      height: 35,
+                      width: MediaQuery.of(context).size.width * .25,
+                    ),
+                    ...List.generate(
+                      2,
+                      (index) => Container(
+                        margin: const EdgeInsets.only(top: 6),
+                        decoration: BoxDecoration(
                             color: Colors.black,
-                          ),
-                        ),
-                      ],
+                            borderRadius: BorderRadius.circular(8)),
+                        height: 20,
+                        width: MediaQuery.of(context).size.width * .6,
+                      ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(
-                        top: 10,
-                      ),
+                      margin: const EdgeInsets.only(top: 6),
                       decoration: BoxDecoration(
                           color: Colors.black,
-                          borderRadius: BorderRadius.circular(24)),
-                      height: 17,
-                      width: 90,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 6,
-                        bottom: 2,
-                      ),
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(24)),
-                      height: 12,
-                      width: 200,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 6,
-                      ),
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(24)),
-                      height: 12,
-                      width: 200,
-                    ),
+                          borderRadius: BorderRadius.circular(8)),
+                      height: 20,
+                      width: MediaQuery.of(context).size.width * .2,
+                    )
                   ],
                 ),
               ),

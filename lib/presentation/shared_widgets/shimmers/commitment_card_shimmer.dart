@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 import 'title_shimmer_line.dart';
 
@@ -16,8 +15,7 @@ class CommitmentCardShimmer extends StatelessWidget {
         color: kSecondaryColor,
         border: Border.all(color: kPrimaryColor0),
       ),
-      margin: const EdgeInsets.symmetric(vertical: 5.0),
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(5.0),
       child: Row(
         children: [
           Container(
@@ -28,12 +26,10 @@ class CommitmentCardShimmer extends StatelessWidget {
             ),
             alignment: Alignment.center,
             child: Shimmer.fromColors(
-              baseColor: kSecondaryTransparent,
+              baseColor: kPrimaryColor0,
               highlightColor: kAlmostTransparent,
-              child: const Icon(
-                CollactionIcons.commitment,
-                color: kPrimaryColor0,
-                size: 30,
+              child: const CircleAvatar(
+                radius: 75 / 2,
               ),
             ),
           ),
@@ -48,7 +44,7 @@ class CommitmentCardShimmer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Shimmer.fromColors(
-                  baseColor: Colors.black.withOpacity(0.1),
+                  baseColor: kPrimaryColor0,
                   highlightColor: Colors.white.withOpacity(0.2),
                   child: TitleShimmerLine(
                     width: MediaQuery.of(context).size.width * 0.4,
@@ -56,10 +52,9 @@ class CommitmentCardShimmer extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Shimmer.fromColors(
-                  baseColor: Colors.black.withOpacity(0.1),
+                  baseColor: kPrimaryColor0,
                   highlightColor: Colors.white.withOpacity(0.2),
                   child: TitleShimmerLine(
-                    height: 18,
                     width: MediaQuery.of(context).size.width * 0.5,
                   ),
                 ),
