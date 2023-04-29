@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rive/rive.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../application/user/profile/profile_bloc.dart';
 import '../../../infrastructure/core/injection.dart';
+import '../../core/collaction_icons.dart';
 import '../../routes/app_routes.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../shared_widgets/shimmers/title_shimmer_line.dart';
@@ -29,11 +29,13 @@ class VerifiedPage extends StatelessWidget {
                     const SizedBox(
                       height: 150,
                     ),
-                    ConstrainedBox(
-                      constraints: BoxConstraints.tight(const Size(150, 150)),
-                      child: const RiveAnimation.asset(
-                        'assets/animations/verified.riv',
-                      ),
+                    const Icon(
+                      CollactionIcons.check_circle,
+                      size: 75,
+                      color: kAccentColor,
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     const Text(
                       'You are all set',
