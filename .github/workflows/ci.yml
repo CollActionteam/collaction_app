@@ -164,7 +164,7 @@ jobs:
         run: |
           echo ${{ secrets.ENV }} | base64 -d > .env
           echo $GOOGLE_SERVICES_JSON | base64 -d > android/app/google-services.json
-          flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons
+          flutter build appbundle --release --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons --obfuscate --split-debug-info=build-info/
           cp release_notes.txt build/app/outputs/
 
       - name: Sign appbundle
@@ -271,7 +271,7 @@ jobs:
         run: |
           echo ${{ secrets.ENV }} | base64 -d > .env
           echo $IOS_GOOGLESERVICE_INFO_PLIST | base64 --decode > ios/Runner/GoogleService-Info.plist
-          flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons
+          flutter build ipa --release --export-options-plist=ExportOptions.plist --build-number $GITHUB_RUN_NUMBER --no-tree-shake-icons  --obfuscate --split-debug-info=build-info/
           cp release_notes.txt build/ios/ipa/
 
       - name: Upload iOS build artifacts
