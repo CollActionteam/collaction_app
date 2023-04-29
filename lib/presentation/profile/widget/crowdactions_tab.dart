@@ -27,7 +27,7 @@ class CrowdActionsTab extends StatelessWidget {
           children: [
             if (crowdActions?.isEmpty ?? true) ...[
               const SizedBox(height: 40),
-              MicroCrowdActionCardLoading(),
+              MicroCrowdactionSkeleton(),
               const SizedBox(height: 40),
             ] else ...[
               Padding(

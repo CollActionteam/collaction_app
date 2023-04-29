@@ -29,7 +29,7 @@ class CommitmentsTab extends StatelessWidget {
           children: [
             if (crowdActions?.isEmpty ?? true) ...[
               const SizedBox(height: 40),
-              CommitmentCardShimmer(),
+              CommitmentCardSkeleton(),
               const SizedBox(height: 40),
             ] else ...[
               Padding(
