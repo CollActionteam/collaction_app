@@ -23,7 +23,6 @@ import '../shared_widgets/web_view_page.dart';
 part 'app_pages.dart';
 
 class AppRouter {
-  // final ISettingsRepository settingsRepository;
   final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'root');
 
@@ -55,21 +54,20 @@ class AppRouter {
               ]),
               StatefulShellBranch(routes: [
                 GoRoute(
-                  path: AppPage.demoPage.path,
-                  pageBuilder: (_, __) => NoTransitionPage(child: DemoPage()),
-                  routes: [
-                    GoRoute(
-                      path: 'components',
-                      parentNavigatorKey: _rootNavigatorKey,
-                      builder: (_, __) => const ComponentsDemoPage(),
-                    ),
-                    GoRoute(
-                      path: 'comments',
-                      parentNavigatorKey: _rootNavigatorKey,
-                      builder: (_, __) => const CrowdActionCommentsPage(),
-                    ),
-                  ]
-                )
+                    path: AppPage.demoPage.path,
+                    pageBuilder: (_, __) => NoTransitionPage(child: DemoPage()),
+                    routes: [
+                      GoRoute(
+                        path: 'components',
+                        parentNavigatorKey: _rootNavigatorKey,
+                        builder: (_, __) => const ComponentsDemoPage(),
+                      ),
+                      GoRoute(
+                        path: 'comments',
+                        parentNavigatorKey: _rootNavigatorKey,
+                        builder: (_, __) => const CrowdActionCommentsPage(),
+                      ),
+                    ])
               ])
             ],
           ),
@@ -84,7 +82,6 @@ class AppRouter {
             path: '${AppPage.crowdActionDetails.path}/:id',
             parentNavigatorKey: _rootNavigatorKey,
             builder: (BuildContext context, GoRouterState state) {
-
               return CrowdActionDetailsPage(
                 crowdActionId: state.pathParameters['id'],
               );
@@ -148,17 +145,7 @@ class AppRouter {
         ],
         debugLogDiagnostics: true,
         initialLocation: AppPage.home.path,
-        // redirect: (context, state) async {
-        //   final isNotOnBoarded = state.location != AppPage.onBoarding.path &&
-        //       !(await settingsRepository.getWasUserOnboarded());
-        //
-        //   if (isNotOnBoarded) {
-        //     return AppPage.onBoarding.path;
-        //   }
-        //
-        //   return null;
-        // },
       );
 
-  AppRouter(/*this.settingsRepository*/);
+  AppRouter();
 }

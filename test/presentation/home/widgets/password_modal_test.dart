@@ -1,11 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/presentation/home/widgets/password_modal.dart';
+import 'package:collaction_app/presentation/routes/app_routes.dart';
 import 'package:collaction_app/presentation/themes/constants.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../domain/core/i_settings_repository.mocks.dart';
@@ -14,11 +14,11 @@ import '../../../test_utilities.dart';
 import '../../router.mocks.dart';
 
 void main() {
-  late StackRouter stackRouter;
+  late GoRouter goRouter;
   late ISettingsRepository iSettingsRepository;
 
   setUpAll(() {
-    stackRouter = RouteHelpers.setUpRouterStubs();
+    goRouter = RouteHelpers.setUpRouterStubs();
 
     iSettingsRepository = SettingsRepositoryMock();
     when(
@@ -106,7 +106,7 @@ void main() {
     //     await buildAndPump(
     //       tester: tester,
     //       widget: PasswordModal(crowdAction: tCrowdaction)
-    //           .withRouterScope(stackRouter),
+    //           .withRouterScope(goRouter),
     //     );
     //     await tester.pumpAndSettle();
 
@@ -120,7 +120,7 @@ void main() {
     //     ).called(1);
 
     //     final capturedRoutes =
-    //         verify(() => stackRouter.popAndPush(captureAny())).captured;
+    //         verify(() => goRouter.popAndPush(captureAny())).captured;
     //     expect(capturedRoutes.length, 1);
     //     expect(capturedRoutes.first, isA<CrowdActionDetailsRoute>());
 
@@ -162,7 +162,7 @@ void main() {
             home: Scaffold(
               body: Container(),
             ),
-          ).withRouterScope(stackRouter),
+          ).withRouterScope(goRouter),
         );
 
         PasswordModal.show(
@@ -172,14 +172,11 @@ void main() {
 
         await tester.pumpAndSettle();
 
-        final capturedRoutes =
-            verify(() => stackRouter.push(captureAny())).captured;
-        expect(capturedRoutes.length, 1);
-        expect(capturedRoutes.first, isA<CrowdActionDetailsRoute>());
-
-        final route = capturedRoutes.first as CrowdActionDetailsRoute;
-        expect(route.args?.crowdAction, tCrowdaction);
-        expect(route.args?.crowdActionId, null);
+        verify(
+          () => goRouter.push(
+            AppPage.crowdActionDetailsRoute(tCrowdaction.id),
+          ),
+        ).called(1);
       },
     );
   });

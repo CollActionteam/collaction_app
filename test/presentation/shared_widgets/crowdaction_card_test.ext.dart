@@ -3,7 +3,7 @@ part of 'crowdaction_card_test.dart';
 extension WidgetX on WidgetTester {
   Future<void> pumpCrowdactionCard(
     CrowdAction crowdAction, [
-    StackRouter? stackRouter,
+    GoRouter? goRouter,
   ]) async {
     await pumpWidget(
       MaterialApp(
@@ -12,7 +12,7 @@ extension WidgetX on WidgetTester {
             crowdAction: crowdAction,
           ),
         ),
-      ).withRouterScope(stackRouter),
+      ).withRouterScope(goRouter),
     );
   }
 }

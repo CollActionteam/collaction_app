@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/application/user/avatar/avatar_bloc.dart';
@@ -12,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -23,7 +23,7 @@ import '../shared_widgets/photo_selector_test.dart';
 part 'profile_photo_test.ext.dart';
 
 void main() {
-  late StackRouter stackRouter;
+  late GoRouter goRouter;
 
   late AvatarBloc avatarBloc;
   late AuthBloc authBloc;
@@ -34,7 +34,7 @@ void main() {
       MethodChannel('plugins.hunghd.vn/image_cropper');
 
   setUpAll(() {
-    stackRouter = RouteHelpers.setUpRouterStubs();
+    goRouter = RouteHelpers.setUpRouterStubs();
 
     // Avatar Bloc
     avatarBloc = MockAvatarBloc();
@@ -72,7 +72,7 @@ void main() {
 
   group('SelectProfilePhoto tests:', () {
     testWidgets('can render', (WidgetTester tester) async {
-      await tester.pumpSelectProfilePhoto(authBloc, stackRouter, onSkip: () {});
+      await tester.pumpSelectProfilePhoto(authBloc, goRouter, onSkip: () {});
       await tester.pumpAndSettle();
 
       expect(find.byType(SelectProfilePhoto), findsOneWidget);
@@ -91,7 +91,7 @@ void main() {
       bool onSkipCalled = false;
       await tester.pumpSelectProfilePhoto(
         authBloc,
-        stackRouter,
+        goRouter,
         onSkip: () => onSkipCalled = true,
       );
       await tester.tap(find.text('Maybe later'));
@@ -102,7 +102,7 @@ void main() {
 
     testWidgets('open PhotoSelection, select photo, adds event to AuthBloc',
         (WidgetTester tester) async {
-      await tester.pumpSelectProfilePhoto(authBloc, stackRouter, onSkip: () {});
+      await tester.pumpSelectProfilePhoto(authBloc, goRouter, onSkip: () {});
 
       expect(
         tester.firstWidget<PillButton>(find.byType(PillButton)).isEnabled,
@@ -129,21 +129,21 @@ void main() {
       verify(() => authBloc.add(any())).called(1);
     });
 
-    testWidgets('stackRouter pops on uploadSuccess event',
+    testWidgets('goRouter pops on uploadSuccess event',
         (WidgetTester tester) async {
       whenListen(
         avatarBloc,
         Stream.fromIterable([AvatarState.uploadSuccess()]),
       );
-      await tester.pumpSelectProfilePhoto(authBloc, stackRouter, onSkip: () {});
-      verify(() => stackRouter.pop()).called(1);
+      await tester.pumpSelectProfilePhoto(authBloc, goRouter, onSkip: () {});
+      verify(() => goRouter.pop()).called(1);
     });
 
     testWidgets('PillButton isLoading', (WidgetTester tester) async {
       when(() => authBloc.state).thenAnswer(
         (_) => AuthState.awaitingPhotoUpdate(),
       );
-      await tester.pumpSelectProfilePhoto(authBloc, stackRouter, onSkip: () {});
+      await tester.pumpSelectProfilePhoto(authBloc, goRouter, onSkip: () {});
       expect(
         tester.firstWidget<PillButton>(find.byType(PillButton)).isLoading,
         true,

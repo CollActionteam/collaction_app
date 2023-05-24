@@ -2,7 +2,7 @@ part of 'confirm_participation_test.dart';
 
 extension WidgetX on WidgetTester {
   Future<void> pumpConfirmParticipation(
-      StackRouter stackRouter,
+      GoRouter goRouter,
       ParticipationBloc participationBloc,
       CrowdAction crowdAction,
       List<Commitment> selectedCommitments) async {
@@ -15,7 +15,7 @@ extension WidgetX on WidgetTester {
                 crowdAction: crowdAction,
                 selectedCommitments: selectedCommitments),
           ),
-        ).withRouterScope(stackRouter),
+        ).withRouterScope(goRouter),
       ),
     );
   }
