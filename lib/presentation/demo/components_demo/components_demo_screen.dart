@@ -1,5 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../shared_widgets/accent_chip.dart';
@@ -326,9 +326,7 @@ class ComponentsDemoPageState extends State<ComponentsDemoPage> {
                   width: double.infinity,
                   height: 52,
                   child: TextButton(
-                    onPressed: () {
-                      context.router.pop();
-                    },
+                    onPressed: context.pop,
                     child: const Text("Cancel"),
                   ),
                 ),

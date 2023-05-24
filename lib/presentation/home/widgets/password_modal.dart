@@ -1,12 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/core/i_settings_repository.dart';
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../infrastructure/core/injection.dart';
 import '../../../presentation/core/collaction_icons.dart';
-import '../../../presentation/routes/app_routes.gr.dart';
+
 import '../../../presentation/themes/constants.dart';
+import '../../routes/app_routes.dart';
 
 class PasswordModal extends StatefulWidget {
   final CrowdAction crowdAction;
@@ -27,8 +28,8 @@ class PasswordModal extends StatefulWidget {
     final accessList = await settingsRepository.getCrowdActionAccessList();
 
     if (accessList.contains(crowdAction.id)) {
-      context.router.push(
-        CrowdActionDetailsRoute(crowdAction: crowdAction),
+      context.push(
+        AppPage.crowdActionDetailsRoute(crowdAction.id),
       );
     } else {
       showModalBottomSheet(
@@ -167,11 +168,8 @@ class _PasswordModalState extends State<PasswordModal> {
 
       addCrowdActionAccess();
 
-      context.router.popAndPush(
-        CrowdActionDetailsRoute(
-          crowdAction: widget.crowdAction,
-        ),
-      );
+      context.pop();
+      context.push(AppPage.crowdActionDetailsRoute(widget.crowdAction.id));
     } else {
       setState(() => _validated = false);
     }

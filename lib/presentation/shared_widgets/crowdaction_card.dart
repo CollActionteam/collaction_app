@@ -1,14 +1,16 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../core/collaction_icons.dart';
 import '../crowdaction/crowdaction_details/widgets/participants.dart';
 import '../home/widgets/password_modal.dart';
-import '../routes/app_routes.gr.dart';
+
+import '../routes/app_routes.dart';
 import '../themes/constants.dart';
 import 'country_icon.dart';
 import 'custom_fab.dart';
@@ -46,8 +48,8 @@ class _CrowdActionCardState extends State<CrowdActionCard>
                 if (widget.crowdAction.hasPassword) {
                   PasswordModal.show(context, widget.crowdAction);
                 } else {
-                  context.router.push(
-                    CrowdActionDetailsRoute(crowdAction: widget.crowdAction),
+                  context.push(
+                    AppPage.crowdActionDetailsRoute(widget.crowdAction.id),
                   );
                 }
               },

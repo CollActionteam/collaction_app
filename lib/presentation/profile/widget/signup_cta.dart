@@ -1,8 +1,11 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../core/core.dart';
 import '../../../domain/user/user.dart';
-import '../../routes/app_routes.gr.dart';
+
+import '../../routes/app_routes.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
 
@@ -50,7 +53,7 @@ class SignUpCTA extends StatelessWidget {
             PillButton(
               text: 'Sign in',
               onTap: () {
-                context.router.push(const AuthRoute());
+                context.push(AppPage.auth.path);
               },
             ),
           ],

@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../application/participation/participation_bloc.dart';
@@ -164,7 +164,7 @@ class WithdrawParticipation extends StatelessWidget {
                         width: double.infinity,
                         height: 52,
                         child: TextButton(
-                          onPressed: () => context.router.pop(),
+                          onPressed: context.pop,
                           child: const Text("Cancel"),
                         ),
                       ),

@@ -1,11 +1,12 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
 
-import '../routes/app_routes.gr.dart';
-import '../shared_widgets/pill_button.dart';
-import '../themes/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
+import '../routes/app_routes.dart';
+import '../shared_widgets/pill_button.dart';
+import '../themes/constants.dart';
 
 class UnauthenticatedPage extends StatelessWidget {
   @override
@@ -51,7 +52,7 @@ class UnauthenticatedPage extends StatelessWidget {
                 text: 'Log In',
                 isEnabled: true,
                 isLoading: false,
-                onTap: () => context.router.push(const AuthRoute()),
+                onTap: () => context.push(AppPage.auth.path),
                 lightBackground: true,
               ),
               const SizedBox(height: 80),
@@ -66,7 +67,7 @@ class UnauthenticatedPage extends StatelessWidget {
     // Push onboarding screen if first time launching application
     final settingsRepository = getIt<ISettingsRepository>();
     if (!(await settingsRepository.getWasUserOnboarded())) {
-      context.router.push(const OnboardingRoute());
+      context.push(AppPage.onBoarding.path);
     }
   }
 }

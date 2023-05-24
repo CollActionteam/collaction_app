@@ -1,13 +1,14 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../application/user/profile/profile_bloc.dart';
 import '../core/collaction_icons.dart';
-import '../routes/app_routes.gr.dart';
+
+import '../routes/app_routes.dart';
 import '../shared_widgets/photo_selector.dart';
 import '../shared_widgets/pill_button.dart';
 import '../themes/constants.dart';
@@ -77,7 +78,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () => context.router.push(const SettingsRoute()),
+                  onPressed: () => context.push(AppPage.settings.path),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: kPrimaryColor0,
                     backgroundColor: Colors.white,
@@ -318,9 +319,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             const SizedBox(height: 40),
                             PillButton(
                               text: 'Sign in',
-                              onTap: () => context.router
-                                  .push(const AuthRoute())
-                                  .then((_) {
+                              onTap: () =>
+                                  context.push(AppPage.auth.path).then((_) {
                                 // Refresh profile
                                 context
                                     .read<ProfileBloc>()

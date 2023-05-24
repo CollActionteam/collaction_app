@@ -1,11 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/core/i_settings_repository.dart';
 import '../../infrastructure/core/injection.dart';
 import '../../presentation/shared_widgets/no_ripple_behavior.dart';
 import '../core/collaction_icons.dart';
+import '../routes/app_routes.dart';
 import '../themes/constants.dart';
 import 'widgets/onboarding_step.dart';
 
@@ -100,7 +101,7 @@ class OnboardingPageState extends State<OnboardingPage> {
               child: TextButton(
                 onPressed: () => settingsRepository
                     .setWasUserOnboarded(wasOnboarded: true)
-                    .then((_) => context.router.pop()),
+                    .then(context.pop),
                 child: const Text(
                   "Skip",
                   style: TextStyle(
@@ -129,6 +130,6 @@ class OnboardingPageState extends State<OnboardingPage> {
   void getStarted() {
     settingsRepository
         .setWasUserOnboarded(wasOnboarded: true)
-        .then((_) => context.router.popUntilRoot());
+        .then((_) => context.go(AppPage.home.path));
   }
 }

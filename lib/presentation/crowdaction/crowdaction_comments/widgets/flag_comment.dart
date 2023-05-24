@@ -1,5 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared_widgets/pill_button.dart';
 import '../../../shared_widgets/selectable_chip.dart';
@@ -145,7 +145,7 @@ class FlagDialogState extends State<FlagDialog> {
           width: double.infinity,
           height: 52,
           child: TextButton(
-            onPressed: () => context.router.pop(),
+            onPressed: context.pop,
             child: const Text("Cancel"),
           ),
         ),
@@ -217,9 +217,7 @@ class FlagSuccess extends StatelessWidget {
           ),
           PillButton(
             text: "Got it",
-            onTap: () {
-              context.router.pop();
-            },
+            onTap: context.pop,
             margin: EdgeInsets.zero,
           ),
           const SizedBox(height: 20),

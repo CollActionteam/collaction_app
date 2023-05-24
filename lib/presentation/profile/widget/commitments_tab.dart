@@ -1,9 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/crowdaction/crowdaction.dart';
 import '../../../domain/user/user.dart';
-import '../../routes/app_routes.gr.dart';
+
+import '../../routes/app_routes.dart';
 import '../../shared_widgets/commitments/commitment_card.dart';
 import '../../themes/constants.dart';
 import 'signup_cta.dart';
@@ -47,8 +48,8 @@ class CommitmentsTab extends StatelessWidget {
                   .where((crowdAction) => !crowdAction.isClosed)
                   .map(
                     (crowdAction) => GestureDetector(
-                      onTap: () => context.router.push(
-                        CrowdActionDetailsRoute(crowdAction: crowdAction),
+                      onTap: () => context.push(
+                        AppPage.crowdActionDetailsRoute(crowdAction.id),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

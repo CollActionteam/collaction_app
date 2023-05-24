@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../application/crowdaction/spotlight/spotlight_bloc.dart';
-import '../../routes/app_routes.gr.dart';
+import '../../routes/app_routes.dart';
 import '../../shared_widgets/content_placeholder.dart';
 import '../../shared_widgets/micro_crowdaction_card.dart';
 import '../../shared_widgets/micro_crowdaction_card_loading.dart';
@@ -55,7 +55,7 @@ class _CurrentAndUpcomingLayoutState extends State<CurrentAndUpcomingLayout> {
                         ),
                         TextButton(
                           onPressed: () =>
-                              context.router.push(CrowdActionBrowseRoute()),
+                              context.push(AppPage.crowdActionsList.path),
                           child: const Text(
                             'View all',
                             textAlign: TextAlign.center,
