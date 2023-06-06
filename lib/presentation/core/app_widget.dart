@@ -5,7 +5,8 @@ import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
 import '../../application/user/profile_tab/profile_tab_bloc.dart';
 import '../../infrastructure/core/injection.dart';
-import '../routes/app_routes.gr.dart';
+
+import '../routes/app_routes.dart';
 import '../themes/themes.dart';
 
 class AppWidget extends StatelessWidget {
@@ -35,7 +36,7 @@ class AppWidget extends StatelessWidget {
                   .add(FetchProfileTabInfo());
             },
             unauthenticated: () {
-              _appRouter.replaceAll([const UnauthenticatedRoute()]);
+              _appRouter.router.go(AppPage.unauthenticated.path);
             },
             orElse: () {},
           );
@@ -44,8 +45,7 @@ class AppWidget extends StatelessWidget {
           color: Colors.white,
           title: 'CollAction',
           theme: lightTheme(),
-          routerDelegate: _appRouter.delegate(),
-          routeInformationParser: _appRouter.defaultRouteParser(),
+          routerConfig: _appRouter.router,
         ),
       ),
     );

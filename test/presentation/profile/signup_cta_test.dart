@@ -1,8 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/presentation/profile/widget/signup_cta.dart';
+import 'package:collaction_app/presentation/routes/app_routes.dart';
 import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../test_helper.dart';
@@ -10,10 +10,10 @@ import '../../utils/user.fixtures.dart';
 import '../router.mocks.dart';
 
 void main() {
-  late StackRouter stackRouter;
+  late GoRouter goRouter;
 
   setUpAll(() {
-    stackRouter = RouteHelpers.setUpRouterStubs();
+    goRouter = RouteHelpers.setUpRouterStubs();
   });
 
   group('SignUpCTA tests:', () {
@@ -21,7 +21,7 @@ void main() {
       'can render no user, PillButton pushes to stack router',
       (WidgetTester tester) async {
         await buildAndPump(
-            tester: tester, widget: SignUpCTA().withRouterScope(stackRouter));
+            tester: tester, widget: SignUpCTA().withRouterScope(goRouter));
         await tester.pumpAndSettle();
 
         expect(
@@ -36,10 +36,7 @@ void main() {
         await tester.tap(find.byType(PillButton));
         await tester.pumpAndSettle();
 
-        final capturedRoutes =
-            verify(() => stackRouter.push(captureAny())).captured;
-        expect(capturedRoutes.length, 1);
-        expect(capturedRoutes.first, isA<AuthRoute>());
+        verify(() => goRouter.push(AppPage.auth.path)).called(1);
       },
     );
 

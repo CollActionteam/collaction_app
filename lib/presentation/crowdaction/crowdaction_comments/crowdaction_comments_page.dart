@@ -1,5 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/core.dart';
 import '../../../domain/crowdaction/crowdaction_comment.dart';

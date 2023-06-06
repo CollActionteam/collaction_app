@@ -1,10 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/crowdaction/crowdaction.dart';
 import '../home/widgets/password_modal.dart';
-import '../routes/app_routes.gr.dart';
+
+import '../routes/app_routes.dart';
 import '../themes/constants.dart';
 import 'accent_chip.dart';
 import 'country_icon.dart';
@@ -30,11 +31,7 @@ class MicroCrowdActionCard extends StatelessWidget {
           if (crowdAction.hasPassword) {
             PasswordModal.show(context, crowdAction);
           } else {
-            context.router.push(
-              CrowdActionDetailsRoute(
-                crowdActionId: crowdAction.id,
-              ),
-            );
+            context.push(AppPage.crowdActionDetailsRoute(crowdAction.id));
           }
         },
         child: SizedBox(

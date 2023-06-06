@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/participation/participation_bloc.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/confirm_participation.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../application/participation/participation_bloc.mock.dart';
@@ -17,12 +17,11 @@ import '../../router.mocks.dart';
 part 'confirm_participation_test.ext.dart';
 
 void main() {
-  late StackRouter stackRouter;
+  late GoRouter goRouter;
   late ParticipationBloc participationBloc;
 
   setUpAll(() {
-    stackRouter = RouteHelpers.setUpRouterStubs();
-    when(() => stackRouter.pop()).thenAnswer((_) async => true);
+    goRouter = RouteHelpers.setUpRouterStubs();
 
     // Participation Bloc
     participationBloc = MockParticipationBloc();
@@ -42,7 +41,7 @@ void main() {
         'and press "Cancel" TextButton to pop context',
         (WidgetTester tester) async {
       await tester.pumpConfirmParticipation(
-        stackRouter,
+        goRouter,
         participationBloc,
         tCrowdaction,
         [],
@@ -54,13 +53,13 @@ void main() {
 
       await tester.tap(find.byType(TextButton));
       await tester.pumpAndSettle();
-      verify(() => stackRouter.pop()).called(1);
+      verify(() => goRouter.pop()).called(1);
     });
 
     testWidgets('shows 0 commitments, with Confirm button disabled',
         (WidgetTester tester) async {
       await tester.pumpConfirmParticipation(
-        stackRouter,
+        goRouter,
         participationBloc,
         tCrowdaction,
         [],
@@ -85,7 +84,7 @@ void main() {
     testWidgets('shows 1 commitment, with Confirm button enabled',
         (WidgetTester tester) async {
       await tester.pumpConfirmParticipation(
-        stackRouter,
+        goRouter,
         participationBloc,
         tCrowdaction,
         [tCommitment],
@@ -108,7 +107,7 @@ void main() {
 
     testWidgets('shows 3 commitments', (WidgetTester tester) async {
       await tester.pumpConfirmParticipation(
-        stackRouter,
+        goRouter,
         participationBloc,
         tCrowdaction,
         List.filled(3, tCommitment),
@@ -131,7 +130,7 @@ void main() {
       final selectedCommitments = List.filled(3, tCommitment);
 
       await tester.pumpConfirmParticipation(
-        stackRouter,
+        goRouter,
         participationBloc,
         tCrowdaction,
         selectedCommitments,
@@ -157,7 +156,7 @@ void main() {
       );
 
       await tester.pumpConfirmParticipation(
-        stackRouter,
+        goRouter,
         participationBloc,
         tCrowdaction,
         [],
@@ -169,7 +168,7 @@ void main() {
 
       await tester.tap(find.byType(PillButton));
       await tester.pumpAndSettle();
-      verify(() => stackRouter.pop()).called(1);
+      verify(() => goRouter.pop()).called(1);
     });
   });
 }

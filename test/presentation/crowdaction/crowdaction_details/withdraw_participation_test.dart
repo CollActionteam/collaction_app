@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/participation/participation_bloc.dart';
 import 'package:collaction_app/presentation/crowdaction/crowdaction_details/widgets/withdraw_participation.dart';
 import 'package:collaction_app/presentation/shared_widgets/pill_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../application/participation/participation_bloc.mock.dart';
@@ -13,14 +13,13 @@ import '../../../utils/participation.fixtures.dart';
 import '../../router.mocks.dart';
 
 void main() {
-  late StackRouter stackRouter;
+  late GoRouter goRouter;
 
   late ParticipationBloc participationBloc;
   bool cancelPressed = false;
 
   setUpAll(() {
-    stackRouter = RouteHelpers.setUpRouterStubs();
-    when(() => stackRouter.pop()).thenAnswer((_) async => true);
+    goRouter = RouteHelpers.setUpRouterStubs();
 
     participationBloc = MockParticipationBloc();
     when(() => participationBloc.state).thenAnswer(
@@ -95,7 +94,7 @@ void main() {
               isParticipating: true,
             ),
           ),
-        ).withRouterScope(stackRouter),
+        ).withRouterScope(goRouter),
       );
       await tester.tap(find.byType(Text));
       await tester.pumpAndSettle();
@@ -104,7 +103,7 @@ void main() {
 
       await tester.tap(find.byType(TextButton));
       await tester.pumpAndSettle();
-      verify(() => stackRouter.pop()).called(1);
+      verify(() => goRouter.pop()).called(1);
     });
 
     testWidgets('post-cancel modal renders and closes on PillButton tap',

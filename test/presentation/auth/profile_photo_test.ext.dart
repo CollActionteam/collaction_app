@@ -2,8 +2,10 @@ part of 'profile_photo_test.dart';
 
 extension WidgetX on WidgetTester {
   Future<void> pumpSelectProfilePhoto(
-      AuthBloc authBloc, StackRouter stackRouter,
-      {required Function() onSkip}) async {
+    AuthBloc authBloc,
+    GoRouter router, {
+    required Function() onSkip,
+  }) async {
     await pumpWidget(
       BlocProvider<AuthBloc>(
         create: (context) => authBloc,
@@ -13,7 +15,7 @@ extension WidgetX on WidgetTester {
               onSkip: onSkip,
             ),
           ),
-        ).withRouterScope(stackRouter),
+        ).withRouterScope(router),
       ),
     );
   }

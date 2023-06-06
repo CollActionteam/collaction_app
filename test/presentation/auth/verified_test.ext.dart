@@ -1,13 +1,13 @@
 part of 'verified_test.dart';
 
 extension WidgetX on WidgetTester {
-  Future<void> pumpVerifiedPage(StackRouter stackRouter) async {
+  Future<void> pumpVerifiedPage(GoRouter goRouter) async {
     await pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: VerifiedPage(),
         ),
-      ).withRouterScope(stackRouter),
+      ).withRouterScope(goRouter),
     );
   }
 }

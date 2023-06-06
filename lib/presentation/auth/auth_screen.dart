@@ -1,11 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../application/auth/auth_bloc.dart';
 import '../../application/user/profile/profile_bloc.dart';
-import '../routes/app_routes.gr.dart';
+import '../routes/app_routes.dart';
 import '../shared_widgets/custom_app_bars/custom_appbar.dart';
 import '../themes/constants.dart';
 import '../utils/context.ext.dart';
@@ -115,8 +115,7 @@ class AuthPageState extends State<AuthPage> {
     );
   }
 
-  void _authDone(BuildContext context) =>
-      context.router.replaceAll([const VerifiedRoute()]);
+  void _authDone(BuildContext context) => context.go(AppPage.verified.path);
 
   void _toPage(int page) => _pageController.animateToPage(
         page,

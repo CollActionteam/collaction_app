@@ -1,5 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../themes/constants.dart';
 
@@ -14,7 +14,7 @@ class SettingsLayout extends StatelessWidget {
         backgroundColor: kSecondaryColor,
         leading: RawMaterialButton(
           elevation: 5,
-          onPressed: () => context.router.pop(),
+          onPressed: context.pop,
           child: const CircleAvatar(
             backgroundColor: kSecondaryColor,
             child: Icon(
@@ -30,7 +30,7 @@ class SettingsLayout extends StatelessWidget {
               backgroundColor: MaterialStateProperty.all(kSecondaryColor),
               elevation: MaterialStateProperty.all(2),
             ),
-            onPressed: () => context.router.pop(),
+            onPressed: context.pop,
             child: const CircleAvatar(
               backgroundColor: kSecondaryColor,
               child: Icon(

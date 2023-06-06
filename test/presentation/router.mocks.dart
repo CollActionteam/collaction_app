@@ -1,17 +1,32 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockStackRouter extends Mock implements StackRouter {}
+class MockGoRouter extends Mock implements GoRouter {}
 
-class MockNavigationResolver extends Mock implements NavigationResolver {}
+class MockGoRouterProvider extends StatelessWidget {
+  const MockGoRouterProvider({
+    required this.goRouter,
+    required this.child,
+    Key? key,
+  }) : super(key: key);
 
-// ignore: avoid_implementing_value_types
-class FakePageRouteInfo extends Fake implements PageRouteInfo {}
+  /// The mock navigator used to mock navigation calls.
+  final GoRouter goRouter;
 
-extension StackRouterX on Widget {
-  /// Returns [this] wrapped in a [StackRouterScope]
-  /// if [stackRouter] is not null.
+  /// The child [Widget] to render.
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => InheritedGoRouter(
+        goRouter: goRouter,
+        child: child,
+      );
+}
+
+extension RouterX on Widget {
+  /// Returns [this] wrapped in a [MockGoRouterProvider]
+  /// if [router] is not null.
   /// Otherwise returns [this].
   ///
   /// Use this when verifying navigation is required in a test case.
@@ -21,13 +36,12 @@ extension StackRouterX on Widget {
   ///   home: Scaffold(
   ///     body: WidgetToPump(),
   ///   ),
-  /// ).withRouterScope(stackRouter);
+  /// ).withRouterScope(goRouter);
   /// ```
-  Widget withRouterScope(StackRouter? stackRouter) {
-    return stackRouter != null
-        ? StackRouterScope(
-            controller: stackRouter,
-            stateHash: 0,
+  Widget withRouterScope(GoRouter? router) {
+    return router != null
+        ? MockGoRouterProvider(
+            goRouter: router,
             child: this,
           )
         : this;
@@ -37,15 +51,15 @@ extension StackRouterX on Widget {
 /// Route Helpers
 class RouteHelpers {
   /// Sets up default routing stubs
-  static StackRouter setUpRouterStubs() {
-    registerFallbackValue(FakePageRouteInfo());
+  static GoRouter setUpRouterStubs() {
+    final GoRouter goRouter = MockGoRouter();
+    when(() => goRouter.push(any())).thenAnswer((_) async => null);
+    when(() => goRouter.push(any(), extra: any(named: 'extra')))
+        .thenAnswer((_) async => null);
+    when(() => goRouter.replace(any())).thenAnswer((_) async {});
+    when(() => goRouter.replaceNamed(any())).thenAnswer((_) async {});
+    when(() => goRouter.pop()).thenAnswer((_) async => true);
 
-    final StackRouter stackRouter = MockStackRouter();
-    when(() => stackRouter.push(any())).thenAnswer((_) async => null);
-    when(() => stackRouter.replace(any())).thenAnswer((_) async => null);
-    when(() => stackRouter.replaceNamed(any())).thenAnswer((_) async => null);
-    when(() => stackRouter.pop()).thenAnswer((_) async => true);
-
-    return stackRouter;
+    return goRouter;
   }
 }

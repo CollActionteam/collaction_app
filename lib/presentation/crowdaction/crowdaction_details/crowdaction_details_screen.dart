@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../domain/crowdaction/crowdaction.dart';
 import '../../../../infrastructure/core/injection.dart';
@@ -8,7 +8,8 @@ import '../../../application/auth/auth_bloc.dart';
 import '../../../application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
 import '../../../application/participation/participation_bloc.dart';
 import '../../../application/user/profile_tab/profile_tab_bloc.dart';
-import '../../routes/app_routes.gr.dart';
+
+import '../../routes/app_routes.dart';
 import '../../shared_widgets/commitments/commitment_card_list.dart';
 import '../../shared_widgets/pill_button.dart';
 import '../../themes/constants.dart';
@@ -348,7 +349,6 @@ class CrowdActionDetailsPageState extends State<CrowdActionDetailsPage> {
   }
 
   void _createAccount(BuildContext context) {
-    context.router.pop();
-    context.router.push(const AuthRoute());
+    context.go(AppPage.auth.path);
   }
 }
