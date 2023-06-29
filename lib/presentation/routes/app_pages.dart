@@ -8,6 +8,7 @@ enum AppPage {
   crowdActionsList('/view-all'),
   userProfile('/user'),
   profileDetails('/user/details'),
+  unauthenticated('/unauthenticated'),
 
   // Demo
   demoPage('/demo'),
@@ -20,7 +21,6 @@ enum AppPage {
   settingsLayout('/settings-layout'),
   licenses('/licenses'),
   contactForm('/contact-form'),
-  unauthenticated('/unauthenticated'),
   webView('/web-view');
 
   final String path;
