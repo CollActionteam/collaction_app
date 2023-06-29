@@ -78,6 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
   }
 
+  // TODO: Move to ProfileBloc
   FutureOr<void> _mapUpdateProfilePhotoToState(
     Emitter<AuthState> emit,
     _UpdateProfilePhoto event,

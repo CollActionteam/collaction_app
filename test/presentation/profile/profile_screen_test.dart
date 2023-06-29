@@ -10,7 +10,7 @@ import 'package:collaction_app/domain/user/user.dart';
 import 'package:collaction_app/presentation/core/collaction_icons.dart';
 import 'package:collaction_app/presentation/home/home_screen.dart';
 import 'package:collaction_app/presentation/profile/profile_screen.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
+import 'package:collaction_app/presentation/routes/app_routes.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,8 +93,7 @@ void main() {
         child: MaterialApp.router(
           color: Colors.white,
           title: 'CollAction',
-          routerDelegate: appRouter.delegate(),
-          routeInformationParser: appRouter.defaultRouteParser(),
+          routerConfig: appRouter.router,
         ),
       ),
     );

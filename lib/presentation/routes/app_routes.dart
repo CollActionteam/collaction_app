@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:auto_route/empty_router_widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../presentation/profile/profile_screen.dart';
-import '../auth/unauthenticated_screen.dart';
 import '../auth/auth_screen.dart';
+import '../auth/unauthenticated_screen.dart';
 import '../auth/widgets/verified.dart';
 import '../contact_form/contact_form_screen.dart';
 import '../crowdaction/crowdaction_browse/crowdaction_browse_screen.dart';
@@ -20,62 +20,132 @@ import '../settings/settings_layout.dart';
 import '../settings/settings_screen.dart';
 import '../shared_widgets/web_view_page.dart';
 
-@MaterialAutoRouter(
-  replaceInRouteName: 'Page,Route',
-  routes: <AutoRoute>[
-    AutoRoute(
-      page: HomePage,
-      initial: true,
-      children: [
-        AutoRoute(
-          path: 'browse-crowdactions',
-          name: 'CrowdactionRouter',
-          page: EmptyRouterPage,
-          children: [
-            AutoRoute(path: '', page: CrowdActionHomeScreen),
-            AutoRoute(path: 'details', page: CrowdActionDetailsPage),
-            AutoRoute(path: 'participants', page: CrowdActionParticipantsPage),
-            AutoRoute(path: 'view-all', page: CrowdActionBrowsePage),
-          ],
-        ),
-        AutoRoute(
-          path: 'user',
-          name: 'UserProfileRouter',
-          page: EmptyRouterPage,
-          children: [
-            AutoRoute(
-              path: '',
-              page: UserProfilePage,
+part 'app_pages.dart';
+
+class AppRouter {
+  final GlobalKey<NavigatorState> _rootNavigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: 'root');
+
+  GoRouter get router => GoRouter(
+        navigatorKey: _rootNavigatorKey,
+        routes: [
+          StatefulShellRoute.indexedStack(
+            builder: (
+              BuildContext context,
+              GoRouterState state,
+              StatefulNavigationShell navigationShell,
+            ) {
+              return HomePage(navigationShell: navigationShell);
+            },
+            branches: [
+              StatefulShellBranch(routes: [
+                GoRoute(
+                  path: AppPage.home.path,
+                  pageBuilder: (_, __) =>
+                      const NoTransitionPage(child: CrowdActionHomeScreen()),
+                ),
+              ]),
+              StatefulShellBranch(routes: [
+                GoRoute(
+                  path: AppPage.userProfile.path,
+                  pageBuilder: (_, __) =>
+                      NoTransitionPage(child: UserProfilePage()),
+                ),
+              ]),
+              StatefulShellBranch(routes: [
+                GoRoute(
+                    path: AppPage.demoPage.path,
+                    pageBuilder: (_, __) => NoTransitionPage(child: DemoPage()),
+                    routes: [
+                      GoRoute(
+                        path: 'components',
+                        parentNavigatorKey: _rootNavigatorKey,
+                        builder: (_, __) => const ComponentsDemoPage(),
+                      ),
+                      GoRoute(
+                        path: 'comments',
+                        parentNavigatorKey: _rootNavigatorKey,
+                        builder: (_, __) => const CrowdActionCommentsPage(),
+                      ),
+                    ])
+              ])
+            ],
+          ),
+          GoRoute(
+            path: AppPage.crowdActionsList.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (BuildContext context, GoRouterState state) {
+              return CrowdActionBrowsePage();
+            },
+          ),
+          GoRoute(
+            path: '${AppPage.crowdActionDetails.path}/:id',
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (BuildContext context, GoRouterState state) {
+              return CrowdActionDetailsPage(
+                crowdActionId: state.pathParameters['id'],
+              );
+            },
+          ),
+          GoRoute(
+            path: AppPage.crowdActionParticipants.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, state) => CrowdActionParticipantsPage(
+              crowdActionId: state.extra! as String,
             ),
-            AutoRoute(
-              path: 'details',
-              page: CrowdActionDetailsPage,
+          ),
+          GoRoute(
+            path: AppPage.onBoarding.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, __) => const OnboardingPage(),
+          ),
+          GoRoute(
+            path: AppPage.verified.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, __) => const VerifiedPage(),
+          ),
+          GoRoute(
+            path: AppPage.auth.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, __) => const AuthPage(),
+          ),
+          GoRoute(
+            path: AppPage.settings.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, __) => const SettingsPage(),
+          ),
+          GoRoute(
+            path: AppPage.licenses.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, __) => const LicensesPage(),
+          ),
+          GoRoute(
+            path: AppPage.settingsLayout.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, __) => const SettingsLayout(),
+          ),
+          GoRoute(
+            path: AppPage.contactForm.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, __) => const ContactFormPage(),
+          ),
+          GoRoute(
+            path: AppPage.unauthenticated.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, __) => UnauthenticatedPage(),
+          ),
+          GoRoute(
+            path: AppPage.webView.path,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (_, state) => WebViewPage(
+              url: state.extra?.toString() ?? "",
+              title: state.pathParameters['title']?.toString() ?? "",
             ),
-          ],
-        ),
-        AutoRoute(
-          path: 'demo',
-          name: 'DemoScreenRouter',
-          page: EmptyRouterPage,
-          children: [
-            AutoRoute(path: '', page: DemoPage),
-            AutoRoute(path: 'components-demo', page: ComponentsDemoPage),
-            AutoRoute(path: 'onboarding', page: OnboardingPage),
-            AutoRoute(path: 'verified', page: VerifiedPage),
-            AutoRoute(path: 'comments', page: CrowdActionCommentsPage),
-          ],
-        ),
-      ],
-    ),
-    AutoRoute(path: 'onboarding', page: OnboardingPage),
-    AutoRoute(path: 'auth', page: AuthPage),
-    AutoRoute(path: 'verified', page: VerifiedPage),
-    AutoRoute(path: 'settings-page', page: SettingsPage),
-    AutoRoute(path: 'licenses-page', page: LicensesPage),
-    AutoRoute(path: 'settings-layout', page: SettingsLayout),
-    AutoRoute(path: 'contact-form', page: ContactFormPage),
-    AutoRoute(path: 'webview', page: WebViewPage),
-    AutoRoute(path: 'unauthenticated', page: UnauthenticatedPage)
-  ],
-)
-class $AppRouter {}
+          )
+        ],
+        debugLogDiagnostics: true,
+        initialLocation: AppPage.home.path,
+      );
+
+  AppRouter();
+}

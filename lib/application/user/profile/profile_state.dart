@@ -6,18 +6,21 @@ class ProfileState extends Equatable {
     this.isPicEditing,
     this.isBioEditing,
     this.wasProfilePictureUpdated,
+    this.didPicSaveFail,
   });
 
   final UserProfile? userProfile;
   final bool? isPicEditing;
   final bool? isBioEditing;
   final bool? wasProfilePictureUpdated;
+  final bool? didPicSaveFail;
 
   factory ProfileState.initial() => const ProfileState(
         userProfile: null,
         isPicEditing: false,
         isBioEditing: false,
         wasProfilePictureUpdated: false,
+        didPicSaveFail: false,
       );
 
   ProfileState copyWith({
@@ -25,6 +28,7 @@ class ProfileState extends Equatable {
     bool? isPicEditing,
     bool? isBioEditing,
     bool? wasProfilePictureUpdated,
+    bool? didPicSaveFail,
   }) {
     return ProfileState(
       userProfile: userProfile ?? this.userProfile,
@@ -32,10 +36,16 @@ class ProfileState extends Equatable {
       isBioEditing: isBioEditing ?? this.isBioEditing,
       wasProfilePictureUpdated:
           wasProfilePictureUpdated ?? false, // Reset state implicitly
+      didPicSaveFail: didPicSaveFail ?? this.didPicSaveFail,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [userProfile, isPicEditing, isBioEditing, wasProfilePictureUpdated];
+  List<Object?> get props => [
+        userProfile,
+        isPicEditing,
+        isBioEditing,
+        wasProfilePictureUpdated,
+        didPicSaveFail
+      ];
 }

@@ -1,13 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/crowdaction/crowdaction_details/crowdaction_details_bloc.dart';
 import 'package:collaction_app/application/participation/top_participants/top_participants_bloc.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
+import 'package:collaction_app/presentation/routes/app_routes.dart';
 import 'package:collaction_app/presentation/shared_widgets/crowdaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../application/crowdaction/crowdaction_details/crowdaction_details_bloc.mocks.dart';
@@ -18,13 +18,13 @@ import '../router.mocks.dart';
 part 'crowdaction_card_test.ext.dart';
 
 void main() {
-  late StackRouter stackRouter;
+  late GoRouter goRouter;
 
   late TopParticipantsBloc topParticipantsBloc;
   late CrowdActionDetailsBloc crowdActionDetailsBloc;
 
   setUpAll(() {
-    stackRouter = RouteHelpers.setUpRouterStubs();
+    goRouter = RouteHelpers.setUpRouterStubs();
 
     // Participants Bloc
     topParticipantsBloc = MockTopParticipantsBloc();
@@ -52,18 +52,11 @@ void main() {
       'should go to [CrowdActionDetailsPage] '
       'when the CrowdAction has no password '
       'and [CrowActionCard] is tapped', (tester) async {
-    await tester.pumpCrowdactionCard(tCrowdactionNoPassword, stackRouter);
+    await tester.pumpCrowdactionCard(tCrowdactionNoPassword, goRouter);
 
     await tester.tap(find.byType(CrowdActionCard));
 
-    final capturedRoutes =
-        verify(() => stackRouter.push(captureAny())).captured;
-
-    expect(capturedRoutes.length, 1);
-    expect(capturedRoutes.first, isA<CrowdActionDetailsRoute>());
-
-    final route = capturedRoutes.first as CrowdActionDetailsRoute;
-    expect(route.args?.crowdAction, tCrowdactionNoPassword);
-    expect(route.args?.crowdActionId, null);
+    verify(() => goRouter.push(
+        AppPage.crowdActionDetailsRoute(tCrowdactionNoPassword.id))).called(1);
   });
 }

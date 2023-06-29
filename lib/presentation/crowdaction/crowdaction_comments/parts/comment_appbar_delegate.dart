@@ -24,7 +24,7 @@ class CommentAppBarDelegate extends SliverPersistentHeaderDelegate {
             child: IconButton(
               icon: const Icon(CollactionIcons.left),
               iconSize: 24,
-              onPressed: () => context.router.pop(),
+              onPressed: context.pop,
               color: Colors.white,
             ),
           )

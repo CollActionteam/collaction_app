@@ -1,12 +1,11 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/application/settings/build_information/build_information_bloc.dart';
 import 'package:collaction_app/application/user/profile/profile_bloc.dart';
 import 'package:collaction_app/domain/settings/build_information.dart';
 import 'package:collaction_app/infrastructure/core/injection.dart';
-import 'package:collaction_app/presentation/routes/app_routes.gr.dart';
+import 'package:collaction_app/presentation/routes/app_routes.dart';
 import 'package:collaction_app/presentation/settings/settings_screen.dart';
 import 'package:collaction_app/presentation/settings/widgets/build_information_tile.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../application/auth/auth_bloc.mocks.dart';
@@ -25,7 +25,7 @@ import '../router.mocks.dart';
 part 'settings_screen_test.ext.dart';
 
 void main() {
-  late StackRouter stackRouter;
+  late GoRouter goRouter;
   late AuthBloc authBloc;
   late ProfileBloc profileBloc;
   late BuildInformationBloc buildInformationBloc;
@@ -56,7 +56,7 @@ void main() {
   });
 
   setUpAll(() {
-    stackRouter = RouteHelpers.setUpRouterStubs();
+    goRouter = RouteHelpers.setUpRouterStubs();
 
     // Auth Bloc
     authBloc = MockAuthBloc();
@@ -90,7 +90,7 @@ void main() {
 
   group('SettingsPage tests:', () {
     testWidgets('can render', (WidgetTester tester) async {
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       expect(find.byType(SettingsPage), findsOneWidget);
@@ -98,49 +98,40 @@ void main() {
 
     testWidgets('onTap, "Contact Us" button routes to ContactForm',
         (WidgetTester tester) async {
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Contact us'));
-      final capturedRoutes = verify(
-        () => stackRouter.push(captureAny()),
-      ).captured;
-
-      expect(capturedRoutes.length, 1);
-      expect(capturedRoutes.first, isA<ContactFormRoute>());
+      verify(
+        () => goRouter.push(AppPage.contactForm.path),
+      ).called(1);
     });
 
     testWidgets('onTap, "Onboarding" button routes to Onboarding',
         (WidgetTester tester) async {
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Onboarding'));
-      final capturedRoutes = verify(
-        () => stackRouter.push(captureAny()),
-      ).captured;
-
-      expect(capturedRoutes.length, 1);
-      expect(capturedRoutes.first, isA<OnboardingRoute>());
+      verify(
+        () => goRouter.push(AppPage.onBoarding.path),
+      ).called(1);
     });
 
     testWidgets('onTap, "Open source libraries" button routes to Licenses',
         (WidgetTester tester) async {
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Open source libraries'));
-      final capturedRoutes = verify(
-        () => stackRouter.push(captureAny()),
-      ).captured;
-
-      expect(capturedRoutes.length, 1);
-      expect(capturedRoutes.first, isA<LicensesRoute>());
+      verify(
+        () => goRouter.push(AppPage.licenses.path),
+      ).called(1);
     });
 
     testWidgets('onTap, "Terms of use" button opens terms webpage',
         (WidgetTester tester) async {
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       await tester.runAsync(() async {
@@ -148,20 +139,17 @@ void main() {
         await tester.pumpAndSettle();
       });
 
-      final capturedRoutes = verify(
-        () => stackRouter.push(captureAny()),
-      ).captured;
-
-      expect(capturedRoutes.length, 1);
-      expect(capturedRoutes.first, isA<WebViewRoute>());
-
-      final route = capturedRoutes.first as WebViewRoute;
-      expect(route.args?.url, 'https://www.collaction.org/terms');
+      verify(
+        () => goRouter.push(
+          AppPage.webView.path,
+          extra: 'https://www.collaction.org/terms',
+        ),
+      ).called(1);
     });
 
     testWidgets('onTap, "Privacy policy" button opens privacy webpage',
         (WidgetTester tester) async {
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       await tester.runAsync(() async {
@@ -176,20 +164,17 @@ void main() {
         await tester.pumpAndSettle();
       });
 
-      final capturedRoutes = verify(
-        () => stackRouter.push(captureAny()),
-      ).captured;
-
-      expect(capturedRoutes.length, 1);
-      expect(capturedRoutes.first, isA<WebViewRoute>());
-
-      final route = capturedRoutes.first as WebViewRoute;
-      expect(route.args?.url, 'https://www.collaction.org/privacy');
+      verify(
+        () => goRouter.push(
+          AppPage.webView.path,
+          extra: 'https://www.collaction.org/privacy',
+        ),
+      ).called(1);
     });
 
     testWidgets('"Log out" button not available when not logged in',
         (WidgetTester tester) async {
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       expect(
@@ -206,7 +191,7 @@ void main() {
       when(() => profileBloc.state)
           .thenAnswer((_) => ProfileState(userProfile: testUserProfile));
 
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       await tester.scrollUntilVisible(
@@ -218,7 +203,7 @@ void main() {
       );
       await tester.tap(find.text('Log out'));
 
-      final capturedPops = verify(() => stackRouter.pop());
+      final capturedPops = verify(() => goRouter.pop());
       expect(capturedPops.callCount, 1);
 
       verify(() => authBloc.add(AuthEvent.signedOut()));
@@ -229,7 +214,7 @@ void main() {
 
     testWidgets('BuildInformationTile renders when fetched',
         (WidgetTester tester) async {
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       expect(
@@ -247,7 +232,7 @@ void main() {
         (_) => BuildInformationState.loading(),
       );
 
-      await tester.pumpSettingsPage(stackRouter);
+      await tester.pumpSettingsPage(goRouter);
       await tester.pumpAndSettle();
 
       expect(

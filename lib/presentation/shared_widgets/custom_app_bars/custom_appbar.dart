@@ -1,5 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
@@ -29,7 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: Colors.white,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(20),
-                  onTap: () => context.router.pop(),
+                  onTap: context.pop,
                   child: const Icon(
                     CollactionIcons.left,
                     color: kPrimaryColor400,
@@ -43,7 +43,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () => context.router.pop(),
+              onPressed: context.pop,
               style: ElevatedButton.styleFrom(
                 foregroundColor: kPrimaryColor0,
                 backgroundColor: Colors.white,

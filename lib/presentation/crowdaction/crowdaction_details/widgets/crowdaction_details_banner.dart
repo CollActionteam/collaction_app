@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/core.dart';
@@ -39,7 +39,7 @@ class CrowdActionDetailsBanner extends StatelessWidget {
               elevation: 4,
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
-                onTap: () => context.router.pop(),
+                onTap: context.pop,
                 child: const Icon(
                   CollactionIcons.left,
                   color: kPrimaryColor400,

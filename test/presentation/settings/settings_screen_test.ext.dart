@@ -2,7 +2,7 @@ part of 'settings_screen_test.dart';
 
 extension WidgetX on WidgetTester {
   Future<void> pumpSettingsPage([
-    StackRouter? stackRouter,
+    GoRouter? goRouter,
   ]) async {
     await pumpWidget(
       MaterialApp(
@@ -19,7 +19,7 @@ extension WidgetX on WidgetTester {
             child: SettingsPage(),
           ),
         ),
-      ).withRouterScope(stackRouter),
+      ).withRouterScope(goRouter),
     );
   }
 }

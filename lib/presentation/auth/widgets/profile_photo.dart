@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../application/auth/auth_bloc.dart';
 import '../../../application/user/avatar/avatar_bloc.dart';
@@ -42,9 +42,7 @@ class SelectProfilePhotoState extends State<SelectProfilePhoto> {
             uploading: () {
               /// TODO: Loading indication
             },
-            uploadSuccess: () {
-              context.router.pop();
-            },
+            uploadSuccess: context.pop,
             uploadFailed: () {
               /// TODO: Show error snackbar | Implement failures
             },

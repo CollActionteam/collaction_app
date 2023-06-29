@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../application/crowdaction/crowdaction_participants/crowdaction_participants_bloc.dart';
@@ -85,7 +85,7 @@ class _CrowdActionParticipantsPageState
                 Icons.chevron_left,
                 color: kPrimaryColor200,
               ),
-              onPressed: () => context.router.pop(),
+              onPressed: context.pop,
             ),
             title: const Text(
               "Participants",
