@@ -16,5 +16,5 @@ class UserProfile with _$UserProfile {
   }) = _UserProfile;
 
   // User profile avatar url
-  String? get avatarUrl => '$baseStaticUrl/${profile.avatar}';
+  String? get avatarUrl => profile.avatar.imageUrl;
 }
