@@ -21,6 +21,7 @@ import 'package:mocktail/mocktail.dart';
 import '../../application/auth/auth_bloc.mocks.dart';
 import '../../test_helper.dart';
 import '../../test_utilities.dart';
+import '../../utils/user.fixtures.dart';
 
 void main() {
   late final AppRouter appRouter;
@@ -34,12 +35,12 @@ void main() {
   late MockAuthBloc authBloc;
 
   setUpAll(() {
-    appRouter = AppRouter();
     settingsRepository = MockSettingsRepository();
     crowdActionRepository = MockCrowdActionRepository();
     profileRepository = MockProfileRepository();
     avatarRepository = MockAvatarRepository();
     authBloc = MockAuthBloc();
+    appRouter = AppRouter(authBloc: authBloc, settingsRepo: settingsRepository);
     spotlightBloc = SpotlightBloc(crowdActionRepository);
     profileBloc = ProfileBloc(profileRepository, avatarRepository);
     profileTabBloc = ProfileTabBloc(crowdActionRepository);
@@ -82,6 +83,8 @@ void main() {
   testWidgets('navigate to profile screen', (tester) async {
     when(() => settingsRepository.getWasUserOnboarded())
         .thenAnswer((_) => Future.value(true));
+    when(() => authBloc.state)
+        .thenAnswer((_) => AuthState.authenticated(testUser));
 
     await buildAndPump(
       tester: tester,

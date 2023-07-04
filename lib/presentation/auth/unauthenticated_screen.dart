@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../domain/core/i_settings_repository.dart';
-import '../../infrastructure/core/injection.dart';
 import '../routes/app_routes.dart';
 import '../shared_widgets/pill_button.dart';
 import '../themes/constants.dart';
@@ -10,10 +8,6 @@ import '../themes/constants.dart';
 class UnauthenticatedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkAndMaybeShowOnboarding(context);
-    });
-
     return Scaffold(
       backgroundColor: kAccentColor,
       body: Container(
@@ -60,13 +54,5 @@ class UnauthenticatedPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> checkAndMaybeShowOnboarding(BuildContext context) async {
-    // Push onboarding screen if first time launching application
-    final settingsRepository = getIt<ISettingsRepository>();
-    if (!(await settingsRepository.getWasUserOnboarded())) {
-      context.push(AppPage.onBoarding.path);
-    }
   }
 }

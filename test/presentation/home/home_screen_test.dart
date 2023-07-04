@@ -1,3 +1,4 @@
+import 'package:collaction_app/application/auth/auth_bloc.dart';
 import 'package:collaction_app/application/crowdaction/spotlight/spotlight_bloc.dart';
 import 'package:collaction_app/domain/core/i_settings_repository.dart';
 import 'package:collaction_app/domain/crowdaction/crowdaction_failures.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../application/auth/auth_bloc.mocks.dart';
 import '../../test_helper.dart';
 import '../../test_utilities.dart';
 
@@ -17,12 +19,16 @@ void main() {
   late final MockSettingsRepository settingsRepository;
   late final MockCrowdActionRepository crowdActionRepository;
   late SpotlightBloc spotlightBloc;
+  late AuthBloc authBloc;
 
   setUpAll(() {
-    appRouter = AppRouter();
     settingsRepository = MockSettingsRepository();
     crowdActionRepository = MockCrowdActionRepository();
     spotlightBloc = SpotlightBloc(crowdActionRepository);
+    authBloc = MockAuthBloc();
+    when(() => authBloc.state).thenAnswer((_) => AuthState.initial());
+
+    appRouter = AppRouter(authBloc: authBloc, settingsRepo: settingsRepository);
 
     GetIt.I.registerSingleton<SpotlightBloc>(spotlightBloc);
     GetIt.I.registerSingleton<ISettingsRepository>(settingsRepository);

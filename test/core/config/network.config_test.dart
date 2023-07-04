@@ -25,13 +25,18 @@ void main() {
         'when the user profile is not null', () async {
       // arrange
       final userProfile = testUserProfile;
+
       // act
       final userAvatarUrl = userProfile.avatarUrl;
 
       // assert
       expect(
         userAvatarUrl,
-        equals('$baseStaticUrl/${userProfile.profile.avatar}'),
+        equals(
+          Uri.parse(baseStaticUrl)
+              .resolve(userProfile.profile.avatar)
+              .toString(),
+        ),
       );
     });
 
@@ -65,7 +70,11 @@ void main() {
       // assert
       expect(
         crowdActionBannerUrl,
-        equals('$baseStaticUrl/${crowdAction.images.banner}'),
+        equals(
+          Uri.parse(baseStaticUrl)
+              .resolve(crowdAction.images.banner)
+              .toString(),
+        ),
       );
     });
 
@@ -99,7 +108,9 @@ void main() {
       // assert
       expect(
         crowdActionCardUrl,
-        equals('$baseStaticUrl/${crowdAction.images.card}'),
+        equals(
+          Uri.parse(baseStaticUrl).resolve(crowdAction.images.card).toString(),
+        ),
       );
     });
 
@@ -133,7 +144,9 @@ void main() {
       // assert
       expect(
         participationAvatarUrl,
-        equals('$baseStaticUrl/${participation.avatar}'),
+        equals(
+          Uri.parse(baseStaticUrl).resolve(participation.avatar).toString(),
+        ),
       );
     });
 
