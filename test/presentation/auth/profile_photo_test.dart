@@ -44,7 +44,7 @@ void main() {
     GetIt.I.registerSingleton<AvatarBloc>(avatarBloc);
 
     // Auth Bloc
-    authBloc =  MockAuthBloc();
+    authBloc = MockAuthBloc();
     when(() => authBloc.state).thenAnswer(
       (_) => AuthState.initial(),
     );
