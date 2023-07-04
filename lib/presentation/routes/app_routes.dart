@@ -175,11 +175,7 @@ class AppRouter {
             },
           );
 
-          if (path != null) {
-            return path;
-          }
-
-          return null;
+          return path;
         },
       );
 
