@@ -10,14 +10,17 @@ import '../routes/app_routes.dart';
 import '../themes/themes.dart';
 
 class AppWidget extends StatelessWidget {
-  final _appRouter = AppRouter();
+  final AppRouter appRouter;
+
+  const AppWidget({super.key, required this.appRouter});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (_) => getIt<AuthBloc>()..add(AuthEvent.authCheckRequested()),
+          create: (_) =>
+              appRouter.authBloc..add(AuthEvent.authCheckRequested()),
         ),
         BlocProvider<ProfileBloc>(create: (_) => getIt<ProfileBloc>()),
         BlocProvider<ProfileTabBloc>(create: (_) => getIt<ProfileTabBloc>())
@@ -35,9 +38,6 @@ class AppWidget extends StatelessWidget {
               BlocProvider.of<ProfileTabBloc>(context)
                   .add(FetchProfileTabInfo());
             },
-            unauthenticated: () {
-              _appRouter.router.go(AppPage.unauthenticated.path);
-            },
             orElse: () {},
           );
         },
@@ -45,7 +45,7 @@ class AppWidget extends StatelessWidget {
           color: Colors.white,
           title: 'CollAction',
           theme: lightTheme(),
-          routerConfig: _appRouter.router,
+          routerConfig: appRouter.router,
         ),
       ),
     );

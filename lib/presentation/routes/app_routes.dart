@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../presentation/profile/profile_screen.dart';
+import '../../application/auth/auth_bloc.dart';
+import '../../domain/core/i_settings_repository.dart';
 import '../auth/auth_screen.dart';
 import '../auth/unauthenticated_screen.dart';
 import '../auth/widgets/verified.dart';
@@ -19,12 +21,23 @@ import '../onboarding/onboarding_screen.dart';
 import '../settings/settings_layout.dart';
 import '../settings/settings_screen.dart';
 import '../shared_widgets/web_view_page.dart';
+import 'refresh_stream.dart';
 
 part 'app_pages.dart';
 
 class AppRouter {
+  final AuthBloc authBloc;
+  final ISettingsRepository settingsRepo;
+
   final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'root');
+
+  final _unauthenticatedPaths = [
+    AppPage.onBoarding.path,
+    AppPage.unauthenticated.path,
+    AppPage.auth.path,
+    AppPage.verified.path,
+  ];
 
   GoRouter get router => GoRouter(
         navigatorKey: _rootNavigatorKey,
@@ -145,7 +158,33 @@ class AppRouter {
         ],
         debugLogDiagnostics: true,
         initialLocation: AppPage.home.path,
+        refreshListenable: GoRouterAuthRefreshStream(authBloc.stream),
+        redirect: (context, state) async {
+          if (_unauthenticatedPaths.contains(state.location)) {
+            return null;
+          }
+
+          final path = await authBloc.state.mapOrNull(
+            unauthenticated: (_) async {
+              final isOnboarded = await settingsRepo.getWasUserOnboarded();
+              if (!isOnboarded) {
+                return AppPage.onBoarding.path;
+              }
+
+              return AppPage.unauthenticated.path;
+            },
+          );
+
+          if (path != null) {
+            return path;
+          }
+
+          return null;
+        },
       );
 
-  AppRouter();
+  AppRouter({
+    required this.authBloc,
+    required this.settingsRepo,
+  });
 }
