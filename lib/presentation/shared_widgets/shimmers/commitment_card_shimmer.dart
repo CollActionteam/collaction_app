@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 import 'title_shimmer_line.dart';
 
@@ -10,34 +9,43 @@ class CommitmentCardShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: kPrimaryColor0,
+      highlightColor: kAlmostTransparent,
+      child: CommitmentCardSkeleton(),
+    );
+  }
+}
+
+class CommitmentCardSkeleton extends StatelessWidget {
+  final Color? color;
+  const CommitmentCardSkeleton({super.key, this.color});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: kSecondaryColor,
-        border: Border.all(color: kPrimaryColor0),
+        border: Border.all(color: color ?? kPrimaryColor0),
       ),
-      margin: const EdgeInsets.symmetric(vertical: 5.0),
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(15.0),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(15.0),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: kSecondaryColor,
+              color: color ?? kPrimaryColor0,
             ),
             alignment: Alignment.center,
-            child: Shimmer.fromColors(
-              baseColor: kSecondaryTransparent,
-              highlightColor: kAlmostTransparent,
-              child: const Icon(
-                CollactionIcons.commitment,
-                color: kPrimaryColor0,
-                size: 30,
-              ),
+            child: const CircleAvatar(
+              radius: 65 / 2,
+              backgroundColor: kPrimaryColor0,
             ),
           ),
-          const Spacer(),
+          const SizedBox(
+            width: 10,
+          ),
           Container(
             width: MediaQuery.of(context).size.width * 0.5,
             constraints: const BoxConstraints(
@@ -47,27 +55,18 @@ class CommitmentCardShimmer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Shimmer.fromColors(
-                  baseColor: Colors.black.withOpacity(0.1),
-                  highlightColor: Colors.white.withOpacity(0.2),
-                  child: TitleShimmerLine(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                  ),
+                TitleShimmerLine(
+                  color: color ?? kPrimaryColor0,
+                  width: MediaQuery.of(context).size.width * .4,
                 ),
                 const SizedBox(height: 5),
-                Shimmer.fromColors(
-                  baseColor: Colors.black.withOpacity(0.1),
-                  highlightColor: Colors.white.withOpacity(0.2),
-                  child: TitleShimmerLine(
-                    height: 18,
-                    width: MediaQuery.of(context).size.width * 0.5,
-                  ),
+                TitleShimmerLine(
+                  color: color ?? kPrimaryColor0,
+                  width: MediaQuery.of(context).size.width * .5,
                 ),
               ],
             ),
           ),
-          const Spacer(),
-          const SizedBox(height: 32, width: 32),
         ],
       ),
     );

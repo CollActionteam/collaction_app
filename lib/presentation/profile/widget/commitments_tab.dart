@@ -6,6 +6,7 @@ import '../../../domain/user/user.dart';
 
 import '../../routes/app_routes.dart';
 import '../../shared_widgets/commitments/commitment_card.dart';
+import '../../shared_widgets/shimmers/commitment_card_shimmer.dart';
 import '../../themes/constants.dart';
 import 'signup_cta.dart';
 
@@ -28,7 +29,7 @@ class CommitmentsTab extends StatelessWidget {
           children: [
             if (crowdActions?.isEmpty ?? true) ...[
               const SizedBox(height: 40),
-              Image.asset('assets/images/commitments_tab_empty.png'),
+              CommitmentCardSkeleton(),
               const SizedBox(height: 40),
             ] else ...[
               Padding(

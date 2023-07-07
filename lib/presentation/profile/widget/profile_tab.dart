@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/user/profile_tab/profile_tab_bloc.dart';
 import '../../../domain/user/user.dart';
+import '../../core/collaction_icons.dart';
 import '../../themes/constants.dart';
 import 'badges_tab.dart';
 import 'commitments_tab.dart';
@@ -59,33 +60,21 @@ class _UserProfileTabState extends State<UserProfileTab>
                     tabs: [
                       Column(
                         children: const [
-                          ImageIcon(
-                            AssetImage(
-                              'assets/images/badge.png',
-                            ),
-                          ),
+                          Icon(CollactionIcons.badge),
                           SizedBox(height: 10),
                           _TabLabel(label: 'Badges'),
                         ],
                       ),
                       Column(
                         children: const [
-                          ImageIcon(
-                            AssetImage(
-                              'assets/images/crowdactions.png',
-                            ),
-                          ),
+                          Icon(CollactionIcons.crowdaction),
                           SizedBox(height: 10),
                           _TabLabel(label: 'CrowdActions'),
                         ],
                       ),
                       Column(
                         children: const [
-                          ImageIcon(
-                            AssetImage(
-                              'assets/images/commitments.png',
-                            ),
-                          ),
+                          Icon(CollactionIcons.commitment),
                           SizedBox(height: 10),
                           _TabLabel(label: 'Commitments'),
                         ],
