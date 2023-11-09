@@ -6,7 +6,7 @@
   </h1>
 </a>
 
-**CollAction cross-platform mobile application (iOS and Android)**
+**OS CollAction cross-platform mobile application**
 
 [![collaction](https://collaction.org/github/collaction-website-badge.svg)](https://collaction.org)
 [![codecov](https://codecov.io/gh/CollActionteam/collaction_app/branch/development/graph/badge.svg?token=UVTCEGI5O1)](https://codecov.io/gh/CollActionteam/collaction_app)
