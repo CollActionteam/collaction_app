@@ -35,7 +35,7 @@ We are working on building an extensive community feature that will help us grow
 
 ## Download
 
-The CollAction application is readily available and free to use from the Apple AppStore and Google Play.
+The CollAction application is readily available and free to use on iOS and Android.
 
 [![AppStore - CollAction](https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white)](https://apps.apple.com/us/app/collaction-power-to-the-crowd/id1597643827)
 [![Google Play - CollAction](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=org.collaction.collaction_app)
